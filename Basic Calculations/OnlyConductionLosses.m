@@ -23,13 +23,12 @@ Iap= Ia*sqrt(2);  % AC phase peak current (Apk)
 Nchip1= Iap/Ipk; % required no of chips
 sm=1.3; % safe margin of  current limit
 Nchip=round(Nchip1*sm); %% actual no of chips
-Rds_on=rdson_Tj/Nchip; % on resistance of  the valve
 Rth_jc_valve=rth_jc/Nchip;
-
 
 % Initial paramaters
 Tj_init=Ta; % initial junction temp 
 rdson_Tj= Rds_on_25C+ ((Rds_on_175C-Rds_on_25C)/(175-25))*Tj_init;
+Rds_on=rdson_Tj/Nchip;
 
 while 1
 
@@ -40,6 +39,7 @@ eta=1-Pl_tot/P;% efficiency
 Tj= Ta+ Pl_v*Rth_jc_valve;
 
 rdson_Tj= Rds_on_25C+ ((Rds_on_175C-Rds_on_25C)/(175-25))*Tj;
+Rds_on=rdson_Tj/Nchip;
 
 if (Tj-Tj_init)<0.01
     break
