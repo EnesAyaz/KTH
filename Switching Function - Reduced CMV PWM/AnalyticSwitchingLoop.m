@@ -12,7 +12,7 @@ SC_fs_tot= [];
 PhiB_tot=[];
 PhiC_tot=[];
 
-time_tot= 0:1/fs/1000:1/fo;
+time_tot= 0:1/fs/1000:2/fo;
 i=0;
 
 PhiB=0;
@@ -28,10 +28,15 @@ DB= (1+ma*sin(2*pi*fo.*time-2*pi/3))/2;
 DC= (1+ma*sin(2*pi*fo.*time+2*pi/3))/2;
 
 
-if i ==  1000
+if i ==  4000
 SA_fs_mag= abs((2/pi).*sin(pi.*DA));
 SB_fs_mag= abs((2/pi).*sin(pi.*DB));
 SC_fs_mag= abs((2/pi).*sin(pi.*DC));
+
+SA_fs_mag_x=[SA_fs_mag_x SA_fs_mag];
+SB_fs_mag_x=[SB_fs_mag_x SB_fs_mag];
+SC_fs_mag_x=[SC_fs_mag_x SC_fs_mag];
+
 if abs(SA_fs_mag-SB_fs_mag) < SC_fs_mag && SC_fs_mag < (SA_fs_mag+SB_fs_mag)
     
 cos_x= (-SC_fs_mag^2+SA_fs_mag^2+SB_fs_mag^2)/(2*SA_fs_mag*SB_fs_mag);
@@ -40,8 +45,7 @@ PhiB=pi-x;
 
 sin_y=SB_fs_mag*sin(x)/SC_fs_mag;
 y=asin(sin_y);
-PhiC=y-pi
-
+PhiC=y-pi;
 
 elseif SA_fs_mag> SB_fs_mag && SA_fs_mag> SB_fs_mag 
 PhiB=pi;
@@ -58,12 +62,8 @@ PhiC=pi/3;
 end
 i=0;
 else 
-i=i+1;
+i=i+1
 end
-
-SA_fs_mag_x=[SA_fs_mag_x SA_fs_mag];
-SB_fs_mag_x=[SB_fs_mag_x SB_fs_mag];
-SC_fs_mag_x=[SC_fs_mag_x SC_fs_mag];
 
 
 SA_fs= (2/pi).*sin(pi.*DA).*cos(2*pi*fs.*time);
@@ -94,6 +94,8 @@ hold on;
 %%
 figure();
 plot(time_tot, (SA_fs_tot+SB_fs_tot+SC_fs_tot)/3)
+hold on;
+% plot(time_tot, (SA_fs_tot-SB_fs_tot)/sqrt(3))
 hold on;
 
 %%
