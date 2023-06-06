@@ -12,12 +12,14 @@ SC_fs_tot= [];
 PhiB_tot=[];
 PhiC_tot=[];
 
-
-time_tot= 0:1/fs/1000:2/fo;
+time_tot= 0:1/fs/1000:1/fo;
 i=0;
 
 PhiB=0;
 PhiC=0;
+SA_fs_mag_x=[];
+SB_fs_mag_x=[];
+SC_fs_mag_x=[];
 
 for time=time_tot
  
@@ -30,23 +32,38 @@ if i ==  1000
 SA_fs_mag= abs((2/pi).*sin(pi.*DA));
 SB_fs_mag= abs((2/pi).*sin(pi.*DB));
 SC_fs_mag= abs((2/pi).*sin(pi.*DC));
-if SA_fs_mag-SB_fs_mag < SC_fs_mag< SA_fs_mag-SB_fs_mag
-PhiB=0;
-PhiC=0;
+if abs(SA_fs_mag-SB_fs_mag) < SC_fs_mag && SC_fs_mag < (SA_fs_mag+SB_fs_mag)
+    
+cos_x= (-SC_fs_mag^2+SA_fs_mag^2+SB_fs_mag^2)/(2*SA_fs_mag*SB_fs_mag);
+x=acos(cos_x);
+PhiB=pi-x;
+
+sin_y=SB_fs_mag*sin(x)/SC_fs_mag;
+y=asin(sin_y);
+PhiC=y-pi
+
+
 elseif SA_fs_mag> SB_fs_mag && SA_fs_mag> SB_fs_mag 
 PhiB=pi;
 PhiC=pi;
 elseif SB_fs_mag> SA_fs_mag && SB_fs_mag> SC_fs_mag 
 PhiB=pi;
 PhiC=0;
-else 
+elseif  SC_fs_mag> SA_fs_mag && SC_fs_mag> SB_fs_mag 
 PhiB=0;
 PhiC=pi;
+else 
+PhiB=pi/3;
+PhiC=pi/3;   
 end
 i=0;
 else 
 i=i+1;
 end
+
+SA_fs_mag_x=[SA_fs_mag_x SA_fs_mag];
+SB_fs_mag_x=[SB_fs_mag_x SB_fs_mag];
+SC_fs_mag_x=[SC_fs_mag_x SC_fs_mag];
 
 
 SA_fs= (2/pi).*sin(pi.*DA).*cos(2*pi*fs.*time);
@@ -68,12 +85,14 @@ SC_fs_tot= [SC_fs_tot SC_fs];
 end
 %%
 figure();
-% plot(time,SA_fs)
-% hold on;
-% plot(time,SB_fs)
-% hold on;
-% plot(time,SC_fs)
-% hold on;
+plot(time_tot,SA_fs_tot)
+hold on;
+plot(time_tot,SB_fs_tot)
+hold on;
+plot(time_tot,SC_fs_tot)
+hold on;
+%%
+figure();
 plot(time_tot, (SA_fs_tot+SB_fs_tot+SC_fs_tot)/3)
 hold on;
 
@@ -86,10 +105,14 @@ figure();
 % hold on;
 % plot(time,SC_fs)
 % hold on;
-% plot(time_tot, PhiB_tot)
+plot(time_tot*fo*360, PhiB_tot*180/pi,'r')
 hold on;
-plot(time_tot, PhiC_tot)
+plot(time_tot*fo*360, PhiC_tot*180/pi,'b')
 hold on;
+% plot(time_tot*fo*360, (PhiB_tot+PhiC_tot)*180/pi,'b')
+hold on;
+ylim([-200 200])
+
 
 
 
