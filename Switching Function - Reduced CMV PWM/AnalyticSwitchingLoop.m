@@ -1,6 +1,6 @@
 fo=1e3;
 fs=40e3;
-ma=0.5;
+ma=0;
 
 DA_tot=[];
 DB_tot=[];
@@ -12,7 +12,7 @@ SC_fs_tot= [];
 PhiB_tot=[];
 PhiC_tot=[];
 
-time_tot= 0:1/fs/1000:2/fo;
+time_tot= 0:1/fs/1000:1/fo;
 i=0;
 
 PhiB=0;
@@ -28,7 +28,7 @@ DB= (1+ma*sin(2*pi*fo.*time-2*pi/3))/2;
 DC= (1+ma*sin(2*pi*fo.*time+2*pi/3))/2;
 
 
-if i ==  4000
+if i ==  0
 SA_fs_mag= abs((2/pi).*sin(pi.*DA));
 SB_fs_mag= abs((2/pi).*sin(pi.*DB));
 SC_fs_mag= abs((2/pi).*sin(pi.*DC));
@@ -83,6 +83,41 @@ SB_fs_tot= [SB_fs_tot SB_fs];
 SC_fs_tot= [SC_fs_tot SC_fs];
 
 end
+%%
+figure1 = figure;
+
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+plot(time_tot*fo*360,SA_fs_mag_x,'DisplayName','leg-A','color', [0.8 0 0]);
+hold on;
+plot(time_tot*fo*360,SB_fs_mag_x,'DisplayName','leg-B','color', [0 0 0.8]);
+hold on;
+plot(time_tot*fo*360,SC_fs_mag_x,'DisplayName','leg-C','color', [0 0.8 0]);
+hold on;
+
+xlim([0 360])
+ylim([0 1])
+
+ylabel({'|S|'});
+
+% Create xlabel
+xlabel({'Fundamental Phase'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+% xlim(axes1,[0 360]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+
+legend1 = legend(axes1,'show');
+set(legend1,...
+    'Position',[0.70595238334721 0.717460322356413 0.169642854801246 0.17619047129438]);
+
+set(axes1,'FontSize',15,'XTick',[0 100 200 300 360]);
+
+
 %%
 figure();
 plot(time_tot,SA_fs_tot)
