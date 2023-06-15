@@ -1,4 +1,3 @@
-
 f_L=1e3;
 time=linspace(0,1/f_L,1e4); % should be even
 gama= 2*pi*f_L.*time;
