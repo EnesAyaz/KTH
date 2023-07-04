@@ -61,9 +61,9 @@ Rth_ja_valve= Rth_jc_valve+ rth_ca/Nchip;
 % Calculate the switching time assuming linear waveforms
 Qoss = Udnom * Coss*Nchip; % output charge
 Qiss = Vgs * Ciss*Nchip; % input charge
-td_on = abs(Rg * Ciss * log((Vgs - Vth)/Vgs)); % turn-on delay time
+td_on = abs(Rg * Ciss * log((Vgs - Vgs_th)/Vgs_th)); % turn-on delay time
 tr = Qoss/Ia; % turn-on rise time
-td_off =abs( Rg * Coss * log(Udnom/(Udnom - Vgs))); % turn-off delay time
+td_off =abs( Rg * Coss * log(Udnom/(Udnom - Vgs_th))); % turn-off delay time
 tf = Qiss/Ia; % turn-off fall time
 
 % Reverse recovery parameters (datasheets)
