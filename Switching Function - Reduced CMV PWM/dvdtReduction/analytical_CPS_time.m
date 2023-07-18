@@ -27,9 +27,15 @@ for k = 1:Tfinal*fsw
    Vtriang((length(Triang_temp)*(k-1)+1:k/(Tstep*fsw))) = (Triang_temp*2)-1;
 end
 
+% carrierPhA=0;
+% carrierPhB=197;
+% carrierPhC=76;
 carrierPhA=0;
-carrierPhB=197;
-carrierPhC=76;
+carrierPhB=0;
+carrierPhC=0;
+% carrierPhA=0;
+% carrierPhB=180-13.6462;
+% carrierPhC=180-104.9518;
 carA= round(carrierPhA/(fsw*Ts)/360);
 if carA==0
     carA=1;

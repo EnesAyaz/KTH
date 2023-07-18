@@ -2,14 +2,14 @@ clear ;
 clc;
 tic;
 close all
-%% Time array
+% Time array
 fsw = 10000; % Hz
-Tstep = (1/fsw)/80; % s
+Tstep = (1/fsw)/200; % s
 Ts = Tstep; % s
 Tfinal =5/fsw ; % s
 time_array = 0:Tstep:Tfinal-Tstep;
 NumberofSteps = numel(time_array);
-%%
+%
 %Generate switching signals
 The_c=0;
 The_f=-pi/2;
@@ -30,8 +30,16 @@ for k = 1:Tfinal*fsw
 end
 
 carrierPhA=0;
-carrierPhB=225;
-carrierPhC=76;
+carrierPhB=220;
+carrierPhC=144.5;
+
+% carrierPhA=0;
+% carrierPhB=225;
+% carrierPhC=147;
+
+% carrierPhA=0;
+% carrierPhB=0;
+% carrierPhC=0;
 carA= round(carrierPhA/(fsw*Ts)/360);
 if carA==0
     carA=1;
@@ -50,9 +58,9 @@ VcarrierB = [ Vtriang(carB:end), zeros(1,carB-1)];
 VcarrierC = [ Vtriang(carC:end), zeros(1,carC-1)];
 
 
-SA = double(VrefA >= VcarrierA);
-SB = double(VrefB >=VcarrierB);
-SC = double(VrefC >= VcarrierC);
+SA = double(VrefA > VcarrierA);
+SB = double(VrefB >VcarrierB);
+SC = double(VrefC > VcarrierC);
 
 figure1=figure();
 axes1 = axes('Parent',figure1);
@@ -64,20 +72,20 @@ plot(time_array,SB,'Linewidth',1,'Color','b')
 hold on;
 plot(time_array,SC-1.5,'Linewidth',1,'Color','m')
 hold on; 
-plot(time_array,SC-1.5,'Linewidth',1,'Color','m')
+plot(time_array,(SA+SB+SC)/3-5,'Linewidth',1,'Color','k')
 
-ylim([-2 3])
+ylim([-6 3])
 xlim([0 1/fsw])
 % xticklabels({'Ts','','Ts'})
-
+%
 box(axes1,'on');
 hold(axes1,'off');
 % Set the remaining axes properties
-set(axes1,'XTick',[0 Tfinal/2 Tfinal],'XTickLabel',{'0','180','360'},'FontName','TimesNewRoman','FontSize',20);
-set(axes1,'YTick',[-1.5 -0.5 0 1 1.5 2.5],'YTickLabel',{'L','H','L','H','L','H'},'FontName','TimesNewRoman','FontSize',20);
+set(axes1,'XTick',[0 Tfinal/10 Tfinal/5],'XTickLabel',{'0','180','360'},'FontName','TimesNewRoman','FontSize',20);
+set(axes1,'YTick',[-5 -4.5 -4 -1.5 -0.5 0 1 1.5 2.5],'YTickLabel',{'-1','0','1','L','H','L','H','L','H'},'FontName','TimesNewRoman','FontSize',20);
 
 
-legend1 = legend(axes1,'show',{'$S_A$','$S_B$','$S_C$'},'FontName','TimesNewRoman','FontSize',16);
+legend1 = legend(axes1,'show',{'$S_A$','$S_B$','$S_C$','CMV' },'FontName','TimesNewRoman','FontSize',16);
 set(legend1,...
     'Location','Best',...
     'EdgeColor','none',...
@@ -87,7 +95,6 @@ xlabel('Fundamental Phase ($^o$)', 'interpreter','latex','FontName','Times New R
     'FontSize',20)
 ylabel('PWM Signals','interpreter','latex','FontName','Times New Roman',...
     'FontSize',20)
-
 
 %%
 figure1=figure();
