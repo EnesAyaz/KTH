@@ -1,0 +1,4 @@
+SA= out.ScopeData1.signals(1).values;
+time=out.ScopeData1.time;
+
+Fs= time(2)-time(1);

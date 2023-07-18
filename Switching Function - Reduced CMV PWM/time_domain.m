@@ -2,7 +2,7 @@ clear ;
 clc;
 tic;
 %% Time array
-ma = 0.90;
+ma = 0.5;
 fout = 50; % Hz
 fsw = 800; % Hz
 Tstep = (1/fsw)/200; % s
@@ -16,7 +16,7 @@ The_f=-pi/6;
 phaseA=The_f+0;
 phaseB=The_f-2*pi/3;
 phaseC=The_f+2*pi/3;
-VrefA = ma*cos(2*pi*fout*time_array+phaseA);
+VrefA = ma*cos(2*pi*fout*time_array+phaseA)
 VrefB = ma*cos(2*pi*fout*time_array+phaseB);
 VrefC = ma*cos(2*pi*fout*time_array+phaseC);
 Vtriang = zeros(1, NumberofSteps);
