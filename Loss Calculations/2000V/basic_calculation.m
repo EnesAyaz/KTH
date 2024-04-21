@@ -2,6 +2,7 @@ clear;
 run("Rds_on.m")
 run("Switching_Energies1.m")
 close all
+%% Scaling with dv/dt and di/dt
 
 %%
         ma=1.15;   % Modulation index
@@ -20,16 +21,16 @@ close all
         [vp,wt,carr,ref] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
         % Numerical waveforms during one cycle
 
-Ud = 1200; % p2p DC voltage
-P = 300e3;    % Only 200 kW
-cosphi =0.9;  % Cos(phi) at inverter terminal
-uppk = ma*Ud/2; % Peak phase voltage reference;
-ippk = P*2/3/uppk/cosphi;  % Peak phase current
-phi= acos(cosphi);       % Load angle
-ip = ippk*cos(wt-phi);   % sampled phase current over one cycle
-Vp=(ma*Ud/2)*cos(wt) ;   % sampled phase voltage over one cycle
+        Ud = 1250; % p2p DC voltage
+        P = 300e3;    % Only 200 kW
+        cosphi =0.9;  % Cos(phi) at inverter terminal
+        uppk = ma*Ud/2; % Peak phase voltage reference;
+        ippk = P*2/3/uppk/cosphi;  % Peak phase current
+        phi= acos(cosphi);       % Load angle
+        ip = ippk*cos(wt-phi);   % sampled phase current over one cycle
+        Vp=(ma*Ud/2)*cos(wt) ;   % sampled phase voltage over one cycle
 
-sw = (ip>=0&vp>0) | (ip<0&vp<=0);   % =1 when current passes through switch
+        sw = (ip>=0&vp>0) | (ip<0&vp<=0);   % =1 when current passes through switch
         di = ~sw;                               % =1 when current passes through diode
         Isw = abs(ip.*sw);                     % current through switch
         Idi = abs(ip.*di);                     % current through diode
@@ -40,7 +41,6 @@ sw = (ip>=0&vp>0) | (ip<0&vp<=0);   % =1 when current passes through switch
         d2s=find(comm > eps);           % Find the instants (samples) when current commutates from diode to switch
         is2d = abs(ip(s2d));            % Current at commutations switch to diode
         id2s = abs(ip(d2s));            % Current at commutations diode to switch
-
 
 %% Conduction
 Tjx= [];
@@ -59,7 +59,7 @@ Ploss_con_Tj=[Ploss_con_Tj Ploss_con];
 Tjx=[Tjx Tj];
 end
  % plot(Tjx,Ploss_con_Tj)
-%%
+%
 figure1 = figure;
 % Create axes
 axes1 = axes('Parent',figure1);
@@ -132,9 +132,9 @@ figure1 = figure;
 axes1 = axes('Parent',figure1);
 hold(axes1,'on');
 % Create plot
-stem(fon,Eoff,'DisplayName','Eon',"Marker",'x','LineWidth',0.1,...
+stem(fon,Eoff,'DisplayName','Eoff',"Marker",'x','LineWidth',0.1,...
     'Color',[1 0 0]);
-yline(3*sum(Eoff)*f1/1000,'DisplayName','P_{sw-on}','LineWidth',0.1,'Color',[0 0 1]);
+yline(3*sum(Eoff)*f1/1000,'DisplayName','P_{sw-off}','LineWidth',0.1,'Color',[0 0 1]);
 % Create ylabel
 ylabel({'Energy (Joule), Switching  Loss (W)'});
 % Create xlabel
@@ -148,7 +148,7 @@ set(legend1,...
     'Position',[0.236309526683319 0.729166666666667 0.238690473316681 0.101010101010102]);
 
 
-close all
+% close all
 %%
 P_loss_switching= 3*(sum(Eon)+sum(Eoff))*f1/1000
 Pcon=Ploss_con_Tj(1)

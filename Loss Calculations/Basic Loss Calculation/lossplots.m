@@ -1,11 +1,9 @@
 frequency= 5;
 
-
 switching_loss_25= 164  ;
 switching_loss_125= 176;
-conduction_loss_25= 233;
-conduction_loss_125= 388;
-
+conduction_loss_25= 233*2;
+conduction_loss_125= 388*2;
 
 k= 1:1:6; 
 frequency_k= k*frequency;
