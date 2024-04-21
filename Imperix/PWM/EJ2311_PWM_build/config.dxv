@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration destination="192.168.222.22" project-path="C:\Imperix_Sim\Laboratory_Modulation\PWM\EJ2311_PWM_build">
+     <custom>
+          <friendlyname>DAC Setup</friendlyname>
+          <option name="a0"></option>
+          <option name="a0-gain">1</option>
+          <option name="a1"></option>
+          <option name="a1-gain">1</option>
+          <option name="a2"></option>
+          <option name="a2-gain">1</option>
+          <option name="a3"></option>
+          <option name="a3-gain">1</option>
+     </custom>
+     <datalogging>
+          <friendlyname>Datalogging</friendlyname>
+          <datalog-coef1>1</datalog-coef1>
+          <datalog-coef10>1</datalog-coef10>
+          <datalog-coef11>1</datalog-coef11>
+          <datalog-coef12>1</datalog-coef12>
+          <datalog-coef13>1</datalog-coef13>
+          <datalog-coef14>1</datalog-coef14>
+          <datalog-coef15>1</datalog-coef15>
+          <datalog-coef16>1</datalog-coef16>
+          <datalog-coef17>1</datalog-coef17>
+          <datalog-coef18>1</datalog-coef18>
+          <datalog-coef19>1</datalog-coef19>
+          <datalog-coef2>1</datalog-coef2>
+          <datalog-coef20>1</datalog-coef20>
+          <datalog-coef21>1</datalog-coef21>
+          <datalog-coef22>1</datalog-coef22>
+          <datalog-coef23>1</datalog-coef23>
+          <datalog-coef24>1</datalog-coef24>
+          <datalog-coef25>1</datalog-coef25>
+          <datalog-coef26>1</datalog-coef26>
+          <datalog-coef27>1</datalog-coef27>
+          <datalog-coef28>1</datalog-coef28>
+          <datalog-coef29>1</datalog-coef29>
+          <datalog-coef3>1</datalog-coef3>
+          <datalog-coef30>1</datalog-coef30>
+          <datalog-coef31>1</datalog-coef31>
+          <datalog-coef32>1</datalog-coef32>
+          <datalog-coef4>1</datalog-coef4>
+          <datalog-coef5>1</datalog-coef5>
+          <datalog-coef6>1</datalog-coef6>
+          <datalog-coef7>1</datalog-coef7>
+          <datalog-coef8>1</datalog-coef8>
+          <datalog-coef9>1</datalog-coef9>
+          <datalog-var1>Ia</datalog-var1>
+          <datalog-var10></datalog-var10>
+          <datalog-var11></datalog-var11>
+          <datalog-var12></datalog-var12>
+          <datalog-var13></datalog-var13>
+          <datalog-var14></datalog-var14>
+          <datalog-var15></datalog-var15>
+          <datalog-var16></datalog-var16>
+          <datalog-var17></datalog-var17>
+          <datalog-var18></datalog-var18>
+          <datalog-var19></datalog-var19>
+          <datalog-var2>Ib</datalog-var2>
+          <datalog-var20></datalog-var20>
+          <datalog-var21></datalog-var21>
+          <datalog-var22></datalog-var22>
+          <datalog-var23></datalog-var23>
+          <datalog-var24></datalog-var24>
+          <datalog-var25></datalog-var25>
+          <datalog-var26></datalog-var26>
+          <datalog-var27></datalog-var27>
+          <datalog-var28></datalog-var28>
+          <datalog-var29></datalog-var29>
+          <datalog-var3>Ic</datalog-var3>
+          <datalog-var30></datalog-var30>
+          <datalog-var31></datalog-var31>
+          <datalog-var32></datalog-var32>
+          <datalog-var4></datalog-var4>
+          <datalog-var5></datalog-var5>
+          <datalog-var6></datalog-var6>
+          <datalog-var7></datalog-var7>
+          <datalog-var8></datalog-var8>
+          <datalog-var9></datalog-var9>
+          <downsampling-on>false</downsampling-on>
+          <downsampling-ratio>1</downsampling-ratio>
+          <event-delay1>0</event-delay1>
+          <event-delay2>0</event-delay2>
+          <event-delay3>0</event-delay3>
+          <event-delay4>0</event-delay4>
+          <event-delay5>0</event-delay5>
+          <event-delay6>0</event-delay6>
+          <event-step1>0</event-step1>
+          <event-step2>0</event-step2>
+          <event-step3>0</event-step3>
+          <event-step4>0</event-step4>
+          <event-step5>0</event-step5>
+          <event-step6>0</event-step6>
+          <event-var1></event-var1>
+          <event-var2></event-var2>
+          <event-var3></event-var3>
+          <event-var4></event-var4>
+          <event-var5></event-var5>
+          <event-var6></event-var6>
+          <last_unit_type_before_connection_loss>0</last_unit_type_before_connection_loss>
+          <transient-gen-on>false</transient-gen-on>
+          <transient-gen-restore>true</transient-gen-restore>
+          <trigger-edge>rising</trigger-edge>
+          <trigger-mode>auto</trigger-mode>
+          <trigger-pos>0</trigger-pos>
+          <trigger-signal></trigger-signal>
+          <trigger-threshold>0</trigger-threshold>
+          <window-length>1000</window-length>
+          <xmax-plot1>961.901856763926</xmax-plot1>
+          <xmax-plot2>127</xmax-plot2>
+          <xmax-plot3>127</xmax-plot3>
+          <xmax-plot4>127</xmax-plot4>
+          <xmin-plot1>605.494694960212</xmin-plot1>
+          <xmin-plot2>0</xmin-plot2>
+          <xmin-plot3>0</xmin-plot3>
+          <xmin-plot4>0</xmin-plot4>
+          <ymax-plot1>1.59535392348965</ymax-plot1>
+          <ymax-plot2>100</ymax-plot2>
+          <ymax-plot3>100</ymax-plot3>
+          <ymax-plot4>100</ymax-plot4>
+          <ymin-plot1>-0.20398734981815</ymin-plot1>
+          <ymin-plot2>-100</ymin-plot2>
+          <ymin-plot3>-100</ymin-plot3>
+          <ymin-plot4>-100</ymin-plot4>
+     </datalogging>
+     <watches update-interval="1000">
+          <friendlyname>Watches</friendlyname>
+          <watch search-depth="1">M</watch>
+          <watch search-depth="1">third_harmonic</watch>
+          <watch search-depth="1">p</watch>
+     </watches>
+</configuration>
