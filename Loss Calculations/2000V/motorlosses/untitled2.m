@@ -171,9 +171,9 @@ U_RS_h= U_RS_mag.*exp(1i*U_RS_angle);
 U_TS_h= U_TS_mag.*exp(1i*U_TS_angle);
 I_R_h= I_R_mag.*exp(1i*I_R_angle);
 I_T_h= I_T_mag.*exp(1i*I_T_angle);
-
-I_R_angle= I_R_angle+0.275;
-I_T_angle= I_T_angle+0.275;
+% 
+% I_R_angle= I_R_angle;
+% I_T_angle= I_T_angle+0.275;
 
 P=((U_RS_mag.*I_R_mag)/2).*cos(U_RS_angle-I_R_angle)+ ((U_TS_mag.*I_T_mag)/2).*cos(U_TS_angle-I_T_angle);
 

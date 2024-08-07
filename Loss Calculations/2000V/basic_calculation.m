@@ -2,12 +2,71 @@ clear;
 run("Rds_on.m")
 run("Switching_Energies1.m")
 close all
+clear  figure1 legend1 axes1
+
+%%
+  fc = 10e3; % Carrier frequency
+  die_number=14;
+  scaling=10;
 %% Scaling with dv/dt and di/dt
+
+% scaling=4;
+a=Eon_150_inter(1);
+b= Eoff_150_inter(1);
+
+Eon_150_inter=Eon_150_inter-a;
+Eoff_150_inter=Eoff_150_inter-b;
+
+Eon_150_inter=Eon_150_inter/scaling;
+Eoff_150_inter=Eoff_150_inter/scaling;
+
+
+Eon_150_inter=Eon_150_inter+a;
+Eoff_150_inter=Eoff_150_inter+b;
+
+
+
+%% Scaling die area
+% die_number=4;
+
+rds_inter=rds_inter*10;
+Eon_150_inter= Eon_150_inter-(Eon_150_inter(1))+Eon_150_inter(1)/10;
+Eoff_150_inter= Eoff_150_inter-(Eoff_150_inter(1))+Eoff_150_inter(1)/10;
+
+rds_inter=rds_inter/die_number;
+
+Eon_150_inter=Eon_150_inter+ Eon_150_inter(1)*die_number;
+Eoff_150_inter=Eoff_150_inter+ Eoff_150_inter(1)*die_number;
+%%
+figure1 = figure;
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+% Create plot
+plot(Eon_150_Id , Eon_150_inter,'DisplayName','Switch-on','Marker','x','LineWidth',0.1,...
+    'Color',[1 0 0]);
+% Create plot
+plot(Eoff_150_Id , Eoff_150_inter,'DisplayName','Switch.off','Marker','x','LineWidth',0.1,...
+    'Color',[0 0 1]);
+% Create ylabel
+ylabel({'Switching Energies (mJ)'});
+% Create xlabel
+xlabel({'Current (A)'});
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',14);
+% Create legend
+legend1 = legend(axes1,'show');
+set(legend1,...
+    'Position',[0.236309526683319 0.729166666666667 0.238690473316681 0.101010101010102]);
+
+
 
 %%
         ma=1.15;   % Modulation index
         f1 = 100; % Fundamental frequency
-        fc = 5e3; % Carrier frequency
+        % fc = 30e3; % Carrier frequency
         pn = fc/f1; % Pulse number
         npoints = 10000; % Number of timepoints
         carrytype='tria'; % carrier type 
@@ -47,7 +106,6 @@ Tjx= [];
 Ploss_con_Tj=[];
 
 for Tj=75:5:175
-
 % Define your arrays
 % Tj= 125; % The value you want to find the nearest point for
 % Find the index of the nearest point in array1
@@ -100,8 +158,8 @@ end
 % hold off
 % plot(Eoff)
 %%
-fon=linspace(0,1000\f1,length(Eon))
-foff=linspace(0,1000\f1,length(Eoff))
+fon=linspace(0,1000\f1,length(Eon));
+foff=linspace(0,1000\f1,length(Eoff));
 figure1 = figure;
 % Create axes
 axes1 = axes('Parent',figure1);
@@ -125,8 +183,8 @@ set(legend1,...
 % xlim([0 2*pi])
 
 %%
-fon=linspace(0,1000\f1,length(Eon))
-foff=linspace(0,1000\f1,length(Eoff))
+fon=linspace(0,1000\f1,length(Eon));
+foff=linspace(0,1000\f1,length(Eoff));
 figure1 = figure;
 % Create axes
 axes1 = axes('Parent',figure1);
@@ -150,11 +208,13 @@ set(legend1,...
 
 % close all
 %%
-P_loss_switching= 3*(sum(Eon)+sum(Eoff))*f1/1000
-Pcon=Ploss_con_Tj(1)
-%%
-Ptot= P_loss_switching+ Pcon
+P_loss_switching= 3*(sum(Eon)+sum(Eoff))*f1/1000;
 
-eff=300e3/(300e3+Ptot)
+Pcon=Ploss_con_Tj(16); % Tj 100
+Ptot= P_loss_switching+ Pcon;
+
+eff=300e3/(300e3+Ptot);
+
+[P_loss_switching Pcon Ptot]
 
 

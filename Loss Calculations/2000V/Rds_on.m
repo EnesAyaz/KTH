@@ -83,34 +83,34 @@ hold on
 plot(IdsVds175.I, IdsVds175.V./IdsVds175.I)
 ylim([0 30e-3])
 %%
-rds_25=mean(IdsVds25.V./IdsVds25.I)
-rds_125=mean(IdsVds125.V./IdsVds125.I)
-rds_175=mean(IdsVds175.V./IdsVds175.I)
+rds_25=mean(IdsVds25.V./IdsVds25.I);
+rds_125=mean(IdsVds125.V./IdsVds125.I);
+rds_175=mean(IdsVds175.V./IdsVds175.I);
 
 
 % rds_25*(1+(125-25)*K)=rds_125
 
-K= ((rds_125/rds_25)-1)/(125-25)
-K1= ((rds_175/rds_125)-1)/(175-125)
+K= ((rds_125/rds_25)-1)/(125-25);
+K1= ((rds_175/rds_125)-1)/(175-125);
 
-rds_25*(1+(125-25)*K)
-rds_125
+rds_25*(1+(125-25)*K);
+rds_125;
 % 
 % 
 % 
-rds_125*(1+(175-125)*K1)
-rds_175
+rds_125*(1+(175-125)*K1);
+rds_175;
 
 
 T=[25:5:175];
-rds= zeros(1,length(T))
+rds= zeros(1,length(T));
 %%
 i=1;
 for T1=T
 if T1<=125 
-     rds(i) =rds_25*(1+(T1-25)*K)
+     rds(i) =rds_25*(1+(T1-25)*K);
 elseif T1<=175
-    rds(i) =rds_125*(1+(T1-125)*K1)
+    rds(i) =rds_125*(1+(T1-125)*K1);
 end
 i=i+1;
 end
@@ -153,9 +153,7 @@ set(axes1,'FontName','Times New Roman','FontSize',14);
 
 %%
 
-
 clear ans i IdsVds25 IdsVds125 IdsVds175 K K1 rds rds_125 rds_25 rds_175 T T1
-
 
 close all
 

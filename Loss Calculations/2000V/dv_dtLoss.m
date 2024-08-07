@@ -4,15 +4,26 @@ dv_dt_on= 25e9; % V/s
 di_dt_off= 42.5e9; % A/s
 dv_dt_off= 42.5e9; % V/s
 
+%%
+IL=304;
+Udc=1200;
 
-IL=200;
-Udc=600;
+dv_dt_on= 10e9; % V/s
+di_dt_on= (dv_dt_on/Udc)*IL;
+di_dt_on=7e9; % V/s
+
 Eon= ((Udc*IL.^2/di_dt_on)+(Udc^2.*IL/dv_dt_on));
 
 Eon*1e3
 
-IL=200;
-Udc=600;
+%%
+
+IL=304;
+Udc=1200;
+
+dv_dt_off= 60e9; % V/s
+di_dt_off= (dv_dt_on/Udc)*IL;
+
 Eoff= ((Udc*IL.^2/di_dt_off)+(Udc^2.*IL/dv_dt_off));
 
 Eoff*1e3

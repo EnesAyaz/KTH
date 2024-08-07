@@ -45,13 +45,44 @@ I_R_angle=fft(I_R);
 I_R_angle=angle(I_R_angle);
 I_R_angle=I_R_angle(1:L/2+1);
 %%
-threshold=max(abs(U_R_mag)/100);
-U_R_angle(abs(U_R_mag)<threshold)=0; % determines the low-amplitude threshold
-U_R_mag(abs(U_R_mag)<threshold)=0;
-I_R_angle(abs(U_R_mag)<threshold)=0; % determines the low-amplitude threshold
-I_R_mag(abs(U_R_mag)<threshold)=0;
-f(abs(U_R_mag)<threshold)=0;
-f=f';
+% threshold=max(abs(U_R_mag)/100);
+% U_R_angle(abs(U_R_mag)<threshold)=0; % determines the low-amplitude threshold
+% U_R_mag(abs(U_R_mag)<threshold)=0;
+% I_R_angle(abs(U_R_mag)<threshold)=0; % determines the low-amplitude threshold
+% I_R_mag(abs(U_R_mag)<threshold)=0;
+% f(abs(U_R_mag)<threshold)=0;
+% f=f';
+
+
+P=((U_R_mag.*I_R_mag)/2).*cos(U_R_angle-I_R_angle);
+P=P';
+
+Ph=(sum(P)-P(n+1))*3
+%%
+figure1=figure();
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+% Create stem
+stem(f/1e3,3*P,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[0 0 0]);
+
+% Create ylabel
+ylabel('|P(f)|','FontName','Times New Roman');
+
+% Create xlabel
+xlabel('f (kHz)','FontName','Times New Roman');
+
+% Create title
+% title('Single-Sided Amplitude Spectrum of P(t)');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[1 40]);
+% ylim([-500 500])
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XGrid','on',...
+    'XMinorGrid','on','YGrid','on','YMinorGrid','on');
 
 %%
 close all
@@ -66,6 +97,80 @@ ylabel("|U_RS(f)|")
 hold on
 
 %%
+figure1=figure();
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+% Create stem
+stem(f/1e3,U_R_mag,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[0 0 0]);
+
+% Create ylabel
+ylabel('|V_R(f)|','FontName','Times New Roman');
+
+% Create xlabel
+xlabel('f (kHz)','FontName','Times New Roman');
+
+% Create title
+title('Single-Sided Amplitude Spectrum of V_R(t)');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 40]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XGrid','on',...
+    'XMinorGrid','on','YGrid','on','YMinorGrid','on');
+%%
+figure1=figure();
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+% Create stem
+stem(f/1e3,I_R_mag,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[0 0 0]);
+
+% Create ylabel
+ylabel('|I_R(f)|','FontName','Times New Roman');
+
+% Create xlabel
+xlabel('f (kHz)','FontName','Times New Roman');
+
+% Create title
+title('Single-Sided Amplitude Spectrum of I_R(t)');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 40]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XGrid','on',...
+    'XMinorGrid','on','YGrid','on','YMinorGrid','on');
+%%
+figure1=figure();
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+% Create stem
+stem(f/1e3,U_R_mag,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[0 0 0]);
+
+% Create ylabel
+ylabel('|V_R(f)|','FontName','Times New Roman');
+
+% Create xlabel
+xlabel('f (kHz)','FontName','Times New Roman');
+
+% Create title
+title('Single-Sided Amplitude Spectrum of V_R(t)');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 40]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XGrid','on',...
+    'XMinorGrid','on','YGrid','on','YMinorGrid','on');
+
+
+%%
 figure(2)
 stem(f/1e3,U_R_mag,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[0 0 0]);
 hold on;
@@ -73,7 +178,7 @@ stem(f/1e3,I_R_mag,'MarkerSize',1,'Marker','none','LineWidth',2,'Color',[1 0 0],
 xlim([8 12])
 title("Single-Sided Amplitude Spectrum of X(t)")
 xlabel("f (kHz)")
-ylabel("|U_RS(f)|")
+ylabel("|U_R(f)|")
 hold on
 
 %%
