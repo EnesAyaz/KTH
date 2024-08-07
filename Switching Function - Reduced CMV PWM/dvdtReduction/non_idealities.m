@@ -37,9 +37,10 @@ carrierPhC=144.5;
 % carrierPhB=225;
 % carrierPhC=147;
 
-% carrierPhA=0;
-% carrierPhB=0;
-% carrierPhC=0;
+carrierPhA=0;
+carrierPhB=0;
+carrierPhC=0;
+
 carA= round(carrierPhA/(fsw*Ts)/360);
 if carA==0
     carA=1;
