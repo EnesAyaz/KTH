@@ -42,7 +42,7 @@ C_DCC=150e-6;
 % LC_mid_parasitic=1e-8;
 %% MOTOR 
 Rmotor=3;
-Ld=120e-6; % H
+Ld=100e-6; % H
 Lq=200e-6; % H
 
 % Kf=0.1157;
