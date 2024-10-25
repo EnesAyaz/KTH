@@ -7,6 +7,8 @@ VrefA=out.ReferenceCarrier.signals(4).values;
 VrefB=out.ReferenceCarrier.signals(5).values;
 VrefC=out.ReferenceCarrier.signals(6).values;
 
+Vinject=out.Injected.signals.values;
+
 Tfinal=1/ffund;
 
 figure1=figure();
@@ -18,6 +20,8 @@ hold on;
 plot(time_array,VrefB,'Linewidth',3,'Color','m')
 hold on;
 plot(time_array,VrefC,'Linewidth',3,'Color','g')
+hold on;
+plot(time_array,-Vinject,'--','Linewidth',2,'Color','k')
 
 ylim([-1 1])
 
@@ -25,10 +29,10 @@ box(axes1,'on');
 hold(axes1,'off');
 % Set the remaining axes properties
 set(axes1,'XTick',[0 Tfinal/2 Tfinal],'XTickLabel',{'0','180','360'},'FontName','TimesNewRoman','FontSize',20);
-set(axes1,'YTick',[-1 -ma 0 ma 1],'YTickLabel',{'-1','-ma','0','ma','1'},'FontName','TimesNewRoman','FontSize',20);
+set(axes1,'YTick',[-1 -ma -1/3 0 1/3 ma 1],'YTickLabel',{'-1','-ma','-1/3','0','1/3','ma','1'},'FontName','TimesNewRoman','FontSize',20);
 
 
-legend1 = legend(axes1,'show',{'$u_A$','$u_B$','$u_C$','$u_{carr}$'},'FontName','TimesNewRoman','FontSize',16);
+legend1 = legend(axes1,'show',{'$u_A$','$u_B$','$u_C$','$u_{inj}$'},'FontName','TimesNewRoman','FontSize',16);
 set(legend1,...
     'Location','Best',...
     'EdgeColor','none',...
@@ -98,8 +102,59 @@ hold(axes1,'off');
 set(axes1,'XTick',[0 Tfinal/2 Tfinal],'XTickLabel',{'0','180','360'},'FontName','TimesNewRoman','FontSize',20);
 set(axes1,'YTick',[-1 -0.66 -0.33 0 0.33 0.66 1],'YTickLabel',{'-V_{DC}','-2V_{DC}/3','-V_{DC}/3','0', 'V_{DC}/3','2V_{DC}/3','V_{DC}'},'FontName','TimesNewRoman','FontSize',20);
 
-xlabel('Time ', 'interpreter','latex','FontName','Times New Roman',...
+xlabel('Fundamental Phase ($^o$)', 'interpreter','latex','FontName','Times New Roman',...
     'FontSize',20)
 ylabel(' Voltage','interpreter','latex','FontName','Times New Roman',...
     'FontSize',20)
 %%
+
+time_array=out.CarrierPhases.time;
+carrierA=out.CarrierPhases.signals(1).values;
+carrierB=out.CarrierPhases.signals(2).values;
+carrierC=out.CarrierPhases.signals(3).values;
+
+carrierA=wrapToPi(carrierA);
+carrierB=wrapToPi(carrierB);
+carrierC=wrapToPi(carrierC);
+
+
+carrierA=carrierA*180/pi;
+carrierB= carrierB*180/pi;
+carrierC= carrierC*180/pi;
+
+% carrierB=mod(carrierB,360)
+% carrierC=mod(carrierC,360)
+
+Tfinal=1/ffund;
+
+figure1=figure();
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+plot(time_array,carrierA,'Linewidth',3,'Color','b')
+hold on;
+plot(time_array,-carrierB,'Linewidth',3,'Color','m')
+hold on;
+plot(time_array,-carrierC,'Linewidth',3,'Color','g')
+
+% 
+% ylim([-1 1])
+
+legend1 = legend(axes1,'show',{'$\phi_{c_A}$','$\phi_{c_B}$','$\phi_{c_C}$'},'FontName','TimesNewRoman','FontSize',16);
+set(legend1,...
+    'Location','Best',...
+    'EdgeColor','none',...
+    'Color','white','interpreter','Latex');
+
+
+box(axes1,'on');
+hold(axes1,'off');
+
+set(axes1,'XTick',[0 Tfinal/2 Tfinal],'XTickLabel',{'0','180','360'},'FontName','TimesNewRoman','FontSize',20);
+set(axes1,'FontName','TimesNewRoman','FontSize',20);
+
+xlabel('Fundamental Phase ($^o$)', 'interpreter','latex','FontName','Times New Roman',...
+    'FontSize',20)
+ylabel(' Carrier Phase Shift ($^o$)','interpreter','latex','FontName','Times New Roman',...
+    'FontSize',20)
+
