@@ -1,4 +1,4 @@
-for n=[1,1.5,2,2.5,3] 
+for n=[1] 
 given_parameters=2;
 % Given parameters- 2
 id = -224.33; %  d-axis current value in A
@@ -22,7 +22,7 @@ f1 = fe; % Fundamental frequency
 fc = n*34*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
-cmode='tri6'; % reference common-mode injection 
+% cmode='tri6'; % reference common-mode injection 
 
 %% Calculations 
 debug_mode=1; % make 1 if you want to see the graphs
@@ -69,9 +69,10 @@ end
 %% i_a, v_a
 if debug_mode==1
 figure('Name','Time Domain Phase-A Current and Voltage')
-plot(theta,i_a)
+plot(theta/2/pi/fe,i_a)
 hold on; 
-plot(theta,v_a)
+plot(theta/2/pi/fe,v_a)
+xlim([0 0.027])
 end
 %% Modulation index calculation
 ma_calculated=2*max(v_a)/Vdc; % modulation index
@@ -158,12 +159,13 @@ ref= ref_a;
 
 if debug_mode==1
 figure('Name','Reference Voltages of the Modulation' )
-plot(wt, ref_a,'r')
+plot(wt/2/pi/fe, ref_a,'r')
 hold on 
-plot(wt, ref_b,'b')
+plot(wt/2/pi/fe, ref_b,'b')
 hold on; 
-plot(wt, ref_b,'g')
+plot(wt/2/pi/fe, ref_c,'g')
 hold on; 
+xlim([0 0.027])
 end
 
 %% Compute phase current in time domain (sinusoidal for simplicity)
@@ -177,12 +179,13 @@ ip_c_t = ippk*cos(wt-phi-4*pi/3);   % sampled phase current over one cycle
 
 if debug_mode==1
 figure('Name','Ideal Current Waveform of phases' )
-plot(wt, ip_a_t,'r')
+plot(wt/2/pi/fe, ip_a_t,'r')
 hold on 
-plot(wt, ip_b_t,'b')
+plot(wt/2/pi/fe, ip_b_t,'b')
 hold on; 
-plot(wt, ip_c_t,'g')
+plot(wt/2/pi/fe, ip_c_t,'g')
 hold on; 
+xlim([0 0.027])
 end
 %%
 theta= wt; 
@@ -196,6 +199,14 @@ ipC=ip_c_t;
 rs=resistance;
 t_end=theta(end)/f1/2/pi;
 
+
+if debug_mode==1
+figure('Name',' Phase Voltage' )
+plot(theta/2/pi/fe,v_phase_a)
+hold on
+xlim([0 0.027])
+end
+%%
 if debug_mode==1
 figure('Name',' Phase Voltage, Phase current and Back-emf' )
 plot(theta,v_phase_a)
@@ -213,12 +224,12 @@ L_c = Ld * sin(theta-theta_difference+2*pi/3).^2 + Lq *cos(theta-theta_differenc
 if debug_mode==1
 
 figure('Name','Time Domain Indutances')
-plot(theta,L_a, 'r')
+plot(theta/2/pi/fe,L_a*1e6, 'r')
 hold on
-plot(theta,L_b,'b')
+plot(theta/2/pi/fe,L_b*1e6,'b')
 hold on 
-plot(theta,L_c,'g')
-
+plot(theta/2/pi/fe,L_c*1e6,'g')
+xlim([0 0.027])
 end
 
 %%
@@ -247,11 +258,12 @@ end
 if debug_mode==1
 
 figure('Name','Ideal and Solved Currents including Common mode- PhA')
-plot(theta,i_a,'-.r')
+plot(theta/2/pi/fe,i_a,'r')
 hold on
-plot(theta,ipA,'r')
+plot(theta/2/pi/fe,ipA,'b',LineWidth=2)
+xlim([0 0.027])
 hold on
-
+%%
 figure('Name','Ideal and Solved Currents including Common mode- PhB')
 plot(theta,i_b,'-.b')
 hold on
@@ -278,11 +290,12 @@ end
 
 if debug_mode==1
 figure('Name','Solved Currents Differential')
-plot(theta,i_a_differential,'r')
+plot(theta/2/pi/fe,i_a_differential,'r')
 hold on
-plot(theta,i_b_differential,'b')
+plot(theta/2/pi/fe,i_b_differential,'b')
 hold on
-plot(theta,i_c_differential,'g')
+plot(theta/2/pi/fe,i_c_differential,'g')
+xlim([0 0.027])
 end
 
 %%
@@ -295,12 +308,16 @@ P1(2:end-1) = 2*P1(2:end-1);
 f = Fs/L*(0:(L/2));
 %%
 if debug_mode==1
-figure('Name','Solved Currents FFT for phase-A')
-plot(f,P1,"LineWidth",3) 
-title("Single-Sided Amplitude Spectrum of X(t)")
+figure1= figure('Name','Solved Currents FFT for phase-A');
+axes1 = axes('Parent',figure1);
+
+plot(f,P1,"LineWidth",2) 
+% title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("f (Hz)")
-ylabel("|P1(f)|")
-xlim([0 20000])
+ylabel("Magnitude of Phase Current (A)")
+xlim([0 12000])
+set(axes1,'FontName','Times New Roman','FontSize',15);
+
 end
 %% 
 required_length=round(1/fe/sample_time);
@@ -340,9 +357,9 @@ is= sqrt(id_mean^2+iq_mean^2)
 %%
 if debug_mode==1
 figure('Name','dq')
-plot(time2,id2) 
+plot(time2*1e3,id2) 
 hold on
-plot(time2,iq2) 
+plot(time2*1e3,iq2) 
 end
 
 %%

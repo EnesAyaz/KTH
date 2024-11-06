@@ -20,7 +20,6 @@ P_over_x=[];
 
 for A_die=A_die_a
 
-
 k_r=7.2*10e-3;
 alpha_r= 1.6;
 U_b=1.7; % kV 
@@ -28,7 +27,6 @@ r_on=k_r * U_b^(alpha_r)./A_die;
 
 P_c= 0;
 sample_theta=1e-2;
-
 
 for theta=theta_pf:sample_theta:(theta_pf+pi)
     IL= I_peak*sin(theta-theta_pf);

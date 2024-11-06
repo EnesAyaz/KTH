@@ -1,4 +1,4 @@
-for n=[1 1.5 2 2.5 3] 
+for n=[1] 
 given_parameters=4;
 % Given parameters- 4
 id = -118.36; %  d-axis current value in A
