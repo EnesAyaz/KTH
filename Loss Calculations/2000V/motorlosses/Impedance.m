@@ -1,4 +1,4 @@
- load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\Harmonics_analysis\Harmonics_analysis\EMimpedanceData.mat');
+load('C:\Users\enesa\OneDrive - KTH\Hemizero\Harmonics_analysis\Harmonics_analysis\EMimpedanceData.mat')
 f=EM_impedance_stator_only.f;
 Z_mag=EM_impedance_stator_only.Z/2; %% phase impedance
 Z_angle=EM_impedance_stator_only.theta*pi/180;
@@ -74,7 +74,36 @@ annotation(figure1,'textbox',...
     'FontName','Times New Roman',...
     'FitBoxToText','off',...
     'EdgeColor','none');
+%%
 
+figure1 = figure;
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+% Create multiple line objects using matrix input to loglog
+loglog1 = plot(f,-imag(Z)/2/pi./f,'LineWidth',2,'Parent',axes1);
+
+set(loglog1,'DisplayName','Z','Color',[0 0 1]);
+
+% Create ylabel
+ylabel({'Henry'});
+% Create xlabel
+xlabel({'Frequency (Hz)'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[500 100e3]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XMinorTick','on',...
+    'XScale','linear','YMinorTick','on','YScale','linear');
+% Create legend
+% legend(axes1,'show');
+
+% Create textarrow
+annotation(figure1,'textarrow',[0.75 0.830357142857143],...
+    [0.230952380952381 0.45],'String',{'Resonance'},'FontSize',15,...
+    'FontName','Times New Roman');
 %%
 R=real(Z);
 
@@ -101,6 +130,7 @@ set(axes1,'FontName','Times New Roman','FontSize',15,'GridAlpha',0.5,...
     'MinorGridAlpha',0.5,'XGrid','on','XMinorTick','on','XScale','log','YGrid',...
     'on','YMinorGrid','on','ZMinorGrid','on');
 
+%%
 
 %%
 % figure(2)
