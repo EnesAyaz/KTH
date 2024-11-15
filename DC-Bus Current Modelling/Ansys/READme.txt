@@ -1,0 +1,1 @@
+Rightclick to Analysis and select ''Export Circuit''. Then you can change file name (and extention to .cir) to get netlist. 
