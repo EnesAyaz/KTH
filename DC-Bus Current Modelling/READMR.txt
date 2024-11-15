@@ -1,0 +1,6 @@
+
+automatic symbol generation of ltspice
+
+when editing an ASCII netlist that contains subcircuit definitions, you place the cursor on the line containing the name of the subcircuit, right click, 
+and execute context menu item "Create Symbol." For most users, this is the only method you should ever consider for adding third-party models defined as 
+subcircuits since all the details are handled for you.
