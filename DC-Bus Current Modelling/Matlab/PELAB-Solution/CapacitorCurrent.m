@@ -2,7 +2,7 @@ addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
 % Compute modulation pattern in time domain
 ma=1;   % Modulation index
 f1 = 200; % Fundamental frequency
-fc = 24*1e3; % Carrier frequency
+fc = 14*1e3; % Carrier frequency
 pn = fc/f1; % Pulse number
 npoints = pn*100; % Number of timepoints
 carrytype='tria'; % carrier type 
@@ -134,27 +134,121 @@ hold(axes1,'off');
 set(axes1,'FontName','Times','FontSize',15);
 xlim([0 100])
 %%
-figure();
-subplot(3,1,1);
+% Create figure
+figure1 = figure;
+
 stem(f,harmonic_ip_a,'Marker','^','LineWidth',1);
-xlim([0 pn*2])
+xlim([0 pn*3])
 
 subplot(3,1,2);
 stem(f,harmonic_mag_SA,'Marker','^','LineWidth',1);
-xlim([0 pn*2])
+xlim([0 pn*3])
 
 subplot(3,1,3);
 stem(f,harmonic_mag_IswA,'Marker','^','LineWidth',1);
-xlim([0 pn*2])
+xlim([0 pn*3])
+
 %%
+figure1 = figure;
+
+% Create subplot
+subplot1 = subplot(3,1,1,'Parent',figure1);
+hold(subplot1,'on');
+
+% Create stem
+stem(f,harmonic_ip_a,'Parent',subplot1,'MarkerSize',2,'Marker','^','LineWidth',1,...
+    'Color',[0 0 1]);
+
+% Create ylabel
+ylabel({'Current (A)'});
+
+% Create title
+title({'Phase Current'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(subplot1,[0 pn*3]);
+box(subplot1,'on');
+hold(subplot1,'off');
+% Set the remaining axes properties
+set(subplot1,'FontName','Times New Roman','FontSize',12);
+% Create subplot
+
+subplot2 = subplot(3,1,2,'Parent',figure1);
+hold(subplot2,'on');
+
+% Create stem
+stem(f,harmonic_mag_SA,'Parent',subplot2,'MarkerSize',2,'Marker','^','LineWidth',1,...
+    'Color',[0.858823529411765 0.345098039215686 0.345098039215686]);
+
+% Create ylabel
+ylabel({'Logic (0 or 1)'});
+
+% Create title
+title({'Switching Function'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(subplot2,[0 pn*3]);
+box(subplot2,'on');
+hold(subplot2,'off');
+
+% Set the remaining axes properties
+set(subplot2,'FontName','Times New Roman','FontSize',12);
+% Create subplot
+subplot3 = subplot(3,1,3,'Parent',figure1);
+hold(subplot3,'on');
+
+% Create stem
+stem(f,harmonic_mag_IswA,'Parent',subplot3,'MarkerSize',2,'Marker','^','LineWidth',1,...
+    'Color',[0.741176470588235 0.250980392156863 0.592156862745098]);
+
+% Create ylabel
+ylabel({'Current (A)'});
+xlabel({'Harmonic number'});
+% Create title
+title({'Leg Current (Convolved)'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(subplot3,[0 pn*3]);
+box(subplot3,'on');
+hold(subplot3,'off');
+% Set the remaining axes properties
+set(subplot3,'FontName','Times New Roman','FontSize',12);
+%%
+
+figure1 = figure;
+% Create axes
+axes1 = axes('Parent',figure1);
+
+% Create stem
+stem(f,harmonic_mag_IswA,'MarkerSize',1,'Marker','^','LineWidth',4,...
+    'Color',[0.741176470588235 0.250980392156863 0.592156862745098]);
+
+% Create ylabel
+ylabel({'Current (A)'});
+xlabel({'Harmonic number'});
+% Create title
+title({'Leg Current (Convolved)'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim([0 15]);
+box(subplot3,'on');
+hold(subplot3,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15);
+
+
+%%
+
 harmonic_mag=abs(harmonic_IswA+harmonic_IswB+harmonic_IswC);
 figure1 = figure;
 % Create axes
 axes1 = axes('Parent',figure1);
 hold(axes1,'on');
 % Create stem
-stem(f,harmonic_mag,'Marker','^','LineWidth',1);
+stem(f,harmonic_mag,'MarkerSize',4,'Marker','^','LineWidth',1,...
+    'Color',[0.741176470588235 0.250980392156863 0.592156862745098]);
 % Create ylabel
+title({'DC-Link Current (3-Phase Total)'});
 ylabel({'Peak Magnitude (A)'});
 % Create xlabel
 xlabel({'Harmonic number'});
@@ -162,7 +256,7 @@ box(axes1,'on');
 hold(axes1,'off');
 % Set the remaining axes properties
 set(axes1,'FontName','Times','FontSize',15);
-xlim([0 100])
+xlim([0 pn*3])
 
 %% Phase A
 filename="C:\Github\KTH\DC-Bus Current Modelling\Matlab\PhAResponse.txt";
@@ -213,10 +307,16 @@ loglog3=loglog(f*f1, abs(cap3_phA));
 hold on
 loglog4=loglog(f*f1, abs(cap4_phA));
 hold on
+loglog5=loglog(f*f1, abs(cap1_phA+cap2_phA+cap3_phA+cap4_phA));
+hold on
+loglog6=yline(1,'LineWidth',2,'LineStyle','--');
+
 set(loglog1,'DisplayName','Cap-1');
 set(loglog2,'DisplayName','Cap-2');
 set(loglog3,'DisplayName','Cap-3');
-set(loglog1,'DisplayName','Cap-4');
+set(loglog4,'DisplayName','Cap-4');
+set(loglog5,'DisplayName','Total');
+set(loglog6,'DisplayName','Unity Line');
 
 % Create ylabel
 ylabel({'Magnitude Response'});
@@ -233,8 +333,7 @@ set(axes1,'FontName','Times New Roman','FontSize',15,'XMinorTick','on',...
     'XScale','log','YMinorTick','on','YScale','log');
 % Create legend
 legend1 = legend(axes1,'show');
-set(legend1,...
-    'Position',[0.708630954429862 0.651984132235012 0.169642854801246 0.213095232134774]);
+set(legend1,'Location','southeast');
 
 % ylim([0 0.5])
 xlim([0 120e3])
@@ -405,7 +504,9 @@ xlim([0 FreqLimit])
 %%
 
 FreqLimit=fc*5;
-figure;
+figure1=figure;
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
 hold all;
 plot(w/(2*pi)/1e3,abs(cap1),'b-','Linewidth',1);
 plot(w/(2*pi)/1e3,abs(cap2),'r-','Linewidth',1);
@@ -413,8 +514,30 @@ plot(w/(2*pi)/1e3,abs(cap3),'g-','Linewidth',1);
 plot(w/(2*pi)/1e3,abs(cap4),'k-','Linewidth',1);
 set(gca,'FontSize',10);
 legend('Cap1','Cap2','Cap3','Cap4' )
+% xlim([0 FreqLimit/1e3])
+
+
+% Create ylabel
+ylabel({'Magnitude Response'});
+
+% Create xlabel
+xlabel({'Frequency (Hz)'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+% xlim(axes1,[0 120000]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XMinorTick','on',...
+    'XScale','linear','YMinorTick','on','YScale','linear');
+% Create legend
+legend1 = legend(axes1,'show');
+set(legend1,'Location','best');
+
 xlim([0 FreqLimit/1e3])
 
+
+%%
 
 cap1(isnan(cap1)) = 0;
 cap2(isnan(cap2)) = 0;
