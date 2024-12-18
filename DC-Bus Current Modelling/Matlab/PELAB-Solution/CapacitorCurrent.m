@@ -136,7 +136,7 @@ xlim([0 100])
 %%
 % Create figure
 figure1 = figure;
-
+subplot(3,1,1);
 stem(f,harmonic_ip_a,'Marker','^','LineWidth',1);
 xlim([0 pn*3])
 
@@ -306,10 +306,10 @@ hold on
 loglog3=loglog(f*f1, abs(cap3_phA));
 hold on
 loglog4=loglog(f*f1, abs(cap4_phA));
+% hold on
+% loglog5=loglog(f*f1, abs(cap1_phA+cap2_phA+cap3_phA+cap4_phA));
 hold on
-loglog5=loglog(f*f1, abs(cap1_phA+cap2_phA+cap3_phA+cap4_phA));
-hold on
-loglog6=yline(1,'LineWidth',2,'LineStyle','--');
+% loglog6=yline(1,'LineWidth',2,'LineStyle','--');
 
 set(loglog1,'DisplayName','Cap-1');
 set(loglog2,'DisplayName','Cap-2');
@@ -425,13 +425,63 @@ clear values IC1real IC1imag IC2real IC2imag IC3real IC3imag IC4real IC4imag new
 %%
 w=f*f1*2*pi;
 
-%% capacitor response A 
+%% capacitor responses
 cap1= cap1_phA.*harmonic_IswA+ cap1_phB.*harmonic_IswB+ cap1_phC.*harmonic_IswC;
 cap2= cap2_phA.*harmonic_IswA+ cap2_phB.*harmonic_IswB+ cap2_phC.*harmonic_IswC;
 cap3= cap3_phA.*harmonic_IswA+ cap3_phB.*harmonic_IswB+ cap3_phC.*harmonic_IswC;
 cap4= cap4_phA.*harmonic_IswA+ cap4_phB.*harmonic_IswB+ cap4_phC.*harmonic_IswC;
 
 S=harmonic_IswA+harmonic_IswB+harmonic_IswC;
+
+%%
+figure1 = figure;
+
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+loglog1=loglog(f*f1, abs(cap1_phA),'LineWidth',2);
+hold on
+loglog2=loglog(f*f1, abs(cap1_phB),'LineWidth',2);
+hold on
+loglog3=loglog(f*f1, abs(cap1_phC),'LineWidth',2,'LineStyle','--');
+hold on
+loglog4=loglog(f*f1, abs(cap1_phA+cap1_phB+cap1_phC));
+hold on
+% loglog5=loglog(f*f1, abs(cap1_phA+cap2_phA+cap3_phA+cap4_phA));
+hold on
+loglog6=yline(0.25,'LineWidth',2,'LineStyle','--');
+
+xlim([0 120e3])
+
+set(loglog1,'DisplayName','Cap-1-PhA');
+set(loglog2,'DisplayName','Cap-1-PhB');
+set(loglog3,'DisplayName','Cap-1-PhC');
+set(loglog4,'DisplayName','Total');
+% set(loglog5,'DisplayName','Total');
+set(loglog6,'DisplayName','Quarter Line');
+
+% Create ylabel
+ylabel({'Magnitude Response'});
+
+% Create xlabel
+xlabel({'Frequency (Hz)'});
+
+% Uncomment the following line to preserve the X-limits of the axes
+% xlim(axes1,[0 120000]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',15,'XMinorTick','on',...
+    'XScale','log','YMinorTick','on','YScale','log');
+% Create legend
+legend1 = legend(axes1,'show');
+set(legend1,'Location','southeast');
+
+% ylim([0 0.5])
+
+
+
 %%
 
 FreqLimit=180e3;
