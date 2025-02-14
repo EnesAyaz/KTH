@@ -1,4 +1,5 @@
-load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\OneDrive_1_3-28-2024\measuredData.mat');
+% load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\OneDrive_1_3-28-2024\measuredData.mat');
+load('C:\Users\enesa\OneDrive - KTH\Hemizero\Harmonics_analysis\Harmonics_analysis\measuredData.mat')
 %%
 time=Data.Time;
 U_RS=Data.U_R1_S1;
@@ -200,14 +201,13 @@ xlabel('f (kHz)','FontName','Times New Roman');
 % title('Single-Sided Amplitude Spectrum of X(t)');
 
 % Uncomment the following line to preserve the X-limits of the axes
-xlim(axes1,[0 45]);
+xlim(axes1,[0 100]);
 ylim([-1000 1000])
 box(axes1,'on');
 hold(axes1,'off');
 % Set the remaining axes properties
 set(axes1,'FontName','Times New Roman','FontSize',15);
 % set(axes1,'FontName','Times New Roman','FontSize',15,'YScale', 'log');
-
 
 end
 %%

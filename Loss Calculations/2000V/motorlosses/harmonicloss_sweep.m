@@ -1,12 +1,15 @@
- load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\Harmonics_analysis\Harmonics_analysis\EMimpedanceData.mat');
+ % load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\Harmonics_analysis\Harmonics_analysis\EMimpedanceData.mat');
+load('C:\Users\enesa\OneDrive - KTH\Hemizero\Harmonics_analysis\Harmonics_analysis\EMimpedanceData.mat')
+
  %%
 f=EM_impedance_stator_only.f;
 Z_mag=EM_impedance_stator_only.Z/2; %% phase impedance
 Z_angle=EM_impedance_stator_only.theta*pi/180;
 %%
-% f=EM_impedance_stator_rotor_housing.f;
-% Z_mag=EM_impedance_stator_rotor_housing.Z/2; %% phase impedance
-% Z_angle=EM_impedance_stator_rotor_housing.theta*pi/180;
+f=EM_impedance_stator_rotor_housing.f;
+Z_mag=EM_impedance_stator_rotor_housing.Z/2; %% phase impedance
+Z_angle=EM_impedance_stator_rotor_housing.theta*pi/180;
+%%
 %%
 f=f(1:end-2);
 Z_mag=Z_mag(1:end-2);

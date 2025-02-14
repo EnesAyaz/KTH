@@ -176,7 +176,7 @@ end
 
 %%
 plot(f,Ks)
-xlim([8e3 11e3])
+xlim([8e3 20e3])
 
 
 
