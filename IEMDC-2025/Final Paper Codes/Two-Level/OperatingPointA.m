@@ -1,16 +1,16 @@
-for n=[1] 
+for  n=[2]
 given_parameters='A';
 % Given parameters- 2
-id = -563.4; %  d-axis current value in A
-iq = 571.7; %  q-axis current value in A
-vd = -11.2; %  d-axis voltage value in V
-vq = 4.2; %  q-axis voltage value in V
-Vdc= 625; % DC link voltage in V
+Torque= 1250; % Torque of the motor in N.m
+RPM = 200; % Rotational speed in RPM
+vd = -22.4; %  d-axis voltage value in V
+vq = 8.4; %  q-axis voltage value in V
+id = -565.4; %  d-axis current value in A
+iq = 570.5; %  q-axis current value in A
 Ld= 109e-6; % d-axis inductance value in H
 Lq=109e-6; % q-axis inductance value in H
-Torque= 1250; % Torque of the motor in N.m
-RPM = 100; % Rotational speed in RPM
-
+Vdc= 625; % DC link voltage in V
+is_desired=sqrt(id^2+iq^2)
 %% Electrical Frequency
 % Given values
 p = 6; % Number of pole pairs
@@ -19,7 +19,7 @@ fe = (RPM * p) / 60;
 %% Swithcing frequency and SPWM mode selection 
 
 f1 = fe; % Fundamental frequency
-fc = n*1000*fe; %Selected carrier frequency 
+fc = n*500*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
 % cmode='tri6'; % reference common-mode injection 
@@ -128,7 +128,35 @@ plot(theta,v_a,'b')
 hold on; 
 end 
 %% Load calculation 
-resistance= 0.98*max(v_a)*power_factor/max(i_a);
+if cmode=='none' 
+
+if n==1
+resistance= 1.0084*max(v_a)*power_factor/max(i_a);
+elseif n==1.5
+resistance= 0.9905*max(v_a)*power_factor/max(i_a);
+elseif n==2
+resistance= 0.726*max(v_a)*power_factor/max(i_a);
+elseif n==2.5
+resistance= 0.959*max(v_a)*power_factor/max(i_a);
+elseif n==3
+resistance= 0.908*max(v_a)*power_factor/max(i_a);
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+resistance= 1.1265*max(v_a)*power_factor/max(i_a);
+elseif n==1.5
+resistance= 1.0425*max(v_a)*power_factor/max(i_a);
+elseif n==2
+resistance= 0.746*max(v_a)*power_factor/max(i_a);
+elseif n==2.5
+resistance= 0.9955*max(v_a)*power_factor/max(i_a);
+elseif n==3
+resistance= 0.7342*max(v_a)*power_factor/max(i_a);
+end
+end
+
 %%
 
 ma=ma_calculated;   % Modulation index
@@ -142,7 +170,7 @@ smp= 'ns';  % reference sampling mode
 % % cmode='tri6'; % reference common-mode injection 
 thetac=0; % carrier phase offset
 start_angle= 0; % reference angle to start with
-end_angle=16*pi; %reference angle to end with 
+end_angle=1024*2*pi; %reference angle to end with 
 ma_dc=0; % DC reference
 
 theta0=0; % reference phase offset
@@ -321,7 +349,7 @@ end
 %% 
 required_length=round(1/fe/sample_time);
 
-start=required_length*4;
+start=required_length*800;
 
 time2= time(start:start+required_length);
 time2=time2-time2(1);
@@ -333,7 +361,33 @@ i_c_differential2= i_c_differential(start:start+required_length);
 frequency=1/(time2(end)-time2(1));
 theta2=linspace(0,2*pi,length(i_a_differential2));
 
-theta2=theta2-(pi+theta_difference)-0.0269; % findind dq update
+if cmode=='none' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)-0.015; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)-0.021; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)-0.158; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)-0.0350; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)-0.059; % findind dq update
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)+0.028; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)-0.00; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)-0.145; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)-0.020; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)-0.1525; % findind dq update
+end
+end
 
 % Initialize arrays to store results
 id2 = zeros(size(time2));
@@ -354,11 +408,12 @@ id_mean=mean(id2)
 iq_mean = mean(iq2)
 is= sqrt(id_mean^2+iq_mean^2)
 %%
-if debug_mode==1
+if debug_mode==2
+    
 figure('Name','dq')
-plot(time2*1e3,id2) 
+plot(time2,id2) 
 hold on
-plot(time2*1e3,iq2) 
+plot(time2,iq2) 
 end
 
 %%

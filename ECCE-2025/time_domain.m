@@ -16,7 +16,7 @@ The_f=-pi/6;
 phaseA=The_f+0;
 phaseB=The_f-2*pi/3;
 phaseC=The_f+2*pi/3;
-VrefA = ma*cos(2*pi*fout*time_array+phaseA)
+VrefA = ma*cos(2*pi*fout*time_array+phaseA);
 VrefB = ma*cos(2*pi*fout*time_array+phaseB);
 VrefC = ma*cos(2*pi*fout*time_array+phaseC);
 Vtriang = zeros(1, NumberofSteps);
@@ -26,7 +26,7 @@ for k = 1:Tfinal*fsw
 end
 
 carrierPhA=0;
-carrierPhB=90;
+carrierPhB=0;
 carrierPhC=0;
 carA= round(carrierPhA/(fsw*Ts)/360);
 if carA==0

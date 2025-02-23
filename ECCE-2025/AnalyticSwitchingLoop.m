@@ -1,6 +1,6 @@
 fo=1e3;
 fs=40e3;
-ma=0;
+ma=0.25;
 
 DA_tot=[];
 DB_tot=[];
@@ -90,17 +90,17 @@ figure1 = figure;
 axes1 = axes('Parent',figure1);
 hold(axes1,'on');
 
-plot(time_tot*fo*360,SA_fs_mag_x,'DisplayName','leg-A','color', [0.8 0 0]);
+plot(time_tot*fo*360,SA_fs_mag_x,'DisplayName','Phase-A','color', [0.8 0 0]);
 hold on;
-plot(time_tot*fo*360,SB_fs_mag_x,'DisplayName','leg-B','color', [0 0 0.8]);
+plot(time_tot*fo*360,SB_fs_mag_x,'DisplayName','Phase-B','color', [0 0 0.8]);
 hold on;
-plot(time_tot*fo*360,SC_fs_mag_x,'DisplayName','leg-C','color', [0 0.8 0]);
+plot(time_tot*fo*360,SC_fs_mag_x,'DisplayName','Phase-C','color', [0 0.8 0]);
 hold on;
 
 xlim([0 360])
 ylim([0 1])
 
-ylabel({'|S|'});
+ylabel({'Normalized Voltage'});
 
 % Create xlabel
 xlabel({'Fundamental Phase'});
