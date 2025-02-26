@@ -1,4 +1,4 @@
-for  n=[3]
+for  n=[1 1.5 2 2.5 3]
 given_parameters='B';
 % Given parameters- 2
 Torque= 1240; % Torque of the motor in N.m
@@ -22,7 +22,7 @@ f1 = fe; % Fundamental frequency
 fc = n*33*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
-% cmode='3rd1'; % reference common-mode injection 
+cmode='3rd1'; % reference common-mode injection 
 
 %% Calculations 
 debug_mode=2; % make 1 if you want to see the graphs
@@ -131,29 +131,29 @@ end
 if cmode=='none' 
 
 if n==1
-resistance= 0.8414*max(v_a)*power_factor/max(i_a);
+resistance= 0.8405*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.8399*max(v_a)*power_factor/max(i_a);
+resistance= 0.8403*max(v_a)*power_factor/max(i_a);
 elseif n==2
-resistance= 0.8407*max(v_a)*power_factor/max(i_a);
+resistance= 0.8403*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
-resistance= 0.841*max(v_a)*power_factor/max(i_a);
+resistance= 0.8404*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 0.84*max(v_a)*power_factor/max(i_a);
+resistance= 0.8403*max(v_a)*power_factor/max(i_a);
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
-resistance= 0.857*max(v_a)*power_factor/max(i_a);
+resistance= 0.8565*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.856*max(v_a)*power_factor/max(i_a);
+resistance= 0.8565*max(v_a)*power_factor/max(i_a);
 elseif n==2
-resistance= 0.856*max(v_a)*power_factor/max(i_a);
+resistance= 0.8565*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
-resistance= 0.8564*max(v_a)*power_factor/max(i_a);
+resistance= 0.8565*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 0.8575*max(v_a)*power_factor/max(i_a);
+resistance= 0.8565*max(v_a)*power_factor/max(i_a);
 end
 end
 
@@ -372,7 +372,7 @@ P1 = P2(1:L/2+1);
 P1(2:end-1) = 2*P1(2:end-1);
 f = Fs/L*(0:(L/2));
 %%
-if debug_mode==1
+if debug_mode==2
 figure1= figure('Name','Solved Currents FFT for phase-A');
 axes1 = axes('Parent',figure1);
 
@@ -380,7 +380,8 @@ plot(f,P1,"LineWidth",2)
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("f (Hz)")
 ylabel("Magnitude of Phase Current (A)")
-xlim([0 24000])
+xlim([0 120000])
+ylim([0 50])
 set(axes1,'FontName','Times New Roman','FontSize',15);
 
 end
@@ -401,29 +402,29 @@ theta2=linspace(0,2*pi,length(i_a_differential2));
 
 if cmode=='none' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.4828; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.4828; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.4828; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.4828; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.4828; % findind dq update
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.475; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.475; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.475; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.475; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)-0.4725; % findind dq update
+theta2=theta2-(pi+theta_difference)-0.475; % findind dq update
 end
 end
 

@@ -1,4 +1,4 @@
-for  n=[1]
+for  n=[1 1.5 2 2.5 3]
 given_parameters='C';
 % Given parameters- 2
 Torque= 620; % Torque of the motor in N.m
@@ -22,7 +22,7 @@ f1 = fe; % Fundamental frequency
 fc = n*33*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
-cmode='tri6'; % reference common-mode injection 
+cmode='3rd1'; % reference common-mode injection 
 
 %% Calculations 
 debug_mode=2; % make 1 if you want to see the graphs
@@ -131,29 +131,29 @@ end
 if cmode=='none' 
 
 if n==1
-resistance= 0.985*max(v_a)*power_factor/max(i_a);
+resistance= 0.979*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.9837*max(v_a)*power_factor/max(i_a);
+resistance= 0.984*max(v_a)*power_factor/max(i_a);
 elseif n==2
 resistance= 0.9842*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
-resistance= 0.9845*max(v_a)*power_factor/max(i_a);
+resistance= 0.9842*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 0.984*max(v_a)*power_factor/max(i_a);
+resistance= 0.9842*max(v_a)*power_factor/max(i_a);
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
-resistance= 0.9998*max(v_a)*power_factor/max(i_a);
+resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.999*max(v_a)*power_factor/max(i_a);
+resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 elseif n==2
-resistance= 0.9995*max(v_a)*power_factor/max(i_a);
+resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
 resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 1.0003*max(v_a)*power_factor/max(i_a);
+resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 end
 end
 
@@ -163,8 +163,8 @@ ma=ma_calculated;   % Modulation index
 % f1 = fe; % Fundamental frequency
 % fc = 34*fe; %Selected carrier frequency 
 % pn = fc/f1; % Pulse number
-npoints = 8*(1/f1)*1e7; % Number of timepoints
-carrytype='tria'; % carrier type 
+npoints = round(8*(1/f1)*1e7); % Number of timepoints
+carrytype='pcs'; % carrier type 
 smp= 'ns';  % reference sampling mode 
 % cmode='none'; % reference common-mode injection 
 % % cmode='tri6'; % reference common-mode injection 
@@ -174,11 +174,52 @@ end_angle=16*2*pi; %reference angle to end with
 ma_dc=0; % DC reference
 
 theta0=0; % reference phase offset
-[vp_a,wt_a,carr_a,ref_a] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
+[vp_a,wt_a,ref_a, carr_a] = mlspwm(ma, pn, 3, theta0,npoints, carrytype, cmode);
+fundamental_count=24;
+wt_a1=wt_a;
+vp_a1=vp_a;
+ref_a1=ref_a;
+carr_a1=carr_a;
+for i=1:1:fundamental_count
+vp_a=[vp_a, vp_a1];
+wt_a=[wt_a, wt_a1+2*pi*(i)];
+ref_a=[ref_a, ref_a1];
+carr_a=[carr_a, carr_a1];
+end
+
+
 theta0=4*pi/3; % reference phase offset
-[vp_b,wt_b,carr_b,ref_b] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
+[vp_b,wt_b,ref_b,carr_b] = mlspwm(ma, pn, 3, theta0,npoints, carrytype, cmode);
+wt_b1=wt_b;
+vp_b1=vp_b;
+ref_b1=ref_b;
+carr_b1=carr_b;
+for i=1:1:fundamental_count
+vp_b=[vp_b, vp_b1];
+wt_b=[wt_b, wt_b1+2*pi*(i)];
+ref_b=[ref_b, ref_b1];
+carr_b=[carr_b, carr_b1];
+end
+
+
+
 theta0=2*pi/3; % reference phase offset
-[vp_c,wt_c,carr_c,ref_c] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
+[vp_c,wt_c,ref_c,carr_c] = mlspwm(ma, pn, 3, theta0, npoints,carrytype, cmode);
+wt_c1=wt_c;
+vp_c1=vp_c;
+ref_c1=ref_c;
+carr_c1=carr_c;
+for i=1:1:fundamental_count
+vp_c=[vp_c, vp_c1];
+wt_c=[wt_c, wt_c1+2*pi*(i)];
+ref_c=[ref_c, ref_c1];
+carr_c=[carr_c, carr_c1];
+end
+
+
+
+
+
 % Numerical waveforms during one cycle
 vp= vp_a- (vp_a+vp_b+vp_c)/3;
 wt= wt_a;
@@ -334,7 +375,7 @@ P1 = P2(1:L/2+1);
 P1(2:end-1) = 2*P1(2:end-1);
 f = Fs/L*(0:(L/2));
 %%
-if debug_mode==1
+if debug_mode==2
 figure1= figure('Name','Solved Currents FFT for phase-A');
 axes1 = axes('Parent',figure1);
 
@@ -342,7 +383,8 @@ plot(f,P1,"LineWidth",2)
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("f (Hz)")
 ylabel("Magnitude of Phase Current (A)")
-xlim([0 24000])
+xlim([0 120000])
+ylim([0 50])
 set(axes1,'FontName','Times New Roman','FontSize',15);
 
 end
@@ -363,29 +405,29 @@ theta2=linspace(0,2*pi,length(i_a_differential2));
 
 if cmode=='none' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)+0.0685; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0682; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)+0.0679; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0660; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0660; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0660; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0660; % findind dq update
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0705; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0705; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0705; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0705; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0705; % findind dq update
 end
 end
 
@@ -439,7 +481,7 @@ data.mode=cmode;
 % Save the struct to a .mat file
 
 % Define the folder where you want to save the file
-saveFolder = 'C:\Github\KTH\IEMDC-2025\Final Paper Codes\Two-Level\Waweforms'; % Replace with the actual folder pat
+saveFolder = 'C:\Github\KTH\IEMDC-2025\Final Paper Codes\Three-Level\Waweforms'; % Replace with the actual folder pat
 % folder2 =  num2str(given_parameters);  % Converts the number to a string with single quotes '123'
 saveFolder=fullfile(saveFolder,given_parameters);
 

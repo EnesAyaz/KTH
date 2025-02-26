@@ -1,4 +1,4 @@
-for  n=[2]
+for  n=[3]
 % n= 1 1.49 2 2.5 2.99
 given_parameters='A';
 % Given parameters- 2
@@ -380,7 +380,7 @@ plot(f,P1,"LineWidth",2)
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("f (Hz)")
 ylabel("Magnitude of Phase Current (A)")
-xlim([1000 80000])
+xlim([0 200000])
 set(axes1,'FontName','Times New Roman','FontSize',15);
 
 end

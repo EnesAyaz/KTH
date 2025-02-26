@@ -1,4 +1,4 @@
-load('C:\Github\KTH\IEMDC-2025\Final Paper Codes\Two-Level\Waweforms\A\current_waveform1.mat')
+load('C:\Github\KTH\IEMDC-2025\Final Paper Codes\Three-Level\Waweforms\F\current_waveform10.mat')
 figure();
 plot(data.time,data.i_q_time)
 hold on

@@ -1,4 +1,5 @@
 for  n=[1 1.5 2 2.5 3]
+%%
 % n= 1 1.49 2 2.5 2.99
 given_parameters='A';
 % Given parameters- 2
@@ -19,33 +20,34 @@ p = 6; % Number of pole pairs
 fe = (RPM * p) / 60;
 %%
 % cmode='none'; % reference common-mode injection 
-cmode='tri6'; % reference common-mode injection 
+cmode='none'; % reference common-mode injection 
+cmode='3rd1'; % reference common-mode injection 
 
 debug_mode=3; % make 1 if you want to see the graphs
 % Load calculation 
 if cmode=='none' 
 if n==1
-coeff=1.0025;
+coeff=1.00;
 elseif n==1.5
-coeff=0.9997;
+coeff=1;
 elseif n==2
-coeff=0.9997;
+coeff=1;
 elseif n==2.5
-coeff=1.001;
+coeff=1.00;
 elseif n==3
-coeff=0.9985;
+coeff=1;
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
 coeff=1.0015;
 elseif n==1.5
-coeff=1.0013;
+coeff=1.0015;
 elseif n==2
-coeff=1.002;
+coeff=1.0015;
 elseif n==2.5
-coeff=1.0132;
+coeff=1.0015;
 elseif n==3
 coeff=1.0015;
 end
@@ -57,13 +59,12 @@ f1 = fe; % Fundamental frequency
 fc = n*500*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 
-
 %% Modulation index calculation
 ma_calculated=2*sqrt(vd^2+vq^2)/Vdc; % modulation index
 %%
 %% Calculations 
 % debug_mode=2; % make 1 if you want to see the graphs
-Length=10000000;
+Length=10000;
 theta= linspace(0,2*pi,Length); % Electrical angle in radians (change as per the rotor position or time-varying angle)
 %% Time domain currents
 % Given d-axis and q-axis currents (id, iq)
@@ -163,8 +164,8 @@ ma=ma_calculated;   % Modulation index
 % f1 = fe; % Fundamental frequency
 % fc = 34*fe; %Selected carrier frequency 
 % pn = fc/f1; % Pulse number
-npoints = 20*(1/f1)*1e7; % Number of timepoints
-carrytype='tria'; % carrier type 
+npoints = round(20*(1/f1)*1e6); % Number of timepoints
+carrytype='pcs'; % carrier type 
 smp= 'ns';  % reference sampling mode 
 % cmode='none'; % reference common-mode injection 
 % % cmode='tri6'; % reference common-mode injection 
@@ -174,12 +175,48 @@ end_angle=48*2*pi; %reference angle to end with
 ma_dc=0; % DC reference
 
 theta0=0; % reference phase offset
-[vp_a,wt_a,carr_a,ref_a] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
- theta0=4*pi/3; % reference phase offset
-[vp_b,wt_b,carr_b,ref_b] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
+[vp_a,wt_a,ref_a, carr_a] = mlspwm(ma, pn, 3, theta0,npoints, carrytype, cmode);
+fundamental_count=48;
+wt_a1=wt_a;
+vp_a1=vp_a;
+ref_a1=ref_a;
+carr_a1=carr_a;
+for i=1:1:fundamental_count
+vp_a=[vp_a, vp_a1];
+wt_a=[wt_a, wt_a1+2*pi*(i)];
+ref_a=[ref_a, ref_a1];
+carr_a=[carr_a, carr_a1];
+end
+
+theta0=4*pi/3; % reference phase offset
+[vp_b,wt_b,ref_b,carr_b] = mlspwm(ma, pn, 3, theta0,npoints, carrytype, cmode);
+wt_b1=wt_b;
+vp_b1=vp_b;
+ref_b1=ref_b;
+carr_b1=carr_b;
+for i=1:1:fundamental_count
+vp_b=[vp_b, vp_b1];
+wt_b=[wt_b, wt_b1+2*pi*(i)];
+ref_b=[ref_b, ref_b1];
+carr_b=[carr_b, carr_b1];
+end
+
+
 theta0=2*pi/3; % reference phase offset
-[vp_c,wt_c,carr_c,ref_c] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
-% Numerical waveforms during one cycle
+[vp_c,wt_c,ref_c,carr_c] = mlspwm(ma, pn, 3, theta0, npoints,carrytype, cmode);
+wt_c1=wt_c;
+vp_c1=vp_c;
+ref_c1=ref_c;
+carr_c1=carr_c;
+for i=1:1:fundamental_count
+vp_c=[vp_c, vp_c1];
+wt_c=[wt_c, wt_c1+2*pi*(i)];
+ref_c=[ref_c, ref_c1];
+carr_c=[carr_c, carr_c1];
+end
+
+
+
 vp= vp_a- (vp_a+vp_b+vp_c)/3;
 wt= wt_a;
 carr= carr_a;
@@ -401,29 +438,29 @@ theta2=linspace(0,2*pi,length(i_a_differential2));
 
 if cmode=='none' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)+0.0255; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.019; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)+0.0187; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.019; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)+0.0179; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.019; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)+0.0195; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.019; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)+0.0235; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.019; % findind dq update
 end
 end
 
-if cmode=='tri6' % reference common-mode injection 
+if cmode=='3rd1' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)+0.0241; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0225; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)+0.0241; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0225; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)+0.0231; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0225; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)+0.045; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0225; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)+0.0231; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0225; % findind dq update
 end
 end
 
@@ -477,7 +514,7 @@ data.mode=cmode;
 % Save the struct to a .mat file
 
 % Define the folder where you want to save the file
-saveFolder = 'C:\Github\KTH\IEMDC-2025\Final Paper Codes\Two-Level\Waweforms'; % Replace with the actual folder pat
+saveFolder = 'C:\Github\KTH\IEMDC-2025\Final Paper Codes\Three-Level\Waweforms'; % Replace with the actual folder pat
 % folder2 =  num2str(given_parameters);  % Converts the number to a string with single quotes '123'
 saveFolder=fullfile(saveFolder,given_parameters);
 

@@ -22,7 +22,7 @@ f1 = fe; % Fundamental frequency
 fc = n*33*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
-cmode='tri6'; % reference common-mode injection 
+% cmode='tri6'; % reference common-mode injection 
 
 %% Calculations 
 debug_mode=2; % make 1 if you want to see the graphs
