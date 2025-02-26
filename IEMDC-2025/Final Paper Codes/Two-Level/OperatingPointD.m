@@ -1,15 +1,15 @@
-for n=[1 1.5 2 2.5 3] 
+for  n=[1]
 given_parameters='D';
 % Given parameters- 2
-id = -91.4; %  d-axis current value in A
-iq = 193.1; %  q-axis current value in A
-vd = -184.8; %  d-axis voltage value in V
-vq = 248.7; %  q-axis voltage value in V
-Vdc= 625; % DC link voltage in V
-Ld= 125e-6; % d-axis inductance value in H
-Lq=211e-6; % q-axis inductance value in H
 Torque= 310; % Torque of the motor in N.m
 RPM = 3000; % Rotational speed in RPM
+vd = -184.4; %  d-axis voltage value in V
+vq = 248.5; %  q-axis voltage value in V
+id = -92.3; %  d-axis current value in A
+iq = 192.7; %  q-axis current value in A
+Ld= 135e-6; % d-axis inductance value in H
+Lq=330e-6; % q-axis inductance value in H
+Vdc= 625; % DC link voltage in V
 is_desired=sqrt(id^2+iq^2)
 %% Electrical Frequency
 % Given values
@@ -128,7 +128,35 @@ plot(theta,v_a,'b')
 hold on; 
 end 
 %% Load calculation 
-resistance= 0.985*max(v_a)*power_factor/max(i_a);
+if cmode=='none' 
+
+if n==1
+resistance= 1.026*max(v_a)*power_factor/max(i_a);
+elseif n==1.5
+resistance= 1.026*max(v_a)*power_factor/max(i_a);
+elseif n==2
+resistance= 1.025*max(v_a)*power_factor/max(i_a);
+elseif n==2.5
+resistance= 1.026*max(v_a)*power_factor/max(i_a);
+elseif n==3
+resistance= 1.026*max(v_a)*power_factor/max(i_a);
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+resistance= 1.034*max(v_a)*power_factor/max(i_a);
+elseif n==1.5
+resistance= 1.034*max(v_a)*power_factor/max(i_a);
+elseif n==2
+resistance= 1.034*max(v_a)*power_factor/max(i_a);
+elseif n==2.5
+resistance= 1.034*max(v_a)*power_factor/max(i_a);
+elseif n==3
+resistance= 1.034*max(v_a)*power_factor/max(i_a);
+end
+end
+
 %%
 
 ma=ma_calculated;   % Modulation index
@@ -142,7 +170,7 @@ smp= 'ns';  % reference sampling mode
 % % cmode='tri6'; % reference common-mode injection 
 thetac=0; % carrier phase offset
 start_angle= 0; % reference angle to start with
-end_angle=16*pi; %reference angle to end with 
+end_angle=16*2*pi; %reference angle to end with 
 ma_dc=0; % DC reference
 
 theta0=0; % reference phase offset
@@ -321,7 +349,7 @@ end
 %% 
 required_length=round(1/fe/sample_time);
 
-start=required_length*4;
+start=required_length*14;
 
 time2= time(start:start+required_length);
 time2=time2-time2(1);
@@ -333,7 +361,33 @@ i_c_differential2= i_c_differential(start:start+required_length);
 frequency=1/(time2(end)-time2(1));
 theta2=linspace(0,2*pi,length(i_a_differential2));
 
-theta2=theta2-(pi+theta_difference)+0.05; % findind dq update
+if cmode=='none' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)+0.4343; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)+0.4343; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)+0.4343; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)+0.4343; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)+0.4343; % findind dq update
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)+0.437; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)+0.437; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)+0.437; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)+0.437; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)+0.437; % findind dq update
+end
+end
 
 % Initialize arrays to store results
 id2 = zeros(size(time2));
@@ -355,10 +409,11 @@ iq_mean = mean(iq2)
 is= sqrt(id_mean^2+iq_mean^2)
 %%
 if debug_mode==2
+    
 figure('Name','dq')
-plot(time2*1e3,id2) 
+plot(time2,id2) 
 hold on
-plot(time2*1e3,iq2) 
+plot(time2,iq2) 
 end
 
 %%

@@ -22,10 +22,10 @@ f1 = fe; % Fundamental frequency
 fc = n*33*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
-% cmode='tri6'; % reference common-mode injection 
+cmode='tri6'; % reference common-mode injection 
 
 %% Calculations 
-debug_mode=0; % make 1 if you want to see the graphs
+debug_mode=2; % make 1 if you want to see the graphs
 Length=1000;
 theta= linspace(0,2*pi,Length); % Electrical angle in radians (change as per the rotor position or time-varying angle)
 
@@ -131,29 +131,29 @@ end
 if cmode=='none' 
 
 if n==1
-resistance= 0.8414*max(v_a)*power_factor/max(i_a);
+resistance= 0.985*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.8399*max(v_a)*power_factor/max(i_a);
+resistance= 0.9837*max(v_a)*power_factor/max(i_a);
 elseif n==2
-resistance= 0.8407*max(v_a)*power_factor/max(i_a);
+resistance= 0.9842*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
-resistance= 0.841*max(v_a)*power_factor/max(i_a);
+resistance= 0.9845*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 0.84*max(v_a)*power_factor/max(i_a);
+resistance= 0.984*max(v_a)*power_factor/max(i_a);
 end
 end
 
 if cmode=='tri6' % reference common-mode injection 
 if n==1
-resistance= 0.857*max(v_a)*power_factor/max(i_a);
+resistance= 0.9998*max(v_a)*power_factor/max(i_a);
 elseif n==1.5
-resistance= 0.856*max(v_a)*power_factor/max(i_a);
+resistance= 0.999*max(v_a)*power_factor/max(i_a);
 elseif n==2
-resistance= 0.856*max(v_a)*power_factor/max(i_a);
+resistance= 0.9995*max(v_a)*power_factor/max(i_a);
 elseif n==2.5
-resistance= 0.8564*max(v_a)*power_factor/max(i_a);
+resistance= 0.9996*max(v_a)*power_factor/max(i_a);
 elseif n==3
-resistance= 0.8575*max(v_a)*power_factor/max(i_a);
+resistance= 1.0003*max(v_a)*power_factor/max(i_a);
 end
 end
 
@@ -363,29 +363,29 @@ theta2=linspace(0,2*pi,length(i_a_differential2));
 
 if cmode=='none' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0685; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0679; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)-0.481; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0680; % findind dq update
 end
 end
 
 if cmode=='tri6' % reference common-mode injection 
 if n==1
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
 elseif n==1.5
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
 elseif n==2
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
 elseif n==2.5
-theta2=theta2-(pi+theta_difference)-0.473; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
 elseif n==3
-theta2=theta2-(pi+theta_difference)-0.4725; % findind dq update
+theta2=theta2-(pi+theta_difference)+0.0728; % findind dq update
 end
 end
 

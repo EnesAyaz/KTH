@@ -1,16 +1,17 @@
-for n=[1 1.5 2 2.5 3] 
-given_parameters='D';
+for  n=[2]
+given_parameters='E';
 % Given parameters- 2
-id = -91.4; %  d-axis current value in A
-iq = 193.1; %  q-axis current value in A
-vd = -184.8; %  d-axis voltage value in V
-vq = 248.7; %  q-axis voltage value in V
+Torque= 740; % Torque of the motor in N.m
+RPM = 5000; % Rotational speed in RPM
+vd = -301.9; %  d-axis voltage value in V
+vq = 120.1; %  q-axis voltage value in V
+id = -774.2; %  d-axis current value in A
+iq = 200.4; %  q-axis current value in A
+Ld= 133e-6; % d-axis inductance value in H
+Lq=394e-6; % q-axis inductance value in H
 Vdc= 625; % DC link voltage in V
-Ld= 125e-6; % d-axis inductance value in H
-Lq=211e-6; % q-axis inductance value in H
-Torque= 310; % Torque of the motor in N.m
-RPM = 3000; % Rotational speed in RPM
 is_desired=sqrt(id^2+iq^2)
+
 %% Electrical Frequency
 % Given values
 p = 6; % Number of pole pairs
@@ -19,14 +20,14 @@ fe = (RPM * p) / 60;
 %% Swithcing frequency and SPWM mode selection 
 
 f1 = fe; % Fundamental frequency
-fc = n*33*fe; %Selected carrier frequency 
+fc = n*20*fe; %Selected carrier frequency 
 pn = fc/f1; % Pulse number
 cmode='none'; % reference common-mode injection 
 cmode='tri6'; % reference common-mode injection 
 
 %% Calculations 
 debug_mode=2; % make 1 if you want to see the graphs
-Length=1000;
+Length=10000;
 theta= linspace(0,2*pi,Length); % Electrical angle in radians (change as per the rotor position or time-varying angle)
 
 %% Time domain currents
@@ -71,11 +72,14 @@ if debug_mode==1
 figure('Name','Time Domain Phase-A Current and Voltage')
 plot(theta/2/pi/fe,i_a)
 hold on; 
-plot(theta/2/pi/fe,v_a*100)
+plot(theta/2/pi/fe,v_a)
 % xlim([0 0.027])
 end
 %% Modulation index calculation
 ma_calculated=2*max(v_a)/Vdc; % modulation index
+% if ma_calculated>1
+%     ma_calculated=1;
+% end
 peak_phase_current= max(i_a); % peak phase current
 
 %% Power Factor Calculation
@@ -128,7 +132,35 @@ plot(theta,v_a,'b')
 hold on; 
 end 
 %% Load calculation 
-resistance= 0.985*max(v_a)*power_factor/max(i_a);
+
+if cmode=='none' 
+if n==1
+coeff=0.7675;
+elseif n==1.5
+coeff=0.7678;
+elseif n==2
+coeff=0.7675;
+elseif n==2.5
+coeff=0.7675;
+elseif n==3
+coeff=0.7674;
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+coeff=0.7673;
+elseif n==1.5
+coeff=0.7675;
+elseif n==2
+coeff=0.7673;
+elseif n==2.5
+coeff=0.7671;
+elseif n==3
+coeff=0.7677;
+end
+end
+
 %%
 
 ma=ma_calculated;   % Modulation index
@@ -142,7 +174,7 @@ smp= 'ns';  % reference sampling mode
 % % cmode='tri6'; % reference common-mode injection 
 thetac=0; % carrier phase offset
 start_angle= 0; % reference angle to start with
-end_angle=16*pi; %reference angle to end with 
+end_angle=48*2*pi; %reference angle to end with 
 ma_dc=0; % DC reference
 
 theta0=0; % reference phase offset
@@ -196,7 +228,7 @@ ipA=ip_a_t;
 ipB=ip_b_t;
 ipC=ip_c_t;
 
-rs=resistance;
+rs=0.001;
 t_end=theta(end)/f1/2/pi;
 
 
@@ -238,40 +270,86 @@ i_a= zeros(size(v_phase_a));
 i_b= zeros(size(v_phase_b));
 i_c= zeros(size(v_phase_c));
 
+v_phase_a1=v_phase_a-ma_calculated*cos(wt)*Ud/2;
+v_phase_b1=v_phase_b-ma_calculated*cos(wt-2*pi/3)*Ud/2;
+v_phase_c1=v_phase_c-ma_calculated*cos(wt-4*pi/3)*Ud/2;
+
+v_phase_a1=v_phase_a1-mean(v_phase_a1);
+
 time=wt/2/pi/f1; % angle-to-time
 sample_time=time(2)-time(1); % sample_time
+
+starting= round(1/(sample_time*fe)/3);
+
+% v_phase_a1=v_phase_a1;
+v_fundamental_a= -2*pi*fe*mean(L_a)*sin(wt)*max(ipA)*coeff;
+i_a_fundamental=zeros(size(v_fundamental_a));
 
 for t=2:length(time)
 
 dL_dt = (L_a(t) - L_a(t-1)) / sample_time;
-i_a(t) = i_a(t-1) + sample_time * ((v_phase_a(t) - rs*i_a(t-1) - dL_dt * i_a(t-1)) / L_a(t));
+i_a(t) = i_a(t-1) + sample_time * ((v_phase_a1(t)- dL_dt * i_a(t-1)) / L_a(t));
+i_a_fundamental(t) = i_a_fundamental(t-1) + sample_time * ((v_fundamental_a(t)) / L_a(t));
 
 
-dL_dt = (L_b(t) - L_b(t-1)) / sample_time;
-i_b(t) = i_b(t-1) + sample_time * ((v_phase_b(t) - rs*i_b(t-1) - dL_dt * i_b(t-1)) / L_b(t));
 
-dL_dt = (L_c(t) - L_c(t-1)) / sample_time;
-i_c(t) = i_c(t-1) + sample_time * ((v_phase_c(t) - rs*i_c(t-1) - dL_dt * i_c(t-1)) / L_c(t));
-
+% dL_dt = (L_b(t) - L_b(t-1)) / sample_time;
+% i_b(t) = i_b(t-1) + sample_time * ((v_phase_b(t) - dL_dt * i_b(t-1)) / L_b(t));
+% 
+% dL_dt = (L_c(t) - L_c(t-1)) / sample_time;
+% i_c(t) = i_c(t-1) + sample_time * ((v_phase_c(t) - dL_dt * i_c(t-1)) / L_c(t));
 end
+
+
+
+i_b_fundamental= [i_a_fundamental(2*starting:end), i_a_fundamental(1:2*starting-1)];
+i_c_fundamental= [i_a_fundamental(1*starting:end), i_a_fundamental(1:1*starting-1)];
+
+
+i_b= [i_a(2*starting:end), i_a(1:2*starting-1)];
+i_c= [i_a(1*starting:end), i_a(1:1*starting-1)];
+
+i_a=i_a+i_a_fundamental;
+i_b=i_b+i_b_fundamental;
+i_c=i_c+i_c_fundamental;
+
+%%
+if debug_mode==1
+figure('Name','Ideal and Solved Currents including Common mode- PhA')
+plot(theta/2/pi/fe,i_a,'r')
+hold on
+plot(theta/2/pi/fe,i_a_fundamental,'b',LineWidth=2)
+% xlim([0 0.027])
+hold on
+end
+%%
 
 if debug_mode==1
 figure('Name','Ideal and Solved Currents including Common mode- PhA')
 plot(theta/2/pi/fe,i_a,'r')
 hold on
-plot(theta/2/pi/fe,ipA,'b',LineWidth=2)
+plot(theta/2/pi/fe,i_b,'b',LineWidth=2)
+hold on
+plot(theta/2/pi/fe,i_c,'g',LineWidth=2)
 % xlim([0 0.027])
 hold on
+plot(theta/2/pi/fe,ipA,'b',LineWidth=2)
+end
+
 %%
+if debug_mode==1
 figure('Name','Ideal and Solved Currents including Common mode- PhB')
 plot(theta,i_b,'-.b')
 hold on
 plot(theta,ipB,'b')
 hold on
+end
+%%
+if debug_mode==1
 figure('Name','Ideal and Solved Currents including Common mode- PhC')
 plot(theta,i_c,'-.g')
 hold on
-plot(theta,ipC,'g')
+% plot(theta,ipC,'g')
 hold on
 end
 %%
@@ -321,7 +399,7 @@ end
 %% 
 required_length=round(1/fe/sample_time);
 
-start=required_length*4;
+start=required_length*40;
 
 time2= time(start:start+required_length);
 time2=time2-time2(1);
@@ -333,7 +411,33 @@ i_c_differential2= i_c_differential(start:start+required_length);
 frequency=1/(time2(end)-time2(1));
 theta2=linspace(0,2*pi,length(i_a_differential2));
 
-theta2=theta2-(pi+theta_difference)+0.05; % findind dq update
+if cmode=='none' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)-0.1375; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+end
+end
+
+if cmode=='tri6' % reference common-mode injection 
+if n==1
+theta2=theta2-(pi+theta_difference)-0.1380; % findind dq update
+elseif n==1.5
+theta2=theta2-(pi+theta_difference)-0.1377; % findind dq update
+elseif n==2
+theta2=theta2-(pi+theta_difference)-0.1385; % findind dq update
+elseif n==2.5
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+elseif n==3
+theta2=theta2-(pi+theta_difference)-0.137; % findind dq update
+end
+end
 
 % Initialize arrays to store results
 id2 = zeros(size(time2));
@@ -355,10 +459,11 @@ iq_mean = mean(iq2)
 is= sqrt(id_mean^2+iq_mean^2)
 %%
 if debug_mode==2
+    
 figure('Name','dq')
-plot(time2*1e3,id2) 
+plot(time2,id2) 
 hold on
-plot(time2*1e3,iq2) 
+plot(time2,iq2) 
 end
 
 %%
