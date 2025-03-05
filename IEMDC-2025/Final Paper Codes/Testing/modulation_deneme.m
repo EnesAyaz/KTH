@@ -1,4 +1,4 @@
-ma=0.8;   % Modulation index
+ma=0.5;   % Modulation index
 fe = 500; % Fundamental frequency
 % fc = 34*fe; %Selected carrier frequency 
 % pn = fc/f1; % Pulse number

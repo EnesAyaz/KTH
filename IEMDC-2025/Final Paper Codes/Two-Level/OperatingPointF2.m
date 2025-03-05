@@ -1,4 +1,4 @@
-for  n=[1 1.5 2 2.5 3]
+for  n=[1 1.45 2 2.45 3]
 %%
 given_parameters='F';
 % Given parameters- 2
@@ -138,11 +138,11 @@ end
 if cmode=='none' 
 if n==1
 coeff=0.772;
-elseif n==1.5
+elseif n==1.45
 coeff=0.7725;
 elseif n==2
 coeff=0.7721;
-elseif n==2.5
+elseif n==2.45
 coeff=0.772;
 elseif n==3
 coeff=0.7717;
@@ -152,11 +152,11 @@ end
 if cmode=='tri6' % reference common-mode injection 
 if n==1
 coeff=0.7718;
-elseif n==1.5
+elseif n==1.45
 coeff=0.7721;
 elseif n==2
 coeff=0.7718;
-elseif n==2.5
+elseif n==2.45
 coeff=0.7713;
 elseif n==3
 coeff=0.77215;
@@ -415,11 +415,11 @@ theta2=linspace(0,2*pi,length(i_a_differential2));
 if cmode=='none' % reference common-mode injection 
 if n==1
 theta2=theta2-(pi+theta_difference)-0.22; % findind dq update
-elseif n==1.5
+elseif n==1.45
 theta2=theta2-(pi+theta_difference)-0.22; % findind dq update
 elseif n==2
 theta2=theta2-(pi+theta_difference)-0.2215; % findind dq update
-elseif n==2.5
+elseif n==2.45
 theta2=theta2-(pi+theta_difference)-0.2212; % findind dq update
 elseif n==3
 theta2=theta2-(pi+theta_difference)-0.2206; % findind dq update
@@ -429,11 +429,11 @@ end
 if cmode=='tri6' % reference common-mode injection 
 if n==1
 theta2=theta2-(pi+theta_difference)-0.2217; % findind dq update
-elseif n==1.5
+elseif n==1.45
 theta2=theta2-(pi+theta_difference)-0.222; % findind dq update
 elseif n==2
 theta2=theta2-(pi+theta_difference)-0.223; % findind dq update
-elseif n==2.5
+elseif n==2.45
 theta2=theta2-(pi+theta_difference)-0.2207; % findind dq update
 elseif n==3
 theta2=theta2-(pi+theta_difference)-0.2215; % findind dq update

@@ -1,4 +1,4 @@
-load('C:\Github\KTH\IEMDC-2025\Final Paper Codes\Two-Level\Waweforms\F\current_waveform3.mat')
+load('C:\Github\KTH\IEMDC-2025\Final Paper Codes\Three-Level\Waweforms\F\current_waveform1.mat')
 figure()
 plot(data.time,data.i_q_time)
 hold on
@@ -43,24 +43,31 @@ f = Fs/L*(0:(L/2));
 %%
 
 figure1= figure('Name','FFT for phase-A');
-subplot(3,1,1)
+subplot(4,1,1)
 plot(f/data.fundamentalfrequency,P1,"LineWidth",2) 
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("Harmonic Number")
-ylabel("Magnitude of Phase Current (A)")
+% ylabel("Magnitude of Phase Current (A)")
 xlim([2 12])
 % ylim([0 20])
 
-subplot(3,1,2)
+subplot(4,1,2)
 plot(f/data.fundamentalfrequency,P1,"LineWidth",2) 
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 xlabel("Harmonic Number")
-ylabel("Magnitude of Phase Current (A)")
-xlim([data.fsw/data.fundamentalfrequency-7 data.fsw/data.fundamentalfrequency+7 ])
-
-subplot(3,1,3)
-plot(f/data.fundamentalfrequency,P1,"LineWidth",2) 
-% title("Single-Sided Amplitude Spectrum of Phase Curremt")
-xlabel("Harmonic Number")
-ylabel("Magnitude of Phase Current (A)")
+% ylabel("Magnitude of Phase Current (A)")
 xlim([2*data.fsw/data.fundamentalfrequency-7 2*data.fsw/data.fundamentalfrequency+7 ])
+
+subplot(4,1,3)
+plot(f/data.fundamentalfrequency,P1,"LineWidth",2) 
+% title("Single-Sided Amplitude Spectrum of Phase Curremt")
+xlabel("Harmonic Number")
+% ylabel("Magnitude of Phase Current (A)")
+xlim([4*data.fsw/data.fundamentalfrequency-7 4*data.fsw/data.fundamentalfrequency+7 ])
+
+subplot(4,1,4)
+plot(f/data.fundamentalfrequency,P1,"LineWidth",2) 
+% title("Single-Sided Amplitude Spectrum of Phase Curremt")
+xlabel("Harmonic Number")
+% ylabel("Magnitude of Phase Current (A)")
+xlim([2 5*data.fsw/data.fundamentalfrequency+7 ])
