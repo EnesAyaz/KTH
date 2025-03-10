@@ -1,4 +1,4 @@
-vpp=out.Vpa.signals.values;
+vpp=out.Vpp.signals.values;
 f1=500;
 time=out.Vpp.time;
 sample_time=time(2)-time(1);
@@ -15,9 +15,9 @@ f = Fs/L*(0:(L/2));
 
 %%
 figure();
-plot(f/1e3,2*P1/625,"LineWidth",2) 
+plot(f/1e3,2*P1./625.*f1./f',"LineWidth",2) 
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 % xlabel("Harmonic Number")
 % ylabel("Magnitude of Phase Current (A)")
-xlim([0 80])
-ylim([0 1])
+xlim([0 200])
+ylim([0 0.02])
