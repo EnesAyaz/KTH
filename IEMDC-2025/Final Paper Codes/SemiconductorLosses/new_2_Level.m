@@ -3,14 +3,22 @@ theta_pf= acos(0.9);
 m_a=1;
 
 
+
+I_peak=600;
+theta_pf= 0.9;
+m_a=1;
+ffund=100;
+
+
+
 P_on_y=[];
 P_zcs_y=[];
 P_over_y=[];
 
-ffund=500;
 
-Fsw_a=10e3:1e2:30e3;
-A_die_a=30:5:1000;
+
+Fsw_a=10e3:5e3:30e3;
+A_die_a=20:50:320;
 
 for fsw=Fsw_a
 
@@ -20,10 +28,16 @@ P_over_x=[];
 
 for A_die=A_die_a
 
-k_r=7.2*10e-3;
+% k_r=7.2*10e-3;
+% alpha_r= 1.6;
+% U_b=1.7; % kV 
+% r_on=k_r * U_b^(alpha_r)./A_die;
+
+k_r=7.2*1e-3;
 alpha_r= 1.6;
-U_b=1.7; % kV 
-r_on=k_r * U_b^(alpha_r)./A_die;
+U_b=0.9; % kV 
+r_on=k_r * (U_b*1000)^(alpha_r)/A_die/1000; %% I changed this formulation because it is not correct 
+
 
 P_c= 0;
 sample_theta=1e-2;
@@ -36,7 +50,7 @@ for theta=theta_pf:sample_theta:(theta_pf+pi)
 end
 
 
-Udc=1250; 
+Udc=625; 
 Ub=U_b*1e3;
 k_c=1.6e4;
 alpha_c=-1;
@@ -49,9 +63,7 @@ sample_theta=1e-2;
 sample_theta=ffund*2*pi/(fsw);
 
 for theta=theta_pf:sample_theta:(theta_pf+pi)
-    
     E_zcs= E_zcs+ Esw;
-
 end
 
 dv_dt=10e3/1e-6; % V/s
@@ -61,7 +73,6 @@ for theta=theta_pf:sample_theta:(theta_pf+pi)
    IL= abs(I_peak*sin(theta-theta_pf));
    E_over2= ((Udc*IL.^2/di_dt)+(Udc^2.*IL/dv_dt));
    E_over =E_over + E_over2;
-
 end
 
 
@@ -77,77 +88,23 @@ P_over_y=[P_over_y ; P_over_x];
 
 end
 
-
-
-Pout=300e3;
-
+P_totx= 3*(1.5*P_on_x+P_zcs_x+P_over_x);
 
 P_tot= 3*(1.5*P_on_y+P_zcs_y+P_over_y);
-% P_tot= 3*(P_over_y);
-% P_tot= 3*(P_zcs_y);
+
+
+
 
 [X,Y] = meshgrid(A_die_a,Fsw_a/1e3);
-
 figure1 = figure('GraphicsSmoothing','off');
-% colormap("colorcube");
-% alphamap('increase',.1)
-colormap("colorcube")
-
-% Create axes
 axes1 = axes('Parent',figure1);
 hold(axes1,'on');
-
-% Create contour
-hLines = 500; 
- % [~,h] = contour(X,Y,3*P_on_y,hLines,'Fill','on');
-  % [~,h] = contour(X,Y,3*Psw_zcs_y,hLines,'Fill','on');
-    % [~,h] = contour(X,Y,3*Psw_dvdt_y,hLines,'Fill','on');
-   [~,h] = contour(X,Y,100*Pout./(Pout+P_tot),hLines,'Fill','on',"EdgeAlpha",1,"FaceAlpha",1);
-      % [~,h] = contour(X,Y,P_tot,hLines,'Fill','on');
-hold on
-
-
-
-% for targetEfficiency = 99.4:0.01:99.8
-% % Specify the desired efficiency value
-% % Plot a specific contour line for the desired efficiency value
-% contour(X, Y, 100 * Pout ./ (Pout + P_tot), [targetEfficiency, targetEfficiency], 'LineColor', 'k', 'LineWidth', 1);
-% end
-
+contour(X,Y,P_tot)
 % Create ylabel
 ylabel('Switching Frequency (kHz)','FontSize',15);
-
 % Create xlabel
 xlabel('Die area (mm^2)','FontSize',15);
 
-% Create title
- % title(' Total Loss (W)','FontSize',20,'FontWeight','bold','Interpreter','none');
 
-box(axes1,'on');
-axis(axes1,'tight');
-hold(axes1,'off');
-% Set the remaining axes properties
-set(axes1,'BoxStyle','full','FontName','Times New Roman','FontSize',15,...
-    'Layer','top');
-
-% % Create colorbar
-c=colorbar(axes1,'FontSize',15,'FontName','Times New Roman');
-% c.Face.Texture.CData = cdata;
- caxis([98.2 99.8]);
-% caxis([97.5 99.75]);
-
-% Create textbox
-annotation(figure1,'textbox',...
-    [0.751785714285713 0.945238095238097 0.262500000000001 0.0619047619047691],...
-    'String',{'Efficiency (%)'},...
-    'FontSize',15,...
-    'FontName','Times New Roman',...
-    'FitBoxToText','off',...
-    'EdgeColor','none');
-
-% % Create textarrow
-% annotation(figure1,'textarrow',[0.398214285714285 0.364285714285714],...
-%     [0.315666666666668 0.197619047619049],'String',{'99.4 %'},'FontSize',15,...
-%     'FontName','Times New Roman');
 
 
