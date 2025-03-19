@@ -3,7 +3,7 @@ fe = 500; % Fundamental frequency
 % fc = 34*fe; %Selected carrier frequency 
 % pn = fc/f1; % Pulse number
 pn=60;
-npoints = 8*(1/20)*1e7; % Number of timepoints
+npoints = 8*(1/20)*1e4; % Number of timepoints
 carrytype='pcs'; % carrier type 
 smp= 'ns';  % reference sampling mode 
 cmode='none'; % reference common-mode injection 
@@ -104,9 +104,10 @@ P1(2:end-1) = 2*P1(2:end-1);
 f = Fs/L*(0:(L/2));
 %%
 figure();
-plot(f*fe/1e3,P1.*fe./f,"LineWidth",2) 
+
+plot(f*fe/1e3,P1,"LineWidth",2) 
 % title("Single-Sided Amplitude Spectrum of Phase Curremt")
 % xlabel("Harmonic Number")
 % ylabel("Magnitude of Phase Current (A)")
 xlim([0 180])
-ylim([0 2])
+% ylim([0 2])

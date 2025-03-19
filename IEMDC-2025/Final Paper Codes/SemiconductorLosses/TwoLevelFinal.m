@@ -1,4 +1,4 @@
-operating_point='A'
+operating_point='F'
 
 if operating_point=='A'
 vd = -22.4; %  d-axis voltage value in V
@@ -83,7 +83,7 @@ m_a=V_peak/Vdc;
 ffund=electrical_frequency;
 I_peak
 %%
-Fsw_a=10e3:5e3:30e3;
+Fsw_a=5e3:5e3:30e3;
 A_die=500;
 
 P_on_x=[];

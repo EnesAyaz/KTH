@@ -84,7 +84,7 @@ ffund=electrical_frequency;
 I_peak
 
 
-Fsw_a=10e3:5e3:30e3;
+Fsw_a=5e3:5e3:30e3;
 A_die=500;
 
 P_on_x=[];
