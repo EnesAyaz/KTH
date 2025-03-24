@@ -9,8 +9,8 @@ Vdc = 1200;
 fsw = 14e3;
 ffund = 500;
 
-DeltaPhasedegree=90;
-DeltaPhase=DeltaPhasedegree*pi/180;
+DeltaPhasedegree=20;
+% DeltaPhase=DeltaPhasedegree*pi/180;
 
 %% PWM different parameters
 ModulationIndex1 = 0.9;
