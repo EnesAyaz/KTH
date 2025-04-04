@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SemiconductorLibrary xmlns="http://www.plexim.com/xml/semiconductors/" version="1.3">
+    <Package class="Diode" vendor="IFX" partnumber="FF3MR20KM1H">
+        <Variables>
+            <Variable>
+                <Name>Rgon</Name>
+                <Description>Gate (on) resistance</Description>
+            </Variable>
+        </Variables>
+        <SemiconductorData type="Diode">
+            <TurnOnLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> 0 50</CurrentAxis>
+                <VoltageAxis> -1200 0</VoltageAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <Energy scale="1e-06">
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOnLoss>
+            <TurnOffLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> 0 50</CurrentAxis>
+                <VoltageAxis> -1200 0</VoltageAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <Energy scale="1">
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0</Voltage>
+                        <Voltage> 0 0</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOffLoss>
+            <ConductionLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> 0 80 160 240 320 400 480 560 640 720 800</CurrentAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <VoltageDrop scale="1">
+                    <Temperature> 2.7994 3.4477 3.83 4.1231 4.3748 4.5959 4.8021 4.9942 5.1568 5.3339 5.4981</Temperature>
+                    <Temperature> 2.525184783 3.110695652 3.455326087 3.719663043 3.94701087 4.146391304 4.33223913 4.505456522 4.65251087 4.812195652 4.960152174</Temperature>
+                    <Temperature> 2.433913043 2.99826087 3.330434783 3.585217391 3.804347826 3.996521739 4.175652174 4.342608696 4.484347826 4.63826087 4.780869565</Temperature>
+                </VoltageDrop>
+            </ConductionLoss>
+        </SemiconductorData>
+        <ThermalModel>
+            <Branch type="Foster" convertToCauer="false">
+                <RTauElement R="0.0126" Tau="0.00965"/>
+                <RTauElement R="0.0558" Tau="0.0473"/>
+                <RTauElement R="0.0143" Tau="0.26"/>
+                <RTauElement R="0.0053" Tau="2.32"/>
+            </Branch>
+        </ThermalModel>
+        <Comment>
+            <Line>Module: FF3MR20KM1H Body diode</Line>
+            <Line>Package: 62mm HB</Line>
+            <Line>Topology: FF (Dual)</Line>
+            <Line>  </Line>
+            <Line>%% Model Parameters: </Line>
+            <Line>var_zthtype=0</Line>
+            <Line>var_bp=1</Line>
+            <Line>var_device=1</Line>
+            <Line>var_TIM=0</Line>
+            <Line>RCCEE=0.000465</Line>
+            <Line>VCES=2000</Line>
+            <Line>IC_NOM=400</Line>
+            <Line>VCE=1200</Line>
+            <Line>Rgonnom=8.2</Line>
+            <Line>Rgoffnom=2.2</Line>
+            <Line>Rthjx=0.088</Line>
+            <Line>Rthch=0.033</Line>
+            <Line>Tvjop_max=175</Line>
+            <Line>var_advanced=0</Line>
+            <Line>%% End of Model Parameters</Line>
+        </Comment>
+    </Package>
+</SemiconductorLibrary>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SemiconductorLibrary xmlns="http://www.plexim.com/xml/semiconductors/" version="1.3">
+    <Package class="MOSFET" vendor="IFX" partnumber="FF3MR20KM1H">
+        <Variables>
+            <Variable>
+                <Name>Rgon</Name>
+                <Description>Gate (on) resistance</Description>
+            </Variable>
+            <Variable>
+                <Name>Rgoff</Name>
+                <Description>Gate (off) resistance</Description>
+            </Variable>
+        </Variables>
+        <CustomTables>
+            <Table2D>
+                <Name>Rgon_table</Name>
+                <XAxis> 8.2 12.08 15.97 19.85 23.74 27.62 31.51 35.39 39.27 43.16 47.04 50.93 54.81 58.69 62.58 66.46 70.35 74.23 78.12 82</XAxis>
+                <YAxis> 125 175</YAxis>
+                <FunctionValues scale="1">
+                    <YDimension> 1 1.3981 1.7771 2.1351 2.4937 2.8302 3.1563 3.4624 3.7576 4.0722 4.3259 4.6006 4.8618 5.1155 5.3483 5.5691 5.8009 5.9903 6.2006 6.393</YDimension>
+                    <YDimension> 1 1.398 1.777 2.135 2.494 2.83 3.156 3.462 3.758 4.072 4.326 4.601 4.862 5.115 5.348 5.569 5.801 5.99 6.201 6.393</YDimension>
+                </FunctionValues>
+            </Table2D>
+            <Table2D>
+                <Name>Rgoff_table</Name>
+                <XAxis> 2.2 3.24 4.28 5.33 6.37 7.41 8.45 9.49 10.54 11.58 12.62 13.66 14.71 15.75 16.79 17.83 18.87 19.92 20.96 22</XAxis>
+                <YAxis> 125 175</YAxis>
+                <FunctionValues scale="1">
+                    <YDimension> 1 1.2252 1.4427 1.6854 1.892 2.1056 2.3298 2.5515 2.7704 2.9958 3.2145 3.4324 3.658 3.8795 4.0938 4.3177 4.5289 4.7639 4.9809 5.1981</YDimension>
+                    <YDimension> 1 1.225 1.443 1.685 1.892 2.106 2.33 2.551 2.77 2.996 3.215 3.432 3.658 3.88 4.094 4.318 4.529 4.764 4.981 5.198</YDimension>
+                </FunctionValues>
+            </Table2D>
+        </CustomTables>
+        <SemiconductorData type="MOSFET">
+            <TurnOnLoss>
+                <ComputationMethod>Table and formula</ComputationMethod>
+                <Formula> E*lookup('Rgon_table', Rgon, 125)                     </Formula>
+                <CurrentAxis> -800 0 40 80 120 160 200 240 280 320 360 400 440 480 520 560 600 640 680 720 760 800</CurrentAxis>
+                <VoltageAxis> -1200 0 1200</VoltageAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <Energy scale="0.001">
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 9.265476253 16.76865435 23.74234828 30.90478892 38.47452507 46.04426121 53.20670185 60.57775726 68.01835092 75.25032982 83.00881266 90.45934037 97.91980211 105.4001319 112.8506596 120.5992084 128.0497361 136.0963061 143.5468338 151.2953826</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 9.3269 16.876 23.902 31.115 38.732 46.349 53.565 60.982 68.471 75.745 83.556 91.065 98.574 106.08 113.6 121.4 128.91 137.02 144.53 152.34</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 9.8538 17.568 25.452 33.337 41.12 49.153 56.727 64.528 71.874 80.134 87.936 95.738 103.31 111.14 119.39 127.05 135.06 142.84 150.52 158.69</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOnLoss>
+            <TurnOffLoss>
+                <ComputationMethod>Table and formula</ComputationMethod>
+                <Formula> E*lookup('Rgoff_table', Rgoff, 125)                     </Formula>
+                <CurrentAxis> -800 0 40 80 120 160 200 240 280 320 360 400 440 480 520 560 600 640 680 720 760 800</CurrentAxis>
+                <VoltageAxis> -1200 0 1200</VoltageAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <Energy scale="0.001">
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0.620841176 2.940776471 5.262141176 7.583505882 10.10117647 12.80752941 15.33282353 18.42988235 21.52694118 24.45247059 28.11176471 31.05635294 34.78235294 38.08905882 42.14858824 45.71258824 50.28670588 54.108 58.94894118 63.28482353</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0.6514800000000001 3.0863 5.5221 7.9582 10.599 13.442 16.085 19.335 22.586 25.665 29.499 32.595 36.501 39.966 44.234 47.972 52.775 56.779 61.858 66.405</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0.87495 3.2391 5.7256 8.4474 11.29 14.191 17.254 20.272 23.825 27.201 30.577 34.309 38.098 42.363 46.099 50.368 54.904 59.443 63.988 69.328</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOffLoss>
+            <ConductionLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> -800 -760 -720 -680 -640 -600 -560 -520 -480 -440 -400 -360 -320 -280 -240 -200 -160 -120 -80 -40 0 40 80 120 160 200 240 280 320 360 400 440 480 520 560 600 640 680 720 760 800</CurrentAxis>
+                <TemperatureAxis> 25 125 175</TemperatureAxis>
+                <VoltageDrop scale="1">
+                    <Temperature> -2.0505 -1.9512 -1.8424 -1.7307 -1.6285 -1.5198 -1.4142 -1.3118 -1.2096 -1.1037 -1.0023 -0.8948200000000001 -0.80042 -0.69759 -0.5990300000000001 -0.49845 -0.39386000000000004 -0.29506000000000004 -0.1996 -0.085116 0 0.10457999999999999 0.20105 0.31899 0.41501000000000005 0.50998 0.6231300000000001 0.72406 0.8255100000000001 0.9355700000000001 1.0446 1.1509 1.261 1.3749 1.4878 1.5915 1.7119 1.8297 1.9385 2.0776 2.1825</Temperature>
+                    <Temperature> -4.336538462 -4.127115385 -3.896538462 -3.661730769 -3.445961538 -3.215384615 -2.991153846 -2.775384615 -2.559615385 -2.335384615 -2.119615385 -1.892846154 -1.693153846 -1.475692308 -1.267115385 -1.054519231 -0.83325 -0.62425 -0.422230769 -0.180061538 0 0.22359 0.44268 0.6521 0.86456 1.0785 1.2972 1.5157 1.7506 1.9663 2.1967 2.4251 2.668 2.9051 3.1579 3.3903 3.6318 3.9035 4.1436 4.4292 4.6932</Temperature>
+                    <Temperature> -6.15 -5.853 -5.526 -5.193 -4.887 -4.56 -4.242 -3.936 -3.63 -3.312 -3.006 -2.6844 -2.4012 -2.0928 -1.797 -1.4955 -1.1817 -0.8853 -0.5988 -0.25536 0 0.3176 0.6047600000000001 0.92304 1.2114 1.5261 1.8318 2.1493 2.4555 2.7914 3.0953 3.4466 3.7613 4.0995 4.46 4.8119 5.1693 5.5308 5.9116 6.2966 6.6996</Temperature>
+                </VoltageDrop>
+            </ConductionLoss>
+        </SemiconductorData>
+        <ThermalModel>
+            <Branch type="Foster" convertToCauer="false">
+                <RTauElement R="0.0126" Tau="0.00965"/>
+                <RTauElement R="0.0558" Tau="0.0473"/>
+                <RTauElement R="0.0143" Tau="0.26"/>
+                <RTauElement R="0.0053" Tau="2.32"/>
+            </Branch>
+        </ThermalModel>
+        <Comment>
+            <Line>Module: FF3MR20KM1H MOSFET</Line>
+            <Line>Package: 62mm HB</Line>
+            <Line>Topology: FF (Dual)</Line>
+            <Line>  </Line>
+            <Line>%% Model Parameters: </Line>
+            <Line>var_zthtype=0</Line>
+            <Line>var_bp=1</Line>
+            <Line>var_device=1</Line>
+            <Line>var_TIM=0</Line>
+            <Line>RCCEE=0.000465</Line>
+            <Line>VCES=2000</Line>
+            <Line>IC_NOM=400</Line>
+            <Line>VCE=1200</Line>
+            <Line>Rgonnom=8.2</Line>
+            <Line>Rgoffnom=2.2</Line>
+            <Line>Rthjx=0.088</Line>
+            <Line>Rthch=0.033</Line>
+            <Line>Tvjop_max=175</Line>
+            <Line>var_advanced=0</Line>
+            <Line>%% End of Model Parameters</Line>
+        </Comment>
+    </Package>
+</SemiconductorLibrary>
