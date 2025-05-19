@@ -21,8 +21,15 @@ fprintf('Minimum Copper Area: %.2f mm²\n', A_Cu*1e6);
 fprintf('Equivalent Round Wire Diameter: %.2f mm\n', wire_diameter*1e3);
 
 % Select standard AWG size (copper, solid)
-AWG = [4, 2, 1, 1/0]; % Considering high current requirements
-AWG_diam = [5.189, 6.544, 7.348, 8.252]*1e-3; % in meters
+AWG = [4, 2, 1, 1/0 4/0]; % Considering high current requirements
+AWG_diam = [5.189, 6.544, 7.348, 8.252 12]*1e-3; % in meters
+
+% AWG = [4/0]; % Considering high current requirements
+% AWG_diam = [16]*1e-3; % in meters
+
+
+AWG = [4]; % Considering high current requirements
+AWG_diam = [3.5]*1e-3; % in meters
 
 % AWG = [4, 2]; % Considering high current requirements
 % AWG_diam = [5.189, 6.544]*1e-3; % in meters
