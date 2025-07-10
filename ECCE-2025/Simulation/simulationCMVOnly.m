@@ -37,7 +37,7 @@ VCM_conv=VCM.signals.values;
 
 
 
-figure1 = figure;
+figure1 = figure('Position', [0 0 800 300]);
 
 % Create axes
 axes1 = axes('Parent',figure1);
@@ -124,7 +124,7 @@ f = f(1:N/2+1);
 
 %%
 
-figure2 = figure;
+figure2 = figure('Position', [0 0 800 300]);
 
 % Create axes
 axes2 = axes('Parent',figure2);
@@ -186,10 +186,10 @@ ylim([0 0.25])
 
 
 %%
-harmonic_range = (f > 50) & (f <= Fs_new/2);
+harmonic_range = (f > 50) & (f <= 12e3);
 % Get harmonic frequencies and orders
 harmonic_freqs = f(harmonic_range);
-harmonic_orders = harmonic_freqs / 50;
+harmonic_orders = harmonic_freqs / harmonic_freqs*(1);
 
-WTHD0_pro = sqrt(sum((VCM_pro_fft(harmonic_range)./harmonic_orders).^2))
-WTHD0_conv = sqrt(sum((VCM_conv_fft(harmonic_range)./harmonic_orders).^2)) 
+WTHD0_pro = sqrt(sum((VCM_pro_fft(harmonic_range).*harmonic_orders).^2))
+WTHD0_conv = sqrt(sum((VCM_conv_fft(harmonic_range).*harmonic_orders).^2)) 
