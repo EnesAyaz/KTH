@@ -10,7 +10,6 @@ load_angle = acos(pf);
 ma = 0.8;
 
 
-
 n_points = 360; % Number of points for theta_b and theta_c
 theta_b_values = linspace(0,360, n_points);
 theta_c_values = linspace(0, 360, n_points);
@@ -67,12 +66,9 @@ Icc = Ic * (Vc_ref > carrierC);
 Ic_total=Ica+Icb+Icc-mean(Ica+Icb+Icc);
 
 
-
 Ic_RMS=rms(Ic_total);
 
 I_rms_matrix(i, j) = Ic_RMS;
-
-
 
 end
 end
