@@ -1,0 +1,12 @@
+* C:\Github\KTH\Bearing Current Model\Draft1.asc
+Rdson N005 0 100m
+C1 N003 N002 1µ
+Ls N001 N005 20n
+V1 N004 N006 SINE(0 5 280k)
+L1 N001 0 100n
+L2 N002 N006 1000n
+R1 N004 N003 1
+.tran 1e-4
+K1 L1 L2 1
+.backanno
+.end

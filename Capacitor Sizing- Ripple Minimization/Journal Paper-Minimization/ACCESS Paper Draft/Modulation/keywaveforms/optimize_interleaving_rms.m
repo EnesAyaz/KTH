@@ -24,8 +24,8 @@ function [theta_b_opt, theta_c_opt, min_rms] = optimize_interleaving_rms(ib, ic,
     theta_c_opt = 0;
 
     % Search over all combinations of θ_b and θ_c
-    for theta_b = 0:1:360
-    for theta_c = 0:1:360
+    for theta_b = 0:5:360
+    for theta_c = 0:5:360
 
             % Convert angle to carrier time shift
             shift_b = mod(theta_b / 360, 1) * Ts;
@@ -36,9 +36,9 @@ function [theta_b_opt, theta_c_opt, min_rms] = optimize_interleaving_rms(ib, ic,
             carrier_c = sawtooth(2*pi*fsw*(t - shift_c), 0.5);
 
             % Switching functions
-            sa = 2*da-1 >= (carrier);
-            sb = 2*db-1 >= (carrier_b);
-            sc = 2*dc-1 >= (carrier_c);
+            sa = 2*da-1 >= carrier;
+            sb = 2*db-1 >= carrier_b;
+            sc = 2*dc-1 >= carrier_c;
 
             % DC-link current: sum of absolute leg currents
             idc = sa.* ia + sb.* ib +sc .* ic-mean(sa.* ia + sb.* ib +sc .* ic);
