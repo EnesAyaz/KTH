@@ -60,7 +60,7 @@ carrierC=[];
 
 for i=1:NumberofSteps
 
-if variable_carrier==1
+if variable_carrier==0
 % Reference triangular carrier for phase A
 carrier = sawtooth(2*pi*fsw*t, 0.5);  % symmetric triangle [-1,1]
 
