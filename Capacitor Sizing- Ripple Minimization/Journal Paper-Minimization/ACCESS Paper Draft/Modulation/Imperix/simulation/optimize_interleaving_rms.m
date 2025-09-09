@@ -24,8 +24,8 @@ function [theta_b_opt, theta_c_opt, min_rms] = optimize_interleaving_rms(ib, ic,
     theta_c_opt = 0;
 
     % Search over all combinations of θ_b and θ_c
-    for theta_b = 0:5:360
-    for theta_c = 0:5:360
+    for theta_b = 0:1:360
+    for theta_c = 0:1:360
 
             % Convert angle to carrier time shift
             shift_b = mod(theta_b / 360, 1) * Ts;

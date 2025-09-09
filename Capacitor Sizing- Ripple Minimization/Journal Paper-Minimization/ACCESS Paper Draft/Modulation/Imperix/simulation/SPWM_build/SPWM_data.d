@@ -1,0 +1,14 @@
+SPWM_data.o SPWM_data.o: \
+ C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\SPWM_data.cpp \
+ C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\SPWM.h \
+ C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\rtwtypes.h \
+ C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\SPWM_types.h \
+ C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\rt_nonfinite.h
+
+C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\SPWM.h:
+
+C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\rtwtypes.h:
+
+C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\SPWM_types.h:
+
+C:\Github\KTH\CAPACI~1\JOURNA~1\ACCESS~1\MODULA~1\Imperix\SIMULA~1\SPWM_build\rt_nonfinite.h:
