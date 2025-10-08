@@ -16,9 +16,9 @@ t_period= 4/f_fund;
 sample_time=1e-6;
 time=0:sample_time:t_period;
 
- V1= V1_mag*sin(2*pi*harmonic_number_1*f_fund*time-V1_phase);
- V2= V2_mag*sin(2*pi*harmonic_number_2*f_fund*time-V2_phase);
- L= ((Ld+Lq)/2)+ ((-Ld+Lq)/2)*sin(2*2*pi*f_fund*time-theta); % double fundamental
+V1= V1_mag*sin(2*pi*harmonic_number_1*f_fund*time-V1_phase);
+V2= V2_mag*sin(2*pi*harmonic_number_2*f_fund*time-V2_phase);
+L= ((Ld+Lq)/2)+ ((-Ld+Lq)/2)*sin(2*2*pi*f_fund*time-theta); % double fundamental
 
 plot(time,V1);
 hold on
