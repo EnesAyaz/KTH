@@ -83,9 +83,9 @@ plot3=plot(time_data*1000, phC_smooth + bias_C);
 plot4=plot(time_data*1000, common_mode/3 + bias_CM);
 
 
-set(plot1,'DisplayName','Va','Color',[0 0 1]);
-set(plot2,'DisplayName','Vb','Color',[0 1 0]);
-set(plot3,'DisplayName','Vc','Color',[1 0 0]);
+set(plot1,'DisplayName','V_A','Color',[0 0 1]);
+set(plot2,'DisplayName','V_B','Color',[0 1 0]);
+set(plot3,'DisplayName','V_C','Color',[1 0 0]);
 set(plot4,'DisplayName','V_{CM}','Color',[0 0 0]);
 
 % Create ylabel
@@ -120,3 +120,92 @@ ylabel({'Voltage (V)'},'FontName','Times New Roman','FontSize',20);
 % Create xlabel
 xlabel({'Time (ms)'},'FontName','Times New Roman','FontSize',20);
 
+%%
+figure1 = figure;
+set(gcf,'position',[0,0,1000,400])
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+plot4=plot(time_data*1000, common_mode/3);
+
+set(plot4,'DisplayName','V_{CM}','Color',[0 0 0]);
+
+
+% Create ylabel
+ylabel({'Common-Mode Voltage (V)'},'FontName','Times New Roman');
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 50]);
+% Uncomment the following line to preserve the Y-limits of the axes
+ylim(axes1,[0 2.12]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',18,'GridAlpha',0.5,...
+    'GridColor',[0.301960784313725 0.745098039215686 0.933333333333333],...
+    'MinorGridAlpha',1,'MinorGridColor',...
+    [0.301960784313725 0.745098039215686 0.933333333333333],'YTick',...
+    [ 0 0.72 1.42 2.12],'YTickLabel',...
+    {'-50','-16.67','16.67','50'},'ZMinorGrid','on');
+% Create legend
+% legend1 = legend(axes1,'show');
+% set(legend1,...
+    % 'Position',[0.797333334495624 0.579583339889844 0.0869999989271164 0.243749993145466],...
+    % 'EdgeColor','none');
+
+
+% Create ylabel
+ylabel({'Voltage (V)'},'FontName','Times New Roman','FontSize',20);
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman','FontSize',20);
+
+%%
+
+
+figure1 = figure;
+set(gcf,'position',[0,0,1000,400])
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+plot4=plot(time_data*1000, common_mode/3);
+
+set(plot4,'DisplayName','V_{CM}','Color',[0 0 0]);
+
+
+% Create ylabel
+ylabel({'Common-Mode Voltage (V)'},'FontName','Times New Roman');
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 50]);
+% Uncomment the following line to preserve the Y-limits of the axes
+ylim(axes1,[0 2.12]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',18,'GridAlpha',0.5,...
+    'GridColor',[0.301960784313725 0.745098039215686 0.933333333333333],...
+    'MinorGridAlpha',1,'MinorGridColor',...
+    [0.301960784313725 0.745098039215686 0.933333333333333],'YTick',...
+    [ 0 0.72 1.42 2.12],'YTickLabel',...
+    {'-50','-16.67','16.67','50'},'ZMinorGrid','on');
+% Create legend
+% legend1 = legend(axes1,'show');
+% set(legend1,...
+    % 'Position',[0.797333334495624 0.579583339889844 0.0869999989271164 0.243749993145466],...
+    % 'EdgeColor','none');
+
+
+% Create ylabel
+ylabel({'Voltage (V)'},'FontName','Times New Roman','FontSize',20);
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman','FontSize',20);

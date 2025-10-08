@@ -50,18 +50,18 @@ phC_voltage=Vc(start_point:end);
 
 
 fs = 1 / (time_data(2) - time_data(1));  % Sampling frequency
-fc = 50e5;  % Cut-off frequency, adjust as needed
+fc = 10e4;  % Cut-off frequency, adjust as needed
 
 [b, a] = butter(2, fc / (fs/2), 'low');
 phA_smooth = filtfilt(b, a, phA_voltage);
 phB_smooth = filtfilt(b, a, phB_voltage);
 phC_smooth = filtfilt(b, a, phC_voltage);
-fc = 25e4;
+fc = 10e4;
 [b, a] = butter(2, fc / (fs/2), 'low');
 IphA_smooth= filtfilt(b, a, IphA);
 %common_mode= filtfilt(b, a, phA_voltage+phB_voltage+phC_voltage);
 fc = 25e4;  % Cut-off frequency, adjust as needed
-fc = 50e4;  % Cut-off frequency, adjust as needed
+fc = 10e4;  % Cut-off frequency, adjust as needed
 [b, a] = butter(2, fc / (fs/2), 'low');
 common_mode= filtfilt(b, a, phA_voltage+phB_voltage+phC_voltage);
 % common_mode=phA_voltage+phB_voltage+phC_voltage;
@@ -123,4 +123,49 @@ ylabel({'Voltage (V)'},'FontName','Times New Roman','FontSize',20);
 
 % Create xlabel
 xlabel({'Time (ms)'},'FontName','Times New Roman','FontSize',20);
+%%
+
+figure1 = figure;
+set(gcf,'position',[0,0,1000,400])
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+
+plot4=plot(time_data*1000, common_mode/3);
+
+set(plot4,'DisplayName','V_{CM}','Color',[0 0 0]);
+
+
+% Create ylabel
+ylabel({'Common-Mode Voltage (V)'},'FontName','Times New Roman');
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman');
+
+% Uncomment the following line to preserve the X-limits of the axes
+xlim(axes1,[0 50]);
+% Uncomment the following line to preserve the Y-limits of the axes
+ylim(axes1,[0.2 1.8]);
+box(axes1,'on');
+hold(axes1,'off');
+% Set the remaining axes properties
+set(axes1,'FontName','Times New Roman','FontSize',18,'GridAlpha',0.5,...
+    'GridColor',[0.301960784313725 0.745098039215686 0.933333333333333],...
+    'MinorGridAlpha',1,'MinorGridColor',...
+    [0.301960784313725 0.745098039215686 0.933333333333333],'YTick',...
+    [ 0.72 1.42],'YTickLabel',...
+    {'-16.67','16.67'},'ZMinorGrid','on');
+% Create legend
+% legend1 = legend(axes1,'show');
+% set(legend1,...
+    % 'Position',[0.797333334495624 0.579583339889844 0.0869999989271164 0.243749993145466],...
+    % 'EdgeColor','none');
+
+
+% Create ylabel
+ylabel({'Voltage (V)'},'FontName','Times New Roman','FontSize',20);
+
+% Create xlabel
+xlabel({'Time (ms)'},'FontName','Times New Roman','FontSize',20);
+
 
