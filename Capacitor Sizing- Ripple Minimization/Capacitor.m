@@ -1,9 +1,10 @@
-addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
+%addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
+addpath('C:\Users\enesa\OneDrive - KTH\Modulation Course\EJ2311_Modulation_course\EJ2311_Modulation_course\Computer Assignments\Modlab used in the course folder')
 
 % Compute modulation pattern in time domain
 ma=1.15;   % Modulation index
 f1 = 700; % Fundamental frequency
-fc = 14e3; % Carrier frequency
+fc = 21e3; % Carrier frequency
 pn = fc/f1; % Pulse number
 npoints = 10000; % Number of timepoints
 carrytype='tria'; % carrier type 

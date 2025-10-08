@@ -1,5 +1,5 @@
-addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
-
+%addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
+addpath('C:\Users\enesa\OneDrive - KTH\Modulation Course\EJ2311_Modulation_course\EJ2311_Modulation_course\Computer Assignments\Modlab used in the course folder')
 % Compute modulation pattern in time domain
 
 Cxy=[];
@@ -10,7 +10,7 @@ mag_18_x=[];
 for phi=0:pi/20:pi/2
 
 f1 = 700; % Fundamental frequency
-fc = 14e3; % Carrier frequency
+fc = 21e3; % Carrier frequency
 pn = fc/f1; % Pulse number
 npoints = 10000; % Number of timepoints
 carrytype='tria'; % carrier type 
@@ -29,9 +29,9 @@ theta0=2*pi/3; % reference phase offset
 [vp_c,wt,carr,ref] = mod_2lcarr(ma, pn,  npoints ,carrytype,smp,cmode,theta0,thetac,start_angle,end_angle,ma_dc); 
 
 % Compute phase current in time domain (sinusoidal for simplicity)
-Ud = 1250; % p2p DC voltage
+Ud = 1070; % p2p DC voltage
 P = 300e3;    % Only 200 kW because the chosen semiconductor device is too small
-P = 360e3;
+% P = 360e3;
 cosphi=0.9;
 % cosphi =0.9;  % Cos(phi) at inverter terminal
 uppk = 1*Ud/2; % Peak phase voltage reference;
