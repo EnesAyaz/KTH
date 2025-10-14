@@ -1,6 +1,6 @@
 %% Parameters
 samples_per_symbol = 100;
-k_values = linspace(-1,1,100);   % sweep from -1 to 1 (40 frames)
+k_values = linspace(-1,1,20);   % sweep from -1 to 1 (40 frames)
 filename = 'pptrans_sweep_MMF.gif';
 
 % Base patterns

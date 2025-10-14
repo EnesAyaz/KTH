@@ -1,5 +1,5 @@
-ma=0.3;
-theta=linspace(0,2*pi,9);
+ma=0.6;
+theta=linspace(0,2*pi,13);
 
 % theta=pi/180*[0 45 90 135 180 225 270 315]
 
@@ -7,8 +7,7 @@ phA=ma*cos(theta);
 phB=ma*cos(theta-2*pi/3);
 phC=ma*cos(theta+2*pi/3);
 common_mode= -sign(ma*cos(3*theta))/3;
-
-
+% common_mode= 1/3;
 
 figure();
 plot(theta,phA) 
