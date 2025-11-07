@@ -1,5 +1,4 @@
 addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
-
 C_y=[];
 % Compute modulation pattern in time domain
 for ma=0.1:0.05:1.15   % Modulation index

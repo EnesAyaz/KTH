@@ -140,28 +140,49 @@ end
 % save('savePM.mat','P_M');
 %%
 
+%% ===================== Harmonic Loss vs Switching Frequency =====================
+f1 = figure('Color','w','Position',[220 180 780 520],'Renderer','painters');
+ax1 = axes('Parent',f1);
+hold(ax1,'on'); box(ax1,'on'); grid(ax1,'on');
 
-figure1 = figure;
+% Define dull blue tone
+c1 = [60 85 140]/255;
 
-% Create axes
-axes1 = axes('Parent',figure1);
-hold(axes1,'on');
+% Plot Harmonic Loss vs Switching Frequency
+plot(fsw1/1e3, P_M/2, '-o', ...
+     'LineWidth', 2.2, ...
+     'MarkerSize', 7, ...
+     'MarkerFaceColor', c1, ...
+     'Color', c1);
 
-% Create plot
-plot(fsw1/1e3,P_M,'Marker','o','LineWidth',2,'Color',[0 0 1]);
+% Axis labels and limits
+xlabel('Switching Frequency (kHz)', ...
+       'FontName','Times New Roman', 'FontSize', 20);
+ylabel('Harmonic Loss (W)', ...
+       'FontName','Times New Roman', 'FontSize', 20);
 
-% Create ylabel
-ylabel({'Harmonic Loss (W)'},'FontSize',15);
+xlim([min(fsw1)/1e3 max(fsw1)/1e3]);
+ylim([0 max(P_M/2)*1.1]);
 
-% Create xlabel
-xlabel({'Switching Frequency (kHz)'},'FontSize',15);
+% Axes formatting
+set(ax1, 'FontName','Times New Roman', 'FontSize', 20, ...
+          'LineWidth',1.2, ...
+          'GridAlpha',0.25, 'MinorGridAlpha',0.15, ...
+          'XGrid','on','YGrid','on', ...
+          'XMinorTick','on','YMinorTick','on');
 
-box(axes1,'on');
-hold(axes1,'off');
-% Set the remaining axes properties
-set(axes1,'FontName','Times New Roman','FontSize',15,'GridAlpha',0.5,...
-    'MinorGridAlpha',0.5,'XGrid','on','XMinorGrid','on','YGrid','on',...
-    'YMinorGrid','on');
+% Optional annotation of minimum loss point
+% [~, idx_min] = min(P_M);
+% text(fsw1(idx_min)/1e3, P_M(idx_min)*1.05, ...
+%      sprintf('Min @ %.1f kHz', fsw1(idx_min)/1e3), ...
+%      'FontName','Times New Roman', 'FontSize', 16, ...
+%      'Color', c1, 'HorizontalAlignment','center');
+
+% % Export as vector PDF
+% exportgraphics(f1, 'HarmonicLoss_vs_Fsw.pdf', ...
+%                'ContentType','vector', ...
+%                'BackgroundColor','white');
+
 %%
 
 f=[10 15 20 25];

@@ -1,59 +1,53 @@
+%% ===================== Die-area (normalized) vs Loss (normalized) =====================
 r = 0.5/2*(3/2);
 
-NumberofDie = 0.1:0.01:4;   % avoid division by zero
-rds = r ./ NumberofDie;
-Psw = (NumberofDie)/4*(3/2);
-Pover = ones(size(NumberofDie))/4;
+NumberofDie = 0.1:0.01:4;                  % avoid division by zero
+rds   = r ./ NumberofDie;                  % conduction ~ 1/Adie
+Psw   = (NumberofDie)/4*(3/2);             % exemplar scaling ~ Adie
+Pover = ones(size(NumberofDie))/4;         % constant overlap term (pu)
 
-X1 = NumberofDie;
+X1 = NumberofDie;                          % = Adie / Adie,opt (pu)
 
-% === Figure setup ===
-figure('Color','w','Position',[160 90 940 480]);
-axes1 = axes('FontName','Times New Roman','FontSize',16,'LineWidth',1.2);
-hold(axes1,'on'); grid on; box on;
+% ---- Dull blue palette (consistent with other figs) ----
+cCond  = [60  85 140]/255;  % conduction – dark blue
+cSw    = [90 120 170]/255;  % switching – mid blue
+cTotal = [40  60  90]/255;  % total – darkest blue/gray
+cOpt   = [200 220 255]/255; % very light blue (optimum fill)
 
-% === Muted (dull) color palette ===
-c1 = [0.36 0.54 0.75];   % muted blue
-c3 = [0.75 0.35 0.35];   % muted red
-c2 = [0.45 0.65 0.45];   % muted green
-c4 = [0.1 0.1 0.1];      % black (total)
+% ---- Figure/Axes ----
+f = figure('Color','w','Position',[160 90 940 480],'Renderer','painters');
+ax = axes('Parent',f,'FontName','Times New Roman','FontSize',20,'LineWidth',1.2);
+hold(ax,'on'); grid(ax,'on'); box(ax,'on');
+set(ax,'GridAlpha',0.25,'MinorGridAlpha',0.12,'TickDir','out');
 
-% === Plot curves ===
-p1 = plot(X1, rds, '--',  'Color', c1, 'LineWidth', 2.3, 'DisplayName', 'Conduction losses');
-% p2 = plot(X1, Psw, '-.',  'Color', c2, 'LineWidth', 2.3, 'DisplayName', 'Zero-current switching losses');
-p3 = plot(X1, Pover+Psw, '--', 'Color', c3, 'LineWidth', 2.3, 'DisplayName', 'Overlapping losses');
-p4 = plot(X1, Psw + rds + Pover, '-', 'Color', c4, 'LineWidth', 2.6, 'DisplayName', 'Total losses');
+% ---- Optional shaded optimum region around x=1 ----
+xOpt = [0.95 1.05];
+patch([xOpt(1) xOpt(2) xOpt(2) xOpt(1)], [0 0 3 3], cOpt, ...
+      'FaceAlpha',0.25, 'EdgeColor','none');
 
-% === Labels ===
-xlabel({'$A_{\mathrm{die}} / A_{\mathrm{die,opt}}$ (p.u.)'}, ...
-    'Interpreter','latex','FontSize',25);
-ylabel({'$P_{\mathrm{semi}} / P_{\mathrm{semi,opt}}$ (p.u.)'}, ...
-    'Interpreter','latex','FontSize',25);
+% ---- Curves ----
+p1 = plot(X1, rds,        '--', 'Color', cCond,  'LineWidth', 2.6, 'DisplayName','Conduction losses');
+p3 = plot(X1, Pover+Psw,  '--', 'Color', cSw,    'LineWidth', 2.6, 'DisplayName','Switching losses');
+p4 = plot(X1, Psw+rds+Pover, '-', 'Color', cTotal,'LineWidth', 2.8, 'DisplayName','Total losses');
 
-set(p1,'DisplayName','Conduction Losses');
-% set(p2,'DisplayName','Switching loss (zero-current)');
-set(p3,'DisplayName','Switching Losses');
-set(p4,'DisplayName','Total Losses');
+% ---- Vertical line at optimum (x=1) ----
+plot([1 1],[0 3],'k:','LineWidth',1.2,'Color',[0.35 0.45 0.6]);
 
+% ---- Labels ----
+xlabel('$A_{\mathrm{die}}/A_{\mathrm{die,opt}}$ (p.u.)','Interpreter','latex','FontSize',22);
+ylabel('$P_{\mathrm{semi}}/P_{\mathrm{semi,opt}}$ (p.u.)','Interpreter','latex','FontSize',22);
 
+% ---- Axes limits/ticks ----
+xlim([0 4]); ylim([0 3]);
+xticks(0:1:4); yticks(0:0.5:3);
 
-% === Axes setup ===
-xlim([0 4]);
-ylim([0 3]);
-xticks(0:1:4);
-yticks(0:0.5:3);
-set(gca,'GridAlpha',0.25,'MinorGridAlpha',0.1,'TickDir','out');
+% ---- Legend ----
+leg = legend([p4 p1 p3],'Location','northeast'); % total first
+leg.Box = 'off'; leg.FontName = 'Times New Roman'; leg.FontSize = 20;
 
-% === Legend in boxed style ===
-legend('show','Location','northwest','FontSize',20, ...
-    'Box','on','EdgeColor',[0.7 0.7 0.7],'Color','w');
+% ---- Annotation (concise) ----
+text(1.00, 2.7, 'Optimized point', 'FontName','Times New Roman', ...
+     'FontSize',18, 'HorizontalAlignment','center', 'Color',[0.25 0.35 0.55]);
 
-% === Annotation ===
-annotation('arrow',[0.43 0.33],[0.52 0.42],'LineWidth',1.2,'Color',[0.3 0.3 0.3]);
-annotation('textbox',[0.29 0.52 0.30 0.06], ...
-    'String',{'Optimized point'}, ...
-    'FontSize',20, 'FontName','Times New Roman', ...
-    'FitBoxToText','off', 'EdgeColor','none', 'Color',[0.2 0.2 0.2]);
-
-% === Export ===
-set(gcf,'PaperPositionMode','auto');
+% ---- Export vector PDF ----
+% exportgraphics(f,'DieArea_vs_Loss_BlueStyle.pdf','ContentType','vector','BackgroundColor','white');
