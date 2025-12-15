@@ -6,16 +6,16 @@
 clear; clc; close all;
 
 %% ---------- BASE PARAMETERS (edit here) ----------
-S.Pout        = 300e3;        % W
+S.Pout        = 250e3;        % W
 S.ffund       = 500;          % Hz
 S.cosphi      = 1.0;
 S.ma          = 1.0;
-S.Ipk_base    = 356;          % A @ 1200 V
+S.Ipk_base    = 282;          % A @ 1200 V
 S.Fsw_vec     = 5e3:0.5e3:20e3; % Hz
 S.Adie_vec    = 30:30:600;    % mm^2
 
 % Conduction model
-S.k_r         = 7.2e-3*63;
+S.k_r         = 7.2e-3*63*1.6;
 S.alpha_r     = 1.6;
 
 % Coss / Ezcs model
@@ -23,7 +23,7 @@ S.k_c         = 1.6e4;
 S.alpha_c     = -1;
 
 % Overlap model params
-S.dv_dt       = 20e9;         % V/s
+S.dv_dt       = 10e9;         % V/s
 S.di_dt       = 10e9;         % A/s
 
 S.scale_temp  = 1.0;          % R_DS(on) temp scaling
@@ -41,7 +41,7 @@ S.eta_caxis   = [98.2 99.8];
 
 % "Switching loss vs |I|" demo point
 S.plotIL.A_sel   = 300;       % mm^2
-S.plotIL.fsw_sel = 14e3;      % Hz
+S.plotIL.fsw_sel = 10e3;      % Hz
 
 % Deviation bands (relative)
 S.band.rds_rel   = 0.10;
@@ -130,7 +130,7 @@ for k = 1:2
     end
 
     P_tot_y = 3*(P_on_y + P_zcs_y + P_over_y);
-    eta_y   = 100*S.Pout./(S.Pout + P_tot_y);
+    eta_y   = 100*(S.Pout-P_tot_y)./S.Pout;
 
     P_on{k}=P_on_y; P_zcs{k}=P_zcs_y; P_over{k}=P_over_y; eta{k}=eta_y;
     rds_curves(k,:) = S.scale_temp * S.k_r * Ub_kV^S.alpha_r ./ A_die_a;
@@ -322,15 +322,15 @@ for k = 1:2
     if k==1, c=col800; else, c=col1200; end
 
     % shaded region
-    fill([IL, fliplr(IL)], ([Plow, fliplr(Phigh)]/1e3), ...
+    fill([IL/sqrt(2), fliplr(IL/sqrt(2))], ([Plow, fliplr(Phigh)]/1e3), ...
          c, 'FaceAlpha',0.14, 'EdgeColor','none', 'HandleVisibility','off');
 
     % main curve
-    plot(IL, Ptot_inv/1e3, 'LineWidth',2.5, 'Color',c, ...
+    plot(IL/sqrt(2), Ptot_inv/1e3, 'LineWidth',2.5, 'Color',c, ...
          'DisplayName',sprintf('%s',cases(k).name));
 end
 
-xlabel('|I_L| (A)');
+xlabel('Phase Current (A_{RMS})');
 ylabel('Total switching loss (kW)');
 % title(sprintf('Total Switching Loss vs |I|  (A_{die}=%d mm^2, f_{sw}=%.1f kHz)', A_sel, fsw_sel/1e3));
 legend('Location','northwest','Box','on','Color','w');

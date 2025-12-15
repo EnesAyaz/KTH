@@ -7,8 +7,8 @@ r_jc_eq= 2.5/Die_area/6;
 r_ch_eq= 0.025/3;
 
 
-P_loss= ((300/0.994)-300)*1e3
-DeltaT=75;
+P_loss= (-(250*0.992)+250)*1e3
+DeltaT=125;
 
 r_tot= DeltaT/ P_loss;
  rha=r_tot-r_jc_eq-r_ch_eq;

@@ -5,6 +5,22 @@ load('C:\Github\KTH\Loss Calculations\2000V\motorlosses\savefsw1.mat')
 load('C:\Github\KTH\Loss Calculations\2000V\savefsw_tot.mat')
 load('C:\Github\KTH\Loss Calculations\2000V\savePfsw.mat')
 
+
+fsw_tot = 1e3*[7 10 15 19];     % known fsw points (Hz)
+P_fsw   = [1700 2300 3200 3900];    % known losses (W)
+
+% New frequency vector from 5 kHz to 30 kHz:
+fsw_vec = 1e3 * (5:1:30);    
+
+% Interpolate + extrapolate (linear)
+P_interp = interp1(fsw_tot, P_fsw, fsw_vec, 'linear', 'extrap');
+
+
+fsw_tot=fsw_vec;
+P_fsw=P_interp;
+
+P_M=P_M;
+
 P_tot = P_fsw + P_M;
 
 % --- Dull blue color palette ---

@@ -10,14 +10,14 @@ addpath('C:\Github\KTH\ECCE\Modlab used in the course folder');
 f1          = 500;                % Fundamental frequency [Hz]
 ma_sel      = 1;               % Modulation index
 pf_sel      = 0.90;               % Power factor (cos phi)
-P_out       = 300e3;              % Output power [W]
+P_out       = 250e3;              % Output power [W]
 overmod_fac = 1.15;               % Overmodulation factor
 
 Ud_list     = [800, 1200];        % DC-link voltages to compare [V]
 
 % Ripple target
 use_frac_ripple = true;           % true: fractional ripple; false: absolute
-DeltaV_frac      = 0.0045;          % 1% ripple of Ud
+DeltaV_frac      = 0.0055;          % 1% ripple of Ud
 DeltaV_abs       = 10;            % 10 V absolute ripple
 
 % Switching frequency sweep
@@ -27,6 +27,7 @@ f_sw_vec    = 5e3 : 1e3 : 20e3;   % [Hz]
 carrytype   = 'tria';
 smp         = 'ns';
 cmode       = 'tri6';
+cmode       = 'none';
 thetac      = 0;
 start_angle = 0;
 end_angle   = 2*pi;

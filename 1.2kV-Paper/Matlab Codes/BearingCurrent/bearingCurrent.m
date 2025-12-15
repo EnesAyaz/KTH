@@ -30,7 +30,7 @@ Sc = double(t>=tC1 & t<tC2);
 % -------------------- Capacitances & BVR --------------------
 Csr      = 1.2e-9;      % stator–rotor [F]
 Cwr_800  = 400e-12;     % winding–rotor [F]
-Cwr_1200 = 200e-12;     % reinforced insulation
+Cwr_1200 = 300e-12;     % reinforced insulation
 Cb_each  = 150e-12;     % per bearing [F]
 Cb_tot   = 10*Cb_each;
 
@@ -57,12 +57,12 @@ set(groot, 'DefaultAxesFontName','Times New Roman', ...
 
 % Muted color palette
 c1 = [0.36 0.54 0.75];   % muted blue (base)
-c2 = [0.60 0.75 0.90];   % lighter blue
-c3 = [0.25 0.35 0.55];   % darker blue
+c3 = [0.60 0.75 0.90];   % lighter blue
+c2 = [0.25 0.35 0.55];   % darker blue
 
 % -------------------- Figure --------------------
 %% -------------------- Improved Figure Layout --------------------
-figure('Color','w','Position',[200 120 1200 800]); % more compact figure
+figure('Color','w','Position',[200 120 800 800]); % more compact figure
 
 % Common font settings
 font_axes = 25;
