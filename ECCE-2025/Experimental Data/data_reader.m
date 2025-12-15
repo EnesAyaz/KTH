@@ -16,9 +16,7 @@ opts.EmptyLineRule = "read";
 opts.ConsecutiveDelimitersRule = "join";
 
 % Import the data
-% tbl = readtable("C:\Users\enesa\OneDrive - KTH\Documents\Experimental Data\ECCE-2025\2025.02.12\SDS00021.csv", opts);
-
-tbl = readtable("C:\Users\enesa\OneDrive - KTH\Documents\Experimental Data\ECCE-2025\2025.05.28\SDS00001.csv", opts);
+tbl = readtable("C:\Users\enesa\OneDrive - KTH\Documents\Experimental Data\ECCE-2025\2025.02.12\SDS00021.csv", opts);
 
 
 %% Convert to output type
