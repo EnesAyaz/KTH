@@ -3,7 +3,7 @@ load('C:\Users\enesa\OneDrive - KTH\Hemizero\Harmonics_analysis\Harmonics_analys
 
  %%
 f=EM_impedance_stator_only.f;
-Z_mag=EM_impedance_stator_only.Z/2; %% phase impedance
+Z_mag=EM_impedance_stator_only.Z/4; %% phase impedance
 Z_angle=EM_impedance_stator_only.theta*pi/180;
 %%
 % f=EM_impedance_stator_rotor_housing.f;

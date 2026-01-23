@@ -11,7 +11,7 @@ f1          = 500;                % Fundamental frequency [Hz]
 ma_sel      = 1;               % Modulation index
 pf_sel      = 0.90;               % Power factor (cos phi)
 P_out       = 250e3;              % Output power [W]
-overmod_fac = 1.15;               % Overmodulation factor
+overmod_fac = 1;               % Overmodulation factor
 
 Ud_list     = [800, 1200];        % DC-link voltages to compare [V]
 
@@ -36,7 +36,7 @@ ma_dc       = 0;
 % Volume scaling (distinct for each Ud)
 k_vol_map = containers.Map( ...
     {num2str(Ud_list(1)), num2str(Ud_list(2))}, ...
-    {8*0.8/2,              8*1.2/2});   % [L^3/F] example values
+    {8*0.8/3,              8*1.2/3});   % [L^3/F] example values
 
 %% ----------------------- Helper Function -------------------------------------
 calc_C_required = @(Ic, t, dV) ...

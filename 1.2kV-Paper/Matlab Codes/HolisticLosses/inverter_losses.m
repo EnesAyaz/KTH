@@ -5,6 +5,11 @@ load('C:\Github\KTH\Loss Calculations\2000V\savePfsw.mat')
 fsw_tot = 1e3*[7 10 15 19];     % known fsw points (Hz)
 P_fsw   = [1700 2300 3200 3900];    % known losses (W)
 
+
+fsw_tot = 1e3*[7.5 10 15 19];     % known fsw points (Hz)
+P_fsw   = [1645 1900 2414 2820]*1.2;    % known losses (W)
+
+
 % New frequency vector from 5 kHz to 30 kHz:
 fsw_vec = 1e3 * (5:1:30);    
 
