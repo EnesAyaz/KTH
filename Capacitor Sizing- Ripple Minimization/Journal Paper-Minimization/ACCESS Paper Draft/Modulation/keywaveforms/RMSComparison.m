@@ -113,7 +113,6 @@ SC = double(VrefC > carrierC);
 Icap=IphA.*SA+IphB.*SB+IphC.*SC-mean(IphA.*SA+IphB.*SB+IphC.*SC);
 
 
-
 num_windows = fsw;
 window_size = length(Icap) / num_windows;
 

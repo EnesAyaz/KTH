@@ -1,6 +1,6 @@
 addpath('C:\Github\KTH\ECCE\Modlab used in the course folder')
 % Compute modulation pattern in time domain
-ma=1;   % Modulation index
+ma=0.85;   % Modulation index
 f1 = 200; % Fundamental frequency
 fc = 14*1e3; % Carrier frequency
 pn = fc/f1; % Pulse number
@@ -8,7 +8,7 @@ npoints = pn*100; % Number of timepoints
 carrytype='tria'; % carrier type 
 smp= 'ns';  % reference sampling mode 
 cmode='tri6'; % reference common-mode injection 
-%cmode='none'; % reference common-mode injection 
+cmode='none'; % reference common-mode injection 
 theta0=0; % reference phase offset
 thetac=0; % carrier phase offset
 start_angle= 0; % reference angle to start with
@@ -23,7 +23,7 @@ theta0=2*pi/3; % reference phase offset
 % Compute phase current in time domain (sinusoidal for simplicity)
 Ud = 1070; % p2p DC voltage
 P = 360e3;    % Only 200 kW because the chosen semiconductor device is too small
-cosphi =0.9;  % Cos(phi) at inverter terminal
+cosphi =1;  % Cos(phi) at inverter terminal
 uppk = 1.15*Ud/2; % Peak phase voltage reference;
 ippk = P*2/3/uppk/cosphi;  % Peak phase current
 phi= acos(cosphi);       % Load angle
@@ -76,6 +76,14 @@ Isw_c=Isw;
 % Isw_a-mean(Isw_a);
 % Isw_b-mean(Isw_b);
 % Isw_c-mean(Isw_c);
+
+Isw_a=ip_a.*(vp_a+1)/2;
+Isw_b=ip_a.*(vp_a+1)/2;
+Isw_c=ip_a.*(vp_a+1)/2;
+
+
+
+
 %% Fourier
 nharm=pn*10*10;
 
