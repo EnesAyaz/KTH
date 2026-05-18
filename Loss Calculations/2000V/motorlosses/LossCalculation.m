@@ -1,4 +1,4 @@
-load('\\ug.kth.se\dfs\home\e\n\enesa\appdata\xp.V2\Desktop\OneDrive_1_3-28-2024\measuredData.mat');
+load('C:\Users\enesa\OneDrive - KTH\Hemizero\Harmonics_analysis\Harmonics_analysis\measuredData.mat');
 %%
 control_1=1;
 if control_1==1
