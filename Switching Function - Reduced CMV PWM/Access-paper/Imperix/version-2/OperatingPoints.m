@@ -7,7 +7,7 @@ phA=ma*cos(theta);
 phB=ma*cos(theta-2*pi/3);
 phC=ma*cos(theta+2*pi/3);
 common_mode= -sign(ma*cos(3*theta))/3;
-% common_mode= 1/3;
+common_mode= 1/3;
 
 figure();
 plot(theta,phA) 

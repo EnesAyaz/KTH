@@ -9,7 +9,9 @@ VrefC=out.ReferenceCarrier.signals(6).values;
 
 Vinject=out.Injected.signals.values;
 
-Tfinal=1/ffund;
+Tfinal=1/ffund; 
+
+
 
 figure1=figure();
 axes1 = axes('Parent',figure1);

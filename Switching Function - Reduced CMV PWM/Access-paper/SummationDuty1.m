@@ -76,7 +76,7 @@ hold on;
 plot(time_array,VcarrierC,'-.','Linewidth',1.5,'Color','g')
 
 Tfinalx=0.056
-% Tfinalx=0.01;
+ %Tfinalx=0.01;
 xlimH= Tfinalx+1/fsw;
 xlim([Tfinalx xlimH])
 ylim([-1 1])

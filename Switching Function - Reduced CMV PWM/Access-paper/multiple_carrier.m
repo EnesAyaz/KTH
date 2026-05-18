@@ -5,7 +5,7 @@ close all
 %% Time array
 ma = 0.8;
 fout = 10; % Hz
-% fsw = 800; % Hz
+%fsw = 800; % Hz
 fsw = 10000; % Hz
 Tstep = (1/fsw)/80; % s
 Ts = Tstep; % s

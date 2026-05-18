@@ -6,7 +6,7 @@ close all
 ma = 0.8;
 fout = 50; % Hz
 fsw = 800; % Hz
-% fsw = 10000; % Hz
+%fsw = 10000; % Hz
 Tstep = (1/fsw)/80; % s
 Ts = Tstep; % s
 Tfinal =1/fout ; % s
