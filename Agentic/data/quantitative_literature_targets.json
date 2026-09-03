@@ -1,0 +1,413 @@
+{
+  "purpose": "Target the second literature-search round toward missing quantitative comparison data.",
+  "current_comparison_record_count": 6,
+  "field_gaps": [
+    {
+      "field": "power_density_kw_per_l",
+      "available_records": 0,
+      "desired_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL",
+      "status": "NO DATA",
+      "reason": "Required for evaluating the integration and packaging benefit of modular and integrated motor drives."
+    },
+    {
+      "field": "efficiency_percent",
+      "available_records": 2,
+      "desired_records": 6,
+      "additional_records_needed": 4,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "reason": "Required for meaningful converter and drive efficiency comparison."
+    },
+    {
+      "field": "semiconductor_voltage_rating_v",
+      "available_records": 3,
+      "desired_records": 6,
+      "additional_records_needed": 3,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "reason": "Required for evaluating the relationship between converter cell voltage and semiconductor device voltage class."
+    },
+    {
+      "field": "switching_frequency_khz",
+      "available_records": 4,
+      "desired_records": 6,
+      "additional_records_needed": 2,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "reason": "Required for switching-frequency versus device-technology and efficiency comparisons."
+    },
+    {
+      "field": "rated_power_kw",
+      "available_records": 4,
+      "desired_records": 6,
+      "additional_records_needed": 2,
+      "priority": "HIGH",
+      "status": "MORE DATA NEEDED",
+      "reason": "Required for comparing converter and motor-drive scale."
+    },
+    {
+      "field": "dc_link_voltage_v",
+      "available_records": 5,
+      "desired_records": 6,
+      "additional_records_needed": 1,
+      "priority": "HIGH",
+      "status": "MORE DATA NEEDED",
+      "reason": "Required to compare system voltage level and traction-drive applicability."
+    },
+    {
+      "field": "cell_voltage_v",
+      "available_records": 6,
+      "desired_records": 6,
+      "additional_records_needed": 0,
+      "priority": "HIGH",
+      "status": "TARGET MET",
+      "reason": "Important for demonstrating voltage partitioning in stacked or modular architectures."
+    },
+    {
+      "field": "semiconductor_current_rating_a",
+      "available_records": 0,
+      "desired_records": 5,
+      "additional_records_needed": 5,
+      "priority": "MEDIUM",
+      "status": "NO DATA",
+      "reason": "Useful for device utilization and semiconductor scaling comparisons."
+    },
+    {
+      "field": "number_of_cells",
+      "available_records": 6,
+      "desired_records": 6,
+      "additional_records_needed": 0,
+      "priority": "MEDIUM",
+      "status": "TARGET MET",
+      "reason": "Useful for architectural scaling, but cell definitions must be semantically consistent across papers."
+    },
+    {
+      "field": "number_of_phases",
+      "available_records": 6,
+      "desired_records": 6,
+      "additional_records_needed": 0,
+      "priority": "MEDIUM",
+      "status": "TARGET MET",
+      "reason": "Useful for comparing multiphase and multi-three-phase machine architectures."
+    }
+  ],
+  "pair_gaps": [
+    {
+      "name": "Efficiency vs power density",
+      "x_column": "power_density_kw_per_l",
+      "y_column": "efficiency_percent",
+      "available_paired_records": 0,
+      "desired_paired_records": 5,
+      "additional_paired_records_needed": 5,
+      "priority": "CRITICAL",
+      "status": "NO DATA",
+      "scientific_purpose": "Compare system integration and efficiency rather than treating power density and efficiency independently."
+    },
+    {
+      "name": "Semiconductor voltage rating vs switching frequency",
+      "x_column": "semiconductor_voltage_rating_v",
+      "y_column": "switching_frequency_khz",
+      "available_paired_records": 2,
+      "desired_paired_records": 6,
+      "additional_paired_records_needed": 4,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "scientific_purpose": "Evaluate the relationship between device voltage class and achievable switching frequency."
+    },
+    {
+      "name": "Efficiency vs switching frequency",
+      "x_column": "switching_frequency_khz",
+      "y_column": "efficiency_percent",
+      "available_paired_records": 2,
+      "desired_paired_records": 6,
+      "additional_paired_records_needed": 4,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "scientific_purpose": "Support a review-level comparison of switching-frequency and efficiency tradeoffs."
+    },
+    {
+      "name": "Cell voltage vs semiconductor voltage rating",
+      "x_column": "cell_voltage_v",
+      "y_column": "semiconductor_voltage_rating_v",
+      "available_paired_records": 3,
+      "desired_paired_records": 6,
+      "additional_paired_records_needed": 3,
+      "priority": "CRITICAL",
+      "status": "MORE DATA NEEDED",
+      "scientific_purpose": "Evaluate whether distributing the DC-link voltage across converter cells enables lower-voltage semiconductor devices."
+    },
+    {
+      "name": "Rated power vs DC-link voltage",
+      "x_column": "rated_power_kw",
+      "y_column": "dc_link_voltage_v",
+      "available_paired_records": 3,
+      "desired_paired_records": 6,
+      "additional_paired_records_needed": 3,
+      "priority": "HIGH",
+      "status": "MORE DATA NEEDED",
+      "scientific_purpose": "Compare voltage and power scaling between laboratory demonstrators, integrated drives, and traction-scale systems."
+    }
+  ],
+  "search_requirements": {
+    "desired_number_of_new_papers": {
+      "minimum": 5,
+      "preferred": 8,
+      "maximum": 10
+    },
+    "critical_missing_fields": [
+      "power_density_kw_per_l",
+      "efficiency_percent",
+      "semiconductor_voltage_rating_v",
+      "switching_frequency_khz"
+    ],
+    "high_priority_missing_fields": [
+      "rated_power_kw",
+      "dc_link_voltage_v"
+    ],
+    "critical_missing_pairs": [
+      {
+        "name": "Efficiency vs power density",
+        "x_column": "power_density_kw_per_l",
+        "y_column": "efficiency_percent",
+        "additional_records_needed": 5
+      },
+      {
+        "name": "Semiconductor voltage rating vs switching frequency",
+        "x_column": "semiconductor_voltage_rating_v",
+        "y_column": "switching_frequency_khz",
+        "additional_records_needed": 4
+      },
+      {
+        "name": "Efficiency vs switching frequency",
+        "x_column": "switching_frequency_khz",
+        "y_column": "efficiency_percent",
+        "additional_records_needed": 4
+      },
+      {
+        "name": "Cell voltage vs semiconductor voltage rating",
+        "x_column": "cell_voltage_v",
+        "y_column": "semiconductor_voltage_rating_v",
+        "additional_records_needed": 3
+      }
+    ],
+    "paper_selection_rules": [
+      "Prefer peer-reviewed journal or major IEEE/IET/EPE conference publications.",
+      "Prefer papers with an accessible full text that can later be downloaded and processed by the Evidence Extractor.",
+      "Prefer experimental prototypes over purely conceptual papers.",
+      "Prefer papers reporting several target quantitative fields in the same system.",
+      "Do not select a paper solely because it mentions GaN, SiC, SPB, or integrated motor drives.",
+      "Do not infer efficiency, power density, device rating, or switching frequency from metadata or titles.",
+      "Do not treat simulation-only results as experimental measurements.",
+      "Avoid duplicates of papers already present in the literature database.",
+      "For number_of_cells, distinguish actual series SPB converter cells from generic motor-drive modules or segmented inverter units."
+    ],
+    "ideal_new_paper": "An ideal candidate reports at least four of the following in one experimentally demonstrated system: rated power, DC-link voltage, cell voltage, semiconductor voltage rating, switching frequency, efficiency, and power density."
+  },
+  "search_topics": [
+    {
+      "topic_id": "Q01",
+      "topic": "Experimental stacked polyphase bridge converter implementations",
+      "priority": "CRITICAL",
+      "keywords": [
+        "stacked polyphase bridge converter",
+        "stacked polyphase bridges converter",
+        "SPB converter",
+        "multi-three-phase motor drive",
+        "experimental",
+        "prototype"
+      ],
+      "desired_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent"
+      ],
+      "selection_goal": "Find direct SPB publications containing actual prototype specifications and quantitative converter data."
+    },
+    {
+      "topic_id": "Q02",
+      "topic": "GaN integrated modular motor drives with quantitative performance",
+      "priority": "CRITICAL",
+      "keywords": [
+        "GaN integrated motor drive",
+        "GaN modular motor drive",
+        "integrated modular motor drive",
+        "power density",
+        "efficiency",
+        "switching frequency"
+      ],
+      "desired_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "selection_goal": "Find experimentally validated GaN integrated-drive systems reporting both efficiency and power-density metrics."
+    },
+    {
+      "topic_id": "Q03",
+      "topic": "SiC integrated motor drives with efficiency and power density",
+      "priority": "HIGH",
+      "keywords": [
+        "SiC integrated motor drive",
+        "SiC traction inverter",
+        "integrated inverter motor",
+        "power density",
+        "efficiency",
+        "experimental"
+      ],
+      "desired_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "selection_goal": "Provide a strong SiC benchmark against the GaN and stacked architectures."
+    },
+    {
+      "topic_id": "Q04",
+      "topic": "Multiphase high-power traction inverter experimental demonstrations",
+      "priority": "HIGH",
+      "keywords": [
+        "multiphase traction inverter",
+        "six phase inverter electric vehicle",
+        "nine phase motor drive inverter",
+        "multi three phase traction",
+        "SiC",
+        "experimental"
+      ],
+      "desired_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "selection_goal": "Provide high-power traction-scale benchmarks with comparable voltage, power, semiconductor, switching, and efficiency data."
+    },
+    {
+      "topic_id": "Q05",
+      "topic": "High-voltage modular motor-drive architectures using lower-voltage semiconductor devices",
+      "priority": "CRITICAL",
+      "keywords": [
+        "modular motor drive",
+        "series connected inverter cells",
+        "segmented inverter motor drive",
+        "lower voltage semiconductor",
+        "high voltage dc link",
+        "multiphase"
+      ],
+      "desired_fields": [
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz"
+      ],
+      "selection_goal": "Strengthen the central SPB review argument concerning DC-link voltage partitioning and semiconductor voltage scaling."
+    }
+  ],
+  "existing_comparison_records": [
+    {
+      "citation_key": "Jin2017",
+      "title": "Modulation and Power Losses of a Stacked Polyphase Bridge Converter",
+      "topology": "Stacked polyphase bridge: N series-connected two-level, three-phase submodules",
+      "dc_link_voltage_v": 200.0,
+      "cell_voltage_v": 50.0,
+      "number_of_cells": 4,
+      "number_of_phases": 12,
+      "semiconductor_technology": "Silicon MOSFET",
+      "switching_frequency_khz": 20.0,
+      "experimental_level": "machine test bench"
+    },
+    {
+      "citation_key": "Rohner2024",
+      "title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+      "topology": "Three-level flying-capacitor converter versus two series-stacked two-level three-phase converters",
+      "rated_power_kw": 7.5,
+      "dc_link_voltage_v": 800.0,
+      "cell_voltage_v": 400.0,
+      "number_of_cells": 2,
+      "number_of_phases": 6,
+      "semiconductor_technology": "650 V GaN HEMTs",
+      "semiconductor_voltage_rating_v": 650.0,
+      "switching_frequency_khz": 35.0,
+      "efficiency_percent": 99.2,
+      "experimental_level": "reduced-scale converter; design/simulation comparison"
+    },
+    {
+      "citation_key": "Verkroost2024",
+      "title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+      "topology": "Multiple series-connected three-phase two-level voltage-source inverters",
+      "rated_power_kw": 4.0,
+      "dc_link_voltage_v": 240.0,
+      "cell_voltage_v": 48.0,
+      "number_of_cells": 5,
+      "number_of_phases": 15,
+      "semiconductor_technology": "Low-voltage semiconductor devices",
+      "switching_frequency_khz": 10.0,
+      "experimental_level": "machine test bench"
+    },
+    {
+      "citation_key": "Bringezu2020",
+      "title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+      "topology": "Series-connected three-phase SPB modules",
+      "dc_link_voltage_v": 1000.0,
+      "cell_voltage_v": 250.0,
+      "number_of_cells": 4,
+      "number_of_phases": 12,
+      "semiconductor_technology": "GaN HEMTs",
+      "semiconductor_voltage_rating_v": 600.0,
+      "experimental_level": "simulation-only"
+    },
+    {
+      "citation_key": "Verkroost2024a",
+      "title": "Multi-Agent Control Scheme for Power Distribution in a Multi-Three-Phase Motor Drive Fed by a Stacked Polyphase Bridges Converter",
+      "topology": "Multiple series-connected two-level voltage-source inverters",
+      "rated_power_kw": 4.0,
+      "dc_link_voltage_v": 240.0,
+      "cell_voltage_v": 48.0,
+      "number_of_cells": 5,
+      "number_of_phases": 15,
+      "semiconductor_technology": "Low-voltage 2L-VSI semiconductor devices",
+      "experimental_level": "machine test bench"
+    },
+    {
+      "citation_key": "Ebrahimian2025",
+      "title": "Design and Experimental Validation of a High-Power-Density GaN-Based Inverter Module for Integrated Modular Motor Drives in All-Electric Aircraft Applications",
+      "topology": "18 modular full-bridge converters arranged as six three-phase subsets",
+      "rated_power_kw": 250.0,
+      "cell_voltage_v": 166.67,
+      "number_of_cells": 18,
+      "number_of_phases": 18,
+      "semiconductor_technology": "GaN FET EPC2304ENGRT",
+      "semiconductor_voltage_rating_v": 200.0,
+      "switching_frequency_khz": 20.0,
+      "efficiency_percent": 98.65,
+      "experimental_level": "converter-cell; reduced-scale converter module"
+    }
+  ],
+  "scientific_constraints": [
+    "Only full-text-verified values may enter comparison.csv.",
+    "Metadata and abstracts may identify candidate papers but may not support quantitative comparison values.",
+    "Do not estimate numerical values from figures.",
+    "Do not infer missing values from engineering relationships.",
+    "Operating conditions must be retained when comparing efficiency and power density.",
+    "SPB cells must be distinguished from generic integrated motor-drive modules."
+  ]
+}

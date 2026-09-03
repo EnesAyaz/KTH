@@ -1,0 +1,308 @@
+{
+  "approved_count": 6,
+  "papers": [
+    {
+      "title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+      "authors": [
+        "Gwendolin Rohner",
+        "Jonas Huber",
+        "Spasoje Mirić",
+        "Johann W. Kolar"
+      ],
+      "year": 2024,
+      "journal_or_venue": "Electronics",
+      "doi": "10.3390/electronics13071259",
+      "url": "https://doi.org/10.3390/electronics13071259",
+      "publication_type": "Journal article",
+      "target_topics": [
+        "Semiconductor voltage scaling",
+        "Efficiency and loss comparison",
+        "Power density and thermal management",
+        "Integrated modular motor drives"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "peak_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "reason_for_selection": "Highly targeted comparison of a 7.5 kW integrated drive using an 800 V DC link, series-stacked two-level converters, and 650 V GaN devices; likely one of the strongest sources for paired voltage-rating, cell-count, efficiency, and power-density fields.",
+      "experimental_relevance": "Appears to combine detailed design analysis with an integrated-drive comparison; experimental validation scope must be checked.",
+      "likely_full_text_value": "Very high for nearly all critical comparison fields.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 36,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct SPB paper",
+        "Direct integrated-drive relevance",
+        "Potentially rich quantitative dataset",
+        "Potential experimental validation",
+        "Very high expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "Rohner2024",
+      "pdf_filename": "Rohner2024.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    },
+    {
+      "title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+      "authors": [
+        "Lynn Verkroost",
+        "Alexander Vande Ghinste",
+        "Lorrana Faria da Rocha",
+        "Jeroen D. M. De Kooning",
+        "Frederik De Belie",
+        "Peter Sergeant",
+        "Pål Keim Olsen",
+        "Hendrik Vansompel"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IET Electric Power Applications",
+      "doi": "10.1049/elp2.12376",
+      "url": "https://doi.org/10.1049/elp2.12376",
+      "publication_type": "Journal article",
+      "target_topics": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "switching_frequency_khz"
+      ],
+      "reason_for_selection": "Peer-reviewed experimental study of a 4 kW modular axial-flux PMSM with five SPB agents; likely useful for phase/winding-group count, series-cell structure, voltage allocation, and hardware maturity.",
+      "experimental_relevance": "Strong: reported experimental validation on a 4 kW multi-three-phase axial-flux PMSM.",
+      "likely_full_text_value": "Very high for architecture and experimental-scale fields; efficiency and semiconductor ratings must be extracted from the PDF.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 34,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct SPB paper",
+        "Potentially rich quantitative dataset",
+        "Strong experimental relevance",
+        "Very high expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "Verkroost2024",
+      "pdf_filename": "Verkroost2024.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    },
+    {
+      "title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+      "authors": [
+        "Thilo Bringezu",
+        "Jürgen Biela"
+      ],
+      "year": 2020,
+      "journal_or_venue": "2020 22nd European Conference on Power Electronics and Applications (EPE'20 ECCE Europe)",
+      "doi": "10.23919/EPE20ECCEEurope43536.2020.9215873",
+      "url": "https://doi.org/10.23919/EPE20ECCEEurope43536.2020.9215873",
+      "publication_type": "Conference paper",
+      "target_topics": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "reason_for_selection": "Directly compares SPB converters combined with 3-, 6-, 9-, and 12-phase PMSMs, making it highly valuable for phase-count, module-count, voltage-scaling, and system-level comparison.",
+      "experimental_relevance": "Appears primarily comparative/design-oriented; experimental scope and measured quantities require PDF verification.",
+      "likely_full_text_value": "Very high for cross-topology architecture and quantitative system comparison.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 33,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct SPB paper",
+        "Potentially rich quantitative dataset",
+        "Potential experimental validation",
+        "Very high expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "Bringezu2020",
+      "pdf_filename": "Bringezu2020.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    },
+    {
+      "title": "Design and Experimental Validation of a High-Power-Density GaN-Based Inverter Module for Integrated Modular Motor Drives in All-Electric Aircraft Applications",
+      "authors": [
+        "Armin Ebrahimian",
+        "Seyed Iman Hosseini Sabzevari",
+        "Nathan Weise"
+      ],
+      "year": 2025,
+      "journal_or_venue": "IEEE Journal of Emerging and Selected Topics in Power Electronics",
+      "doi": "10.1109/JESTPE.2025.3564792",
+      "url": "https://doi.org/10.1109/JESTPE.2025.3564792",
+      "publication_type": "Journal article",
+      "target_topics": [
+        "Integrated modular motor drives",
+        "Power density and thermal management",
+        "Semiconductor voltage scaling",
+        "Experimental demonstrations"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "semiconductor_voltage_rating_v",
+        "semiconductor_current_rating_a",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "reason_for_selection": "Experimental GaN inverter-module paper for a 250 kW integrated modular drive; likely valuable for module-level scaling, efficiency, semiconductor ratings, and power-density benchmarking.",
+      "experimental_relevance": "Strong: manufactured module reportedly tested for switching and continuous operation.",
+      "likely_full_text_value": "Very high for high-power modular-drive packaging and efficiency; exact system DC-link and phase-count data require verification.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 32,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct integrated-drive relevance",
+        "Potentially rich quantitative dataset",
+        "Strong experimental relevance",
+        "Very high expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "Ebrahimian2025",
+      "pdf_filename": "Ebrahimian2025.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    },
+    {
+      "title": "Multi-Agent Control Scheme for Power Distribution in a Multi-Three-Phase Motor Drive Fed by a Stacked Polyphase Bridges Converter",
+      "authors": [
+        "Lynn Verkroost",
+        "Frederik De Belie",
+        "Lorrana Faria da Rocha",
+        "Pål Keim Olsen",
+        "Peter Sergeant",
+        "Hendrik Vansompel"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IEEE Transactions on Energy Conversion",
+      "doi": "10.1109/TEC.2024.3405368",
+      "url": "https://doi.org/10.1109/TEC.2024.3405368",
+      "publication_type": "Journal article",
+      "target_topics": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases",
+        "efficiency_percent"
+      ],
+      "reason_for_selection": "Directly studies power sharing in a multi-three-phase SPB-fed motor drive and is likely to contain laboratory operating data complementary to the reconfiguration paper.",
+      "experimental_relevance": "Likely includes experimental validation of a modular motor-drive platform.",
+      "likely_full_text_value": "High for multi-agent architecture, power distribution, and drive-scale comparison.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 31,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct SPB paper",
+        "Potentially rich quantitative dataset",
+        "Potential experimental validation",
+        "High expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "Verkroost2024a",
+      "pdf_filename": "Verkroost2024a.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    },
+    {
+      "title": "An Integrated Motor Drive with Enhanced Power Density Using Modular Converter Structure",
+      "authors": [
+        "Authors require confirmation from the full bibliographic record"
+      ],
+      "year": 2021,
+      "journal_or_venue": "2021 IEEE International Electric Machines & Drives Conference (IEMDC)",
+      "doi": "10.1109/IEMDC47953.2021.9449589",
+      "url": "https://doi.org/10.1109/IEMDC47953.2021.9449589",
+      "publication_type": "Conference paper",
+      "target_topics": [
+        "Integrated modular motor drives",
+        "Power density and thermal management",
+        "Experimental demonstrations"
+      ],
+      "expected_useful_fields": [
+        "rated_power_kw",
+        "number_of_cells",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "reason_for_selection": "Experimental modular GaN inverter structure integrated with a fifteen-coil axial-flux PM machine; potentially valuable for converter-module count, thermal limits, cooling-channel design, and power-density comparison.",
+      "experimental_relevance": "Strong: CFD cooling analysis was reportedly validated by experimental measurements.",
+      "likely_full_text_value": "Very high for integrated packaging and thermal-management fields; DC-link and efficiency data require verification.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "triage_score": 31,
+      "priority": "P1 - VERY HIGH",
+      "triage_reasons": [
+        "Direct integrated-drive relevance",
+        "Potentially rich quantitative dataset",
+        "Strong experimental relevance",
+        "Very high expected full-text value",
+        "DOI available"
+      ],
+      "is_duplicate": false,
+      "duplicate_reason": null,
+      "existing_title": null,
+      "existing_citation_key": null,
+      "download_recommendation": "DOWNLOAD FIRST",
+      "citation_key": "record2021",
+      "pdf_filename": "record2021.pdf",
+      "approval_status": "APPROVED_FOR_DOWNLOAD",
+      "full_text_status": "NOT_DOWNLOADED_OR_NOT_VERIFIED"
+    }
+  ]
+}

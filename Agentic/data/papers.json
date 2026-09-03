@@ -1,0 +1,574 @@
+{
+  "search_topic": "Stacked polyphase bridge converters, multiphase traction drives, and integrated modular motor drives",
+  "papers": [
+    {
+      "title": "Power Converter Design for an Integrated Modular Motor Drive",
+      "authors": [
+        "N. R. Brown",
+        "T. M. Jahns",
+        "R. D. Lorenz"
+      ],
+      "year": 2007,
+      "doi": "10.1109/07ias.2007.205",
+      "journal": "2007 IEEE Industry Applications Annual Meeting",
+      "citation_key": "Brown_2007",
+      "main_contribution": "Early work on power-converter design requirements and implementation considerations for integrated modular motor drives.",
+      "relevant_sections": [
+        "Converter topology and packaging",
+        "Integration of converter and motor",
+        "Thermal and electrical design considerations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Conference publication; detailed validation scope should be checked in the full paper.",
+        "No technical results are recorded here beyond verified bibliographic metadata."
+      ],
+      "verification_status": "VERIFIED — DOI-to-BibTeX metadata confirmed; Crossref search also identified the publication."
+    },
+    {
+      "title": "Hardware integration for an integrated modular motor drive including distributed control",
+      "authors": [
+        "Adam Shea",
+        "T. M. Jahns"
+      ],
+      "year": 2014,
+      "doi": "10.1109/ecce.2014.6954070",
+      "journal": "2014 IEEE Energy Conversion Congress and Exposition (ECCE)",
+      "citation_key": "Shea_2014",
+      "main_contribution": "Addresses hardware integration and distributed control architecture for an integrated modular motor drive.",
+      "relevant_sections": [
+        "Distributed control",
+        "Hardware integration",
+        "Modular drive architecture"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Conference publication; system-level performance and experimental scope require examination of the full text.",
+        "The available metadata does not establish applicability specifically to stacked polyphase bridge converters."
+      ],
+      "verification_status": "VERIFIED — DOI-to-BibTeX metadata confirmed."
+    },
+    {
+      "title": "An Integrated Modular Motor Drive With Shared Cooling for Axial Flux Motor Drives",
+      "authors": [
+        "Abdalla Hussein Mohamed",
+        "Hendrik Vansompel",
+        "Peter Sergeant"
+      ],
+      "year": 2021,
+      "doi": "10.1109/tie.2020.3028818",
+      "journal": "IEEE Transactions on Industrial Electronics",
+      "citation_key": "Mohamed_2021",
+      "main_contribution": "Presents an integrated modular motor-drive architecture with shared cooling, relevant to high-power-density and thermally integrated electric drives.",
+      "relevant_sections": [
+        "Integrated motor-drive construction",
+        "Shared cooling",
+        "Axial-flux motor application"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "The paper is focused on axial-flux motor drives; transferability to other machine geometries is not established here.",
+        "Quantitative performance claims were not extracted without full-text verification."
+      ],
+      "verification_status": "VERIFIED — DOI-to-BibTeX metadata confirmed; Crossref search identified the same journal article."
+    },
+    {
+      "title": "A novel multiphase fault tolerant high torque density permanent magnet motor drive for traction application",
+      "authors": [
+        "M. T. Abolhassani"
+      ],
+      "year": 2005,
+      "doi": "10.1109/iemdc.2005.195803",
+      "journal": "IEEE International Conference on Electric Machines and Drives, 2005",
+      "citation_key": "Abolhassani_2005",
+      "main_contribution": "Early multiphase permanent-magnet motor-drive work addressing fault tolerance, torque density, and traction applications.",
+      "relevant_sections": [
+        "Multiphase traction-machine topology",
+        "Fault tolerance",
+        "Torque-density considerations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Conference publication; experimental conditions and comparative baselines are not recorded without the full text.",
+        "The available metadata does not verify a specific stacked-bridge converter implementation."
+      ],
+      "verification_status": "VERIFIED — DOI-to-BibTeX metadata confirmed."
+    },
+    {
+      "title": "A Novel Multiphase Fault Tolerant Permanent Magnet Motor Drive for Fuel cell Powered Vehicles",
+      "authors": [
+        "Mehdi T. Abolhassani"
+      ],
+      "year": 2007,
+      "doi": "10.1109/vppc.2007.4544117",
+      "journal": "2007 IEEE Vehicle Power and Propulsion Conference",
+      "citation_key": "Abolhassani_2007",
+      "main_contribution": "Develops a multiphase fault-tolerant permanent-magnet motor-drive concept for fuel-cell-powered vehicle propulsion.",
+      "relevant_sections": [
+        "Multiphase vehicle traction",
+        "Fault-tolerant drive operation",
+        "Permanent-magnet motor drive"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Conference publication; detailed vehicle-level validation is not summarized without full-text access.",
+        "The paper’s relationship to integrated modular motor drives or stacked polyphase bridges is not established from metadata alone."
+      ],
+      "verification_status": "VERIFIED — DOI-to-BibTeX metadata confirmed."
+    },
+    {
+      "title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+      "authors": [
+        "Gwendolin Rohner",
+        "Jonas Huber",
+        "Spasoje Mirić",
+        "Johann W. Kolar"
+      ],
+      "year": 2024,
+      "doi": "10.3390/electronics13071259",
+      "journal": "Electronics",
+      "citation_key": "Rohner2024",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Highly targeted comparison of a 7.5 kW integrated drive using an 800 V DC link, series-stacked two-level converters, and 650 V GaN devices; likely one of the strongest sources for paired voltage-rating, cell-count, efficiency, and power-density fields.",
+      "relevant_sections": [
+        "Semiconductor voltage scaling",
+        "Efficiency and loss comparison",
+        "Power density and thermal management",
+        "Integrated modular motor drives"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+      "authors": [
+        "Lynn Verkroost",
+        "Alexander Vande Ghinste",
+        "Lorrana Faria da Rocha",
+        "Jeroen D. M. De Kooning",
+        "Frederik De Belie",
+        "Peter Sergeant",
+        "Pål Keim Olsen",
+        "Hendrik Vansompel"
+      ],
+      "year": 2024,
+      "doi": "10.1049/elp2.12376",
+      "journal": "IET Electric Power Applications",
+      "citation_key": "Verkroost2024",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Peer-reviewed experimental study of a 4 kW modular axial-flux PMSM with five SPB agents; likely useful for phase/winding-group count, series-cell structure, voltage allocation, and hardware maturity.",
+      "relevant_sections": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+      "authors": [
+        "Thilo Bringezu",
+        "Jürgen Biela"
+      ],
+      "year": 2020,
+      "doi": "10.23919/epe20ecceeurope43536.2020.9215873",
+      "journal": "2020 22nd European Conference on Power Electronics and Applications (EPE'20 ECCE Europe)",
+      "citation_key": "Bringezu2020",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Directly compares SPB converters combined with 3-, 6-, 9-, and 12-phase PMSMs, making it highly valuable for phase-count, module-count, voltage-scaling, and system-level comparison.",
+      "relevant_sections": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "Design and Experimental Validation of a High-Power-Density GaN-Based Inverter Module for Integrated Modular Motor Drives in All-Electric Aircraft Applications",
+      "authors": [
+        "Armin Ebrahimian",
+        "Seyed Iman Hosseini Sabzevari",
+        "Nathan Weise"
+      ],
+      "year": 2025,
+      "doi": "10.1109/jestpe.2025.3564792",
+      "journal": "IEEE Journal of Emerging and Selected Topics in Power Electronics",
+      "citation_key": "Ebrahimian2025",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Experimental GaN inverter-module paper for a 250 kW integrated modular drive; likely valuable for module-level scaling, efficiency, semiconductor ratings, and power-density benchmarking.",
+      "relevant_sections": [
+        "Integrated modular motor drives",
+        "Power density and thermal management",
+        "Semiconductor voltage scaling",
+        "Experimental demonstrations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "Multi-Agent Control Scheme for Power Distribution in a Multi-Three-Phase Motor Drive Fed by a Stacked Polyphase Bridges Converter",
+      "authors": [
+        "Lynn Verkroost",
+        "Frederik De Belie",
+        "Lorrana Faria da Rocha",
+        "Pål Keim Olsen",
+        "Peter Sergeant",
+        "Hendrik Vansompel"
+      ],
+      "year": 2024,
+      "doi": "10.1109/tec.2024.3405368",
+      "journal": "IEEE Transactions on Energy Conversion",
+      "citation_key": "Verkroost2024a",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Directly studies power sharing in a multi-three-phase SPB-fed motor drive and is likely to contain laboratory operating data complementary to the reconfiguration paper.",
+      "relevant_sections": [
+        "Stacked polyphase bridge architecture",
+        "Integrated modular motor drives",
+        "Experimental demonstrations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "An Integrated Motor Drive with Enhanced Power Density Using Modular Converter Structure",
+      "authors": [
+        "Authors require confirmation from the full bibliographic record"
+      ],
+      "year": 2021,
+      "doi": "10.1109/iemdc47953.2021.9449589",
+      "journal": "2021 IEEE International Electric Machines & Drives Conference (IEMDC)",
+      "citation_key": "record2021",
+      "main_contribution": "Candidate publication selected for full-text evidence extraction. Technical contribution has not yet been full-text verified. Selection rationale: Experimental modular GaN inverter structure integrated with a fifteen-coil axial-flux PM machine; potentially valuable for converter-module count, thermal limits, cooling-channel design, and power-density comparison.",
+      "relevant_sections": [
+        "Integrated modular motor drives",
+        "Power density and thermal management",
+        "Experimental demonstrations"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Technical claims and numerical results have not yet been verified from the full text."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "title": "Extreme high power density T-modular-multilevel-converter for medium voltage motor drive",
+      "authors": [
+        "Qin Lei",
+        "Yifu Liu",
+        "Yunpeng Si"
+      ],
+      "year": 2017,
+      "doi": "10.1109/iecon.2017.8216194",
+      "journal": "IECON 2017 - 43rd Annual Conference of the IEEE Industrial Electronics Society",
+      "citation_key": "Lei2017",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q05"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "MODULAR_HIGH_VOLTAGE",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "cell_voltage_v",
+          "number_of_cells",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l",
+          "cooling_method"
+        ],
+        "expected_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Cell voltage vs semiconductor voltage rating",
+          "Semiconductor voltage rating vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Cell voltage vs semiconductor voltage rating",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "MEDIUM",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 145,
+        "original_rank": 1
+      }
+    },
+    {
+      "title": "High density Modular Multilevel Cascade Converter for medium-voltage motor drive",
+      "authors": [
+        "Dong Jiang",
+        "Jing Xue",
+        "Fred Wang",
+        "Min H. Kao"
+      ],
+      "year": 2011,
+      "doi": "10.1109/ests.2011.5770920",
+      "journal": "2011 IEEE Electric Ship Technologies Symposium",
+      "citation_key": "Jiang2011",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q05"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "MODULAR_HIGH_VOLTAGE",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "cell_voltage_v",
+          "number_of_cells",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l",
+          "cooling_method"
+        ],
+        "expected_quantitative_pairs": [
+          "Cell voltage vs semiconductor voltage rating",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Cell voltage vs semiconductor voltage rating",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "MEDIUM",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 145,
+        "original_rank": 2
+      }
+    },
+    {
+      "title": "Design and Verification of Multiphase Multilevel Traction Inverter",
+      "authors": [
+        "Patrik Resutík",
+        "Michal Praženica",
+        "Slavomír Kaščák"
+      ],
+      "year": 2024,
+      "doi": "10.3390/app142210562",
+      "journal": "Applied Sciences",
+      "citation_key": "Resutk2024",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q04",
+        "Q05"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "MULTIPHASE_TRACTION",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "number_of_phases",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l"
+        ],
+        "expected_quantitative_pairs": [
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "HIGH",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 142,
+        "original_rank": 3
+      }
+    },
+    {
+      "title": "Control Strategy of a Hybrid SiC-Si Traction Inverter for Direct-Drive Multiphase PMSMs in Marine Propulsion",
+      "authors": [
+        "Shusen Ni",
+        "Chi Li",
+        "Zedong Zheng"
+      ],
+      "year": 2024,
+      "doi": "10.1109/tpel.2024.3434703",
+      "journal": "IEEE Transactions on Power Electronics",
+      "citation_key": "Ni2024",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q03",
+        "Q04"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "SIC_INTEGRATED_DRIVE",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "number_of_phases",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l"
+        ],
+        "expected_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "HIGH",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 138,
+        "original_rank": 4
+      }
+    },
+    {
+      "title": "High efficiency SiC traction inverter for electric vehicle applications",
+      "authors": [
+        "Jianglin Zhu",
+        "Hyeokjin Kim",
+        "Hua Chen",
+        "Robert Erickson",
+        "Dragan Maksimovic"
+      ],
+      "year": 2018,
+      "doi": "10.1109/apec.2018.8341204",
+      "journal": "2018 IEEE Applied Power Electronics Conference and Exposition (APEC)",
+      "citation_key": "Zhu2018",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q03",
+        "Q04"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "SIC_INTEGRATED_DRIVE",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l",
+          "cooling_method"
+        ],
+        "expected_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "HIGH",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 138,
+        "original_rank": 5
+      }
+    },
+    {
+      "title": "Design and Analysis of a GaN-Based Megahertz Integrated Motor Drive for a PCB Motor",
+      "authors": [
+        "Ozgur Gulsuna"
+      ],
+      "year": 2024,
+      "doi": "10.1109/tie.2024.3390736",
+      "journal": "IEEE Transactions on Industrial Electronics",
+      "citation_key": "Gulsuna2024",
+      "main_contribution": "Publication selected during the quantitative-gap literature search. Its technical contribution has not yet been verified from the full text.",
+      "relevant_sections": [
+        "Q02"
+      ],
+      "quantitative_results": [],
+      "limitations": [
+        "Full-text scientific evidence extraction is pending.",
+        "Expected quantitative fields from the discovery stage must not be treated as verified values."
+      ],
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "discovery_metadata": {
+        "architecture_category": "GAN_INTEGRATED_DRIVE",
+        "expected_quantitative_fields": [
+          "rated_power_kw",
+          "dc_link_voltage_v",
+          "semiconductor_voltage_rating_v",
+          "switching_frequency_khz",
+          "efficiency_percent",
+          "power_density_kw_per_l",
+          "cooling_method"
+        ],
+        "expected_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency"
+        ],
+        "matched_quantitative_pairs": [
+          "Efficiency vs power density",
+          "Semiconductor voltage rating vs switching frequency",
+          "Efficiency vs switching frequency",
+          "Rated power vs DC-link voltage"
+        ],
+        "experimental_relevance": "HIGH",
+        "quantitative_relevance": "HIGH",
+        "selection_score": 137,
+        "original_rank": 6
+      }
+    }
+  ]
+}

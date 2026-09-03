@@ -1,0 +1,35 @@
+{
+  "purpose": "Second-round quantitative papers available for full-text evidence extraction.",
+  "papers": [
+    {
+      "citation_key": "Lei2017",
+      "title": "Extreme high power density T-modular-multilevel-converter for medium voltage motor drive",
+      "pdf_filename": "Lei2017.pdf"
+    },
+    {
+      "citation_key": "Jiang2011",
+      "title": "High density Modular Multilevel Cascade Converter for medium-voltage motor drive",
+      "pdf_filename": "Jiang2011.pdf"
+    },
+    {
+      "citation_key": "Resutk2024",
+      "title": "Design and Verification of Multiphase Multilevel Traction Inverter",
+      "pdf_filename": "Resutk2024.pdf"
+    },
+    {
+      "citation_key": "Ni2024",
+      "title": "Control Strategy of a Hybrid SiC-Si Traction Inverter for Direct-Drive Multiphase PMSMs in Marine Propulsion",
+      "pdf_filename": "Ni2024.pdf"
+    },
+    {
+      "citation_key": "Zhu2018",
+      "title": "High efficiency SiC traction inverter for electric vehicle applications",
+      "pdf_filename": "Zhu2018.pdf"
+    },
+    {
+      "citation_key": "Gulsuna2024",
+      "title": "Design and Analysis of a GaN-Based Megahertz Integrated Motor Drive for a PCB Motor",
+      "pdf_filename": "Gulsuna2024.pdf"
+    }
+  ]
+}

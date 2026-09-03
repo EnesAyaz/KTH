@@ -1,0 +1,303 @@
+{
+  "approved_count": 6,
+  "source": "quantitative_candidate_triage.json",
+  "verification_policy": "Approved for PDF acquisition only. No technical claim is full-text verified at this stage.",
+  "papers": [
+    {
+      "rank": 1,
+      "score": 145,
+      "recommendation": "DOWNLOAD FIRST",
+      "title": "Extreme high power density T-modular-multilevel-converter for medium voltage motor drive",
+      "authors": [
+        "Qin Lei",
+        "Yifu Liu",
+        "Yunpeng Si"
+      ],
+      "year": 2017,
+      "journal_or_venue": "IECON 2017 - 43rd Annual Conference of the IEEE Industrial Electronics Society",
+      "doi": "10.1109/iecon.2017.8216194",
+      "url": "https://doi.org/10.1109/iecon.2017.8216194",
+      "publication_type": "conference paper",
+      "architecture_category": "MODULAR_HIGH_VOLTAGE",
+      "matched_topic_ids": [
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Cell voltage vs semiconductor voltage rating",
+        "Semiconductor voltage rating vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Cell voltage vs semiconductor voltage rating",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Explicit high-power-density modular multilevel motor-drive architecture; likely useful as a benchmark for density and voltage-partitioned modular conversion.",
+      "citation_key": "Lei2017",
+      "pdf_filename": "Lei2017.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "rank": 2,
+      "score": 145,
+      "recommendation": "DOWNLOAD FIRST",
+      "title": "High density Modular Multilevel Cascade Converter for medium-voltage motor drive",
+      "authors": [
+        "Dong Jiang",
+        "Jing Xue",
+        "Fred Wang",
+        "Min H. Kao"
+      ],
+      "year": 2011,
+      "journal_or_venue": "2011 IEEE Electric Ship Technologies Symposium",
+      "doi": "10.1109/ests.2011.5770920",
+      "url": "https://doi.org/10.1109/ests.2011.5770920",
+      "publication_type": "conference paper",
+      "architecture_category": "MODULAR_HIGH_VOLTAGE",
+      "matched_topic_ids": [
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Cell voltage vs semiconductor voltage rating",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Cell voltage vs semiconductor voltage rating",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Directly concerns a high-density modular converter for medium-voltage motor drives and is relevant to lower-voltage-device voltage partitioning.",
+      "citation_key": "Jiang2011",
+      "pdf_filename": "Jiang2011.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "rank": 3,
+      "score": 142,
+      "recommendation": "DOWNLOAD FIRST",
+      "title": "Design and Verification of Multiphase Multilevel Traction Inverter",
+      "authors": [
+        "Patrik Resutík",
+        "Michal Praženica",
+        "Slavomír Kaščák"
+      ],
+      "year": 2024,
+      "journal_or_venue": "Applied Sciences",
+      "doi": "10.3390/app142210562",
+      "url": "https://doi.org/10.3390/app142210562",
+      "publication_type": "journal article",
+      "architecture_category": "MULTIPHASE_TRACTION",
+      "matched_topic_ids": [
+        "Q04",
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "expected_quantitative_pairs": [
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "HIGH",
+      "selection_rationale": "Title explicitly indicates design verification of a multiphase multilevel traction inverter, making it a promising prototype benchmark for electrical and performance fields.",
+      "citation_key": "Resutk2024",
+      "pdf_filename": "Resutk2024.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "rank": 4,
+      "score": 138,
+      "recommendation": "DOWNLOAD FIRST",
+      "title": "Control Strategy of a Hybrid SiC-Si Traction Inverter for Direct-Drive Multiphase PMSMs in Marine Propulsion",
+      "authors": [
+        "Shusen Ni",
+        "Chi Li",
+        "Zedong Zheng"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IEEE Transactions on Power Electronics",
+      "doi": "10.1109/tpel.2024.3434703",
+      "url": "https://doi.org/10.1109/tpel.2024.3434703",
+      "publication_type": "journal article",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "matched_topic_ids": [
+        "Q03",
+        "Q04"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Multiphase traction-scale marine propulsion application with hybrid SiC–Si devices; strong candidate for phase count, electrical ratings, switching, and efficiency data.",
+      "citation_key": "Ni2024",
+      "pdf_filename": "Ni2024.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "rank": 5,
+      "score": 138,
+      "recommendation": "DOWNLOAD FIRST",
+      "title": "High efficiency SiC traction inverter for electric vehicle applications",
+      "authors": [
+        "Jianglin Zhu",
+        "Hyeokjin Kim",
+        "Hua Chen",
+        "Robert Erickson",
+        "Dragan Maksimovic"
+      ],
+      "year": 2018,
+      "journal_or_venue": "2018 IEEE Applied Power Electronics Conference and Exposition (APEC)",
+      "doi": "10.1109/apec.2018.8341204",
+      "url": "https://doi.org/10.1109/apec.2018.8341204",
+      "publication_type": "conference paper",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "matched_topic_ids": [
+        "Q03",
+        "Q04"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Traction-focused SiC inverter paper explicitly emphasizing efficiency; promising source for device, switching, power, voltage, and possibly density data.",
+      "citation_key": "Zhu2018",
+      "pdf_filename": "Zhu2018.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    },
+    {
+      "rank": 6,
+      "score": 137,
+      "recommendation": "DOWNLOAD / RESERVE",
+      "title": "Design and Analysis of a GaN-Based Megahertz Integrated Motor Drive for a PCB Motor",
+      "authors": [
+        "Ozgur Gulsuna"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IEEE Transactions on Industrial Electronics",
+      "doi": "10.1109/tie.2024.3390736",
+      "url": "https://doi.org/10.1109/tie.2024.3390736",
+      "publication_type": "journal article",
+      "architecture_category": "GAN_INTEGRATED_DRIVE",
+      "matched_topic_ids": [
+        "Q02"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency"
+      ],
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Integrated GaN motor drive with an explicitly megahertz operating concept; likely to contain prototype operating data and compactness-related metrics.",
+      "citation_key": "Gulsuna2024",
+      "pdf_filename": "Gulsuna2024.pdf",
+      "verification_status": "CANDIDATE_METADATA_ONLY"
+    }
+  ]
+}

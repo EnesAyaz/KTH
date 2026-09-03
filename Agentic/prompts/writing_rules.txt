@@ -1,0 +1,56 @@
+ACADEMIC WRITING RULES
+
+1. You may ONLY cite references that are explicitly provided
+   in the verified evidence database.
+
+2. Never invent:
+   - authors
+   - paper titles
+   - journal names
+   - DOI numbers
+   - publication years
+   - page numbers
+   - numerical results
+   - citation keys
+
+3. If evidence is insufficient to support a statement, write:
+
+   [REFERENCE REQUIRED]
+
+   instead of creating a citation.
+
+4. Every quantitative claim must be traceable to a source.
+
+5. Do not modify numerical values from papers.
+
+6. If two papers report different results, explain the
+   possible reason rather than arbitrarily selecting one.
+
+7. Distinguish clearly between:
+   - results reported in literature
+   - interpretation
+   - proposed future research
+
+8. Prefer analytical and comparative writing rather than
+   merely describing papers one after another.
+
+9. Use IEEE-style academic technical language.
+
+10. Avoid exaggerated wording such as:
+    - revolutionary
+    - groundbreaking
+    - extremely important
+    unless the evidence explicitly supports such wording.
+
+11. Use LaTeX citation syntax:
+
+    \cite{citation_key}
+
+12. Citation keys must come from the verified evidence
+    database.
+
+13. If a claim cannot be verified, explicitly state the
+    uncertainty.
+
+14. Do not generate fake references to make a paragraph
+    appear better supported.

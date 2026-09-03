@@ -1,0 +1,343 @@
+{
+  "comparison_records": 1,
+  "full_text_verified_papers": 1,
+  "field_requirements": [
+    {
+      "field": "rated_power_kw",
+      "description": "Rated experimental converter or drive power",
+      "valid_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "field": "peak_power_kw",
+      "description": "Peak or short-duration power rating",
+      "valid_records": 0,
+      "target_records": 3,
+      "additional_records_needed": 3,
+      "priority": "CRITICAL"
+    },
+    {
+      "field": "dc_link_voltage_v",
+      "description": "DC-link voltage",
+      "valid_records": 1,
+      "target_records": 5,
+      "additional_records_needed": 4,
+      "priority": "HIGH"
+    },
+    {
+      "field": "cell_voltage_v",
+      "description": "Voltage handled by an individual converter cell",
+      "valid_records": 1,
+      "target_records": 5,
+      "additional_records_needed": 4,
+      "priority": "HIGH"
+    },
+    {
+      "field": "number_of_cells",
+      "description": "Number of stacked converter cells",
+      "valid_records": 1,
+      "target_records": 5,
+      "additional_records_needed": 4,
+      "priority": "HIGH"
+    },
+    {
+      "field": "number_of_phases",
+      "description": "Number of machine phases or winding groups",
+      "valid_records": 1,
+      "target_records": 5,
+      "additional_records_needed": 4,
+      "priority": "HIGH"
+    },
+    {
+      "field": "semiconductor_voltage_rating_v",
+      "description": "Semiconductor blocking-voltage rating",
+      "valid_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "field": "semiconductor_current_rating_a",
+      "description": "Semiconductor current rating",
+      "valid_records": 0,
+      "target_records": 3,
+      "additional_records_needed": 3,
+      "priority": "CRITICAL"
+    },
+    {
+      "field": "switching_frequency_khz",
+      "description": "Converter switching frequency",
+      "valid_records": 1,
+      "target_records": 5,
+      "additional_records_needed": 4,
+      "priority": "HIGH"
+    },
+    {
+      "field": "efficiency_percent",
+      "description": "Measured converter or drive efficiency",
+      "valid_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "field": "power_density_kw_per_l",
+      "description": "Reported converter or drive power density",
+      "valid_records": 0,
+      "target_records": 3,
+      "additional_records_needed": 3,
+      "priority": "CRITICAL"
+    }
+  ],
+  "pair_requirements": [
+    {
+      "name": "Device voltage rating vs number of cells",
+      "x_column": "number_of_cells",
+      "y_column": "semiconductor_voltage_rating_v",
+      "purpose": "Demonstrate semiconductor voltage scaling enabled by converter stacking.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "name": "Device voltage rating vs DC-link voltage",
+      "x_column": "dc_link_voltage_v",
+      "y_column": "semiconductor_voltage_rating_v",
+      "purpose": "Compare system DC voltage with the voltage class of semiconductor devices.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "name": "Switching frequency vs semiconductor voltage",
+      "x_column": "semiconductor_voltage_rating_v",
+      "y_column": "switching_frequency_khz",
+      "purpose": "Investigate whether lower-voltage devices are associated with higher reported switching frequencies.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "name": "Efficiency vs switching frequency",
+      "x_column": "switching_frequency_khz",
+      "y_column": "efficiency_percent",
+      "purpose": "Compare reported efficiency with switching frequency while preserving the operating conditions reported by each source.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "name": "Efficiency vs power density",
+      "x_column": "power_density_kw_per_l",
+      "y_column": "efficiency_percent",
+      "purpose": "Assess the reported efficiency and power-density tradeoff.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    },
+    {
+      "name": "Rated power vs DC-link voltage",
+      "x_column": "dc_link_voltage_v",
+      "y_column": "rated_power_kw",
+      "purpose": "Show the experimental scale of reported converter and motor-drive demonstrations.",
+      "paired_records": 0,
+      "target_records": 5,
+      "additional_records_needed": 5,
+      "priority": "CRITICAL"
+    }
+  ],
+  "topic_priorities": [
+    {
+      "topic": "Stacked polyphase bridge architecture",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases"
+      ],
+      "desired_information": [
+        "DC-side series stacking arrangement",
+        "number of bridge cells",
+        "machine phase or winding-group arrangement",
+        "cell voltage",
+        "total DC-link voltage",
+        "experimental validation"
+      ]
+    },
+    {
+      "topic": "Semiconductor voltage scaling",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "semiconductor_voltage_rating_v",
+        "number_of_cells",
+        "dc_link_voltage_v",
+        "switching_frequency_khz"
+      ],
+      "desired_information": [
+        "semiconductor technology",
+        "device voltage rating",
+        "DC-link voltage",
+        "number of stacked cells",
+        "switching frequency",
+        "device-count implications"
+      ]
+    },
+    {
+      "topic": "Efficiency and loss comparison",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "switching_frequency_khz",
+        "efficiency_percent"
+      ],
+      "desired_information": [
+        "measured efficiency",
+        "output power",
+        "DC-link voltage",
+        "switching frequency",
+        "semiconductor technology",
+        "loss breakdown",
+        "operating conditions"
+      ]
+    },
+    {
+      "topic": "Power density and thermal management",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "power_density_kw_per_l",
+        "efficiency_percent"
+      ],
+      "desired_information": [
+        "power density",
+        "converter volume",
+        "rated power",
+        "cooling method",
+        "thermal design",
+        "measured efficiency"
+      ]
+    },
+    {
+      "topic": "Integrated modular motor drives",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "desired_information": [
+        "integrated inverter-machine architecture",
+        "rated power",
+        "DC-link voltage",
+        "machine phase count",
+        "cooling",
+        "power density",
+        "experimental maturity"
+      ]
+    },
+    {
+      "topic": "Experimental demonstrations",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "switching_frequency_khz",
+        "efficiency_percent"
+      ],
+      "desired_information": [
+        "hardware prototype",
+        "rated power",
+        "DC-link voltage",
+        "switching frequency",
+        "machine type",
+        "experimental operating point",
+        "efficiency"
+      ]
+    }
+  ],
+  "search_objectives": [
+    {
+      "priority_number": 1,
+      "topic": "Stacked polyphase bridge architecture",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "number_of_phases"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Stacked polyphase bridge architecture. Prioritize publications reporting: DC-side series stacking arrangement, number of bridge cells, machine phase or winding-group arrangement, cell voltage, total DC-link voltage, experimental validation."
+    },
+    {
+      "priority_number": 2,
+      "topic": "Semiconductor voltage scaling",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "semiconductor_voltage_rating_v",
+        "number_of_cells",
+        "dc_link_voltage_v",
+        "switching_frequency_khz"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Semiconductor voltage scaling. Prioritize publications reporting: semiconductor technology, device voltage rating, DC-link voltage, number of stacked cells, switching frequency, device-count implications."
+    },
+    {
+      "priority_number": 3,
+      "topic": "Efficiency and loss comparison",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "switching_frequency_khz",
+        "efficiency_percent"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Efficiency and loss comparison. Prioritize publications reporting: measured efficiency, output power, DC-link voltage, switching frequency, semiconductor technology, loss breakdown, operating conditions."
+    },
+    {
+      "priority_number": 4,
+      "topic": "Power density and thermal management",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "power_density_kw_per_l",
+        "efficiency_percent"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Power density and thermal management. Prioritize publications reporting: power density, converter volume, rated power, cooling method, thermal design, measured efficiency."
+    },
+    {
+      "priority_number": 5,
+      "topic": "Integrated modular motor drives",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Integrated modular motor drives. Prioritize publications reporting: integrated inverter-machine architecture, rated power, DC-link voltage, machine phase count, cooling, power density, experimental maturity."
+    },
+    {
+      "priority_number": 6,
+      "topic": "Experimental demonstrations",
+      "priority": "CRITICAL",
+      "missing_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "switching_frequency_khz",
+        "efficiency_percent"
+      ],
+      "search_instruction": "Find peer-reviewed papers with experimental or quantitative results concerning Experimental demonstrations. Prioritize publications reporting: hardware prototype, rated power, DC-link voltage, switching frequency, machine type, experimental operating point, efficiency."
+    }
+  ]
+}

@@ -1,0 +1,1326 @@
+{
+  "papers": [
+    {
+      "citation_key": "Jin2017",
+      "title": "Modulation and Power Losses of a Stacked Polyphase Bridge Converter",
+      "pdf_filename": "Jin2017.pdf",
+      "claims": [
+        {
+          "claim_id": "Jin2017_C01",
+          "statement": "The inspected PDF is a different paper: “Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter,” not the expected “Modulation and Power Losses of a Stacked Polyphase Bridge Converter.”",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 1,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Research Gaps"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C02",
+          "statement": "The SPB converter consists of N series-connected submodules, each containing a conventional two-level, three-phase converter using low-voltage semiconductors; the AC terminals connect to a multistar load such as a multiphase machine.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 2,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Multiphase Electric Machines",
+            "Semiconductor Voltage Scaling"
+          ],
+          "numerical_values": [
+            "N series-connected submodules",
+            "Two-level, three-phase converter"
+          ],
+          "supporting_excerpt": "It consists of N series-connected submodules, each comprising a conventional two-level, three-phase converter equipped with low-voltage semiconductors.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C03",
+          "statement": "Each submodule has its own DC-link capacitor, and the total DC voltage is shared among the series-connected submodules; balanced operation uses a capacitor-voltage reference of vdc/N.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 2,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "DC-Link Architecture",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "vref_conv = vdc/N"
+          ],
+          "supporting_excerpt": "vref_conv can be chosen as vdc/N.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C04",
+          "statement": "The converter control uses standard field-oriented current control in each submodule, with an outer DC-link voltage controller that adjusts submodule active power to balance capacitor voltages.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 2,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Cell Balancing"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "The outer voltage control balances the submodule active power; the inner current control controls active and reactive power in a decoupled way.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C05",
+          "statement": "Phase-shifted carrier-based modulation is used so that the three carriers within each submodule are in phase, while carriers of different submodules are shifted by 2π/N; this supports cancellation of high-order DC-side current harmonics and reduction of DC-link capacitance.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 4,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "DC-Link Architecture"
+          ],
+          "numerical_values": [
+            "Inter-submodule carrier shift: 2π/N rad"
+          ],
+          "supporting_excerpt": "The three carriers for each submodule should be in phase, while the carriers should be phase-shifted 2π/N rad among submodules.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C06",
+          "statement": "The experimental prototype contains four identical submodules, each implemented on a single PCB with a DSP, isolated SPI communication, low-voltage MOSFET-based three-phase bridges, and local current and capacitor-voltage measurement.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 6,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Integrated Motor Drives",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "4 submodules",
+            "DSP: TMS320F28069",
+            "Switching frequency: 20 kHz"
+          ],
+          "supporting_excerpt": "Four submodules are connected... Each submodule is integrated on a single printed circuit board... Silicon MOSFETs are used as switches with 20 kHz switching frequency.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C07",
+          "statement": "The prototype operating point used a 200 V DC supply, 50 V per-submodule capacitor voltage, 6 A tested AC peak current, 94 μF submodule capacitance, 20 kHz switching frequency, and 50 Hz fundamental frequency.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 6,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Experimental Validation",
+            "DC-Link Architecture"
+          ],
+          "numerical_values": [
+            "DC power supply: 200 V",
+            "Submodule capacitor voltage: 50 V",
+            "Tested AC peak current: 6 A",
+            "Submodule DC capacitance: 94 μF",
+            "Switching frequency: 20 kHz",
+            "Fundamental frequency: 50 Hz"
+          ],
+          "supporting_excerpt": "The main parameters of the setup are listed in Table I.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C08",
+          "statement": "The experimental motor was a four-pole permanent-magnet-assisted synchronous reluctance machine with 12 available windings, allowing each of the four submodules to control an independent three-phase winding set.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 8,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Multiphase Electric Machines",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "Four poles",
+            "12 available windings",
+            "Four independent three-phase winding sets"
+          ],
+          "supporting_excerpt": "Each of the four submodules is able to control a set of independent three-phase windings.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C09",
+          "statement": "In the motor experiment, the four submodule currents had 30° electrical phase displacement due to the symmetrical winding arrangement; A1/A3 windings were in phase, as were A2/A4, while the two groups were shifted by 30 electrical degrees.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 8,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Multiphase Electric Machines",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "30° electrical phase shift",
+            "15° mechanical phase shift",
+            "4 Hz electrical speed",
+            "200 V DC bus"
+          ],
+          "supporting_excerpt": "The current waveforms for the four boards have 30° electrical phase shift due to the symmetrical winding configuration.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C10",
+          "statement": "A four-submodule experimental setup maintained DC-link stability for communication bandwidth below 1 Mb/s according to the paper’s Nyquist analysis and experimental verification, suggesting that CAN bus communication could be used.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 9,
+          "evidence_type": "conclusion",
+          "relevant_sections": [
+            "DC-Link Architecture",
+            "Reliability",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "Communication bandwidth below 1 Mb/s",
+            "Example delay: 255.54 μs",
+            "v*conv: 50 V",
+            "P*: 250 W"
+          ],
+          "supporting_excerpt": "System stability is still maintained when the communication bandwidth is lower than 1 Mb/s, indicating that the CAN bus could be adopted.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C11",
+          "statement": "When one submodule was assumed faulty and bypassed, the remaining three submodules shared the DC bus voltage and total power; after a 50 ms transient, the system reached a new steady state and continued supplying the output power demand.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 8,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "Post-Fault Operation",
+            "Reliability"
+          ],
+          "numerical_values": [
+            "One submodule bypassed",
+            "Three healthy submodules remaining",
+            "50 ms transient"
+          ],
+          "supporting_excerpt": "The remaining submodules share the dc bus voltage and the system enters a new steady state.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Jin2017_C12",
+          "statement": "A single-submodule fault causes voltage rise in the remaining semiconductor devices, but the paper states that this normally does not destroy them because semiconductor devices are typically rated with a 50%–100% margin.",
+          "citation_key": "Jin2017",
+          "source_title": "Communication-Based Distributed Control of the Stacked Polyphase Bridges Converter",
+          "page_number": 8,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "Semiconductor Voltage Scaling",
+            "Reliability"
+          ],
+          "numerical_values": [
+            "Typical semiconductor voltage-rating margin: 50%–100%"
+          ],
+          "supporting_excerpt": "The voltage rise generally does not destroy the semiconductor devices since they are usually rated with a 50%–100% margin.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "medium"
+        }
+      ],
+      "unresolved_questions": [
+        "The supplied Jin2017.pdf does not contain the expected modulation-and-power-losses paper; semiconductor losses, machine losses, total efficiency, and power-density results for that expected paper could not be extracted.",
+        "The inspected PDF does not report semiconductor voltage/current ratings, converter rated power, efficiency, or power density for the expected citation."
+      ]
+    },
+    {
+      "citation_key": "Rohner2024",
+      "title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+      "pdf_filename": "Rohner2024.pdf",
+      "claims": [
+        {
+          "claim_id": "Rohner2024_C01",
+          "statement": "The paper compares a three-phase three-level flying-capacitor converter (3L-FCC) with a stacked polyphase bridge implemented as two series-stacked two-level three-phase converters (2L-SSC) for a 7.5 kW integrated motor drive.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 1,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Integrated Motor Drives",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "7.5 kW"
+          ],
+          "supporting_excerpt": "a converter system formed by two Series-Stacked Two-Level three-phase Converters (2L-SSC) ... for the realization of a 7.5 kW Integrated Motor Drive",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C02",
+          "statement": "The 3L-FCC drives a single three-phase PMSM winding set, whereas the 2L-SSC requires a motor with two three-phase winding systems; the second winding direction is reversed so the two phase-current sets produce torque in the same direction.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 2,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Multiphase Electric Machines"
+          ],
+          "numerical_values": [
+            "3 phases per winding set",
+            "2 winding systems for 2L-SSC"
+          ],
+          "supporting_excerpt": "the 2L-SSC ... supplying a dual-winding-set PMSM ... one of the motor’s winding systems is connected with a reversed winding direction",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C03",
+          "statement": "The analyzed drive uses an 800 V DC link, 7.5 kW nominal output power, 15 A nominal peak phase current, 45 A overload peak phase current for 3 s, 35 kHz device switching frequency, and a maximum inverter output frequency of 300 Hz.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 4,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Experimental Validation",
+            "Converter Architecture"
+          ],
+          "numerical_values": [
+            "800 V DC link",
+            "7.5 kW",
+            "15 A nominal peak phase current",
+            "45 A overload peak phase current",
+            "3 s overload duration",
+            "35 kHz switching frequency",
+            "300 Hz maximum output frequency"
+          ],
+          "supporting_excerpt": "Specifications of the analyzed Integrated Motor Drive (IMD)",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C04",
+          "statement": "Each 3L-FCC phase leg uses four switches, each blocking half of the total DC-link voltage, and one flying capacitor; the flying capacitor is biased at VDC/2 and provides three output voltage levels.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 5,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "4 switches per phase leg",
+            "VDC/2 capacitor bias",
+            "3 output voltage levels"
+          ],
+          "supporting_excerpt": "utilizes two half-bridge cells per phase (i.e., four switches in total ... ) and a Flying Capacitor ... to provide three output voltage levels",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C05",
+          "statement": "The 3L-FCC has an effective switch-node frequency of twice its device switching frequency, feff = 2 fsw; identical device switching frequencies were retained in the comparison.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 5,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Modulation and Control"
+          ],
+          "numerical_values": [
+            "feff = 2 fsw",
+            "fsw = 35 kHz",
+            "feff = 70 kHz for 3L-FCC"
+          ],
+          "supporting_excerpt": "the effective frequency ... is twice the device switching frequency",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C06",
+          "statement": "The 3L-FCC uses phase-shifted PWM (PSPWM) for natural flying-capacitor voltage balancing, but the paper states that practical nonidealities can make active balancing necessary for reliable operation.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 5,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Cell Balancing"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "natural balancing might not suffice ... active balancing concepts ... must be implemented to guarantee reliable performance",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C07",
+          "statement": "The 2L-SSC consists of two standard three-phase two-level inverters, each supplied by half the total DC-link voltage, and therefore uses the same transistor count and semiconductor blocking voltage as the 3L-FCC.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 5,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Semiconductor Voltage Scaling"
+          ],
+          "numerical_values": [
+            "2 stacked three-phase inverters",
+            "each inverter supplied by VDC/2",
+            "400 V nominal blocking requirement"
+          ],
+          "supporting_excerpt": "two standard three-phase 2L inverters ... each ... supplied with half the total DC-link voltage",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C08",
+          "statement": "The 2L-SSC requires active balancing of the split DC-link midpoint when machine asymmetries cause a voltage offset; field-oriented control can redistribute q-current references between the two inverters to regulate the midpoint.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 5,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "DC-Link Architecture",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "1–2% cited machine-parameter asymmetry"
+          ],
+          "supporting_excerpt": "active balancing is of interest ... by altering ... q-current component references of the two inverters",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C09",
+          "statement": "Both topologies use 650 V GaN HEMTs despite the 800 V DC link; the selected implementation uses two parallel GS66516-T devices per switch position, each specified as 25 mΩ.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 9,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Semiconductor Technology",
+            "Semiconductor Voltage Scaling"
+          ],
+          "numerical_values": [
+            "650 V GaN HEMTs",
+            "25 mΩ on-state resistance",
+            "2 parallel devices per switch position",
+            "400 V required blocking capability"
+          ],
+          "supporting_excerpt": "a single switch with two parallel top-cooled 650 V GaN HEMTs (GS66516-T, 25 mΩ)",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C10",
+          "statement": "The overload design uses three times nominal current, 45 A peak, for 3 s; this requirement determines the flying-capacitor capacitance and drives the need for large semiconductor die area and effective cooling.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 9,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Reliability",
+            "Thermal Management",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "45 A overload peak current",
+            "3 s overload",
+            "3× nominal current"
+          ],
+          "supporting_excerpt": "The short-term overload capability of three times the nominal current determines CFC",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C11",
+          "statement": "The 3L-FCC requires one flying capacitor per phase; the selected design uses 24 parallel 2.2 μF, 450 V X6S ceramic capacitors per phase, giving 11 μF per phase.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 10,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "1 flying capacitor per phase",
+            "24 parallel capacitors per phase",
+            "2.2 μF per capacitor",
+            "450 V rating",
+            "11 μF per phase"
+          ],
+          "supporting_excerpt": "It results in a minimum of 24 paralleled ceramic capacitors for the FC stage per phase",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C12",
+          "statement": "The total DC-link capacitance is designed as at least 20 μF using 176 series-arranged 2.2 μF, 450 V ceramic capacitors; the same total DC-link capacitance is obtained for the 2L-SSC through its two split DC-link capacitor banks.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 17,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "DC-Link Architecture",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "20 μF minimum total capacitance",
+            "176 capacitors",
+            "2.2 μF each",
+            "450 V each"
+          ],
+          "supporting_excerpt": "Min. 20 µF, 176 × ... (X6S, 2.2 µF, 450 V) ... two rows of 88 caps in series",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C13",
+          "statement": "Under equal device switching frequency and sufficiently large motor inductance, the paper expects identical semiconductor conduction and switching losses for the two topologies because they use the same semiconductor count, chip area, voltage stress, and approximately equal current stress.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 9,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Losses and Efficiency",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "same fsw",
+            "same semiconductor count and total chip area"
+          ],
+          "supporting_excerpt": "With identical device switching frequencies, equal semiconductor losses ... occur in both converters",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C14",
+          "statement": "For the measured motor common-mode model, the machine is approximately capacitive around the relevant switching frequencies and is represented by CCM = 4.4 nF.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 11,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Common-Mode Voltage and EMI",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "CCM = 4.4 nF",
+            "35 kHz device frequency",
+            "70 kHz effective frequency"
+          ],
+          "supporting_excerpt": "the machine behaves purely capacitive ... and, consequently, can be modeled ... with CCM = 4.4 nF",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C15",
+          "statement": "Ideal complementary switching of the two 2L-SSC inverters cancels their common-mode voltages; a 100 ns timing mismatch instead produces voltage spikes of ±VDC/12, or ±66.7 V for the 800 V system.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 7,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Common-Mode Voltage and EMI",
+            "Modulation and Control"
+          ],
+          "numerical_values": [
+            "ideal vCM,tot = 0",
+            "td = 100 ns",
+            "spike amplitude ±VDC/12 = ±66.7 V"
+          ],
+          "supporting_excerpt": "a delay ... will result in a non-zero vCM,tot ... amplitude ±VDC/12 = ±66.7 V",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C16",
+          "statement": "The designed CM choke for the 2L-SSC is substantially smaller than that for the 3L-FCC: the paper reports approximately 30% of the 3L-FCC choke volume and nominal losses in the conservative nonideal-cancellation comparison.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 22,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Common-Mode Voltage and EMI",
+            "Power Density",
+            "Losses and Efficiency"
+          ],
+          "numerical_values": [
+            "2L-SSC CM-choke volume ≈30% of 3L-FCC",
+            "2L-SSC nominal CM-choke losses ≈30% of 3L-FCC"
+          ],
+          "supporting_excerpt": "the resulting CM choke features only about 30% of the volume and 30% of the (nominal) losses",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C17",
+          "statement": "For the CM-choke designs, calculated nominal efficiencies are 99.05% for the 3L-FCC and 99.2% for the 2L-SSC; during overload, the 3L-FCC has substantially higher total losses because of its larger CM-choke winding losses.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 15,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Losses and Efficiency",
+            "Thermal Management"
+          ],
+          "numerical_values": [
+            "3L-FCC nominal efficiency 99.05%",
+            "2L-SSC nominal efficiency 99.2%",
+            "overload duration 3 s",
+            "45 A peak overload current"
+          ],
+          "supporting_excerpt": "an expected efficiency of 99.05% for the 3L-FCC and ... 99.2% for the 2L-SSC",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C18",
+          "statement": "In the alternate full sine-wave LC-filter scenario, the 2L-SSC requires two filter sets because of its two winding systems; with identical motor voltage quality, the paper concludes that its filter volume and filter losses are doubled, and its device switching frequency is increased to 70 kHz.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 21,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Common-Mode Voltage and EMI",
+            "Losses and Efficiency",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "2L-SSC filter sets: 2",
+            "2L-SSC device switching frequency: 70 kHz",
+            "approximately 2× filter volume and losses"
+          ],
+          "supporting_excerpt": "the two winding systems each require an output filter ... twice the output filter volume and losses",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C19",
+          "statement": "The comparison is primarily design- and simulation-based rather than a demonstrated end-to-end experimental drive validation: CM impedances were measured, but the resulting motor CM voltages and efficiency/volume results are presented as calculated or simulated; the authors explicitly call for future experimental verification of EDM mitigation.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 22,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Experimental Validation",
+            "Research Gaps",
+            "Future Research Directions"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "Future experimental verification should confirm the effectiveness of the CM chokes for EDM mitigation",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Rohner2024_C20",
+          "statement": "The authors identify motor asymmetry as a limitation of 2L-SSC common-mode cancellation: an approximately 10% difference between the two winding-to-rotor capacitances is allowed under the cited EDM threshold assumption, and asymmetry can produce nonzero bearing voltage even with ideal inverter CM cancellation.",
+          "citation_key": "Rohner2024",
+          "source_title": "Comparative Evaluation of Three-Phase Three-Level Flying Capacitor and Stacked Polyphase Bridge GaN Inverter Systems for Integrated Motor Drives",
+          "page_number": 25,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Common-Mode Voltage and EMI",
+            "Reliability",
+            "Research Gaps"
+          ],
+          "numerical_values": [
+            "approximately 10% allowed capacitance difference",
+            "1.5 V assumed lower EDM bearing-voltage threshold"
+          ],
+          "supporting_excerpt": "an approximately 10% difference between Cwr,A and Cwr,B is allowed",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        }
+      ],
+      "unresolved_questions": [
+        "The paper does not report a complete hardware demonstration of the compared 7.5 kW integrated drives under the stated overload conditions.",
+        "EDM-bearing-current mitigation by the proposed CM chokes remains identified as requiring future experimental verification.",
+        "Efficiency, loss, volume, and power-density comparisons are largely calculated or simulated rather than measured end-to-end system results."
+      ]
+    },
+    {
+      "citation_key": "Verkroost2024",
+      "title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+      "pdf_filename": "Verkroost2024.pdf",
+      "claims": [
+        {
+          "claim_id": "Verkroost2024_C01",
+          "statement": "The stacked polyphase bridge converter comprises multiple standard three-phase, two-level voltage-source inverters whose dc links are connected in series to one dc voltage source.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 1,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Background and Taxonomy"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "multiple standard, three-phase two-level voltage source inverters connected in series to the same dc voltage source",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C02",
+          "statement": "Each agent consists of a three-phase winding set, a three-phase 2L-VSI, a local dc-link voltage sensor, and a dedicated controller; the agents communicate in a ring with their two nearest neighbours.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 3,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Multiphase Electric Machines",
+            "Modulation and Control"
+          ],
+          "numerical_values": [
+            "three phases per agent",
+            "two nearest neighbours"
+          ],
+          "supporting_excerpt": "A set of three motor modules, three PE modules, a voltage sensor and its controller is called an agent.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C03",
+          "statement": "The case-study drive has 15 pole drive units grouped into five three-phase agents, forming a 15-phase segmented-armature torus axial-flux PMSM drive.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 7,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Multiphase Electric Machines",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "15 pole drive units",
+            "5 agents",
+            "15-phase machine",
+            "4 kW"
+          ],
+          "supporting_excerpt": "This modular motor drive consists of n = 15 identical pole drive units, and hence p = 5 agents.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C04",
+          "statement": "The total dc-bus voltage is 240 V, with 220 μF dc-link capacitance allocated to each agent; with five active agents, the simulated equalized capacitor-voltage reference is 48 V per agent, increasing to 60 V when one agent is isolated.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 8,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "DC-Link Architecture",
+            "Cell Balancing",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "Edc = 240 V",
+            "C = 220 μF per agent",
+            "48 V = 240/5",
+            "60 V = 240/4"
+          ],
+          "supporting_excerpt": "the average ... ≈ Edc/p = 240/5 = 48 V",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C05",
+          "statement": "The proposed reconfiguration hardware adds two active unidirectional semiconductor switches per agent: one neutral-point switch for back-EMF elimination and one dc-chopper switch for controlled capacitor discharge and recharge.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 3,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Fault Tolerance",
+            "Integrated Motor Drives"
+          ],
+          "numerical_values": [
+            "2 additional active unidirectional switches per agent"
+          ],
+          "supporting_excerpt": "two additional active switches are required per agent: one as part of a neutral point switch, and one as part of a dc chopper",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C06",
+          "statement": "Voltage balancing in motoring mode uses a decentralized dynamic-average-consensus algorithm, an active voltage balancer, and independent three-phase vector PI current controllers; only local measurements, local computation, and neighbour-to-neighbour communication are required.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 4,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Cell Balancing",
+            "Fault Tolerance"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "The multi-agent voltage balancing algorithm consists of three sub-algorithms",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C07",
+          "statement": "The experimental and simulated operating point for the main case study is motoring at 700 rpm with a constant q-axis current reference of 7 A.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 7,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Experimental Validation",
+            "Modulation and Control"
+          ],
+          "numerical_values": [
+            "N = 700 rpm",
+            "iq,ref = 7 A"
+          ],
+          "supporting_excerpt": "The case study is conducted at a constant mechanical speed N of 700 rpm, and a constant q-current reference iq,ref of 7A.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C08",
+          "statement": "The controllers use a 10 kHz sampling and switching frequency, while the voltage-balancing and communication update frequency is 2 kHz.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 8,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "fs = 10 kHz",
+            "fvb = 2 kHz"
+          ],
+          "supporting_excerpt": "Sampling and switching frequency ... 10; Update frequency of the voltage balancer ... 2",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C09",
+          "statement": "During isolation, the inverter switches are opened, the neutral point is opened after the winding currents reach zero, and a dc chopper discharges the isolated agent's capacitor along a prescribed linear slope; the final low-impedance dc path is implemented by shorting the inverter, when hardware permits.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 6,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "DC-Link Architecture",
+            "Cell Balancing"
+          ],
+          "numerical_values": [
+            "chopper resistance R = 1 Ω"
+          ],
+          "supporting_excerpt": "The back-EMF must be eliminated before lowering the dc-link voltage ... A dc chopper is able to fulfil these two requirements.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C10",
+          "statement": "In simulation, isolating agent 5 from the five-agent drive produced a capacitor-voltage decrease at the prescribed 500 V/s slope toward 6 V; the majority of dc-link changes occurred after 0.096 s, while complete isolation took approximately 0.307 s.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 9,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Cell Balancing",
+            "Fault Tolerance",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "s = 500 V/s",
+            "6 V",
+            "0.096 s",
+            "0.307 s"
+          ],
+          "supporting_excerpt": "vdc,5 has decreased at a rate s of 500 V/s ... 0.096 s later ... The complete isolation procedure takes approximately 0.307 s",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C11",
+          "statement": "In simulation, agent reactivation increased its capacitor voltage with a 500 V/s slope until the 80% neighbour-voltage criterion was reached; normal operation resumed after 0.1 s.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 9,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Cell Balancing",
+            "Fault Tolerance",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "s = 500 V/s",
+            "80% neighbour-voltage threshold",
+            "0.1 s"
+          ],
+          "supporting_excerpt": "The complete reactivation procedure hence takes 0.1 s to finish.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C12",
+          "statement": "The experimental setup uses five series-connected agents, each with three current transducers, a 2L-VSI, a 220 μF dc-link capacitor, and a voltage sensor; agent 5 additionally has the dc chopper and neutral-point switch.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 10,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Integrated Motor Drives",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "5 agents",
+            "220 μF per-agent capacitor",
+            "3 current transducers per agent"
+          ],
+          "supporting_excerpt": "The AFPMSM consists of 15 identical motor modules, grouped into five three-phase agents.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C13",
+          "statement": "The experimental controllers were decentralized in algorithm structure but implemented on the FPGA of one dSPACE MicroLabBox; measurements were recorded at 10 kHz.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 10,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "10 kHz measurement sampling rate"
+          ],
+          "supporting_excerpt": "they are still implemented on the FPGA of a single MicroLabBox.",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C14",
+          "statement": "Experimentally, agent 5 was repeatedly isolated and reactivated while the q-current references remained at 7 A; isolation reduced torque by a factor of 4/5, but torque was never interrupted.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 10,
+          "evidence_type": "experimental_result",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "Experimental Validation",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "iq,ref = 7 A",
+            "torque factor = 4/5"
+          ],
+          "supporting_excerpt": "the isolation of agent 5 reduces the torque by a factor of 4/5 ... the torque is never interrupted",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C15",
+          "statement": "The experiment could not validate the final dc-link short-circuit step because the high-side inverter switches use bootstrap gate-driver circuits; this is an explicit hardware limitation of the validation setup.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 10,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "Experimental Validation",
+            "Research Gaps"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "it is not possible to validate the dc-link short circuit ... due to the bootstrap circuits",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C16",
+          "statement": "The measured reconfiguration behavior agreed well with simulation overall; reactivation caused more pronounced current and voltage transients than simulated, but these transients decayed within 0.1 s.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 11,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Experimental Validation",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "0.1 s transient decay time"
+          ],
+          "supporting_excerpt": "these transients have died out after 0.1 s",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C17",
+          "statement": "Lowering the communication/update frequency increases both reconfiguration time and q-current-setpoint ripple, because capacitor voltages diverge longer between balancing updates.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 12,
+          "evidence_type": "conclusion",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Cell Balancing",
+            "Experimental Validation"
+          ],
+          "numerical_values": [
+            "operating points included 75 V, 175 V, and 240 V dc bus; 3 A or 7 A q-current; 200 rpm or 400 rpm"
+          ],
+          "supporting_excerpt": "both the reconfiguration time and the ripple in the q-current set-points increase when the communication frequency is lowered",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Verkroost2024_C18",
+          "statement": "The authors identify two future extensions: autonomous isolation/reactivation based on agent health or operating point, and decentralized redistribution of torque demand among active agents to avoid torque reduction after isolation.",
+          "citation_key": "Verkroost2024",
+          "source_title": "Dynamic multi-agent dc-bus reconfiguration in modular motor drives with a stacked polyphase bridge converter",
+          "page_number": 12,
+          "evidence_type": "conclusion",
+          "relevant_sections": [
+            "Fault Tolerance",
+            "Research Gaps",
+            "Future Research Directions"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "the control strategy can still be further developed to allow the agents to isolate or reactivate themselves based on their health status or the operating point",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        }
+      ],
+      "unresolved_questions": [
+        "The paper does not report semiconductor voltage/current ratings, converter efficiency, loss breakdown, power density, or cooling/thermal measurements for the 4 kW setup.",
+        "The claimed 100 ms reconfiguration validation is demonstrated for the dynamic procedure, but the experimental setup did not validate the final dc-link short-circuit step.",
+        "The paper's decentralization was implemented computationally on a single FPGA rather than across physically distributed controllers."
+      ]
+    },
+    {
+      "citation_key": "Bringezu2020",
+      "title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+      "pdf_filename": "Bringezu2020.pdf",
+      "claims": [
+        {
+          "claim_id": "Bringezu2020_C01",
+          "statement": "The SPB-C is a modular converter comprising series-connected three-phase converter modules; each module has a DC-link capacitor and supplies one three-phase motor winding system in a multi-star-point connection.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 1,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Integrated Motor Drives"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "each SPB-module has a dc link capacitor and is connected to a 3-phase winding system",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C02",
+          "statement": "The analyzed configurations use 2, 3, or 4 SPB modules and are paired with 3-phase phase-aligned motors or 6-, 9-, and 12-phase motors formed using non-phase-aligned three-phase winding systems.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 1,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Multiphase Electric Machines"
+          ],
+          "numerical_values": [
+            "2, 3, or 4 SPB modules",
+            "3, 6, 9, or 12 phases"
+          ],
+          "supporting_excerpt": "2, 3, or 4 modules ... results in a 6-, a 9-, or a 12-phase system",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C03",
+          "statement": "The selected non-phase-aligned winding-axis displacements for the 6-, 9-, and 12-phase configurations are 30°, 40°, and 15°, respectively; the corresponding phase-aligned systems use 120° between winding axes.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 1,
+          "evidence_type": "definition",
+          "relevant_sections": [
+            "Multiphase Electric Machines"
+          ],
+          "numerical_values": [
+            "30°",
+            "40°",
+            "15°",
+            "120°"
+          ],
+          "supporting_excerpt": "Fig. 2b ... magnetic winding axes for different possible alignments",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "medium"
+        },
+        {
+          "claim_id": "Bringezu2020_C04",
+          "statement": "The optimization compares system efficiency, power density, and motor-converter modularity; the compared configuration pairs have the same number of semiconductor devices at the same ratings, enabling comparable cost assumptions.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 2,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "System-Level Comparison",
+            "Power Density"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "same amount of semiconductor devices at the same ratings and thus comparable costs",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C05",
+          "statement": "The system-design procedure designs the motor, varies switching frequency, calculates currents and voltages, dimensions the DC link, estimates losses and volumes, and then computes efficiency and power density.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 2,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Losses and Efficiency",
+            "Power Density"
+          ],
+          "numerical_values": [
+            "switching-frequency range: 1–100 kHz"
+          ],
+          "supporting_excerpt": "The sum of all volumes and the sum of all losses are finally used to calculate the system efficiency and power density",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C06",
+          "statement": "The common system specification is a rated torque of 50 Nm and rated speed of 300 rpm; the assumed ambient temperature is 55 °C and maximum junction temperature is 125 °C.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Experimental Validation",
+            "Thermal Management"
+          ],
+          "numerical_values": [
+            "50 Nm rated torque",
+            "300 rpm rated speed",
+            "55 °C ambient temperature",
+            "125 °C maximum junction temperature"
+          ],
+          "supporting_excerpt": "System specifications used for all system configurations",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C07",
+          "statement": "The study assumes a 7.5 µH cable inductance, limits normalized DC-link ripple to 0.02, and limits normalized load step to 1.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "DC-Link Architecture"
+          ],
+          "numerical_values": [
+            "7.5 µH cable inductance",
+            "Δvdc,max/Vdc,mod = 0.02",
+            "Δidc,out/Imod = 1"
+          ],
+          "supporting_excerpt": "Max. DC link voltage ripple ... Max. load step",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C08",
+          "statement": "GaN HEMTs are selected for low losses, with 200 V and 600 V device-blocking-voltage cases. The selected devices are EPC2034C (200 V, 8 mΩ) and IGOT60R070D1 (600 V, 70 mΩ).",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Semiconductor Technology",
+            "Semiconductor Voltage Scaling"
+          ],
+          "numerical_values": [
+            "200 V, 8 mΩ, EPC2034C",
+            "600 V, 70 mΩ, IGOT60R070D1",
+            "Rth,jc = 0.3 K/W and 1 K/W, respectively"
+          ],
+          "supporting_excerpt": "GaN-HEMTs are used as semiconductor devices to achieve low losses",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C09",
+          "statement": "For the 200 V-device case, total DC-link voltages are 266 V, 400 V, and 533 V for the 2-, 3-, and 4-module configurations, respectively, with 133 V per module. For the 600 V-device case, total DC-link voltages are 800 V for 2 modules and 1000 V for 3 and 4 modules, with module voltages of 400 V, 333 V, and 250 V.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Semiconductor Voltage Scaling",
+            "DC-Link Architecture"
+          ],
+          "numerical_values": [
+            "266/400/533 V total; 133 V per module",
+            "800 V total; 400 V per module",
+            "1000 V total; 333 V or 250 V per module"
+          ],
+          "supporting_excerpt": "Vdc is limited to 1000V to stay within low-voltage standards",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C10",
+          "statement": "The selected motor designs use double-layer tooth-coil windings with slot/pole combinations (N,p) of (36,17), (27,12), and (24,10 or 11) for the 3-/6-phase, 3-/9-phase, and 3-/12-phase comparison pairs. Their winding factors are higher for the multiphase variants: 0.986 versus 0.953, 0.985 versus 0.945, and 0.991 versus 0.933.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Multiphase Electric Machines",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "(N,p)=(36,17), kw=0.953/0.986",
+            "(27,12), kw=0.945/0.985",
+            "(24,10)/(24,11), kw=0.933/0.991"
+          ],
+          "supporting_excerpt": "The selected combinations are summarized in Tab. VIII",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C11",
+          "statement": "Across relevant feasible slot-pole combinations, the multiphase configurations have an average winding-factor increase of 3.7% over the corresponding three-phase configurations.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "comparison",
+          "relevant_sections": [
+            "Multiphase Electric Machines",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "3.7% average winding-factor increase"
+          ],
+          "supporting_excerpt": "the increase in kw is 3.7%",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C12",
+          "statement": "The paper reports that combined motor-converter modularity is practically not feasible for the considered multiphase motors: only three-phase configurations can reach the highest modularity degree C, while multiphase cases reaching degree B suffer from unbalanced magnetic pull or high rotor losses.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 8,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Converter Architecture",
+            "Fault Tolerance",
+            "Research Gaps"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "combined motor-converter modularity is practically not feasible for multiphase motors",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C13",
+          "statement": "The motor-loss model includes copper losses and stator iron losses; converter losses include conduction and switching losses. System volume includes the motor, populated PCB, DC-link capacitor, and heat sink.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 10,
+          "evidence_type": "method",
+          "relevant_sections": [
+            "Losses and Efficiency",
+            "Power Density",
+            "Thermal Management"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "Considered losses: Motor copper and stator core losses, converter switching and conduction losses",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C14",
+          "statement": "At low switching frequency, large DC-link capacitance is required for ripple limitation and motor current ripple causes increased harmonic motor losses; increasing switching frequency improves motor efficiency but reduces converter efficiency because of switching losses.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 10,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Modulation and Control",
+            "Losses and Efficiency",
+            "DC-Link Architecture"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "Increasing the switching frequency increases the motor efficiency but decreases the converter efficiency due to the switching losses",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C15",
+          "statement": "The modeled comparison reports that multiphase configurations provide, on average, a 0.70% increase in maximum efficiency or a 3.8% increase in maximum power density relative to three-phase configurations.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 10,
+          "evidence_type": "numerical_result",
+          "relevant_sections": [
+            "Losses and Efficiency",
+            "Power Density",
+            "System-Level Comparison"
+          ],
+          "numerical_values": [
+            "0.70% average increase in maximum efficiency",
+            "3.8% average increase in maximum power density"
+          ],
+          "supporting_excerpt": "multiphase configurations on average enable an increase of 0.70% in maximum efficiency or ... 3.8% in maximum power density",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "high"
+        },
+        {
+          "claim_id": "Bringezu2020_C16",
+          "statement": "The paper's conclusions are based on comprehensive system optimization rather than experimental validation; the inspected results comprise modeled motor/converter losses, volumes, efficiency, and power density.",
+          "citation_key": "Bringezu2020",
+          "source_title": "Comparison of optimized motor-inverter systems using a Stacked Polyphase Bridge Converter combined with a 3-, 6-, 9-, or 12-phase PMSM",
+          "page_number": 10,
+          "evidence_type": "limitation",
+          "relevant_sections": [
+            "Experimental Validation",
+            "Research Gaps"
+          ],
+          "numerical_values": [],
+          "supporting_excerpt": "analyzed and compared ... based on a comprehensive system optimization",
+          "verification_level": "FULL_TEXT_VERIFIED",
+          "confidence": "medium"
+        }
+      ],
+      "unresolved_questions": [
+        "No experimental hardware setup or measured waveforms/results were identified in the inspected paper text.",
+        "The plotted absolute efficiency and power-density values in Fig. 12 were not extracted because the text reports only the relative improvements explicitly."
+      ]
+    }
+  ]
+}

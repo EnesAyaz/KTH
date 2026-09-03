@@ -1,0 +1,1454 @@
+{
+  "candidate_count": 10,
+  "ranking_policy": "Scores estimate potential usefulness for current quantitative evidence gaps. They do not verify scientific claims.",
+  "field_weights": {
+    "power_density_kw_per_l": {
+      "weight": 11,
+      "priority": "CRITICAL",
+      "additional_needed": 5
+    },
+    "efficiency_percent": {
+      "weight": 10,
+      "priority": "CRITICAL",
+      "additional_needed": 4
+    },
+    "semiconductor_voltage_rating_v": {
+      "weight": 9,
+      "priority": "CRITICAL",
+      "additional_needed": 3
+    },
+    "switching_frequency_khz": {
+      "weight": 8,
+      "priority": "CRITICAL",
+      "additional_needed": 2
+    },
+    "rated_power_kw": {
+      "weight": 6,
+      "priority": "HIGH",
+      "additional_needed": 2
+    },
+    "dc_link_voltage_v": {
+      "weight": 5,
+      "priority": "HIGH",
+      "additional_needed": 1
+    },
+    "cell_voltage_v": {
+      "weight": 0,
+      "priority": "HIGH",
+      "additional_needed": 0
+    },
+    "semiconductor_current_rating_a": {
+      "weight": 7,
+      "priority": "MEDIUM",
+      "additional_needed": 5
+    },
+    "number_of_cells": {
+      "weight": 0,
+      "priority": "MEDIUM",
+      "additional_needed": 0
+    },
+    "number_of_phases": {
+      "weight": 0,
+      "priority": "MEDIUM",
+      "additional_needed": 0
+    }
+  },
+  "pair_weights": {
+    "Efficiency vs power density": {
+      "weight": 16,
+      "priority": "CRITICAL",
+      "additional_needed": 5,
+      "x_column": "power_density_kw_per_l",
+      "y_column": "efficiency_percent"
+    },
+    "Semiconductor voltage rating vs switching frequency": {
+      "weight": 14,
+      "priority": "CRITICAL",
+      "additional_needed": 4,
+      "x_column": "semiconductor_voltage_rating_v",
+      "y_column": "switching_frequency_khz"
+    },
+    "Efficiency vs switching frequency": {
+      "weight": 14,
+      "priority": "CRITICAL",
+      "additional_needed": 4,
+      "x_column": "switching_frequency_khz",
+      "y_column": "efficiency_percent"
+    },
+    "Cell voltage vs semiconductor voltage rating": {
+      "weight": 12,
+      "priority": "CRITICAL",
+      "additional_needed": 3,
+      "x_column": "cell_voltage_v",
+      "y_column": "semiconductor_voltage_rating_v"
+    },
+    "Rated power vs DC-link voltage": {
+      "weight": 10,
+      "priority": "HIGH",
+      "additional_needed": 3,
+      "x_column": "rated_power_kw",
+      "y_column": "dc_link_voltage_v"
+    }
+  },
+  "candidates": [
+    {
+      "title": "Extreme high power density T-modular-multilevel-converter for medium voltage motor drive",
+      "authors": [
+        "Qin Lei",
+        "Yifu Liu",
+        "Yunpeng Si"
+      ],
+      "year": 2017,
+      "journal_or_venue": "IECON 2017 - 43rd Annual Conference of the IEEE Industrial Electronics Society",
+      "doi": "10.1109/iecon.2017.8216194",
+      "url": "https://doi.org/10.1109/iecon.2017.8216194",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Cell voltage vs semiconductor voltage rating",
+        "Semiconductor voltage rating vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Explicit high-power-density modular multilevel motor-drive architecture; likely useful as a benchmark for density and voltage-partitioned modular conversion.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "MODULAR_HIGH_VOLTAGE",
+      "score": 145,
+      "field_score": 49,
+      "pair_score": 66,
+      "experimental_score": 4,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 5,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Cell voltage vs semiconductor voltage rating",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Cell voltage vs semiconductor voltage rating",
+          "points": 12
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q05",
+          "points": 5
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/iecon.2017.8216194",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 1,
+      "recommendation": "DOWNLOAD FIRST"
+    },
+    {
+      "title": "High density Modular Multilevel Cascade Converter for medium-voltage motor drive",
+      "authors": [
+        "Dong Jiang",
+        "Jing Xue",
+        "Fred Wang",
+        "Min H. Kao"
+      ],
+      "year": 2011,
+      "journal_or_venue": "2011 IEEE Electric Ship Technologies Symposium",
+      "doi": "10.1109/ests.2011.5770920",
+      "url": "https://doi.org/10.1109/ests.2011.5770920",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "cell_voltage_v",
+        "number_of_cells",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Cell voltage vs semiconductor voltage rating",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Directly concerns a high-density modular converter for medium-voltage motor drives and is relevant to lower-voltage-device voltage partitioning.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "MODULAR_HIGH_VOLTAGE",
+      "score": 145,
+      "field_score": 49,
+      "pair_score": 66,
+      "experimental_score": 4,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 5,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Cell voltage vs semiconductor voltage rating",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Cell voltage vs semiconductor voltage rating",
+          "points": 12
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q05",
+          "points": 5
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/ests.2011.5770920",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 2,
+      "recommendation": "DOWNLOAD FIRST"
+    },
+    {
+      "title": "Design and Verification of Multiphase Multilevel Traction Inverter",
+      "authors": [
+        "Patrik Resutík",
+        "Michal Praženica",
+        "Slavomír Kaščák"
+      ],
+      "year": 2024,
+      "journal_or_venue": "Applied Sciences",
+      "doi": "10.3390/app142210562",
+      "url": "https://doi.org/10.3390/app142210562",
+      "publication_type": "journal article",
+      "matched_topic_ids": [
+        "Q04",
+        "Q05"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "expected_quantitative_pairs": [
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "HIGH",
+      "selection_rationale": "Title explicitly indicates design verification of a multiphase multilevel traction inverter, making it a promising prototype benchmark for electrical and performance fields.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "MULTIPHASE_TRACTION",
+      "score": 142,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 8,
+      "quantitative_score": 8,
+      "access_score": 4,
+      "topic_score": 8,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "HIGH",
+          "points": 4
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q04, Q05",
+          "points": 8
+        },
+        {
+          "type": "DOI",
+          "name": "10.3390/app142210562",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 3,
+      "recommendation": "DOWNLOAD FIRST"
+    },
+    {
+      "title": "Control Strategy of a Hybrid SiC-Si Traction Inverter for Direct-Drive Multiphase PMSMs in Marine Propulsion",
+      "authors": [
+        "Shusen Ni",
+        "Chi Li",
+        "Zedong Zheng"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IEEE Transactions on Power Electronics",
+      "doi": "10.1109/tpel.2024.3434703",
+      "url": "https://doi.org/10.1109/tpel.2024.3434703",
+      "publication_type": "journal article",
+      "matched_topic_ids": [
+        "Q03",
+        "Q04"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "number_of_phases",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Multiphase traction-scale marine propulsion application with hybrid SiC–Si devices; strong candidate for phase count, electrical ratings, switching, and efficiency data.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "score": 138,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 8,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 6,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q03, Q04",
+          "points": 6
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/tpel.2024.3434703",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 4,
+      "recommendation": "DOWNLOAD FIRST"
+    },
+    {
+      "title": "High efficiency SiC traction inverter for electric vehicle applications",
+      "authors": [
+        "Jianglin Zhu",
+        "Hyeokjin Kim",
+        "Hua Chen",
+        "Robert Erickson",
+        "Dragan Maksimovic"
+      ],
+      "year": 2018,
+      "journal_or_venue": "2018 IEEE Applied Power Electronics Conference and Exposition (APEC)",
+      "doi": "10.1109/apec.2018.8341204",
+      "url": "https://doi.org/10.1109/apec.2018.8341204",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q03",
+        "Q04"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Traction-focused SiC inverter paper explicitly emphasizing efficiency; promising source for device, switching, power, voltage, and possibly density data.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "score": 138,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 8,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 6,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q03, Q04",
+          "points": 6
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/apec.2018.8341204",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 5,
+      "recommendation": "DOWNLOAD FIRST"
+    },
+    {
+      "title": "Design and Analysis of a GaN-Based Megahertz Integrated Motor Drive for a PCB Motor",
+      "authors": [
+        "Ozgur Gulsuna"
+      ],
+      "year": 2024,
+      "journal_or_venue": "IEEE Transactions on Industrial Electronics",
+      "doi": "10.1109/tie.2024.3390736",
+      "url": "https://doi.org/10.1109/tie.2024.3390736",
+      "publication_type": "journal article",
+      "matched_topic_ids": [
+        "Q02"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Integrated GaN motor drive with an explicitly megahertz operating concept; likely to contain prototype operating data and compactness-related metrics.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "GAN_INTEGRATED_DRIVE",
+      "score": 137,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 8,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 5,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q02",
+          "points": 5
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/tie.2024.3390736",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 6,
+      "recommendation": "DOWNLOAD / RESERVE"
+    },
+    {
+      "title": "GaN based High Power Density PCB Design for Aerial Vehicles Motor Drive Applications",
+      "authors": [
+        "Shahid Aziz Khan",
+        "Feng Zhou",
+        "DucDung Le",
+        "Mengqi Wang",
+        "Shivam Chaturvedi"
+      ],
+      "year": 2025,
+      "journal_or_venue": "2025 IEEE International Workshop on Integrated Power Packaging (IWIPP)",
+      "doi": "10.1109/iwipp61784.2025.10971516",
+      "url": "https://doi.org/10.1109/iwipp61784.2025.10971516",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q02"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Explicitly targets high-power-density GaN motor-drive hardware for aerial vehicles; promising benchmark for density, switching, efficiency, and cooling metrics.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "GAN_INTEGRATED_DRIVE",
+      "score": 133,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 4,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 5,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q02",
+          "points": 5
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/iwipp61784.2025.10971516",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 7,
+      "recommendation": "DOWNLOAD / RESERVE"
+    },
+    {
+      "title": "Comparison of Inverter Topologies Suited for Integrated Modular Motor Drive Applications",
+      "authors": [
+        "Mesut Ugur",
+        "Hakan Sarac",
+        "Ozan Keysan"
+      ],
+      "year": 2018,
+      "journal_or_venue": "2018 IEEE 18th International Power Electronics and Motion Control Conference (PEMC)",
+      "doi": "10.1109/epepemc.2018.8521918",
+      "url": "https://doi.org/10.1109/epepemc.2018.8521918",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q02",
+        "Q03"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "MEDIUM",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Directly addresses integrated modular motor-drive inverter topology tradeoffs and may provide comparable efficiency, density, device, and switching data.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "GAN_INTEGRATED_DRIVE",
+      "score": 132,
+      "field_score": 49,
+      "pair_score": 54,
+      "experimental_score": 4,
+      "quantitative_score": 4,
+      "access_score": 2,
+      "topic_score": 8,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q02, Q03",
+          "points": 8
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/epepemc.2018.8521918",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 8,
+      "recommendation": "DOWNLOAD / RESERVE"
+    },
+    {
+      "title": "1500 V and 10 A SiC motor drive inverter module",
+      "authors": [
+        "Chang",
+        "Hanna",
+        "Zhang",
+        "Gomez"
+      ],
+      "year": 2004,
+      "journal_or_venue": "Proceedings of the 16th International Symposium on Power Semiconductor Devices & IC's",
+      "doi": "10.1109/wct.2004.240150",
+      "url": "https://doi.org/10.1109/wct.2004.240150",
+      "publication_type": "conference paper",
+      "matched_topic_ids": [
+        "Q03"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "semiconductor_voltage_rating_v",
+        "semiconductor_current_rating_a",
+        "switching_frequency_khz",
+        "efficiency_percent",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "HIGH",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "MEDIUM",
+      "selection_rationale": "Explicit SiC motor-drive inverter module with device-level voltage/current emphasis; especially valuable for the current semiconductor-rating gaps.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "score": 115,
+      "field_score": 45,
+      "pair_score": 38,
+      "experimental_score": 8,
+      "quantitative_score": 8,
+      "access_score": 2,
+      "topic_score": 3,
+      "multi_field_bonus": 8,
+      "metadata_penalty": 0,
+      "useful_field_count": 6,
+      "matched_quantitative_pairs": [
+        "Semiconductor voltage rating vs switching frequency",
+        "Efficiency vs switching frequency",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_current_rating_a",
+          "points": 7
+        },
+        {
+          "type": "FIELD",
+          "name": "semiconductor_voltage_rating_v",
+          "points": 9
+        },
+        {
+          "type": "FIELD",
+          "name": "switching_frequency_khz",
+          "points": 8
+        },
+        {
+          "type": "PAIR",
+          "name": "Semiconductor voltage rating vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs switching frequency",
+          "points": 14
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "MEDIUM",
+          "points": 2
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q03",
+          "points": 3
+        },
+        {
+          "type": "DOI",
+          "name": "10.1109/wct.2004.240150",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "6 useful fields",
+          "points": 8
+        }
+      ],
+      "rank": 9,
+      "recommendation": "HOLD"
+    },
+    {
+      "title": "Design and Research on High Power Density Motor of Integrated Motor Drive System for Electric Vehicles",
+      "authors": [
+        "Shaopeng Wu",
+        "Jinyang Zhou",
+        "Xinmiao Zhang",
+        "Jiaqiang Yu"
+      ],
+      "year": 2022,
+      "journal_or_venue": "Energies",
+      "doi": "10.3390/en15103542",
+      "url": "https://doi.org/10.3390/en15103542",
+      "publication_type": "journal article",
+      "matched_topic_ids": [
+        "Q03",
+        "Q04"
+      ],
+      "expected_quantitative_fields": [
+        "rated_power_kw",
+        "dc_link_voltage_v",
+        "efficiency_percent",
+        "power_density_kw_per_l",
+        "cooling_method"
+      ],
+      "expected_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Rated power vs DC-link voltage"
+      ],
+      "experimental_relevance": "MEDIUM",
+      "quantitative_relevance": "HIGH",
+      "full_text_access_likelihood": "HIGH",
+      "selection_rationale": "Explicit high-power-density integrated electric-drive study; likely useful for system-level density, power, efficiency, and thermal/cooling benchmarking.",
+      "verification_status": "CANDIDATE_METADATA_ONLY",
+      "architecture_category": "SIC_INTEGRATED_DRIVE",
+      "score": 88,
+      "field_score": 32,
+      "pair_score": 26,
+      "experimental_score": 4,
+      "quantitative_score": 8,
+      "access_score": 4,
+      "topic_score": 6,
+      "multi_field_bonus": 5,
+      "metadata_penalty": 0,
+      "useful_field_count": 4,
+      "matched_quantitative_pairs": [
+        "Efficiency vs power density",
+        "Rated power vs DC-link voltage"
+      ],
+      "score_breakdown": [
+        {
+          "type": "FIELD",
+          "name": "dc_link_voltage_v",
+          "points": 5
+        },
+        {
+          "type": "FIELD",
+          "name": "efficiency_percent",
+          "points": 10
+        },
+        {
+          "type": "FIELD",
+          "name": "power_density_kw_per_l",
+          "points": 11
+        },
+        {
+          "type": "FIELD",
+          "name": "rated_power_kw",
+          "points": 6
+        },
+        {
+          "type": "PAIR",
+          "name": "Efficiency vs power density",
+          "points": 16
+        },
+        {
+          "type": "PAIR",
+          "name": "Rated power vs DC-link voltage",
+          "points": 10
+        },
+        {
+          "type": "EXPERIMENTAL",
+          "name": "MEDIUM",
+          "points": 4
+        },
+        {
+          "type": "QUANTITATIVE",
+          "name": "HIGH",
+          "points": 8
+        },
+        {
+          "type": "ACCESS",
+          "name": "HIGH",
+          "points": 4
+        },
+        {
+          "type": "TOPIC",
+          "name": "Q03, Q04",
+          "points": 6
+        },
+        {
+          "type": "DOI",
+          "name": "10.3390/en15103542",
+          "points": 3
+        },
+        {
+          "type": "MULTI_FIELD",
+          "name": "4 useful fields",
+          "points": 5
+        }
+      ],
+      "rank": 10,
+      "recommendation": "HOLD"
+    }
+  ]
+}
