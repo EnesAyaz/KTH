@@ -27,7 +27,7 @@ patch([xOpt(1) xOpt(2) xOpt(2) xOpt(1)], [0 0 3 3], cOpt, ...
 
 % ---- Curves ----
 p1 = plot(X1, rds,        '--', 'Color', cCond,  'LineWidth', 2.6, 'DisplayName','Conduction losses');
-p3 = plot(X1, Pover+Psw,  '--', 'Color', cSw,    'LineWidth', 2.6, 'DisplayName','Switching losses');
+p3 = plot(X1, Pover+Psw,  ':', 'Color', cSw,    'LineWidth', 2.6, 'DisplayName','Switching losses');
 p4 = plot(X1, Psw+rds+Pover, '-', 'Color', cTotal,'LineWidth', 2.8, 'DisplayName','Total losses');
 
 % ---- Vertical line at optimum (x=1) ----

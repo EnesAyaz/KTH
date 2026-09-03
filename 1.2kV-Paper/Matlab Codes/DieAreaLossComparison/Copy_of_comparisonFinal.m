@@ -190,8 +190,14 @@ for k = 1:2
     fill([A_die_a, fliplr(A_die_a)], [rlo, fliplr(rhi)], c, ...
          'FaceAlpha',0.12, 'EdgeColor','none', 'HandleVisibility','off');
     
+    if k==1 
+        Style = ":";
+    else 
+        Style = "--";
+    end
+
     % nominal line (legend entry)
-    plot(A_die_a, 1e3*rds, 'LineWidth',2.0, 'Color', c, ...
+    plot(A_die_a, 1e3*rds, 'LineWidth',2.5,'LineStyle',Style, 'Color', c, ...
          'DisplayName', cases(k).name);
 end
 
@@ -321,12 +327,18 @@ for k = 1:2
     % color select
     if k==1, c=col800; else, c=col1200; end
 
+     if k==1 
+        Style = ":";
+    else 
+        Style = "--";
+    end
+
     % shaded region
     fill([IL/sqrt(2), fliplr(IL/sqrt(2))], ([Plow, fliplr(Phigh)]/1e3), ...
          c, 'FaceAlpha',0.14, 'EdgeColor','none', 'HandleVisibility','off');
 
     % main curve
-    plot(IL/sqrt(2), Ptot_inv/1e3, 'LineWidth',2.5, 'Color',c, ...
+    plot(IL/sqrt(2), Ptot_inv/1e3, 'LineWidth',2.5,'LineStyle',Style, 'Color',c, ...
          'DisplayName',sprintf('%s',cases(k).name));
 end
 
