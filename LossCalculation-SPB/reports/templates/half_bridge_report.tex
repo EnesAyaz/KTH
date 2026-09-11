@@ -1,0 +1,126 @@
+﻿\documentclass[a4paper,10pt]{article}
+\usepackage[margin=20mm]{geometry}
+\usepackage{graphicx,amsmath,booktabs}
+\title{EPC2361 Half-Bridge Design Study}
+\author{4, 5 and 6 parallel devices per switch position}
+\date{\today}
+\begin{document}
+\maketitle
+\section{Design objective and evidence}
+Choose the highest feasible switching frequency up to 100 kHz while exceeding
+99.5\% three-phase inverter efficiency and keeping the junction below 125 C.
+One half bridge contains $2N$ devices. Three identical legs form the 75 V,
+18.75 kW inverter; the efficiency loss budget is 94.22 W overall or 31.41 W
+per balanced leg. A half bridge's allocated output power is bookkeeping,
+not a separately measured DC/DC efficiency.
+
+\textbf{Status: analytical screening, not a qualified hardware design.}
+Single-device SPICE characterization and split-gate studies are retained as
+separate reports. Their driver and parasitic network do not represent a
+4/5/6-device bank. Fixed overlap times and output-capacitance allowance are
+still assumptions. Other converter losses are currently zero; PCB, capacitor,
+control and driver-quiescent losses must consume the remaining budget.
+
+\section{Fundamental-cycle loss calculation}
+For phase voltage modulation index $m$, $V_{phase,pk}=mV_{dc}/2$ and
+\[I_{rms}=\frac{P_{3ph}}{3[mV_{dc}/(2\sqrt{2})]\cos\phi},\qquad
+ i(\theta)=\sqrt{2}I_{rms}\sin(\theta-\phi).\]
+Three sinusoidal voltage references $r_a,r_b,r_c$ use
+\[z=-(\max(r_a,r_b,r_c)+\min(r_a,r_b,r_c))/2\]
+for centered continuous SVM, or $z=0$ for SPWM. The upper duty is
+$d=(1+r_a+z)/2$. Linear limits are $m\le2/\sqrt{3}$ for SVM and $m\le1$
+for SPWM. The separate SPWM example uses $m=0.99$, so it produces less
+fundamental voltage and needs more current for the same real power.
+
+With $\delta=t_df_s$, conduction per device is integrated as
+\[P_{H,cond}=\left\langle(i/N)^2R_{hot}\max(d-\delta,0)\right\rangle,
+\quad P_{L,cond}=\left\langle(i/N)^2R_{hot}\max(1-d-\delta,0)\right\rangle.\]
+The angle brackets mean a full fundamental-cycle average (7200 samples by
+default). This is a carrier-average approximation, without carrier ripple,
+deadtime voltage-error compensation or pulse suppression. It is not a
+constant-peak-current calculation. At zero deadtime, leg conduction recovers
+$I_{rms}^2R_{hot}/N$ exactly within quadrature precision.
+
+Switching pair energy is evaluated at \emph{each} instantaneous $|i|/N$:
+\[E_{pair}=\tfrac12 V_{dc}|i|/N\,(t_{on}+t_{off})+(1+k)E_{oss},\quad
+ P_{sw,leg}=Nf_s\langle E_{pair}\rangle.\]
+One hard pair per leg per carrier period is assumed; current polarity assigns
+it to the upper or lower bank. Complementary capacitive heating is allocated
+to that same bank as a screening approximation. For nonlinear measured/SPICE
+energy curves, average $E(i)$, not $E(\langle i\rangle)$. Do not add Eoss again
+if the energy dataset already includes it.
+
+Reverse conduction during deadtime is $2t_df_sV_{rev}|i|/N$ per conducting
+device, allocated to the opposite bank by current polarity. GaN has no silicon
+body diode or its reverse-recovery charge, but reverse channel conduction
+still dissipates energy. Gate supply power is $2NQ_gV_gf_s$ per leg and is
+outside transistor cold-plate heat in this model.
+
+\section{Parameters and characterization requirements}
+The EPC2361 datasheet gives maximum 25 C $R_{DS(on)}=1$ milliohm,
+typical junction-to-top resistance 0.2 K/W and maximum gate charge 34 nC at
+the specified 50 V test condition. Hot resistance uses an approximate typical
+125 C multiplier of 1.65 on the maximum room-temperature value. Approximate
+$E_{oss}=3.2$ microjoule at 75 V and 5 ns on/off overlap are assumptions.
+Gate charge at 75 V, dynamic resistance and switching heat need validation.
+
+Characterize individual-device DC resistance versus temperature and current,
+then actual parallel-bank double pulses with the common driver impedance,
+individual on/off gate resistors, branch inductances and common-source terms.
+Cover zero to peak per-device current, voltage, temperature, gate resistance
+and layout variations. Record both devices' voltage/gate stress, branch
+current sharing and baseline-corrected dissipative switching energy. Check
+energy-window and timestep convergence. Reject extrapolation beyond the
+validated current range and preserve the dataset's topology/driver metadata.
+Existing single-device 20--60 A target sweeps do not cover this entire requirement.
+
+\section{TIM and cold-plate requirements}
+\[R_{TIM}=t/(kA)+R_{contact},\qquad
+ T_j=T_w+P_{FET,leg}R_{plate-water}+P_{hot}(R_{jc}+R_{TIM}).\]
+$P_{hot}$ is the hotter device's \emph{cycle-average} loss times a 1.2 sharing
+allowance. The current model estimates mean steady temperature, not
+fundamental-cycle or switching-scale temperature ripple. A transient thermal
+network and fundamental frequency are needed for a strict instantaneous
+125 C limit. Use margin on the mean estimate.
+
+The example 0.5 mm, 17.8 W/(m K), 15 square mm TIM gives 1.873 K/W per
+device before contact resistance. Full-package effective contact area is
+idealized. A 0.3 K/W plate is shared by \emph{one half bridge}; it is not
+per device. For a single common three-phase plate use all three legs' heat.
+The electrically source-connected tops require insulating TIM.
+\[R_{plate,max}=\frac{125-T_w-P_{hot}(R_{jc}+R_{TIM})}{P_{FET,leg}},\]
+\[R_{TIM,max}=\frac{125-T_w-P_{FET,leg}R_{plate}}{P_{hot}}-R_{jc}.\]
+These are conditional tradeoffs, not simultaneous independent maxima. Negative
+values mean infeasibility. Converted maximum TIM thickness is a mathematical
+bound only, not a mechanically suitable pad selection. Spreading, compression,
+contact, insulation and coolant warming require separate verification.
+
+\section{Highest-frequency results under current assumptions}
+@RESULTS@
+\begin{center}\begin{tabular}{llrrr}\toprule
+PWM & N & Frequency (kHz) & Efficiency (\%) & Mean $T_j$ (C)\\\midrule
+@ROWS@
+\bottomrule\end{tabular}\end{center}
+Configurations omitted from this table have no passing grid point.
+\begin{center}\includegraphics[width=\linewidth]{../../results/design/design.png}\end{center}
+\clearpage
+\section{Fundamental waveforms and 100 kHz diagnostics}
+\includegraphics[width=\linewidth]{../../results/design/fundamental_cycle.png}
+
+The plotted SVM 100 kHz case is a diagnostic even if it fails the pulse screen.
+The strict centered-PWM requirement is $d_{min}/f_s>t_d+t_{pulse,min}$.
+At SVM $m=1.15$, $d_{min}=(1-\sqrt3 m/2)/2$; with 20 ns deadtime and
+10 ns minimum useful pulse, the highest sampled passing frequency is 67 kHz.
+This is a controller/timing assumption, not a semiconductor frequency limit.
+A lower modulation index, different pulse handling or verified shorter timing
+would change it. Changing modulation also changes current at fixed power.
+
+The CSV includes allowed cycle-average switching energy per device:
+\[\langle E_{pair}\rangle_{max}=
+\frac{P_{budget,leg}-P_{cond}-P_{dead}-P_{gate}-P_{other,leg}}{Nf_s}.\]
+This is a useful target for subsequent parallel-bank characterization.
+
+Source inputs and exact results: data/inputs/design.json and
+results/design/summary.json. Source device PDF: EPC2361 datasheet revision 2.4,
+20 July 2026. Separate reports retain SPICE methods and voltage-stress results.
+\end{document}

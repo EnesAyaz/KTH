@@ -1,0 +1,30 @@
+{
+  "bus_voltages_v": [50, 75],
+  "target_currents_a": [20, 40, 60],
+  "external_gate_resistances_ohm": [0.5, 1, 2, 4],
+  "power_loop_inductances_nh": [0.5, 2, 5],
+  "temperature_c": 125,
+  "driver_resistance_ohm": 0.5,
+  "driver_edge_ns": 2,
+  "gate_loop_inductance_nh": 1,
+  "common_source_inductance_nh": 0.2,
+  "power_loop_resistance_ohm": 0.005,
+  "load_inductance_uh": 1,
+  "freewheel_gate_resistance_ohm": 0.5,
+  "pulse_start_ns": 100,
+  "freewheel_interval_ns": 250,
+  "second_pulse_ns": 250,
+  "energy_window_ns": 150,
+  "max_timestep_ns": 0.2,
+  "slope_interval_ns": 1,
+  "design_vds_ceiling_v": 90,
+  "absolute_vds_ceiling_v": 100,
+  "notes": [
+    "Single DUT and single complementary EPC2361, not a parallel-bank/module transient model.",
+    "All parasitics, driver resistance/edge speed, and pulse timings are assumptions to sweep or replace with extracted/measured values.",
+    "Common-source inductance is additional to the swept bus-side loop inductance.",
+    "The complementary gate stays off, so freewheel conduction is third-quadrant channel conduction.",
+    "First pulse duration approximately L*I/V establishes current. Actual edge currents are reported.",
+    "Temperature is fixed; this is not an electrothermal simulation. The vendor model has no modeled breakdown/destruction limit."
+  ]
+}

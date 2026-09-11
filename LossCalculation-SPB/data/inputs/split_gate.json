@@ -1,0 +1,36 @@
+{
+  "bus_voltages_v": [
+    75
+  ],
+  "target_currents_a": [
+    20,
+    40,
+    60
+  ],
+  "rg_on_values_ohm": [
+    2,
+    3,
+    4,
+    6
+  ],
+  "rg_off_values_ohm": [
+    0.5,
+    1,
+    2,
+    4
+  ],
+  "power_loop_inductances_nh": [
+    0.5,
+    2
+  ],
+  "temperature_c": 125,
+  "driver_source_resistance_ohm": 0.5,
+  "driver_sink_resistance_ohm": 0.5,
+  "notes": [
+    "Overrides double_pulse.json; all other bench settings are inherited and saved with each run.",
+    "Ideal command-selected source/sink impedances. Not a physical steering-diode model or a specific driver IC.",
+    "One transistor per position, not a parallel bank. The complementary gate remains off.",
+    "Gate internal resistance 0.4 ohm remains inside the vendor model. External Rg and driver impedances are additional.",
+    "Voltage-screen passing pairs are only sampled candidates under assumed parasitics, not universal resistor limits."
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "module_inputs": {
+    "topology": "three_phase_two_level_svm",
+    "system_dc_link_v": 1200.0,
+    "system_power_w": 300000.0,
+    "vin_v": 75.0,
+    "pout_w": 18750.0,
+    "modulation_index": 1.15,
+    "power_factor": 1.0,
+    "phase_ripple_rms_a": 0.0,
+    "phase_ripple_peak_a": 0.0,
+    "frequency_min_hz": 10000.0,
+    "frequency_max_hz": 100000.0,
+    "frequency_points": 91,
+    "parallel_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "efficiency_target_pct": 99.5,
+    "coolant_temperature_c": 60.0,
+    "junction_limit_c": 125.0,
+    "cold_plate_to_water_k_per_w": 0.1,
+    "tim_k_per_w_per_device": 0.5,
+    "device_peak_current_design_limit_a": 60.0,
+    "voltage_utilization_limit": 0.9,
+    "assumed_overshoot_v": 10.0,
+    "gate_drive_v": 5.0,
+    "assumed_turn_on_overlap_s": 5e-09,
+    "assumed_turn_off_overlap_s": 5e-09,
+    "deadtime_per_edge_s": 2e-08,
+    "minimum_gate_pulse_s": 1e-08,
+    "assumed_reverse_drop_v": 2.0,
+    "rds_hot_multiplier": 1.65,
+    "eoss_at_bus_voltage_j": 3.2e-06,
+    "eoss_reference_voltage_v": 75.0,
+    "assumed_low_side_eoss_dissipated_fraction": 1.0,
+    "hottest_device_loss_multiplier": 1.2,
+    "other_converter_loss_w": 0.0,
+    "notes": [
+      "USER INPUTS: one 75 V, 18.75 kW SPB module, two-level three-phase inverter, continuous SVM, m=1.15, 10-100 kHz, efficiency >99.5%, coolant 60 C, Tj ceiling 125 C.",
+      "Modulation convention: Vphase_peak=m*Vdc/2; confirm this convention for your controller.",
+      "ASSUMPTIONS: power factor 1.0, zero phase-current ripple, 5 ns on/off overlap, 20 ns deadtime, 2 V reverse drop.",
+      "THERMAL ASSUMPTIONS: common cold plate 0.1 K/W from plate to local coolant; individual TIM 0.5 K/W; hottest-device loss multiplier 1.2.",
+      "coolant_temperature_c means local cooling-water temperature; sink_to_ambient means shared cold-plate-to-water resistance, not air cooling.",
+      "Eoss about 3.2 uJ at 75 V and hot Rds multiplier 1.65 at 125 C are approximate visual readings from datasheet page 3 Figures 6 and 9, not guaranteed values.",
+      "Maximum Rds 1 mOhm at 25 C is multiplied by 1.65. Gate charge max 34 nC characterized at 50 V is used as an approximation at 75 V.",
+      "N is devices per switch position; total count is 6N. All positions have equal N; average sharing is ideal. Hottest-device multiplier is a thermal allowance only.",
+      "Other losses are zero pending estimates: efficiency is a modeled upper estimate, not demonstrated complete module efficiency.",
+      "System 1200 V/300 kW values are context only. No electrical or hydraulic series/parallel interconnection is inferred.",
+      "Provisional user design cap: at most six EPC2361 devices per switch position."
+    ]
+  },
+  "layout_inputs": {
+    "parallel_counts": [
+      4,
+      5,
+      6
+    ],
+    "scenarios": [
+      {
+        "name": "compact_assumption",
+        "shared_nh": 0.3,
+        "branch_nh": 0.8,
+        "coupling_k": 0.1
+      },
+      {
+        "name": "central_assumption",
+        "shared_nh": 0.6,
+        "branch_nh": 1.5,
+        "coupling_k": 0.2
+      },
+      {
+        "name": "extended_assumption",
+        "shared_nh": 1.5,
+        "branch_nh": 3,
+        "coupling_k": 0.3
+      }
+    ],
+    "local_loop_sweep_nh": [
+      0.5,
+      1,
+      2,
+      3
+    ],
+    "notes": [
+      "All scenario inductances are assumptions, not extracted EPC9186 or user PCB values.",
+      "Branch_nh denotes an entire local commutation branch; shared_nh includes common high-frequency paths counted once.",
+      "The equal-current coupled-branch approximation is L_eff=L_shared+L_branch*(1+(N-1)*k)/N.",
+      "Gate common-source inductance must also be explicitly represented in a transient circuit without double-counting it in the branch total.",
+      "These are bookkeeping/common-mode estimates, not multi-device SPICE results or field-solver extraction."
+    ],
+    "sources": [
+      "https://epc-co.com/epc/Portals/0/epc/documents/application-notes/AN020%20Effectively%20Paralleling%20Enhancement%20Mode%20Gallium%20Nitride%20Transistors.pdf",
+      "Supplied EPC9186_qsg.pdf, revision 1.0, April 2 2026"
+    ]
+  },
+  "estimates": [
+    {
+      "parallel_per_position": 4,
+      "total_devices": 24,
+      "phase_rms_a": 204.95848730044855,
+      "phase_peak_a": 289.8550724637681,
+      "ideal_device_peak_a": 72.46376811594203,
+      "ideal_device_rms_a": 36.23188405797101,
+      "conduction_only_module_w": 51.98487712665406,
+      "compact_assumption_effective_nh": 0.56,
+      "central_assumption_effective_nh": 1.2000000000000002,
+      "extended_assumption_effective_nh": 2.925
+    },
+    {
+      "parallel_per_position": 5,
+      "total_devices": 30,
+      "phase_rms_a": 204.95848730044855,
+      "phase_peak_a": 289.8550724637681,
+      "ideal_device_peak_a": 57.971014492753625,
+      "ideal_device_rms_a": 28.98550724637681,
+      "conduction_only_module_w": 41.58790170132325,
+      "compact_assumption_effective_nh": 0.524,
+      "central_assumption_effective_nh": 1.1400000000000001,
+      "extended_assumption_effective_nh": 2.8200000000000003
+    },
+    {
+      "parallel_per_position": 6,
+      "total_devices": 36,
+      "phase_rms_a": 204.95848730044855,
+      "phase_peak_a": 289.8550724637681,
+      "ideal_device_peak_a": 48.309178743961354,
+      "ideal_device_rms_a": 24.154589371980673,
+      "conduction_only_module_w": 34.656584751102706,
+      "compact_assumption_effective_nh": 0.5,
+      "central_assumption_effective_nh": 1.1,
+      "extended_assumption_effective_nh": 2.75
+    }
+  ]
+}

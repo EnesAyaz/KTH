@@ -1,0 +1,712 @@
+PAGE 1
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    1
+Description 
+Gallium Nitride’s exceptionally high electron mobility and low temperature coefficient allows very 
+low RDS(on), while its lateral device structure and majority carrier diode provide exceptionally low QG 
+and zero QRR. The end result is a device that can handle tasks where very high switching frequency, 
+and low on-time are beneficial as well as those where on-state losses dominate.
+Application notes:
+• Easy-to-use and reliable gate, Gate Drive ON = 5 V typical, 
+OFF = 0 V (negative voltage not needed)
+• Top of FET is electrically connected to source
+2361YYYYZZZZA
+EPC2361 – Enhancement Mode Power Transistor
+VDS , 100 V
+RDS(on) ,  0.75 mΩ typical
+ID, 133 A
+Pulsed ID ,  697 A
+Applications
+• High power PSU AC-DC synchronous rectification 
+• High frequency DC-DC conversion  
+ input (Buck, boost, buck-boost and LLC)  
+• Motor drives
+• High power density DC-DC modules 
+• Synchronous rectification
+• Solar MPPT
+Benefits
+• Ultra high efficiency
+• No reverse recovery
+• Ultra low QG
+• Small footprint
+• Excellent thermal
+EFFICIENT POWER CONVERSION
+HAL
+Maximum Ratings
+PARAMETER VALUE UNIT
+VDS Drain-to-Source Voltage (Continuous) 100 VVDS(tr) Drain-to-Source Voltage (Repetitive Transient) (1) 120
+ID
+Continuous (TJ < 125°C) 133
+APulsed (25°C, TPULSE = 10 µs) 697
+Pulsed (125°C, TPULSE = 10 µs) 558
+VGS
+Gate-to-Source Voltage 6 VGate-to-Source Voltage -4
+TJ Operating Temperature -40 to 150 °CTSTG Storage Temperature -55 to 175
+EPC2361
+Package size: 3 x 5 mm 
+G
+D
+S
+Scan QR code or click 
+link below for more 
+information including 
+reliability reports, device 
+models, demo boards!
+https://l.ead.me/EPC2361
+Questions: 
+Ask a GaN
+Expert
+# Defined by design. Not subject to production test.
+(1) Pulsed repetitively, duty cycle factor (DCFactor) ≤ 1%
+Static Characteristics (TJ = 25°C unless otherwise stated)
+PARAMETER TEST CONDITIONS MIN TYP MAX UNIT
+BVDSS Drain-to-Source Voltage VGS = 0 V, ID = 0.5 mA 100   V
+IDSS Drain-Source Leakage VDS = 80 V, VGS = 0 V 0.01 0.15
+mAIGSS
+Gate-to-Source Forward Leakage VGS = 5 V 0.05 4
+Gate-to-Source Forward Leakage# VGS = 5 V,  TJ = 125°C 0.15 9
+Gate-to-Source Reverse Leakage VGS = -4 V 0.002 0.2
+VGS(TH) Gate Threshold Voltage VDS = VGS, ID = 18 mA 0.8 1.1 2.5 V
+RDS(on) Drain-Source On Resistance VGS = 5 V, ID = 50 A  0.75 1 mΩ
+VSD Source-to-Drain Forward Voltage# IS = 0.5 A, VGS = 0 V  1.6 V
+Thermal Characteristics
+PARAMETER TYP UNIT
+RθJC Thermal Resistance, Junction-to-Case (Case TOP) 0.2
+°C/W 
+RθJB Thermal Resistance, Junction-to-Board (Case BOTTOM) 1.5
+RθJA_JEDEC Thermal Resistance, Junction-to-Ambient (using JEDEC 51-2 PCB) 44
+RθJA_EVB Thermal Resistance, Junction-to-Ambient (using EPC90156 EVB) 25
+Revised July 20, 2026
+PAGE 2
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    2
+Dynamic Characteristics# (TJ = 25°C unless otherwise stated)
+PARAMETER TEST CONDITIONS MIN TYP MAX UNIT
+CISS Input Capacitance
+VDS = 50 V, VGS = 0 V
+3599 4373 
+pF
+CRSS Reverse Transfer Capacitance 13  
+COSS Output Capacitance 1019 1284 
+COSS(ER) Effective Output Capacitance, Energy Related (Note 1)
+VDS = 0 to 50 V, VGS = 0 V
+1419
+COSS(TR) Effective Output Capacitance, Time Related (Note 2) 1796
+RG Gate Resistance 0.4  Ω 
+QG Total Gate Charge VDS = 50 V, VGS = 5 V, ID = 50 A 28  34
+nC
+QGS Gate-to-Source Charge
+VDS = 50 V, ID = 50 A
+8.5
+QGD Gate-to-Drain Charge  3.8  
+QG(TH) Gate Charge at Threshold 6
+QOSS Output Charge VDS = 50 V, VGS = 0 V 90 112 
+QRR Source-Drain Recovery Charge 0  
+# Defined by design. Not subject to production test.
+All measurements were done with substrate shorted to source.
+Note 1: COSS(ER) is a fixed capacitance that gives the same stored energy as COSS while VDS is rising from 0 to 50 V.  
+Note 2: COSS(TR) is a fixed capacitance that gives the same charging time as COSS while VDS is rising from 0 to 50 V. 
+600
+500
+400
+300
+200
+100
+0
+0 0.5 1.0 1.5 2.0 2.5 3.0 
+  ID  – Drain Current (A)
+Figure 1: Typical Output Characteristics at 25°C*
+  VDS  – Drain-to-Source Voltage (V) 
+VGS = 5 V
+VGS = 4 V
+VGS = 3 V
+VGS = 2 V
+RDS(on) –  Drain-to-Source Resistance (m/uni03A9) 
+VGS – Gate-to-Source Voltage (V) 
+3.0 3.5 2.0 2.5 4.0 4.5 5.0
+Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents 
+ID = 25 A
+ID = 50 A
+ID = 75 A
+ID = 100 A
+10
+8
+6
+4
+2
+0
+1.00.5 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+Figure 2: Typical Transfer Characteristics*
+25˚C
+125˚C
+VDS = 3 V
+  ID  – Drain Current (A)
+  VGS  – Gate-to-Source Voltage (V) 
+25˚C
+125˚C
+VDS = 3 V
+600
+500
+400
+300
+200
+100
+0
+Figure 4: Typical RDS(on) vs. VGS for Various Temperatures
+25˚C
+125˚C
+ID = 50 A
+RDS(on) –  Drain-to-Source Resistance (m/uni03A9) 
+  VGS  – Gate-to-Source Voltage (V) 
+3.0 3.5 2.0 2.5 4.0 4.5 5.0
+10
+8
+6
+4
+2
+0
+*Generated based on a pulse width of 300 µs
+PAGE 3
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    3
+ Capacitance (pF)
+10000
+1000
+100
+10
+1
+0 25 50 75 100 
+Figure 5b: Typical Capacitance (Log Scale)
+  VDS  – Drain-to-Source Voltage (V) 
+CISS = CGD + CGS
+COSS = CGD + CSD
+CRSS = CGD
+ Capacitance (pF)
+0 25 50 75 100
+Figure 5a: Typical Capacitance (Linear Scale)
+  VDS  – Drain-to-Source Voltage (V) 
+CISS = CGD + CGS
+COSS = CGD + CSD
+CRSS = CGD
+4000
+3000
+2000
+1000
+0
+5
+4
+3
+2
+1
+0 0 5 10 15 20 25 30
+Figure 7: Typical Gate Charge
+VGS  –  Gate-to-Source Voltage (V) 
+ QG  – Gate Charge (nC)
+ID = 50 A
+VDS = 50 V
+Figure 9: Typical Normalized On-State Resistance vs. Temp.
+ID = 50 A
+VGS = 5 V
+Normalized On-State Resistance RDS(on)
+2.5
+2.0
+1.5
+1.0
+0.5
+0 25 50 75 100 125 150 
+  TJ  – Junction Temperature (°C) 
+ QOSS – Output charge (nC)
+EOSS — C OSS Stored Energy  (µ J)
+180
+150
+120
+90
+60
+30
+0
+0 25 50 75 100 
+6
+5
+4
+3
+2
+1
+0
+Figure 6: Typical Output Charge and COSS Stored Energy
+  VDS  – Drain-to-Source Voltage (V) 
+0.50 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 
+ISD  –  Source-to-Drain Current (A) 
+ VSD – Source-to-Drain Voltage (V)
+Figure 8: Typical Reverse Drain-Source Characteristics*
+25˚C
+125˚C
+VGS = 0 V
+600
+500
+400
+300
+200
+100
+0
+Note: Negative gate drive voltage increases the reverse drain-source voltage.  
+EPC recommends 0 V for OFF .
+*Generated based on a pulse width of 300 µs
+PAGE 4
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    4
+Figure 10: Typical Normalized Threshold Voltage vs. Temp.
+Normalized Threshold Voltage
+1.4
+1.3
+1.2
+1.1
+1.0
+0.9
+0.8
+0.7
+0.6
+0 25 50 75 100 125 150 
+  TJ  – Junction Temperature (°C) 
+ID = 18 mA
+1000
+100
+10
+1
+0.1 
+0.1 1 10 100 1000 
+I D – Drain Current (A) 
+VDS – Drain-to-Source Voltage (V)
+TJ = Max Rated, TC = +25°C, Single Pulse 
+Limited by RDS(on)
+100 ms 
+10 ms 
+1 ms 
+100 µs 
+Pulse Width 
+1 ms 
+10 µs 
+100 µs 
+Figure 11: Safe Operating Area
+Figure 12:  Transient Thermal Response Curves
+1
+tp - Rectangular Pulse Duration (s)
+ZθJB , Normalized Thermal Impedance
+Duty Factors:
+0.5
+0.1
+0.05
+0.02
+0.01
+Single Pulse
+0.2
+Notes:
+Duty Factor = tp/T
+Peak TJ = PDM x ZθJB  x RθJB  + TB
+tp 
+P
+T
+DM 
+Junction-to-Board
+10-5 10-4 10-3 10-2 10-1 10
+0.1
+0.001
+0.01
+1
+tp - Rectangular Pulse Duration (s)
+ZθC , Normalized Thermal Impedance
+Junction-to-Case
+Duty Factors:
+0.5
+0.1
+0.05
+0.02
+0.01
+Single Pulse
+0.2
+Notes:
+Duty Factor = tp/T
+Peak TJ = PDM x ZθJC  x RθJC  + TC
+tp 
+P
+T
+DM 
+10-510-6 10-4 10-3 10-2 10-1 1
+0.001
+1
+0.01
+0.1
+PAGE 5
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    5
+PCB assembly eGaN FETs 
+Heatsink
+SMD
+spacer
+(4x)
+M2 screws
+(x4)
+TIM
+Heat Paths
+FET 2
+FET 1
+PCB
+Heatsink
+Thermal pad
+TYPICAL THERMAL CONCEPT
+The EPC2361 can take advantage of dual sided cooling to maximize its heat dissipation capabilities in high power density designs. 
+Note that the top of EPC FETs are connected to source potential, so for half-bridge topologies the Thermal Interface Material 
+(TIM)  needs to provide electrical isolation to the heatsink. 
+Recommended best practice thermal solutions are covered in detail in How2AppNote012 - How to Get More Power Out of an 
+eGaN Converter.pdf.
+The thermal design can be optimized by using the GaN FET Thermal Calculator on EPC’s website.
+Figure 14: A cross-section image of dual sided thermal solution
+Figure 13: Exploded view of heatsink assembly using screws
+Note: Connecting the heatsink to ground is recommended and can significantly improve radiated EMI
+PAGE 6
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    6
+LAYOUT CONSIDERATIONS
+GaN transistors generally behave like power MOSFETs, but at much higher switching speeds and power densities, therefore layout consider-
+ations are very important, and care must be taken to minimize layout parasitic inductances. The recommended design utilizes the first inner 
+layer as a power loop return path. This return path is located directly beneath the top layer’s power loop allowing for the smallest physical loop 
+size. This method is also commonly referred to as flux cancellation. Variations of this concept can be implemented by placing the bus capacitors 
+either next to the high side device, next to the low side device, or between the low and high side devices, but in all cases the loop is closed using 
+the first inner layer right beneath the devices.
+A similar concept is also used for the gate loop, with the return gate loop located directly under the turn ON and OFF gate resistors. 
+Furthermore, to minimize the common source inductance between power and gate loops, the power and gate loops are laid out perpendicular 
+to each other, and a via next to the source pad closest to the gate pad is used as Kelvin connection for the gate driver return path.
+The EPC90156 Half-Bridge Development Board Using EPC2361 implements our recommended vertical inner layout.
+Detailed recommendations on layout can be found on EPC’s website: Optimizing PCB Layout with eGaN FETs.pdf
+Figure 15:  Inner Vertical Layout for Power and Gate Loops from EPC90156
+Gate Loop
+Gate return
+(source) 
+on mid layer 1
+PowerLoop
+Top and Mid
+Layer 1
+Transparent view
+Gate and power
+loop should
+be orthogonal 
+Gate loop
+Power loop 
+Gate
+Gate
+return
+Drain current
+Source current
+Source Kelvin Connection
+GND
+GND
+SW
+VIN
+GND
+Top layer Mid layer 1
+TYPICAL SWITCHING BEHAVIOR
+The following typical switching waveforms are captured in these conditions:
+• EPC90156: 100 V, 65 A Half-Bridge Development Board Featuring EPC2361 
+• Gate driver: uP1966E with 0.4Ω/0.7Ω Pull-Down/Pull-Up Resistance
+• External RG(ON) = 1 Ω, RG(OFF) = 0 Ω
+• V IN = 48 V, IL = 30 A
+Figure 16: Typical half-bridge voltage switching waveforms
+                                                                                           
+10 V/div
+10 ns/div
+PAGE 7
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    7
+Part Marking          
+Part 
+Number
+Laser Markings
+Part #
+Marking Line 1
+Lot_Date Code
+Marking Line 2
+Lot_Date Code
+Marking Line 3
+EPC2361 2361 YYYY ZZZZA
+2361
+YYYY
+ZZZZA
+Die orientation dot
+Gate Pad  is under this corner
+PAGE 8
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    8
+DIM Dimension (mm)
+EPC2361 (Note 1) Target MIN MAX
+a 12.00 11.80 12.20
+b 1.75 1.65 1.85
+c   (Note 2) 5.50 5.45 5.55
+d 4.00 3.90 4.10
+e 8.00 7.9 0 8.10
+f   (Note 2) 2.00 1.95 2.05
+g 1.50 1.50 1.60
+h 1.50 1.50 1.70
+Ao 3.30 3.20 3.40
+Bo 5.30 5.20 5.40
+Ko 0.95 0.85 1.05
+Note 1:  MSL 1 (moisture sensitivity level 1) classified according to IPC/
+JEDEC industry standard.
+Note 2:  Pocket position is relative to the sprocket hole measured as 
+true position of the pocket, not the pocket hole.
+TAPE AND REEL CONFIGURATION
+8 mm pitch, 12 mm wide tape on 13” reel
+13” inch reel Die
+orientation
+dot 
+Die is placed into pocket
+solder bump side down
+(face side down)
+Loaded Tape Feed Direction 
+a 
+d e 
+b c 
+f g h 
+2361
+YYYY
+ZZZZ
+Gate pad
+bump
+is under
+this corner
+ 
+B
+B
+AA
+ Ao 
+ Ko 
+ Bo 
+SECTION B-B
+SECTION A-A
+0.25  0.03
+CL
+CL
+PAGE 9
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    9
+w2
+A
+N
+D
+C
+w1
+T
+Type A N C D w1 w2 T
+8MM Ø330±2 Ø100±2 Ø13.1±0.2 5.6±0.5 8.4+1.5 14.4 2.1±0.5
+12MM Ø330±2 Ø100±2 Ø13.1±0.2 5.6±0.5 12.4+1.5 18.4 2.1±0.5
+16MM Ø330±2 Ø100±2 Ø13.1±0.2 5.6±0.5 16.4+1.5 22.4 2.1±0.5
+24MM Ø330±2 Ø100±2 Ø13.1±0.2 5.6±0.5 24.4+1.5 30,4 2.1±0.5
+Top View Bottom View
+Side View
+Bottom View Detail
+Loaded tape
+feed direction
+Top View Detail
+TAPE AND REEL 
+ (units in mm)
+PAGE 10
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    10
+Pad 1 is Gate;
+Pads 2, 4. 6 are Source;
+Pads 3, 5, 7 are Drain 
+D
+2.600
+Die size
+A
+B
+Top View Bottom View
+Caaa 2x
+Caaa 2x
+4.470
+Die
+size
+E
+Drain
+Drain
+Drain
+Source
+Source
+Source Gate
+bbb C
+4
+L1L2 K
+e1
+(2x)
+e3
+K2
+(5x)
+N
+e (3x)
+K4
+0.150
+Chamfer
+b (8x)
+b1 (4x)
+K1 (4x)
+K3 (4x)
+e2 (4x)
+K5 (8x)
+C
+A BM
+ddd M
+4
+0.05
+Max.
+A
+A3
+Side View
+Front View
+0.10 Max.
+Seating planeA
+A3A1Ceee
+5
+C C// ccc
+b (8x)
+b1 (4x)
+E
+7
+6
+2361YYYYZZZZA
+Exposed
+die*
+*The exposed die is the silicon substrate that is internally connected to the source. 
+  It is not recommended to use it as an electrical connection
+Notes:
+1. Dimensioning and tolerancing conform to 
+ASME Y14.5-2009
+2. All dimensions are in millimeters
+3. N is the total number of terminals
+4. Dimension b applies to the metalized terminal 
+and a radius on the other end of it, dimension 
+b should not be measured in that radius area.
+5. Coplanarity applies to the terminals and all the 
+other bottom surface metallization.
+6. Lead plating is NiPdAu (1.5/0.01/0.005 μm 
+min.) Au as the finish.
+7.  Lead sidewall is not wettable flank.
+SYMBOL
+Dimension (mm)
+MIN Nominal MAX Note
+A 0.60 0.65 0.70
+A1 0.00 0.02 0.05
+A3 0.25
+b 0.20 0.25 0.30 4
+b1 0.30 0.35 0.40 4
+D 2.90 3.00 3.10
+E 4.90 5.00 5.10
+e 0.85 BSC
+e1 0.90 BSC
+e2 0.65 BSC
+e3 0.55 BSC
+L1 0.625 0.725 0.825
+L2 1.775 1.875 1.975
+SYMBOL
+Dimension (mm)
+MIN Nominal MAX Note
+K 0.40 Ref
+K1 0.15 Ref
+K2 0.60 Ref
+K3 0.40 Ref
+K4 0.30 Ref
+K5 0.25 Ref
+aaa 0.05
+bbb 0.10
+ccc 0.10
+ddd 0.05
+eee 0.08
+N 7 3
+PAGE 11
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    11
+1
+2 3456 7
+PIN Description
+1 Gate
+2 Source
+3 Drain
+4 Source
+5 Drain
+6 Source
+7 Drain
+RECOMMENDED
+LAND PATTERN  
+(units in mm)
+TRANSPARENT VIEW  
+Land pattern is solder mask defined
+RECOMMENDED
+STENCIL DRAWING  
+(units in mm)
+Recommended stencil should be 4 mil 
+(100 µm) thick, must be laser cut, open-
+ings per drawing. Intended for use with 
+SAC305 Type 4 solder, reference 88.5% 
+metals content.
+The corner has a radius of R60.
+EPC has tested this stencil design and 
+not found any scooping issues.
+Legend:
+Part outline
+Mask Opening
+Radius = 0.05
+Legend:
+Part outline
+Stencil opening
+PAGE 12
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    12
+RECOMMENDED
+COPPER DRAWING  
+(units in mm)
+Radius = 0.05
+Legend:
+Part outline
+Copper
+Legend:
+PAGE 13
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    13
+•  Assembly resources – https://epc-co.com/epc/Portals/0/epc/documents/product-training/Appnote_GaNassembly.pdf
+•  Library of Altium footprints for production FETs and ICs – https://epc-co.com/epc/documents/altium-files/EPC%20Altium%20Library.zip 
+   (for preliminary device Altium footprints, contact EPC)
+Solder mask de/f_ined
+Symmetrical solder ball
+(Regardless of registration)
+Asymmetrical solder ball
+(Sensitive to registration)
+PCB PCB
+Non-solder mask de/f_ined
+DeviceDevice
+PCB
+Non-solder mask de/f_ined Solder mask de/f_ined
+Exposed board
+Expansion
+PCB
+Conductive
+pad
+Solder
+mask Overlap
+Recommended
+Recommended
+Figure 16:  Effect of solder mask design on the solder ball symmetry
+Figure 15:  Solder mask defined versus non-solder mask defined pad
+ADDITIONAL RESOURCES AVAILABLE
+Solder mask defined pads are recommended for best reliability.
+Efficient Power Conversion Corporation (EPC) reserves the right to make changes without further notice to any products herein to improve reliability, function or design. EPC does not assume 
+any liability arising out of the application or use of any product or circuit described herein; neither does it convey any license under its patent rights, nor the rights of others.
+eGaN® is a registered trademark of Efficient Power Conversion Corporation.
+EPC Patent Listing: https://epc-co.com/epc/about-epc/patents Information subject to change without notice.
+PAGE 14
+eGaN® FET DATASHEET EPC2361
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026   |   For more information: info@epc-co.com  |    14
+STATUS VERSION DATE REMARK
+2.4 Updated Figure 11 20 July 2026  Production release 
+2.3 New Tape and Reel
+New Figures 5a-7
+20 May 2026  Production release
+2.2 Changed Vth value from 15 to 18 20 February 2026  Production release 
+2.1 Production 20 November 2025  Production release 
+Change Log

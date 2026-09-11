@@ -1,0 +1,71 @@
+\clearpage
+\section{LTspice double-pulse test}
+The supplied EPCGaNLibrary archive contains a transistor subcircuit, not a
+complete inverter module model. Two EPC2361 instances form a half-bridge:
+the low-side DUT receives two pulses and the high-side gate is held off.
+A 1 microhenry load inductor from DC positive to the switching node establishes
+the current. First pulse duration is approximately $LI/V$; actual currents are
+measured at first turn-off and second turn-on and stored separately.
+
+The bench explicitly includes bus-side power-loop inductance, additional
+common-source inductance, gate-loop inductance, loop resistance and a finite
+driver edge with series resistance. It is a single-device-per-position test,
+not an electrically scaled parallel-bank simulation. Temperature is fixed.
+The completed run uses the following settings (resistances in ohms, parasitic
+inductances in nH, edge times in ns):
+\begin{center}\small\begin{tabular}{ll}
+@DPTINPUTS@
+\end{tabular}\end{center}
+Internal model gate resistance is 0.4 ohm; external resistance and the assumed
+driver resistance are additional. Separate ON/OFF driver impedances are not
+modeled in this initial sweep.
+\subsection{Energy measurement definitions}
+The CSV reports two distinct quantities in microjoules:
+\begin{itemize}
+\item Signed drain-terminal energy: $\int v_{DS}i_Ddt$ over a fixed post-command
+window. This includes a change in stored charge energy; individual $E_{on}$
+or $E_{off}$ terminal integrals are not automatically junction heat.
+\item Channel/access-resistance dissipation: the unchanged vendor electrical
+model is observed with an extra, non-feedback output. It sums channel power
+and drain/source resistor power. The turn-on value subtracts normal on-state
+conduction over the window, using a separate DC sweep of the same model at
+5 V gate drive and the same temperature, evaluated at the instantaneous load current.
+Turn-off retains delayed channel conduction. Raw and baseline-subtracted values
+are both saved. Gate resistance and gate leakage dissipation are excluded.
+\end{itemize}
+The default window is 150 ns. The paired first-off/second-on currents are close
+but not exactly identical. This excess-energy convention is documented rather
+than presented as a manufacturer's standardized $E_{on}/E_{off}$ specification.
+The reverse-conducting complementary device is not included in the DUT heat
+table; a complete inverter energy map must account for its actual gating and
+deadtime. These tables are therefore not automatically substituted into the
+analytical module model. The latter still uses its labeled assumptions.
+
+\subsection{Slopes and voltage-margin screening}
+Raw sample derivatives give maximum absolute $dv/dt$ and $di/dt$ for each edge.
+The CSV also reports maximum slopes over a 1 ns interval to reduce sensitivity
+to small numerical steps. These are bandwidth-dependent numbers, not universal
+device constants. Actual waveforms and time-step sensitivity are retained.
+
+Peak $V_{DS}$ is checked on both devices against a 90 V design ceiling and
+the 100 V continuous absolute rating. Both package gate-source voltages are
+checked against -4 V and +6 V. $\Delta V\sim L\,di/dt$ is an intuition for the
+inductive contribution, not a replacement for the complete ringing waveform.
+The swept bus inductance is additional to 0.2 nH common-source inductance.
+No safety conclusion is inferred from simulation survival: the model has no
+destructive breakdown or avalanche qualification mechanism. Voltage margin
+must be rechecked with PCB-extracted parasitics, driver behavior and hardware.
+
+@DPTRESULT@
+\begin{center}\includegraphics[width=\linewidth]{../../results/double_pulse/nominal_waveforms.pdf}\end{center}
+\clearpage
+\begin{center}\includegraphics[width=\linewidth]{../../results/double_pulse/sensitivity.pdf}\end{center}
+\subsection{Limitations of the supplied model}
+The library history introduces EPC2361 in March 2024. Its typical fit is not
+automatically a match to every July 2026 datasheet curve or production corner.
+The subcircuit includes nonlinear charge and temperature-dependent electrical
+parameters, but no package/PCB inductors, thermal network, explicit avalanche
+breakdown or dynamic trapping model. Charge elements do not establish real
+Coss hysteresis loss. Simulated slopes, energies and overshoot depend strongly
+on added parasitics and driver assumptions. Numerical convergence at the
+nominal point does not validate the physical model or every sweep corner.

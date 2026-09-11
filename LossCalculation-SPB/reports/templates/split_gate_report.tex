@@ -1,0 +1,56 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=18mm]{geometry}
+\usepackage{graphicx}
+\title{EPC2361: Separate Turn-On and Turn-Off Gate Resistance}
+\author{LossCalculation-SPB}
+\begin{document}
+\maketitle
+\section{Gate-drive model}
+The DUT now has independent external $R_{g,on}$ and $R_{g,off}$. An ideal
+command-selected impedance is used: while the driver command exceeds 2.5 V,
+the external turn-on resistance plus driver source resistance is active;
+otherwise the external turn-off resistance plus driver sink resistance is active.
+The command still has its finite 0--5 V edge. Internal model gate resistance
+of 0.4 ohm and gate-loop inductance are additional.
+This represents an abstract source/sink driver with separate output paths.
+It is not a steering-diode implementation, driver-IC model, Miller clamp,
+or current-limited gate supply. A physical circuit must be matched to this
+assumption, including diode drops and parasitics if steering diodes are used.
+The complementary device's gate remains off through its original resistance.
+\section{Sweep and interpretation}
+\begin{center}\begin{tabular}{ll}
+@SETUP@
+\end{tabular}\end{center}
+The sweep contains @COUNT@ single-device double-pulse cases. First turn-off
+and second turn-on use separately measured actual load currents. Target
+currents are not exact because finite pulse delays affect the first ramp.
+The existing energy definitions are retained: excess DUT channel/access-resistor
+heat, with DC ordinary conduction subtracted for turn-on. Complementary reverse
+conduction and gate-drive losses are excluded from this energy pair.
+No updated full-module efficiency claim is made from this table.
+\section{Pairs passing every sampled target current}
+@PAIRCOUNT@ voltage/resistance/inductance combinations pass all target-current
+screens. Passing requires both devices below the 90 V design ceiling and
+package gate voltages within -4 to +6 V over the characterized interval.
+The 100 V absolute drain rating is also recorded. Resistance values are
+sampled candidates, not continuous intervals or guaranteed hardware limits.
+\begin{center}\small\begin{tabular}{rrrrrr}
+Bus V & Lbus nH & Rg,on ohm & Rg,off ohm & Worst Vds V & Worst energy uJ \\
+\hline
+@PASSING@
+\end{tabular}\end{center}
+A larger resistor does not automatically pass every limit. Ringing depends
+on both drive paths and parasitics, while slower switching changes loss and
+timing. The table's energy ranking is for DUT switching heat only.
+\section{Numerical checks}
+One candidate is selected for a 0.2/0.1/0.05 ns timestep check and
+100/150/200 ns integration-window check. An equal-resistance split path is
+also compared with the original fixed resistor at identical conditions.
+@CHECKS@
+These checks establish numerical consistency at selected points, not
+physical accuracy or qualification of the full grid. The vendor model has
+no destructive breakdown behavior. High-voltage failed cases remain in the
+CSV and figures. Parallel-bank gate impedance and current sharing are not
+represented by this single-device bench.
+@PLOTS@
+\end{document}

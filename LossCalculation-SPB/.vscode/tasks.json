@@ -1,0 +1,76 @@
+{
+    "version":  "2.0.0",
+    "tasks":  [
+                  {
+                      "label":  "Run split-gate sweep and report",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/run_split_gate.py"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Build SPICE characterization report",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/build_spice_report.py",
+                                   "--refresh"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Run LTspice double-pulse sweep",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/run_double_pulse.py"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Check double-pulse convergence",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/check_double_pulse.py"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Build loss report",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/create_report.py"
+                               ],
+                      "group":  {
+                                    "kind":  "build",
+                                    "isDefault":  true
+                                },
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "Run loss calculation",
+                      "type":  "process",
+                      "command":  "${workspaceFolder}/.venv/Scripts/python.exe",
+                      "args":  [
+                                   "${workspaceFolder}/scripts/run_sweep.py"
+                               ],
+                      "problemMatcher":  [
+
+                                         ]
+                  }
+              ]
+}

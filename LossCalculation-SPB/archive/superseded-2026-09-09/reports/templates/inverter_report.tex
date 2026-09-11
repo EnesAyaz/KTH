@@ -1,0 +1,80 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=20mm]{geometry}
+\usepackage{graphicx}
+\title{SPB Module: EPC2361 Loss and Water-Cooling Screening}
+\author{LossCalculation-SPB}
+\begin{document}
+\maketitle
+\input{../templates/loss_methods.tex}
+\section{Scope and inputs}
+One two-level three-phase inverter module. The 1200 V, 300 kW system is
+context only; interconnection and hydraulic arrangement are not modeled.
+Continuous SVM uses $V_{phase,pk}=mV_{dc}/2$. All inputs and device values
+are saved with this run in results/summary.json.
+\begin{center}\begin{tabular}{lr}
+@INPUTS@
+\end{tabular}\end{center}
+Here ambient means local cooling water, sink-to-ambient means shared
+cold-plate-to-water resistance, and case-to-sink means individual TIM resistance.
+The EPC2361 absolute junction limit is 150 C; its 133 A continuous rating
+is specified below 125 C. Neither rating establishes PCB current capability.
+The user's design ceiling is 125 C. At 18.75 kW, strictly exceeding 99.5\%
+requires less than 94.22 W total module loss.
+\section{Loss model}
+For balanced sinusoidal currents:
+\[V_{phase,rms}=mV_{dc}/(2\sqrt{2}),\qquad
+I_{rms}=P_o/(3V_{phase,rms}\cos\phi),\qquad
+\overline{|I|}=2\sqrt{2}I_{rms}/\pi.\]
+$N$ means devices per switch position: the module contains $6N$ devices.
+Conduction loss is
+\[P_{cond}=3(I_{rms}^2+I_{ripple,rms}^2)R_{hot}/N.\]
+The maximum 25 C resistance is scaled by an approximate typical temperature
+factor evaluated at the design limit, rather than iterating temperature.
+
+One hard commutation per leg per carrier cycle gives overlap loss
+$3V_{dc}\overline{|I|}(t_{on}+t_{off})f_s/2$.
+Capacitance loss allowance is $3NE_{oss}(1+k)f_s$, where $k$ is an adjustable
+complementary-device fraction. This is not a commutation simulation.
+Gate power is $6NQ_gV_gf_s$; deadtime loss is $6t_dV_{SD}\overline{|I|}f_s$.
+Do not add measured total switching energy on top of overlap and capacitance terms.
+\section{Cooling model}
+Each device has its own junction-to-top-case and TIM branch, then all devices
+share one isothermal cold plate. Datasheet typical $R_{jc}=0.2$ K/W.
+With hottest-device loss allowance $P_{hot}$:
+\[
+T_j=T_{water}+P_{FET,total}R_{plate-water}+P_{hot}(R_{jc}+R_{TIM}).
+\]
+Maximum plate-to-water resistance is
+$(T_{j,limit}-T_{water}-P_{hot}(R_{jc}+R_{TIM}))/P_{FET,total}$.
+A negative value means the local branch alone is insufficient.
+Gate-driver and other losses are outside this plate. Board heat flow, coolant
+rise along a channel and transient thermal impedance are excluded.
+The exposed top is at source potential; a common half-bridge cold plate
+requires an electrically isolating TIM.
+\section{Results}
+@COUNT@ of @TOTAL@ points pass the modeled constraints. @RESULT@
+\clearpage
+\begin{center}\includegraphics[width=\linewidth]{../../results/sweep.pdf}\end{center}
+\section{Interpretation}
+CSV outputs contain component losses, current, junction temperature, remaining
+loss budget, required cooling resistance and failure reasons. The summary
+also records minimum passing parallel count per sampled frequency.
+
+Near the maximum SVM reference, a conservative pulse screen requires
+$(1-\sqrt{3}m/2)/(2f_s)>t_d+t_{pulse,min}$.
+This assumes centered continuous SVM without pulse suppression; confirm the
+actual controller behavior. More parallel devices cannot resolve this limit.
+
+Power factor, phase ripple, overlap times, driver capability, sharing,
+overshoot, pulse width, TIM and plate resistance need confirmation.
+Zero other losses does not demonstrate full-module efficiency. PCB, capacitor,
+control, driver quiescent and auxiliary losses consume the remaining budget.
+Ripple inputs affect conduction and peak-current checks; switching ripple
+correlations are not modeled. Switching times are assumed fixed as N increases.
+
+Source: supplied EPC2361 datasheet revision 2.4, 20 July 2026, pages 1--3 and 5.
+At 75 V, $E_{oss}\approx3.2$ microjoule and the resistance multiplier at 125 C
+is about 1.65: visual curve estimates, not guaranteed values. Maximum gate
+charge is characterized at 50 V and approximated at 75 V. The model does not
+verify dynamic on-resistance, transient SOA, parasitics or switching imbalance.
+\end{document}

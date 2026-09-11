@@ -1,0 +1,9 @@
+{
+  "rds_temperatures_c": [25, 50, 75, 100, 125, 150],
+  "rds_plot_currents_a": [20, 40, 50, 60],
+  "notes": [
+    "DC on-resistance is Vds/Ids at Vgs=5 V using the vendor model, not a guaranteed datasheet maximum.",
+    "150 C is a characterization endpoint at the absolute temperature limit, not a design target.",
+    "Switching plots use the saved double-pulse sweep and its own fixed temperature, rather than claiming a switching-temperature sweep."
+  ]
+}

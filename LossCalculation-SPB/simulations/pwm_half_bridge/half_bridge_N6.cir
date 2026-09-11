@@ -1,0 +1,98 @@
+* EPC2361 PWM half bridge: 6 devices per position
+* Standalone LTspice netlist. Open this .cir file and click Run.
+* Demonstration load only: not the rated motor or validated efficiency model.
+.include EPC2361.lib
+.param Vbus=75 Fsw=20k Ffund=1k ModIndex=0.8 Tstop=2m
+.param Lphase=20u Rphase=0.1 BemfPeak=20 BemfPhase=0
+.param Vgate=5 Deadtime=20n Edge=3n Ron=3 Roff=1 RdrvOn=0.5 RdrvOff=0.5
+.param Ldrain=0.25n Lsource=0.25n Lgate=1n
+.temp 125
+Vdc bus 0 {Vbus}
+Lfeed bus dc 2n Rser=2m
+* Local MLCC equivalent: replace C/ESR/ESL with selected components under bias.
+Lcap dc cx 0.2n
+Rcap cx cy 2m
+Cdc cy 0 20u IC={Vbus}
+Vmid mid 0 {Vbus/2}
+Bemf emf mid V=BemfPeak*sin(2*pi*Ffund*time+BemfPhase*pi/180)
+Rload load emf {Rphase}
+Lload sw load {Lphase} IC=0
+* SPWM duty and triangular carrier; .tran analysis, not small-signal AC.
+Bduty duty 0 V=0.5+0.5*ModIndex*sin(2*pi*Ffund*time)
+Btri carrier 0 V=abs(2*(time*Fsw-floor(time*Fsw))-1)
+* Smoothed nonoverlap commands; finite slew. Deadtime is approximate with smoothing.
+Bhi cmdh sw V=Vgate/2*(1+tanh((V(duty)-V(carrier)-Deadtime*Fsw)/(2*Fsw*Edge)))
+Blo cmdl 0 V=Vgate/2*(1+tanh((V(carrier)-V(duty)-Deadtime*Fsw)/(2*Fsw*Edge)))
+* One shared output impedance per bank, no driver current-limit or propagation model.
+Bdh cmdh gh I=V(cmdh,gh)/if(V(cmdh,sw)>2.5,RdrvOn,RdrvOff)
+Bdl cmdl gl I=V(cmdl,gl)/if(V(cmdl)>2.5,RdrvOn,RdrvOff)
+LdH1 dc dH1 {Ldrain} Rser=0.1m
+LsH1 sH1 sw {Lsource} Rser=0.1m
+BrH1 gh grH1 I=V(gh,grH1)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH1 grH1 gH1 {Lgate} Rser=0.01
+XH1 gH1 dH1 sH1 EPC2361
+LdL1 sw dL1 {Ldrain} Rser=0.1m
+LsL1 sL1 0 {Lsource} Rser=0.1m
+BrL1 gl grL1 I=V(gl,grL1)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL1 grL1 gL1 {Lgate} Rser=0.01
+XL1 gL1 dL1 sL1 EPC2361
+LdH2 dc dH2 {Ldrain} Rser=0.1m
+LsH2 sH2 sw {Lsource} Rser=0.1m
+BrH2 gh grH2 I=V(gh,grH2)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH2 grH2 gH2 {Lgate} Rser=0.01
+XH2 gH2 dH2 sH2 EPC2361
+LdL2 sw dL2 {Ldrain} Rser=0.1m
+LsL2 sL2 0 {Lsource} Rser=0.1m
+BrL2 gl grL2 I=V(gl,grL2)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL2 grL2 gL2 {Lgate} Rser=0.01
+XL2 gL2 dL2 sL2 EPC2361
+LdH3 dc dH3 {Ldrain} Rser=0.1m
+LsH3 sH3 sw {Lsource} Rser=0.1m
+BrH3 gh grH3 I=V(gh,grH3)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH3 grH3 gH3 {Lgate} Rser=0.01
+XH3 gH3 dH3 sH3 EPC2361
+LdL3 sw dL3 {Ldrain} Rser=0.1m
+LsL3 sL3 0 {Lsource} Rser=0.1m
+BrL3 gl grL3 I=V(gl,grL3)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL3 grL3 gL3 {Lgate} Rser=0.01
+XL3 gL3 dL3 sL3 EPC2361
+LdH4 dc dH4 {Ldrain} Rser=0.1m
+LsH4 sH4 sw {Lsource} Rser=0.1m
+BrH4 gh grH4 I=V(gh,grH4)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH4 grH4 gH4 {Lgate} Rser=0.01
+XH4 gH4 dH4 sH4 EPC2361
+LdL4 sw dL4 {Ldrain} Rser=0.1m
+LsL4 sL4 0 {Lsource} Rser=0.1m
+BrL4 gl grL4 I=V(gl,grL4)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL4 grL4 gL4 {Lgate} Rser=0.01
+XL4 gL4 dL4 sL4 EPC2361
+LdH5 dc dH5 {Ldrain} Rser=0.1m
+LsH5 sH5 sw {Lsource} Rser=0.1m
+BrH5 gh grH5 I=V(gh,grH5)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH5 grH5 gH5 {Lgate} Rser=0.01
+XH5 gH5 dH5 sH5 EPC2361
+LdL5 sw dL5 {Ldrain} Rser=0.1m
+LsL5 sL5 0 {Lsource} Rser=0.1m
+BrL5 gl grL5 I=V(gl,grL5)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL5 grL5 gL5 {Lgate} Rser=0.01
+XL5 gL5 dL5 sL5 EPC2361
+LdH6 dc dH6 {Ldrain} Rser=0.1m
+LsH6 sH6 sw {Lsource} Rser=0.1m
+BrH6 gh grH6 I=V(gh,grH6)/if(V(cmdh,sw)>2.5,Ron,Roff)
+LgH6 grH6 gH6 {Lgate} Rser=0.01
+XH6 gH6 dH6 sH6 EPC2361
+LdL6 sw dL6 {Ldrain} Rser=0.1m
+LsL6 sL6 0 {Lsource} Rser=0.1m
+BrL6 gl grL6 I=V(gl,grL6)/if(V(cmdl,0)>2.5,Ron,Roff)
+LgL6 grL6 gL6 {Lgate} Rser=0.01
+XL6 gL6 dL6 sL6 EPC2361
+RrefH gh sw 1G
+RrefL gl 0 1G
+.options plotwinsize=0 reltol=0.003
+.tran 0 {Tstop} 0 20n uic
+.save V(sw) V(duty) V(carrier) V(gh,sw) V(gl) V(gH1,sH1) V(gL1,sL1) I(Lload) I(LdH1) I(LdL1) V(dc)
+.meas tran VswMax MAX V(sw)
+.meas tran VswMin MIN V(sw)
+.meas tran IloadMax MAX I(Lload)
+* No switching-energy measurement here: terminal energy includes reactive storage.
+.end

@@ -1,0 +1,17 @@
+{
+  "name": "EPC2361",
+  "source": "data/datasheets/EPC2361_datasheet.pdf, revision 2.4, 20 July 2026",
+  "vds_max_v": 100.0,
+  "tj_absolute_max_c": 150.0,
+  "rds_on_max_25c_ohm": 0.001,
+  "qg_max_c": 3.4e-8,
+  "coss_energy_0_to_50v_f": 1.419e-9,
+  "rth_junction_case_k_per_w": 0.2,
+  "notes": [
+    "Page 1: maximum Rds(on) at Vgs=5 V, Id=50 A; RthJC is typical, top case.",
+    "Page 2: maximum Qg at Vds=50 V, Vgs=5 V, Id=50 A.",
+    "Page 2: energy-equivalent Coss is typical and specified only over 0 to 50 V.",
+    "133 A continuous rating requires Tj below 125 C; it is not a board current capability.",
+    "Page 5: exposed top is at source potential; half-bridge TIM must electrically isolate the sink."
+  ]
+}

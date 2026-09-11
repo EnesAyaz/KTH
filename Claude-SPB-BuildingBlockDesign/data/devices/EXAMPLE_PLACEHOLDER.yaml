@@ -1,0 +1,70 @@
+# PLACEHOLDER DEVICE FILE — illustrative numbers only, loosely representative of a
+# ~100 V e-mode GaN HEMT power stage, NOT copied from a real EPC datasheet.
+# Replace every field with the values from the real EPC datasheet + LTSpice model
+# before trusting any result. Keep the file structure/units unchanged so the rest
+# of the tool keeps working; devices.py validates required keys.
+
+part_number: "EXAMPLE_PLACEHOLDER"
+manufacturer: "EPC (placeholder)"
+technology: "eGaN HEMT"
+
+ratings:
+  v_ds_max_V: 100.0
+  i_d_max_continuous_A: 90.0       # datasheet continuous rating at Tc = 25 C
+  i_d_max_pulsed_A: 150.0
+  t_j_max_C: 150.0
+  t_j_op_recommended_C: 125.0
+
+on_resistance:
+  r_ds_on_25C_mOhm: 1.8            # at Vgs = 5V, Id = datasheet test current
+  # Simple linear temp coefficient model: R(Tj) = R25 * (1 + tc1*(Tj-25) + tc2*(Tj-25)^2)
+  temp_coeff_linear_per_C: 0.0062
+  temp_coeff_quadratic_per_C2: 0.0000
+
+gate_charge:
+  v_gs_drive_V: 5.0
+  v_gs_th_V: 1.4
+  v_gs_plateau_V: 2.7
+  q_gs_nC: 1.4
+  q_gd_nC: 1.6
+  q_g_total_nC: 5.8
+  r_g_internal_ohm: 0.6
+
+capacitance:
+  # C_oss is strongly voltage-dependent for GaN; give either a fixed value at a
+  # reference voltage (simple model) or a table (V, C_oss) for the energy-based model.
+  c_oss_ref_V: 50.0
+  c_oss_ref_pF: 145.0
+  c_oss_table_V_pF:            # optional finer table, [ [Vds, Coss_pF], ... ]
+    - [1, 900]
+    - [10, 260]
+    - [25, 180]
+    - [50, 145]
+    - [80, 120]
+
+third_quadrant_conduction:
+  # E-mode GaN has no body diode; reverse (source-to-drain) conduction with Vgs=0
+  # is modeled as a piecewise-linear "diode": Vsd = v_sd0 + r_sd * I
+  v_sd0_V: 1.9
+  r_sd_ohm: 0.006
+
+switching_energy_reference:
+  # Datasheet (or LTSpice double-pulse) reference point the analytical model scales from.
+  note: "REPLACE with datasheet E_on/E_off vs Id curve or LTSpice double-pulse results"
+  v_ds_test_V: 50.0
+  i_d_test_A: 30.0
+  r_g_on_test_ohm: 2.0
+  r_g_off_test_ohm: 2.0
+  e_on_test_uJ: 3.6
+  e_off_test_uJ: 1.4
+
+thermal:
+  r_th_jc_C_per_W: 0.5
+  r_th_jb_C_per_W: 1.2          # junction-to-board (relevant for BGA-style EPC parts)
+  package_footprint_mm2: 9.0
+
+ltspice_model:
+  subckt_name: "REPLACE_WITH_SUBCKT_NAME"
+  lib_file: "data/ltspice_models/REPLACE_ME.lib"
+  symbol_file: "data/ltspice_models/REPLACE_ME.asy"
+  pin_order: "D G S"   # check the real .subckt line -- e.g. EPC's own GaN library uses "G D S"

@@ -1,0 +1,72 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=18mm]{geometry}
+\usepackage{graphicx}
+\title{Report 1: EPC2361 SPICE Characterization}
+\author{LossCalculation-SPB}
+\begin{document}
+\maketitle
+\section{Purpose and scope}
+This report characterizes the supplied EPC2361 transistor model, separately
+from the SPB inverter efficiency and cooling report. It provides DC
+temperature-dependent on-resistance and current-dependent switching energies,
+voltage/current slopes and voltage stress. These are simulation results for
+one device in each position, not measured device guarantees or a parallel-module model.
+\section{DC on-resistance}
+LTspice sweeps drain current with a 5 V gate bias at each fixed temperature.
+The extracted quantity is $R_{DS(on)}=V_{DS}/I_D$, including model drain/source
+access resistance. Zero current is excluded from the division. No self-heating
+is solved. The 150 C point is a characterization endpoint at the absolute
+temperature limit, not the module's design target.
+\begin{center}\begin{tabular}{rr}
+Temperature (C) & Model on-resistance at 50 A (mOhm) \\
+\hline
+@RDS@
+\end{tabular}\end{center}
+The model's typical fit can differ from the datasheet's maximum resistance and
+its latest typical curves. It must not be silently substituted for a worst-case
+conduction-loss calculation.
+\par\noindent\includegraphics[width=\linewidth]{../../results/spice_characterization/rds_on.pdf}
+\clearpage
+\section{Switching characterization setup}
+The previously completed double-pulse sweep supplies @CASES@ cases, of which
+@FAILURES@ fail at least one modeled voltage screen. Its original configuration
+is saved with this characterization; a model hash check prevents combining DC
+results with a DPT table generated from a different extracted model.
+\begin{center}\begin{tabular}{ll}
+@SETUP@
+\end{tabular}\end{center}
+Internal gate resistance is additionally 0.4 ohm. The complementary gate stays
+off. A first pulse builds inductor current; first turn-off and second turn-on
+are measured. Horizontal axes use actual inductor current at the respective
+edge, not the nominal current setting or the instantaneous ringing peak.
+The DC temperature sweep does not imply a temperature sweep of switching energies.
+
+\subsection{Energy and slope definitions}
+Turn-on plots show excess DUT channel/access-resistor heat: integration of
+observed internal dissipative power minus ordinary on-state conduction over
+the measurement window. The conduction reference is a separate DC run of the
+same model at the same temperature and 5 V gate bias. Turn-off retains delayed
+channel conduction. These quantities exclude gate-drive loss and complementary
+device reverse conduction. They are not standardized manufacturer $E_{on}/E_{off}$
+specifications. Signed drain-terminal integrals are also retained in the CSV;
+they differ from heat because stored capacitance energy changes during an edge.
+Do not add Coss loss again to energies that already include its dissipation.
+
+Both turn-on and turn-off dv/dt and di/dt figures use the maximum absolute slope
+over a 1 ns interval. Raw sample derivatives are also available in the CSV.
+Reported maxima depend on time resolution and bandwidth. Earlier nominal
+timestep/window convergence checks are retained in results/double\_pulse;
+they are not a physical validation of every corner.
+
+\subsection{How to read the figures}
+Rows compare bus voltage; columns compare bus-side loop inductance; colors
+compare external gate resistance. Lines connect sampled points for readability,
+without implying a validated interpolation model. Red crosses mark cases failing
+the 90 V design ceiling or package gate limits (-4 V, +6 V); both devices are
+checked. The voltage figure also marks the 100 V drain absolute rating.
+Failed points remain visible for sensitivity analysis and must not be treated
+as qualified loss data. The model continues above ratings because it has no
+destructive breakdown model. Actual PCB parasitics, gate driver, dynamic
+on-resistance and production spread still require validation.
+@FIGURES@
+\end{document}

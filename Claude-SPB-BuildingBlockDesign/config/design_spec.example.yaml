@@ -1,0 +1,43 @@
+# Example design spec -- copy to design_spec.yaml and fill in your real numbers.
+# "This leg" = one half-bridge building block = one phase of the stacked polyphase bridge.
+
+device: "EPC2361"   # data/devices/<name>.yaml stem
+
+power:
+  p_out_leg_W: 6250.0          # real power this building block delivers at full load
+  v_dc_V: 75.0
+  v_rms_fund_V: 30.0           # fundamental RMS output (phase) voltage
+  power_factor: 0.95
+  modulation_index: 1.15
+  modulation_scheme: "SVM"      # "SPWM" or "SVM"
+
+targets:
+  efficiency_full_load: 0.995
+  v_overshoot_max_frac: 0.20     # Vds peak <= 1.20 * Vdc
+  t_j_ceiling_C: 125.0    # device recommended max for full utilization -- used directly,
+  # not the absolute max with a margin subtracted from it
+
+timing:
+  dead_time_ns: 10.0
+
+thermal:
+  t_ambient_C: 45.0
+  r_th_interface_C_per_W: 2.5     # TIM + case-to-sink, per device -- literature-grounded,
+  # see docs/derivations.md's thermal section before trusting this for your own TIM/mount
+  r_th_sink_amb_C_per_W: 0.6       # heatsink-to-ambient, total for the assembly
+
+layout:
+  loop_inductance_method: "parallel_plate"   # "parallel_plate" or "busbar_pair"
+  loop_length_mm: 15.0
+  loop_width_mm: 8.0
+  loop_h_or_s_mm: 0.2       # dielectric thickness (parallel_plate) or separation (busbar_pair)
+
+search:
+  n_parallel_max: 6
+  rg_on_min_ohm: 0.5
+  rg_on_max_ohm: 15.0
+  rg_off_min_ohm: 0.5
+  rg_off_max_ohm: 15.0
+  fsw_min_Hz: 10000
+  fsw_max_Hz: 100000
+  loop_inductance_sweep_nH: [0.3, 0.7, 1.5]   # L_loop values to characterize via double-pulse sweep

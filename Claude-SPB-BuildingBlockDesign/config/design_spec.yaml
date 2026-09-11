@@ -1,0 +1,62 @@
+# Design spec for this run -- copied from design_spec.example.yaml (with the user's real
+# numbers) and device switched to the real EPC2361.
+# "This leg" = one half-bridge building block = one phase of the stacked polyphase bridge.
+
+device: "EPC2361"
+
+power:
+  p_out_leg_W: 6250.0          # real power this building block delivers at full load
+  v_dc_V: 75.0
+  v_rms_fund_V: 30.0           # fundamental RMS output (phase) voltage
+  power_factor: 0.95
+  modulation_index: 1.15
+  modulation_scheme: "SVM"      # "SPWM" or "SVM"
+
+targets:
+  efficiency_full_load: 0.995
+  v_overshoot_max_frac: 0.20     # Vds peak <= 1.20 * Vdc
+  t_j_ceiling_C: 125.0    # device recommended max for full utilization (datasheet
+  # t_j_op_recommended_C), used directly as the design ceiling -- not the 150C
+  # absolute max with a separate margin subtracted.
+
+timing:
+  dead_time_ns: 10.0
+
+thermal:
+  t_ambient_C: 45.0
+  # TIM + case-to-sink, per device. Literature-grounded (see docs/derivations.md):
+  # Cooke & Rogers (2025, 120V/155A x8 EPC2304 traction inverter) use a 1.5mm A1780
+  # isolating TIM pad (k=17.8 W/m-K), compressed to ~0.8mm over the die, and report a
+  # measured/FEA mean per-device thermal resistance (junction to ambient, TIM+spreading
+  # included) of 16.9 C/W for a similarly-sized small GaN die. A first-principles
+  # R=t/(k*A) estimate using that same TIM material and EPC2361's ~15mm^2 footprint
+  # gives ~3.0 C/W for the TIM layer alone -- used here (rounded to 2.5 C/W to allow
+  # slightly better compression/contact than their spring-loaded design).
+  r_th_interface_C_per_W: 2.5
+  # Heatsink-to-ambient, total for the assembly. Cooke & Rogers report 0.9 C/W for a
+  # 60x60mm forced-air aluminum finned heatsink (moderate airflow) sized for their
+  # ~35W-per-module dissipation; this design's higher total loss budget (see targets)
+  # justifies a somewhat larger heatsink under comparable forced-air cooling.
+  r_th_sink_amb_C_per_W: 0.6
+
+layout:
+  loop_inductance_method: "parallel_plate"   # "parallel_plate" or "busbar_pair"
+  loop_length_mm: 15.0
+  loop_width_mm: 8.0
+  loop_h_or_s_mm: 0.2       # dielectric thickness (parallel_plate) or separation (busbar_pair)
+  # Literature cross-check (docs/derivations.md): Cooke & Rogers (2025) measure/estimate
+  # 0.34-0.74 nH for a comparable 4-layer PCB SCCL using this SAME L=mu_r*mu_0*h*l/w
+  # formula on real hardware -- this design's 0.47 nH analytical estimate sits inside
+  # that achieved range, not below it as earlier (single-benchmark) comparisons suggested.
+
+search:
+  n_parallel_max: 6
+  rg_on_min_ohm: 0.5
+  rg_on_max_ohm: 15.0
+  rg_off_min_ohm: 0.5
+  rg_off_max_ohm: 15.0
+  fsw_min_Hz: 10000
+  fsw_max_Hz: 100000
+  # L_loop values to characterize via double-pulse sweep (nH), spanning the literature-
+  # validated achievable range up to a conservative margin for a first hardware rev:
+  loop_inductance_sweep_nH: [0.3, 0.7, 1.5]

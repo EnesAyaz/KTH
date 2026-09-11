@@ -1,0 +1,19 @@
+EPC2361 double pulse smoke test
+.include ../../data/spice/EPC2361.lib
+Vbus dc 0 75
+Lloop dc lp 2n Rser=1m
+Rloop lp top 5m
+Lload dc sw 1u Rser=1m
+Xfree gh top sw EPC2361
+Roff gh sw 0.9
+Vsense sw d 0
+Xdut g d s EPC2361
+Lsource s 0 0.2n Rser=0.1m
+Vdrive drive 0 PWL(0 0 100n 0 102n 5 766.667n 5 768.667n 0 866.667n 0 868.667n 5 1066.667n 5 1068.667n 0)
+Rg drive gx 1.5
+Lg gx g 1n Rser=10m
+.temp 125
+.options plotwinsize=0 numdgt=15 reltol=1e-4
+.save V(d) V(s) V(g) V(top) V(sw) I(Vsense) I(Lload)
+.tran 0 1.2u 0 0.2n
+.end

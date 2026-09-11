@@ -1,0 +1,44 @@
+{
+  "parallel_counts": [
+    4,
+    5,
+    6
+  ],
+  "scenarios": [
+    {
+      "name": "compact_assumption",
+      "shared_nh": 0.3,
+      "branch_nh": 0.8,
+      "coupling_k": 0.1
+    },
+    {
+      "name": "central_assumption",
+      "shared_nh": 0.6,
+      "branch_nh": 1.5,
+      "coupling_k": 0.2
+    },
+    {
+      "name": "extended_assumption",
+      "shared_nh": 1.5,
+      "branch_nh": 3,
+      "coupling_k": 0.3
+    }
+  ],
+  "local_loop_sweep_nh": [
+    0.5,
+    1,
+    2,
+    3
+  ],
+  "notes": [
+    "All scenario inductances are assumptions, not extracted EPC9186 or user PCB values.",
+    "Branch_nh denotes an entire local commutation branch; shared_nh includes common high-frequency paths counted once.",
+    "The equal-current coupled-branch approximation is L_eff=L_shared+L_branch*(1+(N-1)*k)/N.",
+    "Gate common-source inductance must also be explicitly represented in a transient circuit without double-counting it in the branch total.",
+    "These are bookkeeping/common-mode estimates, not multi-device SPICE results or field-solver extraction."
+  ],
+  "sources": [
+    "https://epc-co.com/epc/Portals/0/epc/documents/application-notes/AN020%20Effectively%20Paralleling%20Enhancement%20Mode%20Gallium%20Nitride%20Transistors.pdf",
+    "Supplied EPC9186_qsg.pdf, revision 1.0, April 2 2026"
+  ]
+}

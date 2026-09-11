@@ -1,0 +1,10 @@
+﻿{
+  "description": "Paper-inspired sensitivity study; dimensions are assumptions, not extracted from Cooke/Rogers or EPC9186.",
+  "parallel_counts": [4,5,6],
+  "layer_separations_mm": [0.1,0.2,0.4],
+  "overlap_length_mm": 10.0,
+  "effective_branch_width_mm": 3.0,
+  "assumed_branch_extra_nh": 0.5,
+  "assumed_shared_nh": 0.3,
+  "assumed_branch_coupling_k": 0.2
+}

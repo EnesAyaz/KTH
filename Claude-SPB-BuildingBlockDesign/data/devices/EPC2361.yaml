@@ -1,0 +1,90 @@
+# EPC2361 -- real datasheet values (data/datasheets/EPC2361_datasheet.pdf, rev 2.4,
+# 20-Jul-2026) + data/datasheets/EPC2361ThermalSPICEModel.pdf (FEA-derived Rth/Zth) +
+# data/ltspice_models/EPCGaNLibrary.lib (.subckt EPC2361 gatein drainin sourcein).
+#
+# Notes on fields NOT directly in the datasheet:
+# - switching_energy_reference: the datasheet only shows qualitative switching waveforms
+#   (RG_ON=1ohm, RG_OFF=0ohm, Vin=48V, IL=30A, no numeric Eon/Eoff given) -- the values
+#   below come from running this project's own LTSpice double-pulse test against the real
+#   EPCGaNLibrary.lib model (see outputs/EPC2361_dpt_reference.txt), NOT copied from the
+#   datasheet. Treat switching-loss numbers derived from this file as LTSpice-simulation
+#   results, not vendor-published data, until cross-checked against real hardware.
+# - third_quadrant_conduction: v_sd0/r_sd fit to Figure 8 (Reverse Drain-Source
+#   Characteristics, 25C, Vgs=0V) plus the explicit VSD=1.6V @ Is=0.5A datapoint. The real
+#   curve has a knee; this is a linear approximation valid roughly up to a few hundred A.
+
+part_number: "EPC2361"
+manufacturer: "EPC"
+technology: "eGaN HEMT"
+
+ratings:
+  v_ds_max_V: 100.0            # V_DS(tr) repetitive transient rating is 120 V
+  i_d_max_continuous_A: 133.0    # Tj < 125C
+  i_d_max_pulsed_A: 697.0        # 25C, 10us pulse (558A at 125C)
+  t_j_max_C: 150.0
+  t_j_op_recommended_C: 125.0
+
+on_resistance:
+  r_ds_on_25C_mOhm: 0.75          # typ @ Vgs=5V, Id=50A (max 1.0 mOhm)
+  # From Figure 9 (Normalized Rds_on vs Tj, Id=50A, Vgs=5V): ~1.0 at 25C rising to ~1.8 at
+  # 150C -> roughly linear, slope ~(1.8-1.0)/(150-25) = 0.0064 /C.
+  temp_coeff_linear_per_C: 0.0064
+  temp_coeff_quadratic_per_C2: 0.0
+
+gate_charge:
+  v_gs_drive_V: 5.0
+  v_gs_th_V: 1.1              # typ (min 0.8, max 2.5) @ Vds=Vgs, Id=18mA
+  v_gs_plateau_V: 2.1           # read off Figure 7 (Typical Gate Charge) plateau region
+  q_gs_nC: 8.5                 # @ Vds=50V, Id=50A
+  q_gd_nC: 3.8
+  q_g_total_nC: 34.0            # typ 28-34 nC; use the datasheet's max-column value for margin
+  r_g_internal_ohm: 0.4          # matches both the datasheet RG spec AND rg_value=0.4 in the .lib subckt
+
+capacitance:
+  c_oss_ref_V: 50.0
+  c_oss_ref_pF: 1284.0           # COSS, VDS=50V, VGS=0V (max column; typ not separately given)
+  c_oss_table_V_pF: []           # datasheet gives log/linear plots, not a digitized table;
+  # use c_oss_ref (COSS(ER), energy-equivalent, is 1419 pF for the 0-50V swing per Note 1)
+
+third_quadrant_conduction:
+  v_sd0_V: 1.6                 # datasheet: VSD @ Is=0.5A, Vgs=0V, 25C
+  r_sd_ohm: 0.005                # fit to Figure 8's ~2-5V / 0-600A slope at 25C
+
+switching_energy_reference:
+  note: "Real LTSpice double-pulse point from outputs/EPC2361_dpt_sweep.csv (I=41.4A row, Rg=2.0), NOT a datasheet value. The analytical model (used only when no --lookup-csv is given) scales from this single point; prefer the lookup-mode sweep for real design decisions."
+  v_ds_test_V: 75.0
+  i_d_test_A: 41.4
+  r_g_on_test_ohm: 2.0
+  r_g_off_test_ohm: 2.0
+  e_on_test_uJ: 10.635
+  e_off_test_uJ: 5.476
+
+thermal:
+  # Datasheet headline table lists Rth_jc(typ)=0.2 C/W, but the companion FEA-derived
+  # 3-stage Foster ladder (EPC2361ThermalSPICEModel.pdf) sums to
+  # 0.0247+0.0421+0.173=0.2398 C/W -- a real ~20% discrepancy, not rounding (the Rth_jb
+  # ladder below sums to 1.5103, matching its 1.5 headline to <1%, so this isn't a
+  # generic ladder-vs-headline offset). Using the more detailed/conservative FEA sum here.
+  r_th_jc_C_per_W: 0.24
+  r_th_jb_C_per_W: 1.5           # Case BOTTOM / board path (FEA ladder sums to 1.51, matches headline)
+  package_footprint_mm2: 15.0     # 3 x 5 mm
+  # NOTE: top of package = SOURCE potential (not drain/ground) -- for a half-bridge, the
+  # high-side and low-side devices' top sides sit at DIFFERENT potentials, so a shared
+  # heatsink on top REQUIRES an electrically-isolating TIM. Factor that into
+  # config/design_spec.yaml's r_th_interface_C_per_W (isolating TIMs are usually higher
+  # Rth than non-isolating ones).
+  # 3-stage Foster RC ladder from the FEA thermal model (for future transient/Zth work,
+  # not consumed by thermal.py's steady-state model yet):
+  #   Zth_jc: Rth[C/W]=[0.0247, 0.0421, 0.173]  Cth[J/C]=[3.01e-4, 0.155, 2.71e-3]
+  #   Zth_jb: Rth[C/W]=[0.0683, 0.693, 0.749]   Cth[J/C]=[9.83e-4, 1.04e-2, 2.44e-2]
+
+ltspice_model:
+  subckt_name: "EPC2361"
+  # Standalone extract of just the EPC2361 .subckt block (lines 6407-6470 of the full
+  # EPCGaNLibrary.lib) -- including the full ~7000-line library made LTSpice's parser
+  # choke with a generic "Unable to find definition of model 'version'" error, most
+  # likely from an unrelated device elsewhere in the file; isolating this device's own
+  # block sidesteps that and is also faster to simulate.
+  lib_file: "data/ltspice_models/EPC2361.lib"
+  symbol_file: "data/ltspice_models/EPCGaN.asy"
+  pin_order: "G D S"   # .subckt EPC2361 gatein drainin sourcein -- confirmed against the .asy SpiceOrder too

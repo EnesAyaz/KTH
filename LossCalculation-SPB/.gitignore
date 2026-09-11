@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+outputs/
+results/*
+!results/.gitkeep
+reports/generated/*
+!reports/generated/.gitkeep
+*.aux
+*.log
+*.out
+*.synctex.gz
+simulations/**/*.raw
+simulations/**/*.op.raw
