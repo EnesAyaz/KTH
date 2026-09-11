@@ -1,0 +1,277 @@
+{
+    "vds": [
+        {
+            "value": 200.0,
+            "page": 1,
+            "section": "text",
+            "context": "ZZZZA EPC2304 - Enhancement Mode Power Transistor VDS , 200 V RDS(on) , 5 mOhm max Applications",
+            "score": 2.0
+        },
+        {
+            "value": 160.0,
+            "page": 1,
+            "section": "text",
+            "context": "IDSS Drain-Source Leakage VGS = 0 V, VDS = 160 V 0.008 0.5",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 2,
+            "section": "text",
+            "context": "CISS Input Capacitance VDS = 100 V, VGS = 0 V 2669 3390",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 2,
+            "section": "text",
+            "context": "COSS(ER) Effective Output Capacitance, Energy Related (Note 1) VDS = 0 to 100 V, VGS = 0 V 910 COSS(TR)",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 2,
+            "section": "text",
+            "context": "QG Total Gate Charge VDS = 100 V, VGS = 5 V, ID = 30 A 21 26",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 2,
+            "section": "text",
+            "context": "QGS Gate-to-Source Charge VDS = 100 V, ID = 30 A 7.5 QGD",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 2,
+            "section": "text",
+            "context": "QOSS Output Charge VDS = 100 V, VGS = 0 V 120 145",
+            "score": 1.0
+        },
+        {
+            "value": 100.0,
+            "page": 3,
+            "section": "text",
+            "context": " QG - Gate Charge (nC) ID = 30 A VDS = 100 V Figure 9: Typical Normalized On-State Resistance vs. Temp. ID = 30 A",
+            "score": 1.0
+        }
+    ],
+    "id_continuous": [
+        {
+            "value": 30.0,
+            "page": 1,
+            "section": "text",
+            "context": "RDS(on) Drain-Source On Resistance VGS = 5 V, ID = 30 A   3.5",
+            "score": 1.0
+        },
+        {
+            "value": 15.0,
+            "page": 2,
+            "section": "text",
+            "context": "2.5 5.0 Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "2.5 5.0 Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A",
+            "score": 1.0
+        },
+        {
+            "value": 15.0,
+            "page": 2,
+            "section": "text",
+            "context": "5.0 Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "5.0 Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A",
+            "score": 1.0
+        },
+        {
+            "value": 45.0,
+            "page": 2,
+            "section": "text",
+            "context": "5.0 Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A",
+            "score": 1.0
+        },
+        {
+            "value": 15.0,
+            "page": 2,
+            "section": "text",
+            "context": "Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A ID = 60 A",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A ID = 60 A",
+            "score": 1.0
+        },
+        {
+            "value": 45.0,
+            "page": 2,
+            "section": "text",
+            "context": "Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A ID = 60 A",
+            "score": 1.0
+        },
+        {
+            "value": 60.0,
+            "page": 2,
+            "section": "text",
+            "context": "Figure 3: Typical RDS(on) vs. VGS for Various Drain Currents  ID = 15 A ID = 30 A ID = 45 A ID = 60 A",
+            "score": 1.0
+        },
+        {
+            "value": 15.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 15 A ID = 30 A ID = 45 A ID = 60 A 25",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 15 A ID = 30 A ID = 45 A ID = 60 A 25",
+            "score": 1.0
+        },
+        {
+            "value": 45.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 15 A ID = 30 A ID = 45 A ID = 60 A 25",
+            "score": 1.0
+        },
+        {
+            "value": 60.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 15 A ID = 30 A ID = 45 A ID = 60 A 25",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 30 A ID = 45 A ID = 60 A 25 20",
+            "score": 1.0
+        },
+        {
+            "value": 45.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 30 A ID = 45 A ID = 60 A 25 20",
+            "score": 1.0
+        },
+        {
+            "value": 60.0,
+            "page": 2,
+            "section": "text",
+            "context": "ID = 30 A ID = 45 A ID = 60 A 25 20",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "25˚C 125˚C ID = 30 A RDS(on) - Drain-to-Source Resistance (mOhm)   VGS - Gate-to-Source Voltage (V) ",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "QG Total Gate Charge VDS = 100 V, VGS = 5 V, ID = 30 A 21 26",
+            "score": 1.0
+        },
+        {
+            "value": 30.0,
+            "page": 2,
+            "section": "text",
+            "context": "QGS Gate-to-Source Charge VDS = 100 V, ID = 30 A 7.5 QGD",
+            "score": 1.0
+        }
+    ],
+    "rds_on": [
+        {
+            "value": 5.0,
+            "page": 1,
+            "section": "text",
+            "context": "EPC2304 - Enhancement Mode Power Transistor VDS , 200 V RDS(on) , 5 mOhm max Applications • Synchronous rectification",
+            "score": 1.0
+        },
+        {
+            "value": 5.0,
+            "page": 1,
+            "section": "table_1",
+            "context": "V Gate Threshold Voltage V = V , I = 9 mA 0.8 1.5 2.5 V GS(TH) DS GS D R Drain-Source On Resistance V = 5 V, I = 30 A 3.5 5 mOhm DS(on) GS D V Source-Drain Forward Voltage# I = 0.5 A, V = 0 V 1.8 V",
+            "score": 1.0
+        }
+    ],
+    "qg": [
+        {
+            "value": 26.0,
+            "page": 2,
+            "section": "text",
+            "context": "26 nC QGS Gate-to-Source Charge VDS = 100 V, ID = 30 A",
+            "score": 1.0
+        }
+    ],
+    "qgd": [],
+    "coss": [
+        {
+            "value": 1010.0,
+            "page": 2,
+            "section": "table_1",
+            "context": "C Reverse Transfer Capacitance V = 100 V, V = 0 V 4 RSS DS GS C Output Capacitance 704 1010 pF OSS C Efefctive Output Capacitance, Energy Related (Note 1) 910",
+            "score": 1.0
+        },
+        {
+            "value": 1010.0,
+            "page": 2,
+            "section": "table_1",
+            "context": "C Output Capacitance 704 1010 pF OSS C Efefctive Output Capacitance, Energy Related (Note 1) 910 OSS(ER) V = 0 to 100 V, V = 0 V",
+            "score": 1.0
+        }
+    ],
+    "qoss": [],
+    "eoss": [],
+    "rth_jc": [
+        {
+            "value": 0.2,
+            "page": 1,
+            "section": "text",
+            "context": "UNIT RθJC Thermal Resistance, Junction-to-Case  0.2 C/W ",
+            "score": 1.0
+        }
+    ],
+    "tj_max": [
+        {
+            "value": 125.0,
+            "page": 1,
+            "section": "text",
+            "context": "0.85 Gate-to-Source Forward Leakage# VGS = 5 V, TJ = 125C 0.25 1.8",
+            "score": 1.0
+        },
+        {
+            "value": 125.0,
+            "page": 1,
+            "section": "text",
+            "context": "240 ID Continuous (TJ ≤125C) 133 A",
+            "score": 1.0
+        }
+    ],
+    "package": {
+        "length_mm": 3.0,
+        "width_mm": 5.0,
+        "area_mm2": 15.0,
+        "page": 1
+    }
+}
