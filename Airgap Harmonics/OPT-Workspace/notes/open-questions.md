@@ -1,0 +1,11 @@
+# Draft reconciliation
+- Confirm series-cell count, field-group connection and per-channel versus total quantities.
+- Determine whether 0.24 V is a junction drop or total return drop; confirm dark PV junction contribution to equations (5)--(7).
+- Reconcile 0.093 ohm field resistance with MPP matching.
+- At 12.5 A, 0.093 ohm dissipates 14.53 W per resistance; identify grouping behind the reported 30 W rotor loss.
+- A total 0.24 V return drop gives 3 W, while Table V reports 15.5 W per active phase.
+- Reconcile two-pole efficiency with output and loss totals.
+- Both rated operating points have 100 Hz electrical frequency; distinguish fixed-speed comparisons from rated-speed comparisons.
+- Audit equations (10)--(14), definitions of P, slot turns and per-pole/per-channel winding counts.
+- Supply actual FEA exports, circuit diagrams and torque/thermal results.
+- Finish full LaTeX migration, figures and bibliography using original TeX if available.

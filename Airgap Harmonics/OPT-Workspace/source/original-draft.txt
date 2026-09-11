@@ -1,0 +1,511 @@
+--- PAGE 1 ---
+IEEE TRANSACTIONS ON MAGNETICS 1
+Design of a Pole-Changing Wound Field Synchronous Machine With
+Bipolar Optical Power Transfer Excitation
+Enes Ayaz1,Graduate Member, IEEE, Nail Tosun 2,Graduate Member, IEEE
+1Department of Electric Power and Energy Systems, KTH Royal Institute of Technology, Stockholm, Sweden
+2 Department of Electrical and Electronic Engineering, Newcastle University, Newcastle, United Kingdom
+This paper presents the electromagnetic design and analysis of a pole-changing wound field synchronous machine (PC-WFSM)
+supplied by a bipolar optical power transfer (OPT) field-excitation system. The proposed rotor excitation architecture uses three
+stationary light sources: two optical channels provide reversible excitation for rotor field-coil groups whose current polarity changes
+between pole modes, while a third channel supplies the field-coil groups that retain a fixed polarity. In each bipolar channel,
+two rotor-mounted photovoltaic (PV) cell groups are selectively illuminated; the inactive PV group provides a passive return path
+through its first cell and an external diode. A unified PV-cell model is used to describe both the illuminated power-generating
+regime and the dark forward-biased return regime. Based on this model, a corrected maximum power point (MPP) matching
+condition is derived and incorporated into the rotor field-winding design, thereby coupling the OPT parameters to the achievable
+rotor magnetomotive force (MMF), field resistance, slot geometry, and stack length. Two-dimensional finite element analysis of a 10
+kW, 4-pole/2-pole prototype is used to verify the pole transformation, rotor-MMF reconfiguration, airgap flux distribution, no-load
+EMF, torque production, and loss performance. The proposed method provides brushless bipolar field excitation for PC-WFSMs
+with stationary-side optical control and without rotor-side active switching or resonant compensation components.
+Index Terms—Bipolar field excitation, brushless excitation, electrically excited synchronous machine (EESM), finite element analysis
+(FEA), optical power transfer (OPT), photovoltaic cell, pole-changing, wound field synchronous machine (WFSM).
+I. INTRODUCTION
+W
+OUND field synchronous machines (WFSMs) have
+attracted renewed interest as rare-earth-free alterna-
+tives to permanent-magnet machines in traction and power-
+generation applications [1]. Their controllable field excitation
+enables wide-speed-range operation, flux weakening, and safe
+de-excitation under fault conditions. These advantages are es-
+pecially attractive when high-speed operation and controllable
+airgap flux are required.
+Pole-changing operation provides an additional degree of
+freedom by modifying the effective pole number to reshape the
+torque–speed characteristic over a wide operating range [2]. In
+induction machines, the rotor field naturally follows the stator
+pole number; in synchronous machines, however, the rotor
+excitation pattern must also be reconfigured. Hence, a PC-
+WFSM requires not only a pole-changing stator MMF but also
+a rotor field system capable of changing the spatial polarity
+of selected field coils. This requirement makes bipolar field
+excitation a central design constraint rather than an auxiliary
+power-supply feature, as illustrated in Fig. 1.
+Several brushless excitation methods have been proposed
+to avoid slip rings and brushes, but they offer different
+compromises in terms of rotor complexity, controllability,
+and polarity reversal. Sub-harmonic self-excitation [3] can
+realize brushless operation by inducing current in a rotor
+harmonic winding and rectifying it through a diode bridge.
+However, this approach requires additional rotor windings
+and rectifiers and does not directly provide reversible field
+current for pole-changing operation. WPT-based excitation [4]
+eliminates mechanical contacts, but it generally requires rotor-
+mounted resonant networks, rectifiers, and filtering compo-
+Corresponding author: Enes Ayaz (email: enesa@kth.se).
+Fig. 1. Pole-changing operation in WFSMs. (a) Torque–speed characteristics
+for 4-pole and 2-pole modes. (b) and (c) Transition between modes requires
+reversal of the field current polarity in selected rotor coils.
+nents. For bipolar excitation, primary-side controlled WPT
+has been shown to reverse the field current for pole-changing
+EESMs [5]; nevertheless, the receiver still includes resonant
+magnetic components and switching/rectification circuitry.
+OPT-based field excitation provides a different route. In the
+recent OPT-WFSG design framework [6], a shaft-mounted PV
+cell directly supplies the rotor field winding, reducing rotor-
+side passive components and making the approach attractive
+for high-speed machines. The limitation is that the conven-
+tional PV-to-field-winding connection is intrinsically unipolar.
+Therefore, the open design problem addressed in this paper is
+how to obtain bipolar field excitation for a PC-WFSM while
+preserving the rotor simplicity of OPT and, at the same time,
+incorporating the resulting OPT constraint into the machine
+electromagnetic design.
+In this paper, a bipolar OPT excitation system is proposed
+for pole-changing WFSMs. Two stationary light sources pro-
+vide bipolar excitation for the field coil groups requiring polar-
+ity reversal, while a third independent light source supplies the
+field coil groups that remain unipolar. In the bipolar channels,
+
+--- PAGE 2 ---
+IEEE TRANSACTIONS ON MAGNETICS 2
+field-current polarity is selected by the active light source.
+The main contributions of this paper are summarized as
+follows:
+•A bipolar OPT excitation architecture for PC-WFSMs,
+enabling field-current reversal by stationary-side optical
+selection without rotor-side active switches or resonant
+compensation components.
+•A unified illuminated/dark PV-cell model and a corrected
+MPP matching condition for bipolar OPT excitation.
+•Integration of the corrected bipolar OPT constraint into
+the rotor field-winding, MMF, and geometry design of a
+4-pole/2-pole WFSM.
+•FEA verification of the pole transformation, rotor-MMF
+distribution, airgap flux density, no-load EMF, torque
+performance, and loss characteristics.
+The remainder of this paper is organized as follows. Sec-
+tion II presents the proposed bipolar OPT excitation and PV-
+cell model. Section III details the machine design procedure.
+Section IV presents FEA validation. Section V compares the
+proposed method with existing approaches, and Section VI
+concludes the paper.
+II. PROPOSEDBIPOLAROPT EXCITATION ANDPV-CELL
+MODEL
+Fig. 2 shows the proposed field-excitation architecture for
+the PC-WFSM. The system uses three stationary light sources.
+LS1 and LS2 supply the rotor field-coil groups whose current
+polarity must be reversed during pole changing, whereas LS3
+supplies the field-coil groups that keep the same polarity. The
+optical links are converted to electrical field power by rotor-
+mounted PV cells, so the field excitation is controlled from the
+stationary side without slip rings, rotor-side active converters,
+or resonant compensation components.
+Fig. 2. Conceptual illustration of the proposed bipolar OPT excitation
+architecture for a PC-WFSM.
+The PV cell is represented by the single-diode model
+I=I ph −I D0
+
+exp
+ q(V+R sI)
+nkT
+
+−1
+
+− V+R sI
+Rp
+(1)
+whereI ph is the photocurrent,I D0 is the diode saturation
+current,R s andR p are the series and shunt resistances, and
+nis the ideality factor. For a conventional unipolar OPT field
+winding, the MPP matching condition is [6]
+Rf = VMPP
+IMPP
+,(2)
+whereV MPP andI MPP are the terminal MPP voltage and
+current of one illuminated PV cell. ForN s identical series-
+connected cells, the MPP voltage isN sVMPP, and the current
+remainsI MPP.
+Fig. 3. Operating principle of the proposed bipolar OPT excitation. In each
+mode, one PV group is illuminated and the first cell of the inactive group
+forms the passive return path together with an external diode.
+The bipolar channel consists of two identical series PV
+groups,G + andG −, connected to opposite terminals of the
+field winding, as shown in Fig. 3. When LS1 illuminates
+G+, current flows from Node A to Node B and produces
+positive field currentI F+ . When LS2 illuminatesG −, the
+current direction is reversed, and negative field currentI F−
+is obtained. The current polarity is therefore selected only by
+the active light source. For symmetric PV groups and return
+paths,
+|IF+ | ≈ |I F− |.(3)
+A key feature is that the return current passes through an
+external diode, completing the loop.
+The effective field voltage at the MPP is therefore
+V ∗
+MPP =N sVMPP −V f,return,(4)
+where
+Vf,return =V f,ext +I MPPRs,return.(5)
+The corrected bipolar OPT matching condition becomes
+R∗
+f = NsVMPP −V f,return
+IMPP
+.(6)
+This relation is the main difference from unipolar OPT excita-
+tion: the field winding must be designed for the PV MPP after
+subtracting the passive return-path voltage penalty, as shown
+in Fig. 4.
+Fig. 4. Unified I–V characteristic illustrating the illuminated generating
+regime, single-cell dark diode-conduction regime, and load-line shift caused
+by the passive return path.
+
+--- PAGE 3 ---
+IEEE TRANSACTIONS ON MAGNETICS 3
+The corresponding return-path loss is
+Preturn =V f,extIF +I 2
+F Rs,return.(7)
+Accordingly, pole changing is obtained by assigning the
+rotor field coils to bipolar and unipolar groups. The bipolar
+groups are connected to LS1/LS2 and reverse their current
+direction between the 4-pole and 2-pole modes, whereas the
+unipolar groups are supplied by LS3 and retain the same
+polarity. Table I summarizes the required coil polarities.
+TABLE I
+ROTORFIELD-COILGROUPEXCITATION FORPOLECHANGING
+Field Winding Channel 4-pole 2-pole
+LF1 Unipolar LS3+ +
+LF2 Bipolar LS1/LS2−+
+LF3 Bipolar LS1/LS2−+
+LF4 Unipolar LS3− −
+III. MACHINEDESIGNPROCEDURE
+A. Design Constraints and Target Specifications
+The proposed pole-changing WFSM is constrained by both
+electromagnetic requirements and OPT excitation characteris-
+tics. The field current is limited by the PV-cell MPP current,
+and the field winding resistance must satisfy the corrected
+matching condition in (6). Therefore, the rotor winding, slot
+geometry, and machine dimensions must be co-designed with
+the OPT parameters.
+Table II summarizes the machine target specifications and
+PV-cell parameters used in this study.
+TABLE II
+TARGETSPECIFICATIONS
+Parameter Value Unit
+Rated output power 10 kW
+Speed: 4-pole / 2-pole 3000 / 6000 rpm
+DC bus voltage 400 V
+Stator current density 4.5 A/mm 2
+Rotor current densityJ r 3.5 A/mm 2
+Core material 35PN230 —
+Cooling Natural convection —
+Optical/PV electrical power per channel 30 W
+PV cellV MPP 2.4 V
+PV cellI MPP 12.5 A
+PV cellR s 0.08Ω
+PV celln,I D0 1.5,2×10 −8 —, A
+The design procedure used in this paper is summarized as
+follows. First, the target operating points for the 4-pole and 2-
+pole modes are specified. Second, the rotor-MMF requirement
+is obtained from the desired airgap flux and output power.
+Third, the PV-cell MPP parameters and the number of series
+cells are selected. Fourth, the corrected bipolar MPP condition
+in (6) is used to determine the allowable field resistance.
+Finally, the conductor area, number of field turns, rotor slot
+geometry, and stack length are selected so that the MMF,
+current-density, and resistance constraints are simultaneously
+satisfied.
+AsrHrt
+Wrt1
+Wrt2
+Wrt
+Fig. 5. Rotor slot geometry used for field winding design.
+B. Output Power and Induced EMF
+The no-load induced electromotive force (EMF) and output
+power of the machine are expressed as
+E0 =k wωeNphϕg = µ0πkwωeNph
+P lg
+DgLstkNrIr (8)
+Pout = µ0πηk wωe cosφ
+P lg
+(DgLstk)(NrIr)(NphIa)(9)
+wherek w is the winding factor,ω e is the electrical angular
+speed,D g is the airgap diameter,L stk is the stack length,
+lg is the effective airgap length, andN rIr is the rotor MMF
+per pole. SinceN rIr is constrained by the OPT channel, the
+achievable machine output is directly linked to the optical
+excitation capability.
+C. Rotor Field Winding Design
+The rotor field winding must satisfy both the MMF require-
+ment and the corrected MPP matching condition. The field
+winding resistance is determined by the rotor slot geometry in
+Fig. 5 as [6]
+Rf = 2P Nr
+σAcoil
+h
+Lstk +
+
+1− π
+4
+
+Wrt + π
+4 τr
+i
+.(10)
+The rotor MMF per pole is
+NrIr = σIMPPV ∗
+MPP
+2Jr
+h
+Lstk +
+
+1− π
+4
+
+Wrt + π
+4 τr
+i−1
+,
+(11)
+where the corrected effective voltage is
+V ∗
+MPP =N sVMPP −V f,return.(12)
+The number of turns per slot is
+Nr = Krf (Wrt2 −W rt1 −W rt)Hrt
+2Acoil
+.(13)
+Combining (10), (13), and (6), the stack length is obtained as
+Lstk = σV ∗
+MPPAcoil
+JrKrf (Wrt2 −W rt1 −W rt)Hrt
+−
+
+1− π
+4
+
+Wrt− π
+4 τr.
+(14)
+This formulation highlights that the rotor winding resistance
+and MMF cannot be selected independently but must satisfy
+the OPT matching constraint.
+
+--- PAGE 4 ---
+IEEE TRANSACTIONS ON MAGNETICS 4
+TABLE III
+DESIGNEDMACHINEPARAMETERS
+Parameter Value Unit
+Stator
+Outer / inner diameter 200 / 122 mm
+Stack lengthL stk 80 mm
+Slots; turns/phase 36; 48 –
+Winding factork w 0.925 –
+Rotor
+Outer diameter; airgapl g 121; 0.5 mm
+Field turnsN r; slot heightH rt 24; 18 –; mm
+Field resistanceR ∗
+f 0.093Ω
+Field currentI F ; MMF/pole 12.5; 300 A; At
+OPT excitation
+Optical channels 3 –
+PV electrical power/channel 30 W
+Single-cell return voltage 0.24 V
+0 90 180 270 360
+−1
+0
+1
+Rotor position (deg)
+Airgap flux densityB g (T) 4-pole
+2-pole
+Fig. 6. FEA-computed airgap flux density for the two pole configurations.
+D. Final Design Parameters
+The design procedure yields the machine parameters sum-
+marized in Table III. The final design satisfies the output power
+requirement, MMF requirement, magnetic saturation limit, and
+corrected MPP matching condition.
+IV. FINITEELEMENTVALIDATION
+A. FEA Setup
+Two-dimensional FEA was carried out in ANSYS Maxwell
+2024R1 using the nonlinear B–H characteristics of 35PN230
+electrical steel. The simulations were performed for both
+pole configurations, corresponding to the excitation modes
+described in Section II. No-load and loaded operating points
+were evaluated to verify the pole transformation, rotor-MMF
+reconfiguration, flux distribution, EMF waveform, torque pro-
+duction, and loss performance. Core losses were evaluated
+using the material loss model of the lamination, while cop-
+per losses were calculated from the winding resistances and
+current densities.
+B. Airgap Flux Density and No-Load EMF
+Fig. 6 shows the airgap flux density distribution for both
+pole configurations. The 4-pole mode exhibits the expected
+N–S–N–S pattern, whereas the 2-pole mode produces a single
+N–S pair, confirming correct pole transformation through field-
+current reversal.
+Fig. 7 presents the corresponding no-load phase EMF wave-
+forms. Both configurations exhibit near-sinusoidal behavior,
+0 90 180 270 360
+−400
+−200
+0
+200
+400
+Rotor position (deg)
+No-load EMFe 0 (V)
+4-pole
+2-pole
+Fig. 7. FEA-computed no-load phase EMF for both pole configurations.
+indicating that the pole transition does not significantly de-
+grade the induced voltage waveform.
+C. Rotor MMF and Harmonic Content
+Because the proposed excitation system is intended to
+reconfigure the rotor pole number, the rotor-MMF distribution
+is a key validation result. The field-coil polarities in Table I
+should be applied to the FEA model and the resulting rotor
+MMF should be decomposed into spatial harmonics for both
+pole modes. The desired pole harmonic must dominate in
+each mode, while the residual unwanted pole harmonic should
+remain sufficiently small to avoid excessive torque ripple and
+additional core loss.
+D. Torque Production and Torque Ripple
+The torque capability of the two pole modes should be
+evaluated at the same dc-link voltage and current limit used
+for the drive system. The 4-pole mode is expected to provide
+higher low-speed torque, whereas the 2-pole mode should
+extend the high-speed operating range by reducing the elec-
+trical frequency. Therefore, the final validation should include
+average torque, torque ripple, and, if available, torque–speed
+curves for both modes.
+E. Representative Operating Points
+To demonstrate the usefulness of pole-changing operation,
+two representative operating points are evaluated. The first
+corresponds to a low-speed, high-torque condition, where the
+4-pole configuration is expected to be preferable. The second
+corresponds to a high-speed operating condition, where the
+2-pole configuration is expected to reduce electromagnetic
+frequency and improve efficiency.
+TABLE IV
+REPRESENTATIVEOPERATING-POINTCOMPARISON
+Operating point Speed Preferred Loss Eff.
+rpm mode W %
+Low-speed / high-torque 3000 4-pole 822 92.4
+High-speed / reduced-frequency 6000 2-pole 798 93.1
+The results in Table IV indicate that the 4-pole mode is
+suitable for the lower-speed operating point, whereas the 2-
+pole mode provides improved performance at high speed.
+
+--- PAGE 5 ---
+IEEE TRANSACTIONS ON MAGNETICS 5
+This confirms that the proposed excitation system enables the
+intended pole-changing functionality from the stationary side.
+F . Loss and Efficiency Analysis
+Table V summarizes the rated-load loss breakdown for both
+pole configurations. The dominant losses are stator copper and
+stator core losses, while the rotor copper loss remains small
+due to the moderate field current.
+TABLE V
+LOSSBREAKDOWN ATRATEDLOAD
+Loss component 4-pole 2-pole Unit
+Stator copper loss 488 488 W
+Rotor copper loss 30 30 W
+Stator core loss 186 142 W
+Rotor core loss 38 28 W
+Mechanical 80 110 W
+Total machine loss 822 798 W
+Machine efficiency 92.4 93.1 %
+OPT excitation overhead
+Return-path dissipation 15.5 per active phase W
+The additional loss introduced by the bipolar OPT excitation
+is associated with conduction through the first cell of the non-
+illuminated PV group and the external diode, as described
+by (7). This loss is the main trade-off for eliminating rotor-side
+active components.
+G. Rotor-Side OPT Loss and Thermal Check
+The rotor-side excitation loss consists of the field copper
+loss, the return-path conduction loss, and the PV-cell con-
+version loss. In the proposed bipolar path, the most critical
+additional thermal stress is concentrated in the first inactive PV
+cell that conducts the return current. Therefore, the final design
+should verify that the dark-cell forward current, external diode
+current, and local heat generation remain within the allowable
+temperature limits under continuous excitation.
+V. COMPARISONWITHPRIORMETHODS
+Table VI compares the proposed excitation system with
+representative brushless WFSM excitation methods in terms
+of bipolar capability, rotor-side hardware, pole-changing
+suitability, and high-speed applicability. Sub-harmonic self-
+excitation [3] can provide brushless operation, but it requires
+rotor harmonic windings and diode rectification and does not
+naturally provide reversible field current. Unipolar OPT [6]
+offers a simple high-speed rotor structure, but it is limited to
+fixed-polarity excitation. Primary-side bipolar IPT [5] enables
+stationary-side current reversal, but still requires WPT coils
+and receiver-side circuitry. In contrast, the proposed system
+occupies the previously unfilled intersection of bipolar ex-
+citation, primary-side control, and zero rotor-side switching
+components. Its main trade-off is the return-path voltage drop
+and associated local loss in the conducting dark PV cell and
+external diode.
+TABLE VI
+COMPARISON OFBRUSHLESSEXCITATIONMETHODS
+Feature[3] [6] [5]Prop.
+Transfer method Sub-harm. OPT IPT OPT
+Bipolar field current No No YesYes
+Rotor active control No No No a No
+Rotor harmonic winding Yes No No No
+Rotor rectifier Yes No Yes No
+Rotor resonant comp. No No YesNo
+Single-cell return path No No NoYes
+Primary-side control Limited Yes Yes Yes
+Pole-changing suitability Low Low HighHigh
+High-speed suitability Med. High Med.High
+Main limitation Harmonic rotor Unipolar Rx circuit Return loss
+VI. CONCLUSION
+A pole-changing WFSM with bipolar OPT excitation has
+been proposed and analyzed. The method enables field-current
+reversal by using the first cell of the non-illuminated PV group
+and an external diode as a passive return path, eliminating
+rotor-side active switches, active converters, and resonant com-
+pensation components. The complete excitation architecture
+uses two optical channels for bipolar field groups and one
+additional optical channel for unipolar field groups. A unified
+I–V model was developed for the illuminated and dark PV
+regimes, leading to a corrected MPP matching condition that
+links the OPT parameters to the rotor field winding design.
+FEA results confirmed the intended pole transformation, airgap
+flux distributions, no-load EMF waveforms, and loss perfor-
+mance in both pole configurations. After the final torque and
+thermal results are inserted, the proposed topology can be
+positioned as a brushless bipolar excitation solution for PC-
+WFSMs, particularly in high-speed applications where rotor-
+side complexity must be minimized.
+REFERENCES
+[1] D. G. Dorrell, “Are wound-rotor synchronous motors suitable for use in
+high efficiency torque-dense automotive drives?,” inIECON 2012 - 38th
+Annual Conference on IEEE Industrial Electronics Society, pp. 4880–
+4885, 2012.
+[2] C. Cont `o and N. Bianchi, “Pole-changing in synchronous machines:
+A reluctance-permanent magnet hybrid motor,”IEEE Transactions on
+Industry Applications, vol. 60, no. 1, pp. 269–277, 2024.
+[3] S. Sabir Hussain Bukhari and P. Rasilo, “High-efficient self-excited brush-
+less wound rotor synchronous machine topology,”IEEE Transactions on
+Magnetics, vol. 61, no. 9, pp. 1–6, 2025.
+[4] J. Tang, Y . Liu, and N. Sharma, “Modeling and experimental verification
+of high-frequency inductive brushless exciter for electrically excited
+synchronous machines,”IEEE Transactions on Industry Applications,
+vol. 55, no. 5, pp. 4613–4623, 2019.
+[5] E. Ayaz, H.-P. Nee, S. Norrga, and L. Peretti, “Primary-side control
+of bipolar field excitation system for pole-changing electrically excited
+synchronous machines,”IEEE Transactions on Industrial Electronics,
+pp. 1–6, 2026.
+[6] K. Lee, H. Kim, and W. Lee, “Brushless wound field synchronous
+generator design with an optical power transfer,”IEEE Transactions on
+Magnetics, vol. 61, no. 9, pp. 1–5, 2025.

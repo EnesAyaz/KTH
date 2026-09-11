@@ -1,0 +1,12 @@
+{
+  "status": "Arithmetic only; series-cell count assumed, return voltage interpreted as total drop",
+  "matched_field_resistance_ohm": 0.1728,
+  "draft_field_resistance_ohm": 0.093,
+  "return_voltage_implied_by_draft_resistance_V": 1.2374999999999998,
+  "field_copper_loss_per_resistance_W": 14.53125,
+  "return_loss_from_table_voltage_W": 3.0,
+  "draft_return_loss_W": 15.5,
+  "mmf_At": 300.0,
+  "efficiency_4pole_percent": 92.40436148586214,
+  "efficiency_2pole_percent": 92.60974254491572
+}

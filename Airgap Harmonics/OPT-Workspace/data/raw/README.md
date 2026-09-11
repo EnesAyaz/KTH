@@ -1,0 +1,1 @@
+Keep original Maxwell exports unchanged. For harmonics use CSV headers angle_deg,value with increasing uniform samples spanning exactly one mechanical revolution without a duplicate endpoint. Record units, pole mode, speed, currents, mesh and export settings alongside each dataset. No FEA data was supplied.

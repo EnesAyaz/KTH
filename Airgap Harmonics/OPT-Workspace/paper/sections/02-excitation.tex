@@ -1,0 +1,22 @@
+\section{Bipolar OPT Excitation and PV-Cell Model}
+Two stationary optical channels select the polarity of the bipolar field groups, while a third supplies fixed-polarity field groups. The supplied draft uses the single-diode cell model
+\begin{equation}
+I=I_{\mathrm{ph}}-I_{D0}\left[\exp\left(\frac{q(V+R_sI)}{nkT}\right)-1\right]-\frac{V+R_sI}{R_p}.
+\end{equation}
+The proposed matching expressions, transcribed from draft equations (4)--(7), are
+\begin{align}
+V^*_{\mathrm{MPP}} &= N_sV_{\mathrm{MPP}}-V_{f,\mathrm{return}},\\
+V_{f,\mathrm{return}} &= V_{f,\mathrm{ext}}+I_{\mathrm{MPP}}R_{s,\mathrm{return}},\\
+R_f^* &= \frac{N_sV_{\mathrm{MPP}}-V_{f,\mathrm{return}}}{I_{\mathrm{MPP}}},\\
+P_{\mathrm{return}} &= V_{f,\mathrm{ext}}I_F+I_F^2R_{s,\mathrm{return}}.
+\end{align}
+\textbf{Open model issue:} Verify whether the dark-cell junction voltage is included in these expressions and reconcile the circuit topology before treating them as validated.
+\begin{center}
+\begin{tabular}{llll}\toprule
+Field group & Channel & 4-pole & 2-pole\\\midrule
+LF1 & LS3 & $+$ & $+$\\
+LF2 & LS1/LS2 & $-$ & $+$\\
+LF3 & LS1/LS2 & $-$ & $+$\\
+LF4 & LS3 & $-$ & $-$\\\bottomrule
+\end{tabular}
+\end{center}

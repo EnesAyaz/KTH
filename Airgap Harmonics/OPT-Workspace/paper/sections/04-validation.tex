@@ -1,0 +1,8 @@
+\section{Finite Element Validation}
+The supplied draft describes two-dimensional analysis in ANSYS Maxwell 2024R1 with 35PN230 steel. Retain original exported data in \texttt{data/raw/} and document mesh, operating point, material model, and excitation polarity.
+\subsection{Airgap Flux and EMF}
+Import a full mechanical revolution for each pole mode. Use \texttt{analysis/harmonics.py} to extract spatial harmonics from uniformly sampled data. Spatial orders one and two represent two-pole and four-pole fields, respectively.
+\subsection{Torque, Losses and Thermal Performance}
+Complete average torque, torque ripple, loss accounting, and dark-cell/diode thermal validation. The supplied draft's numerical tables are provisional until linked to simulation exports.
+At 10 kW output, losses of 822 W and 798 W imply efficiencies of approximately 92.40\% and 92.61\%, respectively. The draft reports 93.1\% for the second case; verify the output-power basis. Both stated rated speed/pole combinations have a 100 Hz electrical frequency.
+% TODO: Include traceable figures and complete validation rather than synthetic evidence.

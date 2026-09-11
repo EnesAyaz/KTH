@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+paper/build/
+*.synctex.gz
+.DS_Store

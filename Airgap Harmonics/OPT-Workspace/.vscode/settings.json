@@ -1,0 +1,29 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdfLaTeX (twice)",
+      "tools": [
+        "pdflatex",
+        "pdflatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-output-directory=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+  "files.exclude": {
+    "**/__pycache__": true
+  }
+}
