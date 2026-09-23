@@ -1,0 +1,177 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 027
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022   | |    1
+Introduction
+The 48 V/12 V automotive evaluation power modules (EPC9137,  
+EPC9163, EPC9165, etc) utilize the two-phase synchronous buck/boost 
+topology. The edge connectors and controller card are also designed 
+to operate two modules in parallel with one controller, effectively 
+achieving four-phase and therefore double the rated current and 
+power. An example using EPC9137 modules are shown in Figure 1. 
+Connection
+The difference between this two-board configuration and a four-phase 
+converter is the 12 V connection impedance. Ideally, this impedance 
+should be extremely low to achieve inductor current ripple cancelation. 
+Therefore, the 12 V (low voltage) should be connected using a bus bar, 
+or 8 AWG short wires to ensure low impedance, as illustrated in Figure 2.
+The connection for 48 V (high voltage) bus is less critical. But low 
+impedance is still preferred to avoid parasitic resonance. Ground wires 
+(GND) should also be paired with the corresponding bus and avoid 
+ground loops.
+Sensing and PWM
+Sensing and PWM signals are routed through the edge connectors, as 
+shown in Figure. 3. Make sure to remove any jumper on J800 on both 
+boards. The 3.3 V for the controller is only provided by Board 1. Each 
+board generates its own 5 V supply. Due to the pin limits on the edge 
+connector, only 2-board parallel is supported. 
+The phase shift of the PWM signals is modified to ensure proper ripple 
+cancelation: PWM1 and 2 are 180 degrees out of phase, so as for PWM3 
+and 4, and 90 degrees phase shift is between PWM 1 and 3.
+Control
+Average current mode control with out-of-band current balancing 
+is used. A simplified control diagram is shown in Figure 4. The outer 
+voltage loop generates the current reference I REF for phase 1 inductor 
+average current I L1. The remaining phase inductor currents I L2, IL3, IL4 
+are sensed and compared to I L1. If there is any imbalance, a duty cycle 
+offset Δd for each phase is generated to minimize the imbalance. This 
+happens at a much lower frequency compared to the main control 
+loop, usually at 10 kHz. 
+How to Parallel Two 48 V/12 V  
+Bi-Directional Power Modules EFFICIENT POWER CONVERSION
+Figure 1. Two EPC9137s connected in parallel to achieve 3 kW  
+(12 V 250 A) output using one EPC9528 controller.
+Figure 2. Two EPC9137s connected in parallel with one EPC9528 controller, 
+showing 48 V bus and 12 V bus connections. The 12 V bus requires  
+low impedance between the boards.
+12 V connect together
+48 V connect together
+Board 2 Board 1
+48 V BUS
+GND (-)
+GND (-)GND (-)
+GND (-)
+GND (-)
+12 V BUS*
+To Load/Battery
+* Low impedance connection required
+
+=== PAGE 2 ===
+How2AppNote 027 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    2
+Figure 4. Control diagram of the average current mode control loop.
+Figure 5. Measured efficiency and loss for two EPC9137s connected in parallel. VIN = 48 V, VOUT  = 12 V, f = 250 kHz.
+GaN FETs
+Phase 1
+Phase 2
+12 V48 V
+PWMsV, I sense
+Housekeeping Supply
+5 V
+Temperature
+Sense 
+I sense
+x2
+x2
+GaN FETs
+Phase 1
+Phase 2
+12 V48 V
+PWMs
+V, I sense
+Housekeeping Supply
+5 V 3.3 V
+Temperature
+Sense 
+I sense
+x2
+x2
+Board 2
+ ControllerBoard 1
+Signals for Board 2 Pass-Through 
+PWM1, 2
+PWM3, 4 
+Figure 3. Block diagram of the two boards connected with one controller. 
+97
+96
+95
+94
+93
+92
+Eﬃciency (%)
+IOUT (A)
+0 2550 150 200100 250 0 50 75 100 125 150 175 200 225 250
+160
+120
+80
+40
+0
+Loss (W)
+IOUT (A)
+12 V 12 V
+ADC
+ADC
+PWM
+Oﬀset
+Compare
+Current
+Sense
+Current
+Sense
+Voltage
+Divider
+Gi1(z)
+Compensator
+GV(z)
+Compensator + –+ –
+Gp(s)
+(Plant)
+/uni0394d2
+/uni0394d3
+/uni0394
+∑∑
+d4
+/uni0394d2
+/uni0394d3
+/uni0394d4
+VREF
+VOUT
+IREF
+IL2IL1
+IL3
+IL4
+
+=== PAGE 3 ===
+How2AppNote 027 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    3
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Figure 6. Example thermal image of two EPC9137s.  
+VIN = 48 V, VOUT = 12 V, IOUT  = 250 A, f = 250 kHz.  
+Downwind board is hotter.
+Air/f_l ow 
+Direction
+Thermal
+Due to the direction of heatsink fins, the board downwind will receive 
+reduced airflow for cooling. A minimum of 2000 LFM is required when 
+operating close to rated power. The actual output power may be less 
+than the sum of two individual boards due to inadequate cooling.
+Experimental Results
+Figure 5 shows the measured efficiency and loss for two EPC9137 
+boards operating at 48 V input and 12 V output. Figure 6 shows the 
+corresponding thermal image at full load (12 V, 250 A output). Due to 
+the airflow direction, the board placed downwind is hotter. 
+Summary
+The 48 V/12 V automotive evaluation power modules are designed to 
+be parallel to achieve double the rated power, when properly cooled. 
+Detailed connection diagram, control method as well as current 
+balancing are given. An example system with two EPC9137s and one 
+EPC9528 is tested at 3 kW output when converting 48 V to 12 V.

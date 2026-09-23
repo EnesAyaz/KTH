@@ -1,0 +1,137 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 024
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023   | |    1
+Motivation
+48 V is being adopted in many applications including AI systems, data 
+centers, and mild hybrid electric vehicles. However, the conventional 
+12 V ecosystem is still dominant and so the need of a high power 
+density 12 V to 48 V boost converter is required. The fast-switching 
+speed and low R DS(on) of eGaN FETs can help address this challenge. 
+This application note will look into designing a 12 V to 48 V, 500 W  
+DC-DC power module using eGaN FETs directly driven by eGaN FET 
+compatible ISL81807 controller IC from Renesas in the simple and low-
+cost synchronous boost topology. 
+Design of a 2-phase eGaN FET-based synchronous 
+boost converter  
+The multi-phase synchronous boost topology, shown in Figure 1, is 
+popular in DC-DC step-up converter design for its simplicity, ease in 
+control, and low cost.
+In this design, the 100 V rated EPC2218 with RDS(on) of 3 mΩ as shown 
+in Figure 2 is selected for the 12 V to 48 V, 500 W power stage. The 
+ISL81807 is an 80 V boost controller that can drive eGaN FET directly. 
+Compared to a digital controller solution, the analog controller solution 
+does not need the driver IC, current sense IC, housekeeping power IC, 
+and thus greatly reduces complexity and Bill of Material count. The 
+controller employs current mode control with full protection features 
+such as UVLO and over-current protection. The ISL81807 also allows the 
+designer to choose between constant current mode (CCM) or diode 
+emulation, to improve light load efficiency. The switching frequency 
+of the converter is set at 500 kHz, and a 2 µH inductor (SER201 1-202 
+Coilcraft) with 1.3 mΩ DCR and 37 A saturation current is chosen.  
+How to Design a 12 V to 48 V / 500 W 2-Phase Boost Converter 
+Using eGaN® FETs and the Renesas ISL81807 Controller 
+EFFICIENT POWER CONVERSION
+Figure 1. Simplified schematic block diagram of the EPC9166 eGaN 
+FET-based synchronous boost converter. 
+Figure 2. Photo of the bump side of EPC2218 (die area 6.8 mm2).
+Drain
+1.95 mm
+3.5 mm
+Gate
+Source
+Figure 3. Photo of the EPC9166 synchronous boost converter  
+designed for 12 V to 60 V, 500 W operation.
+ISL81807 
+ControllerEPC2218L1
+L2
+ Experimental validation
+The EPC9166 synchronous boost converter is shown in Figure 3. The 
+switch-node voltage v SW waveform at 5 A output current is shown in 
+Figure 4; the switching is seen to be fast and clean. 
+The overall power efficiency and power loss of the synchronous boost 
+converter are shown in Figure 5 with a peak efficiency of 96.6% at 12 V 
+input and 48 V output. 
+The thermal image of the converter operating at 12 V to 48 V, 10 A 
+output current with moderate cooling (around 400 LFM forced air 
+cooling) is shown in Figure 6. A temperature rise of 72 °C is observed.
+12 V 48 V
+Phase 1
+Phase 2
+ Isense
+ Vsense
+ 5 V
+ PWMs
+ EPC2218
+GaN FETs
+To/From
+ISL81807
+
+=== PAGE 2 ===
+How2AppNote 024 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023  | |    2
+Figure 4. Switch-node voltage vSW waveform at 5 A output current. 
+Figure 5. Total system efficiency and loss of the EPC9166 operating at 12 V input and with various output voltages.
+Conclusion
+The EPC9166, an eGaN FET-based 2-phase synchronous boost converter, 
+designed around the ISL81807 controller, is introduced. At 12 V input 
+and  48 V output it can deliver 500 W, and achieves 96.6% peak efficiency 
+and 72°C temperature rise with moderate cooling. The whole solution 
+comprises of four eGaN FETS with total die size of only 27.3 mm 2. The 
+introduction of eGaN compatible IC ISL81807 can drive eGaN FETs 
+directly by integrating the gate drivers, controller, housekeeping power 
+and current sense amplifier function in a single chip, which greatly 
+reduced the complexity and cost [1].  
+References
+[1] A. Lidow, M. De Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN 
+Transistors for Efficient Power Conversion, 3rd ed. John Wiley & Sons, 
+2019. ISBN: 978-1119594147.
+500 MHz BW
+10 ns/div 
+10 V/div
+500 MHz BW
+10 ns/div 
+10 V/div
+98
+97
+96
+95
+94
+93
+92
+Eﬃciency (%)
+POUT (W)
+0 100 200 500 600300
+POUT (W)
+0 100 200 400400 500 600300
+25
+20
+15
+10
+5
+0
+Loss (W)VOUT = 60 V
+VOUT = 48 V
+VOUT = 36 V
+VOUT = 60 V
+VOUT = 48 V
+VOUT = 36 V
+Figure 6. Thermal image of the EPC9166 synchronous boost converter  
+operating at 12 V to 48 V and 10 A output and thermal steady state  
+with 400 LFM forced air cooling.
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Area 1
+  Max. 100
+Area 2
+  Max. 96.2
+99.9
+27.7

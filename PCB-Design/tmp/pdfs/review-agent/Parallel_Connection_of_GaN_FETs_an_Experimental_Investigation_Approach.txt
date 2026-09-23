@@ -1,0 +1,515 @@
+
+=== PAGE 1 ===
+Parallel Connection of GaN FETs: an Experimental Investigation 
+Approach
+Marco Palma1 , Vincenzo Barba2 , Salvatore Musumeci2
+1 Efficient Power Conversion, Volpiano (TO), Italy
+2 DENERG PEIC - Politecnico di Torino, Italy
+Corresponding author: Marco Palma, marco.palma@epc-co.com
+Speaker: Marco Palma, marco.palma@epc-co.com
+Abstract
+The paper investigates the parallel connection of the GaN FETs in inverters for low-voltage motor control 
+applications. Several simulation results and experim ental tests show the main  device parameters and 
+layout constraints involved in the effectiveness of parallel connection arrangement. A dedicated meas-
+urement board setup has been developed for the experimental evaluation. The experimental tests ena-
+ble the empirical prediction of the application’s maximum phase load current amplitude, considering the 
+effects of the spread of the parameters among the parallel-connected GaN FETs. Furthermore, an in-
+verter board with four devices in parallel is designed and assembled to validate the advanced GaN FETs 
+parallel operation in an actual ap plication, increasing the output phase  current value for high-current 
+motor drive applications.
+1 Introduction
+Nowadays, power converter applications demand 
+increasing amounts of power in small volumes. In 
+high-current, low-voltage applications such as mo-
+tor drives for mild hybrid automotive applications, 
+high-performance robotic systems, or Unmanned 
+Aerial Vehicle (UAV) [1-3], the Gallium Nitride de-
+vices (GaN FET) are more attractive compared to 
+Si MOSFET devices. The GaN FETs are chosen 
+because of their high-performance characteristics, 
+such as high-speed switching and low conduction 
+losses. This makes them suitable for motor control 
+applications [4], [5]. For thermal management pur-
+poses, using power devices in parallel is worth-
+while, especially with in sulated gate devices with 
+a positive temperature coefficient that allows a cur-
+rent balance in steady state [6].
+In low-voltage applications (less than 200V), con-
+necting multiple devices in  parallel configurations 
+becomes essential to expand the utilization of GaN 
+FETs in high-power applications. However, the 
+parallel connection of dev ices is challenging for 
+the PCB design phase and the devices' parametric 
+spread management [7]. Parameter mismatch 
+among the parallel circuit legs significantly affects 
+the dynamic characteristics and thermal manage-
+ment of GaN FETs. To mitigate the influence of 
+these parasitic components, alternative packaging 
+techniques for power devices have been proposed 
+[8]. 
+The main objective of this paper is to assess the 
+feasibility and effectiveness of using GaN FETs in 
+parallel within an inverter setup to control low-volt-
+age AC motors. The paper examines device pa-
+rameters and layout constraints that impact the ef-
+fectiveness of parallel conn ections. This could in-
+clude the number of devices to connect in parallel, 
+gate driving control, thermal management, and cir-
+cuit layout considerations.
+The paper involves both simulation and experi-
+mental testing. Simulation results are used to un-
+derstand how GaN FETs behave in parallel config-
+urations, predicting and making them better under-
+stand the outcomes before experimental tests in 
+actual operative conditions. The experimental 
+evaluation setup is designed to provide accurate 
+and controlled conditions for testing the GaN FETs 
+in parallel configuration and to validate the simula-
+tion results. Furthermore, the paper discusses an 
+inverter circuit with four  paralleled GaN FETs to 
+demonstrate how GaN FETs can be used in paral-
+lel to increase the output phase current, which is 
+crucial for high-current motor drive applications.
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach
+ 
+1563
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+2 Design considerations of paral-
+lel GaN FETs and simulation re-
+sults
+Parallel connections of GaN FET devices demand 
+careful consideration of various static and dynamic 
+factors to achieve uniform current sharing and re-
+liable operation. Several factors impact device 
+temperature differences. The junction temperature 
+variation may result in dynamic or static current-
+sharing unbalances depending on device charac-
+teristics. The behavior of the conduction re-
+sistance R
+DS(on) and the threshold voltage V GSth of 
+the GaN FET as a function of the junction temper-
+ature is shown in Fig.1a and Fig.1b, respectively.
+The parameters’ spread plays a crucial role in the 
+parallel connection of devices, both during con-
+duction and switching transients [9].
+In GaN FETs' parallel c onnections, RDS(on) sig-
+nificantly affects static current sharing. However, 
+the positive temperature coefficient aids current 
+self-balancing. On the other hand, dynamic cur-
+rent sharing during turn-on and turn-off is mainly 
+influenced by the spread of V
+GSth. The lower 
+threshold voltage VGSth leads to an earlier turn-on, 
+higher switching current/l oss, and positive feed-
+back [10]. Also, the transconductance (gm) plays a 
+role in dynamic current sharing.
+Fig. 1 Dependency of GaN FET parameters on 
+junction temperature: a) conduction resistance, b) 
+threshold voltage.
+A balanced circuit layout is crucial for dynamic cur-
+rent sharing and parallel operation stability. This is 
+especially critical for high-speed power switches 
+like GaN/SiC. In addition to synchronized device 
+control, layout symmetry is pivotal.
+Simulations are carried out to understand the im-
+pact of the V
+GSth spread and the parasitic compo-
+nents of the circuit layout when several GaN FETs 
+are connected in parallel. Fig.2 shows the electri-
+cal schematic of the system composed of N GaN 
+FETs in parallel connection and connected to an 
+inductive load with a freewheeling diode in parallel.
+In Fig. 2, the GaN FETs gates are driven by a pulse 
+voltage source V
+q=5 V, with a series gate re-
+sistance of 1 Ω. Eight (N=8) GaN FETs (EPC2302) 
+are connected in parallel. In the simulation test cir-
+cuit shown in Fig.2, the devices are arranged in 
+rows considering the equivalent parasitic induct-
+ances for each GaN FET. The output capacitance 
+C
+OSS= CDS+CGD is represented in parallel to each 
+GaN FET. The GaN FET model is described in [11]. 
+L
+D=0.3 nH represents the drain inductance due to 
+the parallel connection . Shunt resistors R S=100 
+mΩ are used for sensing the GaN FET currents. 
+The equivalent capacitance of the PCB is CPCB=11 
+nF. The bus voltage is V DC= 24V, and the load is 
+LLoad=90 μH. The freewheeling diode has a para-
+sitic inductance of Ldiode=1 nH. Moreover, the load 
+is connected to the GaN FETs through the drain-
+board inductance L
+DB=1 nH.  
+These stray inductances and C PCB values come 
+from actual measurements of a PCB mounting 
+twelve GaN FETs in parallel.
+Fig. 2 N GaN FETs in parallel connected to an in-
+ductive load with a freewheeling diode in parallel.
+Different simulations are carried out by turning on 
+only 2, 4, 6, or 8 GaN FETs at a time while the oth-
+ers remain in the off-stat e. The load current is 
+I
+load=150 A. Only the single GaN FET that turns on 
+has a low-value threshold voltage, ݄ݐܸ ݓ݋݈0.95 ܸ .
+The other GaN FETs have a higher threshold volt-
+age of ݄݄݃݅݄ݐܸ1.65 ܸThe device's current with ݄ݐܸ 
+ݓ݋݈is shown in Fig. 3a for the turn-on and in Fig. 3b 
+for the turn-off. The current waveforms in the 
+cases of turning on 2, 4, 6, or 8 GaN FETs are in-
+dicated with the respective number. The current I
+DB 
+entering the common drain of the GaN FETs in 
+parallel is depicted in black.
+After the transient, during the conduction time, the 
+I
+load is equally shared between the GaN FETs in the 
+on-state. A higher number of devices in the on-
+VDC
+GaNn
+Lload
+RG
+IS1
+GaN1
+LD1
+RS
+LDB
+Vqa
+COSS
+RG
+Vqb
+IS2
+GaN2RS
+COSS
+IS1
+RS
+COSS
+LD1
+RG
+Vqn
+LD2
+aa
+CPCB
+IDB
+Ldiode
+aa
+Iload
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg                                             DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach
+ 
+1564
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+state results in a lower current conducted by each 
+GaN FET because the simulation always used the 
+same load current. The different threshold voltage 
+causes the device with ܸ
+to switch on earlier 
+and switch off later than the other GaN FETs with
+typical ݄ݐܸ .
+Fig. 3 Current of the GaN FET with ݓ݋݈݄ݐܸ Num-
+ber of GaN FETs turning on: 2 (yellow), 4 (red), 6 
+(green), 8 (blue). The current I
+DB entering the common 
+drain of the GaN FETs in parallel is shown in black. a) 
+turn-on. b) turn-off. I=50 A/div. Time scale = 10 ns/div.
+At turn-on and turn-off, the current peak is higher 
+if the GaN FET has . In this simulation, I DB
+rises to the I load value at turn-on and falls to 0 A 
+quickly because of the low Ldiode and LDB values. 
+At turn-on, the GaN FET with ݄ݐܸlow conducts Iload. 
+Moreover, the current shows a peak higher than 
+I
+load due to the discharging par asitic capacitances 
+in the circuit, COSS, and CPCB.
+Similarly, during the turn-off, the GaN FET with 
+݄ݐܸlow has a peak lower than that at turn-on. For 
+both turn-on and turn-off, the peak is higher in the 
+case of only two GaN FETs turning on because of 
+the higher current conducted at steady state.
+To separate the current peak due to the parasitic 
+capacitance from the load current (I
+DB) rise, it is 
+necessary to slow down the I DB dynamic by L diode
+and LDB with higher values than the interconnect-
+ing inductances.
+3 PCB with eight GaN FETs in 
+parallel 
+The experimental evaluation is carried out with the 
+board prototype equipped with up to twelve GaN 
+FETs in parallel. The board is shown in Fig.4.
+Each GaN FET has an independent gate driver in 
+the prototype to decide how many devices supply 
+the load. Moreover, a tu rn-on and turn-off mis-
+match between the GaN FETs can be set by add-
+ing a proper delay on the different control signals 
+VPWM applied to the GaN FETs. The control signal 
+delay allows us to test and emulate the different 
+operative conditions and V GSth spread. Shunt re-
+sistors RS=0.1 Ω are used to sense each GaN FET 
+current. 
+Fig. 4 Picture of the experimental parallel-GaN 
+FETs test board.
+The experimental test is carried out by connecting 
+the board as depicted in Fig.5. The load is com-
+posed by L
+Load=90 μH and RLoad=0.1 Ω connected 
+in parallel with a freewheeling diode. The DC volt-
+age is VDC=24 V.
+Fig. 5 Electric schematic of the connection of the 
+parallel-GaN FETs board for the experimental tests.
+In the experimental tests, two GaN FETs are 
+driven by two V PWM with an established delay be-
+tween them. The gate driving of GaN 2 is delayed 
+with respect to GaN 1. All the other GaN FETs 
+(GaNn) remain in off-state.
++
+RLoad
+Freewheeling
+diode
+VPWM
+LLoad
+IDB
+Gate digital 
+commands
+VDC
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg                                             DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach1565
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+Fig. 6 depicts the waveforms of the GaN FETs' cur-
+rent IS, the current IDB entering the board, and the 
+drain-source voltage VDS of the GaN FETs in par-
+allel, which are measur ed during the turn-on and 
+turn-off transients.
+Fig. 6 Switching waveforms with GaN1 driven earlier 
+than GaN 2 that is delayed. a) turn-on delay=0 ns. b) 
+turn-off delay=0 ns. c) turn-on delay=5 ns. d) turn-off 
+delay=5 ns. e) turn-on delay=9 ns. f) turn-off delay=9 ns.
+The switching waveforms obtained with delays of 
+0 ns, 5 ns, and 9 ns are shown respectively in Fig. 
+6a, Fig. 6c, and Fig. 8e fo r the turn-on and in Fig. 
+6b, Fig. 6d and Fig. 8f for the turn-off.
+At turn-on, the I S peak amplitude depends on the 
+equivalent COSS of the GaN FETs in parallel and 
+the CPCB. Iload does not influence the peak because 
+the high value of L diode + LDB (50 nH circa) lowers 
+the IDB slow rate.
+Looking at the turn-on transient, with null delay, the 
+IS peak is minimized by splitting the total charge of 
+the parasitic capacitances between GaN 1 and 
+GaN2 (Fig.6a). When GaN2 has a delay, GaN1 has 
+a higher peak that lasts l onger (Fig.6c). The area 
+underneath the I S curve is maximized for delay 
+equal to 9ns (Fig.6e) or longer. It represents the 
+total charge of the parasitic capacitances. The cur-
+rent peak in Fig.6e is I
+S=135 A, which is only due 
+to parasitic capacitances. It is the maximum 
+achievable considering the number of GaN FETs 
+mounted in the board and the designed PCB.
+At turn-off, in the case of null delay, there is no cur-
+rent peak, and the IS waveforms of GaN1 and GaN2 
+are congruent (Fig.6b). When GaN2 turns off later 
+than GaN1, GaN2 shows an IS peak (Fig.6d). In this 
+example, the IS turn-off peak of GaN2 is maximum 
+for delay=9 ns because the I S reaches the ampli-
+tude of Iload. There is no contribution of the parasitic 
+capacitances on the turn-off peak.
+Overall, in a board with GaN FETs in parallel, the 
+IS peak due to the spread of parameters is maxi-
+mum at turn-on in the condition of the low value of 
+L
+diode + LDB (e.g., less than 2 nH circa in Fig.3a).
+These results obtained with the board prototype 
+featuring a high value of Ldiode + LDB are significant 
+when it is intended to design a board with the 
+same number of GaN FETs. Typically, the GaN 
+FET-based inverter has a low value of L
+diode + LDB 
+because another high-side device substitutes the 
+freewheeling diode. In th is scenario, the I DB slew 
+rate is steep enough to reach the I load amplitude 
+before the peak due to the parasitic capacitances. 
+The chosen EPC2302 Ga N FET allows a pulse 
+current of up to 400 A, while the parasitic capaci-
+tances of the parallel connection layout have been 
+demonstrated to cause an IS of up to 135 A. Hence, 
+theoretically, a hypothet ical inverter board de-
+signed in similarity to the tested prototype can 
+work seamlessly even with extreme parameters 
+spread, as in the case of this paper, with currents 
+I
+load up to 265 A.
+4 Experimental evaluation of an 
+inverter with four GaN FETs in 
+parallel
+An inverter board with four parallel GaN FETs per 
+each switching device has been designed using 
+the experience from the 12 devices’ parallel board 
+characterization. 
+The top view of the experi mental board picture is 
+shown in Fig. 7a. In Fig. 7b, a half-bridge layout 
+arrangement is highlighted. 
+Each inverter leg is driven by a single gate driver 
+that supplies the eight GaN FETs: four on the high 
+side (H) and on the low side (L).
+The inverter was tested by powering a 5 kW three-
+phase BLDC motor with a DC-Bus voltage of 
+V
+DC=60 V. A DC-Bus capacitance of 720 μF was 
+used. The switching frequency was fsw=20 kHz. 
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg                                             DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach
+ 
+1566
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+The phase current I0 is measured and depicted in 
+Fig. 8.
+Fig. 7 a) Top view of EPC9186 inverter board. b) 
+Zoomed view of the half-bridge layout arrangement of 
+phase V.
+Fig. 8 I0=150 ARMS output phase (U) current ob-
+tained using the inverter board with four GaN 
+FETs in parallel per switch. fsw=20 kHz. VDC=60 V.
+The experimental test shows that the designed in-
+verter can supply the motor with a phase current 
+of I
+0=150 ARMS. 
+Fig. 9a depicts the switching waveforms related to 
+a motor phase at a current level of I
+0=150 ARMS. Fig. 
+9 b, and Fig. 9c depict zoomed views of the node 
+voltage at turn-on and turn-off, respectively.
+Looking at Fig. 9, the swit ching voltage does not 
+ring during commutations, and no overvoltage 
+spikes are observed. This demonstrates that the 
+layout's stray inductance is minimized and that the 
+DC-link filter is well-designed.
+Fig. 9 a) Output phase (U) switching voltage V0
+and current I0 waveforms. fsw=20 kHz. VDC=60 V, 
+I0=150 A, b) zoomed view of the turn-on switching 
+waveforms, c) zoomed view of the turn-off switching 
+waveforms.
+5 Conclusions
+The paper investigates the advantages and issues 
+of parallel-connected GaN FETs within inverter ap-
+plications. The study discusses the effect of the 
+spread of device parameters and layout consider-
+ations through a combinat ion of simulation and 
+practical experimentation through an explicitly de-
+veloped board. This breakthrough promises to ca-
+ter to the escalating demands of high-current mo-
+tor drive applications, offering a more efficient and 
+high-performance solution for the industry.
+In simulations, the parameters spread, particularly 
+the threshold voltage, has been revealed to cause 
+a timing mismatch between the GaN FETs con-
+nected in parallel and, consequently, current 
+peaks in the device that turns on earlier and turns 
+off later. The strategy of  separating the contribu-
+tion of the parasitic capacitances to the rise in load 
+current, as presented in this work, allows for em-
+pirical prediction of the maximum applicable load 
+current level. Moreover, the design of the GaN 
+FET-based inverter with parallel devices has fol-
+lowed the proposed analysis procedure and has 
+demonstrated its capability to supply an electrical 
+machine operating with a phase current of more 
+than 150 A
+RMS.
+Future studies should focus on thermal analysis 
+and heat spreading issues when connecting in 
+parallel GaN FETs with extreme parameters 
+spread.
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg                                             DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach1567
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+References
+[1] B. Li, W. Qin, Y. Yang, Q. Li, F. C. Lee and D. 
+Liu, "A High Frequen cy High Efficiency GaN 
+Based Bi-Directional 48V/12V Converter with 
+PCB Coupled Inductor fo r Mild Hybrid Vehi-
+cle," 2018 IEEE 6th Workshop on Wide 
+Bandgap Power Devices and Applications 
+(WiPDA), Atlanta, GA, USA, 2018, pp. 204-
+211, doi: 10.1109/WiPDA.2018.8569067.
+[2] S. Musumeci, V. Barba, “Gallium Nitride Power 
+Devices in Power Electronics Applications: 
+State of Art and Perspectives,” Energies, 
+16(9), 3894 2022. 
+https://doi.org/10.3390/en16093894.
+[3] G. Faraci, A. Raciti, S. A. Rizzo, G. 
+Schembra,. "Green wireless power transfer 
+system for a drone fleet managed by rein-
+forcement learning in smart industry," Applied 
+Energy, Elsevier, 2020, 259, 114204. 
+https://doi.org/10.1016/j.apen-
+ergy.2019.114204vol.
+[4] M. Palma, S. Musumeci, F. Mandrile and V. 
+Barba, "GN Devices for Motor Drive Applica-
+tions," 2021 IEEE 8th Workshop on Wide 
+Bandgap Power Devices and Applications 
+(WiPDA), Redondo Beach, CA, USA, 2021, 
+pp. 146-151, doi: 
+10.1109/WiPDA49284.2021.9645113.A. 
+[5] Lidow, Ed. GaN Power Devices and Applica-
+tions. El Segundo, CA, USA: Power 
+Conversion Publication, 2022. pp. 1-4.
+[6] F. Chimento, A. Raciti , A. Cannone, S. Musu-
+meci and A. Gaito, "Parallel connection of su-
+per-junction MOSFETs in a PFC application," 
+2009 IEEE Energy Conversion Congress and 
+Exposition, San Jose, CA, USA, 2009, pp. 
+3776-3783, doi: 
+10.1109/ECCE.2009.5316419.
+[7] M. Zhang and W. Zh ang, "Current Sharing 
+Analysis of Paralleled GaN HEMT Via Feed-
+back Theory," 2018 1st Workshop on Wide 
+Bandgap Power Devices and Applications in 
+Asia (WiPDA Asia), Xi'an, China, 2018, pp. 94-
+99, doi: 10.1109/WiPDAAsia.2018.8734638.
+[8] Y. Zhang, J. Li and J.  Wang, "Investigations 
+on Driver and Layout for Paralleled GaN 
+HEMTs in Low Voltage Application," in IEEE 
+Access, vol. 7, pp. 179134-179142, 2019, doi: 
+10.1109/ACCESS.2019.2957190.
+[9] V. Barba, S. Musumeci, M. Palma, R. Bojoi, 
+“Maximum Peak Current and Junction -to-am-
+bient Delta-temperature Investigation in GaN 
+FETs Parallel Connection,” Power Electronic 
+Devices and Componen ts, 5, 100035, 2023, 
+https://doi.org/10.1016/j.pedc.2023.100035.
+[10] F. Luo, Z. Chen, L. Xue, P. Mattavelli, D. 
+Boroyevich and B. Hughes, "Design consider-
+ations for GaN HEMT multichip halfbridge 
+module for high-frequency power converters," 
+2014 IEEE Applied Power Electronics Confer-
+ence and Exposition - APEC 2014, Fort Worth,
+TX, USA, 2014, pp. 537-544, doi: 
+10.1109/APEC.2014.6803361.
+[11] V. Barba, L. Solimene, M. Palma, S. Musu-
+meci, C. S. Ragusa and R. Bojoi, "Modelling 
+and Experimental Validation of GaN Based 
+Power Converter for LED Driver," 2022 IEEE 
+International Conference on Environment and 
+Electrical Engineering and 2022 IEEE Indus-
+trial and Commercial Power Systems Europe 
+(EEEIC / I&CPS Europe), Prague, Czech Re-
+public, 2022, pp. 1-6, doi: 
+10.1109/EEEIC/ICPSEurope54979.2022.985
+4660
+PCIM Europe 2024, 11– 13 June 2024, Nuremberg                                             DOI: 10.30420/566262213
+ISBN 978-3-8007-6262-0 © VDE VERLAG GMBH · Berlin · Offenbach
+ 
+1568
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:19:23 UTC from IEEE Xplore.  Restrictions apply. 

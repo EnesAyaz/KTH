@@ -1,0 +1,352 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN002 GaN Power Transistors
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    1
+Operation
+EPC’s enhancement mode gallium nitride (eGaN®) 
+transistors behave very similarly to silicon power 
+MOSFETs. A positive bias on the gate relative to 
+the source causes a field effect which attracts 
+electrons that complete a bidirectional channel 
+between the drain and the source. A key difference 
+between gallium nitride (GaN) and silicon is that 
+the electrons in the 2DEG are not associated to 
+any particular atom, as opposed to being loosely 
+trapped in a lattice, they have an equal probability 
+of being anywhere in the plane. The result is a 
+channel of resistance much lower than that of 
+silicon. When the bias is removed from the gate, 
+the electrons under it are dispersed into the GaN, 
+recreating the depletion region, and once again, 
+giving it the capability to block voltage. 
+Structure
+A device’s cost effectiveness starts with leveraging 
+existing production infrastructure. EPC’s 
+manufacturing utilizes standard CMOS tools to 
+fabricate their devices. EPC’s process begins with 
+silicon wafers. Using an MOCVD reactor, a thin 
+layer of aluminum nitride (AlN) is grown on the 
+silicon to transition the crystal from silicon to GaN. 
+This is a seed layer used to grow a thick layer of 
+highly resistive GaN on the silicon wafer. GaN is 
+a wide bandgap material that can support high 
+voltage at small distances. The GaN layer provides 
+a foundation on which to build the GaN transistor. 
+An aluminum gallium nitride (AlGaN) layer is 
+deposited resulting in a piezoelectric polarization, 
+with an abundance of electrons being generated 
+just below the AlGaN that is highly conductive. 
+This abundance of electrons is known as a two 
+dimensional electron gas (2DEG).
+Further processing forms a depletion region under 
+the gate. To enhance the transistor, a positive 
+voltage is applied to the gate in the same manner 
+as turning on an n-channel, enhancement mode 
+power MOSFET. A cross section of this structure 
+is depicted in figure 1. This structure is repeated 
+many times to form a power device. The end result 
+is a fundamentally simple, elegant, cost effective 
+solution for power switching. This device behaves 
+similarly to silicon MOSFETs with some exceptions 
+that will be explained in the following sections.
+To obtain a higher voltage device, the distance 
+between the Drain and Gate is increased. As the 
+resistivity of GaN 2DEG is very low, the impact on 
+resistance by increasing blocking voltage capability 
+is much lower when compared with silicon . 
+Figure 2 shows the theoretical resistance times die 
+area limits of GaN versus silicon  versus voltage.  
+EPC’s fifth generation of devices is shown as 
+well. Please note that after 30 years of MOSFET 
+development, silicon has approached its theoretical 
+limits. Progress in silicon has slowed to the point 
+where small gains have significant development 
+cost. GaN is young in its life cycle, and will see 
+significant improvement in the years to come.
+Fundamentals of Gallium Nitride 
+Power Transistors
+Stephen L. Colino and Robert A. Beach, Ph.D.
+The basic requirements for power semiconductors are efficiency, reliability, 
+controllability, and cost effectiveness. High frequency capability adds further 
+value in size and transient response in regulators, and fidelity in class D amplifiers. 
+Without efficiency and reliability, a new device structure would have no chance of 
+economic viability. There have been many new structures and materials considered; 
+some have been economic successes, others have seen limited or niche acceptance. 
+Breakthroughs by EPC in processing gallium nitride have produced enhancement 
+mode devices with high conductivity and hyper fast switching, with a silicon-like cost 
+structure and fundamental operating mechanism. 
+Si
+S G D
+GaN
+Electron generating layer
+Dielectric Aluminum nitride
+isolation layer
+EFFICIENT POWER CONVERSION
+EPC2215
+GaN Limit
+101
+100
+10-1
+10-2
+10-3
+10-4
+101 102 103 104
+SiC Limit
+Si Limit
+100 V
+Breakdown Voltage (V)
+200 V
+Speci/f_ic R DS(on) (/uni03A9mm2)
+EPC2218
+Figure 2. Theoretical resistance times die area limits GaN vs. silicon vs. voltageFigure 1. EPCs’ GaN Power Transistor Structure
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN002 GaN Power Transistors
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    2
+Gate Threshold
+The threshold of gallium nitride transistors is lower 
+than that of silicon MOSFETs. This is made possible 
+by the almost flat relationship between threshold 
+and temperature along with the very low C GD, 
+as described later. Figure 3 shows the transfer 
+characteristics curve for the EPC2218, 100 V, 3.2 mΩ 
+(max) transistor. Please note the negative relationship 
+between current and temperature. This provides for 
+excellent sharing all regions of operation, which will 
+be explained later. Even with significant conduction 
+current above 1.7 V, The Ratio of QGD to QGS(th) is 0.8 
+indicating that the device will be held off regardless 
+of dv/dt.
+Resistance
+RDS(on) versus V GS curves are similar to MOSFETs. 
+EPC fifth generation GaN transistors are designed 
+to operate with 5 V drive. Figure 4 shows the set of 
+curves for the EPC2218. The curve shows that RDS(on) 
+flattens as the absolute maximum gate voltage is 
+approached. As there is negligible gate drive loss 
+penalty, GaN transistors should be driven with 5 V. 
+The temperature coefficient of R DS(on) of the GaN 
+transistor is also similar to the silicon MOSFET as it 
+is positive with about the same magnitude or 1.52x 
+of the 25°C point at 100°C point for the EPC2218.
+Capacitance 
+In addition to the low R DS(on), the lateral structure 
+of the GaN transistor makes it a very low charge 
+device as well. It has the capability of switching 
+hundreds of volts in nanoseconds, giving it multiple 
+megahertz capability. This capability will lead to 
+smaller power converters, and higher fidelity class 
+D amplifiers. Most important in switching is C GD. 
+With the lateral structure, C GD comes only from 
+a small corner of the gate. An extremely low C GD 
+leads to the very rapid voltage switching capability 
+of GaN transistors.
+CGS consists of the junction from the gate to the 
+channel, and the capacitance of the dielectric 
+between the gate and the field plate. C GD is very 
+small when compared with C GS, giving GaN 
+transistors excellent dv/dt immunity. CGS still small 
+when compared with silicon MOSFETs giving them 
+very short delay times, and excellent controllability 
+in low duty cycle applications. A 48 V to 1 V buck 
+regulator has been demonstrated at 1 MHz using  
+100 V GaN transistors from EPC. C DS is also small, 
+being limited to the capacitance across the 
+dielectric from the field plate to the drain and 
+drain to substrate. Physical capacitance locations 
+are shown in figure 5. Capacitance versus voltage 
+curves for GaN again look similar to those for 
+silicon except that for with a similar resistance, its 
+capacitance is significantly lower and flattens out 
+much sooner. Capacitance curves for the EPC2218 
+are shown in figure 6.
+Series Gate Resistance and Leakage 
+Series gate resistance (R G) limits how quickly the 
+capacitance of a field effect transistor can be 
+charged or discharged. Silicon MOSFETs are limited 
+to using polysilicon or silicide where GaN transistors 
+use metal gates. The metal gates enable GaN to 
+have gate resistances of a couple tenths of an 
+ohm. This low gate resistance also helps with dV/dt 
+immunity. 
+For isolating the gate, oxide growth is not an option 
+with GaN. For this reason, the gate leakage current 
+of GaN transistors is higher than that of silicon 
+MOSFETs. Designers should expect gate leakage 
+on the order of 1 mA. As these are low gate drive 
+voltage devices, losses associated with gate leakage 
+are low. 
+Figure of Merit 
+Total gate charge (Q G) is the integral of C GS plus 
+CGD over voltage. A common figure of merit that 
+takes both on state and switching performance 
+into account is (RDS(on) x QG). Figure of merit for GaN 
+transistors versus best in class silicon MOSFETs are 
+presented in figure 7 for 100 V devices and figure 8 
+for 200 V devices. 
+  ID  – Drain Current (A)
+  VGS  – Gate-to-Source Voltage (V) 
+1.00.5 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+200
+150
+100
+50
+0
+25˚C
+125˚C
+VDS = 3 V
+8
+6
+4
+2
+0 2.5 3.02.0 3.5 4.0 4.5 5.0
+RDS(on) – Drain-to-Source Resistance (m/uni03A9)
+VGS – Gate-to-Source Voltage (V)
+ID = 12 A
+ID = 25 A
+ID = 37 A
+ID = 50 A
+S G
+D
+CGS
+CGD
+CDS
+GaN Capacitance (pF)
+0 25 50 75 100
+  VDS  – Drain-to-Source Voltage (V) 
+1600
+1400
+1200
+1000
+800
+600
+400
+200
+0
+COSS = CGD + CSD
+CISS = CGD + CGS
+CRSS = CGD
+Figure 3. Transfer characteristics curve
+Figure 4: RDS(on) vs. VGS at various currents Figure 6. Capacitance curves, EPC2218
+Figure 5. Physical capacitance locations
+Figure 7. 
+Figure 8. 
+400
+300
+200
+100
+0
+EPC2218 BRAND A BRAND B BRAND C
+FOM =RDS(on) x QG (100 V)
+3000
+2000
+1000
+0
+EPC2215
+FOM =RDS(on) x QG (200 V)
+BRAND A BRAND B BRAND C
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN002 GaN Power Transistors
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    3
+Body Diode 
+The last part of the performance picture is that of the 
+so-called “body diode”. As seen from figure 1, EPC’s 
+GaN transistor structure is a purely lateral device, 
+absent of the parasitic bipolar transistor common 
+to silicon based MOSFETs. As such, reverse bias or 
+“diode” operation has a different mechanism but 
+similar function. With zero bias gate to source, there 
+is an absence of electrons under the gate region.  
+As the drain voltage is decreased, a positive bias 
+on the gate is created relative to the drift region, 
+injecting electrons under the gate. Once the 
+gate threshold is reached, there will be sufficient 
+electrons under the gate to form a conductive 
+channel. The benefit to this mechanism is that there 
+are no minority carriers involved in conduction, 
+and therefore no reverse recovery charge (Q RR) or 
+loss. While Q RR is zero, output capacitance (C OSS) 
+has to be charged and discharged with every 
+switching cycle. For devices of similar R DS(on), GaN 
+transistors have significantly lower COSS than silicon 
+MOSFETs. As it takes threshold voltage to turn 
+on the GaN transistor in the reverse direction, the 
+forward voltage of the “diode” is higher than silicon 
+transistors. As with silicon MOSFETs, care should 
+be taken to minimize diode conduction time. As 
+fundamental operation of GaN transistors is similar 
+to that of silicon MOSFETs, they can be represented 
+schematically the same way as shown in figure 9.
+Packaging
+EPC’s GaN transistors use wafer level packaging using 
+either ball or land grid arrays. The terminal side of the 
+EPC2218, a 3.5 mm x 1.95 mm, 3.2 mΩ (max.) 100 V 
+GaN transistor is shown in figure 10. With all terminals 
+being on the same side, inductance, particularly 
+inductance common to gate drive and power loops, 
+are small compared with silicon MOSFETs that require 
+wire bonds or clips to bring all terminals to the PCB. 
+Low power loop inductance reduces overshoot 
+and ringing, reducing both power dissipation and 
+EMI. Low common source inductance reduces 
+current commutation time. In addition, EPC’s GaN 
+Transistors have efficient cooling paths to both the 
+top and bottom of the device. Using top side cooling 
+allows for the highest current and power density 
+of these transistors. Mounting a heat spreader to 
+threaded surface mount standoffs around the power 
+FETs controls FET to a heat spreader gap that is 
+inexpensive to manufacture.
+For discrete devices, the source is connected to 
+the substrate (either internally or externally), and 
+electrical insulation is needed between a high 
+side device and a ground referenced heat sink.  
+Junction isolation is used in monolithic half bridge 
+configuration, keeping the substrate at the low side 
+source potential.  Electrical isolation is not needed 
+when both the low side source and the heat sink are 
+at ground potential.
+Applications and Value
+EPC brings enhancement mode to GaN. This allows 
+immediate realization of the disruptive gains in 
+efficient high frequency and low duty cycle power 
+conversion. Other “exotic” technologies are either 
+cost prohibitive or use depletion mode. Depletion 
+mode devices lose control when there is no power, 
+and require new development in control ICs.
+GaN transistors will bring a leap in Class D audio 
+technology by enabling efficient switching at 
+frequencies above the AM band. Fidelity will 
+approach Class A and Class AB systems without all of 
+the size and weight limitations of linear amplifiers. 
+They will allow high quality amplifiers to be built 
+into very tight spaces such as flat screen televisions, 
+computers and speakers.
+In information processing and storage systems, the 
+whole power architecture can be re-evaluated to take 
+advantage of the outstanding switching capabilities. 
+As output voltage increases for AC/DC converters, 
+efficiency goes up. As bus voltage increases, 
+transmission efficiency goes up. As frequency 
+increases, size goes down. EPC GaN enables the last 
+stage which enables the first two while increasing 
+AC/DC efficiency when used as synchronous 
+rectifiers. They also allow for intermediate stage 
+converters to be removed for single step conversion, 
+saving the size and cost of the intermediate stage 
+converter.
+Conclusion
+EPC gallium nitride transistors bring tremendous 
+performance and size advantages over silicon. 
+These advantages can be applied to gain efficiency 
+advantages, size advantages, or a combination of 
+both, with application requirements and a cost 
+structure that are similar to silicon. To take full 
+advantage of GaN, power architects should rethink 
+their system. The future of GaN transistors is now.
+G
+D
+S
+Figure 9. 
+Figure 10. 

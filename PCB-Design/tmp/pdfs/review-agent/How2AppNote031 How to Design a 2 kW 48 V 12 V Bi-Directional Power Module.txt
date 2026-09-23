@@ -1,0 +1,227 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022   | |    1
+How2AppNote 031
+Introduction
+By 2025, one of every 10 vehicles sold worldwide is projected to be a  
+48 V mild hybrid. 48 V systems boost fuel efficiency, deliver four times 
+the power without increasing engine size, and reduce carbon-dioxide 
+emissions without increasing system costs.  These systems will require 
+a 48 V/12 V bidirectional converter, with power ranging from 1.5 kW 
+to 6 kW. The design priorities for these systems are size, cost, and high 
+reliability.
+This application note discusses the design of a EPC9165, 2 kW, two-phase 
+48 V/12 V bi-directional converter using GaN FETs in QFN packages, 
+achieving 96% efficiency. The heatsinking capability can be considered 
+infinite since this will ultimately function inside a vehicle with the unit 
+mounted to the chassis. 
+Design of the Bi-directional DC-DC converter
+A simplified schematic of the EPC9165 bi-directional DC-DC converter 
+is shown in Fig. 1. Since the synchronous buck/boost converter is the 
+simplest bi-directional converter, it is selected as the base topology. Other 
+supporting circuitry includes current sensors, temperature sensor, digital 
+controller and housekeeping power supply.
+GaN FETs used in 48 V applications usually have a 4 times better figure 
+of merit (die area · RDS(on)) compared to similar MOSFETs [1]. For the same 
+gate voltage of 5 V, GaN FETs have at least 5 times lower gate charge than 
+MOSFETs. Other important advantages of GaN FETs include lower COSS, faster 
+voltage transition, zero reverse recovery and they are physically smaller. 
+How to Design a 2 kW 48 V/12 V Bi-Directional 
+Power Module with packaged eGaN® FETs
+EFFICIENT POWER CONVERSION
+Figure 1. EPC9165 system block diagram. 
+EPC2302
+GaN FETs 
+Phase 1
+Phase 2
+12 V48 V
+PWMs V, I sense
+Housekeeping supply
+5 V 3.3 V
+To/From
+controller
+ 
+Temperature
+sense I sense
+The eGaN FET EPC2302 [2] is used in this design. It has a low inductance 
+3 x 5 mm QFN package with exposed top for excellent thermal manage-
+ment. With 1.8 mΩ R DS(on), the rated peak DC current is 101 A. Therefore, 
+the two-phase approach is selected so that the FET current requirement 
+is reduced, i.e., at 14 V 2 kW output, the DC current in each phase is 70 A. 
+This also reduces the current rating requirement for the inductors.
+The MPQ1918-AEC1 [3] gate drivers in this design are AEC-Q100 qualified, 
+and use a bootstrap technique with voltage clamping for driving high side 
+FET. They also have fast propagation times and excellent propagation delay 
+matching of less than 1.5 ns typical.
+Vishay IHTH-1 125KZ-5A series inductors [4] offer high current ratings for 
+the inductance. In this design, the 1.0 µH inductor and 500 kHz switching 
+frequency is selected, resulting in 80 A peak inductor current.
+To ensure accurate phase current balancing, current sensing using 
+precision shunt resistors is preferred over inductor DCR current sensing. 
+However, shunt resistors that are rated for above 70 A usually have a large 
+footprint, and therefore high parasitic inductance. This inductance can 
+result in high noise that saturates the current sense amplifier and voids 
+the measurement. A simple solution is to add an RC filter network with 
+a matched time constant. The MCP6C02 current sense amplifier is used 
+in this design, with a maximum bandwidth of 500 kHz and 50 V/V gain. 
+This results in 10 mV/A total current sensing gain for 0.2 mΩ shunt.
+
+=== PAGE 2 ===
+How2AppNote 031 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    2
+Symmetrical layout between the two phase is also critical for phase current 
+balancing and minimizing other effects from mismatch, such as gate drive 
+delay, switching transition speed, overshoot, etc. Figure 2 shows the layout 
+example around the GaN FETs in this design, which utilizes the internal 
+vertical layout technique [1] by placing the decoupling capacitors close the 
+FETs with a solid ground plane underneath. 
+Digital Control 
+A dsPIC33CK256MP503 [5] digital controller from Microchip is used in this 
+design. It is a 16-bit processor with a maximum CPU speed of 100 MIPS. 
+The pulse-width modulation (PWM) module can be configured in high-
+resolution mode, resulting in 250 ps resolution in duty cycle and dead 
+times, allowing accurate adjustment of dead times to fully exploit the high 
+performance of GaN FETs.
+Digital average current mode control is implemented for both buck and 
+boost modes. The current sensing circuitry consists of sense resistors 
+and differential amplifiers. In this design, low loss 0.2 mΩ sense resistors 
+and low-noise amplifiers MCP6C02 are used. The control block diagram 
+is shown in Fig. 3. The same current reference I REF is used for the two 
+independent current loops. As a result, the current in both inductors will be 
+regulated to the same value. The bandwidth of the two inner current loops 
+are set to 6 kHz, and the outer voltage loop bandwidth is set to 800 Hz.
+Thermal Management 
+At full output power of 2 kW, a heatsink is required for the GaN FETs.  
+A standard commercially available 8 th brick heatsink is used. Four metal 
+spacers are installed on the PCB to provide the appropriate clearance 
+for the heatsink mounting. A thermal interface material (TIM) is required 
+between the FETs and heatsink. Usually, the material needs to have a) 
+mechanical compliance due to compression, b) electrical insulation and 
+c) good thermal conductivity. In this design, a TIM with 17.8 W/mK is 
+used. Figure 4 shows the 3D heatsink installation view. 
+Figure 3. Digital average current mode control diagram
+Figure 4. Heatsink installation view, showing the SMD spacers, 
+thermal interface material
+Figure 2. Example layout of the top two layers of the printed circuit board around 
+GaN FETs: (a) top layer consisting of ground (GND), switching node (SW) and 
+input (VIN) nets, and (b) middle layer 1 of solid ground plane.
+Low side 
+FET
+ FET
+Decoupling
+capacitors
+GND
+SW
+VIN
+GND
+High side 
+(a)
+(b)
+PWM
++ _
+IREF
+IL1
+IL2
+VREF
+ADC
+VOUT
+G12(z)
+Compensator
+Gp(s)
+Plant
+Σ
++
+_
+G11(z)
+Compensator
+GV(z)
+Compensator
+ADC
++
+_
+Σ
+Σ
+Voltage
+Divider 
+Current
+Sense
+Current
+Sense
+ADC
+Heat sink
+M2 screws (x4)
+TIM (x2)
+eGaN FETs (x4)
+SMD spacers (x4)
+PCB assembly
+
+=== PAGE 3 ===
+How2AppNote 031 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    3
+Figure 5. Photo of the EPC9165 converter with the EPC9528 dsPIC33CK controller module attached
+Figure 6. Measured converter efficiency at 500 kHz, 48 V input and 14.3 V output Figure 7. Measured converter efficiency at 500 kHz, 14.3 V input and 48 V output
+Performance Results  
+Figure 5 shows a photo of the EPC9165 [6] converter without the heatsink mounted. The dimensions are 4.3 x 2.8 x 1.6 inches (108 x 70 x 40 mm) 
+excluding the edge connectors.
+With the heatsink installed and 1700 LFM airflow, the converter was operated at 48 V input, 14.3 V output and tested at 500 kHz, and the 
+efficiency results are shown in Fig. 6. At 500 kHz, using a 1 µH inductor, the converter achieved a peak efficiency of 97%. The converter was also 
+tested at 14.3 V input and 48 V output for boost mode operation, as shown in Fig. 7.
+At full load, EPC eGaN FETs can operate with 96% efficiency at 500 kHz switching frequency, enabling 1 kW/phase compared to silicon-based 
+solutions, which are limited to 600 W/phase due to the limitation on the inductor current at 100 kHz maximum switching frequency.
+Current sense 
+ampli/f_ier
+Gate driverEPC2302
+EPC9528
+GND (–)
+GND (–) HV 48 V (+)
+GND (–)LV 14 V (+)
+Top view Bottom view
+97
+96
+95
+94
+93
+92
+0 20 40 60 80 100 120 140
+Eﬃciency (%)
+IOUT (A)
+14.3 V
+Boost
+97
+96
+95
+94
+93
+92
+0 5 10 15 20 25 30 4035
+Eﬃciency (%)
+IOUT (A)
+
+=== PAGE 4 ===
+How2AppNote 031 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    4
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com 
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Conclusion
+This application note introduces a bi-directional high power EPC9165 converter for mild-hybrid cars and battery power backup units using four EPC2302 
+packaged eGaN FETs. When converting between 48 V and 14.3 V, the efficiency exceeds 96% with 500 kHz switching frequency. This design meets the 
+priorities of size, cost, and high reliability that a 48 V/12 V bidirectional converter, with power ranging from 1.5 kW to 6 kW demands.
+References
+[1]  A. Lidow, M. De Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN Transistors for Efficient Power Conversion, 3rd ed. John Wiley & Sons, 2019. ISBN: 
+978-1119594147. 
+[2]  EPC. (2022). “EPC2302 datasheet, ” [Online]. Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2302_datasheet.pdf
+[3]  MPS (2022). “MPQ1918-AEC1, 100V, 1.6A, 5A, EMI-Optimized Half-Bridge GaN Driver, AEC-Q100 Qualified” [Online]. Available: https://www.
+monolithicpower.com/en/mpq1918.html
+[4]  Vishay (2020). “IHTH-1125KZ-5A high current through-hole inductor high temperature series, ” [Online]. Available: https://www.vishay.com/
+docs/34349/ihth-1125kz-5a.pdf
+[5]  Microchip Technology Inc. (2019). 16-bit PIC Microcontrollers Family, [Online]. Available: https://www.microchip.com/design- centers/16-bit
+[6]  “EPC9165 - 2 kW 48 V/14 V Bi-Directional Power Module Evaluation Board, ”  Efficient Power Conversion Quick Start Guide

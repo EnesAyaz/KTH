@@ -1,0 +1,150 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 005
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023   | |    1
+Prologue
+eGaN FET-based power conversion systems offer higher efficiency, 
+increased power density, and lower overall system cost than  
+Si-based alternatives. These advantageous characteristics have spurred 
+the presence of an ever increasing ecosystem of power electronics 
+components such as gate drivers, controllers, and passive components 
+that specifically enhance eGaN FET performance. Some examples of 
+eGaN FETs are shown in figure 1.  
+Overview of the eGaN FET ecosystem 
+The eGaN FET ecosystem can be broken down into three main categories: 
+1) gate driver, 2) controllers, and 3) passive components. A typical 
+synchronous buck converter, as shown in figure 2, highlights these various 
+components. The requirements for these components are driven by the 
+characteristics of eGaN FETs, such as small footprint, fast switching, tight 
+gate voltage requirement, and high frequency capability.
+Gate drivers for eGaN FETs
+The gate driver IC is critical for maximizing the switching speed 
+capability of eGaN FETs. In order to be compatible with eGaN FETs, the 
+gate driver must have a suitable UVLO for 5 V drive, low pull-up and 
+pull-down resistances, small footprint, and isolation with sufficient 
+common-mode transient immunity (CMTI) to withstand the high  
+dv/dt. Other beneficial features of some eGaN compatible drivers 
+include integrated voltage regulators, bootstrap management, and 
+very narrow pulse width capability. Table 1 shows some examples 
+of low side gate drivers suitable for use with eGaN FETs and table 2 
+similarly shows half bridge gate drivers.
+For high voltage designs where no single IC solution exists, low side 
+gate drivers can be used in combination with high voltage signal 
+isolators that feature high CMTI.
+Controllers for eGaN FETs
+As eGaN FETs push converters to higher frequencies, controllers are 
+required to operate in the MHz range with higher control bandwidth 
+and tighter regulation for high-frequency converters. Many controllers 
+also incorporate a gate driver stage, which must meet the same gate 
+driver requirements previously mentioned. Tables 3 and 4 show eGaN 
+FET compatible controllers for synchronous rectification and buck and 
+boost converter applications, respectively.
+Digital controllers are also useful for many eGaN FET applications, 
+such as multi-phase and multi-level architectures. Suitable examples 
+include Microchip’s PIC series and TI’s Delfino and Piccolo series.
+The Growing Ecosystem for 
+eGaN® FET Power Conversion  
+EFFICIENT POWER CONVERSION
+Figure 1: Examples of eGaN FETs
+Figure 2: Circuit schematic of a typical synchronous eGaN FET based  
+Buck converter, highlighting key components in the eGaN FET ecosystem
+EPC2001C
+EPC2111
+EPC2101
+EPC2045
+EPC8010
+EPC2016C
+EPC2036
+EPC2106
+VIN
+VOUT
+VBOOT
+Gate Drive 
+Supply 
+Regulator/ 
+LDO
+Controller
+Output Filter 
+Input 
+Bypass 
+Capacitor
+Gate Driver IC
+Isolation / Level Shift
+eGaN FET
+Half Bridge
+Bootstrap Diode
+Part Number Manufacturer Description Application Example
+UCC27611 Texas Instruments 4 A/6 A High-Speed 5 V Optimized Single Gate Driver EPC9081
+LMG1020 Texas Instruments 5 V, 7 A/5 A Low Side GaN Driver With 60 MHz/1ns Speed EPC9144
+uP1964 uPI Single-Channel Gate Driver for Enhancement Mode GaN Transistors —
+IXD_604 IXYS 4-Ampere Dual Low-Side Ultrafast Driver —
+LMG1025-Q1 Texas Instruments Automotive 7-A/5-A single-channel low-side gate driver with 5-V UVLO for narrow pulse applications —
+ADuM4120ARIZ Analog Devices Isolated, single-channel driver with 2 A output —
+ADuM4121ARIZ Analog Devices 2 A isolated, single-channel drivers —
+Table 1: eGaN FETs compatible low-side gate drivers
+
+=== PAGE 2 ===
+How2AppNote 005 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023   | |    2
+Passive components for eGaN FETs
+The higher operating frequency of eGaN FET based converters requires 
+passive components optimized for higher frequencies. 
+Key metrics in eGaN FET converter performance are power density and 
+efficiency, which includes the input and output filters. Important inductor 
+selection parameters include low series resistance (ESR) to minimize 
+conduction loss, low core loss, and low parasitic capacitance. 
+Suitable ceramic capacitor selection for the bypass/decoupling are 
+available from multiple vendors where temperature coefficients of X7R or 
+X7S offer good results with highest power density.
+Conclusion
+As eGaN FETs continue to penetrate application designs, the surrounding 
+ecosystem of supporting components needed to achieve the superior 
+performance of eGaN FETs will also grow. Today this ecosystem is no 
+longer a limiting factor in GaN-based designs, and designer have a rapidly 
+growing number of gate drivers, controllers, and passive component 
+options to choose from. 
+Table 2: eGaN FET compatible half bridge gate drivers
+Part Number Manufacturer Description Gate Driver Included
+UCD7138 Texas Instruments Synchronous Rectifier Controller Yes
+TEA1993TS NXP Synchronous Rectifier Controller Yes
+TEA1995T NXP Dual Synchronous Rectifier Controller Yes (Dual)
+TEA1998TS NXP Synchronous Rectifier Controller Yes
+NCP4305A On Semi Secondary-side Synchronous Rectifier Controller Yes
+NCP4306A On Semi Synchronous Rectifier Controller Yes
+NCP4308A On Semi Synchronous Rectifier Controller Yes
+Part Number Manufacturer Description Operating Frequency
+dsPIC33CK32MP102 Microchip 100 MHz Single-Core 16-bit DSC Up to 100 MHz
+RT6190 Richtek 36 V, 4-Switch Bidirectional Buck-Boost Controller with I2C Interface 250 kHz −1 MHz
+NCP81111 On Semi 3 Phase VR12.5¬6 High Speed Digital Controller with SVID and I2CInterfaces 250 kHz−5 MHz
+L TC7800 Analog Devices Low IQ , 60 V, High Frequency Synchronous Step-Down Controller 320 kHz −2.25 MHz
+MIC2103/4 Microchip Synchronous Buck Controller w/Adaptive On-Time Control 200 kHz −600 kHz
+LM5140-Q1 Texas Instruments Wide Input Range Dual Synchronous Buck Controller 440 kHz −2.2 MHz
+TPS40400 Texas Instruments 3 V-20 V, 30 A, PMBus Synchronous Buck Controller 200 kHz −2 MHz
+TPS53632G Texas Instruments Half-Bridge, D-CAP+ Controller for 48-V GaN DC/DC Converter 300 kHz −1 MHz
+L TC7890 Analog Devices Dual Synchronous step down controller with Half-Bridge driver 100 kHz −3 MHz
+L TC7891 Analog Devices 100 V Synchronous step-down controller with GaN Half Bridge driver 100 kHz −3 MHz
+ISL8117A Renesas Synchronous Step-Down PWM Controller 100 kHz −2 MHz
+ISL81806 Renesas 80 V Dual Synchronous Buck Controller 100 kHz −2 MHz
+ISL81807 Renesas 80 V Dual or 2-Phase Synchronous Boost Controller 100 kHz – 2 MHz
+Part Number Manufacturer Description Application Example
+FBS-GAM01P-C-PSE EPC Space Single Output eGaN Gate Driver Module Gate Driver
+FBS-GAM02P-C-PSE EPC Space 50 V Radiation Hardened High-Speed Multifunction Power eGaN® HEMT Driver HEMT Driver
+FBS-GAM02-P-R50 EPC Space 50 V/10 A Radiation Hardened Multifunction Power Module Power Stage
+ISL70040SEH Renesas Radiation Hardened Low Side GaN FET Driver Gate Driver
+Table 3: eGaN FET compatible controllers for synchronous rectifiers
+Table 4: eGaN FET compatible controllers for buck and boost converters
+Table 5: Compatible ICs for High Reliability Applications
+Part Number Manufacturer Description Application Example
+NCP51810 On Semi 150 V Half Bridge Gate Driver for GaN Power Switches Contact EPC
+NCP51820 On Semi -3.5 to +650 V, adjustable dead time, dual LDOs Contact EPC
+LM5113 Texas Instruments 5 A, 100 V Half-Bridge Driver for eGaN FETs EPC9078
+LMG1205 Texas Instruments 1.2 A, 5 A, 100 V Half-Bridge Driver for eGaN FETs EPC9078
+uP1966E uPI Semiconductor 80 V Dual-Channel Gate Driver for eGaN FETs EPC9078
+LMG1210 Texas Instruments 200 V, 1.5 A/3 A Half Bridge GaN Driver With Adjustable Dead-time Contact EPC
+Si827xGB-IM Skyworks Isolated, automotive, up to 2.5 kV isolation, 4 A. 
+Dead time programmable. Use “GB” and “IM” suffixes. EPC9084
+LMG5200 Texas Instruments 200 LMG5200POLEVM-10
+ADuM4221A Analog Devices — —
+MPQ1918-AEC1 MPS 50 Contact EPC
+MP8699B MPS 50 Contact EPC
+STDRIVEG600 ST — EPC9167

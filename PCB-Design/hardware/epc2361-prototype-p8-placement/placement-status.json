@@ -1,0 +1,29 @@
+{
+  "status": "UNROUTED PLACEMENT STUDY - DO NOT FABRICATE",
+  "outline_mm": [
+    64,
+    42
+  ],
+  "previous_outline_mm": [
+    78.5,
+    51
+  ],
+  "area_reduction_percent": 32.85874859497939,
+  "fet_pitch_mm": 12,
+  "spreader_envelope_mm": [
+    18.4,
+    10.2,
+    3
+  ],
+  "spreader_underside_above_pcb_mm": 1.0,
+  "tracks": 0,
+  "zones": 0,
+  "coil_access": "not implemented; all-layer sensing topology unresolved",
+  "holds": [
+    "Routing and electrical validation",
+    "Coil sensing topology and fit",
+    "Spreader mounting and tolerance stack",
+    "Silkscreen cleanup",
+    "Thermal/current qualification"
+  ]
+}

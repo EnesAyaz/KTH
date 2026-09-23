@@ -1,0 +1,5 @@
+PASS: 44 components; 120 connected pin assignments agree between exported schematic and PCB.
+PASS: all footprints on F.Cu; all 12 local bus capacitors on top face.
+PASS: 39 purchased-component placements have existing local 3D files; five are approximate envelopes.
+U1 NC pins 1, 11, 15 excluded from connected-net comparison; PCB assignments checked separately.
+Native schematic ERC not run. DRC is a geometric/connectivity check, not power, thermal or switching validation.

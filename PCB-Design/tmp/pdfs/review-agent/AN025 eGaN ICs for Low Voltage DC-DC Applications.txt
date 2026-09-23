@@ -1,0 +1,333 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN025
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018  | |    1
+eGaN® ICs for Low Voltage DC-DC Applications
+In this application note, we introduce EPC’s 
+new eGaN IC – EPC2112 that includes an 
+integrated gate driver [3] used in a 27 W,  
+14 V – 48 V input to 19 V output single-ended 
+primary-inductor converter (SEPIC) built on 
+the EPC9131 demonstration board.  The SEPIC 
+converter is ideal for applications with a wide 
+input voltage range and where the output 
+voltage can be either below or above the input 
+voltage. One application example is the post 
+voltage regulator for resonant wireless power 
+receiver unit. In this application the rectified 
+voltage depends on factors such as the distance 
+from the power surface, location and presence 
+of other foreign objects and load power 
+requirements. 
+Introducing the EPC2112 eGaN IC
+The lateral structure of eGaN FETs allows for 
+monolithic integration of a gate driver and a power 
+FET with the goal being to enhance performance, 
+reduce cost and simplify design. The single FET 
+EPC2112 eGaN IC was designed with that in mind. 
+Figure 1 shows a photo of the bump side of the 
+EPC2112. It has a low bump count and only needs 
+an input signal and 5V supply voltage to operate. 
+The bump assignment is layout friendly, making 
+designs easier to complete thereby ensuring high 
+performance.
+Monolithic integration of the gate driver to the 
+FET offers the lowest possible common source 
+inductance (CSI) as it is moved to within the 
+IC structure. Furthermore the gate driver has 
+been optimized for the FET being driven to offer 
+maximum performance under any operating 
+condition. These benefits are on top of the well-
+established low capacitance and inductance, and 
+zero reverse recovery charge (Q RR) that enable 
+efficient operation at high switching frequencies 
+even under hard switching conditions. The key 
+characteristics of the EPC2112 are given in table 1.
+SEPIC Overview
+The single-switch SEPIC topology is a non-
+inverting output buck and boost converter. It can 
+be configured with either a coupled inductor or 
+two independent inductors. The two independent 
+inductors version will be evaluated in this 
+application note. The power circuit schematic of the 
+SEPIC using EPC2112 is shown in figure 1. 
+ 
+eGaN® ICs for Low Voltage
+DC-DC Applications
+EFFICIENT POWER CONVERSION
+Michael de Rooij, Ph.D., Vice President of Applications Engineering , Yuanzhe Zhang, Ph.D., Director of Applications Engineering 
+eGaN® FETs from EPC have repeatedly demonstrated higher performance over 
+MOSFET counterparts in many applications [1]. The lateral structure and material 
+properties of eGaN FETs make it possible to monolithically integrate a number of FETs 
+as demonstrated by products such as the EPC2107 [2]. The next phase in the eGaN 
+FET and IC evolution includes gate driver integration. Integrating the gate driver with 
+the FET offers a number of additional advantages over discrete gate driver and FET 
+solutions such as extremely low common source inductance, matched gate driver 
+to FET, and ease of design. All the traditional eGaN FET benefits such as significantly 
+lower capacitance and inductance with zero reverse recovery charge (QRR) in a smaller 
+footprint for a given on-resistance (R DS(on)) than comparable MOSFETs are retained. 
+However, the combined effect of the new characteristics and benefits ensures an ever 
+great performance over comparable MOSFETs.
+Figure 1. Bump side of EPC2112 eGaN IC. 
+Dimensions: 2.9 x 1.1 mm.
+Figure 2. Schematic of SEPIC using EPC2112 with 
+integrated gate driver.
+Part Number VDS
+RDS(on)
+VIN = 5 V,
+VCC = 5 V,
+TJ = 25°C
+QOSS
+VIN = 0 V,
+VCC = 5 V
+ID
+Continuous
+TA = 25°C
+EPC2112 200 V 40 mΩ 24 nC
+VDS = 100 V
+10 A
+RθJA = 18°C/W
+Table 1. EPC2112 key characteristics.
+L1
+L2
+C1 D1
+RLoad
+Q1
+C2
+5 V
+IN1
+EPC2112
+IN
+VDD
+VOUT
+VCC D
+SGND
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN025
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    2
+eGaN® ICs for Low Voltage DC-DC Applications
+been achieved using the long narrow layout of 
+the power bumps. The control signals are fed 
+into one side of the device to achieve proper 
+decoupling of the power and control loops.
+An example layout is shown in figure 5, where 
+control circuitry is on the left side and power on 
+the right side and can be design decoupled from 
+each other. Since the gate drive is integrated, the 
+PWM loop inductance is significantly less critical 
+Design procedure for the two independent inductor 
+SEPIC is well documented [4, 5, 6] and was followed 
+to design the converter in this application note. The 
+choice of an eGaN IC for the switch of the SEPIC 
+allows high efficiency operation at high frequency 
+despite operating under hard-switching conditions. 
+The higher switching frequency allows lower value 
+inductors to be used thereby reducing the size of the 
+converter without compromising the performance.
+Design examples
+A SEPIC design example with specifications given in 
+table 2 is presented.
+The LM3481 [7] current-mode controller was 
+chosen for the SEPIC as it included an on chip 
+regulator that could be used to provide supply 
+voltage power the eGaN IC. The LM3481 also 
+comes with various control and protection features 
+that can be configured to yield a stable converter 
+capable of operation over a wide input voltage 
+and load power ranges.
+The designed power circuit components for the 
+SEPIC are also shown in Table 2. Given that many 
+modern converter applications have a thickness 
+(component height) restriction, the components 
+selected for this design example were 4 mm or less 
+in height. Low profile ferrite inductors from Vishay 
+(IHLP2525CZER220M1 1) and low profile electrolytic 
+capacitors from Nichicon (UZR1H100MCL1GB) 
+were used in the design as the highest profile 
+components on the board. A 100 V schottky diode 
+capable of 5 A from Diodes Inc. (PDS5100-13) was 
+used for the output rectifier. A photo of the 
+configured printed circuit board is shown in 
+figure 3.
+To ensure stable operation across the entire 
+operating range conditions, an average model 
+similar to [8] was created for the two inductor 
+SEPIC and used to determine the phase and 
+gain margins for the feedback controller. The 
+feedback controller design method given in 
+[9] was followed to yield maximum control 
+bandwidth. Current-mode control with slope 
+compensation was implemented to further 
+ensure stable operation and limit the input 
+current under low supply voltage conditions.
+The pin assignment on the EPC2112 makes it 
+easy to design a layout with high performance 
+requirements. The bump assignment in figure 4 
+shows the grouping of the power and control 
+bumps. Low loop inductance is essential for 
+high performance operation and that have  
+Figure 4. Bump assignment for easy layout.
+Figure 3. Photo of EPC9131 SEPIC regulator with EPC2112.
+Figure 5. Example layout with low 
+power loop inductance.
+Input 
+Voltage
+Output 
+Voltage Frequency Max Power C1 D1 L1 , L2
+  
+14-48 V 19 V 300 kHz 27 W 20 μF 100 V, 5 A 22 μH
+Table 2. Summary of the SEPIC design parameters.
+EPC2112
+L1 L2C1
+C2
+D1
+than in the case of a FET only design. Therefore, 
+the controller may be placed further away from 
+the eGaN IC. Wide traces for drain and source 
+connections ensure low power loop inductance. 
+The design can be achieved using only two 
+layers with most of the connection on a single 
+layer, thus leaving the bottom layer for ground 
+assignment only thereby ensuring low EMI 
+radiation from the circuit.
+1 3 5 7 9
+2 4 6 8 10
+PWM
+5 V
+GND Source
+Drain
+Control bumps Power bumpsCommon area
+EPC2112
+EPC2112
+Decoupling
+capacitor 
+Ground bridge
+Source
+PWM
+5 V Drain
+Gnd
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN025
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    3
+eGaN® ICs for Low Voltage DC-DC Applications
+95
+90
+85
+80
+75
+70
+65
+Output Power (W)
+Eﬃciency (%)
+0 10 20 305 15 25
+6
+5
+4
+3
+2
+1
+0
+Output Power (W)
+Power Loss (W)
+0 10 20 305 15 25
+20 V
+30 V
+40 V
+48 V
+Design evaluation
+The SEPIC converter was designed on the EPC9131 
+evaluation board and tested under various input 
+voltage and load power settings. The efficiency of 
+the converter was measured with a range of output 
+power from 1 W through 27 W, at discrete input 
+voltage steps from 20 V through 48 V. The measured 
+power loss includes logic/control circuity and the 
+results are shown in figure 6. The peak efficiency 
+is around 90% at 20 V input. The increase of input 
+voltage results in higher power losses. At 48 V input 
+and 27 W output, the efficiency is 85%. 
+The measured switch-node waveform of the SEPIC 
+with EPC2112 is shown in figure 7 that reveals good 
+clean transitions despite hard switching.
+To verify the performance of the integrated gate 
+driver, a second identical SEPIC was designed built 
+with the only difference being a commercially 
+available discrete GaN compatible gate driver 
+from Texas Instruments (UCC27611) [10] and paired 
+with the EPC2019 eGaN FET [11] that replaced the 
+EPC2112 eGaN IC. The efficiency of this converter 
+was measured at 48 V input delivering the same 
+range of output power as the eGaN IC version with 
+the results shown in figure 8.
+95
+90
+85
+80
+75
+70
+65 Eﬃciency (%)
+Output Power (W)
+0 10 20 305 15 25
+EPC2112 IC
+EPC2019
+Figure 6. Measured (a) total efficiency and (b) total power loss for EPC9131 SEPIC converter using EPC2112 for 
+various input voltages delivering 19 V output over the load range from 1 W through 27 W.
+Figure 7. Switch-node voltage waveforms of the SEPIC at 48 V input, 19 V and 27 W output. (a) rising edge and (b) falling edge. 
+Figure 8.  
+Comparison 
+of measured total 
+efficiency for SEPIC 
+with EPC2112 and 
+with EPC2019.
+Summary
+In this application note, the eGaN IC EPC2112 
+was introduced and evaluated in a 300 kHz hard-
+switching SEPIC suitable for a low voltage DC-DC 
+application, such as a post regulator for wireless 
+power receivers. The integrated gate driver yields 
+similar performance compared to discrete gate 
+driver and in some cases superior performance. 
+The EPC2112 eGaN IC simplifies the design and 
+board thus reducing cost and design time without 
+compromising on performance compared to a 
+discrete solution. 
+(a) (b)
+(a) (b)
+10 V/div, 5 ns/div 10 V/div, 5 ns/div
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN025
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    4
+eGaN® ICs for Low Voltage DC-DC Applications
+References:
+[1] A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for Efficient  
+ Power Conversion. Second Edition, Wiley, ISBN 978-1-118-84476-2.
+[2] Efficient Power Conversion Corporation, “Enhancement Mode Power  
+ Transistor,” EPC2107 datasheet, Jul. 2015 [Online] Available: http://epc-co  
+ com/epc/documents/datasheets/EPC2107_datasheet.pdf
+[3] Efficient Power Conversion Corporation, “200 V, 10 A Integrated Driver GaN  
+ FET,” EPC2112 datasheet, March 2018, [Online] Available: http://epc-co.com/ 
+ epc/documents/datasheets/EPC2112_datasheet.pdf
+[4] J. Falin, “Designing DC/DC converters based on SEPIC topology, ” Analog  
+ Applications Journal Texas Instruments, 2008, pp 18 – 23.
+[5] R. Ridley, “Analyzing the Sepic Converter,” Power Systems Design Europe,  
+ November 2006, pp 14 – 18.
+[6] W. Gu, “Designing A SEPIC Converter, ” National Semiconductor Application  
+ Note 1484, June 2007.
+[7] LM3481 datasheet, Texas Instruments, [Online] Available:  http://www.ti.com 
+ lit/ds/symlink/lm3481.pdf
+eGaN® IC is a registered trademark of Efficient Power Conversion Corporation.
+[8] D. Adar, G. Rahav and S. Ben-Yaakov, “A Unified Behavioral Average Model of 
+ SEPIC Converters with Coupled Inductors,” Record of the 28th Annual IEEE  
+ Power Electronics Specialists Conference (PESC), June 1997, Vol. 1,  
+ pp 441-446.
+[9] J. Falin, “TPS61175 SEPIC Design, ” Texas Instruments Application Report,  
+ SLVA337, January 2010, [Online] Available: http://www.ti.com/lit/an/slva337 
+ slva337.pdf
+[10] UCC27611 datasheet, Texas Instruments, [Online] Available: 
+ http://www.ti.com/lit/ds/symlink/ucc27611.pdf
+[11] Efficient Power Conversion, “EPC2019 – Enhancement Mode Power Transistor,” 
+ EPC2019 datasheet, June 2014 [Revised September 2015], [Online] Available: 
+ http://epc-co.com/epc/Products/eGaNFETs/EPC2019.aspx

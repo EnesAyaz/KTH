@@ -1,0 +1,16 @@
+(footprint "Spreader_Envelope" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (fp_text reference "MECH1" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp e804b550-624e-46a7-b0c8-33fa964f930d)
+  )
+  (fp_text value "UNQUALIFIED PLATE ENVELOPE" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp edbbf610-4dd5-4e46-b8c5-9a0f615947c7)
+  )
+  (model "${KIPRJMOD}/models/P6-raised-spreader-envelope.wrl"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+)

@@ -1,0 +1,435 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    1
+PCB Design Guidelines to Maximize 
+Cooling of eGaN® FETs
+EFFICIENT POWER CONVERSION
+Adolfo Herrera, Engineer, EPC
+GaN FETs, like any other transistor, dissipate power during 
+switching, which manifests in the form of heat [1] and can 
+damage the device if specific limits are exceeded. Heat 
+management is thus an important part of converter design. 
+In some applications, thermal management strategies are 
+limited to just those that can be utilized using only the PCB. 
+Several effective design techniques can be implemented at the 
+board level to maximize heat dissipation of the devices. 
+This application note presents simple thermal management 
+guidelines maximizing heat conduction from the GaN FETs 
+to the environment using just the PCB and optimizes thermal 
+performance without the use of a heatsink. In addition, a 
+case study is presented with simple and effective thermal 
+management solutions for the cooling of a development board 
+with two active GaN FETs.
+Thermal Overview
+Power electronic devices in operation dissipate energy causing self-
+heating. The heat generated flows from the heat source, referred to as 
+the device junction, towards colder bodies through two main parallel 
+paths – to the printed circuit board (PCB) and to the case or backside 
+of the device. The heat flux for each path is a result of the temperature 
+difference and the thermal resistances encountered along the path, 
+as shown in the formula:  
+Where, 
+RθJX , alternatively, θ JX (°C/W or K/W) = thermal resistance from 
+junction to a reference location X
+TJ (°C or K) = device junction temperature in steady state conditions 
+TX (°C or K) = temperature of reference location (board (B), case (C), or 
+ambient (A)) 
+P (W) = power dissipated in the device 
+The first thermal resistances encountered by the heat flux are internal 
+to the device, from the junction to the board (R θJB) and from the 
+junction to the case (RθJC ). Both depend on the device construction and 
+the thermal conductivity of the materials used. The second thermal 
+resistances encountered are outside of the FET and represent the 
+thermal system, such as the PCB, heatsink, and environment around 
+the board. These thermal resistances are the board to ambient (RθBA ) 
+and case to ambient (RθCA ) respectively and are usually the dominant 
+ones in the overall junction to ambient thermal resistance (RθJA) path. 
+Therefore, the design of the PCB plays a key role in the effectiveness of 
+thermal strategy used. The impact of several PCB design parameters 
+on RθJA will be discussed in the following sections and reported for 
+either still air (RθJA) or moving air (RθJMA).
+Figure 1(a) shows how heat flows from the two GaN devices mounted 
+on a PCB in a half-bridge configuration. This setup serves as the basis 
+for examining PCB-only cooling. The equivalent thermal circuit of this 
+configuration is shown in Figure 1(b). The collective thermal resistances 
+in this system reduce to a single equivalent thermal resistance of 
+RθJA . In Figure 1(b): RPCBT-A and R PCBB-A represent the resistance from 
+the top and bottom layers of the PCB to ambient respectively; R12,PCB 
+represents heat exchange laterally within the layers of the PCB; and 
+Rz,PCB represents the thermal resistance transversely from the top to 
+the bottom layer of the PCB. 
+=  Eq. 1
+Tamb Tamb
+PCB
+FET 2FET 1
+TJ1
+P1 TJ2
+P2
+TPCB,top1 TPCB,top2
+TPCB,bot2TPCB,bot1
+RθJB1 RθJB2R12,PCBtop
+R12,PCBbot
+RPCBT-A1
+Heat Exchange
+RPCBT-A2
+RZ,PCB1
+RZ,PCB2
+RPCBB-A
+R12,PCBtopTPCB,top1
+TPCB,bot1 TPCB,bot2
+TPCB,top2
+R12,PCBbot
+RθJB1 RθJB2
+RZ,PCB1 RZ,PCB2
+RPCBB-A RPCBB-A
+RPCBT-ARPCBT-A
+P2P1
+Tamb
+TJ1 TJ2
+Figure 1. (a) Cross-section view of GaN devices mounted on a PCB in a half-bridge configuration without a heatsink.  
+(b) Equivalent thermal circuit for GaN devices in a half-bridge configuration without a heatsink
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    2
+Designing a PCB for maximum heat dissipation
+The various PCB design characteristics that have thermal characteristics are board area, copper area, copper thickness, vias, and device proximity. 
+Each independent characteristic has a thermal performance and an impact on the electrical system and will be discussed next.
+PCB Area for Improved Cooling
+One of the main characteristics that influences heat transfer to the ambient is the area of the PCB. A larger board area allows for more heat 
+transfer between the PCB and the environment as there is more area for convection to occur. This relationship is shown in Figure 2, where two 
+EPC2218 [2] devices dissipating 1 W each are simulated for varying PCB surface areas. Maximum board temperature sharply rises as the PCB gets 
+smaller, but there are diminishing returns in cooling as board size increases past a certain threshold. The area of the GaN device itself also has 
+an impact on heat transfer. Larger devices have more solder bumps connecting to the PCB, resulting in more heat flow from the device into the 
+copper on the board. Figure 3 shows how temperature rise changes for different device sizes on the same board area of 2.56 cm2 and the same 
+power dissipation of 1 W total. There is also a nonlinear trend in the relation between these two factors as the decrease in temperature rise as the 
+devices continue to increase in size plateaus very quickly. 
+A 4 in2, 4-copper layer board will serve the baseline on which the PCB-only cooling design techniques are examined.
+Impact of Copper Trace Width and Plane Area on Thermal Performance
+Copper is the dominant path for heat to spread from the FET and to transfer to the ambient. This thermal heat spreading effect is primarily 
+affected by the trace geometry, area, and thickness of the copper layers [3]. The most impactful layer for heat-spreading is that to which the 
+device is soldered to. The width of the copper traces that the part is connected to as well as the total area of the copper must be considered for 
+keeping thermal resistance as low as possible. Example layout designs of the top layer for an EPC PQFN device are shown in Figure 4. Figure 4(a) 
+shows a design that would result in a higher thermal resistance throughout the top layer of the board due to the narrow traces and lack of large 
+thermal dissipating area, raising the thermal resistance from junction to ambient. The thin traces that the solder bars of the device rest on in 
+combination with the disconnected copper planes of small area would serve to trap the heat dissipated from the device in the pad area, resulting 
+in a penalty to thermal performance. Figure 4(b) shows the design of a layer that maximizes the area of the copper planes around the device with 
+wider traces connected to large areas of copper, which in turn keeps the thermal resistance from junction to ambient low. 
+Impact of Copper thickness
+Using thicker copper traces for low electrical resistance also benefits thermal resistance and provides a high thermal-conductance medium at 
+each layer in the PCB. The effectiveness of increasing the thickness of copper layers is shown in Table 1 for two EPC2218 devices, each dissipating 
+1 W of power. Increasing the copper thickness from 1 oz to 2 oz results in a decrease in RθJA of 21%. Further increases in thickness beyond 2 oz 
+copper though results in diminishing returns in RθJA reduction. Copper thickness greater than 2 oz also presents challenges in etching fine 
+Temperature Rise [°C]
+Device Area [mm2]
+60
+50
+40
+30
+20
+10
+00 2 4 6 8 10 12 14 16
+Temperature Rise (°C)
+PCB Area (cm2)
+16.52 cm2
+2.56 in2
+9.29 cm2
+1.44 in2
+25.81 cm2
+4.00 in2
+100
+90
+80
+70
+60
+50
+40
+30
+20
+10
+0
+0 5 10 15 20 25 30 35 40
+See Figure 3
+Impact of Device Area
+Figure 2. Effect of board size on temperature rise Figure 3. Effect of device size on temperature rise for  
+a fixed board area
+Temperature Rise (°C)
+Device Area (mm2)
+16.52 cm2
+2.56 in2
+60
+50
+40
+30
+20
+10
+00 2 4 6 8 10 12 14 16
+
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    3
+features into the PCB. The fine pitch of eGaN 
+FETs restricts designing boards to copper 
+thickness with a recommended maximum of 
+2 oz [4].
+When airflow is considered as a cooling 
+method, the decrease in R θJMA is lower 
+relative to that of the natural convection 
+condition. In addition, increasing the 
+number of layers in the PCB also increases 
+the heat spreading capability of the PCB 
+itself, but as buried layers, they have very 
+little area of contact with the surrounding 
+environment and therefore a limited impact 
+on the reduction of thermal resistance to 
+ambient. Nevertheless, the number of layers 
+has a determinant influence on the electrical 
+resistance of the board and thus should be 
+designed based on electrical performance 
+rather than on thermal considerations.
+Heat-spreading
+Heat-spreading
+Heat-trapping
+Heat-trapping
+Large Area
+Non-contributing Area
+(b)(a)
+Wide
+Path
+Narrow
+Path
+Short
+Path
+Long
+Path
+Small Area
+Figure 4. Illustrations of copper layouts for a PQFN GaN device with 
+(a) poor thermal design and (b) recommended thermal design
+Copper Thickness ∆ T Still Air ∆ T 400 LFM
+1 oz / 35 µm 64°C (baseline) 42°C (baseline)
+1.5 oz / 53 µm 57°C (-13%) 39.5°C (-6%)
+2 oz / 70 µm 53°C (-21%) 37. 5°C (-12%)
+3 oz / 105 µm 51°C (-25%) 35.5°C (-18%)
+Table 1. Temperature rise of 2 EPC2218 each dissipating 1 W, for different copper layer thicknesses under two cooling conditions using baseline PCB
+Using the Bottom Side of the PCB for Additional Heat-
+Spreading
+The insulating dielectric layers of a PCB have low thermal conductivity 
+which results in a very high thermal resistance from the device to 
+the copper layer on the opposite side of the PCB. However, the inner 
+and bottom layers of the PCB can still be designed into the thermal 
+solution by connecting them to the top layer with highly conductive 
+“heat pipes.” By including these heat pipes in the board, paths of heat 
+conduction are formed to the bottom layer so that it can be more 
+effectively used to transfer heat to the ambient. Copper plated vias 
+are the predominant PCB design elements that can fulfill this purpose. 
+To obtain the greatest benefit from thermal vias, they must be placed 
+either directly beneath the device or adjacent to the device and as 
+close as possible to the device. 
+Placing vias under the device bumps comes with additional design 
+considerations such as diameter limits, tenting requirements, and 
+assembly requirements. Two main parameters define a via; hole 
+diameter and annular ring diameter. The copper-plated vias’ hole 
+diameter and annular ring diameter must be smaller than the width 
+of the pad to which it connects. The annular ring diameter is also tied 
+to the minimum hole diameter that can be physically drilled into a PCB 
+of 7.8 mils (200 μm.) Thus, for a via with a hole diameter of 7.8 mils, the 
+minimum manufacturable annular ring diameter is 13.8 mils (350 μm) 
+and apply to PCB designs up to 2 oz copper. Typical class 2 vias plating 
+thickness is 0.787 mils (30 μm.) Since the via is placed in the bump area 
+of the device that is soldered to the board, solder can drain down the 
+via hole during reflow. To prevent this from happening, vias under 
+the bump must be filled and subsequently plated over with copper. 
+In addition, the via must be “covered” with a solder mask to prevent 
+altering the solder-mask design of the device land-pattern which 
+affects the quality of the solder joint. According to the IPC4761 standard 
+[5], the type of via that meets these design requirements is the Type VII 
+via. An illustration of a Type VII via is shown in Figure 5.
+For board designs that make use of only adjacent vias rather than vias 
+under the bump, Type VII vias are no longer required but must still be 
+covered with solder-mask to prevent solder bleed during reflow. 
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    4
+Figure 6 shows the impact on thermal resistance from junction to 
+moving air (R θJMA) for two EPC2619 devices each dissipating 1 W in 
+400 LFM airflow [6] when using vias to transfer heat from the top 
+layer to the bottom layer. The first row of images shows various via 
+layout designs; from left to right with no vias (left), adjacent to the 
+devices vias (center) and vias under the bump (right). Vias under the 
+bump should be staggered rather than placed in straight lines as a 
+square matrix can weaken the integrity of the PCB [7]. The next two 
+rows show the effect the various via layouts on temperature of the 
+devices and surrounding board volume. Using the no via case as a 
+baseline, the adjacent via layout shown in Figure 6(b) results in a 22% 
+decrease in RθJMA while the under-bump design in Figure 6(c) results 
+in a decrease of 33% of R θJMA . The cross-section view in the bottom 
+row of images shows how the vias facilitate heat transfer through the 
+dielectric of the PCB to the opposite side of the board. 
+Joule Heating Effect on Device Heat Flux
+Heat is not only generated within the GaN device. The flow of current 
+through the copper in the board, particularly in thinner connections 
+with increased current density, also results in power losses that 
+generate heat. The heat that is produced through electrical current 
+flow is known as joule heating. Because of the small size of GaN 
+devices, there is a higher concentration of connections around the 
+device which can lead to higher current 
+densities. Joule heating surrounding the 
+parts can be reduced by designing parallel 
+connections, strategic use of vias and 
+shortening concentrated paths of current. 
+Figure 7 shows a FEA simulation result for 
+joule heat concentrations in the top layer 
+of an EPC90123 demo board carrying 5 
+A [8]. Figure 7(a) shows how joule heat 
+concentrates around the edges and corners 
+of copper traces. Figure 7(b) shows how 
+joule heating can be decreased substantially 
+by designing wider pads where the current 
+is forced to neck through. In the regions 
+of the highest current densities, the joule 
+heating decreases by about three to five 
+times as much when the copper pad width is 
+doubled. The impact of vias to carry current is 
+also shown in Figure 7(c); the traces that have 
+vias show lower joule heat concentrations as 
+some current can flow into the buried layers, 
+reducing the heating in the top layer.  
+Soldermask
+(tented)
+Plated 
+Over
+Via wall
+Via /f_ill
+Figure 5. Thermal via construction based on IPC4761 
+Type VII vias - Via-in-Pad-Plated-Over (VIPPO)
+Side Vias Vias under BumpNo Vias
+Rθ,JMA = 45 K/W Rθ,JMA = 35 K/W (22%     ) Rθ,JMA = 30 K/W (33%     )
+Temperature (°C)
+– 60
+– 50
+– 40
+– 30
+– 20
+Temperature (°C)
+– 60
+– 50
+– 40
+– 30
+– 20
+Temperature (°C)
+– 60
+– 50
+– 40
+– 30
+– 20Temperature = 55.6°C Temperature = 54.5°C
+Temperature = 49.8°CTemperature = 55.6°C
+Temperature = 55.1°C
+Temperature = 49.8°C
+Temperature = 54.5°C
+Temperature = 55.1°CTemperature = 65°C
+Temperature = 65°C
+Temperature = 63.7°C
+Temperature = 63.7°C
+(a) (b) (c)
+Figure 6. PCB thermal performance comparison for various via configurations
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    5
+Layout Configuration
+Typical GaN FET layouts [9, 10] require close proximity between the two devices in a half bridge configuration to ensure lowest loop inductance 
+[1 1]. Heat-generating components, such as two FETs in a half-bridge configuration, on a PCB exchange heat flux when placed in proximity 
+with each other which increases RθJA for each device. To approximate the effects of heat-flux exchange, a simple superposition model can be 
+used to analyze the combined effects of their temperature rise. However, because there are nonlinear dependencies on temperature there 
+will be a small error in the final temperature rise calculated. Figure 8 shows the superposition principle of two heat sources in simulation, 
+note that the simulations are done in an environment with an ambient temperature of 20°C. With only the high-side FET dissipating 1 W of 
+heat flux, its temperature rise is 32.9°C; and with addition of the low-side FET  dissipating 1 W of heat flux, co-heating raises the high-side FET 
+by 22.4°C; adding the two temperature rises gives an estimated temperature rise of 55.3°C, which is close to the temperature rise of 52.3°C 
+shown in Figure 8(c). 
+(a)
+ (b)
+ (C)
+Figure 7 . Joule heating in the top layer of the EPC90123 demo board with (a) narrow copper traces to attach EPC2218, (b) wide copper traces, and (c) 
+wide copper traces with vias to parallel flow. Image produced in CelsiusEC FEA simulation. [8]
+(a) (b) (c)
+Figure 8. (a): Only high-side FET dissipating 1 W. (b): Only low-side FET dissipating 1 W. (c): Both FETs dissipating 1W
+Figure 9 shows two half-bridge topology boards each with different bus capacitor layout configurations intended for examining the effects 
+of devices separation on co-heating. Figure 9(a) shows a traditional adjacent bus capacitor layout where both devices are placed as close 
+as possible and Figure 9(b) shows a center capacitor layout where the bus capacitors are placed between the devices. The objective in 
+separating the devices with the bus capacitors is to reduce the magnitude of heat flux exchange between the two parts, which should also 
+reduce RθJA . Figure 10 shows the differences in temperature rise for two FETs in a half-bridge configuration; adopting a center bus capacitor 
+layout reduces RθJA by about 5% for both FETs. The two layout configurations can be achieved with similar loop inductance [12] and thus have 
+no impact on electrical performance. 
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    6
+Impact of Combined Techniques
+When combining the techniques outlined in this app note, it is possible to reduce R θJA by close to 30% when compared to the baseline with 
+none of the techniques used. Figure 1 1 shows a simulation of two boards and the temperature of each FET in a half bridge. The board in Figure 
+1 1(a) has 0.5 oz copper, 4 layers, no vias near the FETs, and both FETs placed close to each other. The board in Figure 1 1(b) has 2 oz copper, 4 
+layers, vias under the bump and close to the FETs, and the FETs separated using the center bus capacitor layout configuration. Adopting these 
+techniques to the board layout not only can reduce R θJA by over 35%, but also comes at little to no additional cost in manufacturing of the 
+PCB. Table 2 shows the effectiveness of each technique discussed in this application note when tested on several EPC demo boards, isolating 
+the different PCB configurations as was done in FEA simulation. The most impactful PCB design consideration for reducing R θJA is including 
+vias under the bump, followed by increasing copper thickness to 2 oz. 
+(a) (b)
+Figure 9. (a): Adjacent bus capacitor layout. (b): Center bus capacitor layout
+Figure 10. (a): Adjacent bus capacitor temperatures. (b): Center bus capacitor temperatures
+Temperature = 72.3°C
+Temperature = 70.4°C
+Temperature = 68.1°C
+Temperature = 69.5°C
+(a) (b)
+Figure 1 1. (a): Baseline thermal simulation results. (b): Thermal results using all the available techniques
+Temperature = 92.6°C
+Temperature = 92.7°C
+Temperature = 71.6°C
+Temperature = 69.1°C
+(a) (b)
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN031 PCB Design Guidelines to Maximize Cooling of eGaN FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    7
+Conclusion
+An overview of PCB only thermal management strategies was presented that can be implemented to improve GaN FET cooling in those 
+applications where heatsinking or external heat spreading cannot be used. These guidelines recommend using thicker copper layers, thermal 
+vias under or near the devices, and separating the FETs to reduce co-heating. Combining these techniques results in a reduction of R θJA by 
+over 35%, with little to no increase in overall system cost, while reducing peak operating temperatures by over 20°C with natural convection 
+cooling. Overall efficiency of the converter increases too as the devices operated at lower temperature for the same operating conditions. 
+References
+[1] A. Lidow, M. De Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN Transistors for Efficient Power Conversion, 3rd ed. John Wiley & Sons, 
+2019. ISBN: 978-1119594147.
+[2]  Efficient Power Conversion Corporation EPC2218 eGaN FET datasheet. [Online] 
+Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2218_datasheet.pdf
+[3]  AN-2020 Thermal Design by Insight, Not Hindsight,” Texas Instruments Application Report, Apr. 2013. [Online].  
+Available: https://www.ti.com/lit/an/snva419c/snva419c.pdf.
+[4]  IPC-6012E: “Qualification and Performance Specification for Rigid Printed Boards,” IPC, March 2020
+[5]  IPC-4761, “Design Guide for Protection of Printed Board Via Structures,” IPC, July 2006.
+[6] Efficient Power Conversion Corporation EPC2619 eGaN FET datasheet. [Online]  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2619_datasheet.pdf
+[7] Y. Shen, H. Wang, F. Blaabjerg, H. Zhao and T. Long, “Thermal Modeling and Design Optimization of PCB Vias and Pads,” in IEEE 
+Transactions on Power Electronics, vol. 35, no. 1, pp. 882-900, Jan. 2020.
+[8]  Efficient Power Conversion Corporation, “EPC90123: 100 V, 25 A Half Bridge Development Board,” [Online]  
+Available: https://epc-co.com/epc/products/evaluation-boards/epc90123
+[9]  Efficient Power Conversion Corporation, “EPC9097: 100 V, 20 A Half-Bridge Development Board,” [Online]  
+Available: https://epc-co.com/epc/products/demo-boards/epc9097
+[10] Efficient Power Conversion Corporation, “EPC90123: 100 V, 25 A Half-Bridge Development Board,” [Online]  
+Available: https://epc-co.com/epc/products/demo-boards/epc90123
+[1 1] D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit Performance in a High Frequency Gallium Nitride Based Point 
+of Load Converter,” Applied Power Electronics Conference, APEC 2013, pp. 649–655, 16–21 March 2013.
+[12] J. S. Glaser, A. Helou, “PCB Layout for Chip-Scale Package GaN FETs Optimizes Both Electrical and Thermal Performance,” Applied Power 
+Electronics Conference, APEC 2022, pp. 991–998, March 2022.
+Table 2. Summary of PCB cooling techniques and their effect on RθJA
+Configuration Design change ∆ T RθJA
+Change in copper thickness 1/2 oz Cu 53°C Baseline 46°C/W Baseline
+2 oz Cu 44.6°C (-19%) 37. 3°C/W (-23%)
+Change in via design
+Min vias 60.4°C Baseline 48.9°C/W Baseline
+Adjacent vias 49.6°C (-18%) 40.4°C/W (-21%)
+Vias under bump 43.8°C (-27%) 36.9°C/W (-32%)
+Change in layout configuration Adjacent FETs 46.6°C Baseline 40.6°C/W Baseline
+Spaced out FETs 44.6°C (-5%) 37. 3°C/W (-9%)

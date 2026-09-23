@@ -1,0 +1,600 @@
+
+=== PAGE 1 ===
+978-88-87237-55-9 ©2022 AEIT 
+GaN-Based Low-V oltage Inverter for Electric 
+Scooter Drive System  
+ 
+ 
+Salvatore Musumeci  
+DENERG-PEIC 
+Politecnico di Torino 
+Torino, Italy 
+salvatore.musumeci@polito.it 
+ 
+Vincenzo Barba 
+DENERG-PEIC 
+Politecnico di Torino 
+Torino, Italy  
+vincenzo.barba@polito.it 
+Marco Palma 
+Director, Motor Drive Systems and 
+Applications 
+Efficient Power Conversion 
+Torino, Italy 
+marco.palma@epc-co.com 
+ 
+Abstract — The paper deals with the application of the latest 
+generation low voltage (up to 80V) Gallium Nitride (GaN) 
+devices for motor drive applications in the field o f electric 
+micro-mobility. A two-level inverter topology orien ted to light 
+electric traction (such as electric scooters) with a power rate of 
+1500W has been considered. An experimental board us ing two 
+GaN FETs in parallel connection for each switch of an inverter 
+leg has been arranged. The intrinsic parameters spr ead of the 
+device, as well as the leakage inductances of both the circuit and 
+the PCB,  to evaluate the impact on the current sha re during 
+both the transient phase and in the steady state ha ve been 
+investigated. In the paper, several simulation runs  have been 
+carried out and described. Furthermore, the inverte r 
+experimental board has been used to evaluate the phase voltages 
+and currents at different load conditions. Finally,  the 
+temperature limits versus phase current variation h ave been 
+evaluated.  
+Keywords—GaN FET, Inverter, Parallel Connection, Mic ro-
+mobility. 
+I.  INTRODUCTION  
+In city transport, electric scooters (e-Scooter) ar e 
+affordable for sustainable mobility with zero CO 2 emissions, 
+drivability with heavy traffic, and parking in a li mited space. 
+E-Scooters belong to the micro-mobility market whic h is 
+expected to reach  214.57 billion $ by 2030 [1]. Mi cro-
+mobility is a variegated and not yet standardized e lectric 
+mobility scenario, made up of several relatively small battery-
+powered vehicle systems with autonomy ranges depending on 
+many factors, such as weight, maximum torque, speed , 
+number of people to move, safety, and cost [2]. 
+Light electric vehicles (EV) such as E-kick scooter s, e-
+Bikes, Skateboards, Hoverboards, Low-Speed EVs, Segways, 
+Mopeds, and e-Scooters are some examples that we ca n 
+currently find in our cities both as private vehicl es as well as 
+in the new sharing availability. A general block schematic of 
+battery storage and electric propulsion system for Light EVs 
+is depicted in Fig. 1. Nowadays, the battery storag e pack 
+solution in several applications for micro-mobility  is 
+composed of Lithium-based batteries [3]. The battery storage 
+pack is managed by the Battery Management System (BMS).  
+The voltage rate of the battery pack is in the range of 24 V, up 
+to 120 V. The Energy rate average capacities are between 150 
+Wh and 750 Wh, but some expensive scooters and disa bled-
+people four-wheel e-Scooters feature storage batter y packs 
+with much more energy density. 
+The propulsion system is composed first of an elect ric 
+motor, generally a DC brushless for a strictly econ omic or 
+permanent magnetic sinusoidal motor (PMSM) for more  
+qualitative movement applications [4]. The power el ectronic 
+converter is a two-level three-phase inverter topol ogy. The 
+switching modulation strategy is driven by an elect ronic 
+control unit (ECU) linked with the BMS and the moto r 
+parameters feedback to obtain the torque and speed control 
+requested.  
+The technology of the power switches is crucial to obtain 
+an efficient and reliable inverter system. The pure  Silicon 
+MOSFETs are currently used in the typical power ran ge of 
+hundreds of Watt up to a few kW for storage battery  pack 
+voltage rate below 200 V [5]. In recent years, High Electronic 
+Mobility Transistor (HEMT) based on Gallium Nitrate (GaN) 
+is introduced in application involving the considered range of 
+power and voltage rate. The GaN FET devices are mor e 
+attractive with several enhancements compared with the low 
+voltage new generation of pure silicon trench-gate MOSFET 
+[6].   
+ 
+Fig. 1.  Electric Storage and Propulsion scheme of Light Ele ctric Vehicles 
+such as an e-Scooter.Where M is a generic electric motor, T is the 
+transmission box, and W is the moving wheel. 
+In the paper, a 60 V, 1500W two-level inverter topo logy 
+based on low voltage GaN FET is evaluated. The inve rter 
+topology solution is suitable for a high-efficiency inverter for 
+a high-performance e-Scooter drive application. To reach the 
+switching leg current requested (35 Arms), two devi ces are 
+paralleled for each high-side and low-side legs switches. It is 
+worth investigating the parallel connection of GaN FET 
+devices to understand how to obtain switches with a  high 
+operating current. The paper is structured as descr ibed in the 
+following. In the second section, a parallel connection and the 
+link with the technological issues are explored.  
+In the third section, a simulation investigation in LTSpice 
+is carried out to evaluate the current and voltage sharing in the 
+two paralleled connected GaN devices. Furthermore, the 
+circuit and device stray inductances are considered. 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+In the fourth section, an experimental evaluation i s 
+presented and discussed. 
+Finally, in the last section, the conclusion and th e future 
+works are highlighted. 
+II.  PARALLEL CONNECTION AND TECHNOLOGIC ISSUES 
+OF GAN FET  DEVICES  
+The GaN FET switches considered are enhancement-
+mode devices. The HEMT is a planar structure with h igh 
+electron mobility due to a two-dimensional electron  gas 
+(2DEG)  found at the interface between an AlGaN and  GaN 
+heterostructure interface [7]. The GaN FET has a p-type GaN 
+layer used to make a normally-off enhancement-mode device. 
+In Fig. 2a the structure of an enhancement-mode GaN FET is 
+depicted. The devices considered in this paper feat ure a 
+breakdown voltage until 200V. The low voltage appli cations 
+at high switching frequency (until tens of MHz) are the typical 
+field of operation in high-performance DC-DC or DC- AC 
+converters [8], [9].  The GaN FET is a bidirectional device as 
+a MOSFET one [10]. The operation in the first and t hird 
+quadrant is obtained by a positive voltage polariza tion of the 
+Gate-Source (5 V). At zero voltage across Gate-Sour ce, the 
+reverse conduction in a GaN FET is similar to a diode with a 
+voltage drop higher than a body diode of a MOSFET [11]. In 
+Reverse conduction, the equivalent diode of the GaN  FET 
+does not show a reverse recovery charge Q rr .  Encapsulation 
+in the device package plays a key role in achieving  low 
+leakage inductances. The structure of the actual package with 
+Solder Bars is reported in Fig. 2b. The GaN FETs ar e high-
+density current devices with a direct conduction re sistance 
+RDS(on)  with a positive temperature coefficient (Fig. 2c) like a 
+power MOSFET [7].  
+  
+ 
+Fig. 2.  a) Physical structure of an enhancement-mode GaN FET. b) Packed 
+GaN FET with the solder bars in the low side device . c) Normalized 
+RDS(on) for an EPC2065 GaN FET versus the temperature at I D=25 A, 
+VGS =5 V. 
+The positive temperature coefficient allows a viabl e way 
+to realize a high current switch by the parallel co nnection of 
+several GaN FETs. Generally, the current imbalance in 
+parallel connection is caused by the device paramet ers 
+mismatch and the printed circuit board (PCB) design choices 
+[6]. The RDS(on) spread affects the on-state current distribution 
+among the parallel-connected switches. Furthermore,  the 
+thermal differences between the devices lead to a different on-
+state current sharing too. The paralleled devices should be in 
+similar thermal conditions with the same thermal re sistance 
+and in a common heat-sink arrangement. In switching  
+operations, the trans-conductance (g m) influences the turn-on 
+and turn-off dynamic current sharing. However, in i nsulated 
+gate devices, the main parameter involved in the cu rrent 
+difference during the transient behavior is the thr eshold 
+voltage V TH  as discussed in [5]. A lower V TH  results in an 
+earlier turn-on featuring a high current peak with consequently 
+high switching power loss. A V TH  typical value at 5 mA is 
+equal to 1.4V. Furthermore, the threshold voltage is relatively 
+constant when increasing temperature, while in Si M OSFET 
+the V TH  curve declines more rapidly [7]. Further factors 
+affecting the parallel connection are the device pa ckage 
+parasitic inductance and PCB layout parasitic inductance.  The 
+device package inductances are related to the packa ge 
+solution. As described in Fig. 2b, the device package features 
+several drains and source paths to reduce the stray inductance. 
+Furthermore, Chip Scale Package (CSP) and quad-flat  no-
+leads (QFN) package solution lead to a suitable red uction in 
+the parasitic inductances. These effects will be de eper 
+described in the next section. 
+III.  CURRENT SHARING EVALUATION IN PARALLELED GAN 
+FET  DEVICES  
+In this section, the problems that arise when conne cting 
+more GaN FETs in parallel are investigated. To achi eve the 
+purpose of the paper, several simulations are carried out using 
+the LTspice software. In this work, a symmetrical t opology 
+consisting of two GaN FET connected in parallel, na med A 
+and B, is considered. It is shown in Fig.3. 
+ 
+ 
+Fig. 3.  Two GaN FETs in parallel connection with symmetrica l 
+arrangement. Parasitic impedances of connection lines are considered. 
+In Fig.3 the parasitic impedances of the gate R G LG, of the 
+source R S L S, and of the drain R D L D are indicated with the 
+subscript _A or _B depending on which device they r efer to. 
+No subscripts are used for indicating the common impedance 
+at the source and the drain of the connected device s.  
+indicates the gate resistance and its value is 10 Ω  for every 
+GaN FET. The value of the gate resistance is chosen to have a 
+slew rate drop (95%-5%) of 5 V/ns which is good for a motor 
+drive application. 
+The GaN FET model used in the simulations is obtain ed 
+from the basic model of a typical MOSFET, and it ha s been 
+modified to best represent the device operation, in cluding its 
+internal parasitic effects [12]. 
+The driving signals are sent synchronously to every  
+device. The driving voltage  has been set as a 5 V square 
+waveform voltage source with rise time and fall time equal to 
+0.1 ns and with a duty cycle of 0.5. The switching frequency 
+is 10 kHz, but GaN FET technology can work with a switching 
+frequency up to 1 MHz. Anyway, in this study, the v alue of 
+the switching frequency is irrelevant because the commutation 
+transients are not related to its value. The load is modeled as a  
+current source  . It provides 40 A, and according to that, 
+each GaN FET conducts a drain current of 20 A.  The power 
+Vload 
+Iload 
+RG BRG A
+ID a 
+GaN FET BGaN FET A
+LG BLG A
+RD ALD A RD BLD B
+LS B
+RS B
+RS
+LS
+RS A
+LS A∼ ∼Vd A Vd b 
+ID B
+RD
+LD
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+system works with a DC load voltage of  	 48 . An 
+ideal freewheel diode is connected in parallel with  the load 
+current source. 
+At first, simulations to study the effects of paras itic 
+impedances of the PCB are presented. Subsequently, the study 
+continues with simulations focusing on the effects caused by 
+parameter spreads between GaN FETs connected in par allel. 
+These effects are analyzed one at a time individually. 
+A.  Effects induced by PCB parasitic components 
+The first parasitic components of the PCB to be studied are 
+the common source impedances. In the circuit in Fig .4, only 
+the parasitic source components are considered and they have 
+values  	 7.5  ,  	 5 Ω,  	 6  ,  	 5 Ω. 
+Due to the symmetry of parallel devices considered,  all 
+waveforms of electrical variables are equal between  devices. 
+Therefore, those of a generic n th  GaN FET are considered.  
+Table 1 reports the slow rates ∆IDn /∆t from 10% to 90% of 
+the conduction value of the drain current and the duration of 
+the drain current commutation in the cases with a non-null and 
+null common source impedance  . 
+   
+   
+turn-on 
+Δ  !" #  
+turn-on 
+ 
+   
+turn-off 
+Δ  !" #  
+turn-off 
+$ 0 136 .46 ⋅ 10 ) 148 *112 ,66 ⋅ 10 ) 180 
+	 0 6.343 ⋅ 10 - 6 *6,511 ⋅ 10 - 5 
+Table 1 Slow rates ±10% and duration of the drain current transients: with 
+and without common source impedance   
+The main effect of the common source impedance is t o 
+slow down the drain current transition. This means that the 
+whole switching process will last longer and the en ergy 
+dissipated increases. 
+A simulation considering the two GaN FET in paralle l 
+connection and having both an equal parasitic gate inductance 
+is performed. Typically, the leakage inductances can be caused 
+by the length of the gate wires. The values of   	 10 nH  and 
+  	 0.1 Ω are considered. The waveforms of the drain 
+current, the gate-source voltage, and the drain-source voltages 
+of a GaN FET in parallel connection with parasitic source 
+impedance are shown in Fig.4. The turn-on and turn-off 
+commutations are depicted in Fig.4a and Fig.4b respectability. 
+Fig.4 shows that there is the phenomenon of gate ri nging. 
+It results from the connection of gate inductance t o the 
+capacitance forming a resonant circuit. During the turn-off 
+commutation, a false turn-on happens when the gate- source 
+voltage surpasses the threshold level. To avoid thi s 
+phenomenon L G/L S must be equalized and kept as low as 
+possible. Using a proper gate resistance to source resistance 
+ratio (R G/R S) reduces the gate ringing phenomenon, 
+dampening the system. To avoid the ringing phenomenon, the 
+gate resistance value must be bigger than the value expressed 
+in (1) [7]. 
+  	 2 ⋅0
+12314
+542 
+ (1) 
+Furthermore, the operative condition of two GaN FET s in 
+parallel connection with only parasitic drain imped ance is 
+considered. The parasitic component values used in the 
+simulation are 6 	 0.1  , 6 	 5 Ω, 6 	 0.1   
+Again, the symmetrical topology of the PCB considered as a 
+hypothesis makes the current and voltage waveforms of 
+devices equal. The waveforms of the drain current, the gate-
+source voltage, and the drain-source voltages of a GaN FET in 
+parallel connection with parasitic drain impedance are shown 
+in Fig.5a and Fig.5b for turn-on and turn-off respe ctability. 
+Similarly, in the case of parasitic gate impedance,  a ringing 
+phenomenon occurs. It is most evident during the tu rn-off 
+commutation. The inductances in the power loop gene rate 
+higher frequency current and drain voltage fluctuations. They 
+increase the voltage overshoot across the device an d may 
+cause voltage breakdown of the device. These are damped by 
+the parasitic resistance and in the considered case they cancel 
+out in approximately 140 ns. Differently from the p arasitic 
+gate impedance case, the gate-source voltage does n ot differ 
+from the ideal situation without parasitic componen ts. To 
+reduce the ringing phenomenon, a reduced value of p ower 
+loop leakage inductance must be achieved by an accu rate 
+layout design of the PCB. 
+ 
+ 
+Fig. 4.  Drain current in red, drain-source voltage in light  blue, and gate-
+source voltage in magenta of a generic n GaN FET co nnected in 
+parallel with parasitic gate impedance – low R G case: (a) turn-on ; (b) 
+turn-off. Time step=20 ns/div, I=3 A/div, V=6 V/div. 
+B.  Effects induced by parametric spread of parallel-
+connected devices 
+Simulations where two EPC2065 (furnished by Efficie nt 
+Power Conversion - EPC 
+®) GaN FETs, named A and B, 
+having a spread of one parameter are connected in parallel are 
+carried out. No parasitic components are present in  the 
+topology of the system. The first parameter spread to be 
+analyzed is the value of the device gain. One device may have 
+a transconductance gain that is slightly different from that of 
+another device. For example, this can be caused by 
+manufacture mismatching, because materials coming f rom 
+different batches are used to make the switching de vices. 
+Transconductance gain is defined as 
+ 
+78 	 9 6/9  (2)  
+Acting on the GaN model parameter, device A has been 
+modified to have a 10% reduced gain compared to dev ice B. 
+Both devices are driven with the same drive voltage to supply 
+a 40 A load current. The gate-source voltage wavefo rm 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+remains congruent for both GaN FETs, but a differen ce in 
+drain current value is present.  
+The waveforms of the drain currents carried by the A and 
+B devices and their gate-source voltage are depicted in Fig.6a 
+for the turn-on and in Fig.6b for the turn-off.  The gain spread 
+makes the current of the GaN FET B with higher gain to show 
+rise and fall times stepper than GaN FET A during 
+commutations. However, no huge current peak phenome na 
+are experienced during commutations because both de vices 
+reach the conduction current value (after the turn-on) and null 
+current values (after turn-off) at the same time. D uring the 
+conduction phase, a current spread between the two devices is 
+present. It is proportional to the difference in gain.  
+ 
+Fig. 5.  Drain current in red, drain-source voltage in light  blue and gate-
+source voltage in magenta of a generic n GaN FET co nnected in 
+parallel with parasitic drain impedance: (a) turn-on ; (b) turn-off. Time 
+step=20 ns/div, I=3 A/div, V=6 V/div. 
+The conduction resistance 6;< determines the voltage 
+drop across the device and in GaN FET technology it s value 
+increases proportionally with junction-to-ambient 
+temperature. The operative condition in which the G aN FET 
+B has the typical value of conduction resistance  
+6;< 	
+2.2 Ω and the GaN FET A has a grown +20% 6;< value is 
+investigated. Fig.7 shows the waveforms of the gate -source 
+voltage and the drain current provided by the two GaN FET in 
+parallel connection.  The zooms on turn-on and turn -off 
+commutations are depicted in Fig.7a and Fig.7b respectability. 
+The spread of the conduction resistance influences the current 
+distribution only in the conduction time interval. The device 
+with lower resistance (B) conducts more current. The current 
+spread is proportional to the load current amplitud e and the 
+difference in conduction resistance of the two devices (it is 2 
+A in the considered case). However, no differences in the 
+drain currents are present during commutations. If the spread 
+is too large, joule losses could cause the device t o heat up 
+beyond the maximum permissible junction temperature .  
+Likely the MOSFET thermal behavior, GaN FET conduction 
+resistance has a positive temperature coefficient. It causes the 
+hottest device to provide less current and decrease its losses. 
+Thus, the temperature coefficient trend equilibrate s the 
+6;< and drain current spreads. 
+Threshold voltage =>  is the minimum gate-source 
+voltage needed to turn on enhancement mode transistors. Fig.8 
+shows the gate-source voltage and the drain current  
+waveforms of two parallel-connected GaN FETs. GaN FET A 
+has => ? 	 0.7    and GaN FET B has => @ 	 1.7 . 
+These values come from a ±0.5 V spread from the typ ical 
+value declared of manufacturing. Fig.8a and Fig.8b show the 
+turn-on and turn-off commutations respectability. W hen 
+devices are connected in parallel, their =>  spread leads the 
+GaN FET with lower threshold voltage to be turned on earlier 
+and turned off later (GaN FET A in this example). Looking at 
+Fig.8, the parallel connection makes the gate-sourc e voltage 
+waveforms almost congruent. 
+ 
+Fig. 6.  Gate-source voltage of A and B GaN FETs in red, dra in current of 
+the A GaN FET in green, drain current of the B GaN FET in blue – 
+gm(A)=90% g m(B): (a) turn-on ; (b) turn-off. Time step=20 ns/div, I=3 
+A/div, V=0.5 V/div. 
+ 
+Fig. 7.  Gate-source voltage of A and B GaN FETs in red, dra in current of 
+the A GaN FET in green, drain current of the B GaN FET in blue – in 
+blue – R DS(on) (A) = 120% R DS(on) (B): (a) turn-on ; (b) turn-off. Time 
+step=20 ns/div, I=3 A/div, V=0.5 V/div. 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+Overcurrent on the device with lower V TH  during 
+commutations are caused by these switching gaps and  are 
+stopped only when all the devices are in the same conduction 
+state. The current peak increases the commutation l osses of 
+the most stressed device and they must be considere d for the 
+GaN FET thermal stability. A small current spread r emains 
+during the conduction phase because V TH  influences the 
+device transconductance characteristic. From simula tions 
+results, arises that the V TH  spread is the most critical parameter 
+to consider when paralleling GaN FETs. For this rea son, the 
+maximum current peak must be lower than the pulse 
+capability of the device. In this case of studying, the EPC2065 
+is ruggedness up to a continuous current of 60 A and transients 
+peak of 215 A for 300 μs. Compared with MOSFET devi ces 
+GaN FETs in parallel connection need an accurate la yout 
+design to symmetrize the power routes to avoid further current 
+and voltage peaks due to the asymmetric stray inductances [7]. 
+ 
+Fig. 8.  Gate-source voltage of A GaN FETs in red, Gate-sour ce voltage of 
+B GaN FETs in light blue, drain current of the A Ga N FET in green, 
+drain current of the B GaN FET in blue – => ? 	 0.7 ,=> @ 	 1.7 : 
+(a) turn-on ; (b) turn-off. Time step=20 ns/div, I=4 A/div, V=0.5 V/div. 
+IV.  EXPERIMENTAL  EVALUATION OF A PARALLELED 
+GAN BASED INVERTER  
+The Inverter board schematic is reported in Fig. 9.  The 
+GaN FETS used as switches are the EPC2065 eGaN FET 3.6 
+mΩ maximum R DS(on) , 80 V of the drain-to-source maximum 
+voltage. The experimental board uses two paralleled  GaN 
+FETs per switch in the inverter legs and it can deliver up to 50 
+Apk (35 ARMS ) per phase. The experimental board supports a 
+complete motor drive inverter application for a Brushless DC 
+motor (BLDC) or permanent magnet synchronous motor 
+(PMSM) including gate drivers, regulated auxiliary power 
+rails, voltage, and temperature sense, accurate cur rent sense 
+both for phase current and for switching leg curren t. The use 
+of the two types of sensing approach for the current sampling 
+points detection in the field-oriented control (FOC) strategy is 
+deeper described in [13]. Furthermore, an overcurre nt 
+protection function is built-in into the current sensing circuit. 
+The protection strategy is settled to turn off the devices when 
+the maximum current in the three phases exceeds 50 A.  A 
+suitable interface to connect the inverter board wi th various 
+microcontroller units is developed too.   
+A.  Temperature Evaluation 
+The temperature information is a crucial key parameter to 
+evaluate the limits of the use of the inverter boar d. The 
+temperature is detected by a suitable sensing silicon integrated 
+circuit temperature transducer (AD590). The devices  
+temperature is obtained by reading an analog voltag e V 
+Temp  
+proportional to the temperature, located on the bot tom of the 
+board, using the following equation. 
+A 	 B
+CDEFG ∙IJJJ 
+K.LK M * 273.16 !°O#   (3) 
+To demonstrate the temperature transducer effectiveness a 
+characterization was carried out. A test without a heatsink and 
+with only natural convection cooling is leaded. The measured 
+temperature by the onboard temperature sensor place d 
+beneath the phase b GaN FETs on the bottom side of the PCB 
+is compared with the infra-red camera pointed towards the die 
+case temperature for the same GaN FETs. The graph i n Fig.  
+10 shows the satisfactory correlation between the m easured 
+temperature by the infra-red camera and the transdu cer 
+temperature evaluation. 
+. 
+ 
+Fig. 9.  Inverter board schematic with a driver circuit, current sensing, over-
+current protection, and temperature detection circuit.  
+ 
+Fig. 10.  The infra-red camera temperature measurement on the  GaN FET 
+case (Y-axis) versus the temperature transducer evaluation (X-axis).  
+The thermal performance of the inverter board is depicted 
+in Fig. 11. The motor drive (BLDC motor) is designe d for a 
+48 V DC  supply and operates with and without heatsink at 
+natural convection. The tested phase current is 25 ARMS  at two 
+switching frequencies (50kHz and 100kHz). The temperature 
+increase ( ∆T) compared with the ambient temperature 
+(T amb =25.5 °C) is reported in Fig. 11 versus the phase current 
+amplitude variation. 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+  
+Fig. 11.  The ∆T temperature versus the current variation at 50 kH z and 100 
+kHz without and with heatsink.  
+B.  Switching operation 
+The switching results regarding the output voltage and 
+current of the phase a of the inverter circuit (Fig . 9). The 
+experimental tests have been carried out at V 
+dc =48 V and 
+Iapeak =50 A. In Fig. 13 both the output current and volta ge of 
+the phase a are reported.  In Fig. 12a the phase cu rrent I a and 
+the modulation voltage V am  are reported at motor frequency 
+operation. In the zoomed view the switching phase voltage V a 
+and the phase current I a are shown.  
+ 
+Fig. 12.  Experimental waveforms at V dc =48V and I apeak =50A, fsw =100kHz. 
+Va=20v/div, I a=20A/div, a) t=50ms/dv, b) zoomed view t=10 µs.  
+In Fig. 13 the switching transient at turn-off (Fig . 13a) of 
+the phase voltage (phase a) is shown with the current Ia at the 
+peak value. The turn-on voltage (Va) transient is r eported in 
+Fig. 13b.  
+ 
+Fig. 13.  Phase voltage transient waveforms at Vdc=48V and Ia peak=50A, 
+fsw=100kHz., dead-time tdt=50ns. Va=20v/div, Ia=20A /div, 
+t=50ns/dv.  
+V.  CONCLUSIONS  
+In the paper, a two-level low-voltage inverter topology for 
+light electric traction (such as electric scooter) based on GaN 
+FET switches in parallel connection has been evalua ted and 
+discussed. The dynamic current mismatching is mainly caused 
+by the difference in V TH . Several experimental tests concerned 
+the thermal behavior at different switching frequen cy are 
+carried out. Finally, the switching frequency behav ior of the 
+output voltage and current related at one phase at a maximum 
+rated current of 50 A are reported. In future work,  a high 
+current switch with several GaN FETs in parallel co nnection 
+will be investigated. 
+REFERENCES  
+[1]  Report Buyer. Personal Mobility Devices Market-Glob al Industry 
+Analysis, Size, Share, Growth, Trends, and Forecast , 2019–2027. 
+Available online: 
+https://www.reportbuyer.com/product/4142781/personal-mobility-
+devices-market-global-industry-analysissize-share-growth-trends-and-
+forecast-2019-2027.html?utm_source=PRN (accessed on  01 August 
+2022). 
+[2]  G. Aiello, S. Quaranta, A. Certa, and R. Inguanta. "Optimization of 
+Urban Delivery Systems Based on Electric Assisted Cargo Bikes with 
+Modular Battery Size, Taking into Account the Servi ce Requirements 
+and the Specific Operational Context" Energies 14, no. 15: 4672. 
+2021,https://doi.org/10.3390/en14154672. 
+[3]  Gangchul Kim, Chongpyo Cho, Youngdug Pyo and Wookhy un Lee, 
+"The development of stand-alone battery pack for micro mobility EV," 
+2016 IEEE Transportation Electrification Conference and Expo, Asia-
+Pacific (ITEC Asia-Pacific), 01-04 June 2016, Busan , Korea (South), 
+pp. 874-876, doi: 10.1109/ITEC-AP.2016.7513073.. 
+[4]  M. Yildirim, M. Polat and H. Kürüm, "A survey on co mparison of 
+electric motor types and drives used for electric v ehicles," 2014 16th 
+International Power Electronics and Motion Control Conference and 
+Exposition, 21-24 Sept. 2014,  Antalya, Turkey, pp. 218-223, doi: 
+10.1109/EPEPEMC.2014.6980715. 
+[5]  S. Musumeci, F. Scrimizzi, F. Fusillo, R. Bojoi, G.  Longo, and C. 
+Mistretta, “Low voltage high current trench-gate MOSFET inverter for 
+belt starter generator applications,” in Proc. AEIT  Int. Conf. Elect. 
+Electron. Technol. Automot. (AEIT Automot.), Torino, Italy, 2019, pp. 
+1–6, doi: 10.23919/EETA.2019.8804598. 
+[6]  S. Musumeci, F. Mandrile, V. Barba, and M. Palma, “ Low-Voltage 
+GaN FETs in Motor Control Application; Issues and A dvantages: A 
+Review.” In Energies 2021, 14, 6378, 
+https://doi.org/10.3390/en14196378. 
+[7]  A. Lidow, M. De Rooij, J. Strydom, D. Reusch, J. Gl aser. GaN 
+Transistors for Efficient Power Conversion, 3rd ed. ; John Wiley & 
+Sons: Hoboken, NJ, USA, 2019. 
+[8]  E. Armando, F. Fusillo, S. Musumeci and F. Scrimizzi, "Low Voltage 
+Trench-Gate MOSFETs for High Efficiency Auxiliary P ower Supply 
+Applications," 2019 International Conference on Clean Electrical 
+Power (ICCEP) , 2019, pp. 165-170, doi: 
+10.1109/ICCEP.2019.8890217. 
+[9]  S. Buonomo et al., "Driving a New Monolithic Cascod e Device in a 
+DC–DC Converter Application," in IEEE Transactions on Industrial 
+Electronics , vol. 55, no. 6, pp. 2439-2449, June 2008, doi: 
+10.1109/TIE.2008.921655. 
+[10]  S. Musumeci, M. Panizza, F. Stella and F. Perraud, "Monolithic 
+Bidirectional Switch Based on GaN Gate Injection Tr ansistors," 2020 
+IEEE 29th International Symposium on Industrial Ele ctronics (ISIE) , 
+17-19 June 2020,  Delft, Netherlands pp. 1045-1050, doi: 
+10.1109/ISIE45063.2020.9152230. 
+[11]  K. Kruse, M. Elbo and Z. Zhang, "GaN-based high eff iciency 
+bidirectional DC-DC converter with 10 MHz switching  frequency," 
+2017 IEEE Applied Power Electronics Conference and Exposition 
+(APEC), 26-30 March 2017,  Tampa, FL, USA, pp. 273-278, doi: 
+10.1109/APEC.2017.7930705. 
+[12]  Yan, Dong, Lijun Hang, Yuanbin He, Zhen He, and Pin gliang Zeng. 
+2022. "An Accurate Switching Transient Analytical M odel for GaN 
+HEMT under the Influence of Nonlinear Parameters" Energies 15, no. 
+8: 2966. https://doi.org/10.3390/en15082966. 
+[13]  S. Musumeci, M. Palma, F. Mandrile and V. Barba, "L ow-Voltage 
+GaN Based Inverter for Power Steering Application,"  2021 AEIT 
+International Conference on Electrical and Electron ic Technologies 
+for Automotive (AEIT AUTOMOTIVE) , 17-19 Nov. 2021, Torino, Italy, 
+pp. 1-6, doi: 10.23919/AEITAUTOMOTIVE52815.2021.9662703. 
+ 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:38 UTC from IEEE Xplore.  Restrictions apply. 

@@ -1,0 +1,200 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 016
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023   | |    1
+Motivation
+The expansion of applications such as cloud computing, wearables, 
+machine learning, autonomous driving, and IoT drive us towards an 
+even more data-intensive world, increasing demands on data centers 
+and power consumption [1, 2]. The importance of efficiency, power 
+density, and cost of the AC to DC switching power supply is driving 
+innovative solutions that eGaN FETs can solve to yield ultra-high 
+efficiency power factor correction (PFC) front-end rectifier solutions 
+that are the focus of this how-to-application note.  
+The 4-level Flying Capacitor Multi-Level (FCML)  
+totem-pole bridgeless PFC converter  
+The conventional 2-level totem-pole bridgeless PFC topology has 
+been a popular choice to achieve high efficiency using 650 V rated GaN 
+FETs but does not address the power density and loss limitations of the 
+main inductor [3]-[5]. The 4-level flying capacitor multi-level (FCML) 
+totem-pole bridgeless PFC topology is an alternative that can utilize 
+200 V eGaN FETs, that can operate to the maximum grid line voltage of 
+274 VACRMS, and make use of the volt-seconds reduction and frequency 
+multiplication for the inductor to significantly increase the power 
+density and yield a high efficiency solution. The power schematic of 
+the FCML-totem-pole bridgeless PFC rectifier is shown in figure 1. An 
+added benefit of the 4-level FCML -totem-pole bridgeless PFC rectifier 
+topology is that due to the low inductance required it minimizes the 
+input current harmonic distortion and can maintain switching even 
+with the highest peak line voltage. 
+The 200 V rated EPC2215 for the 4-level FCML  
+totem-pole PFC converter 
+One of the many benefits of using a multi-level topology is that lower 
+voltage devices can be used. In this 4-level topology, six, cascade 
+connected, high frequency devices (Q 1 through Q 6) are used in the 
+high frequency leg shown in figure 1. The output DC voltage is set to 
+400 V so the voltage stress for each of the high frequency devices is 
+only 133 V, plus margin, ensuring that 200 V devices are well suited 
+for this topology. The 200 V rated EPC2215 eGaN FET, with R DS(on) of 
+8 mΩ shown in figure 2, offers low switching loss, low driving power 
+consumption, and zero reverse recovery compared to traditional silicon 
+devices, enabling a high efficiency solution. 
+Figure 3 shows a size comparison between the EPC2215 and close match 
+MOSFET equivalent that is 15 times larger and will consume 6.5 times 
+more gate power. In addition, the higher output capacitance will also 
+increase the switching losses for the MOSFET compared to the GaN FET.
+How to Design a Highly Efficient, 2.5 kW, Universal Input 
+Voltage Range, Power Factor Correction (PFC) 400 V  
+Rectifier Using 200 V eGaN® FETs EFFICIENT POWER CONVERSION
+Figure 1. 4-Level flying capacitor multi-level eGaN FET totem-pole 
+PFC rectifier schematic
+Figure 2. Photo of the bump side of 200 V rated, 8 mΩ, EPC2215 
+Q1
+OUT
+GND
+Q7
+VIN LIN
+Q2
+CF2
+Q3
+Q4
+Q5
+Q6
+Q8
+CF1 CDC
+1.6 mm
+4.6 mm
+Gate
+Source
+Drain
+Source Source
+Drain
+Figure 3. Device size comparison between the EPC2215 and closest 
+match MOSFET counterpart, both are rated at 200 V
+1.6 mm x 4.6 mm 
+9.9 mm x 11.7 mm 
+EPC2215IPT111N20NFD
+RDS(on) = 11.1 m/uni03A9
+QOSS =  162 nC
+QG (at VG =10 V) =  65 nC
+VGmin = 7 V
+RDS(on)  = 8 m/uni03A9
+QOSS =  69 nC
+QG (at VG  =5 V) = 13.6 nC
+VGnom = 5 V
+Acknowledgement - This application note and associated hardware was developed in collaboration with 
+Semiconductor Power Electronics Center (SPEC) at University of Texas at Austin.
+
+
+=== PAGE 2 ===
+How2AppNote 016 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023    | |    2
+Figure 4. Photo of the (a) complete PFC rectifier and (b) the FCML  bridgeless totem pole converter card
+Figure 5. Measured waveforms of the inductor current (IL), AC input 
+voltage (VAC), and switch-node voltage (VSW) when delivering  
+2400 W into the 400 VDC load
+Figure 6. Power efficiency of 4-level FCML totem-pole GaN  
+FET PFC converter
+CF1CF2 CDC
+Main Board
+HF EPC2215’s
+Converter Board
+LF MOSFETs
+Control 
+Board
+42 mm
+78 mm
+45 mm
+(b)(a)
+73 mm
+120 mm
+IL
+Vac
+Vdc
+VSW
+  Efficiency (%)
+95.0
+95.5
+96.0
+96.5
+97.0
+97.5
+98.0
+98.5
+99.0
+99.5
+100.0
+0 500 1000 1500 2000 2500
+Power (W)
+VIN = 240 VACRMS
+VOUT = 400 VDC
+Forced air cooling
+99.25%
+Experimental validation
+A 2.5 kW, 4-level flying capacitor multilevel (FCML) GaN FET totem-pole 
+PFC converter was built and is shown in figure 4 [7]. The experimental  
+unit comprises multiple cards; 1) a mother board with EMI filter, 
+housekeeping power supply and bulk output capacitance, 2) a controller 
+card and, 3) the GaN FET flying capacitor multi-level converter card. 
+Figure 5 shows the measured input AC voltage, the well-controlled 
+inductor current and the multi-level switch-node waveforms when the 
+converter is operating with 240  VACRMS input voltage and delivering  
+2.5 kW into a 400 VDC load.
+The overall power efficiency of the 4-level FCML totem-pole GaN FET 
+PFC is shown in figure 6 up to 2.5 kW with a peak efficiency of 99.25%  
+at 1.4 kW and remains above 99% from 900 W and up.
+Conclusion
+A high efficiency, high power density, 2.5 kW capable eGaN FET-based 
+4-level flying capacitor multi-level bridgeless totem-pole rectifier that 
+is suitable for data center applications was presented. The 200 V rated, 
+8 mΩ, EPC2215 was used in the high frequency leg that resulted in a 
+converter that exceeded 99% efficiency from 900 W through 2.5 kW 
+with a peak of 99.25% at 1.4 kW. The complete converter solution has 
+a power density of 125 W/in 3 and includes the EMI filter, bulk output 
+capacitors, controller card, and housekeeping power supply. The 
+advantageous characteristics of eGaN FETs [6] allowed this converter 
+to achieve high power density, ultra-high efficiency, and low harmonic 
+distortion.
+
+=== PAGE 3 ===
+How2AppNote 016 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023    | |    3
+References
+[1] A. Marashi, “Power Hungry: The Growing Energy Demands of Data 
+Centers, ” VXchange, June 28th, 2019, [On-line available, accessed 
+Oct. 24, 2019] https://www.vxchnges.com/blog/power-hungry-the-
+growing-energy-demands-of-data-centers
+[2] F. C. Lee, Q. Li, Z. Liu, Y. Yang, C. Fei and M. Mu, “Application of GaN 
+devices for 1 kW server power supply with integrated magnetics, ” in 
+CPSS Transactions on Power Electronics and Applications, vol. 1, no. 1, 
+pp. 3-12, Dec. 2016. 
+[3] Z. Liu, F. C. Lee, Q. Li and Y. Yang, “Design of GaN-Based MHz Totem-
+pole PFC Rectifier, ” in IEEE Journal of Emerging and Selected Topics in 
+Power Electronics, vol. 4, no. 3, pp. 799-807, Sept. 2016.
+[4] L. Zhou, Y. Wu, J. Honea and Z. Wang, “High-efficiency True Bridgeless 
+Totem Pole PFC based on GaN HEMT: Design Challenges and Cost-
+effective Solution, ” Proceedings of PCIM Europe 2015; International 
+Exhibition and Conference for Power Electronics, Intelligent Motion, 
+Renewable Energy and Energy Management, Nuremberg, Germany, 
+2015, pp. 1-8.
+[5] Z. Liu, Z. Huang, F. C. Lee and Q. Li, “Digital-Based Interleaving Control 
+for GaN-Based MHz CRM Totem-pole PFC, ” in IEEE Journal of Emerging 
+and Selected Topics in Power Electronics, vol. 4, no. 3, pp. 808-814, Sept. 
+2016.
+[6] A. Lidow, M. de Rooij, J. Strydom, D. Reusch, J. Glaser, “GaN Transistors 
+for Efficient Power Conversion, ” 3rd Edition, J. Wiley 2020, ISBN  
+978-1-119-59414-7. Available from https://epc-co.com/epc/products/
+publications/gan-transistors-for-efficient-power-conversion
+[7] Q. Huang, Q. Ma, P . Liu, A.Q. Huang, and M. Rooij, “3kW Four-Level 
+Flying Capacitor Totem-Pole Bridgeless PFC Rectifier with 200V GaN 
+Devices, ” in ECCE 2019.
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation

@@ -1,0 +1,152 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 011
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    1
+Motivation
+The rapid expansion of the computing and telecommunication market 
+is demanding an ever more compact, efficient and high power density 
+solution for intermediate bus converters. The LLC resonant converter 
+is a remarkable candidate to provide a high power density and high 
+efficiency solution. eGaN FETs with their ultra-low on-resistance and 
+parasitic capacitances, benefit LLC resonant converters by significant 
+loss reduction that is challenging when using Si MOSFETs. A 48 V to  
+12 V, 900 W, 1 MHz LLC DC to DC transformer (DCX) converter employing 
+eGaN FETs such as EPC2053 and EPC2024 is demonstrated, yielding a 
+peak efficiency of 98.4% and a power density exceeding 1500 W/in3.    
+High performance LLC DCX   
+The power architecture schematic of a 4:1 conversion ratio LLC 
+operated as a DCX is shown in figure 1 and comprises a full-bridge 
+primary and center-tapped secondary with synchronous rectifier. The 
+transformer is composed of a parallel connected 2x matrix with each 
+unit having a conversion ratio of 4:1:1 that ensures low winding loss, 
+low interconnect inductance, and low profile. All switches can operate 
+in zero voltage switching (ZVS), allowing for high-frequency operation 
+with high efficiency across nearly the entire load power range. Parallel 
+connected synchronous rectifier devices are used to further reduce 
+conduction loss. 
+High performance eGaN FETs for the LLC converter   
+eGaN FETs are well suited for LLC converters due to their low gate charge 
+(QG) with 5 V gate operation that combined yields very low gate power 
+consumption, low on-resistance compared to equivalent MOSFETs, and 
+low output capacitance charge (QOSS). The lower output charge reduces 
+the ripple current in the transformer by two mechanisms: 1) lower energy 
+required for the LLC resonant tank and, 2) increased effective duty cycle. 
+EPC2053 and EPC2024, shown in figure 2, were selected for the primary 
+and secondary-side power devices respectively. EPC2053 is rated at 
+100 V with 4 mΩ on-resistance, and is capable of carrying a continuous 
+current of 32 A. EPC2024 is rated at 40 V with 1.5 mΩ on-resistance, and 
+is capable of carrying a continuous current of 90 A. Both eGaN FETs can 
+operate at up to 150°C junction temperature.
+Exceeding 98% Efficiency in a Compact 48 V to 12 V,  
+900 W LLC Resonant Converter Using eGaN® FETs 
+EFFICIENT POWER CONVERSION
+Figure 1: Power architecture schematic of the 900 W, 48 V to 12 V LLC
+Figure 2: Photo of the bump side of EPC2053 (top) and EPC2024 (bottom)
+SR2
+CR
+Q1 Q2
+Q3 Q4
+LR
+LM
+TR1
+4:1:1
+TR2
+4:1:1
+V0
+C0
+VIN
+CIN
+SR6
+SR1
+SR5
+SR4
+SR8
+SR3
+SR7
+3.5 mm
+2 mm
+2.3 mm
+6.05 mm
+EPC2053
+EPC2024
+
+=== PAGE 2 ===
+How2AppNote 011 eGaN® TECHNOLOGY
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    2
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+Experimental validation
+A 4:1 ratio, 900 W capable LLC configured as a DCX, was built using 
+EPC2053 for the primary-side switches (Q1-Q4) and EPC2024 for the 
+secondary-side synchronous rectifiers (SR1-SR8, with SR5-SR8 on the 
+bottom side of the board) shown in figure 3. The board included an 
+embedded 2x matrix transformer on the 14-layer board with a two 
+pole core.
+The measured switching waveforms, at full power and 48 V input are 
+shown in figure 4. Perfect ZVS was achieved as evident by the absence 
+of overshoot and ringing on both primary and secondary side devices.
+The efficiency as function of output power for 40 V, 48 V, and 60 V input 
+voltages is plotted in figure 5. It demonstrates that the LLC converter has 
+a peak efficiency of 98.4% and 98.3% at 60 V and 48 V input respectively, 
+and maintains high efficiency over a wide operating range.
+The thermal performance of the LLC converter operating at 54 V input,  
+900 W load, and with an air flow of 400 LFM, is shown in figure 6. 
+The excellent thermal performance achieved shows that all major 
+component temperatures are far below their maximum operating limits.     
+Conclusions
+A 48 V to 12 V LLC intermediate bus converter built using eGaN 
+FETs capable of delivering 900 W had an experimental efficiency 
+exceeding 98%. The low gate capacitance, low output charge and low  
+on-resistance of the eGaN FETs were key to achieving this at a power 
+density exceeding 1500 W/in3.
+Figure 4: Switching waveforms at 48 V input voltage  
+and 900 W load condition
+Figure 5: Power efficiency as function of output power at  
+40 V, 48 V, and 60 V input voltage
+Figure 6: Thermal image of the LLC converter operating  
+at 54 V input and 900 W loadFigure 3: A 4:1 ratio, 900 W, LLC DCX using EPC2053 and EPC2024 
+Q1– Q4 EPC2053
+SR1– SR8 EPC2024
+VIN 48 V - (40-60 V)
+VO 12 V - (10-15 V)
+FS 1 MHz
+LM 2.2 μH
+CR 19 ● 0.22 μF = 4.2 μF
+PCB Layers 14
+36 mm
+37
+mm
+Matrix
+transformer
+Q1Q2
+SR2 SR1
+SR4 SR3
+Q3Q4
+VQ1 20 V/div
+VSR1VSR4
+10 V/div 200 nSec/div
+48 V to 12 V – 75 A
+99
+98
+97
+96
+95
+94
+93
+0 100 200 300 400 500 600 700 800 900
+  Efficiency (%)
+  Output Power (W)
+  98.3%   98.4%
+40 V/10 V
+48 V/12 V
+60 V/15 V
+  Goal
+Air flow = 400 LFM

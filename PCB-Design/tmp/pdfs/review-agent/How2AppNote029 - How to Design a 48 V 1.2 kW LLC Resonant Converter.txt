@@ -1,0 +1,281 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 029
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022   | |    1
+Motivation
+To accommodate the increasing power requirement in the server 
+applications, there is increasing demand on extracting more power 
+from standard 48 V bus converters. This application note presents the 
+design of a 1.2 kW, 4:1 conversion ratio, eGaN FET-based LLC resonant 
+converter in the 1/8th power brick size for the 48 V server applications. 
+The EPC9174 [1] converter module achieves 97.3% peak efficiency and 
+96.3% full-load efficiency.
+Design overview
+The schematic of the LLC resonant topology adopted in this work is 
+illustrated in Figure 1. It consists of a full-bridge primary side, a center-
+tapped secondary side with parallel-connected synchronous rectifiers 
+to reduce the conduction loss. A series-connected 2 × 2:1:1 matrix 
+transformer integrated in a single core is designed. The high output 
+current is distributed among multiple secondary stages, ensuring 
+low interconnect inductance between the transformer and the 
+synchronous rectifiers, and reduces winding loss.  
+eGaN FET selection for the LLC resonant converter 
+eGaN FETs are well suited for the soft-switching LLC resonant 
+converters [2]. Compared to Si MOSFETs of similar rating, their lower 
+gate charge (QG) and the 5 V gate operation result in much lower gate 
+power consumption. In addition, GaN FETs have much lower output 
+capacitance and therefore need much less charge to achieve zero 
+voltage switching (ZVS). This would either reduce the dead-time and 
+increase the effective power delivering time, or reduce the required 
+magnetizing current, circulating energy and conduction losses. 
+The 100 V rated 2.2 mΩ EPC2071[3] and 40 V rated 1 mΩ  EPC2066[4] 
+as shown in Figure 2 are selected for the primary and secondary-side 
+power devices respectively. Both eGaN FETs can operate at up to  
+150 °C junction temperature. The small form factor of GaN FETs makes 
+it possible to fit in 8 FETs in the limited 1/8th power brick size for the 
+synchronous rectifiers.
+The block diagram of the circuit design is shown in Figure 3. The design 
+also includes on-board housekeeping power supply, digital controller, 
+and input and output voltage sensing. The PWM signals are generated 
+by the dsPIC controller dsPIC33CK32MP102-I/2N [5] from Microchip. 
+On-board housekeeping power supply generates the 5 V for the gate 
+drivers, and the 3.3 V for the controller.
+How to Design a High-Efficiency 48 V, 1.2 kW LLC  
+Resonant Converter in a 1/8th Brick Size using eGaN® FETs 
+EFFICIENT POWER CONVERSION
+Figure 1. Power architecture schematic of the 48 V,  
+1.2 kW LLC resonant converter.
+Figure 3. Block diagram of the LLC resonant converter.
+Figure 2. Photo of the bump side of EPC2071 (left) and EPC2066 (right). 
+CIN COUT
+Q1
+Cr
+TR1
+SR2
+SR6
+SR1
+SR5
+SR4
+SR8
+SR3
+SR7
+Lr 2:1:1
+TR2
+2:1:1
+Lm
+Lm
+Q3
+Q2
+Q4
+VIN
+VOUT
+2.3 mm
+2.3 mm
+4.45 mm 6.05 mm
+Housekeeping
+power supply
+3.3 V 5 V
+PWM’s
+Measure Measure
+Gate drive signals
+VIN
+VOUT
+Digital
+controller
+Gate drivers
+Power stage
+
+=== PAGE 2 ===
+How2AppNote 029 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    2
+Figure 5. EPC9174 and motherboard assembly showing  
+the input and output connections.
+Figure 6. Power efficiency as function of output power  
+at 48 V input voltage and 12 V output voltage.
+Experimental validation 
+The EPC9174 1.2 kW, 4:1 ratio GaN FET-based LLC resonant converter 
+shown in Figure 4 is built to verify the design. 
+The EPC9174 converter module is set up on a motherboard for 
+evaluation. Figure 5 shows the motherboard and EPC9174 installed on 
+it. The main input and output connections, measurement ports, bulk 
+input and output capacitors, USB and communication port are located 
+on the motherboard.
+The overall power loss and efficiency at 48 V input and 12 V output 
+including the housekeeping power consumption is given in Figure 6 
+with 97.3% peak efficiency and 96.3% full-load efficiency. 
+HV
+housekeeping 
+PSU
+Controller
+Programming
+& comms
+port
+Resonant capacitor bank:
+ultra low ESR, voltage stable
+Transformer
+Transformer
+- Embedded in PCB
+- ML91S core
+Recti/f_ier
+EPC2066’s
+Recti/f_ier
+Output
+capacitor 
+Input Capacitors
+EPC2071’s (2x)
+Top Side
+Bottom Side
+Primary HB 2 
+Resonant 
+capacitor 
+bank
+3.3 V 
+housekeeping 
+PSU
+Primary HB 1
+HV
+housekeeping 
+PSU
+Figure 4. The 1.2 kW, 4:1 ratio, LLC resonant converter using EPC2071 and EPC2066.
+USB
+Communications 
+connection
+LLC module48 V
+connection 
+12 V connection-2
+12 V connection-1
+12 V Kelvin Sense48 V Kelvin Sense
+POUT (W)
+Eﬃciency (%)
+Loss (W)
+97.3% peak eﬃciency at 550 W
+96.3% eﬃciency at 1.2 kW
+48 V input to 12 V output
+98
+97
+96
+95
+94
+93
+92
+91
+50
+45
+40
+35
+30
+25
+20
+15
+10
+5
+0
+0             100            200             300           400             500             600           700            800             900           1000           1100
+
+=== PAGE 3 ===
+How2AppNote 029 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    3
+Figure 8. Thermal solution assembly process for the EPC9174 module.
+Figure 7. (a) Switching waveforms at 48 V input voltage and 1.2 kW load condition, (b) Resonant tank current waveform.  
+Primary side switch-node
+Synchronous recti/f_ier FETs drain
+200 ns/div
+20 V/div
+200 ns/div
+10 V/div
+200ns/div
+22A/div
+M2 x 10 mm screws (2x)
+Top heatsink
+Heatsink TIM
+Secondary FET TIM (8x)
+Secondary FETs
+M1.4 x 16 mm screws (2x)
+M1.4 nuts (2x)
+Copper heat spreader
+(topside)
+Primary FET TIM (2x)
+Primary FETs
+Bottom Heat Spreader
+Bottom Heat Sink
+Heatsink TIM
+Top  heat spreader
+(a)
+(b)
+The measured switching waveforms, at 48 V input, 12 V and 100 A 
+output are shown in Figure 7(a). ZVS was achieved on the primary 
+side devices as evident by the absence of overshoot and ringing. The 
+resonant current flowing in the tank circuit is also shown in Figure 
+7(b). The circuit is tuned for operation above resonance to reduce 
+conduction loss on the secondary side FETs.
+A combination of custom shape heat spreaders and a finned heatsink 
+for the top and bottom side of the EPC9174 board were designed. The 
+thermal solution assembly is shown in Figure 8. 
+
+=== PAGE 4 ===
+How2AppNote 029 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2022  | |    4
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Copper heat spreaders are placed on top of both primary and secondary 
+side FETs to spread their heat to the outer structure. Two 1 mm height 
+copper shims are used to fill the gaps and help with cooling the board 
+surface. It only requires a gap filler TIM to be added underneath of the 
+heat spreader pieces to provide insulation and high thermal conductivity 
+between the components and the metal surface of heat spreaders. 
+Several mechanical shims help mounting the heat spreader on the PCB 
+surface and maintaining required clearance between the heat spreader 
+and component surfaces. Mechanical screws are inserted on the board 
+to hold the entire mechanical structure together.
+The EPC9174 is intended for bench evaluation at normal ambient 
+temperature. The addition of a heat-spreader or heatsink and forced 
+air cooling can significantly increase the current rating of the power 
+devices, but care must be taken to not exceed the absolute maximum 
+die temperature of 150°C. Figure 10 shows the thermal image of the 
+module at steady state condition.
+Conclusion
+The EPC9174 is a 48 V input, 1.2 kW output, 4:1 conversion ratio, LLC 
+resonant converter in the 1/8th power brick size built using eGaN 
+FETs. Measured peak efficiency is 97.3% and full power efficiency is 
+96.3% including housekeeping power consumption. The low gate 
+capacitance, output charge and on-resistance and the small form 
+factor of the eGaN FETs are the key to achieving this at a power density 
+exceeding 1472 W/in 3.  
+References
+[1] EPC. (2022). “EPC9174 QSG, ” [online]. Available: https://epc-co.com/
+epc/Portals/0/epc/documents/guides/epc9174_qsg.pdf
+[2] A. Lidow, M. de Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN 
+Transistors for Efficient Power Conversion, 3rd ed. Wiley, 2019.
+[3] EPC. (2022). “EPC2071 datasheet, ” [online]. Available: https://epc-co.
+com/epc/Portals/0/epc/documents/datasheets/epc2071_datasheet.pdf
+[4] EPC. (2022). “EPC2066 datasheet, ” [online]. Available: https://epc-co.
+com/epc/Portals/0/epc/documents/datasheets/epc2066_datasheet.pdf 
+[5] Microchip. (2018-2020). [online]. Available: https://www.microchip.
+com/wwwproducts/en/dsPIC33CK32MP102
+Area   ºC
+Max. 97.5
+A
+97.2
+23.8
+ Figure 10.  Thermal image of the EPC9174 operating at 48 VIN , 12 V, 
+100 A output and 1000 LFM forced air cooling, thermal steady state 
+reached after 10 minutes, highest board temperature. 
+Figure 9. EPC9174 thermal measurement setup. 
+PCB 
+eGaN
+(side wall) 
+Copper 
+heat-spreader 
+ 
+Heatsink
+Test 
+/f_ixture
+board Air-/f_low direction 

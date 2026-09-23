@@ -1,0 +1,818 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN015
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    1
+eGaN® FETs for Multi-MHz Applications
+Part
+ Number BVDSS  (V)
+RDS(on) Max (mΩ)
+(VGS = 5 V,
+ID = 0.5 A)
+Peak ID Min (A) 
+(Pulsed, 25°C,
+Tpulse = 300 µs)
+Typical Charge (pC) Typical Capacitance (pF)
+(VDS = BV/2, VGS = 0 V)
+QG QGD QGS QOSS QRR CISS COSS CRSS
+  
+EPC8004 40 125 7.5 358 31 110 493 0 45 17 0.4
+EPC8009 65 138 7.5 380 36 116 769 0 47 17 0.4
+EPC8002 65 530 2 141 9.4 59 244 0 21 5.9 0.1
+EPC8010 100 160 7.5 354 32 109 1509 0 47 18 0.2
+In this application note we present the EPC8000 
+series devices and highlight some of the key 
+features that make this transistor family suitable for 
+high frequency applications. That will be followed 
+by two application examples, a 10 MHz envelope 
+tracking converter and a 6.78 MHz class D wireless 
+power transfer system. In conclusion, small signal 
+RF characteristics will also be provided.
+EPC8000 Device Family Overview
+Table 1 lists the EPC8000 family of devices 
+and highlights the various key characteristics.  
+These transistors are available in R DS(on) values 
+from 125 mΩ through 530 mΩ, and three blocking 
+voltage capabilities, 40 V, 65 V and 100 V. Building 
+on EPC’s industry leading enhancement mode GaN 
+technology, the EPC8000 family of devices has been 
+designed with additional features that make them 
+easy to use in high frequency applications. Next is a 
+summary of the most prominent key features:
+  
+1. Separate gate return (source) – The separate 
+gate return (source) for the gate circuit limits 
+the common source inductance to inside 
+the device itself. This reduction in common 
+source inductance is critical to high frequency 
+performance. The efficiency impact of the 
+common source reduction is well documented 
+[1, 2], and designers can thus focus more of their 
+attention on reducing the loop inductance [2].
+2. Low inductance gate –  The wider solder 
+bar for the gate circuit significantly reduces 
+the inductance of the gate circuit, thereby 
+enhancing the speed of the connection to the 
+gate driver.
+3. High dv/dt immunity – An important metric 
+for dv/dt immunity is the Miller ratio, which is 
+an indicator of how susceptible gates are to 
+turning back on at high dv/dt. For the ultra-
+fast EPC8000 family of devices the Miller ratio  
+(QGD/QGS1) has been reduced to below 0.38, 
+well below the industry standard of 1. 
+4. Orthogonal gate and drain circuit layout – 
+The gate and drain solder bars are designed so 
+that optimal current paths are 90° with respect 
+to each other. This significantly reduces the 
+interaction of the gate circuit current with the 
+drain circuit current, and effectively reduces the 
+common source inductance (CSI) of the device.
+5. Low internal parasitic inductances  – The 
+internal routing has been designed with high 
+frequency applications in mind, and therefore 
+internal parasitic inductances have been 
+minimized for both the drain and gate circuits.
+6. Reduced QGD – The EPC 8000 family is targeted 
+for lower current applications, and to maximize 
+performance the Miller charge has been 
+reduced, improving switching performance by 
+decreasing the voltage transition times.  This 
+comes at a slight increase in Q GS2 and di/dt 
+losses, but overall total switching losses are still 
+closely matched (see Figure 2 for details).
+The EPC8000 family of devices has been designed 
+to target low power, compact, high frequency 
+applications.
+Introducing a Family of 
+eGaN® FETs for Multi-Megahertz 
+Hard Switching Applications
+The ultra high speed switching capabilities of gallium nitride transistors are taken 
+to the next level with the EPC8000 series featuring switching transition speeds in the 
+sub nano-second range. These devices are capable of hard switching applications 
+above 10 MHz. Figure 1 shows a photo image of the new EPC8000 device mounting 
+(bump) side.
+EFFICIENT POWER CONVERSION
+Michael de Rooij, Ph.D., Johan Strydom, Ph.D.; Efficient Power Conversion Corporation
+Figure 1:  Mounting side of EPC8000 series eGaN FET
+Gate
+Source
+ Source
+Substrate
+Drain
+Source
+(Gate
+Return)
+Table 1. Table data subject to change. Please refer to the Product section on www.epc-co.com.
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    2
+Logic
+output
+Logic
+output
+Gate
+Driver
+LM5113
+Driver
+LS_para
+LS_para
+5 V
+5 V
+D
+S
+D
+S
+D
+S
+CONNECT
+gate
+driver
+ground
+here CONNECT
+gate
+driver
+ground
+here
+DO NOT connect gate
+driver ground here DO NOT connect gate
+driver ground here
+Designing with the EPC8000
+In this section some simple design procedures are 
+provided to help designers take full advantage 
+of the EPC8000 series devices’ superior electrical 
+characteristics.
+Figure 3 shows a schematic representation of the 
+new EPC8000 device detailing the return path for 
+the gate. Even though this pad is connected to the 
+source internally in the device, it should be regarded 
+as floating and should ONLY be connected to the 
+gate driver ground, which in turn is NOT connected 
+to the circuit ground, as shown in Figure 4 (left). 
+High dv/dt and di/dt mean that a large voltage  
+(~10 V) can appear during switching transients 
+across this node with respect to ground, correctly 
+creating a ground bounce condition for the gate 
+driver. Figure 4 (right) shows how to correctly apply 
+the gate return when using the LM5113 half bridge 
+gate driver for both the high and low side FETs.  
+Alternatively, the gate driver supply can be 
+completely isolated from the main supply power.
+The ground bounce issue will now affect the 
+signal driving the gate driver instead of the gate 
+itself, and similar precautions need to be taken to 
+prevent false gate triggering. Figure 5 shows that 
+by adding a small capacitance across the input of 
+the gate driver and its local ground, and supplying 
+the signal through a small resistor, the effect of 
+ground bounce can be reduced. The gate driver 
+input has hysteresis and will be able to overcome 
+the remainder of the ground bounce voltage and 
+prevent false triggering.
+The EPC8000 series FETs has a new footprint 
+as shown in Figure 6. The recommended PCB 
+layout and stencil information are provided in the 
+datasheet, which is available at www.epc-co.com.
+In all other respects, the EPC8000 series FETs can 
+be treated in much the same manner as any of the 
+earlier generation eGaN FETs. 
+Next is an example of a power stage for an 
+envelope tracking converter using a 65 V EPC8000 
+series device and a voltage mode class D wireless 
+power transfer system using the EPC8004.
+Source 
+Drain 
+Gate 
+Gate return 
+Figure 3: Schematic symbol for 
+the EPC8000 family of devices.
+Figure 4:  Correct gate driver ground connection when using the EPC8000 series FETs
+Figure 2: Gate charge comparison of EPC8000 series vs EPC2014
+Figure 5:  Recommended method to reduce impact of ground bounce on the gate driver signal
+Figure 6:  EPC8000 series FET footprint (solder bump view)
+0
+1
+2
+3
+4
+5
+50 100 150 2000 250 300 350
+Gate Voltage VGS (V)
+Gate Charge QG (pC)
+40 V EPC8000 series
+EPC2014 (1/10th)
+ID   = 1 A
+VDS = 20 V
+VTH
+QGS1
+QGD
+QGS1
+= 0.32VPL
+QGS2
+(di/dt)
+QGD
+(dv/dt)
+Logic
+output
+Gate
+Driver
+LS_para
+VS
+5 V
+D
+S
+850 
+2050 
+200 
+Gate 
+400 
+200 
+x2 
+600 600 400 225 
+450 
+580 
+200 
+X2 
+Return 
+Source Source 
+Substrate Drain 
+All dimensions in µm 
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    3
+Design Example: 
+10 MHz Envelope Tracking Converter
+In the first example, a 65 V EPC8000 series 
+device will be demonstrated in a 42 V to 20 V, 
+40 W buck converter operating at 10 MHz. The 
+basic power circuit is shown in Figure 7 where  
+LBuck = 2.2 µH (IHLP1616BZ01) and Cout = 2 x 4.7 µF 
+(CGA4J3X5R1V475M125AB). The main supply (VDD) 
+bus caps were 100 nF (C1005X5R1H104K050BB). 
+The board was designed using the optimal layout 
+technique [2] to ensure the highest efficiency.  
+The choice of low inductance supply bus 
+capacitors is also critical even when using the 
+optimal layout.
+Figure 8 shows a photo of the EPC9025 evaluation 
+board fitted with EPC8000 devices and the 
+LM5113 gate driver IC. The right image shows the 
+details of the power circuit with the gate driver IC. 
+To maintain low inductance in the gate circuit, 
+two parallel connected size 0201 resistors were 
+used side by side for the gate resistors, as well as 
+keeping the gate driver IC very close to the devices. 
+It should be noted that the area occupied by the 
+converter is smaller than the footprint of a SO-8 
+package.
+Figure 9 shows the PCB design layout using 
+the optimal layout technique. The left design 
+is for the component layer (top). Note how the 
+gate circuit currents are orthogonal to the drain 
+circuit currents. On the right is the first inner layer 
+design and is primarily used for the current return 
+paths. Also note that the return paths are in the 
+same location between the two layers where 
+the currents flow in opposite directions, thereby 
+cancelling the magnetic flux and hence reducing 
+the value of parasitic inductances in the respective 
+circuit paths.
+The converter was tested at both 10 MHz and 5 MHz 
+operation, and the efficiency is given in Figure 10. 
+The plots show a respectable 87% peak efficiency 
+while operating at 10 MHz and 92% while 
+operating at 5 MHz. The inductor used in the 5 MHz 
+operation is the same as in the 10 MHz operation, 
+and selecting a more optimal inductance can 
+lead to further improvement. Figure 11 shows the 
+rising edge switch node voltage waveform with  
+VIN = 42 V, I OUT = 2 A. The total switching time is 
+around 1.2 ns and both the di/dt and dv/dt events 
+can be distinguished. Also of note is the minimal 
+voltage overshoot at completion of the transition.
+di/dt interval  
+dv/dt interval 
+Total switching time ~1.2ns 
+75 V/ns 
+No measureable
+overshoot 
+Figure 7: Envelope tracker buck converter schematic
+Figure 10:  Efficiency plots for 5 MHz and 10 MHz operation 
+of the envelope tracking converter
+Figure 11: Switch node voltage 
+waveform for the envelope tracker converter
+VDD 
+L Buck  
+COUT 
+Q2 
+Q1 
+RLoad
+ 
+LM5113 
+VSW
+EPC8005 
+EPC8005 
+Bus caps 
+SO-8 footprint
+To BUS caps 
+Switch 
+node 
+Ground 
+Bottom Gate 
+Top Gate 
+Gate 
+Drain 
+Source Source 
+Gate 
+Drain 
+Source 
+Vias  to next layer 
+Return Return 
+Source 
+Gate 
+Current 
+orthogonal 
+to drain 
+current 
+FET outline 
+Supply 
+Optimum gate 
+loop return 
+Optimum gate 
+loop return 
+To gate 
+drive 
+To gate 
+drive 
+Optimum power 
+loop return 
+Gate 
+Drain 
+Source 
+Gate 
+Drain 
+Return Return 
+Source 
+Vias  to next layer 
+FET outline 
+Top Layer 1st Inner Layer 
+Substrate 
+Substrate 
+Substrate 
+Source 
+Source 
+Substrate 
+65
+70
+75
+80
+85
+90
+95
+0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0
+Eﬃciency (%)
+5 MHz
+10 MHz
+Output Current [A]
+Figure 8:  Photo of the evaluation board showing the EPC8000 devices and LM5113 gate driver
+Figure 9:  Optimal layout design for a half bridge topology using the EPC8000 series family of FETs. 
+Left is the top (component) layer and right is the first inner layer.
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    4
+Device 
+board
+Source coil 
+Device 
+coil
+25 mm
+RF connectionRF connection
+Source
+board
+100 mm
+100 mm
+ 50mm
+50 mm
+50mm
+Voltage 
+feedback
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Design Example: 
+6.78 MHz Voltage Mode Class D 
+Wireless Power Transfer
+In the next example, a 6.78 MHz voltage mode 
+class D wireless power transfer converter is given. 
+This system was previously demonstrated using 
+the EPC2014 [11, 12] and it was noted at the time 
+that the EPC2014 was the smallest device available 
+for this demonstration, and that the performance 
+could improve given the correct size selection of 
+the FETs. In this example the same coil and load 
+set were used, and only the power converter stage 
+was replaced with an EPC9024 populated with 
+the EPC8004 devices. Figure 12 gives the basic 
+schematic of the power stage.
+Figure 13 shows a photo of the wireless power 
+transfer system. The setup comprises the source 
+board, source coil, device coil, and device load. 
+The EPC8004 FETs were mounted to the EPC9024 
+board (shown in Figure 8), and the gating signals 
+were generated from the voltage feedback control 
+signal using a phase follower controller.
+The EPC8004 based wireless system was tested by 
+varying the input supply voltage from 8 V through 
+24 V, and the efficiency is shown in Figure 14. 
+Overall there is at least a 2% increase in efficiency 
+over the EPC2014 based version despite the higher 
+RDS(on) of the EPC8004 (125 mΩ) in comparison 
+to the EPC2014 (16 mΩ). This is mainly due to a 
+reduction in losses associated with C GD (turn off). 
+As mentioned before, the wireless system showed 
+reduced losses by using a smaller FET. From Figure 
+14 one can see that the efficiency has peaked at 
+the high end and that the efficiency of the EPC2014 
+based system could potentially increase further. 
+Figure 15 gives the loss breakdown of the wireless 
+system when operating at 15 W load with a 22 V 
+input. The EPC2014 has high switching losses 
+while the EPC8004 has high conduction losses, but 
+overall the total losses are lower than the EPC2014 
+for the same operating condition.
+Figure 16 shows the rising edge of the switch node 
+waveforms for both the EPC8004 and EPC2014 
+based converters. The measurements show that 
+the EPC8004 solution switches much faster, which 
+can be attributed to the many new key features 
+of the EPC8004 device coupled with the optimal 
+layout technique.
+Figure 13: Photo of the wireless transfer system experimental setupFigure 12:  Voltage mode class D wireless power transfer 
+power converter schematic
+Figure 14: Wireless converter efficiency plots when using the 
+EPC8004 and EPC2014 FETs
+Figure 15: Loss breakdown in the wireless energy transfer system
+comparing the EPC8004 with the EPC2014.
+VDD 
+L mp
+L p
+L s
+Csp
+Co
+Css
+Cms
+ 
+Cmp  
+Q2 
+Q1 
+RLoad
+ 
+48 
+50 
+52 
+54 
+56 
+58 
+60 
+62 
+64 
+66 
+68 
+70 
+72 
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 
+EPC8004
+EPC2014
+VIN = 24 V
+VOUT   = 20.1 VVIN = 22 V
+VOUT   = 18.3 V
+VIN = 8 V
+VOUT  = 6.7 V
+VIN = 8 V
+VOUT   = 6.8 V
+Eﬃciency (%)
+Output Power (W) 
+6.639 MHz, 23.6 /uni03A9 load 
+0.0 
+0.5 
+1.0 
+1.5 
+2.0 
+2.5 
+3.0 
+Power Loss Break Down 22 V Supply, 15 W Load
+Power (W)
+EPC2014 EPC8004 Res. Coil Recti/f_ier 
+FET  Cond.
+FET SW.
+Gate Driver
+Source Coil
+Device Coil
+Rect. Cond.
+Rect. Cap.
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    5
+Small Signal RF Performance – EPC8002
+Up to this point, the high switching frequency 
+performance of the EPC8000 series FETs have 
+been presented. Due to the high blocking 
+voltage in comparison to LDMOS FETs of 
+similar ratings, the eGaN FETs have the ability 
+to absorb higher levels of reflected energy 
+when used in RF applications than comparable 
+LDMOS devices. This has prompted EPC to test 
+the eGaN FETs as RF devices and has published 
+the results for the EPC2012 eGaN FET [17].  
+In this section the EPC8002 device RF tests 
+in the frequency range 200 MHz through 3 
+GHz will be presented together with how this 
+was done and how to apply the devices in RF 
+applications.
+Due to their small size and non-traditional RF 
+package, the EPC8000 series FETs require a 
+PCB design using tapers to connect the gate 
+and drain circuits. The design used to evaluate 
+the EPC8002 device is shown in Figure 17, 
+and comprises a taper design to connect to a 
+known transmission line impedance. In this 
+case the substrate used was Rogers 4350 [18] 
+with thickness of 30 mils chosen for its low 
+losses at high frequency. Since any design using 
+the EPC8002 devices would need this taper to 
+connect, all subsequent data will be given up 
+to the reference planes as shown in Figure 17.
+The EPC8002 was mounted to an RF test fixture 
+shown in Figure 18 where the design made use 
+of 50 Ω micro-strip transmission lines to connect 
+the gate and drain to the RF connectors, made by 
+South West Microwave SMA [19]. The gate and 
+drain bias was then supplied using bias Tee’s from 
+Aeroflex [20] chosen for their pulse capability 
+rating. A heatsink was added to the top side 
+of the device with Wakefield thermal interface 
+material [21] to provide additional cooling to 
+the FET. Since the EPC8002 FET is in a chipscale 
+format and has limited thermal capability, 
+adding a heatsink was required. However, RF 
+bias conditions would still exceed the thermal 
+capability limits of the FET, and as such, testing 
+was conducted in pulsing mode with 220 µs on-
+time and repetition rate of 10 Hz. This effectively 
+reduced the average power dissipation to below 
+500 mW and further provided sufficient time for 
+the instruments to capture the data.
+Figure 16: Rising edge switch node voltage waveforms of the EPC8004 (blue) 
+and EPC2014 (black) based wireless converters.
+Figure 17: EPC8002 PCB design with tapers to connect the gate and drain circuits.
+Figure 18: Photograph of the small signal RF test fixture for the EPC8002 
+(with the heatsink mounted shown in right image).
+22 V 
+dv/dt = 
+11.8 V/ns 
+dv/dt = 
+2.4 V/ns 
+VDS_EPC8004 
+VDS_EPC2014 
+Gate Circuit
+Reference Plane  
+Drain Circuit
+Reference Plane  Device
+Outline 
+914 
+1621 
+1621 
+149 
+1000 
+271 
+271 
+All Dimensions in µm  914 355 
+D.U.T. 
+(e.g. EPC2012) 
+SMA
+Connector
+Gate
+Connection
+(DC & AC) 
+SMA
+Connector
+Drain
+Connection
+(DC & AC) 
+Thermal Sensor 
+Thermal Sensor 
+Connection 
+50 /uni03A9 Micro-Strip 
+Heat-Sink 
+Heat-Sink 
+Mounting Shim 
+
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    6
+A special controller was developed to control the 
+gate voltage during the on time of the pulse that 
+measured the drain current and regulated the gate 
+voltage to maintain the drain current to a set value. 
+A block diagram of the pulse controller is shown 
+in Figure 19. The custom controller was required to 
+maintain stability of the device during the on-time 
+and ensure a slow enough turn off as to not allow 
+the drain current to generate a voltage overshoot 
+in the bias Tee inductor, since that inductor is 
+unclamped. The controller would further ensure 
+that the gate voltage would never exceed 5 V.
+Prior to the S-parameter measurement of the DUT, 
+the VNA must be calibrated. The Thru-Reflect-Line 
+(TRL) [23] method was utilized for calibration. The 
+calibration process followed is well documented 
+and similar to that described in [23, 24]. For 
+calibration purposes EPC also developed a set of 
+calibration standards based on the RF test fixture 
+design and were used prior to testing to calibrate 
+the VNA.
+Figure 20 presents the gate (S11) and drain (S22) 
+reflection results on the Smith chart for the 
+frequency range 200 MHz through 3 GHz and  
+VDSQ = 30 V, I DQ = 200 mA bias. The results clearly 
+show very stable performance over the entire 
+frequency range.
+Figure 21 shows the maximum available gain 
+plot over the frequency range tested, and for the 
+same bias conditions as the Smith plot. The plot 
+shows that the EPC8002 FET has very good gain 
+over the entire frequency range. Also shown in 
+Figure 21 are the stability markers, and it can be 
+seen that all the markers show conditional stability 
+requirements due to the high gain of the EPC8002. 
+Extra measures are required to design an amplifier 
+using the EPC8002 for unconditional stability.
+Summary
+In this application note the new 3rd Generation 
+EPC8000 series eGaN FETs have been introduced. 
+In addition to the advancements that existing 
+GaN transistors offer, these third generation 
+devices have several new features that further 
+enable designers to take full advantage of the 
+high performance these FETs offer. These features 
+include a reduction in Q GD thereby reducing 
+voltage transient switching losses, improved 
+Miller ratio providing high dv/dt immunity, low 
+inductance pads for improved connection to both 
+gate and drain circuits, orthogonal current flow 
+between the gate and drain circuits for enhanced 
+CSI reduction, and a separate gate return 
+connection also for enhanced CSI reduction.
+Figure 19: Basic test fixture schematic for pulsed small signal RF S-parameter measurement.
+Figure 20: S-parameter plot of the EPC8002 in the frequency range 200 MHz through 3 GHz.
+Figure 21: Max. Gain plot for the EPC8002 together with the stability markers
+D.U.T. 
+Drain Bias
+Current  
+Drain Bias
+Voltage  
+ 
+ 
+To VNA
+Channel 2
+To VNA
+Channel 1
+Gate
+Bias 
+Voltage
+Drain
+Bias 
+Bias
+Tee 
+Bias
+Tee 
+ 
+ 
+RF Fixture Board  
+V
+PI Controller
++
+–
+Scalable
+Gating Pulse  
+ 
++
+–
+Isolation
+Ampli/f_ier  
+-0.2
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.6
+1.8
+2
+21.2 dB 
+6.9 dB 10.9 dB 
+8.7 dB 
+-70
+-60
+-50
+-40
+-30
+-20
+-10
+0
+10
+20
+30
+40
+Amplitude (dB)
+100 1000
+Frequency (MHz)
+VDSQ = 30 V
+IDQ     = 200 mA
+Gmax
+| ∆ | (<1)
+B1 (>0)
+K (>1)
+3 GHz 
+200 MHz 
+V DSQ = 30 V 
+I DQ  = 200 mA  S11 – Gate Re/f_lection
+S22 – Drain Re/f_lection
+EPC8002
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN015 eGaN® FETs for Multi-MHz Applications
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2020   | |    7
+References
+[1]  M. Pavier, A. Woodworth, A. Sawle, R. Monteiro, C. Blake, and J. Chiu, “Understanding the effect of power MOSFET package parasitic on VRM circuit efficiency at frequencies 
+above 1 MHz, ” in Proc. PCIM Eur., May 2003, pp. 279–284.
+[2] D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit Performance in a High Frequency Gallium Nitride Based Point of Load Converter, ” Applied Power 
+Electronics Conference,  APEC 2013, pp.649-655, 16-21 March 2013.
+[3] J.T. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 8: Envelope Tracking, ” Power electronics magazine, April 2012, http://powerelectronics.com/gan-transistors/egan-fet-
+silicon-power-shoot-out-volume-8-envelope-tracking
+[4] J. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 11: Optimizing FET On-Resistance” , Power Electronics Technology, Oct. 2012, http://powerelectronics.com/discrete-
+semis/gan_transistors/egan-fet-silicon-power-shoot-out-volume-11-optimizing-fet-on-resistance-1001/ 
+[5] EPC8005 datasheet, http://www.epc-co.com/epc/Products/eGaNFETs/EPC8005.aspx
+[6] Alex Q. Huang, “New Unipolor Switching Power Device Figures of Merit, ” IEEE Electron Device Lett., vol. 25, pp. 298-301, 2004.
+[7] Yucheng Ying, “Device selection criteria----based on loss modeling and Figure of Merit” , Thesis of Master of Science in Electrical Engineering of Virginia Tech, 2008.
+[8] LM5113TM half bridge driver, http://www.ti.com/product/lm5113 
+[9] D. Čučak, M. Vasić, O. García, J. A. Oliver, P . Alou, J. A. Cobos et al, “Application of eGaN FETs for highly efficient Radio Frequency Power Amplifier, ” Conference on Integrated 
+Power Electronics Systems, CIPS 2012, paper P22, March 2012.
+[10] M. Norris and D. Maksimovic, 10 MHz Large Signal Bandwidth, 95% Efficient Power Supply for 3G-4G Cell Phone Base Stations, ” Applied Power Electronics Conference, APEC 
+2012, pp. 7-13, Feb. 2012.
+[11] M. A. De Rooij and J. T. Strydom, “eGaN® FETs in Low Power Wireless Energy Converters” , Electro-Chemical Society transactions on GaN Power Transistors and Converters, 2013, 
+Vol. 50, No. 3, pp 377 - 388
+[12] M. de Rooij, J. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 9: Low Power Wireless Energy Converters” , Power Electronics Technology, June. 2012, 
+http://powerelectronics.com/discrete-power-semis/egan-fet-silicon-shoot-out-vol-9-wireless-power-converters
+[13] EPC2014 datasheet, http://www.epc-co.com/epc/Products/eGaNFETs/EPC2014.aspx
+[14] http://en.wikipedia.org/wiki/ISM_band
+[15] Kalyan Siddabattula, “Wireless Power System Design Component And Magnetics Selection” , Texas Instruments presentation on wireless technology, http://e2e.ti.com/support/
+power_management/wireless_power/m/mediagallery/526153.aspx
+[16] EPC8004 datasheet, www.epc-co.com/epc/Products/eGaNFETs/EPC8004.aspx 
+[17] M. de Rooij, J. T. Strydom, “The eGaN® FET- Silicon Power Shoot-Out Vol. 14: Part 1: eGaN FET small signal RF Performance” , Power Electronics Technology, June 2013
+[18] Rogers 4350 material specifications, www.rogerscorp.com 
+[19] SMA connector End Launch 292-05A-5, www.southwestmicrowave.com 
+[20] Bias Tee 8860SFM2-12, www.aeroflex.com 
+[21] Wakefield Engineering thermal interface material P/N 173-7-1212A, http://www.wakefield.com
+[22]  EPC8002 datasheet, www.epc-co.com/epc/Products/eGaNFETs/EPC8002.aspx
+[23] Engen, G.F., Hoer C.A., “Thru-Reflect-Line: An Improved Technique for Calibrating the Dual Six-Port Automatic Network Analyzer, ” IEEE Trans. Microwave Theory and Techniques, 
+December 1979.
+[24] Agilent Network Analysis Applying the 8510 TRL Calibration for Non-Coaxial Measurements Product Note 8510-8A
+[25] J. M. Rollett, “Stability and Power-Gain Invariants of Linear Twoports” , IRE Transactions on Circuit Theory, Vol. 9, Issue 1, March 1962, pp 29 – 32
+[26] S. J. Orfanidis, “Electromagnetic Waves and Antennas” , Chapter 13, http://www.ece.rutgers.edu/~orfanidi/ewa/ 
+[27] J. Fleury, O. Bernard,  “Designing and Characterizing TRL Fixture Calibration Standards for Device Modeling” , Applied Microwave & Wireless Technical Note 13, 2001, ISSN 1075-
+0207, pg 26 - 55
+[28] http://en.wikipedia.org/wiki/Electronic_amplifier
+[29] R. C. Hejhall, “RF Small Signal Design Using Two-Port Parameters” , Motorola application note AN215A, 1993.
+[30] www.microwaves101.com 
+[31] Ken Payne, “Practical RF Amplifier Design Using the Available Gain Procedure and the Advanced Design System EM/Circuit Co-Simulation Capability” , Agilent Technologies 
+White Paper, 2008, www.agilent.com
+[32] G. Gonzales, “Microwave Transistor Amplifiers” , Second Edition 1997, Prentice Hall ISBN 0-13-254335-4
+[33] D. M. Pozar, “Microwave Engineering” , Third Edition 2005, J. Wiley ISBN 0-471-44878-8
+[34] www.rfcafe.com
+[35]  A. Lidow, J. Strydom, M. de Rooij, Y. Ma, “GaN Transistors for Efficient Power Conversion” , First Edition, ISBN 978-0-615-56925-3
+[36] ATS-54150K-C2-R0 datasheet, Advanced Thermal Solutions, www.qats.com
+These new FETs exhibit very high speed perfor-
+mance as demonstrated in a hard switching buck 
+converter operating at 10 MHz, and a wireless 
+power transfer system operating at 6.78 MHz where 
+switching voltage transients were measured in the 
+sub nano-second range.
+Even though the EPC8000 family was designed as a 
+switching FET, they also exhibited very good small 
+signal RF performance with high gain well into 
+the low GHz range. To assist designers in further 
+adopting eGaN FETs into RF applications, a refer-
+ence plane design was provided.

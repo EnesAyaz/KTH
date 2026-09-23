@@ -1,0 +1,542 @@
+
+=== PAGE 1 ===
+WHITE PAPER: WP010 Optimizing PCB Layout 
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    1
+Optimizing PCB Layout 
+EFFICIENT POWER CONVERSION
+INTRODUCTION
+eGaN FETs are available in a Wafer Level Chip-Scale Package (WLCSP) with ter-
+minals in a Land Grid Array (LGA) format. Some of these devices do not offer a 
+separate gate-return source pin, but rather a number of very low inductance 
+LGA solder bars as shown in figure 1. These parts can be treated in the same 
+way as one provided with a dedicated gate return pin or bar, by allocating the 
+source pads closest to the gate to act as the “star” connection point for both 
+the gate loop and power loop. The layout of the gate and power loops are 
+then separated by having the currents flow in opposite or orthogonal direc-
+tions as shown in figure 1.
+By interleaving the drain and source terminals on one side of the device, a 
+number of small loops with opposing currents are generated that will de -
+crease the overall inductance through magnetic field self-cancellation.  
+This is not only true for the PCB traces shown in figure 2(a), but also for the ver-
+tical LGA solder bars and the interlayer connection vias shown in figure 2(b). 
+With multiple small magnetic field cancelling loops formed, the total magnet-
+ic energy, and therefore inductance, is significantly reduced. A further reduc-
+tion in partial loop inductance is possible by bringing both drain and source 
+currents out on both sides of the device from the centerline and duplicating 
+the magnetic field cancellation effect. This works by reducing the current in 
+each conductor, thus further reducing the energy stored, and the shorter cur-
+rent path yields a lower inductance.
+David Reusch, Ph.D., Director, Applications, Efficient Power Conversion Corporation
+In a previously published article, [1], the impact of parasitics on 
+performance was discussed. The eGaN® FET outperformed lower 
+voltage rated MOSFETs by combining low figure of merit, low 
+package parasitics, and low loop inductance. For the eGaN FET, 
+the PCB layout dominated the parasitics when employing a con -
+ventional PCB Layout. This white paper will explore the optimi -
+zation of PCB layout for an eGaN FET based point of load (POL) 
+buck converter, comparing the conventional designs and propos-
+ing a new optimal layout to further reduce parasitics. The optimal 
+layout will provide improved efficiency, faster switching speeds, 
+and reduced device voltage overshoot compared to conventional 
+designs. The eGaN FET based POL buck converters operate at a 
+switching frequency of 1 MHz, an input voltage range of 12-28 V, 
+an output voltage of 1.2 V, and an output current up to 20 A. 
+Gate
+Return
+Gate
+Drain
+Source
+GaN
+Transistor  
+ 
+Drain Vias 
+Source 
+Copper Traces 
+PCB 
+(a)
+(b)
+GaN Transistor 
+Figure 2: LGA GaN transistor mounted on a PCB showing 
+alternating current flow in red (a) top view (b) side view.
+Figure 1: GaN transistor in an LGA format showing the direction of 
+device current flow that minimizes common source inductance.
+
+=== PAGE 2 ===
+WHITE PAPER: WP010
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    2
+Optimizing PCB Layout 
+Figure 3: (a) Impact of high frequency loop inductance on efficiency for 
+designs with similar common source inductance 
+(b) Switching node waveforms of eGaN FET designs with LLOOP ≈ 1.6 nH and 
+(c) LLOOP ≈ 0.4 nH (V IN = 12 V, VOUT = 1.2 V, fSW = 1 MHz, LBUCK = 150 nH, 
+eGaN FETS: Top Switch: EPC2015 Synchronous Rectifier: EPC2015, MOSFETs: 
+Top Switch: BSZ097N04LSG Synchronous Rectifier: BSZ040N04LSG)
+83 
+84 
+85 
+86 
+87 
+88 
+89 
+90 
+91 
+2 4 6 8 10 12 14 16 18 20 22 24 
+LLoop
+1.0nH 
+L Loop
+1.6nH 
+L Loop
+0.4nH 
+L Loop
+2.9nH 
+40V MOSFET 
+L Loop 3nH 
+Eﬃciency (%) 
+Figure 1: 
+(a) Impact of high frequency loop inductance on eﬃciency for designs with similar common source inductance 
+(b) Switching node waveforms of eGaN FET designs with LLOOP≈1.6 nH and 
+(c) LLOOP≈0.4 nH (VIN=12 V, VOUT=1.2 V, FSW=1 MHz, LBUCK=150 nH, eGaN FETS: Top Switch: EPC2015 
+Synchronous Recti/f_ier: EPC2015, MOSFETs: Top Switch: BSZ097N04LSG Synchronous Recti/f_ier: BSZ040N04LSG)
+(b)
+(a)
+(c)
+Output Current (IOUT)
+100% Overshoot
+30% Overshoot
+3 V/Div3 V/Div
+eGaN FET
+MOSFET
+With the significant reduction in package parasit -
+ics provided by the eGaN FET, the common source 
+inductance is minimized and is no longer the major 
+parasitic loss contributor. The high frequency loop 
+inductance, controlled by PCB layout becomes 
+the major contributor to loss, making layout of the 
+eGaN FETs critical to high frequency performance. 
+To verify this, different layouts with similar common 
+source inductance and different high frequency 
+loop inductances are compared and methods to re-
+duce loop inductance by PCB layout are proposed. 
+From the efficiency curves obtained from experi -
+mental prototypes, shown in figure 3a, the impact 
+of layout on efficiency can be seen for the eGaN FET 
+at 1 MHz. An increase in the high frequency loop 
+inductance from around 0.4 nH to 2.9 nH results in 
+additional loss, decreasing efficiency by over 4%. 
+Another disadvantage of high frequency loop in -
+ductance is that voltage overshoot increases with 
+loop inductance. Decreasing the high frequency 
+loop inductance results in lower voltage overshoot, 
+increased input voltage capability, and reduced 
+EMI. Figures 3b and 3c show the switching node 
+waveforms for designs with a high frequency loop 
+inductance of 1.6 nH and 0.4 nH; the voltage over-
+shoot is reduced from 100% of the input voltage to 
+30%, respectively. 
+COMPARISON OF CONVENTIONAL  
+PCB LAYOUTS FOR eGaN FETS  
+LATERAL POWER LOOP 
+The first conventional PCB layout places the input 
+capacitors and devices on the same side of the PCB 
+in close proximity to minimize the size of the high 
+frequency loop [2]. The high frequency loop for this 
+design is contained on the same side of the PCB 
+and is considered a lateral power loop as a result 
+of the power loop flowing on the board plane on 
+a single layer. An eGaN FET design arranged in a 
+lateral power loop was created and the part place-
+ment and high frequency power loop are shown in 
+figure 4 with the high frequency loop highlighted 
+in red. For this design, the inductor connection is 
+made through internal layers using vias in between 
+the top switch and synchronous rectifier. The driver 
+is located in close proximity to the eGaN FETs to 
+minimize common source inductance and keep 
+the common source inductance constant between 
+designs. This allows a comparison of only the influ-
+ence of high frequency loop inductance.
+Figure 2: Conventional lateral power loop with eGaN FETs (a) Top view (b) Side view
+(a) (b)
+Figure 4: Conventional lateral power loop with eGaN FETs (a) Top view (b) Side view
+
+=== PAGE 3 ===
+WHITE PAPER: WP010
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    3
+Optimizing PCB Layout 
+While minimizing the physical size of the loop is im-
+portant to reduce parasitic inductance, the design 
+of the inner layers is also critical. For the lateral pow-
+er loop design the first inner layer serves as a “shield 
+layer” [3]. This layer has a critical role to shield the 
+circuit from the fields generated by the high fre -
+quency power loop. The power loop generates a 
+magnetic field that induces a current, opposite in 
+direction to the power loop, inside the shield layer. 
+The current in the shield layer generates a mag -
+netic field to counteract the original power loop’s 
+magnetic field. The end result is a cancellation of 
+magnetic fields that translates into a reduction in 
+parasitic inductance at the cost of increased eddy 
+current losses within the shield. Having a complete 
+shield plane in close proximity to the power loop 
+provides the best performance.
+For the lateral power loop design, the high frequen-
+cy loop inductance should show little dependence 
+on board thickness as the power loop is contained 
+on the top layer. The lateral design should be very 
+dependent on the distance from the power loop to 
+the shield layer which is contained on the first inner 
+layer [4]. To minimize loop inductance in the lateral 
+power loop, the distance from the power loop and 
+shield layer must be minimized.
+VERTICAL POWER LOOP
+The second conventional PCB layout places the in-
+put capacitors and devices on opposite sides of the 
+PCB, with the capacitors generally being located 
+directly underneath the devices to minimize the 
+physical loop size (figure 5). This layout is consid -
+ered a vertical power loop because the power loop 
+travels perpendicular to the board plane with vias 
+connecting the power loop through the board. 
+An eGaN FET design arranged in a vertical power 
+loop was created and the part placement and 
+high frequency power loop are shown in figure 5 
+with the high frequency loop highlighted in red.  
+Again, space is left between the devices to allow the 
+inductor connection.
+For the vertical power loop design, there is no shield 
+layer due to the vertical structure of the power loop. 
+As opposed to the use of a shield plane, the verti -
+cal power loop uses a self-cancellation method to 
+reduce inductance. For the PCB layout, the board 
+thickness is generally much thinner than the hori -
+zontal length of the traces on the top and bottom 
+side of the board. As the thickness of the board 
+decreases, the area of the loop shrinks significantly 
+(c)
+(a) (b)
+Figure 5: Conventional vertical power loop with eGaN FETs (a) Top view (b) Bottom view (c) Side view
+when compared to the lateral power loop, and the 
+current flowing in opposing directions on the top 
+and bottom layers begins to provide field self-can-
+cellation, further reducing parasitic inductance. 
+In the vertical power loop design, the loop induc-
+tance is heavily dependent on the board thickness 
+as the power loop is contained on the top and bot-
+tom layers of the PCB. Without the requirement of 
+a shield layer, the distance between the first inner 
+layer and the power loop has little impact on the 
+inductance. To minimize loop inductance in the 
+vertical power loop, the board thickness must be 
+minimized.
+OPTIMAL eGaN FET LAYOUT FOR REDUCED 
+PARASITICS
+To enable the high switching speed available 
+from the superior FOM, eGaN FETs were devel -
+oped in advanced land grid array (LGA) packages 
+that not only have low internal inductance, but 
+enable user to design ultra-low inductance into 
+their board. To provide the benefits of reduced 
+loop size, magnetic field self-cancellation, consis-
+tent inductance independent of board thickness, 
+a single sided PCB design, and high efficiency for 
+a multi-layer structure, an improved layout is pro-
+posed for eGaN FETs. The design utilizes the first 
+inner layer, shown in figure 6b, as a power loop 
+return path. This return path is located directly 
+underneath the top layer’s power loop, figure 6a, 
+allowing for the smallest physical loop size com -
+bined with field self-cancellation. The side view 
+(figure 6c) illustrates the concept of creating a low 
+profile self-cancelling loop in a multilayer PCB.  
+The characteristics of the conventional and pro -
+posed optimal designs are compared in table I. 
+The improved layout places the input capacitors in 
+close proximity to the top device, with the positive 
+input voltage terminals located next to the drain 
+connections of the top eGaN FET. The eGaN FETs 
+are located in the same positions as the lateral and 
+vertical power loop cases. Located between the 
+two eGaN FETs is a series of interleaved switch -
+ing node and ground vias arranged to match the 
+LGA fingers of the synchronous rectifier eGaN FET. 
+Table I: Characteristics of conventional and optimal PCB layout power loop designs
+Lateral loop Vertical loop Optimal loop
+ 
+Single-sided PCB Capabiity Yes No  Yes 
+Field Self-cancellation No Yes Yes
+Inductance independent of board thickness Yes No  Yes 
+Shield layer required Yes No No
+
+=== PAGE 4 ===
+WHITE PAPER: WP010
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    4
+Optimizing PCB Layout 
+The interleaved switching node and ground vias are duplicated on the 
+bottom side of the synchronous rectifier. These interleaved vias provide 
+three advantages: 
+(1) The via set located in between the two eGaN FETs provides a reduced 
+length high frequency loop inductance path leading to lower parasitic 
+inductance. 
+(2) The via set located beneath the synchronous rectifier eGaN FET pro-
+vides additional vias for reduced resistance during the synchronous 
+rectifier eGaN FET freewheeling period, reducing conduction losses. 
+(3) The interleaving of the via sets with current flowing in opposing direc-
+tion allows for reduced eddy and proximity effects, reducing AC con-
+duction losses.
+EXPERIMENTAL RESULTS 
+To compare the performance of the proposed optimal power loop with 
+conventional lateral and vertical designs for a wide range of applications, 
+four separate board builds were created. The designs varied the overall 
+thickness of the board and the distance between the top layer and the first 
+inner layer in the board (inner layer distance). The part layouts remained 
+unchanged (shown in figures 4, 5, and 6), and all designs were comprised 
+of four layers with two ounce copper thickness.  
+The values of the high frequency loop inductance for varying board thick-
+nesses and inner layer distance were simulated and the results are pre -
+sented in figure 7b. From the data it can be seen that for the lateral power 
+loop the board thickness has little impact on the high frequency loop in-
+ductance while the inner layer distance (the distance from the power loop 
+to the shield layer) significantly impacts the inductance. For the vertical 
+power loop, the inner layer distance has very little impact on the induc -
+tance of the design, while the board thickness significantly impacts the 
+inductance by as much as 80% when the board thickness is doubled from 
+31 to 62 mils. 
+For the proposed optimal layout, the design shares the traits of the lat -
+eral power loop by showing little dependence on board thickness and a 
+strong dependence on inner layer distance. This design provides a signifi-
+cant reduction in loop inductance from the removal of the shield layer and 
+reduced physical size of the power loop; traits similar to the vertical power 
+loop design. Combining the strengths of both conventional designs, and 
+limiting the weaknesses, the proposed design can provide a reduction in 
+inductance on the order of 65% compared to the best conventional lateral 
+or vertical power loop.
+The power loss for the three different loop layouts, constructed with dif-
+ferent board thicknesses and inner layer distances is shown in figure 8. 
+From this data it can be seen that for similar parasitic inductances the 
+power loss of the lateral loop is higher than the vertical and optimal loop. 
+The cause of the increased loss in the lateral power loop can be attributed 
+to the additional loss in the shield layer, which is not required in the verti-
+cal or proposed optimal power loop. The experimental hardware verifies 
+the predicted trend of increased loop inductance and higher power loss. 
+Figure 4: Proposed optimal power loop with eGaN FETs (a) Top view (b) Top view of inner layer 1 (c) Side view
+(c)
+(a) (b)
+Figure 6: Proposed optimal power loop with eGaN FETs  
+(a) Top view  
+(b) Top view of inner layer 1 (c) Side view
+0.2 
+0.4 
+0.6 
+0.8 
+1 
+1.2 
+1.4 
+1.6 
+1.8 
+2 
+2.2 
+20 30 40 50 60 70 
+Figure 5:  
+(a) PCB cross section drawing of board thickness and inner layer distance for experimental designs 
+(b) Simulated high frequency loop inductance values for lateral, vertical, and optimal power 
+loops with diﬀerent board thickness and inner layer distance
+(a)
+Board
+Thickness
+Inner Layer
+Distance
+Top Layer
+Inner Layer 1
+Inner Layer 2
+Bottom Layer
+(b)
+Loop Inductance (nH) 
+Board Thickness (mil) 
+Inner Layer Distance 
+4 mils 
+12 mils 
+26 mils 
+Optimal Power Loop 
+Vertical Power 
+Loop 
+Lateral 
+Power 
+Loop 
+Figure 7: (a) PCB cross section drawing of board  
+thickness and inner layer distance for experimental designs 
+(b) Simulated high frequency loop inductance values for lateral, vertical, and 
+optimal power loops with different board thickness and inner layer distance
+
+=== PAGE 5 ===
+WHITE PAPER: WP010
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    5
+Optimizing PCB Layout 
+Shown in figure 9 are the efficiency results of the three proposed designs com-
+pared to a silicon implementation utilizing a vertical power loop with the small-
+est commercial package, a 3x3mm TSDSON-8, to minimize the power loop.  
+For the Si MOSFET design, the high frequency loop inductance was measured 
+to be around 2 nH, compared to 1 nH for a similar power loop using eGaN FETs. 
+This is due to the large packaging inductance of the Si MOSFET dominating the 
+loop design. As a result of the superior FOM and packaging of the eGaN FETs, 
+all of the power loop structures outperform the Si MOSFET benchmark design. 
+With the optimal power loop, the efficiency is significantly improved for the 
+eGaN FETs. A 3% full load efficiency improvement is achieved when compared 
+to the Si MOSFET.  
+For the different eGaN FET designs, the optimal power loop provides a 0.8% and 
+1% full load efficiency improvement over the vertical and lateral power loops, 
+respectively. For all of the design tests, the optimal layout provides the highest 
+efficiency and lowest device voltage overshoot.   
+The switching waveforms for the eGaN FET conventional and optimal lay -
+outs and Si MOSFET benchmark are shown in figure 10. Both eGaN FET  
+designs offer significant switching speed gains when compared to the Si 
+MOSFET benchmark. For the eGaN FET with the conventional vertical layout, 
+the high switching speed combined with loop inductance induces a large 
+voltage spike. The optimal layout eGaN FET offers a 500% increase in switch -
+ing speed with a 40% reduction in voltage overshoot when compared to the 
+3 
+3.1 
+3.2 
+3.3 
+3.4 
+3.5 
+3.6 
+3.7 
+3.8 
+3.9 
+4 
+0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 
+Power Loss (W) 
+High Frequency Loop Inductance (LLOOP) 
+Figure 6: Experimental power loss plot for lateral, vertical, and optimal power loop designs.  
+(VIN=12 V, VOUT=1.2 V, IOUT=20 A, FSW=1 MHz, LBUCK =300 nH, 
+Top Switch: EPC2015 Synchronous Recti/f_ier: EPC2015)
+Vertical Power 
+Loop 
+Lateral Power Loop 
+Optimal Power 
+Loop 
+Figure 8: Experimental power loss plot for  
+lateral, vertical, and optimal power loop designs. 
+(VIN = 12 V, VOUT = 1.2 V, IOUT = 20 A, FSW = 1 MHz, LBUCK  = 300 nH, 
+Top Switch: EPC2015 Synchronous Rectifier: EPC2015)
+83 
+84 
+85 
+86 
+87 
+88 
+89 
+90 
+91 
+2 4 6 8 10 12 14 16 18 20 22 24 26 
+40 V MOSFET 
+Vertical Design 
+ 
+Figure 7:  Eﬃciency comparisons for diﬀerent loop designs 
+(VIN=12 V, VOUT=1.2 V, FSW=1 MHz, LBUCK =300 nH, Board Thickness=31 mils, 
+Inner Layer Distance=4 mils, eGaN FETs: Top Switch: EPC2015, Synchronous Recti/f_ier: EPC2015, 
+MOSFETs: Top Switch: BSZ097N04LSG, Synchronous Recti/f_ier: BSZ040N04LSG)Eﬃciency (%)
+Output Current (IOUT)
+Vertical 
+Design 
+Lateral 
+Design 
+Optimal 
+Design 
+40 V  
+eGaN FET
+Figure 9: Efficiency comparisons for different loop designs 
+(VIN = 12 V, VOUT = 1.2 V, fSW = 1 MHz, LBUCK  = 300 nH, Board Thickness = 31 mils, 
+Inner Layer Distance = 4 mils, eGaN FETs: Top Switch: EPC2015,  
+Synchronous Rectifier: EPC2015, MOSFETs: Top Switch: BSZ097N04LSG, 
+Synchronous Rectifier: BSZ040N04LSG)
+3 V/Div 
+Figure 8: Switching node waveforms of optimal eGaN FET, conventional eGaN FET, and 
+MOSFET designs at VIN=12 V (VOUT=1.2 V, IOUT=20 A, FSW=1 MHz, LBUCK =300 nH, 
+40 V eGaN FETs: Top Switch: EPC2015, Synchronous Recti/f_ier: EPC2015, 
+MOSFETs: Top Switch: BSZ097N04LSG, Synchronous Recti/f_ier: BSZ040N04LSG)
+eGaN FET Conventional Layout
+eGaN FET
+Optimal
+Layout
+Si MOSFET
+Figure 10: Switching node waveforms of  optimal eGaN FET, 
+conventional eGaN FET, and  MOSFET designs at 
+VIN = 12 V (VOUT = 1.2 V, IOUT = 20 A, fSW = 1 MHz, LBUCK  = 300 nH, 
+40 V eGaN FETs: Top Switch: EPC2015, Synchronous Rectifier: EPC2015, 
+MOSFETs: Top Switch: BSZ097N04LSG, Synchronous Rectifier: BSZ040N04LSG)
+Figure 9:  Experimental prototype for optimal design 
+(Top Switch: EPC2015, Synchronous Recti/f_ier: EPC2015, Driver: LM5113)
+Figure 11: Experimental prototype for optimal design 
+(Top Switch: EPC2015, Synchronous Rectifier: EPC2015, Driver: LM5113)
+
+=== PAGE 6 ===
+WHITE PAPER: WP010
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    6
+Optimizing PCB Layout 
+40 V Si MOSFET benchmark. For the eGaN FET with low package parasitic  
+inductance, the layout is critical to switching at high speeds, limiting de -
+vice overshoot, and improving efficiency. 
+With the reduced overshoot and high efficiency achievable with the optimal 
+eGaN FET layout, the converter has the ability to handle much higher input 
+voltages with low voltage rated devices. The converter was operated at input 
+voltages of 12 V, 19 V, 24 V, and 28 V, and the efficiency curves are shown in 
+figure 10. Due to the voltage overshoot in the MOSFET design, its operation 
+was limited to 12 V, 19 V, and 24 V.
+The introduction of high performance eGaN FETs offers the potential to 
+switch at higher frequencies and efficiency than possible with traditional 
+Si MOSFET technology. Combined with improved figures of merit and low 
+parasitic packaging, eGaN FETs enable extremely low high frequency loop 
+inductance layout to fully utilize the device’s capability. To evaluate the im-
+pact of high frequency loop inductance on performance, multiple designs of 
+conventional lateral and vertical power loops with the same minimal com-
+mon source inductance were created and compared. 
+To overcome the limitations of the conventional PCB layouts an optimal  
+layout is proposed to achieve the best performance with eGaN FETs.  
+Through the use of an optimal layout approach, the benefits of eGaN FET  
+technology are further enhanced, providing additional efficiency gains and 
+higher voltage operation capability. 
+References
+[1]  D. Reusch, “eGaN-Silicon Power Shoot-Out Vol. 13, Part 1: Impact of Parasitics on Performance” Power Electronics Technology, March 2013. 
+[2] Application Report SLPA010 – “Ringing Reduction Techniques for NexFET High Performance MOSFETs,” November 2011.
+[3]  Michele Lim, “Low Temperature Co-fired Ceramics Technology for Power Magnetics Integration”, Ph.D. Dissertation, Virginia Tech, 2008. 
+[4]  D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit Performance in a High Frequency Gallium Nitride Based Point of Load Converter,” APEC 2013. March 2013.
+68 
+70 
+72 
+74 
+76 
+78 
+80 
+82 
+84 
+86 
+88 
+90 
+92 
+2 4 6 8 10 12 14 16 18 20 22 
+Eﬃciency (%)
+Output Current (IOUT)
+(a)
+(b)
+12 V
+19 V
+24 V
+28 V
+eGaN FET
+MOSFET
+40 V
+VIN = 24 V
+eGaN FET
+Optimal Loop 
+ 
+ 
+Vertical Loop Si MOSFET 
+6 V/Div 
+Figure 12: (a) Efficiency comparison of eGaN FET optimal layout  
+and MOSFET at varying input voltages 
+(b) Switching node waveforms at  
+VIN = 24 V and IOUT = 20 A (VOUT  = 1.2 V, fSW = 1 MHz, LBUCK  = 300 nH, 
+eGaN FETs: Top Switch: EPC2015, Synchronous Rectifier: EPC2015, 
+MOSFETs: Top Switch: BSZ097N04LSG, Synchronous Rectifier: BSZ040N04LSG)

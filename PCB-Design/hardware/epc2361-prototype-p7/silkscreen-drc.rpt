@@ -1,0 +1,16 @@
+** Drc report for C:\Github\KTH\PCB-Design\hardware\epc2361-prototype-p7\epc2361-prototype-p7.kicad_pcb **
+** Created on 2026-09-22 22:07:41 **
+
+** Found 2 DRC violations **
+[lib_footprint_mismatch]: Footprint 'Current_Link' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(55.0000 mm, 35.0000 mm): Footprint LK1
+[lib_footprint_mismatch]: Footprint 'Current_Link' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(73.0000 mm, 35.0000 mm): Footprint LK2
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

@@ -1,0 +1,276 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    1
+Hard Switching Losses Calculations
+EFFICIENT POWER CONVERSION
+Andrea Gorgerino, Director of Global Field Application Engineering
+Figure 1 - Hard switched half bridge
+Figure 2 - Turn on simplified waveform Figure 3 - Turn off simplified waveform
+This document intends to provide an easy implementation for switching loss calculations for hard-switching converters. These formulas are 
+well-known in the industry, but particular care has been taken to provide the best implementation considering the data normally provided 
+in power semiconductors datasheets. The formulas used are generic and can be applied to eMode Gan FETs as well as Si MOSFETs. We only 
+cover the losses linked to the transition events, since conduction losses are quite easy to calculate.
+The use of these formulas is intended to help design engineers in the component selection process and to compare different devices in 
+application conditions. This is why we limit the calculations to use data available commonly in Si MOSFETs and GaN FETs datasheets.
+This simplified approach is not suitable in most cases for an accurate prediction of system efficiency. More accurate mixed mode simulations 
+(Spice, Thermal Finite Element Analysis, etc..), and eventually the real world, should be used for that purpose.
+1.0 Assumptions
+With the goal of calculating losses for a general half-bridge configuration 
+shown in Figure 1, we break down the process in 4 steps.
+Firstly, overlap losses, where current and voltage are present simultaneously, 
+can be calculated from the simplified transition events shown in Figure 2 
+and Figure 3.
+Second, output capacitance losses are considered: the charging and 
+discharging of this capacitor generates losses in the resistance of the 
+current path.
+Third, reverse recovery losses are calculated in case when MOSFETs are 
+used (GaN FETs do not have these losses), including the resistive losses 
+associated with these currents.
+Lastly, gate drive losses are considered, even if most of them are dissipated 
+externally to the switch in the gate drive circuit. 
++
+Q1
+Q2
+L
+VDR
+VPL
+IL
+IDS
+Vth
+VDS  
+ttCR tVF
+VBUS
+VGS
+PON
+VDR
+VPL
+IL
+IDS
+Vth
+VDS
+ 
+ttCFtVR
+VBUS
+VGS
+PON
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    2
+The gate charge nomenclature shown in Figure 4 is utilized.
+Figure 4 - Gate charge nomenclature
+5
+4
+3
+2
+1
+0
+ VGS – Gate-to-Source Voltage (V)
+QG – Gate Charge (nC)
+0 1 2 3 4 5 6
+Datasheet Speciﬁcation
+∆ID = 16 A, ∆VDS = 50 V
+VPL
+VGS(TH)
+QGD
+QGS2
+QG
+QGS(TH)
+QGS
+2.0 Overlap Losses
+In the circuit analyzed (Figure 1), overlap losses take in place in switch Q1. Switch Q2 does not have overlap losses.
+2.1  Turn on Losses
+From Figure 2, these losses can be easily calculated based on the transition times.
+2.1.1  Current Rise Times
+The current rise time can be calculated based on the gate drive current IGC,on and the gate charge QGS2 needed to bring the gate voltage from 
+the threshold voltage to the Miller Plateau (see Figure 4), to be calculated in the specific turn on conditions:
+The gate charge calculation start with the QGS2,ds in the datasheet conditions:
+Where QGS,ds and Q GS,th,ds are either given in the datasheet tables or can be calculated from the gate charge curve in the figures section.  
+These are given at a specific current ID,specQg , and at 25°C.
+The QGS2 (I,TJ ) in the specific operating conditions can be linearly scaled from the value in the original conditions with the following formula 
+since both Vth (TJ )and Vpl (I,TJ )are changing:
+Eq. 1
+Eq. 2
+Eq. 3
+Eq. 4,
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    3
+Vth (TJ ) can be calculated from the Vth(TJ ) curve like the one in Figure 5. While the Miller plateau Vpl (I,TJ ) can be calculated by interpolating the 
+transfer curves like the ones in Figure 6.
+The gate drive current can be calculated by using the average voltage on the gate during this transition as such:
+Where VDR is the turn on gate drive voltage and R Gon is the total gate resistance in the turn on gate drive loop, typically the sum of the gate 
+driver pull-up resistance, the external turn on gate resistor and the internal device gate resistance.
+2.1.2  Voltage Fall Time
+The voltage fall time can be calculated with the assumption that the gate voltage stays fixed at VPl,Q1 (I,TJ ). Then the gate drive current needs 
+to charge the gate to drain capacitance:
+It is important to use the charge here as the capacitances of power devices are very non-linear. The charge can be calculated by integrating 
+the capacitance curve CRSS(v) like the ones in Figure 7:
+Normalized Threshold Voltage vs. Temperature
+Normalized Threshold Voltage
+1.4 
+1.3 
+1.2 
+1.1 
+1.0  
+0.9 
+0.8 
+0.7 
+0.6 
+0 25 50 75 100 125 150 
+  TJ  – Junction Temperature (°C) 
+ID = 5.5 mA
+  ID  – Drain Current (A)
+  VGS  – Gate-to-Source Voltage (V) 
+1.00.5 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+Typical Transfer Characteristics
+25˚C
+125˚C
+VDS = 3 V
+25˚C
+125˚C
+VDS = 3 V
+160
+140
+120
+100
+80
+60
+40
+20
+0
+Figure 5 - Vth vs. TJ for EPC2619 Figure 6 - Transfer curves for EPC2619
+,
+Eq. 5
+Eq. 6
+Eq. 71
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    4
+Where the curve in Figure 7 has been digitized in k points.
+The gate drive current IGC,vf,ON (I,TJ ) can be calculated by using the simple equation:
+Where VPl,Q1 (I,TJ ) and RGon are the ones from the previous current rise time calculations in 2.1.1.
+ Capacitance (pF)
+10000
+1000
+100
+10
+1
+0 25 50 75 100
+Typical Capacitance (Log Scale)
+  VDS  – Drain-to-Source Voltage (V) 
+COSS = CGD + CSD
+CISS = CGD + CGS
+CRSS = CGD
+Figure 7 - Capacitance curves from EPC2619
+Where VDR is the turn on gate drive voltage and R Gon is the total gate resistance in the turn on gate drive loop, typically the sum of the gate 
+driver pull-up resistance, the external turn on gate resistor and the internal device gate resistance.
+2.2  Turn Off Losses
+From Figure 3, these losses can be also calculated based on the transition times via the equation:
+2.2.1  Current Fall Time
+The current fall time can be calculated similarly to the current rise time in section 2.1.1, but in the turn off conditions (mainly turn off current).
+The calculation of QGS2 (I,TJ ) follows the same procedure as outline in section 2.1.1., but in the new turn off conditions.
+Then the gate drive current IGV,cf,Off (I,TJ ) can be calculated by using the average voltage on the gate during this transition as such:
+Assuming 0 V turn off, which is recommended for GaN FETs.  VPl,Q1 (I,TJ ) is the same one found during the QGS2 (I,TJ ) calculation, and RGoff is the 
+total gate resistance in the gate drive loop during turn off, typically the sum of the gate driver pull-down resistance, the external turn off gate 
+resistor (which can be different than the turn on one), and the internal device gate resistance.
+Eq. 8
+Eq. 9
+Eq. 10
+Eq. 11
+, ,
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    5
+2.2.2  Voltage rise time
+The voltage rise time can be calculated is a similar way to the voltage fall time in 2.1.2, with the assumption that the gate voltage stays fixed 
+at VPl,Q1 (I,TJ ). Then the gate drive current needs to charge the gate to drain capacitance:
+The QGD (V) calculation is the same as in section 1, while the gate drive current IGC,vr,OFF (I,TJ ) can be calculated by using the simple equation:
+Assuming 0 V turn off, which is recommended for GaN FETs. V Pl,Q1 (I,TJ ) is the same one found during the Q GS2 (I,TJ ) calculation in section 
+2.2.1, and RGoff is the total gate resistance in the gate drive loop during turn off, typically the sum of the gate driver pull-down resistance, the 
+external turn off gate resistor (which can be different than the turn on one), and the internal device gate resistance.
+,
+2.3  Summary of Overlap Losses Formulas
+ 
+, , , , 1
+2 , ,  
+1
+2
+,
+, , , ,  
+1
+2
+⎝
+⎜
+⎜
+⎜
+⎛
+,
+,
+2
+, ,
+⎠
+⎟
+⎟
+⎟
+⎞
+ 
+, , , , 1
+2 , ,
+1
+2
+,
+, , , ,
+1
+2 ⎜
+⎜
+⎜
+⎛
+,
+, , , , ⎟
+⎟
+⎟
+⎞
+ 
+3.0  Output capacitance losses
+The first issue to address is the non-linearity of the output capacitances of both Si MOSFETs and GaN FETs, which means the simple formula  
+E = 1/2 · C · V2 ) for a fixed capacitance cannot be used. The best approach for loss calculation is to integrate the capacitance curves from Figure 7:
+Eq. 12
+Eq. 13
+Eq. 14
+Eq. 15
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN030 Hard Switching Losses Calculations
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    6
+Since capacitances can store energy, a detailed analysis is needed to distinguish between energy storage and energy dissipation.  
+The following analysis is for the half-bridge converter from Figure 1. 
+First during the switch node falling transition (high side turn off), C OSS,Q1 is charged by the inductor current (E OSS,Q1), while C OSS,Q2 energy 
+(EOSS,Q2) is discharged and recovered to the load.
+Second, in the switch note rising transition (high side turn on), the energy stored in COSS,Q1 (EOSS,Q1) is dissipated in the channel of Q1. Moreover 
+COSS,Q2 is charged from the Vbus (energy that will be later recovered). In this situation the bus will provide the total energy Vbus ·  QOSS,Q2 (which 
+includes the energy stored in Q2, as well as the energy dissipated in the resistance of the charging path).
+Overall:
+In case of a symmetrical half-bridge, this can be simplified to
+Which are added to the high side Q1 overlap losses.
+4.0  Reverse Recovery Losses
+Reverse recovery losses are difficult to model and calculate, although they can be a significant contributor to losses for Si MOSFETs, while they 
+do not happen for GaN FETs.
+For Si MOSFETs we need to rely on the datasheet parameters which often specify Q RR in a single condition, not always relevant to the actual 
+application conditions.
+Reverse recovery happens during the switch node positive voltage transition, where QRR is provided to Q2 from Vbus.
+The overall losses can be calculated as:
+5.0  Gate Drive Losses
+The power losses associated with the gate charge can be calculated as:
+Where QG is given in the datasheet as defined in Figure 4. These losses are dissipated in the 3 resistors of the gate loop which are the pull-up/
+down resistance of the gate driver, the turn on/off gate resistors and the device internal resistor. Therefore, in most cases these losses happen 
+outside the device.
+Eq. 16
+Eq. 17
+Eq. 18
+Eq. 19
+Eq. 20

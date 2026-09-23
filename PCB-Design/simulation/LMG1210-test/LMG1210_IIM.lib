@@ -1,0 +1,5 @@
+* Local IIM wrapper, not a manufacturer symbol
+.include ../models/ti-lmg1210/LMG1210_LTspice.lib
+.subckt LMG1210_IIM VIN VDD HI LI VSS HB HS HO LO BST
+XCORE HB HO LI HS HS HS HS 0 VSS VIN LO VDD VDD VDD VSS VSS HI NC0 NC1 NC2 BST LMG1210
+.ends LMG1210_IIM

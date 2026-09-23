@@ -1,0 +1,250 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 025
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021   | |    1
+Introduction
+Conventional MOSFET analog controller IC’s are not fully compatible 
+with eGaN® FETs because of the specific driving needs. For example, 
+there is no over-voltage management for the bootstrap supply in the 
+event where the lower FET reverse conducts [1], and high negative 
+voltage spikes on the switch node during dead time can lead to 
+unpredictable timing behavior. As a result, digital controllers such as 
+DSP’s have been used for eGaN FET based designs but require additional 
+support IC’s such as a current sense amplifier, housekeeping power 
+supply, and eGaN FET compatible gate driver [2]. This approach adds to 
+the overall bill-of-material (BoM) and increases design complexity [3]. 
+Recently, the eco-system for GaN FETs, such as GaN compatible analog 
+controllers with integrated gate drivers, has evolved which drastically 
+simplify the design when using GaN FETs. For example, the LTC7890 
+which is used in this design, is a GaN compatible analog controller 
+that has integrated GaN drivers and no additional support IC’s are 
+required. This application note will cover the layout and thermal design 
+challenges. Finally, the performances are demonstrated by two design 
+examples: a 48 V-12 V 600 W 2-phase buck converter and a 24 V to  
+5 V/3.3 V, 2 MHz dual output buck converter.
+Example 1: A 600 W 2-phase buck converter
+ A. FET selection: asymmetric vs symmetric half bridge
+For this 48 V to 12 V 600 W application, two GaN FETs, the 100 V rated, 
+6 mΩ EPC2204 and the 100 V rated, 3.2 mΩ EPC2218 are considered. 
+We compared the projected FET losses and temperature in three 
+half bridge configurations as shown in Table 1. Since the bottom FET 
+conducts 75% of the time, at high output current, the conduction 
+loss in bottom FET become a dominant loss factor. The symmetrical 
+EPC2204 has the highest losses and temperatures because of the 
+higher on-resistance. In the asymmetrical EPC2204 and EPC2218 case, 
+the efficiency is very similar to the symmetrical EPC2218 case at high 
+(23 A) load and predicts higher efficiency at light load, however, the 
+upper FET EPC2204 experiences overheating due to the smaller die size 
+and higher thermal resistance with less thermal vias beneath the solder 
+pads. Overall, the symmetrical EPC2218 shows the best performance in 
+both losses and thermal performance metrics.  
+   B. Optimizing layout   
+To take advantage of the fast switching of chip scale package (CSP) 
+eGaN FETs, the gate and power loop parasitic inductances need to be 
+minimized. As can be seen in Figure 1, the power loop (in red) is formed 
+by the FETs and input decoupling capacitors, and the power loop 
+inductance affects switching behavior. To minimize switching losses 
+How to Design Synchronous Buck Converter Using GaN FET 
+Compatible Analog Controllers with Integrated Gate Drivers 
+EFFICIENT POWER CONVERSION
+Figure 1. Layout of the FET and the LTC7890 controller IC showing critical 
+commutation loops. The gate loop and power loop are orthogonal.
+GND
+GND
+VDD
+CBoot
+RUGate
+RLGate
+CVDD
+VIN
+Output
+Driver
+Power loop
+HS Gate loop
+LS Gate loop
+Output
+Driver
+HB configuration Phs/PIs 
+Loss model
+Ths/TIs 
+FEA simulation
+Symmetrical EPC2204 3.2 W 
+5 W
+126ºC 
+141ºC
+Symmetrical EPC2218 3.2 W 
+2.4 W
+94ºC 
+89ºC
+Asymmetrical EPC2204 
+(high side) + EPC2218 (low side)
+3.4 W 
+2.4 W
+112ºC 
+91ºC
+Table 1. Comparison of different half bridge configurations 
+(VIN = 48 V, VOUT = 12 V, IOUT = 23 A).
+
+=== PAGE 2 ===
+How2AppNote 025 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    2
+Figure 3. Measured EPC9158 efficiency and power loss results for  
+28-54 V input range and 12 V output.
+Figure 4. (Left) EPC9158 board (right) thermal results tested at VIN = 48 V, VOUT = 12 V, fs = 0.5 MHz, IOUT = 50 A, 400 LFM forced air cooling.
+and reduce ringing, power loop inductances should be minimized. 
+One approach is to use the internal vertical loop layout discussed in 
+[4], in which the second layer of the printed circuit board (PCB) is a 
+solid ground return plane. Similarly, the high side (in blue) and low 
+side (in green) gate loop inductances should also be minimized to 
+reduce ringing on the gate thus preventing gate over-voltage. In a 
+buck converter, the high side FET is hard switched while the low 
+side FET is soft switched, the high side gate loop is intentionally 
+prioritized and made smaller than the low side gate loop given 
+physical constraints of the IC and layout.  Note the direction of the 
+power and gate loops are spatially orthogonal to each other, which 
+helps reducing common source inductances.  
+Layout will also affect thermal management. Even though eGaN FETs are 
+very efficient, the small area of the non-packaged eGaN FETs requires 
+attention for thermal management. In this example, no heatsink is used 
+therefore it is important to maximize the number of vias under the 
+eGaN FETs which greatly improves thermal heat-spreading from the 
+FET into the copper layers of the PCB. A thermal simulation in Figure 2 
+shows the vias conducting heat from FET to the bottom layer of the PCB. 
+Note the number of PCB layers, copper weight, the structure of the vias 
+and the stack up of the PCB also affect thermal performance [5]. 
+   C. Experimental Results:  
+EPC9158 is a 48 V to 12 V, 600 W buck converter, targeted for data center 
+and automotive 48 V applications. EPC2218 is used and the switching 
+frequency is 500 kHz and the inductor is 2 µH (SER2011-202). With  
+400 LFM airflow, the measured thermal steady state efficiency is shown 
+in Figure 3, for a range of input voltages from 36 V through 54 V and 
+output current up to 50 A. For 48 V input, the peak efficiency is 96.5% 
+that occurs when the output current is around 30 A (60% load). At full 
+power, the maximum device temperature reached 91°C, as illustrated in 
+the thermal image in Figure 4. 
+Figure 2. Cross-sectional view of a thermal simulation result for the CSP GaN FETs 
+mounted on a 6-layer Printed Circuit Board showing the vias as heat flow paths.
+99
+98
+97
+96
+95
+94
+93
+92
+0 10 20 30 40 50
+Eﬃciency (%)Loss (W)
+IOUT (A)
+0 10 20 30 40 50
+IOUT (A)
+0
+5
+10
+15
+20
+25
+30
+VIN = 54 V
+VIN = 48 V
+VIN = 36 V
+VIN = 28 V
+VIN = 54 V
+VIN = 48 V
+VIN = 36 V
+VIN = 28 V
+U1
+U2
+Q1 Q2
+Q3 Q4
+L1
+L2
+
+
+=== PAGE 3 ===
+How2AppNote 025 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    3
+Example 2: A 2 MHz dual-output buck converter 
+EPC9160, as shown in Figure 5 (left), is a 2 MHz, 24 V to dual output 
+voltage (5 V and 3.3 V) buck converter, designed in a similar manner 
+as EPC9158. High switching frequency was chosen based on EMI 
+requirements in automotive applications, and it further demonstrates 
+the fast switching speed of GaN FETs together with the smaller size 
+of the inductor and capacitors. The entire EPC9160 power stage fits 
+within an area of just 506 mm 2 (W = 23 mm, L = 22 mm).
+Figure 5. Measured EPC9160 efficiency and power loss results for 12-24 V input range and 5 V output.
+Figure 6. (left) EPC9160 board (right) thermal results tested at VIN = 24 V, VOUT = 5 V, fs = 2 MHz, IOUT = 10 A, no forced air cooling.
+Figure 5 shows the efficiency and power loss performance results 
+for various input voltages, ranging from 12 V through 24 V. A peak 
+efficiency of 96% is achieved with 12 V input and 5 V output. Worst 
+case thermal result with 24 V input and no forced air cooling is shown 
+in Figure 6 (right), where the device temperature reached 77 º. The vias 
+underneath the FETs and the 6-layer PCB with 2oz copper thickness 
+help in reducing the temperature of the FETs by utilizing heat-
+spreading of the PCB copper layers. 
+97
+95
+93
+91
+89
+87
+85
+1 3 5 7 9 11 13 15
+Eﬃciency (%)
+Loss (W)
+IOUT (A)
+1 3 5 7 9 11 13 15
+IOUT (A)
+7
+6
+5
+4
+3
+2
+1
+0
+VIN = 12 V
+VIN = 16 V
+VIN = 24 V
+VIN = 12 V
+VIN = 16 V
+VIN = 24 V
+U1
+U2
+Q1 Q2
+Q3 Q4
+Controller
+Conclusion
+This application note discusses the simplified design of GaN FETs with 
+analog controllers. GaN compatible eco-system such as controllers 
+with integrated gate divers greatly simplifies the design and result in 
+reduced number of BoM components. Two example designs; EPC9158 
+which is a 48 V to 12 V, 600 W buck converter and EPC9160 which is a  
+2 MHz 12-24 V to 5 V/3.3 V buck converter, are used to demonstrate the 
+high performance of GaN FETs, including high efficiency and good 
+thermal performance. Good layout practice is important in achieving 
+the best performance that GaN FETs have to offer. 
+References
+[1] D. Reusch and M. de Rooij, “Evaluation of gate drive overvoltage 
+management methods for enhancement mode gallium nitride 
+transistors, ” IEEE Applied Power Electronics Conference and Exposition 
+(APEC), March 2017, pp. 2459-2466.
+[2] A. Lidow, M. De Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN 
+Transistors for Efficient Power Conversion, 3rd ed. John Wiley & Sons, 
+2019. ISBN: 978-1119594147.
+[3] Yu, Zhihong. “Using GaN Fets Can Be as Simple as Using Silicon 
+FETs - an Example IN 48V Systems. ” Power Electronics News, 7 Apr. 21.
+[4] D. Reusch and J. Strydom, “Understanding the Effect of PCB Layout 
+on Circuit Performance in a High-Frequency Gallium-Nitride-Based 
+Point of Load Converter, ” in IEEE Transactions on Power Electronics, vol. 
+29, no. 4, pp. 2008-2015, April 2014, doi: 10.1109/TPEL.2013.2266103.
+[5] Epc-co.com. 2021. [online] “Thermal Management of eGaN® FETs” 
+How 2 App Note 012. May 2021.
+Please contact info@epc-co.com  
+or your local sales representative
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text 
+ “EPC” to 22828 
+For More Information 
+Visit our website: epc-co.com  
+ 
+EFFICIENT POWER CONVERSION

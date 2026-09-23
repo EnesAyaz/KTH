@@ -1,0 +1,19 @@
+{
+  "HO": {
+    "actual_shortest_B_Cu_path_mm": [
+      34.56000000000001,
+      34.53999999999999
+    ],
+    "difference_mm": 0.020000000000017337,
+    "within_0.05_mm": true
+  },
+  "LO": {
+    "actual_shortest_B_Cu_path_mm": [
+      33.76,
+      33.73999999999999
+    ],
+    "difference_mm": 0.020000000000010232,
+    "within_0.05_mm": true
+  },
+  "scope": "Centreline graph including segment intersections; excludes pad spreading, F.Cu escapes, vias, and inductance. Equal length is not equal gate-loop impedance."
+}

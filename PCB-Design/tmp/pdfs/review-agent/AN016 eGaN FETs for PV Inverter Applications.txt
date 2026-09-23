@@ -1,0 +1,224 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN016 eGaN® FETs for Photo-Voltaic Inverter Apps
+EPC – THE LEADER IN GaN TECHNOLOGY   |   EPC-CO.COM    |   COPYRIGHT 2023   | |   1
+Four Level Inverter Operation
+Figure 1 shows a simplified block diagram for 
+a PV inverter based on a two step conversion  
+approach. The first converter functions as the 
+maximum power point tracker (MPPT) and  
+delivers energy into an intermediate link bus. 
+This bus can be a DC voltage or modulated with 
+a low frequency (twice that of the grid). The  
+inverter is then used to convert the DC voltage or 
+intermediate bus into an Alternating Current that 
+feeds into the grid. A suitable topology is needed 
+to realize this configuration.
+The basis of the four level inverter allows for 
+operation using lower voltage FETs in that the 
+bus voltage is divided over three capacitors.  
+Instead of 600 V devices, 200 V devices, such as 
+the EPC2010C [1], can be used. The EPC2010C is a 
+200 V eGaN FET with 25 mΩ maximum R DS(on), 5 nC 
+typical QG, 40 nC QOSS, and zero QRR. PV Inverters are 
+required to have very high conversion efficiencies 
+that ensure high energy yield over a wide PV array 
+operating range. eGaN FET technology provides 
+both conduction and switching loss advantages 
+over traditional IGBTs and MOSFETs making them 
+ideal candidates for use in a PV Inverter.
+Figure 2 shows the four level half bridge topology 
+suitable for use in the PV Inverter. The DC Link 
+capacitors divide the bus voltage by three and 
+each level transistor is clamped to the appropriate 
+divided voltage. For example, a 375 V bus would 
+be divided into 125 V levels, and Q1 would be 
+clamped to the first 125 V level through D1. 
+Assuming current flowing in from the output 
+and Q1, Q2 and Q3 are all on, then Q4, Q5, and 
+Q6 would each have 125 V from Drain to Source. 
+The commutation sequence of the switches is 
+shown in figure 3 for both current sink and source 
+directions. This sequence is required to ensure that 
+none of the devices experiences an over-voltage.  
+Timing of the switching sequence can be  
+adjusted to ensure voltage balancing of the bus  
+capacitors since they will each carry the full load  
+current at some time during the switching  
+interval. The timing sequence can be implemented 
+using a simple low cost micro-controller.
+The four level topology can then be used as a 
+building block for both the front-end converter, 
+where one would be needed, and the inverter 
+where two would be needed.
+  
+Freewheel Diodes
+D1 through D4 in figure 2 are clamp diodes 
+for each level. They only have a short pulse of 
+current during the commutation sequence, but 
+the stored charge is actively recovered during 
+each cycle. Reverse recovery losses will dominate 
+eGaN® FETs for 
+Photo-Voltaic Inverter Applications
+eGaN® FETs from EPC offer significantly 
+lower capacitance and inductance and 
+zero QRR in a smaller device for a given 
+RDS(on) than comparable MOSFETs. 
+This reduces switching losses 
+resulting in higher efficiency and/or 
+higher switching frequency. Photo-
+Voltaic (PV) inverter size and cost are 
+dominated by thermal management 
+and passive elements used for bulk  
+energy storage and filtering. Using 
+eGaN FETs to increase efficiency and/
+or increase switching frequency will 
+reduce the size and cost of the system.
+Producible, reliable 600 V GaN devices 
+have been a difficult endeavor by many 
+companies. This makes it difficult to 
+manufacture a large enough die to 
+reduce R DS(on) to a level where on-
+state losses are manageable. Today’s 
+highest frequency, most efficient PV 
+inverter can be realized by using a four-
+level architecture using 200 V  eGaN 
+FETs, whether in the DC-DC Boost front 
+end converter or DC-AC inverter.
+EFFICIENT POWER CONVERSION
+Steve Colino, Michael de Rooij, PhD; Efficient Power Conversion Corporation
+Figure 2: Four level half bridge topologyFigure 1: Simplified block diagram for a PV inverter
+DC-
+Link  
+Output  
+Q1 
+Q2 
+Q3 
+Q4 
+Q5 
+Q6 
+C1 
+C2 
+C3 
+D1 
+D2 
+D3 
+D4 
+Front-end 
+converter 
+MPPT 
+Output 
+inverter 
+Inter-module 
+link PV Array 
+Grid 
+220 VAC / 
+240 VAC 
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN016 eGaN® FETs for Photo-Voltaic Inverter Apps
+EPC – THE LEADER IN GaN TECHNOLOGY   |   EPC-CO.COM    |   COPYRIGHT 2023   | |   2
+References:
+[1]  EPC2010C datasheet,  https://epc-co.com/epc/products/gan-fets-and-ics/epc2010c
+[2]  EPC2012C datasheet,  https://epc-co.com/epc/products/gan-fets-and-ics/epc2012c
+[3]  S. Colino, B. Bell, Y. Xi, “Gate drive design for enhancement-mode GaN FETs” , EETimes, September, 2011,  https://www.eetimes.com/document.asp?doc_id=1279058
+[4]  UCC27611 datasheet,  https://www.ti.com/lit/ds/symlink/ucc27611.pdf
+[5]  Si8610BC datasheet,  https://www.silabs.com/Support%20Documents/TechnicalDocs/Si861x-2x.pdf
+[6]  EPC9003C Quick Start Guide,  https://epc-co.com/epc/Portals/0/epc/documents/guides/EPC9003_qsg.pdf
+[7]  J. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 8: Envelope Tracking” , Power Electronics, April, 2012,  
+ https://powerelectronics.com/gan-transistors/egan-fet-silicon-power-shoot-out-volume-8-envelope-tracking
+performance. To reduce the reverse recovery losses 
+for diode commutation, SiC diodes can be used.  
+In the case of D2 and D3, those must furthermore 
+be rated at twice the voltage of each of the bus 
+capacitors as there are switching conditions 
+that exist where twice the voltage can appear  
+momentarily. For diodes D1 and D4, and to  
+further reduce Q RR losses, the EPC2012C [2] eGaN 
+FET with shorted gate can be substituted.
+During the converter body diode conduction 
+periods, shown on figure 3 as the ZVS switching 
+interval, the turn on of the FETs may occur simul -
+taneously at the time the last FET would have 
+been turned on. In the case of the hard-switching 
+event, shown on figure 3, the FETs may be turned 
+off simultaneously only if it is known that there 
+is sufficient load current to ensure that all the  
+devices will conduct using their body diodes.
+Gate Drive
+eGaN FETs require 4.5 V to 5 V gate drive referenced 
+to each source [3]. Absolute maximum gate drive 
+voltage is 6 V, so care must be taken to regulate 
+each gate drive voltage source. A basic bootstrap 
+can be used for each of the floating FETs, but 
+since the sources of Q5 and Q6 never go to 
+ground, bootstraps must be cascaded to provide 
+sufficient gate drive voltage as shown in figure 4. 
+The UCC27611 [4] eGaN FET gate driver from Texas 
+Instruments is ideally suited for this application 
+since it has an internal 5 V regulator and separate 
+drive terminals for source and sink. The block  
+diagram for the UCC27611 is shown in figure 5.
+The signal to drive each gate has to be shifted 
+above the bus voltage with a high enough  
+dv/dt capability for the switching speed desired. 
+The Si8610BC [5], from Silicon Labs, is a digital 
+isolator has been shown in the EPC9003C [6]  
+200 V half bridge development board to be capa -
+ble under similar conditions. 
+Thermal Management
+Efficiency for a half bridge providing 2.4 kW is 
+estimated at 98% at 150 kHz. Since the power 
+dissipation is spread over six devices for each half Figure 4:  Multilevel eGaN FET gate driver
+Figure 5: UCC27611 block diagram
+Figure 3:  Transistor switching sequencing
+VREF
+IN+ 3
+IN-
+OUTL
+OUTH
+VREF
+2
+VDD
+GND
+VDD
+VDD
+1
+VREF
+LDO UVLO 4
+5
+6
+3
+VREF
+5 V 
+Q6 
+Q5 
+Sinking Current Sourcing Current 
+ZVS Transition 
+GQ6
+GQ5
+GQ4
+GQ3
+GQ2
+GQ1
+Hard Switching Transition 
+bridge, thermal management becomes easier. The 
+wafer level package provides excellent thermal 
+paths both into the board and out the top [7]. The 
+best scenario would be to have efficient thermal 
+paths to the ambient through the board along with 
+heat sinking on top.
+Synchronous Boost Converter 
+or DC-AC Inverter
+This 200 V eGaN FET based multilevel half bridge 
+can be used in either the synchronous boost or 
+inverter positions. The commutation timing is  
+identical for both so programming controllers does 
+not take extra effort.
+Summary
+Gallium Nitride has the fundamental advantages of 
+lower capacitance, lower inductance, zero QRR and 
+smaller size. These advantages can be used today 
+to reduce heat sinking, energy storage, and overall 
+solar inverter size using the EPC2010C in a multi-
+level topology.

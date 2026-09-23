@@ -1,0 +1,21 @@
+(footprint "Current_Link" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr smd)
+  (fp_text reference "LK1" (at 0 -4.8) (layer "F.SilkS") hide
+      (effects (font (size 0.8 0.8) (thickness 0.12)))
+    (tstamp 6bbba08c-deed-455f-9fc2-8ba369c09bc6)
+  )
+  (fp_text value "QL1 drain current link" (at 0 4.8) (layer "F.Fab") hide
+      (effects (font (size 0.8 0.8) (thickness 0.12)))
+    (tstamp 5513198c-3aa0-40f1-98b8-3656f56a4a8d)
+  )
+  (fp_rect (start -1.2 -4.2) (end 1.2 4.2)
+    (stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd") (tstamp 60a7e774-1cc7-4b1c-8cf9-06e0f9bc8c4e))
+  (pad "1" smd rect (at 0 -3) (size 2.2 2.2) (layers "F.Cu" "F.Mask") (tstamp 84c5a16f-3c73-4589-a69e-575552295d3e))
+  (pad "2" smd rect (at 0 3) (size 2.2 2.2) (layers "F.Cu" "F.Mask") (tstamp aa629e4a-85b7-4a0b-a1ec-02ebe1727917))
+  (model "${KIPRJMOD}/models/P6-current-link-envelope.wrl"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+)

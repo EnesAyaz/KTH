@@ -1,0 +1,393 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN011 Thermal Performance of EPC eGaN® FETs
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    1
+Thermal Measurement Method
+EPC’s eGaN FETs are gallium nitride based enhance-
+ment-mode high electron mobility transistors (HEMT). 
+They behave much like silicon power MOSFETs.  
+A positive bias on the gate relative to the source 
+causes a field effect which attracts electrons that 
+complete a bi-directional channel between the drain 
+and the source. When the bias is removed from the 
+gate, the electrons under it are dispersed into the 
+GaN, recreating the depletion region, and once 
+again, giving it the capability to block voltage. Table 1 
+shows an overview of EPC’s eGaN FET characteristics.
+Users of traditional silicon MOSFETs recognize that 
+there are three temperature sensitive parameters 
+that have been employed as indicators of device 
+junction temperature (T J). However, the eGaN 
+FET has some limitations. The first limitation is 
+that there is no intrinsic body diode that can be 
+used to evaluate junction temperature. EPC’s 
+eGaN FETs do not have the parasitic bipolar 
+junction that is common to silicon MOSFETs, and 
+the reverse conduction of these eGaN FETs has 
+a different mechanism. With 0 V gate to source, 
+reverse conduction occurs, but the source-drain 
+voltage virtually does not vary with temperature.  
+The second limitation is that gate threshold 
+voltage (VGS(TH)) is very low and the slope of VGS(TH) 
+over temperature is rather flat when compared to 
+silicon MOSFETs. This means that VGS(TH) cannot be 
+used easily because of practical instrumentation 
+limitations. The remaining temperature sensitive 
+parameter is device on-resistance (R DS(on)) and, 
+therefore, becomes the parameter of choice for the 
+measurement of junction temperature.
+RDS(on) is an excellent indicator of junction 
+temperature; the drawback being calibration 
+of R DS(on) as a function of T J is a time consuming 
+procedure and requires excellent instrumentation 
+techniques. However, the main advantage of using 
+RDS(on) as a temperature sensitive parameter is 
+that one is actually measuring the heat rise in the 
+exact physical location where the heat is being 
+generated; this is not true for either the body diode 
+VSD or VGS(TH) testing.
+There are two steps for calibrating the R DS(on) 
+temperature sensitive parameter. The first step 
+involves calculating the apparent R DS(on) as a 
+function of temperature which involves turning 
+the Device-Under-Test (DUT) “ON” with a high gate 
+voltage so that the device is saturated. For the eGaN 
+FET being evaluated, gate to source voltage (V GS) 
+is +5 Volts. Then the drain to source is biased by a 
+low current, typically 0.3 to 1 Amperes, depending 
+upon die size and associated RDS(on). This calibration 
+current needs to be high enough to get good V DS 
+resolution without simultaneously heating the 
+junction significantly. With these biasing conditions 
+in place, the DUT is placed into an environmental 
+chamber with Kelvin connections to the drain and 
+source along with an appropriate current viewing 
+resistor, typically 0.01 Ω. The environmental chamber 
+temperature is stepped in approximately +25 ºC 
+increments between +25ºC and +125ºC, and data is 
+taken, creating a table similar to Table 2. Apparent 
+RDS(on) is calculated from VDS / ID.
+Thermal Performance of 
+EPC eGaN® FETs
+John Worman and Y anping Ma, Efficient Power Conversion Corporation
+Thermal resistance is a major factor in determining the capabilities of discrete power 
+devices. From a device’s thermal characteristics both the maximum power dissipation and 
+maximum current can be derived for user applications. While the thermal performance 
+of traditional silicon MOSFETs is well understood, measuring the thermal performance 
+of eGaN® FETs requires some further explanation. This Applications Note investigates the 
+testing method and results of thermal resistance measurements on eGaN FETs. 
+Part
+ Number
+LGA
+Package 
+(mm)
+Mode
+Ch VDS VGS
+Max 
+RDS(on) 
+(mΩ) 
+@5V
+QG
+@5V
+QGS
+Typ
+QGD 
+Typ
+Vth 
+Typ QR ID
+EPC1014 1.7 x 1.1 EN 40  6 16.0 3.0 1.0 0.6 1.4 0 10
+EPC1015 4.1 x 1.6 EN 40 6 4.0 11.6 3.8 2.2 1.4 0 33
+EPC1009 1.7 x 1.1 EN 60 6 30.0 2.4 0.8 0.6 1.4 0 6
+EPC1005 4.1 x 1.6 EN 60 6 7.0 10.0 3.0 2.5 1.4 0 25
+EPC1007 1.7 x 1.1 EN 100 6 30.0 2.7 0.8 1.0 1.4 0 6
+EPC1001 4.1 x 1.6 EN 100 6 7.0 10.5 3.0 3.3 1.4 0 25
+EPC1013 1.7 x 0.9 EN 150 6 100.0 1.7 0.4 0.7 1.4 0 3
+EPC1011 3.6 x 1.6 EN 150 6 25.0 6.7 1.5 2.8 1.4 0 12
+EPC1012 1.7 x 0.9 EN 200 6 100.0 1.9 0.4 0.9 1.4 0 3
+EPC1010 3.6 x 1.6 EN 200 6 25.0 7.5 1.5 3.5 1.4 0 12
+Table 1: Summary of eGaN FET Electrical Characteristics Table data subject to change. Please refer to 
+the Product section on www.epc-co.com.
+
+=== PAGE 2 ===
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    2
+APPLICATION NOTE: AN011 Thermal Performance of EPC eGaN® FETs
+From Table 2, “Table Curve®” Software is used to evaluate the data and create a mathematical function, 
+similar to:    
+  
+The second step is to evaluate RDS(on) as a function of drain current (ID) at +25ºC, since RDS(on)  is also modulated 
+by ID. A curve tracer can be used for this task; it is these author’s experience though that a curve tracer’s pulse 
+time is too long and can create heating within the DUT at higher currents. Therefore, a special RDS(on) vs. ID 
+test fixture was constructed that can take RDS(on) data in the tens of microseconds. Typically this test is a single 
+point test taken at the DUT’s pulse current rating defined in datasheet; this assures that the DUT remains 
+within the saturated area of the output characteristics curve.
+A straight line approximation is then made between the high current and low current values at +25ºC, using 
+the general equation: y = mx + c. Table 3 demonstrates an example output for this function, where x = ID.
+Using the formulas derived from the two data sets and subtracting (RDS(on) as a function of ID) from (apparent 
+RDS(on)  as a function of TJ) we get the true RDS(on) as a function of TJ. Note however, RDS(on) as a function of TJ at 
+25ºC minus RDS(on) as a function of ID at 25ºC equals zero. Therefore to correct for this offset, RDS(on) at +25ºC 
+must be added back into the equation in order to satisfy all values of TJ.
+From the above mathematically generated curve, calculation of thermal resistance R θ  is straight forward. 
+Thermal resistance is given by the general equation: 
+The change in junction temperature (ΔT J) is the temperature at the FET junction at the end of the power 
+pulse minus the starting junction temperature.
+The change in junction temperature ΔT J is calculated from R DS(on) at the end of the power pulse P D. 
+Using the values for a and b, derived in equation 1:
+It has been demonstrated that thermal resistance is not constant for all junction temperatures; typically 
+these values decrease for lower junction temperatures. Therefore, in order to approximate real world 
+applications manufacturers specify thermal resistance values at or close to data sheet T J(MAX) values. 
+For EPC’s eGaN FETs, the TPower-Pulse temperature is typically +125ºC +/- 5ºC.
+Once the testing procedures for R θ, and its cousin, thermal impedance, Z θ, have been established, EPC’s 
+eGaN FETs can be evaluated for thermal performance several ways. The following section describes three 
+thermal specifications that are used for these devices.
+RDS(on) = (RDS(on) @ TJ) – (R DS(on) @ ID) + (RDS(on) @ 25°C)
+y = exp(a + bx)
+where x = temperature and y = RDS(on)
+∆TJ = TPower-Pulse – T Ambient
+Rθ  = ∆TJ
+PD
+ –  T Ambient( )∆TJ  = LN(RDS(on)) – a
+b
+Table 2:  An example data table of 
+RDS(on) vs. Temperature of EPC1010
+Table 3: An example data table of
+RDS(on) vs. ID of EPC1010
+Temperature 
+°C
+Drain-Source 
+Voltage mV
+Apparent RDS(on) 
+Calculation 
+Ω
+24.9 14.4 0.0180
+54.5 17.2 0.0215
+79 19.6 0.0245
+102 22.08 0.0276
+130.2 25.68 0.0321
+RDS(on) vs. ID Curve fit
+c =  0.01803
+m =  0.000298
+ I D RDS(on)    
+1 0.01833
+2 0.01863
+5 0.01953
+10 0.02101
+20 0.02399
+40 0.02995
+ (1)
+ (2)
+ (3)
+ (4)
+ (5)
+About The Authors 
+Yanping Ma is currently the head of Quality 
+and Reliability at EPC Corporation. She received 
+her Ph.D in Materials Science and Engineering 
+from the University of California at Berkeley 
+in 1996. Prior to joining EPC in 2009, she held 
+various engineering positions in silicon R&D at 
+International Rectifier Corporation from 1996 to 
+2008, working on a wide range of silicon power 
+MOSFET design and product development.
+John Worman has been employed both as an 
+Applications Engineer and Characterization 
+Engineer in the Power Semiconductor Industry 
+since 1986. Receiving his B.S. degree from 
+Northern Arizona University, he has authored 
+22 technical publications, specializing in 
+MOSFET Thermal Resistance, Safe Operating 
+Area and Unclamped Inductive Switching.
+
+=== PAGE 3 ===
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    3
+APPLICATION NOTE: AN011 Thermal Performance of EPC eGaN® FETs
+RθJB : Thermal Resistance – 
+Junction to Solder Bump
+RθJB is perhaps the most important thermal 
+specification since it will be used by the majority 
+of applications. As seen in Figure 1, R θJB is the 
+thermal resistance from the device junction to the 
+bottom of the solder bumps without consideration 
+of the type or size of the mounting circuit board. 
+Therefore, if the end user knows the thermal 
+characteristics and environment of the application, 
+thermal resistances of all the sub-parts can be 
+added algebraically in order to arrive at the total 
+thermal resistance of the total system.
+RθJC: Thermal Resistance – Junction-to-Case
+RθJC  is given for those situations where the end user 
+wishes to add additional heat-sinking to the top of 
+the eGaN FET. Figure 2 shows a typical test set up 
+for measuring RθJC .
+The water cooled heat-sink in Figure 2 is 
+temperature regulated by a re-circulating heater-
+chiller so that +25ºC is constantly maintained. The 
+“QFN board” is a very small and simple test circuit 
+board allowing for electrical connections to the 
+DUT. The thermally non-conductive “Shim Spacer” 
+was added to very small devices to prevent device 
+tilting and alignment problems. The 10 Ω resistor 
+prevents possible gate oscillations since the leads 
+between the DUT and the test circuitry are on the 
+order of 0.3 meters in length. All power leads have 
+Kelvin connections back to the instrumentation in 
+order to eliminate the IxR drops in the power leads. 
+The thermal interface material between the DUT 
+and the water cooled heat sink is water with a small 
+amount of surfactant added in order to increase 
+surface wetting. The DUT system is held in place by 
+pneumatic pressure. The thermocouple monitors 
+heat dissipated through the solder bumps and 
+circuit board in order to only evaluate the heat 
+removed by the water cooled heat sink, thus 
+calculating a true RθJC .
+RθJA: Thermal Resistance – Junction-to-Ambient
+RθJA (junction to ambient thermal resistance) is one 
+way of specifying the thermal resistance with the 
+device mounted onto a 1 square inch circuit board. 
+Figure 3 shows the circuit board layout used for 
+the thermal resistance measurement. The DUT is 
+mounted onto a single sided, 2 ounce FR-4 circuit 
+board with an area of 1 square inch (645.16 mm 2). 
+One-half square inch is connected to the source, 
+and one-half square inch is connected to the drain 
+through the device’s solder bars.
+RθJA is most useful for those situations where the 
+end user wants to mount the eGaN FET onto the 
+application’s circuit board with no additional heat 
+sinking. During device characterization the DUT 
+is suspended in the center of a one-cubic-foot 
+(0.02832 cubic-meters) closed box, in still air, at 25ºC 
+starting temperature. The DUT is biased “ON” for 
+1000 seconds at a junction temperature of +125ºC. 
+RθJA is then calculated according to equation 3.
+Figure 2: A typical test set up for measuring RθJC Figure 3:  Circuit board layout for RθJA  measurement with 1 in2 copper area. 
+Half of the Cu is connected to the source and the other half is connected to the drain.
+Water cooled
+Pneumatic
+plunger
+30 PSI force “T” type
+#40AWG
+Drain lead
+(Kelvin)
+Source lead
+(Kelvin)
+QFN board
+Shim spacer
+Gate lead
+10 /uni03A9
+resistor
+DUT
+Copper area
+with photo mask
+FR-4 Circuit board,
+exposed
+SS G D.U.T.
+SRC
+SS
+G
+DRAIN
+Figure 1: RθJB  is the thermal resistance from the device junction to the bottom of the solder bumps without con-
+sideration of the type or size of the mounting circuit board.
+Note: Figure is not to scale
+Silicon
+Active GaN device region
+Solder Bumps 
+Copper
+AIN
+Printed circuit board
+Type “T” Thermocouple, size 40 AWG
+– +
+
+=== PAGE 4 ===
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    4
+APPLICATION NOTE: AN011 Thermal Performance of EPC eGaN® FETs
+Since applications are not necessarily designed 
+around a perfect one-square-inch (645.16 square 
+millimeters) circuit board, Figure 4 demonstrates 
+the increasing thermal resistance as a function of 
+decreasing copper pad area, normalized to 645.16 
+square millimeters (1 square inch).
+Measurement Results
+Table 4 lists the various thermal resistances, R θJC , 
+RθJB , and R θJA , as related to their device parts 
+numbers. The thermal resistance values for 
+EPC1010 and EPC1012 were measured and the 
+thermal resistance values for other part numbers 
+were scaled as approximations. Figure 5 shows the 
+normalized ZθJB Curve set for EPC’s product line. 
+During device characterization it was found that 
+the normalized thermal impedance curves (Z θJB) 
+were nearly identical for both the EPC1010 and 
+EPC1012.
+Conclusions
+Surface mount transistors such as the eGaN FET can 
+be physically mounted several ways. Depending 
+upon the user’s application the method of device 
+mounting has significant impact on power 
+dissipation and maximum current capability. The 
+limiting factor in all these device parameters is 
+controlling maximum junction temperature of 
+the discrete device. The best known method for 
+measuring junction temperature for eGaN FETs is 
+through characterizing and measuring changes 
+in R DS(on). This application note has shown an 
+acceptable methodology and the resulting thermal 
+resistances results for various devices. 
+Figure 4: Thermal resistance as a function of decreasing copper pad area, 
+normalized to 645.16 mm2.
+Figure 5: Normalized ZθJB  Curve set for EPC’s product line.
+Table 4: Thermal Resistance Summary
+Part
+ Number
+Side 1
+mm
+Side 2
+mm
+Die Area
+mm2
+RθJC
+°C/Watt
+RθJB
+°C/Watt
+RθJA  
+°C/Watt
+EPC1001 1.6 4.1 6.56  1.56 15 54
+EPC1007 1.1 1.7 1.87 6.5 32 80
+EPC1010 1.6 3.6 5.76 1.8 16 56
+EPC1012 0.9 1.7 1.53 8.2 36 85
+EPC1014 1.1 1.7 1.87 6.5 32 80
+EPC1015 1.6 4.1 6.56 1.56 15 54
+50 100 150 200 250 300 350 400 450 500 550 600 650
+Z θJA , Normalized Thermal  
+Resistance Multiplie r
+Copper P ad Area, square millimeters
+Normalized Thermal Resistance Multiplie r,  
+Junc tion-t o- Ambient v ersus Copper Board Area
+1.4
+1.3
+1.2
+1.1
+1.0
+Normalized Maximum Transient Thermal Impedance
+tp, Rectangular Pulse Duration, seconds
+Duty Factors:
+Notes:
+Duty Factor: D = t1/t2
+Peak TJ = PDM x ZθJB x RθJB + TB
+PDM
+t1
+t2
+0.5
+0.2
+0.1
+0.05
+0.02
+0.01
+Single Pulse
+1
+0.1
+0.01
+0.001
+0.0001
+ZθJB, Normalized Thermal Impedance
+10-5 10-4 10-3 10-2 10-1 1 10+1 10+2

@@ -1,0 +1,227 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN028
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    1
+Envelope Tracking Power Supply for Cell Phone Base Stations 
+Introduction 
+Modern communication systems demand high data 
+capacity and high speed.  The long-term evolution 
+(LTE) standard for the fourth-generation (4G) and 
+the fifth-generation (5G) wireless systems requires 
+signals with higher PAPR compared with prior 
+generations. This increase reduces the efficiency 
+of the power amplifier (PA). Envelope tracking, or 
+supply modulation, uses a dynamic power supply 
+to vary the PA supply voltage in accordance with the 
+time-varying envelope of the input signal so that the 
+efficiency of the PA is maximized.
+High Frequency GaN Transistors 
+To meet the requirements for ET power supplies, 
+devices must operate efficiently at very high 
+frequencies. This requires a device with an excellent 
+hard-switching figure of merit, and also layout and 
+package characteristics that maximize in-circuit 
+performance. Such devices, the EPC8000 series, are 
+available as wafer level chip scaled packaged (WLSP) 
+GaN transistors with the device pin-out show in 
+Figure 1.
+Multi-Phase Topology with Soft-Switching
+A four-phase synchronous buck pulse-width 
+modulated (PWM) topology is selected, as shown 
+in figure 2. The power switches are EPC8010 eGAN 
+FETs. The PWM control signals for adjacent phases are 
+phase-shifted by 90 degrees. Switching at 25 MHz in 
+each phase gives the full converter an effective 
+output switching frequency of 100 MHz. A resistive 
+load is used to represent the radio-frequency power 
+amplifier (RFPA), and a fourth-order filter with 20 MHz 
+band  width that supports zero-voltage switching is 
+designed, allowing high efficiency operation and 
+automatic phase current balancing [2]. The printed 
+circuit board (PCB) layout is optimized according to 
+the design practices in [3].
+High Speed Gate Driver 
+Design of the gate driver that supports switching at 
+high frequency is very challenging, particularly for 
+the high-side FET in the half-bridge configuration. 
+Traditional bootstrap half-bridge gate drivers 
+(LM5113 [4], for instance), designed for higher 
+current, lower frequency applications, generally have 
+high loss due to the reverse recovery charge of the 
+bootstrap diode. As a result, the maximum switching 
+frequency is limited. To achieve 25 MHz switching  
+frequency while maintaining high efficiency, a 
+synchronous FET bootstrap supply [5] is used. 
+In [5], a way to use LM5113 at high frequency is 
+introduced, with proper circuity to disable its internal 
+bootstrap diode. In this application, however, a 
+different approach is implemented. As shown in 
+figure 3, digital isolators ISO721MD and ultra-high-
+speed logic gates SN74LVC2G14 are used instead of 
+the LM5113. The EPC2038, with the smallest electrical 
+and physical footprint is selected as the synchronous 
+bootstrap FET (Q BTST) for minimal parasitics and 
+associated losses. The low side FET driver consists of 
+the same component as the high side for matched 
+propagation delay.
+Static Efficiency Measurement 
+The ET supply is evaluated at steady-state operating 
+points. The measured efficiency of the converter at 
+different output voltages is shown in figure 4. Power 
+stage efficiency only includes losses in the FETS and 
+output filter. Total efficiency includes gate drive 
+losses. The probability distribution function (PDF) of 
+a 20 MHz 7 dB PAPR LTE envelope signal is also shown. 
+The peak power stage and total average efficiencies 
+measured under static condition are 96.2% and 
+95.8%, respectively, at 234 W output power and 41 V.
+Envelope Tracking Power Supply for Cell 
+Phone Base Stations Using eGaN® FETs
+EFFICIENT POWER CONVERSION
+Yuanzhe Zhang, Ph.D., Michael de Rooij, Ph.D., Efficient Power Conversion
+In this application note, an envelope tracking (ET) power supply using EPC8010 high 
+frequency eGaN FETs for LTE wireless base station infrastructure is presented. The ET 
+power supply is based on a multi-phase, zero-voltage switching (ZVS) synchronous 
+buck converter. It offers 20 MHz large signal bandwidth, delivering over 120 W average 
+load power sourced from 70 V. 94% average total efficiency is achieved when tracking a 
+20 MHz LTE envelope with a 7 dB peak-to-average power ratio (PAPR).
+Figure 1: The bump side with pin-out locations
+of the EPC8000 GaN transistor series Figure 2: Diagram of an N-phase synchronous buck converter with fourth-order output filter
+Gate
+Source (Gate Return) Drain Substrate
+Source Source
+L1
+VIN
+VDD
+VIN
+VIN
+vSW1
+vSW2
+vSWN
+vLS1
+vLS2
+vLSN
+vHS1
+vHS2
+vHSN
+L3
+C2 C4 RL
+L1
+Phase 2
+Phase 1
++ +
+_ _
+L1
+Phase N
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN028
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    2
+Envelope Tracking Power Supply for Cell Phone Base Stations 
+Dynamic ET Measurement 
+The 20 MHz LTE envelope signal is converted into eight PWM 
+signals, for controlling the high side and low side FETs in four 
+phases. Appropriate dead times to achieve ZVS operation are 
+also implemented at this stage. The PWM signals are stored in the 
+memories of an Altera® Arria® V FPGA and transmitted to the gate 
+drivers. The resolution of the pulse width is around 0.2 ns, allowing 
+fine adjustment of duty cycles and dead times for high fidelity ET 
+performance. 
+The output of the ET supply is measured with a 1 GHz passive probe 
+(TPP1000). A comparison of the measured and target envelope 
+waveforms for a 2 µs duration is shown in figure 5, demonstrating 
+accurate tracking and low output voltage ripple. The average output 
+power is 130 W  and the peak value is 680 W, corresponding to  
+7 dB PAPR. Average power-stage efficiency and total efficiency 
+are 95.0% and 94.3%, respectively. Accurate tracking is achieved 
+with the normalized root-mean  square error (NRMSE) of only 1.5%. 
+The measured maximum current slew rate is 150 A/µs.
+Summary
+eGaN FETs and integrated circuits are helping to achieve very 
+high switching frequency in switched  mode power supplies, 
+leading to breakthroughs in a large number of applications where 
+bandwidth, slew rate and efficiency are critical. Envelope tracking 
+is one of them.
+Due to lower input and output capacitances (C ISS and COSS) and 
+lower gate charge (QG) [6], GaN-based switching converters are 
+able to operate at tens of megahertz switching frequency with 
+high efficiency. With topologies such as multi-phase and multi-
+level, GaN switching converters can achieve high bandwidth 
+that meets the requirement of modern wireless communication 
+standards, such as 4G and 5G.
+An ET power supply with four-phase soft-switching buck  
+converter using EPC8010 can accurately track a 20 MHz 7 dB 
+PAPR LTE envelope signal with greater than 94% total efficiency, 
+delivering 130 W average power. The design is also scalable to 
+satisfy different power. 
+References:
+[1] A. Lidow, “WiGaN: eGaN FETs for hard-switch  ing converters 
+at high frequency,” eeWeb: Wire less & RF Magazine, pp. 12- 17, 
+August 2014.
+[2] Y. Zhang, M. Rodriguez, and D. Maksimovic, “Output filter design 
+in high-efficiency wide  bandwidth multi-phase buck envelope 
+amplifiers,” Applied Power Electronics Conference and Exposition 
+(APEC), March 2015, pp. 2026- 2032.
+[3] D. Reusch and J. Glaser, DC-DC Conversion Handbook : A 
+Supplement to GaN Transistors for Efficient Power Conversion , 
+Efficient Power Publications, 1st Edition, 2015. ISBN 978-0-
+9966492-0-9.
+[4] http://www.ti.com1product/LM5113 
+[5] M. A. de Rooij, Wireless Power Handbook , Second Edition, El 
+Segundo, October 2015, ISBN 978-0-9966492-1-6.
+[6] A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for 
+Efficient Power Conversion. Second Edition, Wiley, ISBN 978-1-118-
+84476- 2.
+70
+60
+50
+40
+30
+20
+10
+0.0 0.5 1.0 1.5 2.0
+Time (/uni03BCs)
+VO (V)
+Target
+Measured
+Figure 5: Comparison of target and measured 20 MHz LTE envelope signal
+Figure 4: Measured efficiencies of the converter at fixed output voltages and the 
+PDF of the 20 MHz LTE envelope signal
+Figure 3: Schematic diagram of the gate drive circuit with synchronous FET 
+bootstrap supply, for one phase of the system converter
+Power stage η
+Total η
+PDF
+100
+96
+92
+88
+84
+80
+0.10
+0.08
+0.06
+0.04
+0.02
+0.00
+10 20 30 40
+Output Voltage (V)
+Efficiency (%)
+PDF
+50 60 70
+VDC5 V QBTST
+RDamp
+CENH RBleed
+DOFF RON
+CDECP
+Q1
+Q2
+To FilterLogic
+Gate
+Digital
+Isolator
+Logic
+Gate
+Digital
+Isolator
+5 V

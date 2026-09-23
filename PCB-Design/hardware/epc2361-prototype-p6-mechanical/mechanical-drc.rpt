@@ -1,0 +1,25 @@
+** Drc report for hardware/epc2361-prototype-p6-mechanical/epc2361-prototype-p6-mechanical.kicad_pcb **
+** Created on 2026-09-22 16:39:13 **
+
+** Found 5 DRC violations **
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(0.0000 mm, 0.0000 mm): Footprint MECH1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(74.0000 mm, 8.0000 mm): Footprint MH2
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(40.0000 mm, 8.0000 mm): Footprint MH1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(74.0000 mm, 53.0000 mm): Footprint MH4
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(40.0000 mm, 53.0000 mm): Footprint MH3
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

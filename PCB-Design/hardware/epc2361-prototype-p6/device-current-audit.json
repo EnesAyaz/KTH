@@ -1,0 +1,28 @@
+{
+  "D_QL1_pads": [
+    [
+      "LK1",
+      "2"
+    ],
+    [
+      "QL1",
+      "3"
+    ],
+    [
+      "QL1",
+      "5"
+    ],
+    [
+      "QL1",
+      "7"
+    ],
+    [
+      "TP8",
+      "1"
+    ]
+  ],
+  "sole_component_connection": "LK1 pin2 to pin1; physical link required",
+  "source_pads": "DC- unchanged",
+  "D_QL1_zones": 0,
+  "scope": "Net membership and DRC check; physical link omission must be continuity-tested before energizing."
+}

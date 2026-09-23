@@ -1,0 +1,2292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>C:\Github\KTH\PCB-Design\hardware\epc2361-sixparallel\epc2361-sixparallel.kicad_sch</source>
+    <date>2026-09-21 11:06:57</date>
+    <tool>Eeschema 7.0.10</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Six parallel EPC2361 half-bridge cells</title>
+        <company/>
+        <rev>S1</rev>
+        <date>2026-09-21</date>
+        <source>epc2361-sixparallel.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-1.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="3" name="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-2.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="4" name="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-3.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="5" name="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-4.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="6" name="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-5.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="7" name="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/">
+      <title_block>
+        <title>EPC2361 one-cell placement prototype</title>
+        <company/>
+        <rev>P1</rev>
+        <date>2026-09-21</date>
+        <source>cell-6.kicad_sch</source>
+        <comment number="1" value="75 V max | 50-100 kHz | Not for manufacture"/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>8b90e528-9046-56bc-8347-65edb915447b</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>b1dc48e1-86c0-5804-a8e2-43f5ac862b0a</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>7986d624-f118-5e4c-bb75-468209fd9e0d</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>7abe40d9-56a3-57b1-b96d-17d0853595f1</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>bc2aeb1b-ede1-5057-ac78-0e8c4abed1e9</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>37c49f47-a943-5c31-ac37-7ad396be49a4</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>eb7ef547-8a69-5202-bc39-ccf4cbe4b083</tstamps>
+    </comp>
+    <comp ref="C8">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>ad5a8be5-f39b-5f97-9520-27f4f7f31152</tstamps>
+    </comp>
+    <comp ref="C9">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>dd03b98b-3700-5671-8fb9-9de582bbdbad</tstamps>
+    </comp>
+    <comp ref="C10">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>4d0dc0df-958b-5f99-bec8-1e82197d4f11</tstamps>
+    </comp>
+    <comp ref="C11">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>b5beb124-08db-53d0-b305-799b76997a19</tstamps>
+    </comp>
+    <comp ref="C12">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>8c3ed918-562e-538c-93be-685381aa7c93</tstamps>
+    </comp>
+    <comp ref="JAC1">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>7d4e018b-fd52-549e-8424-a2e5aee6a988</tstamps>
+    </comp>
+    <comp ref="JDC1">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>21022b24-dfb0-5523-aacd-a325a70b5003</tstamps>
+    </comp>
+    <comp ref="JDC2">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>f404f468-a086-57cd-80cb-1e61a23e4e8f</tstamps>
+    </comp>
+    <comp ref="JGH1">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>73cda2b8-ce0f-592c-b661-ccfde574f929</tstamps>
+    </comp>
+    <comp ref="JGL1">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>3b596499-f452-5832-ac19-4dc7838cdbca</tstamps>
+    </comp>
+    <comp ref="QH1">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>376143c1-bc28-528b-acba-5d3672230080</tstamps>
+    </comp>
+    <comp ref="QL1">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>db9ff9b2-976f-5637-9f31-38e0d6703f5f</tstamps>
+    </comp>
+    <comp ref="RG1">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>164b868b-5aa3-5aca-b311-2f45b2d37aea</tstamps>
+    </comp>
+    <comp ref="RG2">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>706c04f8-48e5-5bbf-9bbb-f14053556e9f</tstamps>
+    </comp>
+    <comp ref="RGS1">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>4b3ae3d4-cb4c-5552-874b-a803f8e6cd56</tstamps>
+    </comp>
+    <comp ref="RGS2">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>c6b5e95e-e485-52b2-b2e8-135b94e73e18</tstamps>
+    </comp>
+    <comp ref="TP1">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>8f66a9c4-757a-589c-9721-d9097f13b569</tstamps>
+    </comp>
+    <comp ref="TP2">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>39896081-a021-5da5-bacf-b093b6d84fb6</tstamps>
+    </comp>
+    <comp ref="TP3">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>1ada6a30-2438-5c2a-8216-9e81f0788434</tstamps>
+    </comp>
+    <comp ref="TP4">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>4fecef56-6819-5f83-93ae-ac244fe0c18f</tstamps>
+    </comp>
+    <comp ref="TP5">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>c826afbb-67df-5bf2-bbce-9bd24f58e8a8</tstamps>
+    </comp>
+    <comp ref="TP6">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>80377fb6-e9ad-5bbf-885d-f49f54bf309c</tstamps>
+    </comp>
+    <comp ref="TP7">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 1"/>
+      <property name="Sheetfile" value="cell-1.kicad_sch"/>
+      <sheetpath names="/Cell 1/" tstamps="/7e53e546-fb39-5925-972a-cb5ad308f78f/"/>
+      <tstamps>d4c386ee-1daf-5e91-aab6-061205b047b8</tstamps>
+    </comp>
+    <comp ref="C13">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>fe7a724b-ea78-5130-aae8-a4f373f45639</tstamps>
+    </comp>
+    <comp ref="C14">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>df8efcf7-7ed4-5e56-bf68-14d6bad213f9</tstamps>
+    </comp>
+    <comp ref="C15">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>ae90b5ca-5e1d-575a-b17d-2d9f0a9366af</tstamps>
+    </comp>
+    <comp ref="C16">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>14a30eb8-6508-52c0-ae8d-6936a33ee8ae</tstamps>
+    </comp>
+    <comp ref="C17">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>3933ebab-01da-53fa-891b-3bff5a72e495</tstamps>
+    </comp>
+    <comp ref="C18">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>4ade12ca-7d06-54cd-a555-cb5d09eacf3a</tstamps>
+    </comp>
+    <comp ref="C19">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>bccbfe38-dcfb-57d8-9f9e-33aaa1bc18a7</tstamps>
+    </comp>
+    <comp ref="C20">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>f4e98a1c-092e-5062-ac43-30e83864cdf1</tstamps>
+    </comp>
+    <comp ref="C21">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>f4c9e98f-c385-50cc-9ae8-4558df4ab7cc</tstamps>
+    </comp>
+    <comp ref="C22">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>1a5fd1fc-7602-58a0-997c-f4b2b904a60f</tstamps>
+    </comp>
+    <comp ref="C23">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>f8afe4d3-efed-50bb-9e4b-afbf483af5c4</tstamps>
+    </comp>
+    <comp ref="C24">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>f0db8cf7-2206-5ffb-9a80-4ce7a2765350</tstamps>
+    </comp>
+    <comp ref="JAC2">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>76a0053d-25cc-5e7c-8979-66e08ef45187</tstamps>
+    </comp>
+    <comp ref="JDC3">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>343dd929-3f88-5344-8bbb-59a6fd8830a4</tstamps>
+    </comp>
+    <comp ref="JDC4">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>ef2973e6-91e2-553c-b9d4-18893be328ad</tstamps>
+    </comp>
+    <comp ref="JGH2">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>61f53485-f898-5932-b42f-f72045236637</tstamps>
+    </comp>
+    <comp ref="JGL2">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>f9458263-d14a-5197-9a48-ff0952dce5bc</tstamps>
+    </comp>
+    <comp ref="QH2">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>c2acb7fb-c4ae-5a5a-b063-4c0c81de9cbd</tstamps>
+    </comp>
+    <comp ref="QL2">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>41df62e0-7efe-54d1-9386-e13d43b73bce</tstamps>
+    </comp>
+    <comp ref="RG3">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>2e159584-f685-5c66-a199-d73fe7f61b1f</tstamps>
+    </comp>
+    <comp ref="RG4">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>3e09855d-b21d-5ead-a399-6070a7998f49</tstamps>
+    </comp>
+    <comp ref="RGS3">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>103f08f3-16fc-5477-8e00-7fa30d9572a3</tstamps>
+    </comp>
+    <comp ref="RGS4">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>6665bd0e-5422-56fa-9511-486a9feb0177</tstamps>
+    </comp>
+    <comp ref="TP8">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>0428f310-0218-5ee0-a97c-305ac07c02be</tstamps>
+    </comp>
+    <comp ref="TP9">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>ea47df5e-6e15-54e6-8de3-22737634d7db</tstamps>
+    </comp>
+    <comp ref="TP10">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>abd65dbd-ccbb-59ef-b412-7f54b4b64c1e</tstamps>
+    </comp>
+    <comp ref="TP11">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>63492744-5b3f-5813-830f-1ced8dfc5c8b</tstamps>
+    </comp>
+    <comp ref="TP12">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>ed2708b4-7cc3-5bbd-933e-b6f40d34ceb1</tstamps>
+    </comp>
+    <comp ref="TP13">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>4e27366b-40ec-52fb-910d-3ac1568e176b</tstamps>
+    </comp>
+    <comp ref="TP14">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 2"/>
+      <property name="Sheetfile" value="cell-2.kicad_sch"/>
+      <sheetpath names="/Cell 2/" tstamps="/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/"/>
+      <tstamps>85c85d34-1875-5d71-b5f6-9319300419b2</tstamps>
+    </comp>
+    <comp ref="C25">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>dc49b861-bb72-5c9e-969f-ee69021754d2</tstamps>
+    </comp>
+    <comp ref="C26">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>2a6c9b9f-2d43-5aa3-87ee-1177831d1656</tstamps>
+    </comp>
+    <comp ref="C27">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>583c2594-d4cd-5151-97f1-72e136625ecd</tstamps>
+    </comp>
+    <comp ref="C28">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>de2a212d-943e-58d0-ba30-5ebca7c7f012</tstamps>
+    </comp>
+    <comp ref="C29">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>31a48f21-0cb8-563e-998a-2b2d71011e80</tstamps>
+    </comp>
+    <comp ref="C30">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>f853a526-f59e-507f-af88-377f77088198</tstamps>
+    </comp>
+    <comp ref="C31">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>ade9f658-e086-5771-9a92-2d3c01118e94</tstamps>
+    </comp>
+    <comp ref="C32">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>a02f9727-dd2b-5ffd-bda6-de7bad878997</tstamps>
+    </comp>
+    <comp ref="C33">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>d9a55778-59dc-56cb-8dc0-3a21b2b1f162</tstamps>
+    </comp>
+    <comp ref="C34">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>4c0463fb-59f4-5722-aba4-617fc4578693</tstamps>
+    </comp>
+    <comp ref="C35">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>70f7b1a5-4a71-5fb4-bb22-9355695daafd</tstamps>
+    </comp>
+    <comp ref="C36">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>05616baf-f450-5082-8ae7-8599a3f5520c</tstamps>
+    </comp>
+    <comp ref="JAC3">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>3f617982-6087-538d-a2f4-0747dcc2bb5b</tstamps>
+    </comp>
+    <comp ref="JDC5">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>a56a0a8b-8c6b-588c-a058-aa506afc6a19</tstamps>
+    </comp>
+    <comp ref="JDC6">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>af1aaecc-d8e8-55f8-aa26-12c489db8b27</tstamps>
+    </comp>
+    <comp ref="JGH3">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>81c68ffa-ca3d-50ec-9d4d-0f61ae5b630e</tstamps>
+    </comp>
+    <comp ref="JGL3">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>35b80a41-f070-5f68-a88f-6d24def11168</tstamps>
+    </comp>
+    <comp ref="QH3">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>ccde6e6d-97ee-576b-b7c0-7830d2ccf461</tstamps>
+    </comp>
+    <comp ref="QL3">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>7a65966a-0cbf-54f8-8763-9ce1db470e78</tstamps>
+    </comp>
+    <comp ref="RG5">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>29a43fc8-0ead-58c7-928f-aacc39ad7c1e</tstamps>
+    </comp>
+    <comp ref="RG6">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>2b3fc512-c2bc-541e-b57b-dc3a3631144d</tstamps>
+    </comp>
+    <comp ref="RGS5">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>e05743db-7299-51ad-b327-aca4047c4a7a</tstamps>
+    </comp>
+    <comp ref="RGS6">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>2fe295ee-5b03-596d-bd1b-3ce90b9c65ba</tstamps>
+    </comp>
+    <comp ref="TP15">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>c778a4e4-a550-5d51-8fd5-0c4d71dc10d9</tstamps>
+    </comp>
+    <comp ref="TP16">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>923cb2e3-663f-5f46-a699-f0bd437265d4</tstamps>
+    </comp>
+    <comp ref="TP17">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>4dbea1bd-f6c2-52cb-9c2d-7a299ce70e2e</tstamps>
+    </comp>
+    <comp ref="TP18">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>a69e9c8f-5a16-5da1-826a-053d8c754de4</tstamps>
+    </comp>
+    <comp ref="TP19">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>6640e29a-31d8-56e5-b043-f2d03322a854</tstamps>
+    </comp>
+    <comp ref="TP20">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>1d8e1f08-a849-5fba-9a18-05ad9ccbdd4f</tstamps>
+    </comp>
+    <comp ref="TP21">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 3"/>
+      <property name="Sheetfile" value="cell-3.kicad_sch"/>
+      <sheetpath names="/Cell 3/" tstamps="/dbc98876-4b02-5563-80a7-552704e73d93/"/>
+      <tstamps>ee3f0a7f-df23-5d6b-9d88-264bca2c9737</tstamps>
+    </comp>
+    <comp ref="C37">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>d47024f4-1e86-572e-b93b-02c9b41b35f0</tstamps>
+    </comp>
+    <comp ref="C38">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>28ebe114-7b95-56be-8c25-7d35c4db9911</tstamps>
+    </comp>
+    <comp ref="C39">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>31cbeb9e-0e58-599a-83b1-73025a540122</tstamps>
+    </comp>
+    <comp ref="C40">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>7030e2b1-a766-586b-9fc5-4f7670b74f3f</tstamps>
+    </comp>
+    <comp ref="C41">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>57840fb9-1084-59bb-bb6b-fc6c299c08bb</tstamps>
+    </comp>
+    <comp ref="C42">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>b703b6c9-d0c0-5204-951b-b9c6feb70da4</tstamps>
+    </comp>
+    <comp ref="C43">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>caeeba73-4e07-51a7-b1d2-9f60e62b483b</tstamps>
+    </comp>
+    <comp ref="C44">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>9ec48487-010a-504b-a328-a5debc4e9f36</tstamps>
+    </comp>
+    <comp ref="C45">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>91d91f8c-0d33-59f9-9a88-762b76578ee4</tstamps>
+    </comp>
+    <comp ref="C46">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>c3acbb7b-5158-5597-ac9b-68928b489eae</tstamps>
+    </comp>
+    <comp ref="C47">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>cd8bb1a8-9aa8-5061-8f5e-c2bf2f99d827</tstamps>
+    </comp>
+    <comp ref="C48">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>95c5f048-82ab-56e1-b04e-64a4e4e5730d</tstamps>
+    </comp>
+    <comp ref="JAC4">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>e5ec94af-0cd9-58f5-9f9b-8da0db48145b</tstamps>
+    </comp>
+    <comp ref="JDC7">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>59bad9e0-d91d-5f2d-8f62-328c475c942c</tstamps>
+    </comp>
+    <comp ref="JDC8">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>b50d374f-b85a-57a1-baa3-12b78c7e3050</tstamps>
+    </comp>
+    <comp ref="JGH4">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>5943c3ec-4815-53e1-9045-2600f8bd93ed</tstamps>
+    </comp>
+    <comp ref="JGL4">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>719b87e8-98ed-59c3-ac20-0c3b21644a2a</tstamps>
+    </comp>
+    <comp ref="QH4">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>9cb6c86c-4127-55bf-a04a-dc791035ea41</tstamps>
+    </comp>
+    <comp ref="QL4">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>48b09dd4-964a-5840-8e54-63d9f23f36c1</tstamps>
+    </comp>
+    <comp ref="RG7">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>a3431880-6d4b-53e9-8104-4e249779bf15</tstamps>
+    </comp>
+    <comp ref="RG8">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>be740dca-2bce-562d-8552-28184cb8166c</tstamps>
+    </comp>
+    <comp ref="RGS7">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>8afcf202-24fd-5e10-9e62-98f6cff5af48</tstamps>
+    </comp>
+    <comp ref="RGS8">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>f44efa0e-ee8e-52d7-927e-7e995ca9eec2</tstamps>
+    </comp>
+    <comp ref="TP22">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>a58bde25-3a13-52d3-8734-fb14dfac82c4</tstamps>
+    </comp>
+    <comp ref="TP23">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>b0aa3960-68bd-569b-b751-9c7cb48fafd5</tstamps>
+    </comp>
+    <comp ref="TP24">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>a713fd16-c69a-5891-a0cd-df21f8f5ac93</tstamps>
+    </comp>
+    <comp ref="TP25">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>15272fc6-2641-565c-8c87-862465e269ef</tstamps>
+    </comp>
+    <comp ref="TP26">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>14d37a88-521c-5ae4-8b1c-bc6a2ca6f788</tstamps>
+    </comp>
+    <comp ref="TP27">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>1d9454c7-4f3a-5674-8d92-6b47ea7c0f50</tstamps>
+    </comp>
+    <comp ref="TP28">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 4"/>
+      <property name="Sheetfile" value="cell-4.kicad_sch"/>
+      <sheetpath names="/Cell 4/" tstamps="/abcf8170-0855-5cca-a0d4-65e644fba3c1/"/>
+      <tstamps>a8925947-6bb1-53b0-addf-ad53eb73e865</tstamps>
+    </comp>
+    <comp ref="C49">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>3752fbde-aac6-5409-9c65-57b50ea9ab00</tstamps>
+    </comp>
+    <comp ref="C50">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>9f316d64-214b-56a0-b8a5-d4cb02a0aa85</tstamps>
+    </comp>
+    <comp ref="C51">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>b48298de-361a-5eed-89c6-bce4c625432e</tstamps>
+    </comp>
+    <comp ref="C52">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>14279258-689f-563d-9870-82b123aa78ca</tstamps>
+    </comp>
+    <comp ref="C53">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>55a745ab-101d-5444-ad55-32726a92b887</tstamps>
+    </comp>
+    <comp ref="C54">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>4ca6bb1f-e542-5b0a-9d08-2067d3d95152</tstamps>
+    </comp>
+    <comp ref="C55">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>0e1102fc-b13a-53f1-9015-ea447bcf3362</tstamps>
+    </comp>
+    <comp ref="C56">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>b6239966-03f1-5210-8a3c-be01a82471e1</tstamps>
+    </comp>
+    <comp ref="C57">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>b48c1b37-fa71-5181-9e62-00945a8009ef</tstamps>
+    </comp>
+    <comp ref="C58">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>c4f56878-cb79-5d6a-a69c-f772bf4cc216</tstamps>
+    </comp>
+    <comp ref="C59">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>7fc7a2aa-c4a6-5459-8ca9-085035244427</tstamps>
+    </comp>
+    <comp ref="C60">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>fd210f3a-cd5f-5c0d-946e-0a256b2de0ac</tstamps>
+    </comp>
+    <comp ref="JAC5">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>4ab85f75-1844-53bb-8d92-5b5d2c92a24c</tstamps>
+    </comp>
+    <comp ref="JDC9">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>40c60b10-b059-5465-8d7f-bb095d1381f0</tstamps>
+    </comp>
+    <comp ref="JDC10">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>4d31f2a3-6982-5ea8-ba5a-8d431e306cff</tstamps>
+    </comp>
+    <comp ref="JGH5">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>cefa608e-3a6e-5a3c-be84-84e1af2a99a3</tstamps>
+    </comp>
+    <comp ref="JGL5">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>42e9263f-5025-589a-80aa-75a6e2ea1a25</tstamps>
+    </comp>
+    <comp ref="QH5">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>af78833a-4e58-5100-979c-4ba84adf934e</tstamps>
+    </comp>
+    <comp ref="QL5">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>a843ff81-197b-5c6f-84df-a4f9f2014ac3</tstamps>
+    </comp>
+    <comp ref="RG9">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>c2a56fc7-f5f2-5ff5-b19e-4c4886a15e7a</tstamps>
+    </comp>
+    <comp ref="RG10">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>d851b656-49ed-54ac-8ec3-99d5fae327b2</tstamps>
+    </comp>
+    <comp ref="RGS9">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>0653c5db-b92b-53d0-88a6-b8222f6eac4d</tstamps>
+    </comp>
+    <comp ref="RGS10">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>c37f30dc-3b1f-5249-a604-788677fb8f8c</tstamps>
+    </comp>
+    <comp ref="TP29">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>620b518d-c796-5e32-ab7e-babcdd6ad8e6</tstamps>
+    </comp>
+    <comp ref="TP30">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>605a010e-b302-596c-a857-c0b1a13f3168</tstamps>
+    </comp>
+    <comp ref="TP31">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>74460671-845a-5c5a-a157-8d8d1e858a3e</tstamps>
+    </comp>
+    <comp ref="TP32">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>e9e46347-7948-5ca0-a33d-93dd5f2bc168</tstamps>
+    </comp>
+    <comp ref="TP33">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>17c32060-ec64-5dff-a891-97af8c4af277</tstamps>
+    </comp>
+    <comp ref="TP34">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>d2ddb2e3-c6ea-57f4-8a4b-0249d87439c6</tstamps>
+    </comp>
+    <comp ref="TP35">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 5"/>
+      <property name="Sheetfile" value="cell-5.kicad_sch"/>
+      <sheetpath names="/Cell 5/" tstamps="/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/"/>
+      <tstamps>eddb1ddb-b091-542a-bfa9-9a5fac1cdc13</tstamps>
+    </comp>
+    <comp ref="C61">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>cd562d10-2544-5fbc-a3c9-ba03598887c2</tstamps>
+    </comp>
+    <comp ref="C62">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>26aaeaba-ec61-5275-aba0-89d2e734b6fe</tstamps>
+    </comp>
+    <comp ref="C63">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>b69ba27c-5da4-573d-8a85-47ae87d890a7</tstamps>
+    </comp>
+    <comp ref="C64">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>761ed212-13c7-59bd-9ea0-2241cc83898a</tstamps>
+    </comp>
+    <comp ref="C65">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>a46c311a-802b-5536-99c9-bb6369fb17a3</tstamps>
+    </comp>
+    <comp ref="C66">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>e47b2ca7-125f-5ee3-825c-640180a99ae7</tstamps>
+    </comp>
+    <comp ref="C67">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>08eb4c2a-5726-52d4-9db6-ff32397bfb2a</tstamps>
+    </comp>
+    <comp ref="C68">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>c06e23b5-20f8-528e-ae34-c2c1723db79a</tstamps>
+    </comp>
+    <comp ref="C69">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>37ea6b68-c064-59c1-a05b-1aa732e9001b</tstamps>
+    </comp>
+    <comp ref="C70">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>a4f39bc1-0bcc-5c29-87ed-2de0ca4d4c10</tstamps>
+    </comp>
+    <comp ref="C71">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>6943b87a-e951-5bc5-803d-f31250fef8c8</tstamps>
+    </comp>
+    <comp ref="C72">
+      <value>1u / 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-cell" part="C" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>47358897-32ea-580a-b8d2-07dc1864efe5</tstamps>
+    </comp>
+    <comp ref="JAC6">
+      <value>AC PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>be3b3632-9de3-5bfb-b8ee-7e3353712a78</tstamps>
+    </comp>
+    <comp ref="JDC11">
+      <value>DC+ PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>3a6fd674-65a5-56e2-bbc7-27e576bcef2a</tstamps>
+    </comp>
+    <comp ref="JDC12">
+      <value>DC- PORT PAD</value>
+      <footprint>epc2361-cell:Power_Port_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>8fe3965e-b247-596d-afbe-dbd2157f81bc</tstamps>
+    </comp>
+    <comp ref="JGH6">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>b1a3973a-f56b-57dd-840e-d8c0824ce183</tstamps>
+    </comp>
+    <comp ref="JGL6">
+      <value>G / KELVIN S</value>
+      <footprint>epc2361-cell:Gate_Source_Pads</footprint>
+      <libsource lib="epc2361-cell" part="Gate_Source" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>87d2c415-5333-5b63-84be-4aecc3d6857f</tstamps>
+    </comp>
+    <comp ref="QH6">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>070ca57e-0b56-591c-8f1c-eb8934504e45</tstamps>
+    </comp>
+    <comp ref="QL6">
+      <value>EPC2361</value>
+      <footprint>epc2361-cell:EPC2361</footprint>
+      <libsource lib="epc2361-cell" part="EPC2361" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>d6b3f35c-5d9c-5d26-b4a9-2f4e176bcc75</tstamps>
+    </comp>
+    <comp ref="RG11">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>76e14da3-fdc0-58fa-a0c2-81fceff9d1d4</tstamps>
+    </comp>
+    <comp ref="RG12">
+      <value>0R / TUNE</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_H" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>37ba0113-b1f5-53be-8036-1c3460b7a131</tstamps>
+    </comp>
+    <comp ref="RGS11">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>2f76baee-baf2-580f-ac46-51baae0a2a63</tstamps>
+    </comp>
+    <comp ref="RGS12">
+      <value>10k / DNP</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-cell" part="R_V" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <property name="dnp"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>383afd88-ade6-52d1-8f04-dc05cdb13138</tstamps>
+    </comp>
+    <comp ref="TP36">
+      <value>GH</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>bb3bb628-af41-59da-a47f-9db552c96bf3</tstamps>
+    </comp>
+    <comp ref="TP37">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>38e0fcfb-cdde-56c4-a976-9970255d506e</tstamps>
+    </comp>
+    <comp ref="TP38">
+      <value>GL</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>3ae276a8-5e72-5e03-a3ff-1bac5c1fc467</tstamps>
+    </comp>
+    <comp ref="TP39">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>92692f32-bd41-5dec-b7e2-bd4a9e25d6a8</tstamps>
+    </comp>
+    <comp ref="TP40">
+      <value>DC+</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>d2cdf022-b9d2-54b9-9de1-0db5fd502387</tstamps>
+    </comp>
+    <comp ref="TP41">
+      <value>DC-</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>e9819852-5062-5e9f-8fa3-fafab2135e54</tstamps>
+    </comp>
+    <comp ref="TP42">
+      <value>AC</value>
+      <footprint>epc2361-cell:Probe_Pad</footprint>
+      <libsource lib="epc2361-cell" part="Pad" description=""/>
+      <property name="Sheetname" value="Cell 6"/>
+      <property name="Sheetfile" value="cell-6.kicad_sch"/>
+      <sheetpath names="/Cell 6/" tstamps="/77aa27a4-5f50-57ab-b328-6235c8cb440c/"/>
+      <tstamps>166fc15e-89ae-5561-bb12-2d0a2e0e742b</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="epc2361-cell" part="C">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-cell" part="EPC2361">
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">EPC2361</field>
+        <field name="Footprint">epc2361-cell:EPC2361</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="passive"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+        <pin num="4" name="S" type="passive"/>
+        <pin num="5" name="D" type="passive"/>
+        <pin num="6" name="S" type="passive"/>
+        <pin num="7" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-cell" part="Gate_Source">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Gate_Source</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="passive"/>
+        <pin num="2" name="KS" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-cell" part="Pad">
+      <fields>
+        <field name="Reference">TP</field>
+        <field name="Value">Pad</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-cell" part="R_H">
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_H</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-cell" part="R_V">
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="epc2361-cell">
+      <uri>C:\Github\KTH\PCB-Design\hardware\epc2361-sixparallel/epc2361-cell.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="AC">
+      <node ref="JAC1" pin="1" pintype="passive"/>
+      <node ref="JAC2" pin="1" pintype="passive"/>
+      <node ref="JAC3" pin="1" pintype="passive"/>
+      <node ref="JAC4" pin="1" pintype="passive"/>
+      <node ref="JAC5" pin="1" pintype="passive"/>
+      <node ref="JAC6" pin="1" pintype="passive"/>
+      <node ref="JGH1" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGH2" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGH3" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGH4" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGH5" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGH6" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="QH1" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH1" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH1" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QH2" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH2" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH2" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QH3" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH3" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH3" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QH4" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH4" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH4" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QH5" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH5" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH5" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QH6" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QH6" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QH6" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL1" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL1" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL1" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QL2" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL2" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL2" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QL3" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL3" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL3" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QL4" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL4" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL4" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QL5" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL5" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL5" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QL6" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QL6" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QL6" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="RGS1" pin="2" pintype="passive"/>
+      <node ref="RGS11" pin="2" pintype="passive"/>
+      <node ref="RGS3" pin="2" pintype="passive"/>
+      <node ref="RGS5" pin="2" pintype="passive"/>
+      <node ref="RGS7" pin="2" pintype="passive"/>
+      <node ref="RGS9" pin="2" pintype="passive"/>
+      <node ref="TP14" pin="1" pintype="passive"/>
+      <node ref="TP16" pin="1" pintype="passive"/>
+      <node ref="TP2" pin="1" pintype="passive"/>
+      <node ref="TP21" pin="1" pintype="passive"/>
+      <node ref="TP23" pin="1" pintype="passive"/>
+      <node ref="TP28" pin="1" pintype="passive"/>
+      <node ref="TP30" pin="1" pintype="passive"/>
+      <node ref="TP35" pin="1" pintype="passive"/>
+      <node ref="TP37" pin="1" pintype="passive"/>
+      <node ref="TP42" pin="1" pintype="passive"/>
+      <node ref="TP7" pin="1" pintype="passive"/>
+      <node ref="TP9" pin="1" pintype="passive"/>
+    </net>
+    <net code="2" name="DC+">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C10" pin="1" pintype="passive"/>
+      <node ref="C11" pin="1" pintype="passive"/>
+      <node ref="C12" pin="1" pintype="passive"/>
+      <node ref="C13" pin="1" pintype="passive"/>
+      <node ref="C14" pin="1" pintype="passive"/>
+      <node ref="C15" pin="1" pintype="passive"/>
+      <node ref="C16" pin="1" pintype="passive"/>
+      <node ref="C17" pin="1" pintype="passive"/>
+      <node ref="C18" pin="1" pintype="passive"/>
+      <node ref="C19" pin="1" pintype="passive"/>
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="C20" pin="1" pintype="passive"/>
+      <node ref="C21" pin="1" pintype="passive"/>
+      <node ref="C22" pin="1" pintype="passive"/>
+      <node ref="C23" pin="1" pintype="passive"/>
+      <node ref="C24" pin="1" pintype="passive"/>
+      <node ref="C25" pin="1" pintype="passive"/>
+      <node ref="C26" pin="1" pintype="passive"/>
+      <node ref="C27" pin="1" pintype="passive"/>
+      <node ref="C28" pin="1" pintype="passive"/>
+      <node ref="C29" pin="1" pintype="passive"/>
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="C30" pin="1" pintype="passive"/>
+      <node ref="C31" pin="1" pintype="passive"/>
+      <node ref="C32" pin="1" pintype="passive"/>
+      <node ref="C33" pin="1" pintype="passive"/>
+      <node ref="C34" pin="1" pintype="passive"/>
+      <node ref="C35" pin="1" pintype="passive"/>
+      <node ref="C36" pin="1" pintype="passive"/>
+      <node ref="C37" pin="1" pintype="passive"/>
+      <node ref="C38" pin="1" pintype="passive"/>
+      <node ref="C39" pin="1" pintype="passive"/>
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="C40" pin="1" pintype="passive"/>
+      <node ref="C41" pin="1" pintype="passive"/>
+      <node ref="C42" pin="1" pintype="passive"/>
+      <node ref="C43" pin="1" pintype="passive"/>
+      <node ref="C44" pin="1" pintype="passive"/>
+      <node ref="C45" pin="1" pintype="passive"/>
+      <node ref="C46" pin="1" pintype="passive"/>
+      <node ref="C47" pin="1" pintype="passive"/>
+      <node ref="C48" pin="1" pintype="passive"/>
+      <node ref="C49" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="C50" pin="1" pintype="passive"/>
+      <node ref="C51" pin="1" pintype="passive"/>
+      <node ref="C52" pin="1" pintype="passive"/>
+      <node ref="C53" pin="1" pintype="passive"/>
+      <node ref="C54" pin="1" pintype="passive"/>
+      <node ref="C55" pin="1" pintype="passive"/>
+      <node ref="C56" pin="1" pintype="passive"/>
+      <node ref="C57" pin="1" pintype="passive"/>
+      <node ref="C58" pin="1" pintype="passive"/>
+      <node ref="C59" pin="1" pintype="passive"/>
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="C60" pin="1" pintype="passive"/>
+      <node ref="C61" pin="1" pintype="passive"/>
+      <node ref="C62" pin="1" pintype="passive"/>
+      <node ref="C63" pin="1" pintype="passive"/>
+      <node ref="C64" pin="1" pintype="passive"/>
+      <node ref="C65" pin="1" pintype="passive"/>
+      <node ref="C66" pin="1" pintype="passive"/>
+      <node ref="C67" pin="1" pintype="passive"/>
+      <node ref="C68" pin="1" pintype="passive"/>
+      <node ref="C69" pin="1" pintype="passive"/>
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="C70" pin="1" pintype="passive"/>
+      <node ref="C71" pin="1" pintype="passive"/>
+      <node ref="C72" pin="1" pintype="passive"/>
+      <node ref="C8" pin="1" pintype="passive"/>
+      <node ref="C9" pin="1" pintype="passive"/>
+      <node ref="JDC1" pin="1" pintype="passive"/>
+      <node ref="JDC11" pin="1" pintype="passive"/>
+      <node ref="JDC3" pin="1" pintype="passive"/>
+      <node ref="JDC5" pin="1" pintype="passive"/>
+      <node ref="JDC7" pin="1" pintype="passive"/>
+      <node ref="JDC9" pin="1" pintype="passive"/>
+      <node ref="QH1" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH1" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH1" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QH2" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH2" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH2" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QH3" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH3" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH3" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QH4" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH4" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH4" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QH5" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH5" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH5" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="QH6" pin="3" pinfunction="D" pintype="passive"/>
+      <node ref="QH6" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="QH6" pin="7" pinfunction="D" pintype="passive"/>
+      <node ref="TP12" pin="1" pintype="passive"/>
+      <node ref="TP19" pin="1" pintype="passive"/>
+      <node ref="TP26" pin="1" pintype="passive"/>
+      <node ref="TP33" pin="1" pintype="passive"/>
+      <node ref="TP40" pin="1" pintype="passive"/>
+      <node ref="TP5" pin="1" pintype="passive"/>
+    </net>
+    <net code="3" name="DC-">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C10" pin="2" pintype="passive"/>
+      <node ref="C11" pin="2" pintype="passive"/>
+      <node ref="C12" pin="2" pintype="passive"/>
+      <node ref="C13" pin="2" pintype="passive"/>
+      <node ref="C14" pin="2" pintype="passive"/>
+      <node ref="C15" pin="2" pintype="passive"/>
+      <node ref="C16" pin="2" pintype="passive"/>
+      <node ref="C17" pin="2" pintype="passive"/>
+      <node ref="C18" pin="2" pintype="passive"/>
+      <node ref="C19" pin="2" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C20" pin="2" pintype="passive"/>
+      <node ref="C21" pin="2" pintype="passive"/>
+      <node ref="C22" pin="2" pintype="passive"/>
+      <node ref="C23" pin="2" pintype="passive"/>
+      <node ref="C24" pin="2" pintype="passive"/>
+      <node ref="C25" pin="2" pintype="passive"/>
+      <node ref="C26" pin="2" pintype="passive"/>
+      <node ref="C27" pin="2" pintype="passive"/>
+      <node ref="C28" pin="2" pintype="passive"/>
+      <node ref="C29" pin="2" pintype="passive"/>
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C30" pin="2" pintype="passive"/>
+      <node ref="C31" pin="2" pintype="passive"/>
+      <node ref="C32" pin="2" pintype="passive"/>
+      <node ref="C33" pin="2" pintype="passive"/>
+      <node ref="C34" pin="2" pintype="passive"/>
+      <node ref="C35" pin="2" pintype="passive"/>
+      <node ref="C36" pin="2" pintype="passive"/>
+      <node ref="C37" pin="2" pintype="passive"/>
+      <node ref="C38" pin="2" pintype="passive"/>
+      <node ref="C39" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C40" pin="2" pintype="passive"/>
+      <node ref="C41" pin="2" pintype="passive"/>
+      <node ref="C42" pin="2" pintype="passive"/>
+      <node ref="C43" pin="2" pintype="passive"/>
+      <node ref="C44" pin="2" pintype="passive"/>
+      <node ref="C45" pin="2" pintype="passive"/>
+      <node ref="C46" pin="2" pintype="passive"/>
+      <node ref="C47" pin="2" pintype="passive"/>
+      <node ref="C48" pin="2" pintype="passive"/>
+      <node ref="C49" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="C50" pin="2" pintype="passive"/>
+      <node ref="C51" pin="2" pintype="passive"/>
+      <node ref="C52" pin="2" pintype="passive"/>
+      <node ref="C53" pin="2" pintype="passive"/>
+      <node ref="C54" pin="2" pintype="passive"/>
+      <node ref="C55" pin="2" pintype="passive"/>
+      <node ref="C56" pin="2" pintype="passive"/>
+      <node ref="C57" pin="2" pintype="passive"/>
+      <node ref="C58" pin="2" pintype="passive"/>
+      <node ref="C59" pin="2" pintype="passive"/>
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C60" pin="2" pintype="passive"/>
+      <node ref="C61" pin="2" pintype="passive"/>
+      <node ref="C62" pin="2" pintype="passive"/>
+      <node ref="C63" pin="2" pintype="passive"/>
+      <node ref="C64" pin="2" pintype="passive"/>
+      <node ref="C65" pin="2" pintype="passive"/>
+      <node ref="C66" pin="2" pintype="passive"/>
+      <node ref="C67" pin="2" pintype="passive"/>
+      <node ref="C68" pin="2" pintype="passive"/>
+      <node ref="C69" pin="2" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="C70" pin="2" pintype="passive"/>
+      <node ref="C71" pin="2" pintype="passive"/>
+      <node ref="C72" pin="2" pintype="passive"/>
+      <node ref="C8" pin="2" pintype="passive"/>
+      <node ref="C9" pin="2" pintype="passive"/>
+      <node ref="JDC10" pin="1" pintype="passive"/>
+      <node ref="JDC12" pin="1" pintype="passive"/>
+      <node ref="JDC2" pin="1" pintype="passive"/>
+      <node ref="JDC4" pin="1" pintype="passive"/>
+      <node ref="JDC6" pin="1" pintype="passive"/>
+      <node ref="JDC8" pin="1" pintype="passive"/>
+      <node ref="JGL1" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGL2" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGL3" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGL4" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGL5" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="JGL6" pin="2" pinfunction="KS" pintype="passive"/>
+      <node ref="QL1" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL1" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL1" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL2" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL2" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL2" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL3" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL3" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL3" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL4" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL4" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL4" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL5" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL5" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL5" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="QL6" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="QL6" pin="4" pinfunction="S" pintype="passive"/>
+      <node ref="QL6" pin="6" pinfunction="S" pintype="passive"/>
+      <node ref="RGS10" pin="2" pintype="passive"/>
+      <node ref="RGS12" pin="2" pintype="passive"/>
+      <node ref="RGS2" pin="2" pintype="passive"/>
+      <node ref="RGS4" pin="2" pintype="passive"/>
+      <node ref="RGS6" pin="2" pintype="passive"/>
+      <node ref="RGS8" pin="2" pintype="passive"/>
+      <node ref="TP11" pin="1" pintype="passive"/>
+      <node ref="TP13" pin="1" pintype="passive"/>
+      <node ref="TP18" pin="1" pintype="passive"/>
+      <node ref="TP20" pin="1" pintype="passive"/>
+      <node ref="TP25" pin="1" pintype="passive"/>
+      <node ref="TP27" pin="1" pintype="passive"/>
+      <node ref="TP32" pin="1" pintype="passive"/>
+      <node ref="TP34" pin="1" pintype="passive"/>
+      <node ref="TP39" pin="1" pintype="passive"/>
+      <node ref="TP4" pin="1" pintype="passive"/>
+      <node ref="TP41" pin="1" pintype="passive"/>
+      <node ref="TP6" pin="1" pintype="passive"/>
+    </net>
+    <net code="4" name="GH_1">
+      <node ref="QH1" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG1" pin="2" pintype="passive"/>
+      <node ref="RGS1" pin="1" pintype="passive"/>
+      <node ref="TP1" pin="1" pintype="passive"/>
+    </net>
+    <net code="5" name="GH_2">
+      <node ref="QH2" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG3" pin="2" pintype="passive"/>
+      <node ref="RGS3" pin="1" pintype="passive"/>
+      <node ref="TP8" pin="1" pintype="passive"/>
+    </net>
+    <net code="6" name="GH_3">
+      <node ref="QH3" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG5" pin="2" pintype="passive"/>
+      <node ref="RGS5" pin="1" pintype="passive"/>
+      <node ref="TP15" pin="1" pintype="passive"/>
+    </net>
+    <net code="7" name="GH_4">
+      <node ref="QH4" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG7" pin="2" pintype="passive"/>
+      <node ref="RGS7" pin="1" pintype="passive"/>
+      <node ref="TP22" pin="1" pintype="passive"/>
+    </net>
+    <net code="8" name="GH_5">
+      <node ref="QH5" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG9" pin="2" pintype="passive"/>
+      <node ref="RGS9" pin="1" pintype="passive"/>
+      <node ref="TP29" pin="1" pintype="passive"/>
+    </net>
+    <net code="9" name="GH_6">
+      <node ref="QH6" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG11" pin="2" pintype="passive"/>
+      <node ref="RGS11" pin="1" pintype="passive"/>
+      <node ref="TP36" pin="1" pintype="passive"/>
+    </net>
+    <net code="10" name="GH_DRV_1">
+      <node ref="JGH1" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG1" pin="1" pintype="passive"/>
+    </net>
+    <net code="11" name="GH_DRV_2">
+      <node ref="JGH2" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG3" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="GH_DRV_3">
+      <node ref="JGH3" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG5" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="GH_DRV_4">
+      <node ref="JGH4" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG7" pin="1" pintype="passive"/>
+    </net>
+    <net code="14" name="GH_DRV_5">
+      <node ref="JGH5" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG9" pin="1" pintype="passive"/>
+    </net>
+    <net code="15" name="GH_DRV_6">
+      <node ref="JGH6" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG11" pin="1" pintype="passive"/>
+    </net>
+    <net code="16" name="GL_1">
+      <node ref="QL1" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG2" pin="2" pintype="passive"/>
+      <node ref="RGS2" pin="1" pintype="passive"/>
+      <node ref="TP3" pin="1" pintype="passive"/>
+    </net>
+    <net code="17" name="GL_2">
+      <node ref="QL2" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG4" pin="2" pintype="passive"/>
+      <node ref="RGS4" pin="1" pintype="passive"/>
+      <node ref="TP10" pin="1" pintype="passive"/>
+    </net>
+    <net code="18" name="GL_3">
+      <node ref="QL3" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG6" pin="2" pintype="passive"/>
+      <node ref="RGS6" pin="1" pintype="passive"/>
+      <node ref="TP17" pin="1" pintype="passive"/>
+    </net>
+    <net code="19" name="GL_4">
+      <node ref="QL4" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG8" pin="2" pintype="passive"/>
+      <node ref="RGS8" pin="1" pintype="passive"/>
+      <node ref="TP24" pin="1" pintype="passive"/>
+    </net>
+    <net code="20" name="GL_5">
+      <node ref="QL5" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG10" pin="2" pintype="passive"/>
+      <node ref="RGS10" pin="1" pintype="passive"/>
+      <node ref="TP31" pin="1" pintype="passive"/>
+    </net>
+    <net code="21" name="GL_6">
+      <node ref="QL6" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG12" pin="2" pintype="passive"/>
+      <node ref="RGS12" pin="1" pintype="passive"/>
+      <node ref="TP38" pin="1" pintype="passive"/>
+    </net>
+    <net code="22" name="GL_DRV_1">
+      <node ref="JGL1" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG2" pin="1" pintype="passive"/>
+    </net>
+    <net code="23" name="GL_DRV_2">
+      <node ref="JGL2" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG4" pin="1" pintype="passive"/>
+    </net>
+    <net code="24" name="GL_DRV_3">
+      <node ref="JGL3" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG6" pin="1" pintype="passive"/>
+    </net>
+    <net code="25" name="GL_DRV_4">
+      <node ref="JGL4" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG8" pin="1" pintype="passive"/>
+    </net>
+    <net code="26" name="GL_DRV_5">
+      <node ref="JGL5" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG10" pin="1" pintype="passive"/>
+    </net>
+    <net code="27" name="GL_DRV_6">
+      <node ref="JGL6" pin="1" pinfunction="G" pintype="passive"/>
+      <node ref="RG12" pin="1" pintype="passive"/>
+    </net>
+  </nets>
+</export>

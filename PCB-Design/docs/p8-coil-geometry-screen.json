@@ -1,0 +1,65 @@
+{
+  "status": "Geometry study only; not installation or electrical validation",
+  "source": "PEM CWTUM dimensions March 2024 issue 03",
+  "assumptions": "Vertical circular winding centred at PCB mid-plane; 1.6mm board; 1.7mm maximum winding diameter",
+  "cases": [
+    {
+      "circumference_mm": 80.0,
+      "bend_radius_mm": 12.732395447351628,
+      "face_intersection_pitch_mm": 25.41447570403454,
+      "outer_envelope_diameter_mm": 27.164790894703255,
+      "protrusion_beyond_each_board_face_mm": 12.782395447351627,
+      "two_coplanar_circles_at_18mm_centres_intersect": true
+    },
+    {
+      "circumference_mm": 83.0,
+      "bend_radius_mm": 13.209860276627314,
+      "face_intersection_pitch_mm": 26.371227391080325,
+      "outer_envelope_diameter_mm": 28.119720553254627,
+      "protrusion_beyond_each_board_face_mm": 13.259860276627313,
+      "two_coplanar_circles_at_18mm_centres_intersect": true
+    }
+  ],
+  "outstanding": [
+    "Closure and free-end passage",
+    "Two-channel winding collision",
+    "Signed current crossings on all copper layers",
+    "Cooling and underside clearance",
+    "Complete loop-inductance comparison"
+  ],
+  "elevated_circular_candidates": [
+    {
+      "circumference_mm": 80.0,
+      "circle_centre_above_midplane_mm": 10.082395447351628,
+      "positive_x_slab_intersection_mm": [
+        4.7712462622152785,
+        9.915573651948938
+      ],
+      "negative_x_slab_intersection_mm": [
+        -9.915573651948938,
+        -4.7712462622152785
+      ],
+      "slot_y_width_without_clearance_mm": 1.7,
+      "winding_top_above_board_top_mm": 22.86479089470326,
+      "winding_bottom_below_board_bottom_mm": 2.7,
+      "underside_clearance_to_upper_surface_of_bottom_arc_mm": 1.0
+    },
+    {
+      "circumference_mm": 83.0,
+      "circle_centre_above_midplane_mm": 10.559860276627314,
+      "positive_x_slab_intersection_mm": [
+        4.870289575913801,
+        10.120513740862908
+      ],
+      "negative_x_slab_intersection_mm": [
+        -10.120513740862908,
+        -4.870289575913801
+      ],
+      "slot_y_width_without_clearance_mm": 1.7,
+      "winding_top_above_board_top_mm": 23.81972055325463,
+      "winding_bottom_below_board_bottom_mm": 2.7,
+      "underside_clearance_to_upper_surface_of_bottom_arc_mm": 1.0
+    }
+  ],
+  "elevated_candidate_limitations": "Paired slot envelopes exclude assembly clearance and closure passage. Circles at 18mm branch pitch intersect if coplanar; spatial separation is required. Narrower board crossings retain the 10mm minimum bend radius but do not resolve enclosed return current, component collisions or heatsink interference."
+}

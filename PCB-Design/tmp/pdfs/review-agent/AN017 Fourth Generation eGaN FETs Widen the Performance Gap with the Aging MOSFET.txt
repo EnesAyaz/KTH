@@ -1,0 +1,369 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN017 Fourth Generation eGaN FETs
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    1
+Fourth Generation eGaN®
+FETs Widen the Performance
+Gap with the Aging MOSFET
+Fourth generation of GaN-on-silicon enhancement mode transistors (eGaN FETs)  
+sets new performance records. This family of products range from 30 V to 200 V 
+and significantly widen the performance gap between the aging power MOSFET 
+and gallium nitride-based transistors.
+EFFICIENT POWER CONVERSION
+Alex Lidow, PhD, David Reusch, PhD, Johan Strydom, PhD
+Figure 1: Mounting side of 30 V EPC2023 eGaN FET
+Gen 4 Device Family Overview
+In this application note we present the key improvements embodied in the latest generation of eGaN FETs. That will be followed by two application examples, a  
+12 V - 1.2 V converter and a 48 V - 12 V converter; both with unprecedented performance. Table 1 shows the basic device parameters for the Gen 4 products.  
+Representative Gen 2 products are also shown for comparison in the shaded rows at the bottom of the table. Lower on-resistance (R DS(on)), lower capacitance,  
+higher current, and superior thermal performance characterize this family of eGaN FETs. 
+Die Layout:
+Since their initial launch in 2010, eGaN FETs have had extremely low on-resistance in an extremely small 
+footprint compared with any previously available semiconductor [1]. The Gen 4 products continue this  
+tradition with the chipscale LGA footprint shown in figure 1. Interleaved drain and source bars help  
+reduce the power loop inductance while internal design virtually eliminates common source inductance. 
+To improve the thermal and electrical, the largest devices of the Gen 4 family have a gap between 
+the top row of solder bars and the bottom row. This gap in the middle of the die enables large copper 
+traces along with cooling vias in the PCB for enhanced thermal performance. A sample layout of the 
+2 ounce copper top layer is shown in figure 2. Using 12 mil vias with 22 mil annular rings on 1.6mm 
+centers help remove the heat from the area surrounding the device as well as from the center of the 
+transistor. This configuration also supports the use of our optimal layout power loop structure [2] 
+while using 4 ounces or more of copper on the inner layers. 
+Figure 2: Plot of a possible PCB layout for the die in
+figure 1
+Part
+ Number Gen BV 
+(V)
+Max RDS(on) (mΩ) 
+(VGS=5 V, at ID
+Cont.)
+ PeakID 
+(A) 
+(Pulsed, 
+25ºC)
+Typical Charge (nC)* VDS = BV/2 Typ RG 
+(Ω)
+Cont. ID 
+(A)
+Typ Max QG QGS QGD QOSS QRR
+EPC2023 4 30 1 1.45 590 19 5.7 3.2 30 0 0.3 60
+EPC2024 4 40 1.2  1.5 560 18 5.1 2.4 45 0 0.3 60
+EPC2020 4 60 1.5 2.2 470 16 3.9 2.3 50 0 0.3 60
+EPC2021 4 80 1.8 2.5 420 15 3.4 2.3 63 0 0.3 60
+EPC2022 4 100 2.4 3.2 360 13.2 3.4 2.4 71 0 0.3 60
+EPC2019 4 200 33 50 42 1.8 0.6 0.35 18 0 0.3 9
+EPC2015C 2 40 3.2 4 150 8.7 2.7 1.2 19 0 0.3 33
+EPC2001C 2 100 5.6 7 150 7.5 2.4 1.2 31 0 0.3 25
+EPC2012C 2 200 70 100 22 1 0.3 0.2 10 0 0.3 3
+Table 1
+* Preliminary Data - subject to change without notice
+
+=== PAGE 2 ===
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    2
+APPLICATION NOTE: AN017 Fourth Generation eGaN FETs 
+Figure 4: Hard switching FOMHS comparison of (a) previous and latest generation eGaN FETs (b) eGaN FETs and state-of-the-art Si power devices
+Figure 3:  On-resistance comparison of previous and latest generation eGaN FETs
+Drain-to-Source Voltage (V)
+0
+1
+2
+3
+4
+5
+6
+0 20 40 60 80 100 120
+2.3x
+2.6x
+RDS(on) (mΩ)
+Generation 2 
+2011 
+Generation 4 
+2014 
+On-Resistance:
+Previously, to increase the output current in eGaN FET-based DC-DC 
+converters, paralleling of multiple devices was required [3]. While 
+paralleling high performance eGaN devices could provide higher out-
+put power, the increased part count adds cost and complexity while 
+reducing the power density of the system.  The new family of eGaN 
+FETs demonstrates a significant reduction in on-resistance, (R DS(on)), 
+enabling high current, high power density eGaN FET-based DC-DC 
+converter applications.  In figure 3 the latest generation of eGaN FETs 
+with voltages range from 30 V to 100 V and on-resistances range from 
+1.0 to 2.4 mΩ are shown. A 200 V FET, EPC2019, is also part of the Gen 
+4 family and has a typical on-resistance of 33 mΩ in an ultra-small 
+footprint. 
+Hard Switching Figure of Merit (FOMHS) [4]:
+In a traditional hard-switching transition, the switching losses are impacted primarily by two device parameters, QGD, the gate-to-drain charge (also known as the 
+Miller charge), which controls the voltage rising and falling transition time; and QGS2, which is the portion of the gate-to-source charge from the device threshold 
+voltage to the gate plateau voltage, which controls the current rising and falling transition time.  The hard switching figure of merit (FOM HS) given below can be 
+used to compare the in-circuit performance capability of a given device technology in different hard-switched applications.
+FOMHS = (QGD + QGS2) ∙ RDS(on)
+The latest generation of eGaN FETs demonstrates an almost 2x reduction in FOM HS over the previous generation as shown in figure 4(a).  The newest family 
+of eGaN FETs reduces FOM by 3.5x, 6.1x, and 8.5x respectively for 40 V, 100 V, and 200 V devices when compared to the best state-of-art Si power MOSFETs.  
+With lower FOM HS, improved device packaging, and low parasitic PCB layout, the high frequency performance of high density eGaN FET-based converters is  
+significantly improved compared to Si MOSFETs. 
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+0 50 100 150 200 250
+FOMHS =(QGD +QGS2)·RDS(on) (pC·Ω)
+FOMHS =(QGD +QGS2)·RDS(on) (pC·Ω)
+Drain-to-Source Voltage (V)Drain-to-Source Voltage (V)
+2.4x
+1.8x
+1.8x
+Generation 2 
+eGaN FET 2011 
+Generation 4 
+eGaN FET 2014 
+0
+50
+100
+150
+200
+250
+0 50 100 150 200 250
+EPC Gen 4
+EPC Gen 2
+Vendor A
+Vendor B
+Vendor C
+Vendor D
+Vendor E
+8.5x
+3.5x
+6.1x
+Si MOSFETs
+eGaN FETs
+(a) (b)
+
+=== PAGE 3 ===
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    3
+APPLICATION NOTE: AN017 Fourth Generation eGaN FETs 
+Soft Switching  Figure of Merit (FOMSS) [5]:
+In resonant and soft-switching applications the switching-related losses are minimized by using techniques such as zero voltage switching (ZVS) and zero  
+current switching (ZCS).  With the reduction of switching losses, the FOM HS used for hard switching applications to compare device technologies is no longer 
+valid for soft-switching applications.
+In most soft-switching applications the device output charge, QOSS, has a large impact on performance as it directly impacts the energy required to achieve ZVS.  
+A reduction in energy required to achieve ZVS can result in reduced dead times and ZVS currents, providing both a larger power delivery period and lower RMS  
+currents in high frequency soft-switching and resonant converters.  QOSS is also the main loss component in ZCS switching. The other major contributor to loss is the 
+gate charge, QG, which is a major switching related loss in high frequency soft-switching applications.   A soft switching figure of merit can therefore be derived as:
+FOMSS = (QG + QOSS) ∙ RDS(on)
+The latest generation of eGaN FETs demonstrates 1.3X reduction in FOM SS over the previous generation as shown in figure 5(a).  The newest family of eGaN FETs 
+reduces FOM by 1.7x, 2.3x, and 3.5x respectively for 40 V, 100 V, and 200 V devices when compared to the best state-of-art Si power MOSFETs.  With lower FOMSS, 
+improved device packaging, and low parasitic PCB layout, the high frequency performance of high density eGaN FET-based converters is significantly improved 
+compared to Si MOSFETs is soft switching as well as hard switching applications.
+FOMSS =(QG +QOSS)·RDS(on) (pC·Ω)
+FOMSS =(QG +QOSS)·RDS(on) (pC·Ω)
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+0 50 100 150 200 250
+VDS =0.5·VDSS
+1.3x
+1.3x
+Generation 2 
+2011 
+Generation 4 
+2014 1.3x
+Drain-to-Source Voltage (V)
+VDS =0.5·VDSS
+Drain-to-Source Voltage (V)
+0
+500
+1000
+1500
+2000
+2500
+0 50 100 150 200 250
+EPC Gen 4
+EPC Gen 2
+Vendor A
+Vendor B
+1.7x 2.3x
+3.5x
+(a) (b)
+Figure 5: Soft switching FOMSS comparison of (a) previous and latest generation eGaN FETs (b) eGaN FETs and state-of-the-art Si power device
+Miller Ratio [6]:
+eGaN FETs are exposed to significantly higher voltage and current 
+slew rates that can impact the performance of the transistor. These 
+conditions need to be understood well in order to fully utilize the 
+technology.
+A high, positive-voltage slew rate (dv/dt) on the drain of an off-state 
+device can occur in both hard- and soft-switching applications, and 
+is characterized by a quick charging of the device’s capacitances.  
+During this dv/dt event, the drain-source capacitance (CDS) is charged. 
+Concurrently, the gate-drain (C GD) and gate-source (CGS) capacitors 
+in series also are charged. The concern is that, unless addressed, the 
+charging current through the C GD capacitor will flow through and 
+charge CGS beyond Vth and turn the device on. This event, sometimes 
+called Miller turn-on, can be very dissipative.
+To determine the dv/dt susceptibility of a power device, a Miller 
+charge ratio (QGD/QGS1), as function of drain-to-source voltage, can be 
+evaluated. A Miller ratio of less than one will guarantee dv/dt immu -
+nity [6]. In figure 6 is shown the large reduction in Miller ratio in Gen 
+4 FETs, with all of the new-generation product falling under a value of 
+1 at half their rated voltage.
+VDS =0.5·VDSS , IDS =20 A
+0
+0.5
+1
+1.5
+2
+2.5
+0 50 100 150 200 250
+Miller  Ratio=QGD/QGS1
+3.1x
+3.2x
+2.7x
+Drain-to-Source Voltage (V)
+Generation 2 
+2011 
+Generation 4 
+2014 
+Figure 6: The Miller ratio of Generation 4 devices is superior to  
+Generation 2 and reduces sensitivity to dv/dt-induced false turn-on
+
+=== PAGE 4 ===
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    4
+APPLICATION NOTE: AN017 Fourth Generation eGaN FETs 
+Experimental Results:
+To highlight the improved performance of Gen 4 eGaN FETs, two buck converters 
+were built using a combination of the Generation 4 eGaN FETs as the synchro -
+nous rectifier and Generation 2 eGaN FETs as the control device (see figure 7).  
+The first of these converters combined the 30 V, EPC2023 (Gen 4) with the 40 V 
+EPC2015 (Gen 2) in a 12 V – 1.2 V DC-DC point of load (POL) converter.  A 48 V – 12 
+V POL was constructed with an 80 V EPC2021 combined with a 100 V EPC2001.
+Shown in figure 8(a) are the experimental results of the 12 V to 1.2 V, 40 A POL 
+converter operating at switching frequency of 1 MHz achieving efficiencies above 
+91.5% and demonstrating the superior in-circuit performance of the latest gener-
+ation of eGaN power devices compared to the previous generation of eGaN FETs 
+(shown in green), and state-of-the-art Si MOSFET modules (shown in red).  Shown 
+in figure 8(b) are the experimental results of a 48 V to 12 V, 30 A non-isolated DC-
+DC intermediate bus converter operating at a switching frequency of 300 kHz 
+achieving efficiencies above 98%, again significantly outperforming the previous 
+eGaN FETs, shown in green, and state of the art Si power MOSFETs, shown in red.
+Figure 7:  Photo of 12 V – 1.2 V buck converter using Generation 4 eGaN FETs.  
+This buck converter achieves over 91.5% efficiency at 1 MHz
+84
+85
+86
+87
+88
+89
+90
+91
+92
+2 6 10 14 18 22 26 30 34 38 42 46 50
+Eﬃciency (%)
+Eﬃciency (%)
+Output Current (A) Output Current (A)
+GaN POL  
+w/ Gen 4 Transistors
+GaN POL
+w/ Gen 2
+Transistors
+30 V 
+MOSFET 
+Module
+92
+92.5
+93
+93.5
+94
+94.5
+95
+95.5
+96
+96.5
+97
+97.5
+98
+98.5
+0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32
+Si MOSFET
+GaN w/ Gen 2
+Transistors
+GaN w/ Gen 4 
+Transistors
+Eﬃciency (%)
+Eﬃciency (%)
+Output Current (A) Output Current (A)
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+2 6 10 14 18 22 26 30 34 38 42 46 50
+f sw =0.5 MHz
+f sw =1 MHz
+f sw =1.5 MHz
+f sw =2 MHz
+91
+90
+92
+93
+94
+95
+96
+97
+98
+99
+0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32
+f sw =300 kHz
+f sw =500 kHz
+f sw =750 kHz
+f sw =1 MHz
+eGaN FET
+Generaton 4
+eGaN FET
+Generaton 4
+Figure 8: Efficiency comparison between eGaN FET and Si based (a) 12 VIN, 1.2 VOUT, 1 MHz POL converters and  
+(b) 48 VIN, 12 VOUT, 300 kHz non-isolated intermediate bus converters
+The improved performance also enables higher frequency operation without sacrificing an enormous amount of efficiency.  Figure 9 shows the 12 V to 1.2 V buck 
+converter efficiency at various PWM frequencies.  At 0.5 MHz the converter achieves almost 94% peak efficiency.  This peak efficiency drops to 87.5% at 2 MHz.
+The 48 V to 12 V converter also shows great resilience to higher frequencies with an efficiency of 96% at 1 MHz (see figure 10).
+Figure 10: 48 VIN, 12 VOUT Gen 4 efficiency at various frequenciesFigure 9: 12 VIN, 1.2 VOUT Gen 4 efficiency at various frequencies
+
+=== PAGE 5 ===
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2019   | |    5
+APPLICATION NOTE: AN017 Fourth Generation eGaN FETs 
+Summary
+In this application note the new 4th Generation eGaN FETs have been introduced. eGaN FETs continues to raise the bar for power conversion performance. In 
+on-resistance and in hard-switching applications the Gen 4 family of eGaN FETs doubles the performance of prior generations.  The result is a quantum step in 
+efficiency in DC-DC converters.
+References
+[1]   A. Lidow, J. Strydom, M. de Rooij, and Y. Ma, “GaN Transistors for Efficient Power Conversion, First Edition, ” Power Conversion Publications, 2012.
+[2]   D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit Performance in a High Frequency Gallium Nitride Based Point of Load Converter, ”  
+ APEC 2013, pp.649-655, 16-21 March 2013.
+[3]   D. Reusch and J. Strydom, “Improving Performance of High Speed GaN Transistors Operating in Parallel for High Current Applications, ” PCIM Europe 2014,  
+ pp. 302-309, 2014.
+[4] D. Reusch, “Improving System Performance with eGaN® FETs in DC-DC Applications, ” 46th International Symposium on Microelectronics, iMAPS 2 October 2013.
+[5] D. Reusch and J. Strydom, “Evaluation of Gallium Nitride Transistors in High Frequency Resonant and Soft-Switching DC-DC Converters, ” Applied Power  
+ Electronics Conference and Exposition, pp. 464 –470, 2014.
+[6] T. Wu, “Cdv/dt Induced Turn-On In Synchronous Buck Regulators” , white paper, International Rectifier Corporation.

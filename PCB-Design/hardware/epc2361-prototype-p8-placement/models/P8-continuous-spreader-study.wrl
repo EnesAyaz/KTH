@@ -1,0 +1,7 @@
+#VRML V2.0 utf8
+# Review envelope; underside z=1mm; no tolerances or supports qualified
+Transform { translation 16.53543307086614 -9.094488188976378 0.984251968503937 children [ Shape { appearance Appearance { material Material { diffuseColor 0.65 0.67 0.7 transparency .35 } } geometry Box { size 7.244094488188976 4.015748031496063 1.1811023622047243 } } ] }
+Transform { translation 14.173228346456693 -7.874015748031496 0.3248031496062992 children [ Shape { appearance Appearance { material Material { diffuseColor 0.2 0.7 0.7 transparency .35 } } geometry Box { size 1.968503937007874 1.1811023622047243 0.13779527559055116 } } ] }
+Transform { translation 14.173228346456693 -10.236220472440944 0.3248031496062992 children [ Shape { appearance Appearance { material Material { diffuseColor 0.2 0.7 0.7 transparency .35 } } geometry Box { size 1.968503937007874 1.1811023622047243 0.13779527559055116 } } ] }
+Transform { translation 18.89763779527559 -7.874015748031496 0.3248031496062992 children [ Shape { appearance Appearance { material Material { diffuseColor 0.2 0.7 0.7 transparency .35 } } geometry Box { size 1.968503937007874 1.1811023622047243 0.13779527559055116 } } ] }
+Transform { translation 18.89763779527559 -10.236220472440944 0.3248031496062992 children [ Shape { appearance Appearance { material Material { diffuseColor 0.2 0.7 0.7 transparency .35 } } geometry Box { size 1.968503937007874 1.1811023622047243 0.13779527559055116 } } ] }

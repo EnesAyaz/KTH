@@ -1,0 +1,854 @@
+
+=== PAGE 1 ===
+A Multi-Kilowatt Low-Profile GaN Inverter for
+Light Electric Vehicles and High-Power Tools
+Martin Wattenberg, Oscar G. Lorenz, Juan Sanchez
+Infineon Technologies Austria AG
+Siemensstraße 2, 9500 Villach, Austria
+Email: martin.wattenberg@infineon.com
+Abstract—An ultra-compact three-phase inverter with 8 de-
+vices per switch is presented for a combined output power of 7.3
+kW at 48 V . Due to the use of Gallium-Nitride (GaN) transistors
+the design can operate at a frequency of 50 kHz and above
+without significant loss penalty. Parallel switching of the GaN
+device is enabled by symmetrical a layout with a “butterfly”
+structure. The high switching frequency enables to shrink the
+size of the DC-link capacitor to an overall size of 72 by 132 mm
+with a height of as low as 4 mm depending on the chosen cooling
+solution resulting in an overall volume of 0.1 liter. The measured
+peak efficiency of over 99.3% enables small heatsink size and
+high output power with minimal airflow. Under free convection
+and device temperature limited to 100°C the inverter reached
+an output power of 4 kW with efficiency above 99% across the
+operation range. Using active cooling the capable of delivering
+7.3 kW while keeping device temperatures around 60°C.
+I. I NTRODUCTION
+An increasing amount of applications that used to run
+off small off-road engines (SORE) are now transitioning to
+electric due to environmental concerns as well as legisla-
+tive initiatives. Typical applications include larger power and
+gardening tools as well as small and light electric vehicles
+(LEVs). For these applications there is a strong need for
+highly efficient, small and light-weight motor drives to allevi-
+ate the increased weight introduced by the batteries. Power
+requirement on these motor drives is in the multi-kilowatt
+range, i.e. from 2 to 19 kW with a battery voltage ranging
+typically from 48 to 120 V . Conventional inverter designs
+based on silicon (Si) MOSFET technology struggle to meet
+expectation in terms of size and weight [1]. Gallium-Nitride
+(GaN) High Electron Mobility Transistors (HEMTs) are a
+potentially attractive solution to meet the increased demand
+for performance [2]. However, currently these devices are not
+widely available in large die sizes which makes it difficult
+to address high current application with a single device. To
+overcome this issue the literature reports paralleling of up to
+four GaN HEMTs successfully [3], [4], [5], [6]. In addition,
+several concepts have been proposed to increase the system
+output power by paralleling motor drives[7], using poly-phase
+[8], [9], [10] or multi-level systems [11], [12]. However, these
+solutions come with a lot of added complexity which is not al-
+ways desirable. This work presents a high-current three-phase
+motor drive with 8 GaN HEMTs per switch in parallel. In
+particular, the design is capable of maintaining high switching-
+speed and low switching-loss thanks to a consequential low-
+impedance design. To the authors knowledge this is the first
+comprehensive study on paralleling more than four devices
+effectively.
+II. F UNDAMENTAL CONSIDERATIONS FOR PARALLELING
+ON DEVICE -LEVEL
+Similar to Si MOSFETs, GaN HEMTs are majority carrier
+devices and exhibit a positive temperature coefficient for
+RDS(on) with respect to the junction temperature Tj. For a
+100 V Si MOSFET and a comparable GaN HEMT theRDS(on)
+vs. Tj is shown in Fig. 1 . The GaN HEMT clearly exhibits
+an increase temperature coefficient over the Si MOSFET. For
+paralleling this behavior is actually desirable as it helps with
+steady-state current balancing. In case of a current imbalance,
+the device carrying the most current will heat-up more which
+leads to higher resistance and in turn to lower current through
+that device.
+In addition to the static RDS(on), the transfer character-
+istic as well as transconductance ∆ID/∆VGS are important
+characteristics for dynamic current sharing. Fig. 2 compares
+the behavior for aforementioned devices. For comparison the
+plot has been normalized the threshold voltage at 25°C of 3.3
+and 2.1 V for the MOSFET and HEMT respectively. At 25°C
+the GaN HEMT shows a much higher transconductance than
+the MOSFET. However, the transconductance is also more
+strongly affected by temperature, effectively slowing down
+the switching transient. This temperature coefficient helps
+to balance dynamic current sharing, as hotter devices will
+naturally carry less of the hard-switching burden than colder
+devices.
+Furthermore, Fig. 2 provides an indication of the sensitivity
+of Vth towards temperature for the MOSFET and HEMT.
+While ID remains negligible regardless of temperature for the
+HEMT, the MOSFETs drain current increases notably with
+temperature when Vth is left at 3.3V . In other words, to keep
+the MOSFET at the threshold of conduction, VGS needs to
+be decreased considerably with temperature. The temperature
+coefficient∆Vth/∆Tj is -3.75 and only -1.1 mV/K for the con-
+sidered MOSFET and HEMT respectively. Further information
+can be found in a previous publication [13].
+978-1-6654-7539-6/23/$31.00 ©2023 IEEE 1443
+2023 IEEE Applied Power Electronics Conference and Exposition (APEC) | 978-1-6654-7539-6/23/$31.00 ©2023 IEEE | DOI: 10.1109/APEC43580.2023.10131197
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+0 25 50 75 100 125 150
+ Tj / °C
+2
+2.5
+3
+3.5
+4
+4.5
+5
+5.5
+6
+ RDS(on) / m
+GaN HEMT
+Si MOSFET
+Fig. 1. Comparison of RDS(on) vs. Tj for a state-of-the-art power 100 V Si
+MOSFET and 100 V GaN HEMT.
+ Vth(25°C) +0.2 V +0.4 V +0.6 V +0.8 V +1 V
+ VGS
+0
+10
+20
+30
+40
+50
+60
+70
+ ID / A
+Si-MOSFET
+GaN HEMT
+25°C
+50°C
+100°C
+150°C
+25°C
+50°C
+100°C
+150°C
+Fig. 2. Comparison of the transfer characteristic ( ID vs. VGS) for a state-
+of-the-art power 100 V MOSFET and 100 V GaN HEMT.
+III. C ONSIDERATIONS FOR A THREE -PHASE
+GAN-O PTIMIZED MOTOR DRIVE
+A schematic of the motor drive is given in Fig. 3 . For
+simplicity only one of the three half-bridges is shown in detail.
+All sense and control signals are exposed on a 32-pin header
+with 100 mil pitch to facilitate easy evaluation with different
+controllers.
+A. Current Sensing for High-Current Applications
+Instead of a more conventional low-side shunt resistor, an in-
+phase current sense solution based on the TLE4972 differential
+Hall sensor was chosen. This provides two significant advan-
+tages. First, the power loop for the GaN HEMTs can be opti-
+mized by keeping the commutation loops tight and additional
+parasitics of the shunt itself can be avoided. Lower parasitics
+in the commutation loop reduce ringing in the switch-node
+voltage and decrease switching loss. Second, the shunt itself
+can introduce non-negligible power loss. With 8 HEMTs in
+parallel the effective resistance for this implementation is less
+than 400 µΩ. On the one hand a shunt of similar or larger
+resistance would introduce a significant loss contribution, thus
+nullifying the lower attainable loss by paralleling devices. On
+the other hand a significantly smaller shunt in a small package
+is technically not trivial and provides extreme challenges in
+terms of signal amplification and integrity when scaled back
+to the ADCs input range. Hall-based current sensors can easily
+overcome these limitations for high-current application. The
+chosen TLE4972 is designed for external current rails which
+allows to simplify the current flow path from the devices
+straight to the screw connector. In order to increase the
+intensity of the ⃗B-field, current is concentrated locally beneath
+the sensor. This short, narrow section only adds minimal
+additional loss and the implementation is shown in Fig. 4. In
+this design two layers of 70 µm copper were deemed sufficient.
+However, losses can be easily scaled down further by adding
+additional layers to the PCB.
+B. Temperature Sensing
+Junction temperature can be reasonably well estimated by
+observing the exposed substrate on the back of the GaN
+HEMT with a thermocouple or thermal camera. However,
+for situations where the substrate is not easily accessible a
+separate temperature sensor was placed in the center of the
+board. This sensor is helpful to give an indication of the device
+temperatures once a top-side heatsink is applied.
+Phase C
+Phase B
+TLE4972
+In-phase current sensor 
+for external rails
+Vin ≤ 60V
+Iphs
+BLDC/
+PMSM
+48V to 5V
+DC/DC
+Vin
+OCD
+Temp.
+Sense{
+{
+{
+{
+3-Phase Motor Drive
+Ceramic DC 
+link
+Phase A
+To External controller, e.g. 
+XMC4000 / XMC7000
+PWM High Side
+PWM Low Side
+SGND
+Temp.
+Phase Current
+OCD
+EN
+VDD
+OUTSNK
+VOFFADJ
+IN+
+IN-
+VOFF
+CF-
+EiceDRIVER 
+1EDN7116G
+VSS
+BST
+OUTSRC
+CF+ 8x 100V 
+3mΩ 
+HEMT
+8x
+CVDD
+Close 
+proximity
+VDD
+OUTSNK
+VOFFADJ
+IN+
+IN-
+VOFF
+CF-
+VSS
+BST
+OUTSRC
+CF+
+CVOFF
+RADJ
+RG
+CCP
+RIN+
+RIN-
+CGS
+(optional)
+CVOFF
+RADJ
+8x
+RG
+DZNR
+CVDD
+CCP
+RDRV
+RIN+
+RIN-
+B-Field
+Close 
+proximity
+8x 100V 
+3mΩ 
+HEMT
+PGND
+CGS
+(optional)
+DBoot
+Fig. 3. Schematic of the implemented motor drive.
+C. Design of Gate Drive Circuit and Layout
+An optimized design and layout of the gate driving cir-
+cuits is crucial for the performance of the inverter system.
+For this design, six Infineon 1EDN7116G EiceDRIVER ICs
+were used to drive the high-side and low-side switches of
+each phase. This IC includes several important features for
+optimally driving GaN SG HEMTs. The truly differential input
+(TDI) provides immunity to fast common-mode transients,
+including level-shifting for the high-side switch and ground-
+bounce avoidance for the low-side. The circuit shown inFig. 3
+1444
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+allows the driver to output a peak current of 4 A for sourcing
+and sinking during switching. Furthermore, an active Miller
+clamp boost the sinking output to 7 A once the driver detects
+that the gate voltage has fallen below 0.4 V . This feature
+avoids spurious switching due to the Miller effect. Added
+robustness against induced turn-on is provided by an integrated
+charge pump within the driver, which internally generates
+an adjustable negative rail to ensure that all GaN HEMTs
+remain off at the proper times [14]. It is important to consider
+that GaN HEMTs have a reverse conduction mechanism that
+mimics a MOSFET body diode, with the exception that the
+"body diode" voltage drop is directly proportional to the neg-
+ative voltage applied. Therefore, applying a more negative of-
+state voltage than necessary produces higher losses during the
+dead-time. Furthermore, when the high-side driver is supplied
+via bootstrapping as in Fig. 3 this mechanism increases the
+effective voltage being applied during deadtime. A Zener
+diode (D ZNR) is therefore included in parallel to C VDD of
+the high-side. The amount of over-charging will depend on
+the (parasitic) impedance and deadtime.
+The high-side gate traces are shown in Fig. 4. Great care
+was given to the symmetrical design of the gate loops via
+the “butterfly” structure with the gate driver in the center.
+Implementation of the low-side traces is similar. Moreover,
+this layer also contains part of the switch-node for which
+the output current is indicated. A second switch-node layer
+is placed directly on top providing a tightly coupled, low-
+inductance return loop for the gate current as well as lower
+resistance for the output current.
+SinkSource
+HS gate 
+current
+Current 
+concentration 
+for B sensing
+Phase 
+current
+Fig. 4. PCB layer 5 which includes the switch node, the gate path (source and
+sink) and concentration for phase current to increase the ⃗B-field for current
+sensing.
+Fig. 5 shows the simulated impedance of the 8 different
+gate paths. It can be clearly seen that all loops match very
+well along the considered frequency range. At 500 MHz the
+inductance of the 8 loops is about 1 nH with less than than
+17% difference in impedance.
+100 101 102 103
+Frequency / MHz
+0
+1
+2
+3
+4
+5
+6|Z| / 
+|Z|(Q2)
+|Z|(Q4)
+|Z|(Q6)
+|Z|(Q8)
+|Z|(Q10)
+|Z|(Q12)
+|Z|(Q14)
+|Z|(Q16)
+Fig. 5. Impedance of the gate loop for all low-side device with respect to
+the central gate driver.
+D. Sizing of the DC-Link
+As [15] has shown, the RMS current of the DC-link in
+a voltage-source-inverter is primarily dependent on the output
+current of the inverter and power factor. As first approximation
+for sizing the DC-link, the capacitor RMS current ICin can be
+derived from the phase current Iphs as
+ICin = 0.65 · Iphs. (1)
+For a targeted 130 Arms this results in about 85 Arms current
+going through the DC-link. For a single capacitor this would
+be considerable. However, thanks to the low switching-loss
+of GaN HEMTs, frequency can be increased to a point
+where MLCCs become viable instead of aluminum electrolyte
+capacitors. With respect to their size the current handling
+capability of MLCCs is much higher and paralleling them
+is straightforward. Paralleling many MLCCs has the added
+benefit of reducing the parasitic inductance, thus reducing
+ringing and improving current sharing [13].
+In addition to the current handling capability, the voltage
+ripple needs to be considered. The amount of total DC-
+link capacitance CDCdepends on the acceptable voltage ripple
+∆vpp,max, the peak phase output currentˆIphsand the switching
+frequency of the inverter fsw. It can be estimated as follows
+CDC ≥
+ˆIphs
+4fsw∆vpp,max
+. (2)
+Given a switching frequency fsw of 50 kHz and an accept-
+able voltage ripple of 5% at 48 V (2.4 V pp), CDCneeds to be
+at least 375 µF. Of course this can be further refined depending
+on requirements for size, output power and efficiency.
+E. Thermal Considerations
+To enable high power motor drives, an effective thermal
+solution is required. For this reason all GaN devices have
+been placed placed on one side of the PCB to facilitate easy
+1445
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+attachment to a heatsink. Crucially, all components have been
+chosen not to exceed the height of the HEMTs. The dual-sided
+cooling package of the GaN HEMTs provides an effective
+cooling path upward to the heatsink as well as downward to
+the PCB. Off-the-shelve solutions like push-pin heatsinks or
+custom cooling solutions can be implemented easily where the
+entire top-side of the PCB is attached to a cold-plate. Latter
+solutions can also take advantage of additional thermal paths
+through the MLCC capacitors for even greater effect. Several
+mounting holes in the PCB design support this approach.
+IV. I MPLEMENTED PROTOTYPE
+The prototype is implemented on a six-layer PCB with
+70 µm of copper on each layer and a total size of 132 by
+72 mm. Each half-bridge consist of 8 Infineon CoolGaN™
+100 V 3 mΩ HEMTs in parallel for the low-side switch as
+well 8 devices in parallel for the high-side switch. Each
+switch is driven by an Infineon EiceDRIVER™ 1EDN7116G.
+Current sensing is done through in-phase sensing based on the
+Infineon XENSIV™ TLE4972 magnetic current sensor. The
+inverter is controlled by an Infineon XMC™ 4400 industrial
+microcontroller with 150 ps high-resolution PWM for precise
+control.
+Fig. 6 shows a close-up image of a single half-bridge. The
+active components (HEMTs, gate driver etc.) occupy an area
+of 30 by 25 mm and the total size of the half-bridge incl.
+DC-link is 47 by 37 mm. A detailed description of the layer
+stack-up can be found in [13].
+The total DC-link of 580 µF is split up across the three
+phases. Each phase contains 87 MLCCs in 1206 with 2.2 µF
+each plus an additional 42 MLCCs in 0603 with 100 nF each
+for the high frequency switching current and are located at the
+top and bottom of the half-bridge. The nominal capacitance of
+the DC-link is 580 µF but care must be taken to account for
+DC-bias. Therefore, additional footprints for leaded capacitors
+are also provisioned.
+Components on either side of the PCB are 1 mm or less
+resulting in an overall thickness of less than 4 mm. Several
+mounting holes can be seen which allow either off-the-shelve
+heatsinks to be mounted or the entire PCB can be attached to
+a cold plate. This can also provide additional paths for heat
+to leave the PCB via the MLCCs.
+The negative VGS of the gate driver was limited to -1.5 V
+providing generous margin against parasitic turn-on. In paral-
+leled designs it is often common-practice to place individual
+gate resistors in front of each gate to dampen oscillations
+caused by the Miller charge. For this design RG was specified
+at 1Ω with no observable degradation in switching speed. The
+optional additional CGS was chosen to be 270 pF. Further
+refinements to the negative VGS, R G and CGS are possible
+depending on application requirements.
+A 5.1 V Zener diode was used on the high-side to limit over-
+charging. To further limit the gate current Rdrv was chosen to
+be 1Ω.
+Fig. 7 shows the full PCB with three push-pin heatsinks with
+30 by 30 mm size and a fin height of 10 mm. Because the top-
+Fig. 6. Close-up image of a single half-bridge.
+side thermal pad of the GaN HEMT is internally connected to
+its source terminal, an electrically isolated thermal interface
+material (TIM) is required. In this case a ultra-soft TIM with
+an uncompressed thickness of 500 µm is used. Compression of
+the TIM is limited to around 20% by the limited spring force.
+When attaching the entire top-side of the PCB to a custom
+heatsink with screws, higher compression and lower thermal
+resistances are possible.
+Even though a heatsink enhances the thermal dissipation
+capability of the inverter it is not always needed. Sec. V-B
+discusses the power capability with and without heatsink and
+airflow.
+Fig. 7. Implemented prototype with spring loaded heatsink applied
+1446
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+V. E XPERIMENTAL VERIFICATION
+Verifying correct operation of 8 paralleled devices in a
+three-phase system is not trivial. To facilitate experimental
+evaluation the converter, it is first operated as a simple
+buck converter with 50% duty cycle. This makes efficiency
+measurements straightforward and the switching behavior for
+individual current levels can be analyzed more easily.
+In order to verify correct operation of all 8 devices in
+parallel, thermal imaging is used. In a previous work current
+sharing between the individual half-bridges was analyzed and
+only showed minor variations [13].
+Probing and waveform acquisition was done with a 1 GHz
+passive probe and scope with equal bandwidth and 6.25 GS/s.
+For ease of use during initial testing, probes with MMCX tips
+were used. These allow to quickly connect to different signals.
+The PCB exposes important signals on dedicated test pads to
+which short, twisted wires were soldered onto, see left side of
+Fig. 6 and bottom side of Fig. 7. High-side VGS measurements
+use the same connection scheme with an optically isolated
+probe with 800 MHz bandwidth. Even though this setup is
+highly convenient, it was found that some noise can still couple
+into the twisted wires. Especially for small signals such asVGS
+and in particular for the floating high-side VGS this must be
+considered.
+A. Operation As a Buck Converter
+To confirm safe voltage levels of the high-side driver, VDD
+was measured with an isolated multimeter at 50 kHz, 25 ns
+deadtime and a negative VGS of -1.5 V . Fig. 8 shows VDD
+in relation to the output current up to 130 A at 48 V . With
+increasing output current the “diode-like” operation of the
+GaN device gets more and more pronounced which leads to an
+increasing voltage being applied to the high-side driver during
+deadtime. However, as long as VGS stays within acceptable
+limits this behavior is beneficial by providing more symmet-
+rical supply voltages between high and low-side. Under the
+considered conditions the high-side VDD reaches about 4.77 V
+at 130 A which almost fully compensates for the bootstrap
+diode drop while staying within recommend voltage levels.
+Higher deadtime value lead quickly to over-charging the high-
+side VDD and excessive power loss in the Zener diode (not
+shown).
+Fig. 9 and Fig. 10 show the falling and rising edge of the
+switch-node voltage Vsw respectively. Due to the operation as
+a sync. buck, all falling edges are either partial or full ZVS
+transitions while rising edges are (partially) hard switching.
+The switch-node probing point was attached to the middle
+of the switch-node, thus giving an indication of the overall
+switching behavior instead of one device specifically.VGS was
+measured for the high-side device Q9 and the low-side device
+Q10 as close as possible on test points directly beneath the
+devices (c.f. Fig. 6 for designators and device placement).
+Fig. 9 shows a set of waveforms ranging from 0 to 130 A
+output current with little ringing on all waveforms, due to the
+soft ZVS transition. At 130 A the slew rate reaches 13 V/ns.
+0 20 40 60 80 100 120 140
+Iout / A
+4.35
+4.4
+4.45
+4.5
+4.55
+4.6
+4.65
+4.7
+4.75
+VDD / V
+Fig. 8. High-side driver supply voltage VDD vs. output current in buck
+configuration.
+0 10 20 30 40 50 60 70 80 90
+Time / ns
+-20
+-10
+0
+10
+20
+30
+40
+50
+VSW / V
+-4
+-2
+0
+2
+4
+6
+8
+10
+VGS / V
+VSW
+VGS(Q10)
+VGS(Q9)
+ Iout 
+Fig. 9. Falling switch-node voltage Vsw as well as low and high-side VGS of
+Q9 and Q10 respectively. The trend of waveforms from 0 to 130 A is indicated
+by increasing brightness.
+Fig. 10 shows the hard turn-on of the high-side device.
+Before the voltage rises the diode-like reverse conduction of
+the HEMT can be seen and how it increases with output
+current. Compared to Fig. 9 more ringing can be observed in
+all three waveforms. However, as stated previously this is in
+part to noise being coupled into the probing setup, especially
+on the high-side VGS measurement.
+With increasing output current the switch node voltage
+shows a small dip between 30 and 40 V . This behavior has
+been observed in the literature [16] for other GaN devices as
+well, due to the nonlinearity of the Miller effect. At 130A a
+peak slew rate of 25 V/ns is reached.
+The efficiency of the half-bridge running in buck mode was
+evaluated by measuring the input voltage and current Vin and
+Iin as well as the output current Iout and the average output
+voltage Vout on the screw terminal of the PCB. This way
+external losses associated with external wiring or inductors
+are not captured in the efficiency.
+Experiments were carried out for frequencies from 50 to
+125 kHz in 25 kHz increments up to a temperature of 100°C
+1447
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+0 20 40 60 80 100
+Time / ns
+-10
+0
+10
+20
+30
+40
+50
+VSW / V
+-2
+0
+2
+4
+6
+8
+10
+VGS / V
+VSW
+VGS(Q10)
+VGS(Q9)
+ Iout
+Fig. 10. Rising switch-node voltage Vsw as well as low and high-side VGS of
+Q9 and Q10 respectively. The trend of waveforms from 0 to 130 A is indicated
+by increased brightness.
+on the on-board temperature sensor. Slight variations in the
+achieved temperature are due to the discrete steps in output
+current. All experiments were carried out without heatsink but
+airflow of 4 m/s which allows to observe the HEMTs exposed
+substrate with a thermal camera. Additional bulk capacitance
+was used to compensate for the lower effective frequency
+present at the DC-link compared to when all three half-bridges
+would have been used.
+One of the outside half-bridge was investigated instead
+of the center one. This presents a worse case scenario with
+asymmetrical heat flux and higher thermal gradient.
+As can be seen from Fig. 11 , peak efficiency is well
+above 99% for 50 kHz switching frequency (measured 99.3%).
+Increasing the frequency reduces efficiency slightly until at
+125 kHz only 99.1% are reached. A similar picture can be seen
+for the maximal output current. At 50 kHz an output current
+of 130 A can be reached. Higher frequencies successively
+reduce the output current capability to 125, 120 and 115 A
+respectively.
+0 20 40 60 80 100 120 140
+Iout / A
+97.5
+98
+98.5
+99
+99.5 / %
+30
+40
+50
+60
+70
+80
+90
+100
+110
+120
+Temperature / °C
+fsw = 50 kHz
+fsw = 75 kHz
+fsw = 100 kHz
+fsw = 125 kHz
+Fig. 11. Efficiency of a single phase running as buck converter with 50%
+duty cycle at 48 V .
+Additionally to the half-bridge efficiency, thermal images
+were captured. For an output current of 125 A the thermal
+image is shown in Fig. 12 . Due to physical location on the
+edge of the board a thermal gradient can be observed with
+the right side being cooler than the left due to a large, non-
+heated surface area of the PCB. Furthermore, a local hotspot
+can be seen, due to the current concentration structure for
+the ⃗B-field sensing. Apart from these thermal asymmetries,
+device temperature is consistent and in-line with expectation.
+No outlier were observed. The hottest devices being Q12 with
+102°C and the coldest device Q1 with 65°C. Despite this
+notable thermal gradient correct operation of the half-bridge
+could be demonstrated. In a three-phase inverter application
+and esp. with a heatsink thermal gradient will be significantly
+smaller.
+4 m/s
+airflow
+Q16Q14Q12Q10
+Q15Q13Q11Q9
+Q1
+Q2
+Q3
+Q4
+Q5
+Q6
+Q7
+Q8
+102°C
+65°C
+Fig. 12. Thermal image of the converter running at 48 V and 50 kHz with
+125 A output current in single-phase buck-mode.
+B. Operation as a Three Phase Motor Drive
+After correct operation of a single half-bridge has been
+confirmed this section covers operation as a three phase
+inverter.
+For accurate efficiency measurement, a passive inductive-
+restive load was chosen to emulate a full motor system.Fig. 13
+shows the inverter efficiency versus RMS output current for
+different cooling solutions when operated at 48 V with 50 kHz
+switching frequency and 25 ns deadtime. Peak temperature was
+limited to 100°C in all experiments based on the on-board
+sensor.
+In free air with natural convection an output current per
+phase of 67 A rms was achieved with measured inverter loss
+of 25 W. At maximum modulation index with space vector
+modulation this represents a total output power of 4 kW a
+restive load. In the final application output power can be
+slightly less, depending on the amount of reactive power (i.e.
+cos(ϕ)) the inverter has to support at the motor side. Output
+current can be increased to 73 Arms or 4.3 kW when using the
+small, off-the-shelve push-pin heatsinks shown in Fig. 7. Due
+1448
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 7 ===
+to tight fin spacing and short height only moderate increase in
+heat dissipation to 30 W was achieved.
+Significantly more output current can be achieved when
+forced convection is used. With a moderate airflow of 4 m/s
+without heatsinks the output current capability per phase
+reaches 102 Arms or 6 kW. Under these conditions the board is
+able to dissipate 52 W. Current can be further increased with
+the aforementioned heatsink to 120 A rms or 6.6 kW at which
+the inverter dissipates 70 W. Lastly, considerable airflow of
+10 m/s was applied and the experiment was run to the setups
+capability of 125 A. Under these conditions the temperature
+sensor reported around 60°C at peak output current. The lower
+temperatures results in a notable increase in efficiency. This is
+caused primarily caused by lower RDS(on) as well as slightly
+faster slewrates, due to higher transconductance.
+0 20 40 60 80 100 120 140
+IRMS / A
+97
+97.5
+98
+98.5
+99
+99.5 / %
+0
+10
+20
+30
+40
+50
+60
+70
+80
+Ploss / W
+Free air
+4 m/s
+Free air + heatsink
+4 m/s + heatsink
+10 m/s + heatsink
+Fig. 13. Efficiency of the inverter running as a three phase system at 48 V
+with 50 kHz switching frequency.
+Fig. 14 shows the thermal performance of the inverter
+at 102 A rms output current with an airflow of 4 m/s. For
+each half-bridge the maximum and minimum temperatures are
+reported. Naturally, the side facing the air flow is the coldest
+with a peak temperature of 78°C, the other two half-bridges
+show a very similar thermal profile with peak temperatures of
+94°C each. The thermal gradient is within expectations and
+confirms correct operation of the paralleled half-bridges. No
+significant anomalies that would indicate imbalance in power
+could be detected.
+VI. C ONCLUSION
+This work presents an ultra-compact three-phase inverter
+with eight 100 V CoolGaN™ Schottky Gate HEMTs in paral-
+lel per switch position. Due to the temperature coefficients
+of the GaN HEMT, paralleling a large number of devices
+is fundamentally no more difficult than with Si MOSFETs.
+Balanced gate and power-loops are ensured by the presented
+highly symmetrical “butterfly” layout. Furthermore, design
+considerations for the gate driver and DC-link are presented
+to fully utilize the benefits of the HEMTs in a motor drive
+application.
+4 m/s
+airflow
+94°C
+Phase A Phase B Phase C
+76°C
+94°C
+71°C
+78°C
+55°C
+Fig. 14. Thermal image of the inverter running at 50 kHz and 100 A rms
+output current with 4 m/s of airflow. Minimum and maximum temperature of
+each half-bridge is indicated.
+The implemented PCB has a total size of 132 by 72 mm with
+a maximum thickness of 4 mm. Using natural convection and
+no heatsink, this configuration achieves 4 kW of output power
+at 48 V while keeping efficiency above 99%. With moderate
+airflow of 4 m/s the output power can be increased to 6 kW.
+Adding a heatsink with 10 mm height enabled the output
+power to reach 6.6 kW with the same 4 m/s forced air, and up
+to 7.3 kW with 10 m/s air flow. Preliminary testing indicates
+much higher power levels are feasible, especially when the
+PCB is mounted to a coldplate via screws for increased
+compression of the TIM and lower thermal resistance. All
+device temperatures stayed within expectation, no abnormal
+temperature distribution could be detected.
+This work has shown how a GaN-based motor drive offers
+very high efficiency across a wide power range, making it
+clearly very attractive for electrification of applications that
+currently use a conventional combustion engine. Lower weight
+and smaller size add further value to applications like handheld
+high-power tools, as well as increasing the range of light
+electric vehicles.
+VII. R EFERENCES
+REFERENCES
+[1]Arda Tuysuz, Roman Bosshard, and Johann W. Kolar. Performance
+comparison of a gan git and a si igbt for high-speed drive applications. In
+International Power Electronics Conference (IPEC-Hiroshima - ECCE
+ASIA), pages 1904–1911, 2014.
+[2]Salvatore Musumeci, Fabio Mandrile, Vincenzo Barba, and Marco
+Palma. Low-voltage gan fets in motor control application; issues and
+advantages: A review. Energies, 14(19), 2021.
+[3]J. Burkard and J. Biela. Paralleling gan switches for low voltage high
+current half-bridges. In Energy Conversion Congress and Exposition
+(ECCE), pages 3245–3252, 2019.
+[4]Gan Systems Inc. Design considerations of Paralleled GaN HEMT-
+based Half Bridge Power Stage , 2018.
+[5]David Reusch. Effectively Paralleling Gallium Nitride Transistors
+for High Current and High Frequency Applications . Efficient Power
+Conversion Corporation, 2016.
+[6]Jiaxin Huang. Design considerations of Paralleled GaN HEMT . Inno-
+science Technology Co., Ltd., 2021.
+[7]Huseyin Yuruk and Ozan Keysan. Parallel connected gan e-hemt
+vsi-based servo drives for pmsms. IET Electric Power Applications ,
+16(1):86–99, 2022.
+1449
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 8 ===
+[8]Adam Shea and T. M. Jahns. Hardware integration for an integrated
+modular motor drive including distributed control. InEnergy Conversion
+Congress and Exposition (ECCE) , pages 4881–4887, 2014.
+[9]Abdalla Hussein Mohamed, Hendrik Vansompel, and Peter Sergeant.
+An integrated modular motor drive with shared cooling for axial flux
+motor drives. Transactions on Industrial Electronics , 68(11):10467–
+10476, 2021.
+[10]Thomas M. Jahns and Hang Dai. The past, present, and future of power
+electronics integration technology in motor drives. CPSS Transactions
+on Power Electronics and Applications , 2(3):197–216, 2017.
+[11]Christopher B. Barth, Thomas Foulkes, Won Ho Chung, Tomas Modeer,
+Pourya Assem, Pourya Assem, Yutian Lei, and Robert C. N. Pilawa-
+Podgurski. Design and control of a gan-based, 13-level, flying capacitor
+multilevel inverter. In 17th Workshop on Control and Modeling for
+Power Electronics (COMPEL), pages 1–6, 2016.
+[12]Tomas Modeer, Nathan Pallo, Thomas Foulkes, Christopher B. Barth,
+and Robert Carl Nikolai Pilawa-Podgurski. Design of a gan-based inter-
+leaved nine-level flying capacitor multilevel inverter for electric aircraft
+applications. IEEE Transactions on Power Electronics , 35(11):12153–
+12165, 2020.
+[13]Martin Wattenberg, Oscar Lorenz, and Juan Sanchez. Efficiently paral-
+leling gan-transistors for high current and high frequency applications
+using a butterfly layout. In 24th European Conference on Power
+Electronics and Applications (EPE’22 ECCE Europe) , pages 1–10,
+2022.
+[14]Infineon Technology AG. EiceDRIVER 1EDN7116G datasheet, 2021.
+[15]S. D. Round and Johann W. Kolar. Analytical calculation of the rms
+current stress on the dc-link capacitor of voltage-pwm converter systems.
+IEE Proceedings. Electric Power Applications, 153(4):535 – 543, 2006-
+07. Received 1 November 2005, Revised 17 January 2006.
+[16]Edward A. Jones, Zheyu Zhang, and Fred Wang. Analysis of the dv/dt
+transient of enhancement-mode gan fets. In Applied Power Electronics
+Conference and Exposition (APEC), pages 2692–2699, 2017.
+1450
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:17:39 UTC from IEEE Xplore.  Restrictions apply. 

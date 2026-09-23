@@ -1,0 +1,743 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016  |  |    1
+Paralleling High Speed GaN Transistors
+Effectively Paralleling Gallium Nitride 
+Transistors for High Current and High 
+Frequency Applications
+EFFICIENT POWER CONVERSION
+David Reusch, Ph.D., Director of Applications Engineering
+Gallium nitride (GaN) based power devices are rapidly being adopted due to their 
+ability to operate at frequencies and switching speeds beyond the capability of 
+silicon (Si) power MOSFETs. In this application note, we will discuss paralleling high 
+speed GaN transistors in applications requiring higher output current. This work 
+will discuss the impact of in-circuit parasitics on performance and propose printed  
+circuit board (PCB) layout methods to improve parallel performance of high speed 
+GaN tr
+ansistors. Four parallel half bridges in an optimized layout operated as a  
+48 V to 12 V, 480 W, 300 kHz, 40 A single phase buck converter achieving efficiencies 
+abo
+ve 96.5% from 35% to 100% load will be demonstrated. 
+Power converters are constantly trending towards 
+higher output power, higher efficiency, higher 
+power density, higher temperature operation, and 
+higher reliability, all while providing a lower overall 
+system cost. To provide improved performance 
+better power devices are required. For silicon 
+(Si) power devices, the gains in performance 
+have slowed as the technology has matured and 
+approaches its theoretical limits. Gallium nitride 
+(GaN) transistors have emerged as a possible 
+replacement for silicon devices in various power 
+conversion applications and as an enabler of new 
+applications not previously possible [1]. 
+Since the first commercially available enhancement 
+mode gallium nitride transistors were launched 
+in 2010, eGaN FETs have had extremely low on-
+resistance in an extremely small footprint compared 
+with any previously available semiconductor. As 
+shown in figure 1, eGaN FETs are continuing this 
+tradition with the latest generations of GaN devices, 
+which have a lateral device structure and voltages 
+ranging from 15-300 V. At 200 V, the eGaN FET has 
+a specific on-resistance, which is the product of 
+the device area and on-resistance, 9.5 times lower 
+than the best state of the art MOSFET. At voltages 
+of 100 V, 80 V, 60 V, and 40 V, eGaN FETs provide  
+ 
+respec
+tive specific on-resistance reductions of 2.4, 
+2.2, 1.6, and 1.05 times that of the best state of the 
+art MOSFETs.
+GaN technology, in its early stages, is far from its 
+theoretical limit [1] and the rate of improvement in 
+GaN has been, and will continue to be rapid.
+While reducing the specific on-resistance of a  
+transistor can increase the amount of current 
+that can be c
+onducted in a given area, it does  
+not directly correlate to superior in-circuit 
+perf
+ormance, especially for high frequency power 
+converter design where switching losses are often 
+the dominant loss mechanism. Switching figures of 
+merit (FOM) [2]-[8] have been used for almost half 
+a century to compare the in-circuit performance 
+capability of a given device technology in different 
+applications. A popular FOM is the gate charge 
+FOM [6], which is shown in figure 2 for eGaN FETs 
+and state of the art MOSFETs. At voltages of 200 V, 
+100 V, and 40 V, eGaN FETs provide respective 
+specific on-resistanc
+e reductions of 9, 5.5, and 1.9 
+times that of the best state of the art MOSFETs. 
+There are various FOMs derived for different 
+applications such as hard-switching applications 
+and resonant and soft-switching applications [9].  
+100
+0 20 30 40 50 60 70 80 90 100
+Area · RDS(on) (mm2 · m/uni03A9)
+ Drain-to-Source Voltage (V)
+Si MOSFETs
+2014 
+eGaN FETs
+2011
+ 
+eGaN FETs
+2014
+ 
+EPC Gen 4
+EPC Gen 2
+Vendor A
+Vendor B
+Vendor C
+Vendor D
+1000
+100
+0 20 50 100 150 200 250
+FOM = QG·RDS(on) (nC · m/uni03A9)
+ Drain-to-Source Voltage (V)
+EPC Gen 4
+EPC Gen 2
+Vendor A
+Vendor B
+Vendor C
+Vendor D
+Si MOSFETs
+circa 2014 
+eGaN FETs
+circa 2014
+ 
+eGaN FETs
+circa 2011
+ 
+Figure 1:  Specific on-resistance vs. blocking voltage capability for silicon  
+MOSFETs and eGaN FETs.
+Figur
+e 2:  Gate charge FOM comparison of eGaN FETs and state-of-the-art  
+Si MOSFETs for drain-to-source voltages at half of their rated voltage and a  
+drain-to-source current of 20 A.
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    2
+Paralleling High Speed GaN Transistors
+Figure 3:  Synchronous buck converter with parasitic inductances.
+Figure 4:  Switching node waveforms of eGaN FET and MOSFET designs (VIN = 48 V,  
+IOUT = 10 A, fsw = 300 kHz, GaN transistors: EPC2001 MOSFETs: BSZ123N08NS3G).
+GaN transistors provide lower FOMs for all 
+applications and this translates into significant 
+performance improvements when compared to 
+state   of   the   art   Si   MOSFETs   over   a   wide   
+range  of applications [9]-[14].
+While FOMs are valuable tools to compare 
+device technologies, the in-circuit performance 
+is also greatly influenced by parasitics, 
+including both package and printed circuit 
+board (PCB) layout parasitics. In this application 
+note, we will evaluate the impact of parasitics 
+on performance and then assess the ability to 
+parallel high speed GaN transistors for higher 
+power applications. A method to improve the 
+parallel performance of GaN transistors will 
+be proposed and experimentally verified for 
+four parallel half bridges operated as a 48 V to 
+12 V, 480 W, 300 kHz, 40 A single phase buck 
+converter. 
+Impacts of  parasitics on performance
+In practical applications, lower FOM is just one of 
+the contributors to achieving higher efficiency. 
+In a buck converter, there are two major parasitic 
+inductances that have a significant impact on 
+converter performance as shown in figure 3. The 
+common source inductance, L
+S, is the inductance 
+shared by the drain-to-source power current path 
+and gate driver loop. The high frequency power 
+loop inductance, L
+Loop, is the inductance in the 
+device commutation loop, which is comprised of 
+the parasitic inductance from the positive terminal 
+of the input capacitance, through the top device, 
+synchronous rectifier, ground loop, and input 
+capacitor.
+The common source inductance, L
+s, has been 
+shown to be critical to performance because it 
+directly impacts the driving speed of the devices 
+[15], [16]. As common source inductance increases, 
+the effective gate drive voltage and gate drive 
+current are significantly reduced, slowing switching 
+speeds and increasing switching losses as 
+described in equation (1). The impact of inductance 
+on a switching transition can be seen as part of the 
+parasitic di/dt voltage bump on the Si MOSFET 
+waveform shown in figure 4. The available gate 
+drive current at turn-on is given by:
+Where V
+Driver is gate drive voltage, VGS is the gate to 
+source voltage across the device, VLS is the effective 
+voltage across the common source inductance, 
+which is equal to L S·diDS/dt during device current 
+commutation, and RG is the effective gate resistance 
+including the driver resistance, the internal power 
+device resistance, and external gate loop resistance.
+The high frequency loop inductance, L
+Loop, while 
+not as penalizing to switching speeds as common 
+source inductance, still negatively impacts 
+switching performance [17], [18]. Another major 
+drawback of high frequency loop inductance is the 
+drain-to-source voltage spike induced during the 
+switching transition, shown in figure 4, given by:
+IG = =
+VDriver − VGS − VLS
+ VDriver − VGS − LS diDS
+RG RG
+dt (1)
+VLLOOP = L LOOP  diDS
+dt (2)
+T LS
+CoutCin
+L
+SR
+Driver
+LLOOP
+Parasite ringing
+Parasite di/dt voltage
+Si MOSFET
+10.3 m/uni03A9
+eGaN FET
+5.6 m/uni03A9
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    3
+Paralleling High Speed GaN Transistors
+A. Package parasitics
+To enable the high switching speed available 
+from the low FOM of GaN transistors, low parasitic 
+packaging and printed circuit board (PCB) layout is 
+required. This subsection will compare the device 
+packaging of GaN transistors and Si MOSFETs.
+For Si trench MOSFET structures, the gate and 
+source terminals and the drain terminal are located 
+on opposite sides of the device. This forces an 
+external connection from either the source and 
+gate or the drain to connect the device to the 
+PCB, introducing performance limiting package 
+parasitics. The Loss Free Package (LFPAK), one of the 
+most common packages for Si devices, is shown in 
+figure 5. The LFPAK uses an external lead frame to 
+connect the source and gate terminals to the PCB. 
+The source connection of the LFPAK introduces 
+over 0.5 nH of common source inductance alone, 
+degrading the in-circuit performance of the Si 
+MOSFET power device [11].
+The high voltage lateral GaN transistor in a Land 
+Grid Array (LGA) package has a major packaging 
+advantage because all of the connections are 
+located on the same side of the die, as shown in 
+figure 6, eliminating the requirement of complex 
+high-parasitic packaging. The LGA GaN transistor 
+has a total package inductance estimated to 
+be under 0.2 nH, significantly lower than any Si 
+MOSFET package. In [10], the impact of the GaN 
+transistor LGA package and the reduction of 
+package parasitic inductance and resistance over 
+the best available trench devices are quantified.
+B. Printed circuit board parasitics
+With higher switching speeds and lower package 
+parasitic inductances the printed circuit board 
+layout can become the limiting factor in converter 
+performance. The most critical parasitic to reduce 
+is the common source inductance, which is 
+the inductance shared by the high frequency 
+power loop and gate driver loop. To minimize the 
+common source inductance added by PCB layout 
+it is recommended to locate the gate driver loop 
+and high frequency power loop where they have 
+very little interaction. An example layout is shown 
+in figure 7, where the gate drive loop, shown in 
+red, and the high frequency loop, shown in yellow, 
+interact only directly next to the GaN transistor, 
+minimizing the common source inductance to the 
+ultra-low internal package inductance offered by 
+the GaN transistor package.
+Source/Gate clips
+Source/Gate die attach
+MOSFET die
+Drain die attach
+Drain pad
+PCB drain connection
+PCB gate connection
+PCB source connectionPCB
+Source Gate
+Si MOSFET
+(bottom view)
+eGaN FET die
+Drain/Source/
+Gate connections
+PCB source connection
+PCB gate connection
+PCB drain connection
+PCB
+eGan FET die
+(bottom view)
+Top view
+Side view
+Top view inner layer 1
+Figure 5:  Exploded view of Si MOSFET Loss Free Package (LFPAK).
+Figure 6:  Exploded view of eGaN FET Land Grid Array package (LGA).
+Figure 7:  Optimal power loop with eGaN FETs top view, top view of inner layer 1, and side view.
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    4
+Paralleling High Speed GaN Transistors
+To reduce the high frequency loop inductance 
+over conventional designs an optimal layout was 
+developed that utilizes the first inner layer, shown in 
+the bottom left of figure 7, as a power loop return 
+path. This return path is located directly underneath 
+the top layer’s power loop path, shown in the upper 
+left of figure 7, allowing for the smallest physical loop 
+size and providing magnetic field self-cancellation. 
+The side view, shown in figure 7 illustrates the 
+concept of creating a low profile magnetic field 
+self-cancelling loop in a multilayer PCB structure. 
+By using the optimal layout developed by EPC, 
+GaN based half bridge designs have achieved high 
+frequency loop inductances below 0.4 nH [18], 
+further improving the in-circuit performance of GaN 
+transistors when compared to Si MOSFETs.
+Combining lower FOM, lower package parasitics, 
+and lower parasitic PCB layouts, GaN transistors 
+provide significant performance benefits over 
+state of the art Si technology. GaN transistors 
+have the ability to improve switching speeds with 
+smaller, lower on-resistance devices as shown in 
+figure 4. This allows for circuit designers to achieve 
+lower dynamic switching losses and lower static 
+conduction losses resulting in significantly reduced 
+device loss and higher system efficiency.
+Improving high speed GaN transistors parallel 
+performance
+The previous section demonstrated enhanced 
+performance with single GaN transistors. In many 
+applications, higher current is required. In this 
+section, we will evaluate the ability to parallel GaN 
+transistors to provide high efficiency in high output 
+current applications.
+A.  Challenges of paralleling high speed GaN 
+transistors
+The objective of paralleling devices is to combine 
+multiple higher on-resistance devices to appear 
+and operate as a single, lower on-resistance device 
+allowing for higher power handling capability. To 
+effectively parallel devices, each device should 
+equally share current dynamically, and in steady 
+state, and equally divide switching related losses.  
+The introduction of unbalanced in-circuit parasitics 
+between parallel devices leads to uneven sharing 
+and degraded electrical and thermal performance, 
+limiting the effectiveness of paralleling devices 
+[19]. For high speed devices such as GaN transistors, 
+the increased switching speeds amplify the impact 
+of parasitic mismatches [20].
+In the previous section, the importance of 
+minimizing common source inductance and 
+high frequency loop inductance were addressed. 
+For paralleling GaN transistors, these parasitics 
+must not only be minimized to achieve the best 
+performance but also need to be balanced to 
+ensure proper parallel operation. As the difference 
+between the common source and high frequency 
+loop inductance increases between the parallel half 
+bridges, so does the dynamic current difference:
+45
+40
+35
+30
+25
+20
+15
+10
+5
+0 0 0.2 0.4 0.6 0.8 1.0 1.2
+Current Difference (%)
+Loop Inductance Difference (nH)
+LS = 0.10 nH
+LS = 0.15 nH
+LS = 0.20 nH
+LS = 0.25 nH
+LS = 0.50 nH
+45
+40
+35
+30
+25
+20
+15
+10
+5
+0 0 0.1 0.2 0.3 0.4 0.5
+Current Difference (%)
+Common Source Difference (nH)
+LD = 0.3 nH
+LD = 0.5 nH
+LD = 0.7 nH
+LD = 0.9 nH
+Figure 8:  Impact of high frequency loop inductance imbalance on device 
+dynamic current sharing for a VIN = 48 V, IOUT = 25 A, single phase GaN based buck 
+converter with two half bridges operating in parallel for various common source 
+inductances (GaN transistors: EPC 2001).
+Figure 9:  Impact of common source inductance imbalance on device dynamic 
+current sharing for a V
+IN = 48 V, IOUT = 25 A, single phase GaN based buck converter 
+with two half bridges operating in parallel for various high frequency loop 
+inductances (GaN transistors: EPC 2001).
+Where I
+DIFF is the dynamic current difference 
+between the two parallel GaN half bridges and ISW1 
+and ISW2 are the respective currents in the parallel 
+transistors when the output current (IOUT) is reached 
+after a switching transition.
+To evaluate the impact of parasitics on current 
+sharing, a simulation was created using 100 V 
+EPC2001 models in LTSPICE. Figure 8 shows how 
+current sharing worsens with parasitic imbalance 
+in the high frequency loop inductance for two 
+parallel GaN half bridges (nominal drain inductance 
+(L
+D=LLOOP-LS) was set to 0.3 nH and increased in only 
+one of the half bridge pairs) operating at 48 V with 
+various common source inductances, where the 
+common source inductance was kept the same for 
+both of the parallel half bridges. From figure 8 it 
+can also be observed that as the common source 
+inductance decreases, current sharing issues 
+become more pronounced. The magnified current 
+sharing issues at lower common source inductance 
+values are generated by higher switching speeds. 
+As the current sharing worsens between parallel 
+devices the electrical and thermal performance 
+degrades as we will show in the following section.
+The current sharing difference resulting from 
+parasitic imbalance in the common source 
+inductance for two parallel GaN half bridges 
+operating at 48 V for various high  frequency 
+loop inductances is shown in figure 9 (nominal 
+common source inductance was set to 0.1 nH and 
+increased in only one of the half bridge pairs and 
+drain inductance was kept the same for both of the 
+parallel half bridges). Similar to loop inductance 
+imbalance, as common source inductance varies, 
+current sharing worsens. This trend is magnified as 
+loop inductance decreases and capable switching 
+speeds increase.
+IDIFF = 
+ISW1 − ISW2
+ISW1 + ISW2
+(3)
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    5
+Paralleling High Speed GaN Transistors
+B.  Optimizing PCB layout for parallel transistors
+As switching speeds steadily increase and parasitic 
+inductances continue to decrease, improved 
+techniques must be developed to improve parallel 
+performance. To effectively parallel high speed GaN 
+transistors the parasitic imbalance contributed by 
+the PCB layout must be minimized. We will look at 
+two different parallel layouts based on the optimal 
+layout discussed in the previous section and assess 
+their ability to provide parallel performance similar 
+to an optimized single transistor design. Each half 
+bridge design contains four devices in parallel for 
+the top switch (T
+1-4) and synchronous rectifier  
+(SR1-4) and was tested in a single phase buck 
+converter configuration from 48 V to 12 V at a 
+switching frequency of 300 kHz. In total, eight 100 
+V EPC2001 GaN transistors with a single TI LM5113 
+gate driver were used to achieve output power up 
+to 480 W and output currents up to 40 A.
+The parallel designs are shown in figure 10. In the 
+first design, shown in figure 10 (a), the four GaN 
+transistors are located in close proximity to operate 
+as a “single” power device, with a single high 
+frequency power loop. The drawbacks of this layout 
+are that the high frequency loop inductance will 
+increase as a result of the increased loop size and 
+that devices will have imbalanced parasitics as their 
+individual power loops are different (L
+LOOP≈1.7-2.6 
+nH); leading to current sharing and thermal issues. 
+The second design, shown in figure 10 (b) utilizes 
+four distributed high frequency power loops, 
+located symmetrically around the single LM5113 
+gate driver. The design will provide the lowest 
+overall parasitics for each device pair (L
+LOOP≈0.4  nH) 
+and most importantly, provide the best balancing 
+of the parasitic elements, ensuring proper parallel 
+operation.
+The voltage waveforms of the synchronous rectifiers 
+switching transitions for the two designs are also 
+shown in figure 10. For the single high frequency 
+power loop design, the switching node waveforms 
+are shown in figure 10 (a), the voltage transitions 
+for the inner-most and outer-most devices show 
+an almost 2 ns switching time difference, which 
+equates to about 25% of the total switching time. 
+This voltage difference demonstrates the parasitic 
+imbalance in this PCB layout. In the single high 
+frequency loop design, the two devices also exhibit 
+significant voltage overshoot, an effect of the higher 
+Figure 10:  Four parallel GaN half bridge layouts and switching node waveforms with a single 
+high frequency power loop (a) and four distributed high frequency power loops (b) (V
+IN = 48 V, 
+VOUT  = 12 V, IOUT  = 30 A,  fsw = 300 kHz, GaN transistors T/SR: EPC2001).
+individual high frequency loop inductances. The 
+devices also display different voltage overshoots 
+which is also a consequence of the parasitic 
+imbalance.
+For the symmetrical four high frequency power loop 
+design the switch-node waveforms are shown in 
+figure 10 (b). The voltage transitions for the devices 
+are almost identical, demonstrating this layout’s 
+ability to balance the parasitics well. The distributed 
+high frequency loop layout also has reduced 
+voltage overshoot, an effect of lower individual high 
+frequency loop inductances. This balanced layout 
+will improve overall performance by offering better 
+electrical and thermal performance.
+10 V/ div 5 ns/ div
+VDS_SR4
+VDS_SR4
+VDS_SR1
+Driver
+1−4
+10 V/ div 5 ns/ div
+SR4
+T SR 1
+T1
+T2
+T3
+T4
+SR1
+SR2
+SR3
+SR4
+SR4
+Driver
+VDS_SR1
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    6
+Paralleling High Speed GaN Transistors
+The thermal evaluations of the two parallel designs 
+are shown in figure 11. A thermal imbalance is 
+evident in the single high frequency loop design, 
+shown in figure 11 (a), where a hot spot develops 
+on the devices handling a greater portion of the 
+power as a result of parasitic imbalance. The top 
+switch closest to the input capacitors, T
+1, has a 
+maximum temperature more than 10°C higher 
+than the top switch furthest away from the input 
+capacitors, T
+4. For the four distributed power loop 
+design, shown in figure 11 (b), there is a very 
+good thermal balance and negligible difference 
+in temperature between the devices. There is 
+also a good distribution of the heat by avoiding 
+clustering of the higher loss top devices on the PCB.
+By offering lower individual parasitics and 
+better parasitic balance, the distributed four 
+high frequency loop design has more effective 
+switching and paralleling. This results in better 
+electrical and thermal performance as shown in   
+figure 12. The distributed high frequency loop 
+design offers a 0.2% gain in efficiency at 40 A, 
+and has an almost constant 10°C improvement in 
+the maximum device temperature. The improved 
+four parallel half bridge layout operated as a 48 V 
+to 12 V, 480 W, 300 kHz, 40 A single phase buck 
+converter achieved efficiencies above 96.5% from 
+35% to 100% load. The ability of GaN transistors 
+to increase switching frequencies, combined with 
+higher power handling capability provided by the 
+effective paralleling methods discussed in this 
+application note allows for the exploration of new 
+opportunities requiring high frequency and high 
+output current.
+The switching waveforms for an optimal PCB 
+design with a single GaN transistor, two parallel 
+transistors, and four parallel transistors are shown 
+in figure 13. Looking at the entire switching cycle, 
+as shown in figure 13 (a), the  switching speed 
+difference is unnoticeable, demonstrating the 
+ability of parallel GaN transistors to offer high 
+switching speeds for high current applications. 
+Looking at a zoomed view of the switching rise 
+time, as shown in figure 13 (b), the parallel designs 
+effectively operate as a single, larger, lower- 
+resistance device with a slower switching speed 
+in proportion to the number of devices in parallel.
+Figure 11:  Thermal measurements of parallel GaN half bridge layouts with a single high frequency power loop 
+(a) and four distributed high frequency power loops (b).  (V
+IN = 48 V, VOUT  = 12 V, IOUT  = 30 A, fsw = 300 kHz, 
+ L = 3.3 µH, GaN transistors T/SR: 100 V EPC2001, fan speed: 200 LFM).
+97.0
+96.5
+96.0
+95.5
+95.0
+94.5
+2 6 10 14 22 18 26 34 30 38 42
+2 6 10 14 22 18 26 34 30 38
+Eﬃciency (%)Maximum Temperature (°C)
+ Output Current (A)
+ Output Current (A)
+110
+100
+90
+80
+70
+60
+50
+40
+300
+4 II eGaN FETs
+ 
+Four distributed high
+frequency loops design
+Single high frequency
+loop design
+Four distributed high
+frequency loops design
+Single high frequency
+loop designFigure 12:  Efficiency (a) and thermal comparison (b) for conventional and proposed parallel GaN half bridge 
+designs (VIN = 48 V, VOUT  = 12 V, fsw = 300 kHz, L=3.3 µH, GaN transistors T/SR: EPC2001).
+1−4T SR 1−4
+T1
+T2
+T3
+T4
+SR1
+SR2
+SR3
+SR4
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    7
+Paralleling High Speed GaN Transistors
+Conclusions
+The introduction of high performance GaN 
+transistors offers the potential to switch at higher 
+frequencies and efficiency than possible with 
+traditional Si MOSFET technology. Combined 
+with improved figures of merit and low parasitic 
+packaging, GaN transistors require a low parasitic 
+PCB layout to fully utilize the device’s capability. 
+This work addressed the impact of package and 
+layout parasitics on in-circuit performance and 
+discussed an optimized layout to further enhance 
+the performance capability of GaN transistors. 
+This application note then evaluated the ability to 
+parallel GaN transistors for higher output current 
+applications by addressing the challenges facing 
+paralleling high speed, low parasitic devices and 
+proposing an improved paralleling technique. For 
+experimental verification of the proposed design 
+method, four parallel half bridges in an optimized 
+layout were operated as a 48 V to 12 V, 480 W, 
+300 kHz, 40 A single phase buck converter and 
+achieved efficiencies above 96.5% from 35% to 
+100% load. 
+The proposed design achieved superior 
+electrical and thermal performance compared  
+to conventional paralleling methods and 
+demonstr a
+ted that high speed GaN transistors 
+can be effectively paralleled for higher current 
+operation.
+Figure 13: (a) Switching node waveforms with 1, 2 and 4 parallel GaN half bridges (b) zoomed view  
+(V
+IN = 48 V, VOUT  = 12 V, IOUT  = 30 A/number of GaN FETs, fsw = 300 kHz, GaN FET T/SR: 100 V EPC2001).
+10 V/ div 200 ns/ div
+2x eGaN FET 4x eGaN FET
+1x eGaN FET
+10 V/ div 5 ns/ div
+2x eGaN FET 4x eGaN FET
+1x eGaN FET
+
+=== PAGE 8 ===
+APPLICATION NOTE: AN020
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |  |    8
+Paralleling High Speed GaN Transistors
+References:
+[1] A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for Efficient Power 
+Conversion, Second Edition, Wiley, 2014.
+[2] E. O. Johnson, “Physical Limitations on Frequency and Power Parameters of 
+Transistors, ” RCA, pp. 163-177, 1965.
+[3] R. W. Keyes, “Figure of Merit for Semiconductors for High-Speed Switches, ” 
+Proc. IEEE, p. 225, 1972.
+[4] B. J. Baliga, “Semiconductors for High-Voltage, Vertical Channel FET’s, ”  
+J. Appl. Phy. vol. 53, pp. 1759-1764, 1982.
+[5] B. J
+. Baliga, “Power Semiconductor Device Figure-of-Merit for High Frequency 
+Applications, ” IEEE Electron Device Letters, vol. 10, pp. 455– 457, 1989.
+[6] I. J. Kim, S. Matsumoto, T. Sakai, and T. Yachi, “New Power Device Figure-of-
+Merit for High Frequency Applications, ” in Proc. Int. Symp.  Power Semiconductor 
+Devices ICs, Yokohama, Japan, 1995, pp. 309–314.
+[7] A. Q. Huang, “New Unipolar Switching Power Device Figures of Merit, ”  
+IEEE Electron Device Letters, vol. 25, pp. 298-301, 2004.
+[8] Y
+. Ying, “Device Selection Criteria----Based on Loss Modeling and Figure of 
+Merit, ” Thesis of Master of Science in Electrical Engineering of Virginia Tech, 2008.
+[9] D. Reusch and J. Strydom, “Evaluation of Gallium Nitride Transistors in High 
+Frequency Resonant and Soft-Switching DC-DC Converters, ” Applied Power 
+Electronics Conference and Exposition (APEC), pp. 464–470, 2014. 
+[10] D. Reusch, D. Gilham, Y. Su, and F. C. Lee, “Gallium Nitride Based 3D 
+Integrated Non-Isolated Point of Load Module, ” Applied Power Electronics 
+Conference and Exposition (APEC), pp. 38 –45, 2012.
+[11] S. Ji, D. Reusch, and F. C. Lee, “High Frequency High Power Density 3D 
+Integrated Gallium Nitride Based Point of Load Module, ” Energy Conversion 
+Congress and Exposition (ECCE), pp.4267-4273, 2012.
+[12] M. A. de Rooij, “eGaN FET based Wireless Energy Transfer Topology 
+Performance Comparisons” , International Exhibition and Conference for Power 
+Electronics, Intelligent Motion, Renewable Energy and Energy Management 
+(PCIM - Europe), pg. 610 – 617, 2014.
+[13] J. Strydom, D. Reusch, “Design and Evaluation of a 10 MHz Gallium Nitride 
+Based 42 V DC-DC Converter, ” Applied Power Electronics Conference (APEC),  
+pp. 1510-1516. 2014.
+[14] D. C
+ucak, M Vasić, O Garcia, J.A. Oliver, P . Alou, J.A. Cobos, “Application of 
+eGaN FETs for highly efficient Radio Frequency Power Amplifier, ” Integrated 
+Power Electronics Systems, CIPS 2012, pp.1-6, 2012. 
+[15] B. Yang, J. Zhang, “Effect and utilization of common source inductance 
+in synchronous rectification, ” Applied Power Electronics Conference and 
+Exposition (APEC), pp. 1407–1411, 2005.
+[16] M. Pavier, A. Woodworth, A. Sawle, R. Monteiro, C. Blake, and J. Chiu, 
+“Understanding the effect of power MOSFET package parasitic on VRM circuit 
+efficiency at frequencies above 1 MHz, ” PCIM Europe, pp. 279–284, 2003.
+[17] T. Hashimoto, T. Kawashima, T. Uno, Y. Satou, N. Matsuura, “System in 
+package with mounted capacitor for reduced parasitic inductance in  voltage 
+regulators, ” Applied Power Electronics Conference and Exposition (APEC), 
+pp.187-191, 2008.
+[18] D. Reusch and J. Strydom, “Understanding the Effect of PCB Layout on 
+Circuit Performance in a High Frequency Gallium Nitride Based Point of Load 
+Converter, ” Applied Power Electronics Conference (APEC), pp.649- 655, 2013.
+[19] J. B. Forsythe, “Paralleling of Power MOSFETs for High Power Output, ” 
+International Rectifier Application Note.
+[20] Y. F. Wu, “Paralleling High-speed GaN Power HEMTs for Quadrupled 
+Power Output, ” Applied Power Electronics Conference and Exposition (APEC),  
+pp. 211-214, 2013.

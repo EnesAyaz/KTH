@@ -1,0 +1,172 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 009
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    1
+Motivation
+The smallest, most cost effective, highest efficiency and 25 A capable 
+non-isolated 48 V to 5-12 V converter, suitable for high-performance 
+computing and telecommunication applications, can be accomplished 
+by employing eGaN® FETs such as the EPC2053. The EPC9093 GaN 
+development board configured as a synchronous buck converter yields 
+a main power stage area of only 10 mm x 9 mm, at least 2x smaller 
+than its Si equivalent, and is capable of producing an output voltage 
+ranging from 5 V to 12 V.    
+Introducing the EPC2053 eGaN FET   
+The EPC2053, shown in figure 1, is a Generation 5 eGaN FET rated at 
+100 V with 4 mΩ on-resistance that is capable of carrying a continuous 
+current of 32 A and operating at up to 150°C junction temperature. 
+The EPC2053 has lower parasitic capacitances and on-resistance than 
+its silicon counterparts, yielding faster switching speed and lower 
+power losses even at higher switching frequency. These characteristics 
+enable increasing the output power while shrinking the volume of the 
+converter.     
+EPC9093 GaN development board
+The EPC9093 development board, with the block diagram schematic 
+shown in figure 2, is configured as a synchronous buck converter that 
+is fitted with two EPC2053 eGaN FETs. The EPC9093, with the main 
+power stage shown in Figure 3, also features the new uP1966A half-
+bridge gate driver IC from uPI Semiconductor Corp. The main power 
+stage occupies only 10 mm x 9 mm, and is at least 2x smaller than an 
+equivalent Si MOSFET power stage. The high frequency capability of 
+eGaN FETs greatly reduces the filtering requirements, allowing for a 
+significant size and loss reduction in the output filter inductor as well.   
+Boosting Power Density in 48 V to 5-12 V DC to DC 
+Converter Using EPC2053, with up to 25 A Output  EFFICIENT POWER CONVERSION
+Q2
+CIN
+LOUT
+COUT
+VOUT
+VCC5V
+HINPWM
+LINPWM
+VIN
+Q1
+Level Shift
+PGNDGND
+Gate Driver
+Figure 2: Block diagram schematic of the EPC9093 development board for 
+evaluating 48 V to 5 - 12 V, and 25 A intermediate bus conversion
+10 mm
+9 mm
+Figure 3: The EPC9093 development board  
+fitted with EPC2053
+Figure 1: EPC2053 100 V eGaN FET with 4 mΩ on-resistance
+3.5 mm
+2 mm
+
+=== PAGE 2 ===
+How2AppNote 009 eGaN® TECHNOLOGY
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    2
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+48 V - 12 V 25 A Buck Converter
+Component Qty eGaN FET
+Control Transistor 1 EPC2053
+Rectifier Transistor 1 EPC2053
+Inductor 1 IHLP-6767GZ-01 2.2uH
+Input Capacitors 4 C2012X7S2A105M125AB
+Output Capacitors 5 C2012X5R1E226M125AC
+Gate Driver 1 uP1966A
+Total Less than $0.03 per Watt
+EPC9093 experimental performance validation
+When stepping down 48 V to 12 V at 700 kHz switching frequency, the 
+EPC9093 achieves a peak efficiency of 97% at 15 A load and maintains 
+the efficiency above 96.5% at 25 A load. Figure 4 shows the power 
+efficiency up to 25 A output current for 5 V, 9 V, and 12 V output at  
+700 kHz operating frequency. A thermal image of the EPC9093 
+operating at 500 kHz, 12 V and 20 A output with 400 LFM airflow is 
+shown in figure 5. The temperatures of the top and bottom eGaN FETs 
+under this condition are 103°C and 87°C respectively.
+The peak efficiency is still above 96% when the operating frequency is 
+increased to 1 MHz. Figure 6 shows the efficiency as a function of the 
+load current for 5 V, 9 V, and 12 V output at 1 MHz operating frequency.
+Conclusions
+Migrating an intermediate 48 V to 5 – 12 V bus converter design from 
+silicon MOSFETs to eGaN FETs offers a boost in power density, while 
+maintaining or exceeding efficiency targets. Table 1 shows the bill of 
+materials of an eGaN based 48 V to 12 V, 25 A buck converter that yields 
+a cost per watt of less than $0.03. This same bill of materials can be used 
+for output voltages as low as 5 V.
+Suitable controllers for the EPC9093 include the TPS53632G from Texas 
+Instruments and when the EPC9093 is configured in a multi-phase 
+system for higher output current capability, as demonstrated in the 
+EPC9130, the dsPIC33EP128GS704 from Mircochip can be used.
+The eGaN FET based 48 V to 5 - 12 V, 25 A load converter was 
+demonstrated to yield 5 V, 9 V and 12 V output with a peak efficiency of 
+97%, a main power stage at least 2x smaller than the Si equivalents, and 
+a cost that can go below $0.03 per watt when operated with 12 V output. 
+Table 1: Bill of Materials for an eGaN FET based 48 V to 12 V,  
+25 A converter based on 500 k unit pricing
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+87
+86
+85
+84
+83
+82
+81
+80
+0 5 10 15 20 25
+  Eﬃciency (%)
+  Output Current (A)
+12 VOUT
+9 VOUT
+5 VOUT
+Board: EPC9093
+eGaN FETs: EPC2053
+Driver: UPI uP1966A
+Inductor: L = 2.2 µH,
+Vishay IHLP-6767GZ-01
+V
+IN = 48 V, fSW = 1 MHz
+Figure 6: EPC9093 efficiency vs. output current for 48 VIN to 5, 9 and 12 VOUT  
+when operating at 1 MHz and using EPC2053 eGaN FETs
+Figure 5: Thermal image of the EPC9093 operating at  
+500 kHz, 12 V and 20 A with 400 LFM airflow
+Figure 4: EPC9093 efficiency vs. output current for 48 VIN to 12 VOUT  
+when operating at 700 kHz and using EPC2053 eGAN FETs
+98
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+87
+86
+85
+0 5 10 15 20 25
+  Eﬃciency (%)
+  Output Current (A)
+12 VOUT
+9 VOUT
+5 VOUT
+Board: EPC9093
+eGaN FETs: EPC2053
+Driver: UPI uP1966A
+Inductor: L=2.2 µH,
+Vishay IHLP-6767GZ-01
+V
+IN = 48 V, fSW = 700 kHz

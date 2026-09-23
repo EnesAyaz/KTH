@@ -1,0 +1,284 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 022
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021   | |    1
+Motivation
+To accommodate the increasing power requirement in the server 
+applications, there is increasing demand on extracting more power 
+from standard 48 V bus converters. This application note presents the 
+design of a 1 kW, 4:1 conversion ratio, eGaN FET-based LLC resonant 
+converter in the 1/8th power brick size for the 48 V server applications. 
+The EPC9149 [5] converter module achieves 97.5% peak efficiency and 
+96.7% full-load efficiency. 
+Design Overview  
+The schematic of the LLC resonant topology adopted in this work is 
+illustrated in Figure 1. It consists of a full-bridge primary side, a center-
+tapped secondary side with parallel-connected synchronous rectifiers 
+to reduce the conduction loss. A series-connected 2 × 2:1:1 matrix 
+transformer integrated in a single core is designed. The high output 
+current is distributed among multiple secondary stages, ensuring 
+low interconnect inductance between the transformer and the 
+synchronous rectifiers, and reduces winding loss.  
+eGaN FET Selection for the LLC Resonant Converter 
+eGaN FETs are well suited for the soft-switching LLC resonant 
+converters [1]. Compared to Si MOSFETs of similar rating, their lower 
+gate charge (QG) and the 5 V gate operation result in much lower gate 
+power consumption. In addition, GaN FETs have much lower output 
+capacitance and therefore need much less charge to achieve zero 
+voltage switching (ZVS). This would either reduce the dead-time and 
+increase the effective power delivering time, or reduce the required 
+magnetizing current, circulating energy and conduction losses. 
+The 100 V, 3.2 mΩ EPC2218 [2] and 40 V, 1.5 mΩ  EPC2024 [3] as shown 
+in Figure 2 are selected for the primary and secondary-side power 
+devices respectively. Both eGaN FETs can operate at up to 150°C junction 
+temperature. The small form factor of GaN FETs makes it possible to fit in 
+8 FETs in the limited 1/8th power brick size for the synchronous rectifiers.
+System Overview 
+The block diagram of the circuit design is shown in Figure 3. The design 
+also includes on-board housekeeping power supply, digital controller, 
+and input and output voltage sensing. The PWM signals are generated 
+by the dsPIC controller dsPIC33CK32MP102-I/2N [4] from Microchip. 
+On-board housekeeping power supply generates the 5 V for the gate 
+drivers, and the 3.3 V for the controller.
+How to Design a High-Efficiency 48 V, 1 kW LLC Resonant  
+Converter in a 1/8th Brick Size Using eGaN FETs
+ 
+EFFICIENT POWER CONVERSION
+Figure 1. Power architecture schematic of the 48 V,  
+1 kW LLC resonant converter.
+Figure 2. Photo of the bump side of EPC2218 (left) and EPC2024 (right).
+2 mm 2.3 mm
+3.5 mm
+6.05 mm
+Housekeeping
+power supply
+3.3 V 5 V
+PWM’s
+Measure Measure
+Gate drive signals
+VIN
+VOUT
+Digital
+controller
+Gate drivers
+Power stage
+Figure 3. Block diagram of the LLC resonant converter.
+CIN COUT
+Q1
+Cr
+TR1
+SR2
+SR6
+SR1
+SR5
+SR4
+SR8
+SR3
+SR7
+Lr 2:1:1
+TR2
+2:1:1
+Lm
+Lm
+Q3
+Q2
+Q4
+VIN
+VOUT
+
+=== PAGE 2 ===
+How2AppNote 022 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    2
+Figure 5. EPC9149 and motherboard assembly showing  
+the input and output connections.
+Figure 4. The 1 kW, 4:1 ratio, LLC resonant  
+converter using EPC2218 and EPC2024.
+Figure 6. Power efficiency as function of output power at  
+48 V input voltage and 12 V output voltage.
+Experimental Validation
+The EPC9149 1 kW, 4:1 ratio GaN FET-based LLC resonant converter 
+shown in Figure 4 is built to verify the design. 
+The EPC9149 converter module is set up on a motherboard for 
+evaluation. Figure 5 shows the motherboard and EPC9149 installed on 
+it. The main input and output connections, measurement ports, bulk 
+input and output capacitors, USB and communication port are located 
+on the motherboard.
+HV
+housekeeping 
+PSU
+Controller
+Programming
+& comms
+port
+Resonant capacitor bank:
+ultra low ESR, voltage stable
+Transformer
+Transformer
+- Embedded in PCB
+- ML91S core
+Recti/f_ier
+EPC2024’s
+Recti/f_ier
+Output
+capacitor 
+Input Capacitors
+EPC2218’s (2x)
+Top Side
+Bottom Side
+Primary HB 2 
+Resonant 
+capacitor 
+bank
+3.3 V 
+housekeeping 
+PSU
+Primary HB 1
+HV
+housekeeping 
+PSU
+USB
+Communications 
+connection
+LLC module48 V
+connection 
+12 V connection-2
+12 V connection-1
+12 V Kelvin Sense48 V Kelvin Sense
+0
+98
+97
+96
+95
+94
+93
+92
+91
+40
+35
+30
+25
+20
+15
+10
+5
+50 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 972
+POUT (W)
+Eﬃciency (%)
+Loss (W)
+97.5% peak eﬃciency at 400 W
+96.7% eﬃciency at 1 kW
+48 V input to 12 V output
+70 V
+60 V
+50 V
+40 V
+30 V
+20 V
+10 V
+0
+-10 V
+-238 ns -33 ns 164 ns 384 ns 584 ns 784 ns 984 ns 1.184 /uni03BCs 1.384 /uni03BCs 1.584 /uni03BCs 1.784 /uni03BCs 
+Synchronous recti/f_ier FETs drain
+Primary side switch-node
+200 ns/div
+20 V/div
+200 ns/div
+20 V/div
+200 ns/div
+4 A/div
+Figure 7. (a) Switching waveforms at 48 V input voltage and 1 kW load condition, 
+(b) Resonant tank current waveform.  
+(a)
+(b)
+The overall power loss and efficiency at 48 V input and 12 V output 
+including the housekeeping power consumption is given in Figure 6 
+with 97.5% peak efficiency and 96.7% full-load efficiency. 
+The measured switching waveforms, at 48 V input, 12 V and 83 A output 
+are shown in Figure 7(a). ZVS was achieved on the primary side devices 
+as evident by the absence of overshoot and ringing. The resonant 
+current flowing in the tank circuit is also shown in Figure 7(b). The circuit 
+is tuned for operation above resonance to reduce conduction loss on 
+the secondary side FETs.
+
+=== PAGE 3 ===
+How2AppNote 022 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    3
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+M2 x 10 mm screws (2x)
+Top heatsink
+Heatsink TIM
+Secondary FET TIM (8x)
+Secondary FETs
+M1.4 x 16 mm screws (2x)
+M1.4 nuts (2x)
+Copper heat spreader
+(topside)
+Primary FET TIM (2x)
+Primary FETs
+Bottom Heat Spreader
+Bottom Heat Sink
+Heatsink TIM
+Top  heat spreader
+A combination of custom shape heat spreaders and a finned heatsink for 
+the top and bottom side of the EPC9149 board are designed. The thermal 
+solution assembly is shown in Figure 8. Copper heat spreaders are placed 
+on top of both primary and secondary side FETs to spread their heat to 
+the outer structure. The copper heat-spreaders include contour features 
+that allow parts of the heat-spreader to rest on the printed circuit board 
+to provide addition cooling, mechanical stability and define the correct 
+spacing between the heat-spreader and the FET top surface. It only 
+requires a gap filler TIM to be added underneath of the heat spreader 
+pieces to provide insulation and high thermal conductivity between the 
+components and the metal surface of heat spreaders. Mechanical screws 
+are inserted on the board to hold the entire mechanical structure together.
+Figure 9 shows the converter module assembled with the heatsink and 
+the direction of air flow.
+PCB 
+eGaN
+(side wall) 
+Copper 
+heat-spreader 
+ 
+Heatsink
+Test 
+/f_ixture
+board
+Air-/f_low direction 
+Figure 10. Thermal image of the EPC9149 operating at 48 VIN , 12 V,  
+83.3 A output and 400 LFM forced air cooling, thermal steady  
+state reached after 10 minutes, highest board temperature. 
+The EPC9149 is intended for bench evaluation at normal ambient 
+temperature. The addition of a heat-spreader or heatsink and forced air 
+cooling can significantly increase the current rating of the power devices, 
+but care must be taken to not exceed the absolute maximum die junction 
+temperature of 150°C. Figure 10 shows the thermal image of the module 
+at steady state condition.   
+Conclusion
+The EPC9149 is a 48 V input, 1 kW output, 4:1 conversion ratio, LLC resonant 
+converter in the 1/8th power brick size built using eGaN FETs. Measured 
+peak efficiency is 97.5% and full power efficiency is 96.7% including 
+housekeeping power consumption. The low gate capacitance, output 
+charge and on-resistance and the small form factor of the eGaN FETs are 
+the key to achieving this at a power density exceeding 1227 W/in3. 
+References
+[[1] A. Lidow, M. de Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN 
+Transistors for Efficient Power Conversion, 3rd ed. Wiley, 2019.
+[2] EPC. (2021). “EPC2218 datasheet, ” [online]. Available: https://epc-co.
+com/epc/Portals/0/epc/documents/datasheets/epc2218_datasheet.pdf
+[3] EPC. (2021). “EPC2024 datasheet, ” [online]. Available: https://epc-co.
+com/epc/Portals/0/epc/documents/datasheets/epc2024_datasheet.pdf 
+[4] Microchip. (2018-2020). [online]. Available: https://www.microchip.
+com/wwwproducts/en/dsPIC33CK32MP102
+[5] EPC. (2021). “EPC9149 QSG, ” [online]. Available: https://epc-co.com/
+epc/Portals/0/epc/documents/guides/epc9149_qsg.pdf
+Figure 9. EPC9149 thermal measurement setup. 
+Figure 8. Thermal solution assembly process for the EPC9149 module.

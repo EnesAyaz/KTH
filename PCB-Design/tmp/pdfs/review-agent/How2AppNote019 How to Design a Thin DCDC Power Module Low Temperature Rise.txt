@@ -1,0 +1,200 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 019
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020   | |    1
+Motivation
+As computers, displays, smart phones and other consumer electronics 
+systems become thinner and more powerful over the past decade, 
+addressing the challenge of thinning the power converter and getting 
+more power out of limited space whilst not increasing the surface 
+temperature sees an increase in demand. This application note will 
+look into designing a 44 V to 60 V input, 12 V to 20 V, 12.5 A output, thin 
+DC/DC power module with low temperature rise using eGaN FETs in 
+the simple and low-cost synchronous buck topology.
+Design of a Thin and Highly Efficient eGaN-FET-based 
+Synchronous Buck Converter  
+The synchronous buck topology is popular in DC/DC step-down 
+converter design for its simplicity, easiness in control, and low cost. 
+The schematic diagram of the eGaN-FET-based synchronous buck 
+converter is shown in Figure 1. The 100 V rated eGaN FET EPC2218 with 
+RDSon of 3.2 mΩ as shown in Figure 2 is selected for the power stage. 
+The uP1966A gate driver that features high driving strength is used 
+to drive the FETs. The synchronous bootstrap circuit with EPC2038 
+that ensures 4.9 V gate voltage is used for the high-side gate drive. 
+How to Design a Thin DC/DC Power Module with 
+Low Temperature Rise Using eGaN® FETs EFFICIENT POWER CONVERSION
+Figure 1. Simplified schematic of the eGaN FET-based synchronous buck converter
+Figure 2. Photo of the bump side of EPC2218
+VIN
+Q1
+Q2
+CIN
+LOUT
+5 V
+PWMH
+PWML
+GND
+COUT
+VOUT
+PWMH
+PWML
+5 V for gate driver
+3.3 V
+VIN_sense
+VOUT_sense
+IOUT_sense
+3.3 V for digital
+controller and
+current ampli/f_ier
+PGND
+Gate driver
+Level shift
+HV PSU
+Digital
+controller
+3.5 mm
+2 mm
+Digital control that allows sub-10 ns dead-time and flexibility in control 
+scheme development is employed. In order to optimize the efficiency, 
+two small on-board switch-mode power supply circuits are used to 
+generate the housekeeping 5 V and 3.1 V voltages for the gate driver 
+and the digital controller respectively.  
+Electrolytic capacitors and output inductor are usually the tallest 
+components in the synchronous buck converter. Increasing the 
+switching frequency would reduce the required filter capacitance and 
+inductance, allowing the use of lower-profile passive components. 
+However, switching loss increases with the frequency, reducing the 
+efficiency and increasing heat dissipation. The tradeoff between 
+thinner components and high efficiency and good thermal 
+performance must be balanced.
+The switching frequency of the converter is optimized at 400 kHz, 
+high enough to allow the use of a 6.5 mm tall, 4.8 µH inductor, whilst 
+maintaining low switching loss and thus high overall efficiency and 
+good thermal performance. 
+
+=== PAGE 2 ===
+How2AppNote 019 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020  | |    2
+Figure 4. Photo of the 56 V to 20 V, 250 W synchronous buck converter 
+EPC9153 without (left) and with (right) the heat-spreader installed
+Figure 5. Switch-node voltage vSW waveform at 
+12.5 A output current
+Thermal management is very important to ensure proper and reliable 
+operation. The wafer level chip scale package (WLCSP) of the eGaN 
+FETs makes them easy to cool down. The addition of a heat-spreader 
+or heatsink (HS) can significantly reduce the surface temperature 
+of the converter and potentially increase the current rating of the 
+power devices. To make provisions for a heat-spreader/heatsink, the 
+circuit board is designed with three mechanical spacers that accept 
+M2 x 0.4 mm thread screws and can be used to easily attach a heat-
+spreader/heatsink as shown in Figure 3. It only requires a thermal 
+interface material (TIM), a custom shape heat-spreader/heatsink, a thin 
+insulation layer for the components with exposed conductors such as 
+capacitors and resistor and screws. 
+Experimental Validation
+The synchronous buck converter EPC9153 in Figure 4 was built with 
+a heat-spreader to verify the design. The component thickness is  
+6.5 mm. The switch-node voltage v SW waveform at 12.5 A output 
+current is shown in Figure 5; the switching is seen to be fast and clean. 
+M2 screws (x3)
+Heat-spreader
+Insulation layer
+TIM
+SMD spacer (x3)
+eGaN FET (x2)
+Figure 3. Illustration of the 
+heat-spreader assembly
+VSW
+200 ns/div
+10 V/div
+
+=== PAGE 3 ===
+How2AppNote 019 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020  | |    3
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Figure 6. Total system efficiency including the housekeeping power consumption at 20 V output and different input voltages
+Figure 8. Thermal image of the synchronous buck converter operating  
+at 56 V to 20 V and 12.5 A output and thermal steady state with the  
+heat-spreader and without forced air
+Figure 7. Total system efficiency including the housekeeping power consumption at 48 V input and different output voltages
+99
+98
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+Total System Eﬃciency (%)
+Output Current (A)
+1 2 3 4 5 6 7 8 9 10 11 12 13
+Output Current (A)
+10 2 3 4 5 6 7 8 9 10 11 12 13
+5
+4
+3
+2
+1
+0
+Total Power Loss (W)
+VIN = 48 V
+VIN = 56 V
+VIN = 48 V
+VIN = 56 V
+99
+98
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+Total System Eﬃciency (%)
+Output Current (A)
+1 2 3 4 5 6 7 8 9 10 11 12 13 1 2 3 4 5 6 7 8 9 10 11 12 13
+Output Current (A)
+5
+4
+3
+2
+1
+0
+Total System Eﬃciency (%)
+VOUT = 20 V
+VOUT = 12 V
+VOUT = 20 V
+VOUT = 12 V
+The overall power efficiency and power loss of the synchronous buck 
+converter operating at different input voltages and 20 V output, and  
+48 V input and different output voltages are shown in Figure 6 and 
+Figure 7 respectively. It is seen to achieve over 98% and 97.6% full load 
+efficiency at 20 V and 12 V output respectively.
+The thermal image of the converter operating at 56 V to 20 V, 12.5 A 
+output current with the heat-spreader and without forced air cooling is 
+shown in Figure 8. A temperature rise of only 37°C is achieved. It can be 
+seen that the FETs are capable of carrying more current given a relaxed 
+temperature rise or forced air.
+Conclusions
+A 44 V to 60 V input, 12 V to 20 V, 12.5 A output, eGaN-FET-based 
+synchronous buck converter with 6.5 mm component height is designed 
+and achieves 98.2% peak efficiency and less than 40°C temperature rise 
+at 20 V output. The eGaN FETs improve the overall efficiency with their 
+fast switching capability. The WLCSP of the eGaN FETs makes it easy to 
+cool them down and achieve low temperature rise. 

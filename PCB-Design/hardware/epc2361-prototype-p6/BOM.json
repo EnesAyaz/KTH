@@ -1,0 +1,1030 @@
+{
+  "QH1": {
+    "value": "EPC2361",
+    "mpn": "EPC2361",
+    "footprint": "epc2361-prototype:EPC2361",
+    "pins": {
+      "1": "GH1",
+      "2": "AC",
+      "3": "DC+",
+      "4": "AC",
+      "5": "DC+",
+      "6": "AC",
+      "7": "DC+"
+    },
+    "x": 48,
+    "y": 32,
+    "angle": 0,
+    "dnp": false,
+    "notes": ""
+  },
+  "QL1": {
+    "value": "EPC2361",
+    "mpn": "EPC2361",
+    "footprint": "epc2361-prototype:EPC2361",
+    "pins": {
+      "1": "GL1",
+      "2": "DC-",
+      "3": "D_QL1",
+      "4": "DC-",
+      "5": "D_QL1",
+      "6": "DC-",
+      "7": "D_QL1"
+    },
+    "x": 48,
+    "y": 38,
+    "angle": 0,
+    "dnp": false,
+    "notes": ""
+  },
+  "QH2": {
+    "value": "EPC2361",
+    "mpn": "EPC2361",
+    "footprint": "epc2361-prototype:EPC2361",
+    "pins": {
+      "1": "GH2",
+      "2": "AC",
+      "3": "DC+",
+      "4": "AC",
+      "5": "DC+",
+      "6": "AC",
+      "7": "DC+"
+    },
+    "x": 66,
+    "y": 32,
+    "angle": 0,
+    "dnp": false,
+    "notes": ""
+  },
+  "QL2": {
+    "value": "EPC2361",
+    "mpn": "EPC2361",
+    "footprint": "epc2361-prototype:EPC2361",
+    "pins": {
+      "1": "GL2",
+      "2": "DC-",
+      "3": "AC",
+      "4": "DC-",
+      "5": "AC",
+      "6": "DC-",
+      "7": "AC"
+    },
+    "x": 66,
+    "y": 38,
+    "angle": 0,
+    "dnp": false,
+    "notes": ""
+  },
+  "C1": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 60.75,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C2": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 62.85,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C3": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 64.95,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C4": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 67.05,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C5": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 69.15,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C6": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 71.25,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C7": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 53.25,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C8": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 51.15,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C9": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 49.05,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C10": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 46.95,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C11": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 44.85,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C12": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 42.75,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "RGH1": {
+    "value": "0R tune",
+    "mpn": "RC0402JR-070RL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "HO",
+      "2": "GH1"
+    },
+    "x": 43.7,
+    "y": 30.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Individual gate damping footprint. Tune during double-pulse testing."
+  },
+  "RGL1": {
+    "value": "0R tune",
+    "mpn": "RC0402JR-070RL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "LO",
+      "2": "GL1"
+    },
+    "x": 43.7,
+    "y": 36.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Individual gate damping footprint. Tune during double-pulse testing."
+  },
+  "RGH2": {
+    "value": "0R tune",
+    "mpn": "RC0402JR-070RL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "HO",
+      "2": "GH2"
+    },
+    "x": 61.7,
+    "y": 30.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Individual gate damping footprint. Tune during double-pulse testing."
+  },
+  "RGL2": {
+    "value": "0R tune",
+    "mpn": "RC0402JR-070RL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "LO",
+      "2": "GL2"
+    },
+    "x": 61.7,
+    "y": 36.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Individual gate damping footprint. Tune during double-pulse testing."
+  },
+  "JGH1": {
+    "value": "G / KS",
+    "mpn": "FTS-102-01-L-S",
+    "footprint": "Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical",
+    "pins": {
+      "1": "GH1",
+      "2": "AC"
+    },
+    "x": 41.05,
+    "y": 30.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Measurement/external-drive header; never connect a second active driver. Remove local series resistor to isolate onboard output. Generic footprint: verify manufacturer drawing before release."
+  },
+  "JGL1": {
+    "value": "G / KS",
+    "mpn": "FTS-102-01-L-S",
+    "footprint": "Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical",
+    "pins": {
+      "1": "GL1",
+      "2": "DC-"
+    },
+    "x": 41.05,
+    "y": 36.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Measurement/external-drive header; never connect a second active driver. Remove local series resistor to isolate onboard output. Generic footprint: verify manufacturer drawing before release."
+  },
+  "JGH2": {
+    "value": "G / KS",
+    "mpn": "FTS-102-01-L-S",
+    "footprint": "Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical",
+    "pins": {
+      "1": "GH2",
+      "2": "AC"
+    },
+    "x": 59.05,
+    "y": 30.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Measurement/external-drive header; never connect a second active driver. Remove local series resistor to isolate onboard output. Generic footprint: verify manufacturer drawing before release."
+  },
+  "JGL2": {
+    "value": "G / KS",
+    "mpn": "FTS-102-01-L-S",
+    "footprint": "Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical",
+    "pins": {
+      "1": "GL2",
+      "2": "DC-"
+    },
+    "x": 59.05,
+    "y": 36.77,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Measurement/external-drive header; never connect a second active driver. Remove local series resistor to isolate onboard output. Generic footprint: verify manufacturer drawing before release."
+  },
+  "JDC1": {
+    "value": "DC+ 24 pins",
+    "mpn": "TSW-112-07-G-D",
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical",
+    "pins": {
+      "1": "DC+",
+      "2": "DC+",
+      "3": "DC+",
+      "4": "DC+",
+      "5": "DC+",
+      "6": "DC+",
+      "7": "DC+",
+      "8": "DC+",
+      "9": "DC+",
+      "10": "DC+",
+      "11": "DC+",
+      "12": "DC+",
+      "13": "DC+",
+      "14": "DC+",
+      "15": "DC+",
+      "16": "DC+",
+      "17": "DC+",
+      "18": "DC+",
+      "19": "DC+",
+      "20": "DC+",
+      "21": "DC+",
+      "22": "DC+",
+      "23": "DC+",
+      "24": "DC+"
+    },
+    "x": 8,
+    "y": 10,
+    "angle": 90,
+    "dnp": false,
+    "notes": "24 parallel contacts. Full-array mating/thermal validation required; no single-pin current multiplication. Generic package model."
+  },
+  "JDC2": {
+    "value": "DC- 24 pins",
+    "mpn": "TSW-112-07-G-D",
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical",
+    "pins": {
+      "1": "DC-",
+      "2": "DC-",
+      "3": "DC-",
+      "4": "DC-",
+      "5": "DC-",
+      "6": "DC-",
+      "7": "DC-",
+      "8": "DC-",
+      "9": "DC-",
+      "10": "DC-",
+      "11": "DC-",
+      "12": "DC-",
+      "13": "DC-",
+      "14": "DC-",
+      "15": "DC-",
+      "16": "DC-",
+      "17": "DC-",
+      "18": "DC-",
+      "19": "DC-",
+      "20": "DC-",
+      "21": "DC-",
+      "22": "DC-",
+      "23": "DC-",
+      "24": "DC-"
+    },
+    "x": 8,
+    "y": 17,
+    "angle": 90,
+    "dnp": false,
+    "notes": "24 parallel contacts. Full-array mating/thermal validation required; no single-pin current multiplication. Generic package model."
+  },
+  "JAC1": {
+    "value": "AC 24 pins",
+    "mpn": "TSW-112-07-G-D",
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical",
+    "pins": {
+      "1": "AC",
+      "2": "AC",
+      "3": "AC",
+      "4": "AC",
+      "5": "AC",
+      "6": "AC",
+      "7": "AC",
+      "8": "AC",
+      "9": "AC",
+      "10": "AC",
+      "11": "AC",
+      "12": "AC",
+      "13": "AC",
+      "14": "AC",
+      "15": "AC",
+      "16": "AC",
+      "17": "AC",
+      "18": "AC",
+      "19": "AC",
+      "20": "AC",
+      "21": "AC",
+      "22": "AC",
+      "23": "AC",
+      "24": "AC"
+    },
+    "x": 78,
+    "y": 22,
+    "angle": 0,
+    "dnp": false,
+    "notes": "24 parallel contacts. Full-array mating/thermal validation required; no single-pin current multiplication. Generic package model."
+  },
+  "U1": {
+    "value": "LMG1210",
+    "mpn": "LMG1210RVRR",
+    "footprint": "epc2361-prototype:LMG1210_RVR",
+    "pins": {
+      "1": "NC1",
+      "2": "VIN",
+      "3": "DC-",
+      "4": "VDD",
+      "5": "DC-",
+      "6": "VDD",
+      "7": "DC-",
+      "8": "LO",
+      "9": "AC",
+      "10": "HO",
+      "11": "NC11",
+      "12": "HB",
+      "13": "AC",
+      "14": "AC",
+      "15": "NC15",
+      "16": "AC",
+      "17": "BST",
+      "18": "HI",
+      "19": "LI",
+      "20": "DC-",
+      "21": "AC"
+    },
+    "x": 36,
+    "y": 35,
+    "angle": 0,
+    "dnp": false,
+    "notes": "IIM: external nonoverlapping HI/LI; no internal shoot-through interlock in this mode."
+  },
+  "JCTRL1": {
+    "value": "12V / GND / HI / GND / LI / GND",
+    "mpn": "TSW-106-07-G-S",
+    "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+    "pins": {
+      "1": "VIN",
+      "2": "DC-",
+      "3": "HI",
+      "4": "DC-",
+      "5": "LI",
+      "6": "DC-"
+    },
+    "x": 12,
+    "y": 30,
+    "angle": 0,
+    "dnp": false,
+    "notes": ""
+  },
+  "C13": {
+    "value": "1u 35V",
+    "mpn": "C1608X7R1V105K080AC",
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "pins": {
+      "1": "VIN",
+      "2": "DC-"
+    },
+    "x": 30,
+    "y": 24,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "C14": {
+    "value": "10u 25V",
+    "mpn": "C2012X5R1E106K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "VDD",
+      "2": "DC-"
+    },
+    "x": 35,
+    "y": 44.5,
+    "angle": 90,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "C15": {
+    "value": "10u 25V",
+    "mpn": "C2012X5R1E106K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "VDD",
+      "2": "DC-"
+    },
+    "x": 38,
+    "y": 44.5,
+    "angle": 90,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "C16": {
+    "value": "100n 50V",
+    "mpn": "C1608X7R1H104K080AA",
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "pins": {
+      "1": "VDD",
+      "2": "DC-"
+    },
+    "x": 35,
+    "y": 39.5,
+    "angle": 90,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "C17": {
+    "value": "1u 16V",
+    "mpn": "C1608X7R1C105K080AC",
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "pins": {
+      "1": "HB",
+      "2": "AC"
+    },
+    "x": 38,
+    "y": 27.8,
+    "angle": 90,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "C18": {
+    "value": "100n 50V",
+    "mpn": "C1608X7R1H104K080AA",
+    "footprint": "Capacitor_SMD:C_0603_1608Metric",
+    "pins": {
+      "1": "HB",
+      "2": "AC"
+    },
+    "x": 36,
+    "y": 31.3,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Verify effective capacitance and temperature; VDD X5R parts rated85C."
+  },
+  "RB1": {
+    "value": "2.2R",
+    "mpn": "RC0603FR-072R2L",
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "pins": {
+      "1": "BST",
+      "2": "BST_A"
+    },
+    "x": 35,
+    "y": 27.5,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "D1": {
+    "value": "BAS21H",
+    "mpn": "BAS21H,115",
+    "footprint": "Diode_SMD:D_SOD-123F",
+    "pins": {
+      "1": "HB",
+      "2": "BST_A"
+    },
+    "x": 38,
+    "y": 24,
+    "angle": 0,
+    "dnp": false,
+    "notes": "External bootstrap diode: cathode HB, anode BST_A. Not a bootstrap voltage clamp."
+  },
+  "RH1": {
+    "value": "10k",
+    "mpn": "RC0402FR-0710KL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "HI",
+      "2": "DC-"
+    },
+    "x": 27,
+    "y": 21,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "RL1": {
+    "value": "10k",
+    "mpn": "RC0402FR-0710KL",
+    "footprint": "Resistor_SMD:R_0402_1005Metric",
+    "pins": {
+      "1": "LI",
+      "2": "DC-"
+    },
+    "x": 30,
+    "y": 21,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "TP1": {
+    "value": "DC+",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC+"
+    },
+    "x": 72,
+    "y": 29,
+    "angle": 0,
+    "dnp": false,
+    "notes": "PCB feature; no purchased component."
+  },
+  "TP2": {
+    "value": "DC-",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC-"
+    },
+    "x": 44,
+    "y": 20,
+    "angle": 0,
+    "dnp": false,
+    "notes": "PCB feature; no purchased component."
+  },
+  "TP3": {
+    "value": "AC",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "AC"
+    },
+    "x": 73,
+    "y": 47,
+    "angle": 0,
+    "dnp": false,
+    "notes": "PCB feature; no purchased component."
+  },
+  "TP4": {
+    "value": "HB",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "HB"
+    },
+    "x": 38,
+    "y": 22,
+    "angle": 0,
+    "dnp": false,
+    "notes": "PCB feature; no purchased component."
+  },
+  "TP5": {
+    "value": "VDD",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "VDD"
+    },
+    "x": 39,
+    "y": 49,
+    "angle": 0,
+    "dnp": false,
+    "notes": "PCB feature; no purchased component."
+  },
+  "C19": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 42.75,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C25": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 71.25,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C20": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 44.85,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C26": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 69.15,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C21": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 46.95,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C27": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 67.05,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C22": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 49.05,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C28": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 64.95,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C23": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 51.150000000000006,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C29": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 62.85,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C24": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 53.25,
+    "y": 26,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "C30": {
+    "value": "1u 100V",
+    "mpn": "C2012X7S2A105K125AB",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "pins": {
+      "1": "DC+",
+      "2": "DC-"
+    },
+    "x": 60.75,
+    "y": 44,
+    "angle": 90,
+    "dnp": false,
+    "notes": ""
+  },
+  "TP6": {
+    "value": "QH1 D",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC+"
+    },
+    "x": 52,
+    "y": 30.5,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP7": {
+    "value": "QH1 S",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "AC"
+    },
+    "x": 52,
+    "y": 32,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP8": {
+    "value": "QL1 D",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "D_QL1"
+    },
+    "x": 52,
+    "y": 36.5,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP9": {
+    "value": "QL1 S",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC-"
+    },
+    "x": 52,
+    "y": 38,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP10": {
+    "value": "QH2 D",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC+"
+    },
+    "x": 70,
+    "y": 30.5,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP11": {
+    "value": "QH2 S",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "AC"
+    },
+    "x": 70,
+    "y": 32,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP12": {
+    "value": "QL2 D",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "AC"
+    },
+    "x": 70,
+    "y": 36.5,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "TP13": {
+    "value": "QL2 S",
+    "mpn": "PCB copper test pad",
+    "footprint": "epc2361-prototype:Probe_Pad",
+    "pins": {
+      "1": "DC-"
+    },
+    "x": 70,
+    "y": 38,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Local VDS spring-tip contact; 1.5 mm D/S spacing, verify actual probe accessory. High-side source is AC, not earth."
+  },
+  "H1": {
+    "value": "I_OUT coil access",
+    "mpn": "PCB drilled feature",
+    "footprint": "epc2361-prototype:Coil_Access_3.2",
+    "pins": {},
+    "x": 75,
+    "y": 27,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Provisional 3.2 mm NPTH Rogowski access, 16 mm centre spacing. Measures output current only. Coil closure, bend radius and insulation must be checked before drilling release."
+  },
+  "H2": {
+    "value": "I_OUT coil access",
+    "mpn": "PCB drilled feature",
+    "footprint": "epc2361-prototype:Coil_Access_3.2",
+    "pins": {},
+    "x": 75,
+    "y": 43,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Provisional 3.2 mm NPTH Rogowski access, 16 mm centre spacing. Measures output current only. Coil closure, bend radius and insulation must be checked before drilling release."
+  },
+  "LK1": {
+    "value": "QL1 drain current link",
+    "mpn": "CUSTOM-CU-LINK-P6",
+    "footprint": "epc2361-prototype:Current_Link",
+    "pins": {
+      "1": "AC",
+      "2": "D_QL1"
+    },
+    "x": 55,
+    "y": 35,
+    "angle": 0,
+    "dnp": false,
+    "notes": "Sole QL1 drain-current path. Provisional formed copper 2mm wide x0.5mm thick, 6mm land pitch, 3mm underside rise. Hand solder, no paste. Exact PEM coil fit and link temperature/inductance require verification; not a generic jumper."
+  }
+}

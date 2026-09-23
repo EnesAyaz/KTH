@@ -1,0 +1,613 @@
+
+=== PAGE 1 ===
+120 V , 155 A Traction Inverter Using Eight Parallel
+GaN HEMTs
+Matthew W. J. Cooke
+Department of Engineering Science
+University of Oxford
+Oxford, Oxfordshire
+matthew.cooke@eng.ox.ac.uk
+Daniel J. Rogers
+Department of Engineering Science
+University of Oxford
+Oxford, Oxfordshire
+dan.rogers@eng.ox.ac.uk
+Abstract—A six-phase, GaN-based inverter using 8 parallel
+connected EPC2304 200 V 5 mΩGaN HEMTs per switch is
+presented. The design is configured as two identical three-phase
+inverters with the option of a shared DC bus to enable recircu-
+lation of power. The design is used to power two mechanically
+coupled PMSMs in a dynamometer test rig. The use of GaN
+transistors enables the design to operate up to frequencies of 100
+kHz. Static and dynamic current sharing of the GaN HEMTs is
+ensured by careful consideration of symmetry within the gate
+loop layout, and is verified using thermal imaging of the GaN
+HEMTs. Each three-phase inverter can reach an output power
+of 22.8 kW, with estimated HEMT temperatures not exceeding
+70°C at 50 kHz switching frequency.
+Index Terms—Gallium Nitride, HEMTs, Paralleling, Traction
+Inverter, dv/dt, FEA, Wide Bandgap Devices, Thermal Imaging
+I. INTRODUCTION
+Wide bandgap devices offer favourable electrical and ther-
+mal performance compared to Si devices making them an
+attractive replacement in EVs [1]. The introduction of SiC-
+based inverters in commercial EVs has already led to increased
+switching frequencies compared to older Si-based designs,
+such as the Tesla Model 3 at 10 kHz in 2017 [2] versus
+the Nissan Leaf at 5 kHz in 2011 [3]. GaN offers a further
+improvement over SiC due to superior characteristics such
+as lower specific on-state resistance, and lower gate and
+output capacitance for comparable device ratings [4]. Under
+similar conditions, 650 V GaN HEMTs have been shown to
+exhibit x3.2 lower switching losses than SiC MOSFETs [5],
+enabling higher switching frequencies [6] and reduced passive
+component size that are highly desirable in EV applications.
+Although GaN HEMTs can offer improvements in efficiency
+and power density in EV inverters, there are still implemen-
+tation challenges related to thermal and parasitic problems,
+such as high dv/dt reducing motor lifetimes [7], that limit
+commercial realisation of GaN-based inverters in EVs [8].
+The authors could not find any commercially available GaN-
+based traction inverters with the necessary flexibility to enable
+a full range of testing in a motor drive context. Therefore, the
+This research was funded in whole, or in part, by the UK Engineering and
+Physical Sciences Research Council (EP/W524311/1) and Y ASA Limited. For
+the purpose of Open Access, the author has applied a Creative Commons
+Attribution (CC BY) license to any Author Accepted Manuscript version
+arising. No new data was created during the study.
+custom design of a dual three-phase inverter was undertaken.
+This necessitated the design of a high current half bridge
+module as described in this paper.
+By having the test motor mechanically coupled to a second
+motor and inverter in a dynamometer (dyno) rig, power can be
+recirculated back into the DC link of the inverter. This means
+that the power supply need only provide power for losses in
+the system, greatly increasing the possible power rating of
+inverter and motor that can be tested in a laboratory setting.
+This is in contrast to using a passive dyno, where the power
+provided by the motor is dissipated into the environment. Fig.
+1 shows an electrical schematic of the motor dyno test rig.
+Fig. 1: Electrical schematic for the testing of the dual, three-
+phase inverters and motors.
+The rig is composed of two Plettenburg Nova 15 water
+cooled motors with their shafts coupled, as well as a 3D
+printed housing and coolant temperature sensors for calori-
+metric measurements of motor losses.
+The current handling capability of individual GaN HEMTs
+is constrained by their device structure, limiting achievable
+die size and maximum drain current [9]. In high current ap-
+plications such as EV traction inverters, paralleling of multiple
+GaN HEMTs per switch is necessary.
+
+=== PAGE 2 ===
+Parallel connected GaN HEMTs should share current
+equally to prevent the unequal heating of one particular
+HEMT, which increases probability of failure of said HEMT
+[10]. By matching the gate loop impedances, the turn-on and
+turn-off of the HEMTs should occur simultaneously, ensuring
+equal switching losses [11]. It is also important that the layout
+of the half bridge promotes good steady state current sharing
+by balancing the current pathways of each HEMT such that
+the total resistance of each pathway is equal.
+Table I summarises previous publications [12]–[28] inves-
+tigating the paralleling of GaN HEMTs. The table is ordered
+by the most complex configuration tested. Eq. 1 details how
+the Device Power Utilisation (DPU) is computed.
+DP U= VdcIph
+nV 2
+ds/Rds(on)
+104 (1)
+Vds is the rated drain-source voltage, andR ds(on) is the on-
+state resistance of the HEMT.nis the number of HEMTs in
+parallel.V dc is the DC link voltage andI ph is the highest
+tested phase current of the test configuration.
+It is evident that the majority of existing work has been
+limited to double pulse testing or simple converter topologies,
+with only a limited number of studies progressing to the full
+testing of GaN power modules in continuous operation in a
+three-phase system with a motor acting as a load. No GaN
+paralleling studies were found which had an active dyno test
+rig recirculating power through a second three-phase inverter.
+II. DESIGN
+A motherboard PCB mounts six half bridge power modules,
+organised into two three-phase inverters. The motherboard also
+houses the bulk DC link capacitors and current sensors for
+each phase and the DC links. The system is controlled by
+an STM32F410RB microcontroller. The modules attach to the
+motherboard using an array of pin header connectors. Fig.
+2 shows the complete GaN-based inverter, including all six
+modules, and the populated motherboard PCB.
+Fig. 3 is a electrical schematic detailing one of the modules
+in the three-phase inverter. Each half bridge power module
+is composed of a separate half bridge and gate driver PCB.
+This is to help facilitate fault isolation, debugging, and ease
+modification of the PCBs.
+A. Half Bridge PCB Design
+The half bridge PCB is composed of four layers, with the
+outside layers being 4 oz copper, and the inside layers being 2
+oz copper. The top side of the half bridge PCB is used to house
+the main bulk of the components including GaN HEMTs, DC
+link capacitors, NTC thermistor, and copper pours for the
+Vdc, PGND, and switch node. The bottom side has all the
+pin headers for power and signals from the motherboards and
+the HEMT gate and source connections for the gate driver
+PCB, and a switch node copper pour. The middle layers of
+the PCB contain copper pours which complete the switched
+current commutation loop (SCCL).
+Fig. 2: Two photos of the complete GaN-based inverter.
+As shown in fig. 4, the HEMTs are organised into two
+straight lines with pin headers connecting to the gate driver
+PCB placed right at the gate and source connections of the
+HEMTs to minimise gate loop length. Two rows of 18 MLCCs
+are used to create a local DC link capacitance of 8.36µF on
+the half bridge PCB, close to the HEMTs. An array of 32
+100 mil pin headers are used to connect theV DC and PGND
+from the motherboard to the half bridge PCB. This method
+of connection between the half bridge PCB and motherboard
+PCB is chosen to allow easy connection and disconnection
+of the power modules, as well as allowing sufficient spacing
+between the PCBs to make space for all the parts of the power
+module which hang below the half bridge PCB itself. Terminal
+blocks are press-fitted into the PCB to act as cable connection
+terminals for the switch node of each half bridge.
+Fig. 4 shows the top side of the half bridge PCB, including
+key sizes and components in the design.
+Fig. 5 is a cross-section of the half bridge PCB, including
+the two switched current commutation loop pathways.
+
+=== PAGE 3 ===
+TABLE I: Summary of paralleling GaN HEMT literature.
+Reference Parallel Device Used Device Rating
+Vds/Id/Rds(on)
+Test Configuration Test Rating
+Vdc/Iph/fsw
+DPU
+[12] x2 GS-065-060-2-D2 650 V / 60 A / 25 mΩSimulation 400 V / 100 A 11.8
+[13] x4 GS61008 100 V / 90 A / 7 mΩDouble pulse test 48 V / 367 A 30.8
+[14] x4 GS66516T 650 V / 60 A / 25 mΩDouble pulse test 400 V / 280 A 16.6
+[15] x2 GS-065-15V-7-D6 650 V / 150 A / 10 mΩDouble pulse test 350 V / 25 A 1.0
+[16] x4 GS66508T 650 V / 30 A / 50 mΩDouble pulse test 400 V / 20 A 2.4
+[17] x2 GS-065-150-1-D 650 V / 150 A / 10 mΩDouble pulse test 450 V / 150 A 8.0
+[18] x5 GS66508P 650 V / 30 A / 50 mΩDouble pulse test 350 V / 100 A 8.3
+[19] x2 GS66516B 650 V / 60 A / 25 mΩDouble pulse test 400 V / 80 A 9.5
+[19] x4 GS66516T 650 V / 60 A / 25 mΩDouble pulse test 400 V / 160 A 9.5
+[20] x12 GS65516T 650 V / 60 A / 25 mΩDC current applied externally 290 A injected 8.1
+[21] x4 GS66508B 650 V / 30 A / 50 mΩBoost converter operation 100 V to 400 V / 1900 W 0.6
+[22] x3 V08TC6551A2 650 V / 200 A / 7.8 mΩThree-phase H-bridge 400 V / 260 A / 16 kHz 6.4
+[23] x2 GS66518B 650 V / 60 A / 50 mΩPassive three-phase RL load 550 V / 10.2 A / 70 kHz 3.3
+[24] x8 CoolGaN™ HEMT 100 V / 75 A / 3 mΩPassive three-phase RL load 48 V / 125 A / 50 kHz 2.3
+[25] x4 GS61008P 100 V / 90 A / 7 mΩPassive three-phase RL load 48 V / 113 A / 20 kHz 9.5
+[26] x4 EPC2032 100 V / 101 A / 3 mΩSingle motor operation 60 V / 150 A / 100 kHz 6.8
+[27] x2 EPC2065 80 V / 60 A / 2.7 mΩSingle motor operation 48 V / 35.4 A / 100 kHz 3.6
+[28] x4 V08TC065S1X11 650 V / 200 A / 8 mΩSingle motor operation 400 V / 350 A 6.6
+This work x8 EPC2304 200 V / 133 A / 5 mΩDual motor operation 120 V / 155 A / 100 kHz 2.9
+Fig. 3: Electrical schematic detailing one phase of the inverter.
+The inductance of a PCB trace can be estimated using eq.
+2 [25] and can be used to calculate an approximation of the
+SCCL inductance, assuming that skin, proximity, and fringing
+effects are negligible:
+LSCCL = µrµ0hl
+w (2)
+µr is the relative permeability of the PCB substrate,µ 0 is
+the permeability of free space,his the height of the trace,l
+is the length of the trace, andwis the width of the trace. The
+estimated inductance of the SCCL illustrated by the blue path
+in fig. 5 is 0.74 nH, and the inductance of the red path is 0.34
+nH.
+Once the half bridge and gate driver PCBs are fully pop-
+ulated they can be assembled into a full half bridge module,
+which includes the heat sink, fan, TIM, and backing plate with
+springs. Fig. 6 is a picture of one of the complete half bridge
+modules.
+Fig. 4: The top side of the half bridge PCB, including
+GaN HEMTs, DC link capacitors, and thermistor. The orange
+vertical line indicates the cross-section shown in fig. 5.
+Fig. 5: Cross-section of the half bridge PCB, with the two
+SCCLs paths shown in red and blue. Note that sizing of the
+cross-section is not to scale.
+The TIM used is a 1.5 mm thick A1780 TIM pad, which
+has a thermal conductivity of 17.8 W/mK. Mounted onto that
+is a 60 x 60 mm aluminium heat sink with a thermal resistance
+of 0.9 K/W when forced convection is used. Springs are used
+to apply a compressive force of 9 N per spring to the heat
+sink to ensure good thermal contact between the HEMT and
+TIM, and the TIM and heat sink. The thickness of the TIM
+
+=== PAGE 4 ===
+Fig. 6: A complete half bridge module including the half
+bridge and gate driver PCBs, Heat sink, baseplate, and TIM.
+The cooling fan is not shown.
+directly above the HEMTs is 0.8 mm thick. A backing plate
+on the bottom side of the half bridge PCB is used to prevent
+warping of the PCB that could occur due to the localised force
+from the springs. Fig. 7 is a cross-sectional diagram of the half
+bridge module, visualising the key layers in the stack up.
+Fig. 7: A cross-sectional diagram of the complete half bridge
+power module, containing both the half bridge and gate driver
+PCBs.
+A 10 kΩNTC thermistor is used to monitor the temperature
+of the GaN HEMTs on the half bridge PCB. The thermistor is
+placed 7 mm from the closest HEMTs, and both are embedded
+in TIM, creating good thermal coupling between the thermistor
+temperature and the HEMT junction temperature.
+B. Gate Driver PCB Design
+The gate driver PCB is composed of two layers of 1 oz
+copper. The top side of the gate driver PCB is used to house
+the main bulk of the gate driver components, and the bottom
+side is used for the sink and source gate traces.
+To encourage symmetric switching of the parallel GaN
+HEMTs, the impedances of their gate loops should be matched
+as close as possible. To match the gate loop impedances, the
+physical layout of the traces is designed such that there is
+symmetry in each pathway, similar to designs in previous
+publications [24], [25]. Fig. 8 shows the PCB schematic of
+the bottom layer of the gate driver PCB. Included are the sink
+and source traces and gate resistors, and the gate and source
+pin connections, for the high and low side HEMTs. The source
+return path is a copper pour on the top layer of the gate driver
+PCB, not shown in this figure.
+Fig. 8: Bottom layer of the gate driver PCB schematic,
+showing the sink and source gate loop traces for the top and
+bottom side HEMTs, as well as other key details.
+An Infineon 2EDB7259Y is selected to be the gate driver
+due to its large current capability of 5 A source and 9 A sink.
+The sink and source resistors are selected to keep the peak
+sink and source current below the rating of the gate driver.
+Because the gate driver has a single output pin for both sinking
+and source current, a schottky diode is used to reduce the
+impedance of the sink pathway. The selected gate resistances
+are 15Ωfor the source gate resistor and 2Ωfor the sink
+gate resistor. Pin header connectors are used to individually
+connect the gate driver to the gate and source pins of each
+HEMT on the half bridge PCB.
+Isolated DC/DC Converters are used to provide a bipolar
+voltage of +6V/-3V to the top and bottom gate driver channels.
+A zener diode is used to reduce the positive voltage from the
+power supplies of 6 V down to 5.3 V to increase the safety
+margin between the positiveV gs applied to the HEMT and their
+data sheet rating. The selection of a bipolar power supply is
+to guard against the false turn-on of any of the HEMTs [29],
+which could be caused by high dv/dt and parasitics [30] in
+the design coupled with the fact that GaN HEMTs have a low
+threshold voltage.
+Fig. 9 shows the top side of the gate driver PCB.
+C. Estimating HEMT Temperature
+Figure 4 shows the distance between the thermistor and the
+HEMTs on the top side of the half bridge PCB. The thermistor
+will be colder than the HEMTs and so using the MATLAB
+Partial Differential Equation Toolbox, a steady state thermal
+simulation of the system is conducted to model the difference
+between the HEMTs junction temperature and the temperature
+measured by the thermistor. The HEMTs are modelled as each
+generating equal thermal power loss, and it is assumed that all
+heat in the system dissipates via the heat sink on top, as this
+is the dominant thermal pathway to ambient.
+
+=== PAGE 5 ===
+Fig. 9: The top side of the gate driver PCB. The orange box
+is the area occupied on the bottom side by the traces and
+components shown previously in fig. 8.
+To simplify the geometry of the heat sink, a simplified heat
+sink model is used, which is composed of an aluminium plate
+of the same thickness as the base of the heat sink, and then a
+convective boundary condition with a heat transfer coefficient
+chosen to give a resulting thermal resistance equal to the
+value given in the heat sinks’ data sheet of 0.9 K/W. This
+simplification retains the key thermal characteristics of the heat
+sink: The magnitude of the thermal resistance to ambient is
+maintained by enforcing a specific heat transfer coefficient at
+the boundary, and the horizontal thermal resistance across the
+heat sink base.
+Fig. 10 shows the geometry of the system modelled, includ-
+ing the HEMTs, thermistor, TIM, and simplified heat sink.
+Ambient temperature is set to 25 ◦C.
+Fig. 10: Geometry of the modelled thermal system.
+Fig. 11 shows the temperature distribution of a horizontal
+plane halfway through the TIM, HEMTs, and thermistor, for
+a FEA thermal simulation where the HEMTs are dissipating 3
+W each. Note there is a 1.2 ◦C temperature difference between
+the hottest and coldest HEMTs, which is due to the asymmetric
+placement of the heat sink over them.
+As the thermal system modelled is linear, there is a fixed
+error of 10.1% between the increase in temperature of the
+thermistor and the temperature rise of the HEMT, which can
+be expressed as,
+TJ −T amb =α(T thermistor −T amb) ; whereα= 1.101(3)
+Fig. 11: Temperature distribution of a cross section halfway
+through the TIM, HEMTs, and thermistor.
+Measurement of the thermistor temperature is used in sec-
+tion III to estimate the rating of the half bridge power modules.
+The mean thermal resistance of the HEMTs is 16.9 K/W,
+meaning that for a average HEMT junction temperature of
+100 ◦C, each HEMT can dissipate 4.4 W of heat.
+III. EXPERIMENTALVERIFICATION ANDRESULTS
+A. Switching Behaviour
+Fig. 12 shows theV gs waveforms during turn-on and turn-
+off of a top and bottom HEMT when not conducting.
+Fig. 12:V gs of a top and bottom side HEMT during (a) turn-
+on, and (b) turn-off.
+Fig. 13 shows the rising and falling switch node voltage
+transition waveforms when not conducting. The scale of the
+waveform image is 5 ns/div and 20 V/div.
+Fig. 13: Switch node voltage waveforms during (a) turn-on,
+and (b) turn-off.
+The switch node voltage turn-on and turn-off have a dv/dt
+of 8.2 V/ns. This is higher than what is usually achieved by
+Si (3 V/ns [31]), and is above limits set by standards for
+
+=== PAGE 6 ===
+industrial inverter systems (3-6 V/ns [32]), but is less than what
+is projected for next-generation electric motors dv/dt ratings
+(10-15 V/ns [33])
+B. Full Bridge Converter Test
+To verify operation at the rated output current, voltage, and
+switching frequency of the inverter, two half bridge power
+modules are operated in a full bridge setup with an EA-EL
+9080-200 acting as an electrical load as shown in fig. 14. The
+duty cycle of the half bridges is set to 50% ± 5% such that a
+current flows from one half bridge to the other. An output filter
+is used to ensure that the high dv/dt doesn’t interfere with the
+electronic load’s current control. Table II contains the results
+from two experiments conducted on the power modules
+Fig. 14: Electrical schematic for the testing of two half bridge
+power modules in a full bridge arrangement.
+TABLE II: Experimental Results of the Full Bridge Power Test
+Parameter 50 kHz Test 100 kHz Test
+DC Link V oltage 120 V
+Phase Current 155 A
+Switching Frequency 50 kHz 100 kHz
+Maximum thermistor Temperature 62 °C 78 °C
+Temperature Rise Above Ambient 40 °C 56 °C
+The test is run for 45 minutes, at an ambient temperature
+of 22 ◦C. As previously discussed in subsection II-C, the
+thermistor temperature is a good representation of the HEMT
+temperature, and so this indicates that the thermal solution
+has been properly designed and implemented for the intended
+electrical rating of the inverter. No faults were observed over
+20 hours of testing 10 half bridge power modules.
+Running the modules at 155 A, 120 V , gives them a power
+rating of 9.3 kW. Given the outer dimensions are 117 x 62
+x 59 mm, each module has a volume of 0.43 litres, which
+translates to a volumetric power density of 21.7 kW/litre. Each
+module weighs 259 g, giving a gravimetric power density of
+35.9 kW/kg.
+While this volumetric power density is comparatively low,
+simple changes to the layout of the half bridge PCB, as well
+as increasing the DC link voltage to 140 V , can reduce the
+module volume to 0.275 litres, increasing the power density
+to 37.1 kW/litre. Excluding the gate driver board, as is done
+on many commercial power modules reduces the volume
+furthermore down to 0.243 litres, giving a power density of
+44.6 kW/litre, comparable to state-of-the-art commercial SiC
+power modules when operating under the same electrical and
+thermal conditions.
+C. Thermal Imaging Test
+Thermal imaging is used to examine static and dynamic
+current sharing of the HEMTs. A power module is run in the
+full bridge setup mentioned in the previous subsection without
+its heat sink and TIM, meaning the temperature of the exposed
+HEMT can be viewed using an infrared camera.
+Fig. 15 is a close up thermal image of a bare power module
+in a full bridge converter operating at a phase current of 35 A
+at a switching frequency of 50 kHz. Ambient temperature is
+24 ◦C. The converter is operated until the temperature reaches
+steady state. The HEMTs are covered in black electrical tape
+to achieve an emissivity of 0.95 to increase measurement
+reliability [34].
+Fig. 15: Thermal image of the top side of the half bridge PCB
+during the thermal imaging test.
+The coldest HEMT has a 42.6 ◦C temperature rise above
+ambient, while the hottest HEMT has a 49.7 ◦C tempera-
+ture rise above ambient. This means it has a 17% greater
+temperature rise, which assuming that conduction losses are
+the dominant loss term means that it is conducting 8% more
+current, according to
+TJ −T amb = PL
+Rthermal
+; whereP L =I 2Rds(on) (4)
+D. Three-phase Motor Drive Test
+To test the functionality of the inverter in a three-phase
+setup, as well as its ability to recirculate power through a
+second three-phase inverter, it is connected to the dyno rig
+discussed previously. LWSR 250-P current sensors measure
+the phase current allowing field orientated control using MTPA
+to be implemented via the onboard microcontroller.
+Fig. 16 shows the three phase currents of the test inverter
+driving the test motor in current control mode at a reference
+
+=== PAGE 7 ===
+current of 40 A, while the load motor is driven in speed
+control mode at a speed of 500 rpm. Increasing the switch-
+ing frequency significantly reduces the ripple current which
+reduces motor losses, demonstrating one of the key benefits
+of implementing WBG devices in traction inverters.
+(a)
+(b)
+Fig. 16: Oscilloscope waveforms of the three phase currents
+for two different switching frequencies, a) 20 kHz and b) 50
+kHz.
+IV. CONCLUSION
+This paper presents the design and experimental validation
+of a dual, three-phase, GaN-based, inverter with eight parallel
+GaN HEMTs per switch, developed for the characterisation
+of wide bandgap power electronics in electric vehicle traction
+applications. The inverter was successfully operated up to a
+steady state phase current of 155 A at 120 V , for switching
+frequencies of up to 100 kHz, demonstrating that a high degree
+of current sharing between parallel HEMTs can be achieved
+through careful gate drive design and symmetrical layout,
+as also confirmed by thermal imaging showing comparable
+device temperatures across all parallel HEMTs. This indicates
+that the design can easily operate at switching frequencies far
+above what is achievable with Si devices. Thermal modelling
+of the system shows close matching between the measured
+thermistor temperature and HEMT junction temperature. Op-
+eration of the inverter to drive a three-phase motor was
+successful.
+Future work will use the inverter and dyno rig to char-
+acterise the efficiency of the inverter and motor across a
+range of operating conditions, including variations in DC link
+voltage, switching frequency, and output filter configuration.
+This will provide a more complete understanding of the
+system-level benefits and trade-offs associated with the use of
+GaN HEMTs at high switching frequencies in electric vehicle
+inverter applications.
+ACKNOWLEDGMENT
+The authors would like to acknowledge Paul Spendley
+and Rajesh Kudikala, of Y ASA Ltd, and Kawsar Ali of the
+University of Oxford, for their valuable assistance in this work.
+REFERENCES
+[1] J. Li, J. Edmondson and Y . Wang, ”Power Electronics for Electric
+Vehicles 2025-2035: Technologies, Markets, and Forecasts,” 2024,
+url: https://www.idtechex.com/en/research-report/power-electronics-for-
+evs/1014.
+[2] P. Ragazzo, G. Dilevrano, A. Bojoi, S. Ferrari and G. Pellegrino,
+”Fast Efficiency Mapping Procedure for PMSM Accounting for the
+PWM Supply Impact,” 2024 IEEE International Conference on Indus-
+trial Technology (ICIT), Bristol, United Kingdom, 2024, pp. 1-6, doi:
+10.1109/ICIT58233.2024.10540816.
+[3] Sato, Y ., Ishikawa, S., Okubo, T., Abe, M. et al., ”Development
+of High Response Motor and Inverter System for the Nissan LEAF
+Electric Vehicle,” SAE Technical Paper 2011-01-0350, 2011, https://doi-
+org.ezproxy-prd.bodleian.ox.ac.uk/10.4271/2011-01-0350.
+[4] X. Huang, Z. Liu, Q. Li and F. C. Lee, ”Evaluation and appli-
+cation of 600V GaN HEMT in cascode structure,” 2013 Twenty-
+Eighth Annual IEEE Applied Power Electronics Conference and Ex-
+position (APEC), Long Beach, CA, USA, 2013, pp. 1279-1286, doi:
+10.1109/APEC.2013.6520464.
+[5] D. J. Rogers, J. Bruford, A. Ristic-Smith, K. Ali, P. Palmer and
+E. Shelton, ”A Comparison of the Hard-Switching Performance of
+650 V Power Transistors With Calorimetric Verification,” in IEEE
+Open Journal of Power Electronics, vol. 4, pp. 764-775, 2023, doi:
+10.1109/OJPEL.2023.3315348.
+[6] M. Cooke and D. J. Rogers, ”Effect of Switching Frequency
+on Efficiency in Wide Bandgap Based Drive Systems,” 2024
+IEEE 11th Workshop on Wide Bandgap Power Devices & Ap-
+plications (WiPDA), Dayton, OH, USA, 2024, pp. 1-6, doi:
+10.1109/WiPDA62103.2024.10773176.
+[7] S. Chen, T. A. Lipo and D. Fitzgerald, ”Source of induction motor
+bearing currents caused by PWM inverters,” in IEEE Transactions
+on Energy Conversion, vol. 11, no. 1, pp. 25-32, March 1996, doi:
+10.1109/60.486572.
+[8] A. K. Morya et al., ”Wide Bandgap Devices in AC Electric Drives:
+Opportunities and Challenges,” in IEEE Transactions on Transporta-
+tion Electrification, vol. 5, no. 1, pp. 3-20, March 2019, doi:
+10.1109/TTE.2019.2892807.
+[9] V . K. Singh and R. N. Tripathi, ”Paralleling of Gallium Nitride Power
+Semiconductor Devices: A Review and Future Perspectives,” Electron-
+ics, vol. 15, no. 8, p. 1607, Apr. 2026, doi: 10.3390/electronics15081607.
+[10] T. Rahimi, L. Ding, A. Abadifard, P. Ghavidel, M. Farhadi, and R. Faraji,
+”Unbalanced currents effect on the thermal characteristic and reliability
+of parallel connected power switches,” Case Studies Therm. Eng., vol.
+26, p. 101036, Jun. 2021, doi: 10.1016/j.csite.2021.101036.
+[11] S. Musumeci, V . Barba, D. Jain, M. Pastorelli and M. Palma, ”Par-
+allel Connection Investigation of GaN FET Devices for High-Current
+Switches,” 2024 AEIT International Annual Conference (AEIT), Trento,
+Italy, 2024, pp. 1-6, doi: 10.23919/AEIT63317.2024.10736824.
+
+=== PAGE 8 ===
+[12] L. Bongiovanni, M. Tranchero, C. Romano and P. Santero, ”Design
+of a Traction Inverter Based on PCB-Embedded GaN Devices,” PCIM
+Europe 2024; International Exhibition and Conference for Power Elec-
+tronics, Intelligent Motion, Renewable Energy and Energy Management,
+N¨urnberg, Germany, 2024, pp. 1317-1324, doi: 10.30420/566262180.
+[13] J. A. Brothers and T. Beechner, ”GaN Module Design Recommendations
+Based on the Analysis of a Commercial 3-Phase GaN Module,” 2019
+IEEE Energy Conversion Congress and Exposition (ECCE), Baltimore,
+MD, USA, 2019, pp. 4109-4116, doi: 10.1109/ECCE.2019.8913223.
+[14] J. L. Lu and D. Chen, ”Paralleling GaN E-HEMTs in 10kW–100kW
+systems,” 2017 IEEE Applied Power Electronics Conference and
+Exposition (APEC), Tampa, FL, USA, 2017, pp. 3049-3056, doi:
+10.1109/APEC.2017.7931131.
+[15] M. D. Rahman et al., ”Design and Evaluation of a 650 V , 300 A GaN-
+Based Power Module with Integrated Drivers and Ultra-Low Inductance
+Layout,” 2025 IEEE 12th Workshop on Wide Bandgap Power Devices
+and Applications (WiPDA), Fayetteville, AR, USA, 2025, pp. 1-5, doi:
+10.1109/WiPDA63755.2025.11303416.
+[16] Y . Chen, M. Zou, D. Jiang, S. Liang, J. Gong and Z. Zeng, ”Low
+Parasitic Repackaging and Integration of Multiple GaN HEMT De-
+vices,” 2025 IEEE Workshop on Wide Bandgap Power Devices and
+Applications in Asia (WiPDA Asia), Beijing, China, 2025, pp. 1-6, doi:
+10.1109/WiPDA-Asia63772.2025.11184003.
+[17] Y . Yan, L. Zhu, J. Walden, Z. Liang, H. Bai and M. H. Kao, ”Packaging
+A Top-cooled 650 V/150 A GaN Power Modules with Insulated Thermal
+Pads and Gate-Drive Circuit,” 2021 IEEE Applied Power Electronics
+Conference and Exposition (APEC), Phoenix, AZ, USA, 2021, pp. 2345-
+2350, doi: 10.1109/APEC42165.2021.9487427.
+[18] B. Passmore et al., ”A 650 V/150 A enhancement mode GaN-
+based half-bridge power module for high frequency power conver-
+sion systems,” 2015 IEEE Energy Conversion Congress and Expo-
+sition (ECCE), Montreal, QC, Canada, 2015, pp. 4520-4524, doi:
+10.1109/ECCE.2015.7310298.
+[19] P. P. Das, S. Satpathy, S. Bhattacharya and V . Veliadis, ”Design
+Considerations of Multi-Phase Multilevel Inverters for High-Power
+Density Traction Drive Applications,” 2022 IEEE/AIAA Transportation
+Electrification Conference and Electric Aircraft Technologies Sym-
+posium (ITEC+EATS), Anaheim, CA, USA, 2022, pp. 23-30, doi:
+10.1109/ITEC53557.2022.9813937.
+[20] P. Han, P. Liu, Q. Huang, Z. Chen and A. Q. Huang, ”A 650
+V , 2.1 mohm GaN Half-bridge Power Module for 400V EV Trac-
+tion Inverter Application,” 2022 IEEE Energy Conversion Congress
+and Exposition (ECCE), Detroit, MI, USA, 2022, pp. 1-6, doi:
+10.1109/ECCE50734.2022.9947431.
+[21] J. L. Lu, D. Chen and L. Yushyna, ”A high power-density and high effi-
+ciency insulated metal substrate based GaN HEMT power module,” 2017
+IEEE Energy Conversion Congress and Exposition (ECCE), Cincinnati,
+OH, USA, 2017, pp. 3654-3658, doi: 10.1109/ECCE.2017.8096647.
+[22] M. Zou et al., ”Systematic Efficiency-Density Co-Optimization of 100
+kW GaN Traction Inverter: Methodology and Integration,” in IEEE
+Transactions on Power Electronics, vol. 40, no. 11, pp. 16281-16299,
+Nov. 2025, doi: 10.1109/TPEL.2025.3584763.
+[23] S. Satpathy, P. P. Das, S. Bhattacharya and V . Veliadis, ”Design Con-
+siderations of a GaN-based Three-Level Traction Inverter for Electric
+Vehicles,” 2022 IEEE 9th Workshop on Wide Bandgap Power Devices
+& Applications (WiPDA), Redondo Beach, CA, USA, 2022, pp. 192-
+197, doi: 10.1109/WiPDA56483.2022.9955248.
+[24] M. Wattenberg, O. G. Lorenz and J. Sanchez, ”A Multi-Kilowatt
+Low-Profile GaN Inverter for Light Electric Vehicles and High-
+Power Tools,” 2023 IEEE Applied Power Electronics Conference and
+Exposition (APEC), Orlando, FL, USA, 2023, pp. 1443-1450, doi:
+10.1109/APEC43580.2023.10131197.
+[25] M. Tuan Tran et al., ”A High-Performance GaN Power Module With
+Parallel Packaging for High-Current and Low- V oltage Traction Inverter
+Applications,” in IEEE Journal of Emerging and Selected Topics in
+Power Electronics, vol. 13, no. 1, pp. 1188-1209, Feb. 2025, doi:
+10.1109/JESTPE.2024.3477743.
+[26] M. Palma, V . Barba and S. Musumeci, ”Parallel Connection of GaN
+FETs: an Experimental Investigation Approach,” PCIM Europe 2024;
+International Exhibition and Conference for Power Electronics, Intelli-
+gent Motion, Renewable Energy and Energy Management, N ¨urnberg,
+Germany, 2024, pp. 1563-1568, doi: 10.30420/566262213.
+[27] S. Musumeci, V . Barba and M. Palma, ”GaN-Based Low-V oltage
+Inverter for Electric Scooter Drive System,” 2022 AEIT Interna-
+tional Annual Conference (AEIT), Rome, Italy, 2022, pp. 1-6, doi:
+10.23919/AEIT56783.2022.9951808.
+[28] D. Novo et al., ”Development and testing of GaN Power Modules for
+EV traction inverters.,” CIPS 2024; 13th International Conference on
+Integrated Power Electronics Systems, D ¨usseldorf, Germany, 2024, pp.
+692-698.
+[29] R. Xie, H. Wang, G. Tang, X. Yang and K. J. Chen, ”An Analytical
+Model for False Turn-On Evaluation of High-V oltage Enhancement-
+Mode GaN Transistor in Bridge-Leg Configuration,” in IEEE Trans-
+actions on Power Electronics, vol. 32, no. 8, pp. 6416-6433, Aug. 2017,
+doi: 10.1109/TPEL.2016.2618349.
+[30] R. Li, J. Zhu and M. Xie, ”Parasitic Parameter Effects on the dv/dt-
+induced Low-side MOSFET False Turn-on in Synchronous Buck Con-
+verters,” 2019 IEEE Applied Power Electronics Conference and Ex-
+position (APEC), Anaheim, CA, USA, 2019, pp. 2247-2254, doi:
+10.1109/APEC.2019.8722286.
+[31] S. Ji, Z. Zhang and F. Wang, ”Overview of high voltage sic power
+semiconductor devices: development and application,” in CES Transac-
+tions on Electrical Machines and Systems, vol. 1, no. 3, pp. 254-264,
+September 2017, doi: 10.23919/TEMS.2017.8086104.
+[32] NEMA (National Electrical Manufacturers Association), Motors and
+Generators, NEMA MG 1, 2021.
+[33] M. Haider, P. S. Niklaus, M. Madlener, G. Rohner and J. W. Kolar,
+”Comparative Evaluation of Gate Driver and LC-Filter Based dv/dt-
+Limitation for SiC-Based Motor-Integrated Variable Speed Drive Invert-
+ers,” in IEEE Open Journal of Power Electronics, vol. 4, pp. 450-462,
+2023, doi: 10.1109/OJPEL.2023.3283052. keywords:
+[34] FLIR Systems, ”Use low-cost materials to increase target emis-
+sivity,” FLIR Systems, Wilsonville, OR, USA, Nov. 2015. [On-
+line]. Available: https://www.flir.com/discover/rd-science/use-low-cost-
+materials-to-increase-target-emissivity/

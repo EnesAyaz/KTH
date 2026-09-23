@@ -1,0 +1,389 @@
+
+=== PAGE 1 ===
+WHITE PAPER: WP015 eGaN® FETs in High Frequency Resonant Converters
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    1
+INTRODUCTION
+Distributed power systems are prevalent in telecommunications, networking, and high-end server applications and generally utilize a 48 V bus voltage adopted 
+from the telecom industry. From the 48 V bus, a number of isolated point of load (POL) converters power the end loads, with isolation being required for safety.  
+The traditional distributed power architecture (DPA), shown in figure 1(a), uses AC/DC front end converters to deliver the 48 V bus voltage. From the 48 V bus voltage, a 
+number of regulated isolated DC/DC POL converters are used to deliver the required voltage and power to the individual loads. As communications, networking, and 
+high-end server systems have become more complex, the voltages and currents demanded by the growing number of loads have increased significantly [1]. Having a 
+large number of regulated 48 V isolated DC/DC POL converters to power these systems significantly increases the cost, volume, and complexity of the system.
+The limitation of the traditional distributed power architecture is that 
+as the power demands of the loads increased so did the complexity of 
+the isolated converters required. Fully regulated isolated POL converters 
+are much larger, more complex, and more expensive than low voltage 
+non-isolated POL converters. The isolated converters introduce a bulky 
+transformer and complex control due to the isolation requirements; this 
+leads to lower efficiency and power density. To simplify design, the concept 
+of intermediate bus architecture (IBA) was proposed [2] [3]. A popular IBA 
+approach, shown in figure 1(b), employs a lower number of 48 V isolated bus 
+converters that satisfy isolation requirements and supply an intermediate 
+bus voltage ranging from 9.6-12 V. With the final regulation to the loads 
+provided by smaller, more efficient, regulated non-isolated POL converters, 
+the bus converters can be operated as unregulated DC/DC transformers, 
+improving efficiency and reducing cost. The IBA is widely used in many 
+distributed power systems today, yielding improved performance and 
+lower overall system cost when compared to traditional architectures.
+The unregulated bus converter, also known as a DCX, or DC/DC transformer, 
+is generally operated close to 50% duty cycle to offer the highest efficiency and power density. The majority of today’s bus converters use traditional hard switching 
+bridge topologies operating at lower frequencies to maximize efficiency. At lower switching frequencies, the isolation transformer and output inductor are very 
+bulky, occupying a large portion of the board area. In an effort to improve power density, the operating frequency can be increased to shrink the inductor and 
+transformer size [4]. As frequency is increased in traditional hard switching topologies, the losses from body diode conduction, reverse recovery, and switching 
+increase significantly, limiting the converters output power capability. 
+HIGH FREQUENCY RESONANT BUS CONVERTER 
+To offer improved efficiency at higher switching frequencies, resonant topologies may be considered. Resonant topologies [5]-[8] are particularly beneficial in  
+DC/DC transformer applications, due to the removal of the regulation requirement, allowing the converter to always operate at the resonant frequency. For this work, 
+eGaN® FETs in High Frequency 
+Resonant Converters
+EFFICIENT POWER CONVERSION
+David Reusch, Ph.D., Director, Applications and Johan Strydom, Ph.D., V .P ., Applications
+Figure 1: (a) Traditional Distributed Power Architecture 
+(b) Intermediate Bus Architecture 
+AC/DC
+Front End
+5 V
+48 V
+AC input: 90 - 265 V
+(a)
+(b)
+Distributed Power Architecture (DPA) Intermediate Bus Architecture (IBA)
+3.3 V
+Bus
+1.2 V
+Isolated
+DC/DC
+Isolated
+DC/DC
+Isolated
+DC/DC
+AC/DC
+Front End
+AC/DC
+Front End
+48 V
+AC input: 90 - 265 V
+Bus
+Bus
+Converter
+Bus
+Converter
+AC/DC
+Front End
+5 V
+9.6  V - 12 V
+3.3 V 1.2 V
+POL POL POL
+In this white paper eGaN FET technology is applied in a high frequency resonant converter. Previously, the advantages provided by eGaN 
+FETs in hard switching isolated and non-isolated applications were addressed. This paper will demonstrate the ability of the eGaN FET 
+to improve efficiency and output power density in a soft switching application, as compared to what is achievable with existing power  
+MOSFET devices. An isolated high frequency 48 V intermediate bus converter (IBC) with a 12 V output utilizing a resonant topology  
+operating above 1 MHz is presented. 
+
+=== PAGE 2 ===
+WHITE PAPER: WP015 eGaN® FETs in High Frequency Resonant Converters
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    2
+VGS (Q2,4)
+0
+0
+0
+0
+0
+0
+VGS (Q1,3)
+VGS (S2)
+t0 t1 t2 t3
+VGS (S1)
+ILM
+VDS (Q1)
+VDS (S1)
+VIN
+2 Vo
+ILk1
+ILk2
+(a) Schematic 
+(b) Operating Waveforms
+48 V 
+4:1
+VP
++
++
+–
+–
+Q4
+Q3
+LK2
+LK1
+LK2
+ILK1
+S1 C0
+12 V
+S2
+Q1
+Q2
+Figure 2: High Frequency Bus Converter [5]
+the benefits of the eGaN FET applied in a high frequency intermediate bus converter (IBC) will be considered. The topology, shown in figure 2, employs a resonant 
+technique that utilizes the transformer’s magnetizing inductance (LM) and resonance of the leakage inductance (LK), with a small output capacitance (CO), to achieve 
+zero voltage switching (ZVS), limit turn off current, and eliminate body diode conduction [5].
+EXPERIMENTAL SETUP 
+To obtain a direct comparison in performance between eGaN FETs and Si 
+MOSFETs in the high frequency resonant bus converter application, devices with 
+similar on-resistance were selected, the same circuit topology was used, and 
+a similar layout was maintained for the eGaN FET and MOSFET designs. Direct 
+comparisons of the key parameters for the eGaN FETs and Si MOSFETs are shown 
+in tables I and II. The Figures of Merit (FOMs) used in this work are Q G x R DS(on)
+and QOSS x RDS(on). These particular FOMs were selected due to the soft switching 
+topology that reduces the switching related losses, therefore resulting in the FET 
+gate drive and conduction being the major loss contributors. The device output 
+charge has a direct impact on the energy required to achieve ZVS. A reduction 
+in energy required to achieve ZVS can result in reduced dead time, providing 
+a larger power delivery period (t0-t1 in figure 2(b)) and lower RMS currents in a 
+high frequency resonant converter. The eGaN FETs show significant improve -
+ments when compared to Si MOSFETs, with the gate drive FOM improving by a 
+factor of approximately 4 and 3 for the 100 V and 40 V devices respectively, while 
+the output charge FOM is improved around a factor of 1.6 and 2 for the primary 
+and secondary devices respectively. The eGaN FET also provides performance 
+improvements in the form of reduced miller charge that reduces the turn off  
+switching losses incurred in the primary devices. As a further advantage, the LGA 
+packaging of the eGaN FET has low parasitic package inductance compared to 
+the traditional Si MOSFET package (SuperSO8). When putting all these benefits 
+together, multi-MHz switching frequencies can be obtained through the use of 
+advanced topologies combined with low loss eGaN FETs. 
+Table I: Device comparison between eGaN FETs and Si MOSFETs  
+ for primary devices for VIN = 48 V, VOUT = 12 V 
+Table II: Device comparison between eGaN FETs and Si MOSFETs   
+for secondary devices for VIN = 48 V, VOUT = 12 V
+Device Comparison
+Parameter Synchr EPC2001 onous BSC057N08
+Voltage Rating (V DSS) 100 V 80 V
+RDS(on) 5.6 mΩ @ 5 V 5.2 mΩ @ 8 V*
+QG under ZVS 5.6 nC @ 5 V 25.9 nC @ 8 V*
+QGD @ VIN 2.2 nC 8.1 nC*
+QOSS @ VIN 35 nC 62 nC*
+FOM = QG x RDS(on) 32.5 pC · Ω 134.7 pC · Ω
+FOM = QOSS x RDS(on) 196 pC · Ω 322.4 pC · Ω
+* Calculated from manufacturers datasheet curves
+Device Comparison
+Parameter Synchr EPC2015 onous BSC027N04
+Voltage Rating (V DSS) 40 V 40 V
+RDS(on) 3.2 mΩ @ 5 V 2.9 mΩ @ 8 V*
+QG under ZVS 8.3 nC @ 5 V 27.5 nC @ 8 V*
+QGD @ 20 V 2.2 nC 6.5 nC*
+QOSS @ 20 V 18.5 nC 40 nC*
+FOM = QG x RDS(on) 26.6 pC · Ω 79.8 pC · Ω
+FOM = QOSS x RDS(on) 59.2 pC · Ω 116 pC · Ω
+* Calculated from manufacturers datasheet curves
+
+=== PAGE 3 ===
+WHITE PAPER: WP015 eGaN® FETs in High Frequency Resonant Converters
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    3
+EXPERIMENTAL RESULTS  
+To compare the performance of eGaN FETs and Si MOSFETs 
+in high frequency resonant converters, two experimental 
+prototypes, shown in figure 3, were designed and tested 
+based on the schematic in figure 2(a). To accurately compare 
+only device performance, these prototypes both had the 
+same 3F45 Mn-Zn transformer core and identical windings 
+designed from [4]. The placement of the primary side input 
+capacitors and secondary resonant capacitors were similar 
+for both designs to ensure similar parasitic inductances for 
+the primary and secondary loops, with the only differences 
+being those introduced by the different packages of the Si 
+MOSFETs and eGaN FETs. By using eGaN FETs with lower 
+specific RDS(on) and improved packaging, the active footprint 
+area shrank significantly, reducing the power stage size 
+by 30% compared to the Si MOSFET benchmark design.  
+The eGaN FET–based design used LM5113 drivers from 
+Texas Instruments for the primary and secondary devices, 
+driving the devices at 5 V. The Si MOSFET–based design used drivers comparable in performance to the LM5113 with an 8 V drive for the primary and a 5 V drive for 
+the secondary to provide improved high frequency Si MOSFET performance by reducing dominant gate losses for a small penalty in the on state resistance. For both 
+designs, the gate drives were placed on the backside of the board. The generation of these driver chip voltages from the nominal 48 V input are not included in this 
+work, but the gate drive losses incurred in the switches are considered. 
+The experimental switching waveforms for the designs at 1.2 MHz are shown in figures 4 and 5. Both designs have the same magnetizing inductance, built into the 
+transformer via an air gap, to achieve zero voltage switching during device off state (t1-t2 in figure 2(b)). Due to almost a factor of 2 decrease in output charge (QOSS) 
+provided by the primary and secondary eGaN FETs, the ZVS transition is achieved in a proportionally shorter period, increasing the effective duty cycle and improving 
+the overall converter performance. For the Si MOSFET design, the dead time required for ZVS was measured to be 87 ns and the effective duty cycle for each device 
+was limited to 34%. With the faster switching eGaN FETs the dead time was reduced to 42 ns, resulting in a 42% duty cycle for each device, allowing for an increased 
+power delivery period. From the switching waveforms it can also be seen that the gate drive speed for the eGaN FET is significantly faster than the Si MOSFET 
+counterpart even when driven with a lower gate drive voltage, providing both faster switching speed and reduced gate losses.  
+Figure 3: Experimental bus converter prototypes for VIN  = 48 V, VOUT  = 12 V 
+Resonant
+Capacitor
+Secondary
+Devices
+Primary
+Devices
+Input
+Capacitor
+Transformer
+(a) Si MOSFET 
+(b) eGaN FET
+MOSFET VGS 
+eGaN VDS 
+eGaN VGS 
+MOSFET VDS 
+TZVS = 87 nS  
+TZVS = 42 nS  
+ eGaN VDS 
+MOSFET VDS 
+D
+eGaN
+ = 0.42 
+DMOSFET = 0.34 
+eGaN VGS 
+MOSFET VGS 
+Figure 4: ZVS switching transitions for primary side eGaN FET and  
+Si MOSFET designs at FS = 1.2 MHz, VIN = 48 V, and IOUT = 26 A
+Figure 5: Switching waveforms showing effective duty cycle for primary side  
+eGaN FET and Si MOSFET designs at FS = 1.2 MHz, VIN = 48 V, and IOUT = 26 A
+
+=== PAGE 4 ===
+WHITE PAPER: WP015 eGaN® FETs in High Frequency Resonant Converters
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    4
+The comparison in efficiency and power loss between the two designs 
+operating at 1.2 MHz is shown in figure 6. The eGaN FET based converter offers 
+a one-percentage point improvement in peak efficiency over its Si MOSFET 
+counterpart, resulting in about a 25% decrease in power loss. Since brick designs 
+are thermally limited by a given full load loss based on the size of the converter, 
+the reduction in power loss translates directly into higher output power handling 
+capability. The eGaN FET converter can increase the output power capability by 
+up to 65 W while maintaining the same total converter loss when compared to 
+the benchmark Si MOSFET design. Assuming around a 12 W maximum power 
+loss for both designs, the output power of the eGaN FET based converter 
+increases from 270 W to 325 W. 
+The loss breakdown for the 1.2 MHz designs at output currents of 2.5 A and 20 A 
+is shown in figure 7 and leads to the conclusion that the eGaN FET reduces gate 
+drive losses and improves efficiency for all load conditions. At high currents, the 
+conduction loss dominates total power loss, but the eGaN FET converter’s shorter 
+ZVS dead time provides reduced conduction losses due to lower RMS currents, 
+which are inversely proportional to the effective duty cycle. Another impact of 
+the reduced ZVS time on the eGaN FET converter is an increase in transformer 
+core loss, which is a result of the higher transformer flux density generated from 
+an increase in the duration of the power transferring period. The increase in 
+transformer core loss is much smaller than the reduction in conduction losses 
+at high current, leading to larger power savings at high currents for the eGaN 
+design.     
+From the results at 1.2 MHz it can be seen that the Si MOSFET converter is  
+approaching its frequency limit – i.e. the ZVS transition time is becoming a 
+significant portion of the overall period, while the eGaN FET has the capability to 
+further increase switching frequency. To compare the frequency improvements 
+possible with eGaN FETs over Si MOSFETs the converter frequency was reduced 
+to 800 kHz for the Si MOSFET design and the eGaN design was increased to  
+1.6 MHz. For both of these designs, the core structure remained the same and 
+was not optimized for the different operating frequencies. 
+Figure 6: Experimental comparison between eGaN FET and Si MOSFET based 
+VIN = 48 V, VOUT = 12 V, FS = 1.2 MHz resonant bus converters 
+Figure 7: Loss breakdown of eGaN FET and Si MOSFET based 
+VIN = 48 V, VOUT = 12 V, FS = 1.2 MHz resonant bus converters 
+90 
+91 
+92 
+93 
+94 
+95 
+96 
+97 
+98 
+0 5 10 15 20 25 30 35 40 
+Eﬃciency (%) 
+Output Current (IOUT)
+1.2 MHz MOSFET  
+1.2 MHz eGaN 10 W  12 W  14 W  
+2 
+4 
+6 
+8 
+10 
+12 
+14 
+16 
+18 
+20 
+22 
+24 
+0 5 10 15 20 25 30 35 40 
+Power Loss (W) 
+1.2 MHz eGaN  
+Output Current (IOUT)
+1.2 MHz MOSFET  
+0
+2
+4
+6
+8
+10
+12
+Power Loss (W) 
+eGaN FET 
+I OUT = 2.5A 
+Si FET 
+I OUT = 2.5A 
+eGaN FET 
+I OUT = 20A 
+Si FET 
+I OUT = 20A 
+Gate Drive 
+Transformer Core
+Conduction + 
+Turn Oﬀ 
+
+=== PAGE 5 ===
+WHITE PAPER: WP015 eGaN® FETs in High Frequency Resonant Converters
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    5
+Figure 8: Experimental comparison between FS = 1.6 MHz eGaN FET and 
+FS = 800 kHz Si MOSFET based VIN = 48 V, VOUT = 12 V resonant bus converter 
+SUMMARY
+It has been previously shown that eGaN FETs have a distinct advantage over silicon MOSFETS in two key parameters – QGD and QRR – both of which are critical in hard 
+switched applications, but have little impact in soft switching converters. In this work it was demonstrated that eGaN FETs can also provide significant improvements 
+in the performance of soft switching/resonant converters when compared to Si MOSFETs. In high frequency applications, the reduction in:
+1)  Output capacitance can decrease circulating energy and commutation time required to achieve ZVS, thus increasing the effective power delivery intervals and 
+improving overall efficiency. 
+2)  Gate capacitance provided by the eGaN FETs results in faster switching speeds, at reduced driving voltages, which provide reduced gate drive losses. 
+Putting eGaN FETs to work in high frequency applications can help push the frequency without sacrificing converter performance.  
+ 
+References:
+[1]  M. M. Jovanovic, “Power Conversion Technologies For Computer, Networking, And Telecom Power Systems - Past, Present And Future,” International Power Conversion & Drive Conference (IPCDC) St. 
+Petersburg, Russia, June 8-9, 2011.
+[2]  Martin F. Schlecht, “High Efficiency Power Converter,” United State Patent No. 7,269,034.
+[3]  White, R. V., “Emerging On-Board Power Architectures,” APEC ‘03, Eighteenth Annual IEEE, Volume 2, 9-13 Feb. 2003, pp. 799-804.
+[4]  Reusch, D.; Lee, F.C.; “High Frequency Bus Converter With Low Loss Integrated Matrix Transformer,” Applied Power Electronics Conference and Exposition (APEC), 2012 Twenty-Seventh Annual IEEE, 
+pp.1392-1397, 5-9 Feb. 2012.
+[5]  Y. Ren, M. Xu, J. Sun, and F. C. Lee, “A Family Of High Power Density Unregulated Bus Converters,” IEEE Transactions, Power Electron, Vol. 20, no. 5, pp. 1045–1054, Sep. 2005.
+[6]  Y. Ren, “High Frequency, High Efficiency Two-Stage Approach for Future Microprocessors,” Ph.D. Dissertation, Virginia Tech, Blacksburg, Virginia, April 2005.
+[7]  Y. Ren, F.C. Lee, and M. Xu, “Power Converters Having Capacitor Resonant With Transformer Leakage Inductance,” U.S. Patent 7,196,914, March 27 2007.
+[8]  Patrizio Vinciarelli, “Point of load sine amplitude converters and methods,” U.S. Patent 7,145,786, Dec. 5 2006.
+90 
+91 
+92 
+93 
+94 
+95 
+96 
+97 
+98 
+0 5 10 15 20 25 30 35 40 
+Eﬃciency (%) 
+0.8 MHz MOSFET  
+1.6 MHz eGaN 10 W  12 W  14 W  
+Output Current (IOUT)
+2 
+4 
+6 
+8 
+10 
+12 
+14 
+16 
+18 
+20 
+22 
+24 
+0 5 10 15 20 25 30 35 40 
+Power Loss (W) 
+1.2 MHz eGaN  
+Output Current (IOUT)
+1.2 MHz MOSFET  
+The efficiency and loss comparisons between the designs are shown in figure 8, with the eGaN FET design offering a 0.9% peak efficiency improvement and lower 
+power loss up to an output current of 29 A. The sharp drop off in efficiency at currents above 20 A for the eGaN FET based converter is a result of the increased AC 
+transformer winding losses and reduced effective duty cycle incurred at the high frequency. Conversely, the flattening out of the efficiency for the 800 kHz Si MOSFET 
+design was a result of the reduced AC transformer winding losses and higher effective duty cycle at the lower frequency. 

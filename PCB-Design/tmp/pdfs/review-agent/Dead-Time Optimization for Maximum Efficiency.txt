@@ -1,0 +1,517 @@
+
+=== PAGE 1 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    1
+Dead-Time Optimization 
+for Maximum Efficiency
+EFFICIENT POWER CONVERSION
+DEAD-TIME RELATED LOSSES
+Previously published articles [2, 3] showed that eGaN FETs behave similarly to silicon devices and can be evaluated using the same performance metrics. Although eGaN 
+FETs perform significantly better by most metrics, the eGaN FET ‘body-diode’ forward voltage is higher than its MOSFET counterpart and can be a significant loss compo-
+nent during dead-time. Body diode forward conduction losses alone do not make up all dead-time dependent losses. Diode reverse-recovery and output capacitance 
+losses are also important. In this white paper the importance of dead-time management and the requirements to minimize all dead-time losses are discussed.
+To start, consider the reverse transfer characteristics for both MOSFETs and eGaN FETs shown in Figure 1. This Figure shows a 1.5 V increase in  forward voltage drop of 
+the eGaN FET ‘body diode’ compared to a Si MOSFET at 25°C, as temperature increases the voltage difference increases to almost 2 V.  What isn’t shown is that, since the 
+eGaN FET ‘diode’ is just the channel conducting in reverse and a majority carrier operation; this results in no diode reverse-recovery charge in eGaN FETs. Body diode 
+forward conduction and reverse recovery losses are not the only dead-time related losses; there are output capacitance losses and additional switching losses when 
+the self-commutation time is longer than the allotted dead-time.  This will be discussed in more detail later in this paper.
+EFFECTIVE DEAD-TIME
+For the analysis presented, effective dead-time will be used, which is different from the dead-time generated between controller gating signals. The effective dead-time 
+is defined from when one device reaches turn-off threshold (VTH) voltage on the gate to when the other device, which is turning on, reaches its threshold voltage. For 
+a constant controller dead-time, the effective dead-time is dependent on variations in device threshold voltage, gate resistance, and gate capacitance. The resultant 
+effective dead-time is also dependent on device operating voltage and the pulse-width variation in the gate drive circuit.  
+EFFECT OF GATE TIMING ON DEAD-TIME LOSSES
+There are only a limited number of ways to have the body diode conduct dur-
+ing dead-time period. To determine the effect of gate timing on body diode 
+losses, all of these device states will be considered. In simple terms, there is the 
+possibility for body diode conduction at both turn-on and turn-off of a device. 
+To have diode conduction at device turn-off, a negative current must be flow-
+ing from source to drain (positive current defined as flowing drain to source),  
+such as the turn-off of a synchronous rectifier in a buck converter. For nega-
+tive currents (diode conduction at device turn-off ), the next device turn-on 
+will always be hard switching and require reverse recovery of the conducting 
+diode. There is some evidence [4, 5] to suggest that the reverse recovery losses 
+in MOSFETs can be reduced by limiting the commutation time of the body 
+diode, but much of this depends on the MOSFET diode forward recovery char-
+acteristics, which is not available. In most cases, the current commutates fully 
+to the body diode resulting in eventual diode reverse recovery and increasing 
+dead-time further only leads to increased losses. 
+Johan Strydom, Ph.D., V .P ., Applications and David Reusch, Ph.D., Director, Applications, Efficient Power Conversion Corporation
+In this white paper we continue our exploration of optimization issues [1] and look at the impact of dead-time on system efficiency for 
+eGaN® FETs and MOSFETs.   
+Figure 1: Reverse transfer characteristics of equivalent 
+100 V MOSFET and eGaN FET at 25°C and 125°C
+ISD  – Source to Drain Current (A)
+VSD – Source to Drain 
+MOSFET
+Voltage (V)
+80
+100
+50
+60
+70
+90
+10
+20
+30
+40
+0 
+0 
+0.5 1 1.5 2 2.5 3.5 3 4 4.5
+25˚C
+125˚C
++Q RR
+eGaN FET
+25˚C
+125˚C
++Zero QRR
+Figure 1: Reverse transfer characteristics of equivalent 
+100 V MOSFET and eGaN FET at 25°C and 125°C
+
+=== PAGE 2 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    2
+For diode conduction at turn-on, the drain voltage across the device turning on 
+must be externally commutated by a positive current flowing into of the drain 
+terminal, such as the dead-time interval before the turn-on of a synchronous 
+rectifier in a buck converter. For such positive currents the analysis is more 
+complex as drain voltage across the turn-off device starts increasing and is load 
+current dependent. If there is enough energy in the inductor to commutate 
+the voltage completely, lossless zero voltage switching (ZVS) turn-on can be 
+achieved, but increasing dead-time further will only incur additional diode 
+conduction losses. Reducing dead-time below that required for ZVS will cause 
+hard-switching at reduced switching voltage and will also increase losses.  
+Thus for positive currents, there are load current dependent optimum effective 
+dead-time values. The full range of drain to source voltage waveforms for 
+both negative and positive currents for a given dead-time is shown in Figure 
+2. The waveforms are color coded to represent relative dead-time dependent 
+commutation loss, from maximum loss (Dark Red), down to pure lossless 
+commutation (Blue). 
+For this analysis, the switching loss at both turn-on and turn-off are neglected, 
+as these are not dead-time dependent. But, as discussed above, it is possible to 
+incur additional synchronous rectifier hard-switching turn-on losses for positive 
+currents where dead-time is insufficient to allow commutation. Additionally, 
+body diode conduction, output capacitance (EOSS) and diode reverse recovery 
+losses (EQRR) are considered. The special case of zero-current turn-off is also 
+shown. In this case, the zero-current switching (ZCS) turn-on will incur only EOSS 
+losses.
+To optimize efficiency and minimize dead-time commutation losses, different 
+load current ranges at both turn-on and turn-off dead-time intervals are 
+important. The range of the dead-time commutation waveforms shown in Figure 2  
+is meant to be exhaustive and will be much larger than needed for most specific 
+applications and specific dead-time intervals. Since the aim of this paper is to 
+compare eGaN FETs and silicon MOSFETs over a wide range of voltages and 
+applications, the whole load current range of Figure 2 will be considered.  
+It will then be possible to select a subset of these for a specific application dead-
+time interval and determine the required optimization conditions for it. To best 
+represent the wide range of possible dead-time losses and quickly compare 
+FET technologies, a graphical representation of the energy loss as function of 
+dead-time for the whole range of currents is proposed as shown in Figure 3.  
+The specific dead-time value used in Figure 2 becomes a single point along the 
+x-axis with each commutation waveform resulting in a separate energy loss 
+number (colored circles).
+For generating actual numbers for this analysis, two devices in a half-bridge 
+(totem-pole) configuration are assumed and reduced voltage hard-switching 
+turn-on, output capacitance, body diode and reverse recovery losses are 
+calculated using equations from Table 1 of [1] and calculating the parameters 
+from the respective device datasheets. These equations are repeated here in 
+Table 1 and rewritten to accommodate reduce voltage switching and energy 
+loss per dead-time interval calculation. Other configurations (such as center-tap) 
+can be similarly analyzed. 
+Figure 2: Idealized drain-source voltage commutation waveforms  
+for varying load current at a given dead-time (Dark Red to blue  
+coloring represents high loss to no loss)
+Table 1: Equations used to calculate effective dead-time  
+energy loss per dead-time interval
+ 
+ 
+ 
+Equation
+ 
+Device turn-on loss
+Diode reverse recovery loss
+Output capacitance charge loss
+Body diode conduction loss
+Figure 3: Idealized dead-time related loss per cycle for different load currents
+versus dead-time (Red to blue coloring represents high loss to no loss)
+Eﬀective Dead-time
+Device Turn-onDevice Turn-oﬀ
+Negative current causing diode conduction
+Positive current causes self commutation
+Bus Voltage
+GND
+Increasing Current
+Turn-oﬀ device has diode reverse recovery
+Turn-on device is hard-switching
+Partial ZVS turn-on,
+No reverse recovery, but
+Dead-time dependent
+hard-switching losses
+ZVS turn-on with diode conduction
+time increasing with current
+Optimal dead-time
+Lossless commutation
+Zero Current
+High Loss
+No Loss
+EOSS
+Eﬀective Dead-time (ns)
+EQRR
+Energy loss due to dead-time (/uni03BCJ)
+Zero Current
+Partial ZVS /
+Reduced
+Voltage
+Switching
+ZVS
+Hard Switching
+Shoot-through
+Increasing diode
+conduction losses
+Increasing diode
+conduction losses
+Lossless
+Additional
+switching losses
+Dead-time used in
+Figure 2
+Increasing
+current
+
+=== PAGE 3 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    3
+Figure 4:  Calculated dead-time losses per cycle versus dead-time for both 
+eGaN FET and MOSFET in a 60 V application (-20 A to +20 A in 4 A steps)
+Figure 5: Calculated dead-time losses per cycle versus dead-time for both 
+eGaN FET and MOSFET in a 12 V application (-20 A to +20 A in 4 A steps)
+eGaN®  FET AND MOSFET COMPARISON
+The dead-time losses in a 60 V bus half-bridge application using 100 V eGaN 
+FETs [6] and similar R DS(on) state of the art 80 V MOSFETs [7] are shown in  
+Figure 4. The lines are drawn in 4 A load steps from -20 A to +20 A. The compari-
+son clearly shows the following differences:
+1) Self commutation times (bringing the green curve down to zero) for eGaN 
+FETs are about half as long as the MOSFETs due to lower output capacitance.
+2) Hard commutation stored energy losses and diode reverse recovery losses 
+in eGaN FETs are about a third (36%) that of MOSFETs due to lack of reverse 
+recovery and lower output capacitance.
+3) Body diode conduction loss increases with time in eGaN FETs is about 2.5 
+times faster than MOSFETs due to the higher diode conduction voltage. 
+(Note the difference time scales in Figure 4).
+4) Optimum dead-time range depends on load current, but with the eGaN 
+FETs, this range is about 50% that of MOSFET. (The 4 A to 20 A eGaN FET 
+dynamic optimum range is 5 ns – 20 ns vs. 9 ns – 36 ns for MOSFETs). For 
+practical designs where a single dead-time is used for all load current con-
+ditions, the values might be 20 ns ± 7 ns and 44 ns ±16 ns respectively and 
+would yield similar sub 1 μJ dead-time loss results (areas highlighted in or-
+ange in Figure 4). Lower dead-time losses are possible, but would require 
+tighter tolerances and/or dynamic dead-time optimization.
+In lower voltage applications, the effect of the body diode is more pronounced 
+relative to other losses.  Consider such a 12 V  buck application using 40 V eGaN 
+FETs [8] and similar R DS(on) state of the art 30 V MOSFETs [9] with dead-time 
+losses shown in Figure 5.  The lines are again drawn in 4 A load steps from  
+-20 A to +20 A. The comparison is similar to the 60 V case, with the following 
+differences:
+2) Hard commutation stored energy losses and diode reverse recovery  
+losses in eGaN FETs have increased to about a half (45%) relative to that of 
+MOSFETs. 
+4)  Optimum dead-time range is still about 50% that of MOSFET, but both are 
+much smaller. (The 4 A to 20 A eGaN FET dynamic optimum range is just 
+3 ns – 6 ns vs. 7 ns – 13 ns for MOSFETs). For a constant dead-time design, 
+both dead-time ranges (shown in orange in Figure 5) are less than 6 ns 
+wide and may be difficult to generate this required accuracy. Lower dead-
+time losses are plausible, but would require even tighter tolerances and/or  
+dynamic dead-time optimization.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+0
+Energy loss per event (/uni03BCJ)
+Energy loss per event (/uni03BCJ)
+Eﬀective Dead-time (ns)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4 A
+-20 A
+0 A
+-20 A
+0 A
+-4 A
+4 A
+10 20 30 40 0 10 20 30 40 50 60 70 80 90 100
+Eﬀective Dead-time (ns)
+100 V EPC2001 eGaN FET 80 V BSC057N08NS3 MOSFET
+20 A 20 A
+Energy loss per event (/uni03BCJ)
+Eﬀective Dead-time (ns)
+Energy loss per event (/uni03BCJ)
+Eﬀective Dead-time (ns)
+40 V EPC2015 eGaN FET   30 V BSC034N03LS MOSFET
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+0 2 4 6 8 10 0 4 8 12 16 20 24
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4 A
+-20 A
+20 A
+0 A
+-20 A
+0 A
+-4 A
+4 A
+20 A
+
+=== PAGE 4 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    4
+Given the current lack of capability for such tight tolerances for most MOSFET driver and MOSFET combinations, a common alternative solution to having such a small 
+dead-time range, is to minimize dead-time losses over a more realistic range through the addition of a parallel Schottky diode. In silicon, this is only effective when the 
+Schottky diode is monolithically integrated into the MOSFET, as the small voltage drop difference between the body diode and Schottky diode together with the large 
+loop inductance between them would mean a too long commutation time to be practical [10]. Furthermore, partial commutation to the Schottky diode would mean 
+that the MOSFET body diode would still have to recover at turn-off with the additional associated recovery losses. Alternatively lengthening the diode conduction 
+time to allow complete commutation will incur additional diode conduction losses instead. Since neither solution is workable, only a monolithic integrated Schottky 
+diode will practically reduce dead-time losses.  
+For eGaN FETs, the case is very different. 
+• Firstly, there is no body diode reverse recovery, so even with partial current commutation from the body diode to the Schottky diode it would still reduce overall 
+dead-time losses. 
+• Secondly, the much higher body diode forward drop is actually beneficial for the addition of a Schottky diode here as it increases the current commutation speed 
+by generating a larger voltage differential between the two diodes [11].
+• Lastly, the low parasitic inductance of the eGaN FET’s land grid array (LGA) package makes the addition of an external Schottky diode possible by significantly 
+reducing the commutation loop inductance. Care should be taken to minimize the Schottky diode package inductance and pcb loop also to avoid negating this 
+advantage.  This is best done by placing the Schottky diode next to the eGaN FET on the same side of the board and choosing a low inductance package Schottky 
+[12, 13]. The improved thermal package parts with exposed tab are good as they remove one or both wire-bond connections.  A suggested layout is shown in 
+Figure 6.
+Following the same loss calculation process as before, the impact of adding a 3 A Schottky diode to the eGaN FET in a 12 V  application can be seen in Figure 7 (right) 
+compared to the standard eGaN FET with no Schottky diode (left).  From this, the following conclusions can be drawn:
+1) The addition of a Schottky diode increases output capacitance losses and lengthens self commutation time slightly. Choosing the right size of Schottky diode is 
+important to balance the capacitive loss increase with reduced diode conduction losses.
+2) The diode conduction losses are decreased to about 40% for a 3 A Schottky diode and are in direct relation to the decrease in the forward diode conduction drop. 
+Optimal scaling of the Schottky diode can improve this for a selected load range. 
+3) The practical dead-time range (for <0.2 μJ losses) is increased almost four times and is almost twice than that of the equivalent MOSFET diode without integrated 
+Schottky diode in Figure 5.
+Schottky
+diode Low
+package
+impedance
+Place diode and eGaN FET side-by-side to minimize inductance
+eGaN FET
+Figure 6: Suggested layout for adding an  
+external Schottky with eGaN FETs
+Figure 7: Calculated dead-time losses per cycle versus dead-time for eGaN FET 
+without and with external Schottky diode in a 12 V application (-20 A to +20 A in 4 A steps)
+Energy loss per event (/uni03BCJ)
+Energy loss per event (/uni03BCJ)
+Eﬀective Dead-time (ns) Eﬀective Dead-time (ns)
+40 V EPC2015 eGaN FET   40 V EPC2015 eGaN FET + 3 A Schottky
+4 A
+-20 A
+20 A
+0 A 0 A
+-20 A
+4 A
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Additional diode 
+capacitance losses  
+Small increase in 
+self commutation 
+time  
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+0 2 4 6 8 10 0 4 8 12 16 20 24
+20 A
+Figure 7: Calculated dead-time losses per cycle versus dead-time for eGaN 
+FET without and with external Schottky diode in a 12 V application  
+(-20 A to +20 A in 4 A steps)
+
+=== PAGE 5 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    5
+Figure 8: Experimental efficiency for 40 V eGaN FET and MOSFET buck 
+converters operating at 1 MHz, 12 VIN and 1.2 VOUT with different 
+effective dead-time values (same on both edges) 
+and with / with-out external Schottky diode.
+EXPERIMENTAL VERIFICATION
+To determine if an external Schottky can actually be used as predicted, two equivalent buck converter boards were built using 40 V eGaN FETs and equivalent 40 V 
+silicon MOSFETs, both converters were operated at 1 MHz, 12 VIN and 1.2 VOUT. Effective dead-time at both edges were set equal and the load was swept up to 20 A. 
+The tests were then repeated with a small 1 A external Schottky diode added. The measured experimental results are shown in Figure 8. For optimum effective dead-
+time, the dead-time is adjusted to try and eliminate body diode conduction, while for 5 ns and 10 ns dead-time, the gate timing is adjusted for a constant effective 
+dead-time as per Figure 2. 
+From Figure 8, the following results can be seen:
+1) At this low power level and high frequency operation, every 5 ns of  
+effective dead-time per edge (10 ns total per cycle) incur a 1% drop in 
+efficiency. This is about twice the loss of the MOSFET.
+2) Adding even a small external Schottky will significantly reduce the dead-
+time losses by as much as 70% around 10 A load and more than 50% 
+overall. The decrease in improvement at higher output currents is due to 
+the higher Schottky diode forward drop at the high currents. As such, the 
+deliberately chosen 1 A diode [14] is undersized for such a 20 A output 
+application. Using a larger Schottky diode will move the peak efficiency 
+improvement to higher output currents. 
+3) Even with an undersized external Schottky diode with forward drop 
+greater than 1 V at 20 A [13], the circuit is still capable of commutating 
+current and reducing the overall dead-time losses by about 50%.  
+4) For the MOSFET design, the external Schottky diode shows no measur-
+able improvement and emphasizes the fact that an integrated Schottky 
+diode is needed to reduce the effective dead-time losses.  
+The eGaN FET design needs to have either about half the effective dead-
+time of the MOSFET design or an external Schottky diode with the same 
+effective dead-time to have similar dead-time losses.
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90Eﬃciency (%)
+Output Current (IOUT)
+4 6 8 10
+70% loss reduction with
+external Schottky diode
+~1% eﬃciency drop
+per 10 ns total
+No improvement for
+external Schottky diode
+50% loss
+reduction
+~1% eﬃciency drop
+per 20 ns totalTotal dead-time cycle is twice per interval
+12 14 16 18 20 22
+eGaN FET, 5 ns dead-time
+eGaN FET + Schottky, 5 ns dead-time
+eGaN FET, 10 ns dead-time
+eGaN FET + Schottky, 10 ns dead-time
+eGaN FET, Optimum dead-time
+MOSFET Optimum dead-time
+MOSFET, 10 ns dead-time
+MOSFET + Schottky, 10 ns dead-time
+SUMMARY
+In this paper the effect of dead-time losses in eGaN FET based converters relative to MOSFET based converters were investigated. From this analysis, the following 
+conclusions can be drawn:
+1) Regardless of voltage, for similar dead-time losses, the effective dead-time for eGaN FETs needs to be about half that of the equivalent MOSFET circuit; requiring a 
+2x reduction in dead-time values and tolerances for comparable losses.
+2) At higher voltages, the diode related dead-time losses are small in comparison to both output capacitance losses and reverse recovery losses; and the optimum 
+dead-time requirements can realistically be achieved with current silicon technology.
+3) As bus voltage decreases, the diode conduction losses become more significant and the required optimum dead-time values for both MOSFETS and eGaN FETs 
+become difficult to generate.
+4) For MOSFETs, the required increase in body diode conduction loss due to the inability to realize the small optimum dead-time values is significantly reduced 
+through the addition of a Schottky diode, but this Schottky diode HAS to be monolithically integrated with the MOSFET to be effective.
+5) For eGaN FETs, the use of an external Schottky diode is viable and can typically reduce body diode losses by 50% and as much as 70% if size optimized.
+
+=== PAGE 6 ===
+WHITE PAPER: WP012 Dead-Time Optimization for Maximum Efficiency
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    6
+References:
+[1]  J. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 11: Optimizing FET On-Resistance” , Power Electronics Technology, Oct. 2012,   
+http://powerelectronics.com/discrete-semis/gan_transistors/egan-fet-silicon-power-shoot-out-volume-11-optimizing-fet-on-resistance-1001/ 
+[2]  J. Strydom, “eGaN® FET-Silicon Power Shoot-Out Part 1: Comparing Figure of Merit (FOM)” , Power Electronics Technology, Sept. 2010,  
+http://powerelectronics.com/power_semiconductors/power_mosfets/fom-useful-method-compare-201009/ 
+[3]  J.  Strydom, “The eGaN FET-Silicon Power Shoot-Out: 2: Drivers, Layout” , Power Electronics Technology, Jan. 2011,  
+http://powerelectronics.com/power_semiconductors/first-article-series-gallium-nitride-201101/ 
+[4]  J. Cerezo, “Class D Audio Amplifier Performance Relationship to MOSFET Parameters” , International Rectifier application note, AN-1070, http://www.irf.com/technical-info/appnotes/an-1070.pdf 
+[5]  M. Christian, “Improving Efficiency of Synchronous Rectification by Analysis of the MOSFET Power Loss Mechanism” , Infineon Technologies Application Note, AN-2012-03, http://www.infineon.com/
+dgdl/15_IFX-Application-Note-Synchronous+Rectification.pdf?folderId=db3a3043156fd5730115939eb6b506db&fileId=db3a304320d39d590121a671f2d90c38 
+[6]  EPC2001 datasheet, EPC Corporation, https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2001.aspx
+[7]  BSC057N08NS3G datasheet, Infineon Technologies. http://www.infineon.com/dgdl/BSC057N08NS3G_rev2.4.pdf?folderId=db3a304313b8b5a60113cee8763b02d7&fileId=db3a30431add1d95011ae803c9345616 
+[8]  EPC2015 datasheet, EPC Corporation, https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2015.aspx
+[9]  BSC034N03LS datasheet, Infineon Technologies. http://www.infineon.com/dgdl/BSC034N03LS_rev1.2.pdf?folderId=db3a304313b8b5a60113cee8763b02d7&fileId=db3a30431ed1d7b2011f3ba01de246ef 
+[10] J. White, “MOSFET Body Diode” , Hephaestus Audio, http://hephaestusaudio.com/media/2008/11/mosfet-body-diode.pdf 
+[11] D. Reusch, “High Frequency, High Power Density Integrated Point of Load and Bus Converters, ” Ph.D. Dissertation, Virginia Tech, 2012, http://scholar.lib.vt.edu/theses/available/etd-04162012-151740/ 
+[12] Diodes Incorporated news release, “Diodes, Inc. Introduces Industry-Leading High Efficiency SBR Devices in PowerDITM123 Compact Power Package” , January 2007, http://www.diodes.com/file_archive/
+download.php?branchId=1&pointer=995946c41f9bbe626a18b44538c31a15
+[13] Panasonic news release, “High Thermal Dissipation Schottky Barrier Diode with Ultra-Small PMCP Package” , September 2012, http://panasonic.net/id/news/20120905_1.html 
+[14] MSS1P4 datasheet, Vishay, http://www.vishay.com/docs/89019/mss1p4.pdf Power Supply for 3G-4G Cell Phone Base Stations, Applied Power Electronics Conference (APEC) 2012, Feb. 2012, Orlando, Florida.

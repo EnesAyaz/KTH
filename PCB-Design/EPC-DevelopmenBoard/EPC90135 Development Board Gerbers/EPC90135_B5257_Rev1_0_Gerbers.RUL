@@ -1,0 +1,10 @@
+DRC Rules Export File for PCB: C:\Users\bdmil\Documents\Altium-EPC\EPC90135_B5257_Rev1_0_Altium_Files_BP4_2022-06-16\EPC90135_B5257_Rev1_0.PCBDOC
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=2.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=5.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=Keepout|Scope=Board|Minimum=20.00
+RuleKind=Clearance|RuleName=FETclearance|Scope=Board|Minimum=5.51
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.51
+RuleKind=Clearance|RuleName=PSU clearance|Scope=Board|Minimum=7.80
+RuleKind=Clearance|RuleName=Logic clearance|Scope=Board|Minimum=7.00
+RuleKind=Clearance|RuleName=GateDrive|Scope=Board|Minimum=5.91

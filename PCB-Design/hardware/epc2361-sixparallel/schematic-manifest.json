@@ -1,0 +1,1985 @@
+{
+  "sheet_uuid": "a5ce9368-0b9f-5242-b3c9-b29b31a33aff",
+  "components": {
+    "QH1": {
+      "uuid": "376143c1-bc28-528b-acba-5d3672230080",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/376143c1-bc28-528b-acba-5d3672230080",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_1",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH1": {
+      "uuid": "73cda2b8-ce0f-592c-b661-ccfde574f929",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/73cda2b8-ce0f-592c-b661-ccfde574f929",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_1",
+        "2": "AC"
+      }
+    },
+    "RG1": {
+      "uuid": "164b868b-5aa3-5aca-b311-2f45b2d37aea",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/164b868b-5aa3-5aca-b311-2f45b2d37aea",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_1",
+        "2": "GH_1"
+      }
+    },
+    "RGS1": {
+      "uuid": "4b3ae3d4-cb4c-5552-874b-a803f8e6cd56",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/4b3ae3d4-cb4c-5552-874b-a803f8e6cd56",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_1",
+        "2": "AC"
+      }
+    },
+    "QL1": {
+      "uuid": "db9ff9b2-976f-5637-9f31-38e0d6703f5f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/db9ff9b2-976f-5637-9f31-38e0d6703f5f",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_1",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL1": {
+      "uuid": "3b596499-f452-5832-ac19-4dc7838cdbca",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/3b596499-f452-5832-ac19-4dc7838cdbca",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_1",
+        "2": "DC-"
+      }
+    },
+    "RG2": {
+      "uuid": "706c04f8-48e5-5bbf-9bbb-f14053556e9f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/706c04f8-48e5-5bbf-9bbb-f14053556e9f",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_1",
+        "2": "GL_1"
+      }
+    },
+    "RGS2": {
+      "uuid": "c6b5e95e-e485-52b2-b2e8-135b94e73e18",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/c6b5e95e-e485-52b2-b2e8-135b94e73e18",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_1",
+        "2": "DC-"
+      }
+    },
+    "JAC1": {
+      "uuid": "7d4e018b-fd52-549e-8424-a2e5aee6a988",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/7d4e018b-fd52-549e-8424-a2e5aee6a988",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC1": {
+      "uuid": "21022b24-dfb0-5523-aacd-a325a70b5003",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/21022b24-dfb0-5523-aacd-a325a70b5003",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC2": {
+      "uuid": "f404f468-a086-57cd-80cb-1e61a23e4e8f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/f404f468-a086-57cd-80cb-1e61a23e4e8f",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C1": {
+      "uuid": "8b90e528-9046-56bc-8347-65edb915447b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/8b90e528-9046-56bc-8347-65edb915447b",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C2": {
+      "uuid": "b1dc48e1-86c0-5804-a8e2-43f5ac862b0a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/b1dc48e1-86c0-5804-a8e2-43f5ac862b0a",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C3": {
+      "uuid": "7986d624-f118-5e4c-bb75-468209fd9e0d",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/7986d624-f118-5e4c-bb75-468209fd9e0d",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C4": {
+      "uuid": "7abe40d9-56a3-57b1-b96d-17d0853595f1",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/7abe40d9-56a3-57b1-b96d-17d0853595f1",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C5": {
+      "uuid": "bc2aeb1b-ede1-5057-ac78-0e8c4abed1e9",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/bc2aeb1b-ede1-5057-ac78-0e8c4abed1e9",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C6": {
+      "uuid": "37c49f47-a943-5c31-ac37-7ad396be49a4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/37c49f47-a943-5c31-ac37-7ad396be49a4",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C7": {
+      "uuid": "eb7ef547-8a69-5202-bc39-ccf4cbe4b083",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/eb7ef547-8a69-5202-bc39-ccf4cbe4b083",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C8": {
+      "uuid": "ad5a8be5-f39b-5f97-9520-27f4f7f31152",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/ad5a8be5-f39b-5f97-9520-27f4f7f31152",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C9": {
+      "uuid": "dd03b98b-3700-5671-8fb9-9de582bbdbad",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/dd03b98b-3700-5671-8fb9-9de582bbdbad",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C10": {
+      "uuid": "4d0dc0df-958b-5f99-bec8-1e82197d4f11",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/4d0dc0df-958b-5f99-bec8-1e82197d4f11",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C11": {
+      "uuid": "b5beb124-08db-53d0-b305-799b76997a19",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/b5beb124-08db-53d0-b305-799b76997a19",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C12": {
+      "uuid": "8c3ed918-562e-538c-93be-685381aa7c93",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/8c3ed918-562e-538c-93be-685381aa7c93",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP1": {
+      "uuid": "8f66a9c4-757a-589c-9721-d9097f13b569",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/8f66a9c4-757a-589c-9721-d9097f13b569",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_1"
+      }
+    },
+    "TP2": {
+      "uuid": "39896081-a021-5da5-bacf-b093b6d84fb6",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/39896081-a021-5da5-bacf-b093b6d84fb6",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP3": {
+      "uuid": "1ada6a30-2438-5c2a-8216-9e81f0788434",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/1ada6a30-2438-5c2a-8216-9e81f0788434",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_1"
+      }
+    },
+    "TP4": {
+      "uuid": "4fecef56-6819-5f83-93ae-ac244fe0c18f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/4fecef56-6819-5f83-93ae-ac244fe0c18f",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP5": {
+      "uuid": "c826afbb-67df-5bf2-bbce-9bd24f58e8a8",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/c826afbb-67df-5bf2-bbce-9bd24f58e8a8",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP6": {
+      "uuid": "80377fb6-e9ad-5bbf-885d-f49f54bf309c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/80377fb6-e9ad-5bbf-885d-f49f54bf309c",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP7": {
+      "uuid": "d4c386ee-1daf-5e91-aab6-061205b047b8",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/7e53e546-fb39-5925-972a-cb5ad308f78f/d4c386ee-1daf-5e91-aab6-061205b047b8",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "QH2": {
+      "uuid": "c2acb7fb-c4ae-5a5a-b063-4c0c81de9cbd",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/c2acb7fb-c4ae-5a5a-b063-4c0c81de9cbd",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_2",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH2": {
+      "uuid": "61f53485-f898-5932-b42f-f72045236637",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/61f53485-f898-5932-b42f-f72045236637",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_2",
+        "2": "AC"
+      }
+    },
+    "RG3": {
+      "uuid": "2e159584-f685-5c66-a199-d73fe7f61b1f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/2e159584-f685-5c66-a199-d73fe7f61b1f",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_2",
+        "2": "GH_2"
+      }
+    },
+    "RGS3": {
+      "uuid": "103f08f3-16fc-5477-8e00-7fa30d9572a3",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/103f08f3-16fc-5477-8e00-7fa30d9572a3",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_2",
+        "2": "AC"
+      }
+    },
+    "QL2": {
+      "uuid": "41df62e0-7efe-54d1-9386-e13d43b73bce",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/41df62e0-7efe-54d1-9386-e13d43b73bce",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_2",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL2": {
+      "uuid": "f9458263-d14a-5197-9a48-ff0952dce5bc",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/f9458263-d14a-5197-9a48-ff0952dce5bc",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_2",
+        "2": "DC-"
+      }
+    },
+    "RG4": {
+      "uuid": "3e09855d-b21d-5ead-a399-6070a7998f49",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/3e09855d-b21d-5ead-a399-6070a7998f49",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_2",
+        "2": "GL_2"
+      }
+    },
+    "RGS4": {
+      "uuid": "6665bd0e-5422-56fa-9511-486a9feb0177",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/6665bd0e-5422-56fa-9511-486a9feb0177",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_2",
+        "2": "DC-"
+      }
+    },
+    "JAC2": {
+      "uuid": "76a0053d-25cc-5e7c-8979-66e08ef45187",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/76a0053d-25cc-5e7c-8979-66e08ef45187",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC3": {
+      "uuid": "343dd929-3f88-5344-8bbb-59a6fd8830a4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/343dd929-3f88-5344-8bbb-59a6fd8830a4",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC4": {
+      "uuid": "ef2973e6-91e2-553c-b9d4-18893be328ad",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/ef2973e6-91e2-553c-b9d4-18893be328ad",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C13": {
+      "uuid": "fe7a724b-ea78-5130-aae8-a4f373f45639",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/fe7a724b-ea78-5130-aae8-a4f373f45639",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C14": {
+      "uuid": "df8efcf7-7ed4-5e56-bf68-14d6bad213f9",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/df8efcf7-7ed4-5e56-bf68-14d6bad213f9",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C15": {
+      "uuid": "ae90b5ca-5e1d-575a-b17d-2d9f0a9366af",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/ae90b5ca-5e1d-575a-b17d-2d9f0a9366af",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C16": {
+      "uuid": "14a30eb8-6508-52c0-ae8d-6936a33ee8ae",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/14a30eb8-6508-52c0-ae8d-6936a33ee8ae",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C17": {
+      "uuid": "3933ebab-01da-53fa-891b-3bff5a72e495",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/3933ebab-01da-53fa-891b-3bff5a72e495",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C18": {
+      "uuid": "4ade12ca-7d06-54cd-a555-cb5d09eacf3a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/4ade12ca-7d06-54cd-a555-cb5d09eacf3a",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C19": {
+      "uuid": "bccbfe38-dcfb-57d8-9f9e-33aaa1bc18a7",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/bccbfe38-dcfb-57d8-9f9e-33aaa1bc18a7",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C20": {
+      "uuid": "f4e98a1c-092e-5062-ac43-30e83864cdf1",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/f4e98a1c-092e-5062-ac43-30e83864cdf1",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C21": {
+      "uuid": "f4c9e98f-c385-50cc-9ae8-4558df4ab7cc",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/f4c9e98f-c385-50cc-9ae8-4558df4ab7cc",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C22": {
+      "uuid": "1a5fd1fc-7602-58a0-997c-f4b2b904a60f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/1a5fd1fc-7602-58a0-997c-f4b2b904a60f",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C23": {
+      "uuid": "f8afe4d3-efed-50bb-9e4b-afbf483af5c4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/f8afe4d3-efed-50bb-9e4b-afbf483af5c4",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C24": {
+      "uuid": "f0db8cf7-2206-5ffb-9a80-4ce7a2765350",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/f0db8cf7-2206-5ffb-9a80-4ce7a2765350",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP8": {
+      "uuid": "0428f310-0218-5ee0-a97c-305ac07c02be",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/0428f310-0218-5ee0-a97c-305ac07c02be",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_2"
+      }
+    },
+    "TP9": {
+      "uuid": "ea47df5e-6e15-54e6-8de3-22737634d7db",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/ea47df5e-6e15-54e6-8de3-22737634d7db",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP10": {
+      "uuid": "abd65dbd-ccbb-59ef-b412-7f54b4b64c1e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/abd65dbd-ccbb-59ef-b412-7f54b4b64c1e",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_2"
+      }
+    },
+    "TP11": {
+      "uuid": "63492744-5b3f-5813-830f-1ced8dfc5c8b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/63492744-5b3f-5813-830f-1ced8dfc5c8b",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP12": {
+      "uuid": "ed2708b4-7cc3-5bbd-933e-b6f40d34ceb1",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/ed2708b4-7cc3-5bbd-933e-b6f40d34ceb1",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP13": {
+      "uuid": "4e27366b-40ec-52fb-910d-3ac1568e176b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/4e27366b-40ec-52fb-910d-3ac1568e176b",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP14": {
+      "uuid": "85c85d34-1875-5d71-b5f6-9319300419b2",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/39ecc548-3184-5eb7-8b21-f4dfeb4c1aa3/85c85d34-1875-5d71-b5f6-9319300419b2",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "QH3": {
+      "uuid": "ccde6e6d-97ee-576b-b7c0-7830d2ccf461",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/ccde6e6d-97ee-576b-b7c0-7830d2ccf461",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_3",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH3": {
+      "uuid": "81c68ffa-ca3d-50ec-9d4d-0f61ae5b630e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/81c68ffa-ca3d-50ec-9d4d-0f61ae5b630e",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_3",
+        "2": "AC"
+      }
+    },
+    "RG5": {
+      "uuid": "29a43fc8-0ead-58c7-928f-aacc39ad7c1e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/29a43fc8-0ead-58c7-928f-aacc39ad7c1e",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_3",
+        "2": "GH_3"
+      }
+    },
+    "RGS5": {
+      "uuid": "e05743db-7299-51ad-b327-aca4047c4a7a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/e05743db-7299-51ad-b327-aca4047c4a7a",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_3",
+        "2": "AC"
+      }
+    },
+    "QL3": {
+      "uuid": "7a65966a-0cbf-54f8-8763-9ce1db470e78",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/7a65966a-0cbf-54f8-8763-9ce1db470e78",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_3",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL3": {
+      "uuid": "35b80a41-f070-5f68-a88f-6d24def11168",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/35b80a41-f070-5f68-a88f-6d24def11168",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_3",
+        "2": "DC-"
+      }
+    },
+    "RG6": {
+      "uuid": "2b3fc512-c2bc-541e-b57b-dc3a3631144d",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/2b3fc512-c2bc-541e-b57b-dc3a3631144d",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_3",
+        "2": "GL_3"
+      }
+    },
+    "RGS6": {
+      "uuid": "2fe295ee-5b03-596d-bd1b-3ce90b9c65ba",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/2fe295ee-5b03-596d-bd1b-3ce90b9c65ba",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_3",
+        "2": "DC-"
+      }
+    },
+    "JAC3": {
+      "uuid": "3f617982-6087-538d-a2f4-0747dcc2bb5b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/3f617982-6087-538d-a2f4-0747dcc2bb5b",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC5": {
+      "uuid": "a56a0a8b-8c6b-588c-a058-aa506afc6a19",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/a56a0a8b-8c6b-588c-a058-aa506afc6a19",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC6": {
+      "uuid": "af1aaecc-d8e8-55f8-aa26-12c489db8b27",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/af1aaecc-d8e8-55f8-aa26-12c489db8b27",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C25": {
+      "uuid": "dc49b861-bb72-5c9e-969f-ee69021754d2",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/dc49b861-bb72-5c9e-969f-ee69021754d2",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C26": {
+      "uuid": "2a6c9b9f-2d43-5aa3-87ee-1177831d1656",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/2a6c9b9f-2d43-5aa3-87ee-1177831d1656",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C27": {
+      "uuid": "583c2594-d4cd-5151-97f1-72e136625ecd",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/583c2594-d4cd-5151-97f1-72e136625ecd",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C28": {
+      "uuid": "de2a212d-943e-58d0-ba30-5ebca7c7f012",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/de2a212d-943e-58d0-ba30-5ebca7c7f012",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C29": {
+      "uuid": "31a48f21-0cb8-563e-998a-2b2d71011e80",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/31a48f21-0cb8-563e-998a-2b2d71011e80",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C30": {
+      "uuid": "f853a526-f59e-507f-af88-377f77088198",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/f853a526-f59e-507f-af88-377f77088198",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C31": {
+      "uuid": "ade9f658-e086-5771-9a92-2d3c01118e94",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/ade9f658-e086-5771-9a92-2d3c01118e94",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C32": {
+      "uuid": "a02f9727-dd2b-5ffd-bda6-de7bad878997",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/a02f9727-dd2b-5ffd-bda6-de7bad878997",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C33": {
+      "uuid": "d9a55778-59dc-56cb-8dc0-3a21b2b1f162",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/d9a55778-59dc-56cb-8dc0-3a21b2b1f162",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C34": {
+      "uuid": "4c0463fb-59f4-5722-aba4-617fc4578693",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/4c0463fb-59f4-5722-aba4-617fc4578693",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C35": {
+      "uuid": "70f7b1a5-4a71-5fb4-bb22-9355695daafd",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/70f7b1a5-4a71-5fb4-bb22-9355695daafd",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C36": {
+      "uuid": "05616baf-f450-5082-8ae7-8599a3f5520c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/05616baf-f450-5082-8ae7-8599a3f5520c",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP15": {
+      "uuid": "c778a4e4-a550-5d51-8fd5-0c4d71dc10d9",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/c778a4e4-a550-5d51-8fd5-0c4d71dc10d9",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_3"
+      }
+    },
+    "TP16": {
+      "uuid": "923cb2e3-663f-5f46-a699-f0bd437265d4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/923cb2e3-663f-5f46-a699-f0bd437265d4",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP17": {
+      "uuid": "4dbea1bd-f6c2-52cb-9c2d-7a299ce70e2e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/4dbea1bd-f6c2-52cb-9c2d-7a299ce70e2e",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_3"
+      }
+    },
+    "TP18": {
+      "uuid": "a69e9c8f-5a16-5da1-826a-053d8c754de4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/a69e9c8f-5a16-5da1-826a-053d8c754de4",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP19": {
+      "uuid": "6640e29a-31d8-56e5-b043-f2d03322a854",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/6640e29a-31d8-56e5-b043-f2d03322a854",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP20": {
+      "uuid": "1d8e1f08-a849-5fba-9a18-05ad9ccbdd4f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/1d8e1f08-a849-5fba-9a18-05ad9ccbdd4f",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP21": {
+      "uuid": "ee3f0a7f-df23-5d6b-9d88-264bca2c9737",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/dbc98876-4b02-5563-80a7-552704e73d93/ee3f0a7f-df23-5d6b-9d88-264bca2c9737",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "QH4": {
+      "uuid": "9cb6c86c-4127-55bf-a04a-dc791035ea41",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/9cb6c86c-4127-55bf-a04a-dc791035ea41",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_4",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH4": {
+      "uuid": "5943c3ec-4815-53e1-9045-2600f8bd93ed",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/5943c3ec-4815-53e1-9045-2600f8bd93ed",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_4",
+        "2": "AC"
+      }
+    },
+    "RG7": {
+      "uuid": "a3431880-6d4b-53e9-8104-4e249779bf15",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/a3431880-6d4b-53e9-8104-4e249779bf15",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_4",
+        "2": "GH_4"
+      }
+    },
+    "RGS7": {
+      "uuid": "8afcf202-24fd-5e10-9e62-98f6cff5af48",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/8afcf202-24fd-5e10-9e62-98f6cff5af48",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_4",
+        "2": "AC"
+      }
+    },
+    "QL4": {
+      "uuid": "48b09dd4-964a-5840-8e54-63d9f23f36c1",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/48b09dd4-964a-5840-8e54-63d9f23f36c1",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_4",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL4": {
+      "uuid": "719b87e8-98ed-59c3-ac20-0c3b21644a2a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/719b87e8-98ed-59c3-ac20-0c3b21644a2a",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_4",
+        "2": "DC-"
+      }
+    },
+    "RG8": {
+      "uuid": "be740dca-2bce-562d-8552-28184cb8166c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/be740dca-2bce-562d-8552-28184cb8166c",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_4",
+        "2": "GL_4"
+      }
+    },
+    "RGS8": {
+      "uuid": "f44efa0e-ee8e-52d7-927e-7e995ca9eec2",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/f44efa0e-ee8e-52d7-927e-7e995ca9eec2",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_4",
+        "2": "DC-"
+      }
+    },
+    "JAC4": {
+      "uuid": "e5ec94af-0cd9-58f5-9f9b-8da0db48145b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/e5ec94af-0cd9-58f5-9f9b-8da0db48145b",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC7": {
+      "uuid": "59bad9e0-d91d-5f2d-8f62-328c475c942c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/59bad9e0-d91d-5f2d-8f62-328c475c942c",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC8": {
+      "uuid": "b50d374f-b85a-57a1-baa3-12b78c7e3050",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/b50d374f-b85a-57a1-baa3-12b78c7e3050",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C37": {
+      "uuid": "d47024f4-1e86-572e-b93b-02c9b41b35f0",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/d47024f4-1e86-572e-b93b-02c9b41b35f0",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C38": {
+      "uuid": "28ebe114-7b95-56be-8c25-7d35c4db9911",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/28ebe114-7b95-56be-8c25-7d35c4db9911",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C39": {
+      "uuid": "31cbeb9e-0e58-599a-83b1-73025a540122",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/31cbeb9e-0e58-599a-83b1-73025a540122",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C40": {
+      "uuid": "7030e2b1-a766-586b-9fc5-4f7670b74f3f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/7030e2b1-a766-586b-9fc5-4f7670b74f3f",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C41": {
+      "uuid": "57840fb9-1084-59bb-bb6b-fc6c299c08bb",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/57840fb9-1084-59bb-bb6b-fc6c299c08bb",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C42": {
+      "uuid": "b703b6c9-d0c0-5204-951b-b9c6feb70da4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/b703b6c9-d0c0-5204-951b-b9c6feb70da4",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C43": {
+      "uuid": "caeeba73-4e07-51a7-b1d2-9f60e62b483b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/caeeba73-4e07-51a7-b1d2-9f60e62b483b",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C44": {
+      "uuid": "9ec48487-010a-504b-a328-a5debc4e9f36",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/9ec48487-010a-504b-a328-a5debc4e9f36",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C45": {
+      "uuid": "91d91f8c-0d33-59f9-9a88-762b76578ee4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/91d91f8c-0d33-59f9-9a88-762b76578ee4",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C46": {
+      "uuid": "c3acbb7b-5158-5597-ac9b-68928b489eae",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/c3acbb7b-5158-5597-ac9b-68928b489eae",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C47": {
+      "uuid": "cd8bb1a8-9aa8-5061-8f5e-c2bf2f99d827",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/cd8bb1a8-9aa8-5061-8f5e-c2bf2f99d827",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C48": {
+      "uuid": "95c5f048-82ab-56e1-b04e-64a4e4e5730d",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/95c5f048-82ab-56e1-b04e-64a4e4e5730d",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP22": {
+      "uuid": "a58bde25-3a13-52d3-8734-fb14dfac82c4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/a58bde25-3a13-52d3-8734-fb14dfac82c4",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_4"
+      }
+    },
+    "TP23": {
+      "uuid": "b0aa3960-68bd-569b-b751-9c7cb48fafd5",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/b0aa3960-68bd-569b-b751-9c7cb48fafd5",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP24": {
+      "uuid": "a713fd16-c69a-5891-a0cd-df21f8f5ac93",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/a713fd16-c69a-5891-a0cd-df21f8f5ac93",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_4"
+      }
+    },
+    "TP25": {
+      "uuid": "15272fc6-2641-565c-8c87-862465e269ef",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/15272fc6-2641-565c-8c87-862465e269ef",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP26": {
+      "uuid": "14d37a88-521c-5ae4-8b1c-bc6a2ca6f788",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/14d37a88-521c-5ae4-8b1c-bc6a2ca6f788",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP27": {
+      "uuid": "1d9454c7-4f3a-5674-8d92-6b47ea7c0f50",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/1d9454c7-4f3a-5674-8d92-6b47ea7c0f50",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP28": {
+      "uuid": "a8925947-6bb1-53b0-addf-ad53eb73e865",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/abcf8170-0855-5cca-a0d4-65e644fba3c1/a8925947-6bb1-53b0-addf-ad53eb73e865",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "QH5": {
+      "uuid": "af78833a-4e58-5100-979c-4ba84adf934e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/af78833a-4e58-5100-979c-4ba84adf934e",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_5",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH5": {
+      "uuid": "cefa608e-3a6e-5a3c-be84-84e1af2a99a3",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/cefa608e-3a6e-5a3c-be84-84e1af2a99a3",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_5",
+        "2": "AC"
+      }
+    },
+    "RG9": {
+      "uuid": "c2a56fc7-f5f2-5ff5-b19e-4c4886a15e7a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/c2a56fc7-f5f2-5ff5-b19e-4c4886a15e7a",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_5",
+        "2": "GH_5"
+      }
+    },
+    "RGS9": {
+      "uuid": "0653c5db-b92b-53d0-88a6-b8222f6eac4d",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/0653c5db-b92b-53d0-88a6-b8222f6eac4d",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_5",
+        "2": "AC"
+      }
+    },
+    "QL5": {
+      "uuid": "a843ff81-197b-5c6f-84df-a4f9f2014ac3",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/a843ff81-197b-5c6f-84df-a4f9f2014ac3",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_5",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL5": {
+      "uuid": "42e9263f-5025-589a-80aa-75a6e2ea1a25",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/42e9263f-5025-589a-80aa-75a6e2ea1a25",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_5",
+        "2": "DC-"
+      }
+    },
+    "RG10": {
+      "uuid": "d851b656-49ed-54ac-8ec3-99d5fae327b2",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/d851b656-49ed-54ac-8ec3-99d5fae327b2",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_5",
+        "2": "GL_5"
+      }
+    },
+    "RGS10": {
+      "uuid": "c37f30dc-3b1f-5249-a604-788677fb8f8c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/c37f30dc-3b1f-5249-a604-788677fb8f8c",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_5",
+        "2": "DC-"
+      }
+    },
+    "JAC5": {
+      "uuid": "4ab85f75-1844-53bb-8d92-5b5d2c92a24c",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/4ab85f75-1844-53bb-8d92-5b5d2c92a24c",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC9": {
+      "uuid": "40c60b10-b059-5465-8d7f-bb095d1381f0",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/40c60b10-b059-5465-8d7f-bb095d1381f0",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC10": {
+      "uuid": "4d31f2a3-6982-5ea8-ba5a-8d431e306cff",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/4d31f2a3-6982-5ea8-ba5a-8d431e306cff",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C49": {
+      "uuid": "3752fbde-aac6-5409-9c65-57b50ea9ab00",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/3752fbde-aac6-5409-9c65-57b50ea9ab00",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C50": {
+      "uuid": "9f316d64-214b-56a0-b8a5-d4cb02a0aa85",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/9f316d64-214b-56a0-b8a5-d4cb02a0aa85",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C51": {
+      "uuid": "b48298de-361a-5eed-89c6-bce4c625432e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/b48298de-361a-5eed-89c6-bce4c625432e",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C52": {
+      "uuid": "14279258-689f-563d-9870-82b123aa78ca",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/14279258-689f-563d-9870-82b123aa78ca",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C53": {
+      "uuid": "55a745ab-101d-5444-ad55-32726a92b887",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/55a745ab-101d-5444-ad55-32726a92b887",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C54": {
+      "uuid": "4ca6bb1f-e542-5b0a-9d08-2067d3d95152",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/4ca6bb1f-e542-5b0a-9d08-2067d3d95152",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C55": {
+      "uuid": "0e1102fc-b13a-53f1-9015-ea447bcf3362",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/0e1102fc-b13a-53f1-9015-ea447bcf3362",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C56": {
+      "uuid": "b6239966-03f1-5210-8a3c-be01a82471e1",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/b6239966-03f1-5210-8a3c-be01a82471e1",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C57": {
+      "uuid": "b48c1b37-fa71-5181-9e62-00945a8009ef",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/b48c1b37-fa71-5181-9e62-00945a8009ef",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C58": {
+      "uuid": "c4f56878-cb79-5d6a-a69c-f772bf4cc216",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/c4f56878-cb79-5d6a-a69c-f772bf4cc216",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C59": {
+      "uuid": "7fc7a2aa-c4a6-5459-8ca9-085035244427",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/7fc7a2aa-c4a6-5459-8ca9-085035244427",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C60": {
+      "uuid": "fd210f3a-cd5f-5c0d-946e-0a256b2de0ac",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/fd210f3a-cd5f-5c0d-946e-0a256b2de0ac",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP29": {
+      "uuid": "620b518d-c796-5e32-ab7e-babcdd6ad8e6",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/620b518d-c796-5e32-ab7e-babcdd6ad8e6",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_5"
+      }
+    },
+    "TP30": {
+      "uuid": "605a010e-b302-596c-a857-c0b1a13f3168",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/605a010e-b302-596c-a857-c0b1a13f3168",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP31": {
+      "uuid": "74460671-845a-5c5a-a157-8d8d1e858a3e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/74460671-845a-5c5a-a157-8d8d1e858a3e",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_5"
+      }
+    },
+    "TP32": {
+      "uuid": "e9e46347-7948-5ca0-a33d-93dd5f2bc168",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/e9e46347-7948-5ca0-a33d-93dd5f2bc168",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP33": {
+      "uuid": "17c32060-ec64-5dff-a891-97af8c4af277",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/17c32060-ec64-5dff-a891-97af8c4af277",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP34": {
+      "uuid": "d2ddb2e3-c6ea-57f4-8a4b-0249d87439c6",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/d2ddb2e3-c6ea-57f4-8a4b-0249d87439c6",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP35": {
+      "uuid": "eddb1ddb-b091-542a-bfa9-9a5fac1cdc13",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/e56fc56b-5c1c-5a1f-a28b-5b536f60b75d/eddb1ddb-b091-542a-bfa9-9a5fac1cdc13",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "QH6": {
+      "uuid": "070ca57e-0b56-591c-8f1c-eb8934504e45",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/070ca57e-0b56-591c-8f1c-eb8934504e45",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GH_6",
+        "2": "AC",
+        "3": "DC+",
+        "4": "AC",
+        "5": "DC+",
+        "6": "AC",
+        "7": "DC+"
+      }
+    },
+    "JGH6": {
+      "uuid": "b1a3973a-f56b-57dd-840e-d8c0824ce183",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/b1a3973a-f56b-57dd-840e-d8c0824ce183",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_6",
+        "2": "AC"
+      }
+    },
+    "RG11": {
+      "uuid": "76e14da3-fdc0-58fa-a0c2-81fceff9d1d4",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/76e14da3-fdc0-58fa-a0c2-81fceff9d1d4",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GH_DRV_6",
+        "2": "GH_6"
+      }
+    },
+    "RGS11": {
+      "uuid": "2f76baee-baf2-580f-ac46-51baae0a2a63",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/2f76baee-baf2-580f-ac46-51baae0a2a63",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GH_6",
+        "2": "AC"
+      }
+    },
+    "QL6": {
+      "uuid": "d6b3f35c-5d9c-5d26-b4a9-2f4e176bcc75",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/d6b3f35c-5d9c-5d26-b4a9-2f4e176bcc75",
+      "footprint": "epc2361-cell:EPC2361",
+      "value": "EPC2361",
+      "dnp": false,
+      "pins": {
+        "1": "GL_6",
+        "2": "DC-",
+        "3": "AC",
+        "4": "DC-",
+        "5": "AC",
+        "6": "DC-",
+        "7": "AC"
+      }
+    },
+    "JGL6": {
+      "uuid": "87d2c415-5333-5b63-84be-4aecc3d6857f",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/87d2c415-5333-5b63-84be-4aecc3d6857f",
+      "footprint": "epc2361-cell:Gate_Source_Pads",
+      "value": "G / KELVIN S",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_6",
+        "2": "DC-"
+      }
+    },
+    "RG12": {
+      "uuid": "37ba0113-b1f5-53be-8036-1c3460b7a131",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/37ba0113-b1f5-53be-8036-1c3460b7a131",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "0R / TUNE",
+      "dnp": false,
+      "pins": {
+        "1": "GL_DRV_6",
+        "2": "GL_6"
+      }
+    },
+    "RGS12": {
+      "uuid": "383afd88-ade6-52d1-8f04-dc05cdb13138",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/383afd88-ade6-52d1-8f04-dc05cdb13138",
+      "footprint": "Resistor_SMD:R_0402_1005Metric",
+      "value": "10k / DNP",
+      "dnp": true,
+      "pins": {
+        "1": "GL_6",
+        "2": "DC-"
+      }
+    },
+    "JAC6": {
+      "uuid": "be3b3632-9de3-5bfb-b8ee-7e3353712a78",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/be3b3632-9de3-5bfb-b8ee-7e3353712a78",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "AC PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "JDC11": {
+      "uuid": "3a6fd674-65a5-56e2-bbc7-27e576bcef2a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/3a6fd674-65a5-56e2-bbc7-27e576bcef2a",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC+ PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "JDC12": {
+      "uuid": "8fe3965e-b247-596d-afbe-dbd2157f81bc",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/8fe3965e-b247-596d-afbe-dbd2157f81bc",
+      "footprint": "epc2361-cell:Power_Port_Pad",
+      "value": "DC- PORT PAD",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "C61": {
+      "uuid": "cd562d10-2544-5fbc-a3c9-ba03598887c2",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/cd562d10-2544-5fbc-a3c9-ba03598887c2",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C62": {
+      "uuid": "26aaeaba-ec61-5275-aba0-89d2e734b6fe",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/26aaeaba-ec61-5275-aba0-89d2e734b6fe",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C63": {
+      "uuid": "b69ba27c-5da4-573d-8a85-47ae87d890a7",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/b69ba27c-5da4-573d-8a85-47ae87d890a7",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C64": {
+      "uuid": "761ed212-13c7-59bd-9ea0-2241cc83898a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/761ed212-13c7-59bd-9ea0-2241cc83898a",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C65": {
+      "uuid": "a46c311a-802b-5536-99c9-bb6369fb17a3",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/a46c311a-802b-5536-99c9-bb6369fb17a3",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C66": {
+      "uuid": "e47b2ca7-125f-5ee3-825c-640180a99ae7",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/e47b2ca7-125f-5ee3-825c-640180a99ae7",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": false,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C67": {
+      "uuid": "08eb4c2a-5726-52d4-9db6-ff32397bfb2a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/08eb4c2a-5726-52d4-9db6-ff32397bfb2a",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C68": {
+      "uuid": "c06e23b5-20f8-528e-ae34-c2c1723db79a",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/c06e23b5-20f8-528e-ae34-c2c1723db79a",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C69": {
+      "uuid": "37ea6b68-c064-59c1-a05b-1aa732e9001b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/37ea6b68-c064-59c1-a05b-1aa732e9001b",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C70": {
+      "uuid": "a4f39bc1-0bcc-5c29-87ed-2de0ca4d4c10",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/a4f39bc1-0bcc-5c29-87ed-2de0ca4d4c10",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C71": {
+      "uuid": "6943b87a-e951-5bc5-803d-f31250fef8c8",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/6943b87a-e951-5bc5-803d-f31250fef8c8",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "C72": {
+      "uuid": "47358897-32ea-580a-b8d2-07dc1864efe5",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/47358897-32ea-580a-b8d2-07dc1864efe5",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "value": "1u / 100V",
+      "dnp": true,
+      "pins": {
+        "1": "DC+",
+        "2": "DC-"
+      }
+    },
+    "TP36": {
+      "uuid": "bb3bb628-af41-59da-a47f-9db552c96bf3",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/bb3bb628-af41-59da-a47f-9db552c96bf3",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GH",
+      "dnp": false,
+      "pins": {
+        "1": "GH_6"
+      }
+    },
+    "TP37": {
+      "uuid": "38e0fcfb-cdde-56c4-a976-9970255d506e",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/38e0fcfb-cdde-56c4-a976-9970255d506e",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    },
+    "TP38": {
+      "uuid": "3ae276a8-5e72-5e03-a3ff-1bac5c1fc467",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/3ae276a8-5e72-5e03-a3ff-1bac5c1fc467",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "GL",
+      "dnp": false,
+      "pins": {
+        "1": "GL_6"
+      }
+    },
+    "TP39": {
+      "uuid": "92692f32-bd41-5dec-b7e2-bd4a9e25d6a8",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/92692f32-bd41-5dec-b7e2-bd4a9e25d6a8",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP40": {
+      "uuid": "d2cdf022-b9d2-54b9-9de1-0db5fd502387",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/d2cdf022-b9d2-54b9-9de1-0db5fd502387",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC+",
+      "dnp": false,
+      "pins": {
+        "1": "DC+"
+      }
+    },
+    "TP41": {
+      "uuid": "e9819852-5062-5e9f-8fa3-fafab2135e54",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/e9819852-5062-5e9f-8fa3-fafab2135e54",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "DC-",
+      "dnp": false,
+      "pins": {
+        "1": "DC-"
+      }
+    },
+    "TP42": {
+      "uuid": "166fc15e-89ae-5561-bb12-2d0a2e0e742b",
+      "path": "/a5ce9368-0b9f-5242-b3c9-b29b31a33aff/77aa27a4-5f50-57ab-b328-6235c8cb440c/166fc15e-89ae-5561-bb12-2d0a2e0e742b",
+      "footprint": "epc2361-cell:Probe_Pad",
+      "value": "AC",
+      "dnp": false,
+      "pins": {
+        "1": "AC"
+      }
+    }
+  }
+}

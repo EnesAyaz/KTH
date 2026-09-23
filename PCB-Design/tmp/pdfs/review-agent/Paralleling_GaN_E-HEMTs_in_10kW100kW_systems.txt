@@ -1,0 +1,737 @@
+
+=== PAGE 1 ===
+ Paralleling GaN E-HEMTs in 10kW-100kW Systems  
+Juncheng(Lucas) Lu, Di Chen 
+GaN Systems Inc 
+Ottawa, Canada 
+llu@gansystems.com 
+ 
+Abstract— Industry is adopting GaN HEMT in 10kW-100kW 
+and higher power systems due to the ultra-fast switching 
+capabilities of GaN. Paralleling GaN HEMT transistors is an 
+appealing idea to further increase the power capability and reduce 
+conduction losses of systems. The characteristics of E-mode GaN 
+HEMT, such as positive temperature coefficient of R
+DS(ON) and a 
+temperature independent threshold voltage, are very suitable for 
+paralleling devices.  However, the main challenge for parallel 
+operation is thought to be the diverse parasitics of the power stage 
+and gate driver circuits, which are very sensitive to the high di/dt 
+and dv/dt during the switching process.  
+In this paper, an analytic mode l for the switching process of 
+paralleled GaN HEMT transistors is built to analyze the effects of 
+parasitics and device characteristics on paralleling, and the design 
+consideration for gate driver and la yout is also presented. A half 
+bridge power stage consisting of four high-side and four low-side 
+60 A / 650 V GaN HEMTs in parallel is designed to undertake 240 
+A / 400 V hard switching on and off. Double pulse testing results 
+are presented to confirm GaN paralleling capability.   
+Keywords—GaN HEMT; paralleling; parasitics; gate driver 
+design
+； PCB Layout   
+I. INTRODUCTION  
+GaN E-HEMTs (high electron mobility transistors) are being 
+designed into many power electronics applications, including 
+travel adapters, wireless chargers, smart home appliances, high 
+efficiency AC-DC datacenter pow er supplies, industrial motor 
+drives, distributed energy generation and storage systems, 
+aerospace, automotive traction i nverters, on-board EV battery 
+chargers, DC-DC converters and etc.
+  
+This is exemplified by the lowest figure of merit (R DS(on) x 
+QG) of all power transistor technologies available today as 
+shown in Figure 1. The ultra-fast switching capabilities of GaN, 
+combined with low on-resist ance and superior thermal 
+performance, enables higher e fficiency and power density in 
+these applications.  
+Industry is also applying GaN transistors in 10kW-100kW 
+and higher power systems. Currently the commercially available 
+GaN HEMT with highest current capability is GS66516T (60 A 
+/ 650 V) from GaN Systems Inc. Paralleling GaN HEMTs is a 
+must to further increase the power capability and efficiency of 
+high power systems. 
+The characteristics of E-mode GaN HEMT are very suitable 
+for paralleling. Using GaN Systems’ GS66516T as an example, 
+the I-V curve at different temperatures is shown in Figure.2, 
+where obvious positive dependency on temperature is shown. In 
+parallel applications, the junction temperature of HEMTs of 
+lower R
+DS(ON) devices will increase to balance the current 
+sharing during on-state. 
+ 
+Figure. 1. Figure of merit comparison between different technologies 
+ 
+ 
+Figure. 2. V-I Curve of GS66516T  vs. Temperature 
+Furthermore, the threshold voltage (Vth) of the GS66516T is 
+nearly constant as a function of junction temperature as shown 
+in Figure 3. The device with lower V th will turn on earlier and 
+turn off earlier which will result in a higher turn-on switching 
+loss and a lower turn-off switch ing loss. The dynamic current 
+sharing and switching loss distribution will not be effected by 
+unbalanced temperature distribution of paralleled transistors.  
+ The main challenge for parallel operation is thought to be 
+the diverse parasitics of the power stage and gate driver circuits, 
+which are very sensitive to the high di/dt and dv/dt during the 
+switching process. Although the effect of parasitics on single 
+device switching has been thoroughly discussed in the previous 
+978-1-5090-5366-7/17/$31.00 ©2017 IEEE 3049
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+work [1][2][3][4], there is very little previous work focusing on 
+the dynamic performance of paralleled GaN HEMTs [5][6], and 
+paralleling of more than 2 GaN HEMTs is thought to be 
+extremely difficult to realize [7]. 
+ 
+Figure. 3. Vth of GS66516T vs. Temperature 
+Zero Voltage Switching (ZVS) technology could relieve the 
+high di/dt stress during the hard turn-on switching process, 
+facilitating GaN HEMT paralleling. A 4x GS66516T in parallel 
+based 7.2 kW On-board Char ger has been successfully 
+developed [8] with 97% efficiency, and 3.3 kW/L Power 
+density, in which a 400 V / 92 A hard turn-off switching was 
+reliably demonstrated. 
+The aim of this paper is to remove bottlenecks of applying 
+GaN HEMT to ~100 kW power electronics systems, which are 
+not only limited to ZVS typologies but also hard switching 
+applications. In Section II, an analytic model for switching 
+process of paralleled GaN HEMTs is built, and the design rules 
+for gate driver and PCB layout are concluded based on the 
+quantitative analysis of parasitics. In Section III, the design of 
+240 A / 650 V half bridge power stage with 4x GS66516T in 
+parallel is detailed with the parasitics fully extracted. In Section 
+IV, the experimental result of 240 A / 400 V hard switching is 
+presented to verify the design.  
+II. E
+FFECTS AND DESIGN RULES OF PARASITICS FOR 
+PARALLELED GAN HEMTS 
+Compared with the analytical loss model on Si 
+MOSFET[12], the unique character istics of GaN HEMT, e.g. 
+absence of body diode, have been taken into consideration. 
+Special attention is paid on the additional parasitics introduced 
+by the paralleled transistors.  
+The equivalent circuit of a half bridge power stage consisting 
+of two high-side and two low-side GaN HEMTs in parallel is 
+shown as Figure 4, in which all the parasitic inductance in the 
+gate drive loop and power commutation loop is included.    
+Instead of trying to predict the switching waveform of 
+paralleled transistors, the aim of this section is to understand the 
+effects of parasitics and device characteristics on paralleled 
+transistors paralleling during the switching process via the built 
+analytical model in this section. Numerical methods, e.g. SPICE 
+simulation, will be a more efficient way to precisely model the 
+non-linear trans-conductance and parasitic capacitance of power 
+switches.  
+ 
+Figure.4. Equivalent Ciruit of Half Bridge with 2x GaN HEMTs in Parallel  
+A. Switching-on Process 
+The state of GaN HEMT as well as the waveform of Vds, Ids 
+during switching on is shown in Figure 5. The switching on 
+process of paralleled GaN HEMTs is divided into four periods 
+to ease the analysis, P1-delay pe riod, P2-di/dt period, P3-dv/dt 
+period, P4-remaining switching period.  
+ 
+Figure.5.a Vds, Ids Waveform During Switching on        
+ 
+Figure. 5.b State of GaN HEMT During Switching on 
+1) P1:Delay Period 
+3050
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+When controller signal is added to the low side gate driver, 
+the higher switch of totem pole circuit in gate driver chip is 
+turned on. The gate driver ca pacitor begins to charge the ூௌௌ 
+(ீ஽) of paralleled HEMT. When V GS<Vth (threshold 
+voltage of GaN HEMT), the 2-Dimensional Electron Gas 
+(2DEG) is not conducting as shown in Figure 5.  
+Gate current IG charges Ciss exponentially through the gate 
+resistors and parasitics. This period ends when ீௌ of either of 
+the paralleled HEMTs reaches the threshold voltage. 
+ 
+Figure. 6.  Equivalent Circuit during Delay Period of Switching on Process      
+Only taking the low side gate driver circuit into 
+consideration, the equivalent circuit of this period could be 
+simplified as shown in Figure 6. To ease the derivation, we only 
+list the equations for the left one(Q1) of two paralleled 
+transistors. 
+ The circuit equations of Q1 are expressed by (1)~(2).  
+ܸ
+ଵ∙
+ௗ௜ಸభ
+ௗ௧ଵ∙
+ௗ௜ಸభ
+ௗ௧ீௌభ	  (1) 
+ூௌௌଵ∙
+ௗ௩ಸೄభ
+ௗ௧  (2) 
+Where, ௌଵ,  ௌଵ.  
+So, VGS could be derived as (3). 
+ௗ௥∙( 1+
+ௌమ
+ௌభିௌమ
+ௌభ∙௧+
+ௌభ
+ௌమିௌభ
+ௌమ∙௧) （3） 
+Where, ଵ,ଶ=
+±ඨோభమିସಽభ
+಴಺ೄೄభ
+ିோభ
+ଶ∙௅భ
+.  
+According to equation (3), unbalanced gate driver loop (ଵ) 
+will result in different slew rate of gate driver voltage, which 
+will eventually cause unsynchronized switching of paralleled 
+transistors. Generally speaking, the delay time could be ~nS 
+level if there is a 10 nH gate drive loop inductance difference for 
+two paralleled HEMTs, which is not critical. 
+So, for PCB design, we always want to make the gate driver 
+loops as symmetric and small as possible.  
+In this period, the extra-small parasitic capacitance of GaN 
+HEMT will result in a small delay time and gate driver loss 
+compared with Si transistors.  
+2) P2:di/dt Period 
+After either of the paralleled HEMTs reaches the threshold 
+voltage, the impedance of 2DEG begins to decrease. As shown 
+in Figure 5, in this period the HEMT operates in the saturation 
+region. The 2DEG current is controlled by V
+GS as (6).  
+௧௛)  (4)   
+ 
+Figure.7.  Equivalent Circuit during di/dt Period of Switching on Process 
+As ீௌ increase,  
+ௗ௜ವ
+ௗ௧ will start to affect ீௌ via mutual 
+inductance and common source inductance between gate driver 
+loop and power commutation loop as described in many 
+previous works.  To minimize this effect, the Kelvin terminal is 
+usually employed in high-frequency applications to bypass the 
+common source inductance. 
+ However, though the paralleled transistors will share the 
+same gate driver chip and employ Kelvin connections in the 
+design,  
+ௗ௜ವ
+ௗ௧ , as shown in Figure 6, could still potentially be 
+problematic due to the existence of the quasi-common-source 
+inductance ( LQS1  and LQS2 as shown in Figure 7). The 
+imbalanced quasi-common sour ce inductance or di/dt will 
+eventually cause a resultant feedback voltage across theீௌ as 
+described in equation (5). 
+ொௌଵ∙
+ௗ௜ವభ
+ௗ௧ொௌଶ∙
+ௗ௜ವమ
+ௗ௧)∙
+௓ೞమ
+௓ೞభା௓ೞమ
+ (5) 
+So, based on KCL and KVL, the circuit equations are 
+expressed as (6) ~ (8).  
+ீ஽భ∙
+ௗ௩ಸೄభ
+ௗ௧ீௌభ∙
+ௗ௩ಸೄభ
+ௗ௧ =
+ଵ
+ோభ
+ଵ∙
+ௗ௜ವభ
+ௗ௧ଵ∙
+ௗ௜ಸభ
+ௗ௧)              (6) 
+௉∙ቀ
+ௗ௜ವభ
+ௗ௧+
+ௗ௜ವమ
+ௗ௧ଵ∙
+ௗ௜ಸభ
+ௗ௧−( LD1 +
+LQS1)∙
+ௗ௜ವభ
+ௗ௧       ( 7 )  
+ூௌௌభ∙
+ௗ௩ಸೄభ
+ௗ௧ோௌௌభ∙
+ௗ௩ಸವభ
+ௗ௧    (8) 
+This period ends when ஽ଵor ஽ଶreaches ௟௢௔ௗ. The vீௌభis 
+derived as (9) assuming 
+ௗ௜ವభ
+ௗ௧=
+ௗ௜ವమ
+ௗ௧ . 
+௧௛ଵ)∙
+௦మ∙௘ೞభ೟ି௦భ∙௘ೞమ೟
+௦భି௦మ
+)  (9) 
+Where ଵ,ଶ=
+±ඥ௕మିସ௔ି௕
+ଶ௔ , 1+
+ீ) , b=1+
+ூௌௌ.    	
+The ஽ௌଵ and ஽ௌଵ could be derived according to (4), (7), (9). 
+3051
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+According to equation (6)(9), the quasi-common source 
+inductance ( LQS1,	LQS2 ) has the same effect as Mଵ(mutual 
+inductance and common source inductance between gate driver 
+loop and power commutation loop). On one hand, the 
+unbalanced quasi-common will help balance dynamic current 
+distribution by lowering the transistor ீௌ of higher transition 
+speed. On the other hand, the feedback voltage might potentially 
+cause overshoot or undamped ringing on ீௌ.  
+So, for layout design, it is suggested to minimize and evenly 
+distribute the quasi-common source inductance, which is so 
+critical that an unsynchronized gate driver circuit is proposed to 
+solve unbalanced quasi-common source inductance issue [5]. In 
+this paper, a symmetric power loop and gate driver loop layout 
+is proposed to achieve reliable switching.   
+3) P3:dv/dt Period 
+Because of the absence of body diode for high side HEMT, 
+once ݅
+஽ reaches ௟௢௔ௗ, the voltage across drain and source of low 
+side transistor begin to build, and ைௌௌof high side and low side 
+begins to be discharged and charged through 2DEG of lower 
+HEMTs exponentially as Figure 8.  
+ 
+Figure. 8.  Equivalent Circuit during dv/dt Period of Switching on Process      
+The impedance of 2DEG is controlled by the ீௌ as (10).  
+Assume 
+ௗ௩ಸೄభ
+ௗ௧ =0  during the miller plateau, so ீௌభ is a 
+constant value(ீௌభ_௠௜௟௟௘௥) in this period.  
+ ଶ஽ாீ= 
+௩ವೄ
+୥∙(௩ಸೄି௏೟೓)   ( 1 0 )  
+This period ends when ௗ௦ reaches zero. The circuit 
+equation could be expressed as (11) ~ (12).  
+ீ஽భ∙
+ௗ௩ವೄభ
+ௗ௧ =
+ଵ
+ோభ
+ଵ∙
+ௗ௜ವభ
+ௗ௧ଵ∙
+ீ஽భ∙
+ௗమ௩ವೄభ
+ௗ௧మ )       ( 1 1 )  
+ைௌௌ௧௢௧௔௟∙
+ௗ௩ವೄ
+ௗ೟
+ைௌௌ௧௢௧௔௟∙
+ௗమ௩ವೄ
+ௗ೟మ஻௎ௌ     ( 1 2 )  
+Where,ொௌమ) , 
+௢௦௦௧௢௧௔௟ is the total output capacitance of both high side and 
+lower side transistors, ଶ஽ாீ is the 2DEG resistance of low side 
+transistors. 
+The ஽ௌభand ீௌభ of low side HEMT could be derived as (13) 
+and (14).  
+஻௎ௌ∙( 1−
+ௌమ
+ௌమିௌభ
+ௌభ∙௧+
+ௌభ
+ௌమିௌభ
+ௌమ∙௧) （13） 
+Where, ଵ,ଶ=
+±ඨோమವಶಸ
+మ ିସ ಽಽೀೀು
+಴ೀೄೄ೟೚೟ೌ೗
+ିோమವಶಸ
+ଶ∙௅ಽೀೀು
+.  
+ீௌభ_௠௜௟௟௘௥=
+ଵ
+ோభ
+ீ஽భ∙
+ௗ௩ವೄభ
+ௗ௧ଵ∙
+ீ஽భ∙
+ௗమ௩ವೄభ
+ௗ௧మீ஽భ∙
+ௗమ௩ವೄభ
+ௗ௧మ )    
+ (14) 
+Where, ொௌଵ∙
+ௗ௜ವభ
+ௗ௧ொௌଶ∙
+ௗ௜ವమ
+ௗ௧)∙
+௓ೞమ
+௓ೞభା௓ೞమ
+, ଵ=
+ௌଵ,  ௌଵ. 
+According to (10) and (13), the miller plateau voltage 
+(ீௌభ_೘೔೗೗೐ೝ) determines ଶ஽ாீ so as to control the slew rate of 
+the exponential drain and source voltage. According to (14) the 
+larger the gate resistance, the lower ீௌభ_೘೔೗೗೐ೝ will drop, which 
+will result in a higher overlapping loss. Increasing the gate driver 
+voltage also could be a potentially solution to reduce the 
+switching loss as long as ீௌ does not exceed the maximum ீௌ 
+of transistors.  
+Current spike on the low side transistor happens in this 
+period, and the total charge is ஻௎ௌ. Further analysis 
+will be detailed in next section.  
+4) P4: Remaining Period 
+In this period, both  ஽ௌ and ஽ have finished transition, 
+there might be some undamped ringing remaining in the circuit. 
+The gate driver capacitor will continue to charge the ܥ
+ூௌௌ to the 
+rated driving voltage. Very similar to the delay period, ீௌభ is 
+derived as (15).  
+ீௌభ೘೔೗೗೐ೝቁ∙ቀ
+ௌమ
+ௌభିௌమ
+ௌభ∙௧+
+ௌభ
+ௌమିௌభ
+ௌమ∙௧ቁ+
+ௗ௥       （ 15） 
+Where, ଵ,ଶ=
+±ඨோభమିସಽభ
+಴಺ೄೄభ
+ିோభ
+ଶ∙௅భ
+.  
+So, when Rଵ<2∙ ට
+௅భ
+஼಺ೄೄభ
+, there will be voltage over shoot 
+on ீௌ, which might cause device failure.   
+Compared with Si MOSFET, the gate of E-mode GaN 
+HEMT is more fragile as most E-HEMT could undertake ~5V 
+maximum voltage for ݒ
+ீௌ.  
+Generation II E-HEMT from GaN Systems have the most 
+robust gate which could undertake 10V maximum ீௌ. In order 
+to prevent potential gate failure, -3 V/ +6 V ீௌ is suggested for 
+GaN Systems’ generation II E-HEMTs. Most of existing Si 
+MOSFET/IGBT gate driver chip could be applied.  
+B. Switching-off Process 
+The state of GaN HEMT as well as the waveform of ஽ௌ, ஽ 
+during switching off is shown in Figure 9. The switching off 
+process could be also divided into three periods to ease the 
+analysis, P1-delay period, P2-dv/dt period, P3-di/dt period. 
+3052
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+ 
+ 
+Figure.9.a Vds, Ids Waveform During Switching on 
+ 
+Figure. 9.b State of GaN HEMT During Switching off 
+1) P1:Delay Period 
+Very similar to the delay period of Switching-on process, 
+after driver output starts to actively pull down, the ூௌௌௌ begins 
+to be discharged exponentially through the lower switch of 
+totem pole circuit.  
+The 2DEG on-resistance is in creasing as the decrease of 
+gate-source voltage as shown in Figure 9. The drain-source 
+voltage and drain current does not change in this period. Also, 
+the paralleled transistors will not affect each other in this periods.  
+ݒ
+ீௌభ is expressed as (16). 
+௡௘௚)∙(
+ௌమ
+ௌమିௌభ
+ௌభ∙௧+
+ିௌభ
+ௌమିௌభ
+ௌమ∙௧)
+ （16） 
+Where, ଵ,ଶ=
+±ඨோభమିସಽభ
+಴಺ೄೄభ
+ିோభ
+ଶ∙௅భ
+, ௡௘௚ is the absolute value of the 
+switching off voltage of gate driver circuit.  
+This period ends when ௧௛+
+ூ೗೚ೌ೏
+௚  
+2) P2:dv/dt Period 
+In this period, as the increase of 2DEG impedance, part of 
+the load current (௟௢௔ௗ) begins to charge and discharge high side 
+and low side output capacitance (ைௌௌ௧௢௧௔௟).  
+The ஽ௌభand ீௌభ (a miller voltage plateauீௌభ೘೔೗೗೐ೝ ,is 
+usually observed) of low side HEMT could be derived, as (17) 
+and (18).  
+ݒ
+݁
+ష೟
+ೃమವಶಸ∙಴ೀೄೄ೟೚೟ೌ೗) （17） 
+ீௌభ_೘೔೗೗೐ೝ=
+ଵ
+ோభ
+ீ஽భ∙
+ௗ௩ವೄభ
+ௗ௧ଵ∙
+ீ஽భ∙
+ௗమ௩ವೄభ
+ௗ௧మீ஽భ∙
+ௗమ௩ವೄభ
+ௗ௧మ )    ( 1 8 )  
+Where, ொௌଵ∙
+ௗ௜ವభ
+ௗ௧ொௌଶ∙
+ௗ௜ವమ
+ௗ௧)∙
+௓ೞమ
+௓ೞభା௓ೞమ
+, ଵ=
+ௌଵ,  ௌଵ. 
+According to (17) and (18), the miller plateau voltage 
+(ீௌభ_೘೔೗೗೐ೝ) determines the slew rate of the exponential drain 
+and source voltage. The larger the gate resistance, the higher 
+ீௌభ_௠௜௟௟௘௥ will go, which will result in a higher overlapping loss. 
+Increasing the negative switching off voltage also could be a 
+potential solution to reduce the switching loss. When the miller 
+plateau voltage is lower than the threshold voltage, all the load 
+current will charge the output capacitance, and the switching-off 
+loss is minimum (close to zero). 
+ This period ends, when the drain-source voltage reaches the 
+bus voltage.  
+3) P3:di/dt Period 
+After the phase voltage is higher than the bus voltage, the 
+high side transistor begins to freewheeling. The low side 2DEG 
+will be completely depleted in this period. This period ends 
+when ݅
+஽ଵor ஽ଶreaches ௟௢௔ௗ. The vீௌభ,஽భ,and஽ௌଵ is derived 
+as (19), (20) and (21) assuming 
+ௗ௜ವభ
+ௗ௧=
+ௗ௜ವమ
+ௗ௧ . 
+ீௌభ೘೔೗೗೐ೝ)∙
+௦మ∙௘ೞభ೟ି௦భ∙௘ೞమ೟
+௦భି௦మ
+)
+  (19) 
+ீௌభ೘೔೗೗೐ೝ)∙
+௦మ∙௘ೞభ೟ି௦భ∙௘ೞమ೟
+௦భି௦మ
+)−
+௧௛భ)      ( 2 0 )  
+ ௉∙ቀ
+ௗ௜ವభ
+ௗ௧+
+ௗ௜ವమ
+ௗ௧ଵ∙
+ௗ௜ಸభ
+ௗ௧−( LD1 +
+LQS1)∙
+ௗ௜ವభ
+ௗ௧     ( 2 1 )  
+Whereଵ,ଶ=
+±ඥ௕మିସ௔ି௕
+ଶ௔ , ଵ+
+ீ) , b=1+
+ூௌௌ. 
+Voltage overshoot over ஽ௌof lower side transistors will 
+happen in this period.  
+After both  ஽ௌ and ஽ௌ have finished transition, there might 
+be some undamped ringing remaining in the circuit.  
+C. Conclusion 
+The effects and design rules of various parasitics existing in 
+the gate drive loop and power loop, can be concluded as shown 
+in Figure 10.  
+3053
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+ 
+III. DESIGN CONSIDERATION OF 240 A / 650 V E-MODE 
+GAN HEMT BASED POWER STAGE 
+A. Parasitic Inducatance  
+As described in last section, the short rising and falling time 
+during commutation will result in a high di/dt, which will cause 
+a voltage across stray loop in ductance in th e power loop. 
+Because of the extremely small C୍ୗୗ of GaN HEMT, a >5 Ohm 
+gate resistors sometimes have to be applied slowing down 
+transition in order to eliminate the voltage spike on the drain and 
+source voltage during switching off, which will definitely 
+increase the switching loss. 
+Reducing commutation loop inductance to ~sub-nH level, is 
+probably the best solution to get rid of voltage spike on Vds 
+without compromising on the switching speed. Significant effort 
+in power module design has been previously aimed at reducing 
+the commutation loop inductance and reducing the drain-source 
+overshoot, [6] [10] [11]. 
+The parasitic inductance is a function of the magnetic flux 
+generated by current as (22). 
+I
+S d B
+IL =Ψ=
+ *
+                                                    (22)  
+According to the law of electromagnetic induction, with the 
+multi-layer magnetic-flux-canceling design strategy, the 
+parasitics of the trace could be greatly reduced – the direction of 
+the commutation current on two adjacent layers are opposite so 
+that the generated flux outside the loop are canceling each other.  
+Compared to Direct Bonded Copper (DBC) substrate, the 
+PCB could easily adopt the multi-layer structure and smaller 
+distance between layers to achieve a better magnetic flux 
+canceling effect.  
+A half bridge power stage consisting of four high-side and 
+four low-side GaN HEMTs in parallel rated at 240A/650V has 
+been designed as shown in Figure 11.  
+ 
+Figure. 11. Layout of 240A/650V GaN HEMTs based Half Bridge 
+On the other hand, the GaNPXTM packaging of GaN Systems 
+with no leads or bonding wires as shown in Figure 12 also 
+tremendously merits the design. Compared with traditional TO-
+247 package, the stray inductance is reduced by >80%.  
+ 
+Figure. 12. GaNpxTM packaging  
+ 
+Figure. 10. Effects and Design Rules of Parasitic Parameters 
+3054
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 7 ===
+The half bridge with four GaN HEMTs in parallel is modeled 
+in Ansys Q3D, and the power loop and gate-driver loop 
+inductance are evaluated by Finite Element Analysis,. The 
+commutation loop inductance of the proposed design is only 0.7 
+nH, 1/4 of the best E-mode GaN HEMT based power module 
+[9].  For each paralleled GaN HEMT, quasi-common source 
+inductance is <0.2 nH, and gate drive loop inductance is 4.2 nH. 
+B. Parasitic Capacitance  
+Parasitic capacitance is another design consideration as 
+depicted in Section II. During switch-on process, C
+oss as well as 
+the reverse recovery charge (as seen in Si/SiC MOSFETs) will 
+increase the current spike and switching loss. Generally 
+speaking, in hard switching application, the more transistors we 
+parallel, the higher switching loss we will have. So, there will be 
+an optimum number of paralleled HEMTs to reach the highest 
+efficiency for a certain application. 
+In Zero Voltage Switching application, during the dead time, 
+the reactive energy stored on ma gnetic components begins to 
+discharge and charge the parasitic capacitance.  
+To secure ZVS, the reactive power has to be higher than the 
+stored energy in the parasitic capacitance of GaN HEMTs and 
+PCB board and the dead time  loss of GaN HEMTs. On the other 
+hand, in order to increase the efficiency of system, the reactive 
+power needs to be controlled as close to the required energy as 
+possible, which will require a precise modelling of parasitic 
+capacitance.   
+The output capacitance of GaN HEMT (GS66516T) at 
+different voltage is measured by curve tracer. According to (23), 
+the equivalent parasitic output capacitance of single GaN HEMT 
+at 400V could be derived as 0.28 nF.  
+ܥ
+௢௦௦௘௤=
+஼௢௦௦(௏೏ೞ)∙ௗ௏೏ೞ
+రబబೇ
+బ
+௏೏ೞ
+   ( 2 3 )  
+Parasitic capacitance of PCB and magnetic components is 
+not ignorable compared with the ultra-small Coss of GaN HEMT. 
+The parasitic capacitance in a half bridge module is extracted by 
+ANSYS Q3D as Figure 13, indicating the parasitic capacitance 
+in one leg is 0.6 nF (0.4 nF to BUS+ and 0.2 nF to BUS- node). 
+And measured by Impedance Analyzer, inter-winding 
+capacitance of transformer is less than 50 pF.  
+ 
+Figure. 13. Parasitic Capacitance Extraction in Q3D 
+So, the total parasitic capacita nce of the half-bridge power 
+stage is 3.2 nF (1.73 nF to BUS+ node, 1.48 nF to BUS- node). 
+As the equivalent circuit of double pulse test circuit and 
+switching waveform shown in Figure 14, the current spike 
+measured during the hard switching on process in the lower 
+switches is contributed by the displacement charge current of the 
+parasitic capacitance between voltage jumping point and BUS+ 
+node. 
+ 
+Figure. 14. Current Spike Measurement with Double Pulse Test Platform  
+The displacement charge form  high side transistors and 
+parasitics were measured as shown in Figure 15. The measured 
+equivalent capacitance is about 2 nF. The error between 
+measurement and estimation is about 13.5%, which is 
+reasonable considering the me asurement and simulation 
+accuracy. 
+ 
+Figure. 15. Coss Charge @ Different Load Current  
+IV. EXPERIMENTAL VERIFICATION 
+A half bridge power stage consisting of four high-side and 
+four low-side GaN HEMTs in parallel rated at 240 A / 650 V has 
+been prototyped as shown in  Figure 16 and has been 
+experimentally verified by double pulse test.  
+ 
+Figure. 16. Prototype of 240A/650V GaN HEMTs based Half Bridge 
+As shown in Figure 17, reliable hard switching on and off 
+are realized at the rated power, 240 A/400 V with clean 
+3055
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 8 ===
+transition waveforms, while the spike on Vds during switching 
+off is only 52 V even with close to 60 V/ns turn-off speed, which 
+shows the benefit of low power loop inductance. 
+V. CONCLUSION 
+ An analytic model of paralleled GaN HEMTs is built to 
+understand the effects of parasitics. And the design rules for gate 
+driver circuit and layout that effects the parallel operation are 
+detailed. 
+A half bridge power stage consisting of four high-side and 
+four low-side GaN HEMTs in parallel, rated at 240 A/400 V, has 
+been prototyped and experimentally verified by double pulse 
+test.  
+The paralleling techniques in this paper can be scaled up to 
+100 kW with proper packaging considerations including thermal 
+management and module assembly. 
+R
+EFERENCES 
+[1] Huang, X., Li, Q., Liu, Z., & Lee, F. C.. Analytical loss model of high 
+voltage GaN HEMT in cascode configuration. (2014).IEEE Transactions 
+on Power Electronics, 29(5), 2208–2219. 
+[2] EPC, Lidow, A., & Strydom, J. (2012). eGaN FET Drivers and Layout 
+Considerations, 1–7. 
+[3] Transphorm, Wang, Z., & Honea, J. (n.d.). Investigation of Driver 
+Circuits for GaN HEMTs in Leaded Packages, (LV), 81–87.  
+[4] Liu, Z., Huang, X., Lee, F. C., & Li, Q. (2014). Package parasitic 
+inductance extraction and simulatio n model development for the high-
+voltage cascode GaN HEMT. IEEE Tr ansactions on Power Electronics, 
+29(4), 1977–1985.  
+[5] Lu..J., Bai.H.,(2016).Design Consideration of Gate Driver Circuits and 
+PCB Parasitic Parameters of Paralleled E-Mode GaN HEMTs in Zero-
+Voltage-Switching Applications”, APEC, 529 - 535  
+[6] Lu, J., Bai, H. K., Averitt, S., Chen , D., & Styles, J. (2015). An E-mode 
+GaN HEMTs based three-level bidir ectional DC/DC converter used in 
+Robert Bosch DC-grid system. WiPDA 2015 - 3rd IEEE Workshop on 
+Wide Bandgap Power Devices and Applications, 334–340. 
+http://doi.org/10.1109/WiPDA.2015.7369254 
+[7] Wang, Z., Wu, Y., Honea, J., & Zhou, L. (2015). Paralleling GaN HEMTs 
+for Diode-free Bridge Power Converters, (c), 752–758. 
+[8] Lu, J., Tian, Q., & Bai, H. K. (2015). An Indirect Matrix Converter based 
+97 % -efficiency On-board Level 2 Battery Charger Using E-mode GaN 
+HEMTs. Welcome to the 3rd IEEE Workshop on Wide Bandgap Power 
+Devices and Applications (WiPDA), T11.8011, 351–358. 
+[9] F.Luo, Z.Chen, L.Xue, P.Mattavelli, D.Boroyevich, B.Hughes,  “Design 
+Considerations for GaN HEMT Multichip Half- bridge Module for  
+High-Frequency Power Converters” 
+[10] Zhang, X., Haryani, N., Shen, Z., Burgos, R., & Boroyevich, D. (2015). 
+Ultra-Low Inductance Phase Leg Design for GaN-Based Three-Phase 
+Motor Drive Systems. Proc. Workshop on Wide Bandgap Power Device 
+and Applications. 
+[11] Kangping, W., Huan, M., Hongchang, L., Yixuan, G., Xu, Y., Xiangjun, 
+Z., & Xiaoling, Y. (2015). An Optimized Layout with Low Parasitic 
+Inductances for GaN HEMTs Based DC-DC Converter, 948–951. 
+[12] Yuancheng Ren, Ming Xu, Jinghai Zhou,  and Fred C. Lee, “Analytical 
+Loss Model of Power MOSFET”,
+ IEEE transactions on power 
+electronics, vol. 21, no. 2, march 2006. 
+ 
+Figure. 17. Double Pulse Test Waveform @240 A/400 V 
+3056
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:14 UTC from IEEE Xplore.  Restrictions apply. 

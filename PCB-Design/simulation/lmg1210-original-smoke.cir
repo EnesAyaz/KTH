@@ -1,0 +1,15 @@
+LMG1210 original TI model LTspice compatibility smoke test
+.include models/ti-lmg1210/original/LMG1210_PSPICE_TRANS/LMG1210_TRANS.lib
+V12 VIN 0 12
+VHB HB 0 5
+VHI HI 0 PULSE(0 3.3 10u 2n 2n 4u 10u)
+VLI LI 0 PULSE(0 3.3 15u 2n 2n 4u 10u)
+XDRV HB HO LI 0 0 0 0 0 0 VIN LO VDD VDD VDD 0 0 HI NC0 NC1 NC2 BST LMG1210
+CVDD VDD 0 1u
+CHO HO 0 1n
+CLO LO 0 1n
+RBST BST 0 1Meg
+.tran 0 30u 0 2n
+.meas tran HO_MAX MAX V(HO) FROM 10u TO 30u
+.meas tran LO_MAX MAX V(LO) FROM 10u TO 30u
+.end

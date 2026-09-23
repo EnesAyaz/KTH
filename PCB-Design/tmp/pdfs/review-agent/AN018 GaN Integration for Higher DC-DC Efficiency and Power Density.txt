@@ -1,0 +1,432 @@
+
+=== PAGE 1 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018  | |    1
+APPLICATION NOTE: AN018 GaN Integration
+GaN Integration for 
+Higher DC-DC Efficiency 
+and Power Density
+Gallium nitride, when grown on a 
+silicon crystal and transformed into 
+an enhancement mode (eGaN®) FET, 
+enables some amazing new end-use 
+applications, such as wireless power 
+transfer, LiDAR, and envelope track -
+ing [1]. eGaN FETs can also replace the 
+silicon-based power MOSFET in most 
+existing applications including AC-DC 
+and DC-DC power conversion, yielding 
+substantial performance gains. The 
+prize is a $12B market now occupied  
+by an aging incumbent.
+EFFICIENT POWER CONVERSION
+Alex Lidow, David Reusch, and Johan Strydom, Efficient Power Conversion Corporation
+The GaN technology journey is just beginning, and 
+we are still far from its theoretical performance limits.  
+It is quite reasonable to expect a rate of improvement 
+reminiscent of Moore’s Law, which predicted the 
+growth of microprocessor technology – doubling of 
+product performance every two to four years for at 
+least the next decade (Figure 1). 
+Beyond just performance and cost improvement, 
+the greatest opportunity for GaN technology to 
+impact the power conversion market comes from 
+its intrinsic ability to integrate multiple devices on 
+the same substrate. In the future, GaN technology, 
+as opposed to common silicon IC technology, will 
+allow designers to implement monolithic power 
+systems on a single chip in a more straightforward 
+and cost-effective way.
+Today, the most common building block used in 
+power conversion is the half bridge. This therefore 
+becomes the starting point for the journey  
+towards a power system-on-a-chip.
+In figure 2 are pictures of devices from the first family 
+of commercially available enhancement mode 
+monolithic half-bridge GaN integrated circuits. 
+The first product from this family, the EPC2100, 
+has a voltage rating of 30 V. The left FET (Q1) has a 
+typical RDS(on) of 6 mΩ, and the right FET (Q2) has 
+a typical R DS(on) of 1.5 mΩ. It comes in a chipscale 
+package for improved switching speed and thermal 
+performance, and has dimensions of 6 mm x 2.3 mm.  
+In figure 3 is the pin-out configuration of the device.  
+Gate 1 is the high side gate pin. GR1 is the high 
+side gate return pin. Gate 2 is the low side gate pin. 
+VSW is the switch node of the half bridge and consists 
+of 35 individual solder pins that are connected in 
+parallel on the PCB. VIN is the input voltage supplied 
+to the drain of the top FET (Q1), and consists of 8 
+parallel-connected pins. PGND is the power ground 
+connection at the source terminal of the lower FET 
+(Q2) and has 29 parallel-connected solder pins. 
+By integrating the two power FETs into a single 
+monolithic device interconnect inductances and the 
+interstitial space needed on the PCB are eliminated. 
+This increases both efficiency (especially at higher 
+frequencies) and power density while reducing 
+assembly costs.
+Figure 2:  Two eGaN FETs integrated onto one chip forming a monolithic half bridge in 
+a chipscale package. (Bump Side)
+Moore’ s Law for eGaN FETs
+Figure 1:  The performance of eGaN FETs is expected to double every two years 
+resulting in increased performance from a smaller form factor
+High Side 
+Device
+Low Side 
+Device
+High Side 
+Device
+Low Side 
+Device
+Symmetric HBAsymmetric HB
+
+=== PAGE 2 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    2
+APPLICATION NOTE: AN018 GaN Integration
+Figure 4:  A 12 VIN , 1.2 VOUT  buck converter.  On the left is the circuit schematic and on the right is  
+the actual circuit with the EPC2100 eGaN half bridge.
+Figure 5:  Total buck converter efficiency with the EPC2100 half bridge at 500 kHz and 1 MHz
+Table 1 shows the complete family of half-bridge ICs. 
+Note that for three members of the family, the high 
+side FET is approximately one-fourth the size of the 
+low side device. This ratio is to optimize efficient  
+DC-DC conversion in buck converters with a high  
+VIN/VOUT as shown in figure 4. For applications 
+requiring symmetric die sizes, e.g. brick power 
+supplies, motor drives, and class D audio, there are 
+three members of the family that have equal die sizes 
+for both the high side and low side FETs, as shown in 
+figures 2 and 3.
+A 12 VIN to 1.2 VOUT POL buck converter is shown in 
+figure 4 and the measured efficiency of this circuit is 
+shown in figure 5. At 500 kHz, peak efficiencies of the 
+complete buck converter approach 93% at 10 A, and 
+at 20 A the efficiency is over 90.5%.
++
++
+-
+-
+VIN
+V
+VB
+Gate 1
+GR1
+Gate 2
+HO
+VB
+VCC
+LO
+GND
+eGaNI CGate Driver/
+Controller IN
+VOUT
+RDS(on)
+VOUT
+PGND
+Q1 
+Q2 
+Eﬃciency (%)
+Output Current (A)
+VIN = 12 V   VOUT = 1.2   V L = 250 nH
+f sw =0.5 MHz
+f sw =1 MHz
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+0 5 10 15 20 25 30 35 40 45
+Part
+ Number Configuration VDS 
+Max 
+RDS(on) (mΩ) 
+at 5 VGS
+QG typ 
+(nC)
+QGS typ 
+(nC)
+QGD typ 
+(nC)
+QOSS typ 
+(nC)
+QRR 
+(nC)
+ID  
+(A)
+Pulsed
+ID (A)
+Half-Bridge 
+Development
+Board
+EPC2100 Dual  
+Asymmetric 30 8.2 
+2.1
+3.6 
+15
+1.3 
+4.8
+0.6 
+2.7
+6.1 
+29 0 10 
+40
+100 
+400 EPC9036
+EPC2102 Dual 60 4.9 8 2.5 1.5 26 
+31 0 30 220 EPC9038
+EPC2101 Dual  
+Asymmetric 60 11.5 
+2.8
+3.3 
+13
+1.1 
+3.9
+0.5 
+2.2
+9.3 
+45 0 10 
+40
+80
+350 EPC9037
+EPC2103 Dual 80 5.5 6.5 2.2 1.1 30 
+34 0 30 195 EPC9039
+EPC2105 Dual  
+Asymmetric 80 14.5 
+3.6
+2.7 
+11
+0.9 
+3
+0.5 
+2.1
+11 
+51 0 10 
+40
+70 
+300 EPC9041
+EPC2104 Dual 100 6.8 6.8 2.3 1.4 35 
+41 0 30 180 EPC9040
+Table 1: Product selector guide for integrated GaN power devices 
+Figure 3:  Pinout for the device in figure 2.
+VIN
+VSW VSW VSW VSW VSW VSW VSW
+GATE1
+GR1
+GATE2
+PGND
+VIN
+VSW VSW VSW VSW VSW VSW VSW
+GATE1
+GR1
+GATE2
+PGND
+Symmetric HBAsymmetric HB
+
+=== PAGE 3 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    3
+APPLICATION NOTE: AN018 GaN Integration
+Figure 7:  Switch node waveforms for the EPC2100, VIN = 12 V to VOUT = 1.2 V, IOUT = 25 A,  
+1 MHz showing 650 ps rise time and 750 ps fall time
+ 
+ 
+ 
+ 
+ 
+ 
+750 ps fall time 
+650 ps rise time 
+350 MHz ringing
+3.6 V @ 25 A
+Figure 6:  Total buck converter efficiency with the EPC2100 half bridge  
+compared with discrete eGaN FETs (Q1: EPC2015; Q2: EPC2023)
+70
+72
+74
+76
+78
+80
+82
+84
+86
+88
+90
+92
+2 6 10 14 18 22 26 30 34 38 42
+fsw =  1 MHz fsw =  4 MHz
+Output Current (A)
+VIN = 12 V   VOUT = 1.2 V   L = 100 nH
+Eﬃciency (%)
+GaN POL
+w/ Gen 4
+Discrete Transistors
+GaN POL
+w/ Gen 4
+Monolithic HB
+The advantages of increased integration become 
+clearer at higher frequencies. In figure 6 is a com-
+parison between two buck converters operating 
+at 1 MHz and at 4 MHz. The blue lines represent the 
+converter built with discrete eGaN FETs. The black 
+lines represent the buck converter built with the 
+EPC2100 monolithic half bridge. The half-bridge is 
+33% smaller than the combined die area of the two 
+discrete FETs and, as a sequence, the synchronous 
+rectifier FET (Q2) has about 50% higher on resistance.  
+At low frequency and high current, the buck 
+converter with the monolithic half bridge therefore 
+has lower efficiency. As the frequency is increased 
+to 4 MHz, however, the efficiency of monolithic half 
+bridge overtakes the discrete implementation by 
+about 2% at peak efficiency as shown in figure 6.
+The removal of the interstitial space between die, 
+coupled with an optimum power loop layout, results 
+in a significant reduction in the overall power loop 
+inductance to under 200 pH – less than half of that 
+reported using discrete EPC2015 devices [2]. This 
+results in voltage transitions in the two-thirds of a 
+nano-second range and an overshoot of only 3.6 V 
+while switching 25 A, as shown in figure 7.
+Now we’ll look at a higher input voltage POL 
+conversion. Figure 8 shows the efficiency of a 
+converter running at 500 kHz with the EPC2101.  
+This 60 V half-bridge eGaN IC can convert much 
+higher bus voltages, such as 28 V and 42 V, directly to 
+1 V efficiently. Figure 9 is the switch node waveform 
+of this conversion.
+Going to even higher input voltage POL conversion. 
+Figure 10 shows the efficiency of a converter running 
+at 500 kHz with the EPC2105. This 80 V half-bridge 
+eGaN IC can convert 48 V directly to 1 V efficiently. 
+At 16 A, peak efficiency of over 80% is achieved for 
+the full buck converter system. This conversion 
+eliminates two stages that are normally required for 
+this voltage conversion in Datacom systems.
+Figure 8: Total buck converter efficiency with EPC2101 half bridge
+Output Current (A)
+Eﬃciency (%)
+68
+70
+72
+74
+76
+78
+80
+82
+84
+86
+88
+66
+0 2 4 6 8 10 12 14 16 18 20 22 24 28 30 3226
+28 VIN
+42 VIN
+EPC2101
+60 V 1:4 HB fsw = 500 kHz
+VOUT = 1 V    L = 33 nH
+
+=== PAGE 4 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    4
+APPLICATION NOTE: AN018 GaN Integration
+Figure 9: Switch node voltage at  
+VIN = 42 V, VOUT  = 1 V, IOUT  = 20 A, fSW = 500 kHz
+Figure 10: Total buck converter efficiency with EPC2105  
+half bridge IC compared with discrete eGaN FETs.  
+VIN = 48 V, VOUT  = 1 V
+Output Current (A)
+Eﬃciency (%)
+82
+81
+80
+79
+78
+77
+76
+75
+74
+73
+72
+71
+70
+69
+68
+67
+66
+65
+0 2 4 6 8 10 12 14 16 18 20 22 24 28 30 3226
+f sw = 500 kHz
+EPC2001
++
+EPC2021
+EPC2105
+80 V 1:4 HB
+Switch Node Voltage
+10 V/Div 10 ns/div
+For applications requiring a more symmetric  
+device ratio, the 60 V EPC2102, the 80 V EPC2103, 
+and the 100 V EPC2104 provide monolithic half-
+bridge eGaN ICs with two equal sized dies as 
+shown in figure 2. The total system efficiency of 
+a 48 V IN to 12 V OUT POL buck converter is shown 
+in figure 11. For a lower step down ratio with a 
+higher duty cycle, the symmetric half-bridge 
+demonstrates higher efficiency as shown in 
+figure 11. The symmetric half-bridge eGaN IC also 
+demonstrates fast switching speeds with rise and 
+fall times, shown in figure 12, of two, 1 ns and 1.4 ns 
+respectively for 48 V input voltage and 20 A output 
+current.   
+Discrete eGaN FETs have been in volume production 
+for almost 5 years and have infiltrated many of the 
+traditional applications for silicon MOSFETs. The 
+efficiency gap is growing as this relatively new 
+technology follows a faster learning curve [3]. Now 
+designers have a family of monolithic eGaN half 
+bridge devices that save space, improve efficiency, 
+and lower system costs. As power conversion 
+systems stretch into the multi-megahertz domain, 
+the integration of discrete devices becomes even 
+more important for high system efficiency and 
+power density.
+
+=== PAGE 5 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    5
+APPLICATION NOTE: AN018 GaN Integration
+REFERENCES
+[1] A. Lidow, J. Strydom, M. de Rooij, and D. Reusch, “GaN Transistors for Efficient Power Conversion, Second Edition, ” J. Wiley, 2015.
+[2] D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit Performance in a High Frequency Gallium Nitride Based Point of Load Converter, ” APEC 2013,  
+pp.649-655, 16-21 March 2013.
+[3] http://epc-co.com/epc/Products/eGaNFETs/Gen4eGaNFETs.aspx
+Figure 12:  Switch node waveforms for the EPC2103, VIN = 48 V to VOUT = 12 V, 
+IOUT = 20 A, showing 2.1 ns rise time and 1.4 ns fall time
+Switch Node Voltage Switch Node Voltage
+VIN = 48 V    IOUT = 20 A
+Figure 11: Total buck converter efficiency with EPC2103 and EPC2105 half bridges. 
+VIN = 48 V, VOUT = 12 V 
+98.5
+98.0
+97.5
+97.0
+96.5
+96.0
+95.5
+95.0
+94.5
+94.0
+0 2 4 6 8 10 12
+VIN = 48 V   VOUT = 12 V   L = 4.7 /uni03BCH
+14 16 18 20 22 24 26
+Eﬃciency (%) 
+ Output Current (A)
+fSW = 0.5 MHz
+fSW = 1 MHz
+80 V EPC2103 1:1 HB
+80 V EPC2105 1:4 HB

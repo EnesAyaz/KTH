@@ -1,0 +1,380 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023   | |    1
+How2AppNote 032
+Motivation 
+Due to the ever-increasing demand for highly efficient and compact 
+motor drive applications, EPC has designed the EPC9173 board 
+eGaN IC-based to provide a reference design to achieve maximum 
+performance for the eBike inverters. The EPC9173 is based on six 
+EPC23101 eGaN ICs. Such a board is a three-phase inverter capable of 
+up to 1.5 kW operation;  when powered with a  48 V DC supply voltage, 
+it can deliver 20 ARMS per phase without a heatsink and with a heatsink 
+it can provide continuously 25 ARMS per phase with peak operation up 
+to 35 A RMS (for time intervals smaller than 30 seconds). The EPC9173 
+supports PWM switching frequencies up to 250 kHz.  
+System overview
+The inverter board includes all the function circuits required to support 
+a complete inverter for eBike motor drive as described in the following:
+• Three-phase inverter based on six EPC23101 eGaN ICs; 
+• DC link capacitors; 
+• Regulated auxiliary power supplies; 
+• Voltage, current, and temperature sensors with conditioning circuits; 
+• Protection functions 
+The pictures of the inverter board and are displayed in Figure 1.
+How to Design an eBike Motor Drive Inverter Using  
+EPC9173 Evaluation Board 
+EFFICIENT POWER CONVERSION
+Figure 1. Photo overview of the EPC9173 board highlighting the main sections
+A controller connector (J60) interfaces the EPC9173 signals with an external 
+digital microcontroller unit. 
+The switching cells are arranged with a symmetrical layout. The phase 
+output current is measured through shunt resistors. There are sensing 
+resistors in phase and in the source path of the lower devices for each 
+phase. Furthermore, a compatible motor shaft encoder or hall effect 
+sensor can be connected to the EPC9173 motor control drive inverter 
+through the connector J80 and the output filtered signals are available to 
+the microcontroller on the connector J60. [1]
+A built-in overcurrent detection circuit is triggered if an overcurrent 
+(OC) occurs; the OC signal is sent through the J60 connector to the 
+microcontroller.
+The DC-link capacitors balance the fluctuating instantaneous power 
+exchange between the battery and the inverter and stabilize the 
+ripple caused by the inverter high-frequency power switching circuits. 
+High switching frequency allows reducing the required capacitance 
+value. For this reason, the DC-link is realized by ceramic and electrolytic 
+capacitors and the user can customize the EPC9173 to find the optimum 
+filtering in both high and low switching frequency operative conditions.
+Heatsink mounting (x4)
+Motor
+connection
+Housekeeping 
+power supply
+Current sensing
+option setting
+Main power
+connection
+EPC23101
+and leg shunts
+Hall/encoder
+interface
+Phase
+shunts
+Optional antiparallel diodes
+Thermal
+sensor
+Bottom sideTop side
+Control
+connection
+
+=== PAGE 2 ===
+How2AppNote 032 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023  | |    2
+Figure 3. EPC23101 eGaN package footprint bottom view
+The heat sink is grounded and is mounted on top of a thin layer of 
+insulation material to prevent the short-circuit with other components 
+that have exposed pins conductors. The thermal interface material 
+(TIM) is placed above the eGaN ICs to improve the interface thermal 
+conductance between the die and the attached heatsink. The TIM used 
+for this board is t-Global P/N: TG-A6200 x 0.5 mm with a conductivity of 
+6.2 W/m  ·  K.
+eGaN IC selection for motor drive inverter 
+The EPC9173 is a three-phase inverter made of six EPC23101 eGaN ICs.
+Gallium nitride device technology has an exceptional high electron 
+mobility and low-temperature coefficient. The EPC23101 eGaN IC has 
+a typical Drain-Source ON Resistance RDS(on) of 2.6 mΩ (@25°C). 
+In addition, the lateral structure of the eGaN device and the absence 
+of an intrinsic body diode provide an exceptional low gate charge 
+QG and a zero reverse recovery charge QRR when operated in reverse 
+conduction. When compared to MOSFETs with similar R DS(on), eGaN 
+FETs have five times smaller switching losses, so the inverter can 
+be operated at higher PWM frequency and with shorter dead time. 
+High PWM frequency and short dead time allow to place ceramic 
+capacitors only in the DC-Link and then to increase reliability, 
+decrease cost and size. Usually, in conventional eBike designs, a LC 
+filter is inserted between the battery and the inverter to comply to the 
+electromagnetic emissions rules. When EPC9173 is used at 100 kHz, 
+the input filter can be removed.
+The chip-scale package (CSP) of the eGaN ICs allows reducing 
+the common source and the power loop parasitic inductances by 
+interposing drain and source connections and by soldering the 
+chip directly onto the printed circuit board. The small footprint 
+allows inserting six EPC23101 in the board in a relatively small area 
+providing high power density. The footprint of the EPC23101 is 
+shown in Figure 3.
+Design Overview  
+The eGaN ICs of the power stage have a maximum voltage of VDS =100 V. 
+The dV/dt is optimized for motor drive applications to be less than 10 V/ns. 
+The current is sensed in both directions per each leg by using either phase 
+shunt or leg shunt resistors. The choice of the current sensing method is 
+done by using the jumpers Jsns1, Jsns2, and Jsns3. In both phase or leg sensing, 
+the shunt value is 1.0 mΩ and the voltage drop across the shunt is amplified 
+with a gain of 20 mV/A, and an offset of 1.65 V is added.  The amplifiers 
+bandwidth is 400 kHz, adequate for accurate motor control operation at 
+high switching frequency operation. To reduce the high-frequency power 
+loop inductance in the switching cell of every leg, the leg shunt is made 
+of four 4.0 mΩ 0805-wide resistors in parallel. The amplified signals across 
+the phase shunt resistors or leg shunt resistors, depending on jumpers 
+Jsnsx position, are used to detect the overcurrent of each leg for prompt 
+activation of the analog circuit protections. An active-low over-current 
+signal (OCPn) is also sent to the microcontroller connector J60 for proper 
+fault handling. The two available sensing methods are equivalent, because 
+in conventional field-oriented control (FOC) algorithms with center-
+aligned symmetrical PWM modulation, the current is measured in the 
+middle of the ON state of the low switch, which corresponds to the PWM 
+period center point. When the low side switch is ON, the phase voltage is 
+low, and the phase current flows through both the phase-sensing resistor 
+and the leg-sensing resistor. Thus, the phase and leg amplified signals 
+overlap (yellow and pink signals in Figure 4). 
+Phase and leg shunt current signals are shown in Figure 4. The sampling 
+points for the analog to digital converter are highlighted with small circles.
+Figure 2. Details for attaching a heatsink to the board. 
+The EPC9173 is equipped with a dedicated heat sink for natural convection 
+cooling shown in Figure 2. 
+Heatsink M2 screws (x4)
+TIM (x3)
+eGan FETs
+(x6)
+SMD spacers (x4) Insulator PCB assembly
+1
+14
+13
+12
+11
+10
+8
+9
+7
+6 5 4 3 2
+bbb C
+6
+L
+K (2x)
+K (3x)
+K1 (3x)
+e
+e1
+b1 (2x)b (14x)
+Bottom View
+C
+A BM
+ddd M
+
+=== PAGE 3 ===
+How2AppNote 032 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023  | |    3
+The overcurrent (OC) detection circuit is triggered if a positive or negative 
+current greater than 50 A is measured in any of the three phases. In this 
+condition, the active-low OCPn signal will remain low for a short time 
+determined by a 3.6 μs RC time constant. The OCPn signal is sent through 
+the connector J60 to a dedicated interrupt pin of the microcontroller.  
+The microcontroller reaction can be programmed accordingly, with a fast 
+reaction time. 
+DC supply voltage and each phase voltage are measured using a resistor 
+divider network that yields a total gain of 29.2mV/V.
+Figure 5. eGaN IC case temperature vs. temperature sensor placed on 
+bottom of the PCB. Operation under natural convection without heatsink.
+Figure 4. Phase and leg current sensing signals. Experimental waveforms during 
+switching cycles and a zoomed view. The sampling point positions for the 
+analog to digital signal are highlighted.  Ia = 5 A/div, VDS,LS = 50 V/div, 
+VRS = VRSL = 100 mV/div, t = 5 ms/div, zoomed view t = 10 μs/div
+The temperature sensor (U40–AD590) on the inverter board feeds 
+back a voltage on the J60 connector that is proportional to the 
+temperature using the following equation
+The temperature sensor has been characterized with the use of 
+an infrared camera measuring the temperature at the top of the 
+EPC23101 case. The relationship is shown in Figure 5.
+Figure 6: EPC9173 block diagram
+Experimental Validation  
+For experimental validation, the 
+EPC9173 power board has been 
+configured for a three-phase BLDC 
+motor drive inverter because this 
+is the main mode for which it has 
+been optimized. Figure 6 shows the 
+EPC9173 block diagram. The board 
+can be used for either sensor-less or 
+sensored motor control.
+The EPC9173 is coupled with the 
+EPC9147C (Motor Drive Controller 
+Interface board– STMicroelectron-
+ics STM32G431RB Nucleo), which 
+is pre-programmed to power and 
+control a 400 W Teknic M-3411P-
+LN-08D NEMA 34 AC motor [2] 
+with a sensorless FOC algorithm 
+with space vector pulse width 
+modulation (SVPWM). The invert-
+er switching PWM is set at 50 kHz, 
+with 100 ns dead-time.
+HS gate
+driver
+Jsns1
+3V3
+5 V
+Va
+VIN
+Vb
+Vc Ia
+Ib
+IcOCPn
+EPC9173
+BLDC
+motorTo/From
+controller
+interface
+board
+GND
+Voltage
+sense
+Current sense
+ampli/f_iers
+VIN up
+to 80 V
+VIN
+VaHS gate
+driver
+EPC23101
+EPC23101
+EPC23101
+EPC23101
+EPC23101
+EPC23101
+Jsns2
+Vb
+Over
+Current
+Protection
+Vc
+HV PSU
+Jsns3
+HS gate
+driver
+HS gate
+driver
+HS gate
+driver
+HS gate
+driver
+120
+110
+100
+90
+80
+70
+60
+50
+40
+30
+20
+3020 40 50 60
+Temperature sensor (°C)
+Temperature Sensor Characterization
+eGaNFET Temperature (°C)
+70 80 90 100 110 120
+Sampling
+point
+VRSL
+VRSL Zoomedarea
+VDS,LS
+VDS,LS
+Ia
+Ia
+VRSL
+VRS
+𝑇𝑇= ( )
+𝑉𝑉1000
+7.87 − 273.15 [°C]   (1)
+
+=== PAGE 4 ===
+How2AppNote 032 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2023  | |    4
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+References
+[1] EFFICIENT POWER CONVERSION, 2021. [Online]. Available: https://epc-co.
+com/epc/Portals/0/epc/documents/schematics/epc9173_schematic.pdf
+[2] Teknic. [Online]. Available: https://teknic.com/hudson-model/M-341 1P-
+LN-08D/?registered=success
+[3] EFFICIENT POWER CONVERSION, “Demonstration Board EPC9173 Quick 
+Start Guide,” 2022. [Online]. Available: https://epc-co.com/epc/Portals/0/
+epc/documents/guides/epc9173_qsg.pdf
+[4] EFFICIENT POWER CONVERSION, “EPC23101 – ePower™ Chipset” 2021. 
+[Online]. Available: https://epc-co.com/epc/Portals/0/epc/documents/
+datasheets/epc23101_datasheet.pdf
+[5] S. Musumeci, F. Mandrile, V. Barba, M. Palma, “Low-Voltage GaN FETs in 
+Motor Control Application; Issues and Advantages: A Review,” Energies, 
+2021. 
+[6] F. Mandrile, S. Musumeci, M. Palma, Dead Time Management in GaN 
+Based Three-Phase Motor Drives, IEEE EPE, 2021. 
+Experimental Validation (continued)
+In Figure 7 , the graphs show eGaN IC temperature 
+increase above the ambient vs. the current capability at 
+various PWM frequencies. The solid lines represent the 
+operation without heatsink and with natural convection; 
+the dashed lines were obtained using the heatsink with 
+natural convection. The current has been kept below 27 
+ARMS per phase to avoid damaging the eBike motor that 
+has been used during the experiments. 
+The input voltage ripple in an inverter is inversely 
+proportional to the input capacitance and to the PWM 
+frequency. Given a maximum input voltage require-
+ment and the PWM frequency it is possible to determine 
+the minimum input capacitance needed. However, at 
+low PWM frequencies (i.e. 20 kHz) the required input 
+capacitance value dictates the usage of electrolytic 
+capacitor technology. The number of used electrolytic 
+capacitors is determined by the RMS current flowing 
+into them and not by the capacitance value required 
+by the inverter. A practical value is to use at least one 
+electrolytic capacitor per each 7 A RMS flowing in the     
+phase output. If the PWM frequency is increased, the 
+required input capacitance allows the usage of ceramic 
+capacitors that are not sized based on the rms value of 
+the current that flows into them.
+At 100 kHz PWM frequency the input voltage and current ripple 
+decrease, allowing the designer to remove the electrolytic capacitors 
+and use only ceramic capacitors that are smaller, lighter, and more 
+reliable. Thereby, the volume and the weight of the inverter are 
+reduced. 
+Conclusion
+The EPC9173 is a 48 V input, 1.5 kW output, equipped with the EPC23101 
+eGaN ICs, designed for eBike applications. It integrates all the necessary 
+circuits to operate a 3-phase BLDC motor with high performance. 
+Thanks to the high power density and the high electrical conductivity 
+of eGaN, the board delivers up to 25 ARMS on each leg and supports 
+PWM switching frequencies up to 250 kHz under natural convection 
+passive heatsink and by keeping the temperature rise below 50°C. 
+Increasing performance of the motor-drive system in terms of quality 
+of the current output waveforms, lesser torque oscillations, and total 
+system efficiency are achieved.
+Figure 7. EPC9173 GaN IC temperature (*) increase vs. the ambient temperature [25.5°C]. 
+Measurements taken at various PWM frequencies. 
+       (*) With heatsink, junction temperature has not measured directly. The indicated delta 
+       temperature with heat sink is the hottest point at the base of the heat sink. 
+70
+60
+50
+40
+30
+20
+10
+0 0 5 10 15 20 25 30
+Phase Current (ARMS)
+EPC9173 GaN IC delta temperature @ 25°C
+eGaN IC Delta Temperature (°C)
+20 kHz NO heatsink
+50 kHz NO heatsink
+100 kHz NO heatsink
+100 kHz with heatsink
+50 kHz with heatsink
+20 kHz with heatsink

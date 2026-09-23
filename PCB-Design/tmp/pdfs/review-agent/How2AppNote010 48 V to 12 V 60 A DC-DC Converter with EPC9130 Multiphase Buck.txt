@@ -1,0 +1,203 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 010
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    1
+Motivation
+Single-phase buck converter can work efficiently at output currents 
+up to 25 A, but the power efficiency drops significantly at higher 
+currents. A compact, cost effective, high-power and high-efficiency 
+48 V to 12 V buck converter, suitable for high-power computing and 
+telecommunication applications, can be achieved by employing 
+eGaN® FETs such as EPC2045 in a multiphase topology. The EPC9130 
+configured as a non-isolated, fully regulated five-phase synchronous 
+buck converter yielded a power density of approximately 1000 W/in 3 
+and a peak efficiency of 96.2%, and is capable of delivering up to 60 A 
+(720 W) output.    
+EPC9130 five-phase 48 V to 12 V regulated 
+intermediate bus converter   
+The EPC9130 development board is a 500 kHz switching frequency, 
+48 V nominal input voltage, 60 A maximum output current, 5-phase 
+intermediate bus converter (IBC) with on-board microcontroller and 
+gate drives, featuring the 100 V EPC2045 enhancement mode (eGaN®) 
+field effect transistor (FET). The purpose of this development board is 
+to provide a regulated 12 V power supply for high-power and high-
+performance applications showcasing the superior performance of the 
+EPC2045 eGaN® FET. The block diagram is shown in figure 1. 
+The EPC9130 development board has five phases of two EPC2045 eGaN 
+FETs in a half bridge configuration with a uPI Semiconductor UP1966A 
+gate driver and supply and bypass capacitors. One single-phase power 
+stage is shown in figure 2. The PWM signals to the gate drivers are fed 
+by an on-board dsPIC33 microcontroller from Microchip®. The output 
+voltage is regulated to 12 V. Basic voltage mode control of output is 
+done with the microcontroller. Current sharing among the phases, 
+under-voltage lockout as well as overcurrent, over-voltage, and over-
+temperature protection are available. To allow more flexible operation 
+for this evaluation board, only current sharing and under-voltage 
+lockout are implemented for this EPC9130 demo board. 
+EPC9130 experimental performance validation
+The loss breakdown of the EPC9130 operating at 50 A output current is 
+illustrated in figure 3 (left). The maximum FET temperature, as shown in 
+figure 3 (right), is 86.1ºC under 400 LFM airflow at 50 A. Figure 4 shows 
+the efficiency curve against up to 60 A load when operating at 500 kHz, 
+with a peak efficiency of 96.2% at 40 A load.     
+Achieving Best-in-class 48 V to 12 V, 60 A DC-DC Converter 
+Performance with the EPC9130 Multiphase Buck 
+EFFICIENT POWER CONVERSION
+Figure 1: Block diagram of EPC9130 development board
+Figure 2: Single-phase power stage
+PWM4H
+PWM4L
+3.3 /uni03BCH
+dsPIC33
+Input
+sense
++
+180 /uni03BCFx5
+47 /uni03BCFx6
+Output
+sense
+3.3 /uni03BCH
+Temp
+3.3 /uni03BCH 3.3 /uni03BCH
+3.3 /uni03BCH3 m/uni03A9
+3 m/uni03A9
+3 m/uni03A9
+3 m/uni03A9
+3 m/uni03A9
+R
+4
+R2
+R5
+R3
+VIN
+I5
+I4
+I3
+I2
+I1
+Temp
+I1
+I4
+I5
+I3
+I2
+VIN
+VOUT
+VIN VIN
+PWM3H
+PWM3L
+PWM5H
+PWM2L
+PWM2H
+PWM2L
+PWM1H
+PWM1L
+VSNSOUT
+VSNSIN
+ISNS5
+ISNS4
+ISNS3
+ISNS2
+ISNS1
+TSNS
+Density ≈
+1000 W/in3
+Driver
+circuitry
+Power FETsC
+IN
+COUT
+Current sense
+Inductor
+
+
+=== PAGE 2 ===
+How2AppNote 010 eGaN® TECHNOLOGY
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM    |   COPYRIGHT 2018   | |    2
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+Conclusions
+Migrating a high-power 48 V to 12 V intermediate bus converter design 
+from Silicon MOSFETs to eGaN FETs offers reduction in both size and 
+cost, while maintaining or exceeding efficiency targets. Table 1 shows 
+the bill of materials that yields a cost per watt of less than $0.04. 
+Suitable controllers for the EPC9130 include microcontrollers such 
+as the dsPIC33EP128GS704 from Microchip, which can generate five 
+complementary pairs of PWM signals.
+The eGaN FET based 48 V to 12 V, 60 A load converter was demonstrated 
+to yield a peak efficiency 96.2% with a power density of 1000 W/in3, all 
+with a cost below $0.04 per watt. This same bill of materials can be used 
+for output voltages as low as 5 V.
+VIN = 48 V
+VOUT = 12 V
+IOUT = 50 A
+fsw = 500 kHz
+Inductor
+Switching
+Power Loss (W)
+Conduction
+Gate
+Trace + Caps
+Body diode
+Controller
+Current sense
+12
+10
+8
+6
+4
+2
+0
+VIN = 48 V
+VOUT = 12 V
+IOUT = 50 A
+fsw = 500 kHz
+Inductor Switching
+Power Loss (W)
+Conduction
+Gate
+Trace + CapsBody diodeControllerCurrent sense
+12
+10
+8
+6
+4
+2
+0
+VIN = 48 V, VOUT = 12 V, IOUT = 50 A, fsw = 500 kHz
+Max Temp. = 86.1°C 100°C
+25°C
+Airflow
+98
+96
+94
+92
+90
+88
+86
+0 20 40
+Output Current (A)
+Eﬃciency (%)
+60
+Figure 4: EPC9130 efficiency curve
+48 V - 12 V 60 A 5-phase Buck Converter
+Component Qty eGaN® FET
+eGaN® FET 10 EPC2045
+Inductor (3.3 µH) 5 IHLP5050EZER3R3M01
+Input Capacitors (1 µF 100 V) 20 C2012X7S2A105M125AB
+Output Capacitors (22 µF 25 V) 20 C2012X5R1E226M125AC
+Bulk Capacitors (180 µF 16 V) 3 16SVPF180M
+Gate Driver 5 uP1966A
+Controller 1 DSPIC33EP128GS704-E/ML
+Total Less than $0.04 per Watt
+Table 1: Bill of Materials for each phase of  
+an eGaN FET based 48 V to 12 V five-phase 
+Figure 3 : Loss breakdown and thermal performance of EPC9130 at 50 A output current

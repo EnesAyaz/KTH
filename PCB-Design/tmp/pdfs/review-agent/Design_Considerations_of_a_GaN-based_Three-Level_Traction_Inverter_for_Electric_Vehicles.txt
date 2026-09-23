@@ -1,0 +1,503 @@
+
+=== PAGE 1 ===
+Design Considerations of a GaN-based Three-Level
+Traction Inverter for Electric Vehicles
+Subhransu Satpathy
+FREEDM Systems Center
+NC State University
+Raleigh, USA
+ssatpat2@ncsu.edu
+Partha Pratim Das
+FREEDM Systems Center
+NC State University
+Raleigh, USA
+ppdas@ncsu.edu
+Subhashish Bhattacharya
+FREEDM Systems Center
+NC State University
+Raleigh, USA
+sbhatta4@ncsu.edu
+Victor Veliadis
+FREEDM Systems Center
+NC State University
+Raleigh, USA
+jvveliad@ncsu.edu
+Abstract—This paper demonstrates a GaN-based three-level
+inverter design for an electric vehicle (EV) traction application.
+The basic power block is a three-level active neutral point
+clamped (3L-ANPC) converter operating at 800 V DC bus voltage
+with the use of two paralleled 650 V, 60 A GaN E-HEMTs. The
+paper focuses on switching mode selection for better thermal per-
+formance of high-power 3L-ANPC inverters. The paper presents
+design details and guidelines for power layout structure and
+gate driver . The key parasitic inductances of the designed power
+block are extracted using ANSYS Q3D. A PLECS simulation
+model using the device loss parameters shows approximate power
+delivering capability of 41 kW for the designed forced air-cooled
+three-phase inverter . Experimental double pulse test results are
+presented with low voltage overshoot to verify the low inductance
+power loop design. Experimental results of the three-phase 3L-
+ANPC inverter operation at 70 kHz switching frequency are
+presented for delivered output power of 5.1 kW at 550 V DC.
+Index Terms—GaN, Three-level Active Neutral Point Clamped
+(3L-ANPC), traction inverter, and electric vehicle.
+I. I NTRODUCTION
+A high DC bus voltage ( VDC) of 800 V will beneﬁt the
+EV fast chargers and also enable the design of faster electric
+motors with lower copper loss [1]. The use of traditional
+two-level inverters for a higher DC bus voltage will result
+in higher losses with the use of 1200 V rated switching
+devices [2]. Moreover, the high voltage dv/dt will cause
+more stress across the turn-turn and coil-coil insulation of
+the motor. This will require expensive insulation solutions
+for traction motors [3]. Typical approaches for dv/dt mitiga-
+tion at inverter output include the use of LCR ﬁlters which
+add to the overall loss and result in a signiﬁcant inductor
+voltage drop [4]. A simpler solution by slower switching
+of power devices for dv/dt stress mitigation leads to under-
+utilization of wide bandgap devices [5]. This has led to
+increased interest in three-level converter topologies, which
+can be realized with 600 V to 650 V rated power devices.
+The lower voltage switching enables higher efﬁciency, lower
+electromagnetic interference (EMI), and lesser motor loss [6].
+Further, the reduced turn-turn voltage stress enables high dv/dt
+operation with no additional LCR ﬁlter. This paper selects a
+three-level active neutral point clamped (3L-ANPC) converter
+topology as the basic power design block. The 3L-ANPC
+topology offers the advantage of an active selection of zero
+Fig. 1: Three phase 3L-ANPC topology showing the different
+switches: inner, outer and clamping.
+states, allowing for smaller commutation loop inductance and
+better loss distribution compared to 3L-diode neutral point
+clamped (3L-DNPC) topology [7]. Also, 3L-ANPC offers
+better fault-tolerant operation for a single device short/open
+failure condition for a dual battery fed traction inverter [8].
+Enhancement mode GaN HEMTs (GaN E-HEMTs) with
+lower switching charge ( Qg), zero reverse recovery loss,
+and smaller output capacitance produce signiﬁcantly lower
+switching losses compared to similar rated SiC and Si power
+devices. A datasheet-based comparative evaluation chart of
+commercially available power semiconductor devices with
+different available ratings from various manufacturers is pre-
+sented in Fig.2. A 650 V, 60 A GaN E-HEMT (GS66516B)
+has been used in this paper for the design of the power
+block. GaN E-HEMT manufacturers typically chose Si sub-
+strate for cost-beneﬁt even though Si has signiﬁcantly lower
+thermal conductivity compared to SiC ( kSi = 1.5 W/cm K
+and kSiC = 4.9 W/cm K) [9]. This leads to the degradation
+in efﬁciency of the GaN E-HEMTs at higher temperatures,
+particularly due to signiﬁcantly high conduction losses. The
+temperature-dependent switching loss and on-state resistance
+(Rds,on) characteristics of the selected device are shown in
+Fig.5a and Fig.5b respectively. Hence, careful attention needs
+to be given to the thermal design of the power block for high-
+power inverters. In this regard, this paper presents the preferred
+switching mode, power layout, and gate drive design approach.
+978-1-6654-8900-3/22/$31.00 ©2022 IEEE 192
+2022 IEEE 9th Workshop on Wide Bandgap Power Devices & Applications (WiPDA) | 978-1-6654-8900-3/22/$31.00 ©2022 IEEE | DOI: 10.1109/WiPDA56483.2022.9955248
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+Fig. 2: FOM comparison of commercially available power
+semiconductor devices.
+II. 3L-ANPC P OWER BLOCK DESIGN
+A. Switching Mode Selection
+3L-ANPC topology enables several possible switching
+modes of operation to realize the P, 0, and N states. The
+P, 0 and N states correspond to the switching pole voltages
+(VAO) +0.5Vdc, 0 and−0.5Vdc respectively as shown in Fig.1.
+However, there are several switching possibilities to realize
+them. The use of the clamping switch produces two switching
+possibilities each for P and N states termed as ( PC,P C′) and
+(NC,N C′). There are three switching possibilities for zero
+states termed as 0+, 0−, and 0F . The switching states are
+shown in Table.I.
+TABLE I: Switching States of P, 0 and N states
+S1 S2 S3 S4 S5 S6
+PC 1 1 0 0 0 1
+PC′ 1 1 0 0 0 0
+0+ 0 1 0 0 1 1
+0F 0 1 1 0 1 1
+0− 0 0 1 0 1 1
+NC′ 0 0 1 1 0 0
+NC 0 0 1 1 1 0
+Fig. 3: Realization of different switching states in 3L-ANPC
+The switching mode of 3L-ANPC inﬂuences the selection of
+devices and planning of power layout structure. Therefore it is
+considered the ﬁrst step of the design process. It is preferred to
+selectPC andNC for realizingP andN states to ensure that
+the steady-state voltages across the off devices are clamped
+to half DC bus. It is also preferred to avoid the power loop
+commutation at full load current using the higher inductance
+path, i.e., the longer loop Llg shown in Fig.3. Therefore the
+two switching modes of operation compared here for power
+block design are - (1) short-loop and (2) full mode switching
+[10].
+(a) Short-loop switching mode.
+ (b) Full switching mode
+Fig. 4: High frequency and line frequency switching of outer,
+clamping and inner switches in 3L-ANPC for short-loop and
+full switching mode.
+Switching betweenPC↔ 0+ andNC↔ 0− states results
+in power loop commutation through short loop path only
+with lower inductance Lst shown in Fig.3. This is termed
+short-loop switching. Outer and clamping switches operate
+at switching frequency while the inner device operates at
+line frequency for this switching mode, as shown in Fig.4.
+Therefore to lower the overall system cost, Si-based MOSFETs
+are often selected over wide bandgap (WBG) devices for
+inner devices in hybrid 3L-ANPC converter designs [11].
+However, the inner devices that conduct during both on and off
+state result in signiﬁcantly high conduction losses. Moreover,
+the switching implementation of the short loop requires an
+additional decision logic to select between 0+/0− based on
+the previous state PC/NC.
+For high-power GaN-based 3L-ANPC design, the conduc-
+tion loss dominates the overall inverter loss. The inner and
+clamping device conduction losses are signiﬁcantly reduced
+using full mode switching [10]. The 0+ and 0− paths shown
+in Fig.3 are operated in parallel for0F mode. Hence it reduces
+the zero state conduction loss to half. However, full mode
+switching operation requires all the devices to operate at
+switching frequency, as shown in Fig.4. Therefore GaN E-
+HEMTs are used for all the switches in 3L-ANPC operation
+in this work. The clamping and inner devices operate syn-
+chronously in parallel for the full mode, sharing half current.
+This keeps the overall switching losses in a full mode similar
+to the short-loop mode. The total loss is reduced with better
+distribution across the devices. Further, the switching logic
+implementation is simpliﬁed because of a single zero state
+0F . The top inner switch S2 and bottom clamping switch S6
+193
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+share a common gate signal. Analogously, S3 andS5 share a
+common gate signal.
+(a) Switching loss ( Eon + Eof f) vs junction
+temperature (Gate drive resistance: Ron/Rof f =
+12 Ω / 4 Ω )
+(b) Rds,on vs junction temperature
+Fig. 5: Switching and conduction loss variation of selected
+GaN device (GS66516B) with junction temperature.
+A comparative evaluation of short-loop and full switching
+mode is done using PLECS thermal simulation. The simu-
+lation requires a thermal model of the packaged device with
+temperature dependent turn-on loss (Eon), turn-off loss (Eof f)
+and on-state resistanceRds,on. Towards that, the junction-case
+Cauer RC network model of the packaged GaN E-HEMT is
+obtained from the device manufacturer datasheet [12]. For
+determination ofEon andEof f, the LTSpice model provided
+by the device manufacturer is used. The parasitic inductances
+input to the LTSpice simulation are extracted using ANSYS
+Q3D for the designed 3L-ANPC power block. The obtained
+switching losses andRds,on of the selected device are shown in
+Fig.5a and Fig.5b respectively. The details of the case-heatsink
+thermal design are discussed in Section.II-B. The electrical
+and thermal parameters used for the simulation are tabulated
+in Table.II and Table.III respectively.
+TABLE II: Electrical Parameters selected for simulation
+Parameter Value Description
+Vdc 800 V DC bus voltage
+Ipk 30 A Peak line-line current
+m 0.3 - 1 Modulation index
+pf 0.5 - 1 Power factor
+fref 1 kHz Fundamental frequency of 3L-ANPC
+fsw 50 kHz Switching frequency
+Fig. 6: Temperature rise of outer, clamping and inner switches
+during 3L-ANPC operation with short and full switching
+modes.
+The thermal stress distribution across outer, inner, and
+clamping switches strongly depends on the operating mod-
+ulation index (m) and power factor (pf). As we move to low
+m operation, the increased zero state period results in high
+conduction loss for inner and clamping switches. Similarly,
+as we move to low pf operation, the clamping switches get
+more often hard-switched, resulting in higher switching losses
+across them. The inner devices conduct during both P/N and
+0 states. This makes inner device conduction losses always
+high irrespective ofm andpf. These trends of thermal stress
+variation are observed in junction temperature (Tj) for outer,
+inner, and clamping devices in Fig.6. The thermal stress is
+determined for short-loop and full switching mode operation
+considering an ambient temperature of Tamb = 45 ◦C and
+a peak current of 30 A through each GaN E-HEMT. Fig.6
+shows a major reduction inTj of inner and clamping switches
+achieved particularly at lower m using the full switching
+mode. Therefore under the worst case operating condition of
+m = 1 and unity power factor, the three-phase inverter rating is
+estimated atPmax = 41 kW. This estimation if forTj(max) =
+125 ◦C consideringTamb = 45 ◦C with two parallel GaN E-
+HEMTs delivering 34 A peak current per device at Vdc =
+800 V.
+B. Thermal Design
+The previous section highlighted the selection of switching
+mode that enables lower heating of GaN E-HEMTs for higher
+efﬁciency. This section focuses on the thermal design ap-
+proaches for a GaN-based high-power converter design. Using
+top-cooled devices with top-side heat sink mounting typically
+prevents the placement of key surface mount technology
+(SMT) components like decoupling capacitors and gate drive
+circuits close to the device. This problem is often resolved by
+the design of multilayer FR4 PCBs. Multilayer PCBs require
+thermal vias or pedestal heat sinks as cooling solution. A
+custom pedestal heat sink increases the design complexity
+and is not discussed in this work. Multilayer PCBs are often
+194
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+(a) IMS PCB
+(b) Equivalent thermal circuit of each
+half-bridge unit.
+Fig. 7: Thermal network for the IMS PCB based 3L-ANPC.
+S1a and S1b represent the the two parallel GaN E-HEMTs
+which form the S1 switch.
+used to create vertical ﬂux cancellation paths to enable ultra-
+low power loop inductance [13]. However, the thermal vias
+needed for heat dissipation in multilayer PCBs result in high
+case to heat sink thermal resistance ( Rth(c−hs)). Hence such
+design approaches are limited to lower power applications. The
+presented design approach uses bottom-cooled devices with
+insulated metal core substrate (IMS) PCBs (PCB-1 shown in
+Fig.10), which offer lowRth(c−hs) for GaN-based high power
+block design [14]. This limits the power layout design to a
+single-layer PCB, as shown in Fig.10a. The different layers
+involved in heat extraction from the bottom-cooled GaN E-
+HEMT are shown in Fig.7a. The resulting equivalent thermal
+circuit is shown in Fig.7b, and resistances are presented in
+Table.III. The thermal conductivity (k), dielectric constant (ϵr),
+and thickness of the insulation material in IMS are the key
+parameters of selection. The presented design considers a low-
+cost di-electric material with k = 3 W/mK, ϵr = 4.8 and
+thicknesst = 125µm. This results in estimated PCB thermal
+resistance ofRth,P CB1 = 2.92 ◦C/W. The estimated device-
+to-ground plane stray capacitance is Cp = 34 pF.
+TABLE III: Thermal Parameters selected for simulation
+Parameter Value Description
+Rth,jc 0.27 ◦C/W Junction-case thermal resistance
+Rth,P CB1 2.92 ◦C/W IMS PCB thermal resistance
+Rth,grease 0.1 ◦C/W Interface paste thermal resistance
+Rth,hs 0.3 ◦C/W Heat sink thermal resistance
+Tamb 45 ◦C Ambient temperature
+Fig. 8: Parasitic inductances in 3L-ANPC power block
+(a) Maximum inner device ( S3)
+voltage during 0 → P switching
+transient for full mode switching
+with short loop inductance (Lst) and
+middle bus bar inductance ( Lm).
+(b) Design margin for deciding
+length and width of the middle bus
+bar.
+Fig. 9: Impact of parasitic inductances on design of 3L-ANPC
+inverter.
+C. Power Loop Design
+The fast commutation of switches in a GaN-based 3L-
+ANPC requires careful attention to parasitic inductances to
+avoid device failure due to overvoltage. The key parastic
+inductances in the 3L-ANPC are shown in Fig.8. The P, N
+and 0 bus bar inductances are denoted as Lp, Ln and Lo
+respectively. The source inductance is represented as Ls and
+the middle bus bar inductance is shown asLm. The power loop
+design shown in Fig.8 is designed with an objective to realize a
+minimum short loop inductanceLst. ANSYS Q3D simulation
+is used to determine the estimatedLst =Lc+Lp+Lo+2Ls =
+6.3 nH. Lst forms the inductance in the commutation path
+between outer and clamping switches. The 3L-ANPC power
+block is realized as three half-bridge power blocks HFB-1,
+HFB-2 and HFB-3 shown in Fig.8. The required vertical ﬂux
+cancellation path for enabling lowerLst is realized on the top
+side through PCB-2 by use of low proﬁle headers, as shown
+in Fig.10a. PCB-2 contains high voltage decoupling capacitors
+with high self-resonant frequency ( > 10 MHz) which serve
+as nearest charge reservoirs during switching transition to
+minimize overshoot. It should be noted that the provision for
+device current probing in the prototype design further adds to
+the power loop inductance.
+The previous discussion has shown that full switching mode
+is preferred for high-power 3L-ANPC. In case of full mode
+the short loop ( Lst) and long loop ( Llg) operate in parallel
+resulting in multi-loop commutation [15]. This can result in
+195
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+a high voltage overshoot at S3 during hard-switched turn-on
+ofS1 for 0→P operation in full mode. However, turning off
+of clamping switch minimizes the overvoltage [15] during the
+more severe turn-on transient. During the turn-off operation,
+the switches commutate half of the total current and therefore
+have a lower overshoot despite a higher inductance. This
+modiﬁed form of full-mode operation is used in the LTSPice
+simulation results used for analysis. A detailed discussion of
+the modiﬁed full mode operation is not considered under the
+scope of this paper. The maximum voltage seen across switch
+S3 is determined for the two critical hard-switched cases in
+0→ P operation - (1) turn-on transient for switch S1 and
+(2) synchronous turn-off switching operation ofS5−S3. The
+modiﬁed full mode switching operation is used and the results
+are presented in Fig.9. The allowable Lm for a given design
+Lst can be determined based on acceptable overvoltage stress.
+A single layer IMS PCB does not allow the ﬂux cancellation
+path design for Lm. Therefore the length and width of the
+PCB trace need to be carefully selected for the Lm path.
+Fig.9b provides a look-up reference for deciding the length
+and width of the PCB trace to ensure that the design margin
+for Lm is ensured. Inductance is determined from the PCB
+trace dimensions for a selected 4 oz copper thickness. For
+the designed, 3L-ANPC power block, Q3D simulation results
+estimateLm = 21 nH.
+D. Gate Drive Design
+The complete gate drive consists of a totem pole stage
+and power supply stage formed by PCB stack assembly of
+PCB-2 and PCB-3 as shown in Fig.11. PCB-2 ensures a
+short and symmetrical gate drive loop for the two parallel
+connected GaN devices. Distributed gate and source resistors
+Rg,S1a =Rg,S1b = 1 Ωare used to avoid gate ringing between
+parallel devices. Commercially available gate driver ICs with
+Isource = 3.6 A and Isink = 8 A are selected to enable fast
+switching of two parallel GaN devices. The bipolar gate drive
+bias voltage of 6 V and −4 V is generated using isolated
+DC-DC converters with very low Ciso = 4 pF. The gate
+discharge resistance and the anti-series connected zener diodes
+for protection are placed very close to the gate-source pads of
+the GaN E-HEMT. This ensures a safe gate-source voltage
+during switching transients.
+III. E XPERIMENTAL RESULTS
+The designed GaN-based 3L-ANPC phase leg is shown in
+Fig.10. The complete gate drive stage with the decoupling
+capacitors is stacked on top of the power layout stage. The
+switching performance is evaluated using a double pulse test
+for the full switching mode. Preliminary experimental results
+of continuous three-phase inverter operation are also presented.
+A. Double Pulse Test
+The double pulse test (DPT) results with a single GaN
+E-HEMT per switch for full switching mode operation are
+shown in Fig.12. The gate resistances selected for the DPT
+are Ron = 10 Ω, Rof f = 2 Ω, and Rg,S1a = Rs,S1a =
+(a) Power layout structure of 3L-ANPC power block with two parallel
+650 V, 60 A GaN E-HEMTs.
+(b) Hardware image
+Fig. 10: 3L-ANPC phase leg with integrated gate drive stage.
+Vgg,on
+Vgg,off
+C1
+C2
+Fig. 11: Gate driver circuit.
+1 Ω. The test results show low overvoltage during turn-on and
+turn-off switching transient. The maximum voltage seen atS3
+during hard-switched turn-on of S1 is Vds,S3(max)= 415 V.
+The maximum voltage seen atS3 during the synchronous turn-
+off ofS3−S5 isVds,S3(max) = 446 V. The turn-on switching
+loss ofS1 is 310µJ fordi/dt = 4 A/ns anddv/dt = 12 V/ns
+at Vdc = 800 V and device current Id = 25 A. Switches S3
+and S5 operate synchronously during turn-off with a turn-off
+loss of 21µJ across each device.
+196
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+(a) Hard-switched turn-on ofS1 dur-
+ing 0 → P transition. This results
+in overvoltage at S3 and S5 due to
+multi-loop commutation.
+(b) Hard-switched turn-off ofS3 and
+S5 during 0 → P transition.
+Fig. 12: Double pulse test (DPT) result for hard-switched0→
+P operation with full switching mode operation.
+The experimental results show noise-free safe switching
+operation of GaN E-HEMTs for 3L-ANPC. The short loop
+inductance can be determined from the turn-off switching
+transient of S5 as Lst≈ ∆V/(di/dt) = 7.2 nH. This veriﬁes
+the low short loop inductance of the design. The placement
+of voltage probing points close to drain-source terminals of
+GaN E-HEMTs is one of the major hindrances in capturing
+the actual device overvoltage waveforms.
+B. Three-Level Inverter Test with RL load
+Ir, Iy, Ib [Scale:10A/div]
+Vyb [Scale:500V/div]
+Vr, Vy [Scale:500V/div]
+Fig. 13: 3-phase 3L-ANPC test results with RL load ( R =
+16.4 Ω andL = 1 mH ).
+The experimental results of the three-phase 3L-ANPC in-
+verter operation are shown in Fig.13. The results demonstrate
+a continuous operation of the inverter at switching frequency
+fsw = 70 kHz delivering power Po = 5.1 kW. The DC bus
+voltage is at Vdc = 550V , and the fundamental frequency of
+the generated AC waveform is fref = 60 Hz.
+IV. C ONCLUSION
+The key design features of a GaN-based 3L inverter for EV
+traction application are presented for 800 V DC bus voltage.
+The simulation models estimate the power-delivering ability
+of 41 kW for the designed inverter with two parallel GaN E-
+HEMTs. Switching mode selection is key in lowering the junc-
+tion temperature rise in GaN devices for 3L-ANPC operation.
+An IMS-based power layout design of the 3L-ANPC phase
+leg further improves the thermal performance to enable high
+efﬁciency from GaN E-HEMTs. The design guidelines and the
+effect of key parasitic inductances in the power layout structure
+are highlighted. The double pulse test results of the designed
+3L-ANPC phase leg demonstrate low voltage overshoots at
+800 V DC bus and device current of 25 A. Preliminary three-
+phase inverter operation is demonstrated at5.1 kW for 70 kHz
+switching frequency at 550 V DC.
+REFERENCES
+[1]I. Aghabali, J. Bauman, P. J. Kollmeyer, Y . Wang, B. Bilgin, and
+A. Emadi, “800-v electric vehicle powertrains: Review and analysis of
+beneﬁts, challenges, and future trends,” IEEE Transactions on Trans-
+portation Electriﬁcation, vol. 7, no. 3, pp. 927–948, 2021.
+[2]S. Satpathy, S. Bhattacharya, and V . Veliadis, “Comprehensive loss
+analysis of two-level and three-level inverter for electric vehicle using
+drive cycle models,” in IECON 2020 The 46th Annual Conference of
+the IEEE Industrial Electronics Society, 2020, pp. 2017–2024.
+[3]X. Huang, B. Jiang, M. N. Alhallak, S. Nategh, Y . Liu, and A. Boglietti,
+“Experimental evaluation of conductor insulations used in e-mobility
+traction motors,” in 2021 IEEE Workshop on Electrical Machines
+Design, Control and Diagnosis (WEMDCD), 2021, pp. 249–253.
+[4]J. He, C. Li, A. Jassal, N. Thiagarajan, Y . Zhang, S. Prabhakaran,
+C. Feliz, J. E. Graham, and X. Kang, “Multi-domain design optimization
+of dv/dt ﬁlter for sic-based three-phase inverters in high-frequency
+motor-drive applications,”IEEE Transactions on Industry Applications,
+vol. 55, no. 5, pp. 5214–5222, 2019.
+[5]H. Kim, A. Anurag, S. Acharya, and S. Bhattacharya, “Analytical study
+of sic mosfet based inverter output dv/dt mitigation and loss comparison
+with a passive dv/dt ﬁlter for high frequency motor drive applications,”
+IEEE Access, vol. 9, pp. 15 228–15 238, 2021.
+[6]R. Teichmann and S. Bernet, “A comparison of three-level converters
+versus two-level converters for low-voltage drives, traction, and utility
+applications,” IEEE Transactions on Industry Applications , vol. 41,
+no. 3, pp. 855–865, 2005.
+[7]T. Bruckner, S. Bernet, and H. Guldner, “The active npc converter and
+its loss-balancing control,”IEEE Transactions on Industrial Electronics,
+vol. 52, no. 3, pp. 855–868, 2005.
+[8]A. Kersten, K. Oberdieck, A. Bubert, M. Neubert, E. A. Grunditz,
+T. Thiringer, and R. W. De Doncker, “Fault detection and localization
+for limp home functionality of three-level npc inverters with connected
+neutral point for electric vehicles,”IEEE Transactions on Transportation
+Electriﬁcation, vol. 5, no. 2, pp. 416–432, 2019.
+[9]S. Song, Reliability of GaN-on-Si High-Electron-Mobility Transistors for
+Power Electronics Application. PhD Thesis, Aalborg University, 2018.
+[10]Y . Jiao and F. C. Lee, “New modulation scheme for three-level active
+neutral-point-clamped converter with loss and stress reduction,” IEEE
+Transactions on Industrial Electronics, vol. 62, no. 9, pp. 5468–5479,
+2015.
+[11]M. Najjar, A. Kouchaki, J. Nielsen, R. Lazar, and M. Nymand, “Design
+procedure and efﬁciency analysis of a 99.3hybrid gan/si active neutral
+point clamped converter,”IEEE Transactions on Power Electronics, pp.
+1–1, 2021.
+[12] Bottom-side cooled 650V E-mode GaN transistor ,
+GaN Systems. [Online]. Available: https://gansystems.com/wp-
+content/uploads/2021/12/GS66516B-DS-Rev-211025.pdf
+[13]E. Gurpinar, F. Iannuzzo, Y . Yang, A. Castellazzi, and F. Blaabjerg,
+“Design of low-inductance switching power cell for gan hemt based
+inverter,” IEEE Transactions on Industry Applications , vol. 54, no. 2,
+pp. 1592–1601, 2018.
+[14]“High power ims evaluation platform,” GaN Systems User’s Guide ,
+2017.
+[15]H. Gui, R. Chen, Z. Zhang, J. Niu, R. Ren, B. Liu, L. M. Tolbert,
+F. F. Wang, D. Costinett, B. J. Blalock, and B. B. Choi, “Modeling
+and mitigation of multiloops related device overvoltage in three-level
+active neutral point clamped converter,” IEEE Transactions on Power
+Electronics, vol. 35, no. 8, pp. 7947–7959, 2020.
+197
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:37 UTC from IEEE Xplore.  Restrictions apply. 

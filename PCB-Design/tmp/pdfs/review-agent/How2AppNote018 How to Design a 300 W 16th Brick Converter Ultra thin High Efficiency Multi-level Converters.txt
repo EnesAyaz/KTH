@@ -1,0 +1,215 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 018
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020   | |    1
+Introduction
+Brick DC-DC converters are widely used in data center, telecommuni -
+cation and automotive applications, converting a nominal 48 V to a  
+nominal 12 V distribution bus among other output voltages. 
+The main trend has been towards higher power density given the form 
+factor is fixed. This application note discusses the design of a digitally 
+controlled 1/16th brick converter using GaN FETs for a 48 V to 12 V, 9 V, 
+5 V application, with up to 25 A output current, 300 W output power, 
+a peak efficiency of 95.8%, and maximum power density of 730 W/in3. 
+The standard dimension of the 1/16th brick converter is 33 x 22.9 mm 
+(1.3 x 0.9 inch). The height limit for this design is set to 10 mm (0.4 inch).
+Design challenges  
+The key challenge for a high-power-density 1/16th brick is magnetics. 
+Due to space and dimension constraints, the magnetics are limited in 
+size and shape. In addition, high output current (up to 25 A) requires 
+high saturation current rating, but inductors with high saturation 
+current are usually bulky. A two-phase synchronous buck topology can 
+be used so that two inductors share the output current and therefore 
+the peak current requirement can be reduced. The simplified schematic 
+is shown in figure 1.
+The second challenge lies in the selection of the switching transistors. 
+They need to have a very good hard switching figure-of-merit [2], and 
+come in a small footprint, since the magnetics occupy a significant 
+amount of board space. For these reasons, GaN FETs in chip scale 
+packages are selected in this design.
+The next challenge is the lack of GaN-compatible controllers. Off-the-
+shelf MOSFET controllers usually have long dead times (> 20 ns), slow 
+and damped gate drivers, and are unable to handle negative voltages of 
+–2 to –3 V at the switch node. As a result, circuit adaptations of MOSFET 
+controllers are required to ensure proper operation that come at the 
+expense of efficiency. In this design, a dsPIC33 microcontroller, from 
+Microchip, is used to fully exploit the high performance of GaN FETs.
+Power stage design
+The synchronous buck converter is selected as the base topology 
+for this design. Considering the maximum output current of 25 A, if 
+a single inductor is used, its current rating needs to be at least 33 A, 
+assuming 30% peak-to-average current ripple. Inductors that satisfy 
+this requirement will not fit under the height limit. If a two-phase 
+synchronous buck converter is used instead, each inductor only 
+conducts 12.5 A DC current. With 30% ripple, the peak current is 16.25 A.
+EPC2053 GaN FETs, with 3.2 mΩ R DS(on) are used in order to reduce the 
+converter size and conduction loss. Discrete GaN-specific gate drivers, 
+How to Design a 300 W 48 V to 12 V, 9 V, 5 V Digitally  
+Controlled 1/16th Brick DC-DC Converter Using eGaN® FETs 
+EFFICIENT POWER CONVERSION
+Figure 1. Simplified schematic diagram of the 1/16th brick converter
+Figure 2. First two layers of the printed circuit board showing  
+symmetric two-phase layout
+L1Q1
+Q3 Q4
+Gate 
+Driver
+Q2
+L2
+uP1966A from µPI semiconductor, are also selected. This eliminates the 
+need for anti-parallel diode (D2 in figure 1) and reduces loss.
+To take advantage of the fast switching of GaN FETs, the power loop 
+inductance needs to be minimized. Using the optimum layout [1,2] 
+technique, the second layer of the printed circuit board (PCB) is a 
+ground plane, as shown in figure 2. Another two layers of ground plane 
+are also included in this six-layer PCB, for better heat sinking. 
+For inductors the TDK B82559 series [3] are good options, with a 
+dimension of 13 x 10.7 mm (0.51 x 0.42 inch), and a height of 5 mm or  
+6 mm. They also have high saturation current rating and low DCR. The 
+2.4 µH inductor has a saturation current rating of 16.5 A. Therefore,  
+500 kHz switching frequency is selected for the design, resulting in 
+16.25 A peak current under nominal operating condition that satisfies 
+the saturation current requirement.
+GaN
+gate
+driver
+Q1
+VIN = 48 V
+VO = 12 V
+             9V
+             5 V
+Q2
+D2
+L1
+IL1
+C2
+Rs1
+Phase 1
+Phase 2
+dsPIC
+controller
+VIN, VO,
+IL1, IL2
+sense
+
+=== PAGE 2 ===
+How2AppNote 018 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020  | |    2
+Figure 4. 1/16th brick converter EPC9143 mounted on the EPC9531 test fixture
+Figure 5. Bottom side of the 1/16th brick converter
+Digital control
+A dsPIC33CK digital controller from Microchip [4] is used to address the 
+controller compatibility issue. It is a 16-bit processor with a maximum 
+CPU speed of 100 MIPS. The pulse-width modulation (PWM) module can 
+be configured in high-resolution mode, resulting in 0.25 ns resolution in 
+duty cycle and dead times, allowing accurate adjustment of dead times 
+to fully exploit the high performance of GaN FETs.
+There are two options for the digital control loop: a) single-voltage loop 
+with current balancing; or b) multi-loop controller. Both options require 
+current sensing circuitry, consisting of sense resistors and differential 
+amplifiers. The multi-loop controller is selected for this design. In 
+addition, 1 mΩ sense resistors and low-noise amplifiers, MCP6C02, are 
+used. The control block diagram is shown in figure 3. The same current 
+reference IREF is used for the two independent current loops. As a result, 
+the current in both inductors will be regulated to the same value. The 
+bandwidth of the two inner current loops are set to 10 kHz, and the 
+outer voltage loop bandwidth is set to 2 kHz.
+ADC
+REF error HC(z)
+Compensator
+output
+Voltage
+Divider 
+ADC
+REF error Gp(s)
+(Plant A)PWM
+output
+Current
+Sense 
+Amp 
+Voltage Loop
+Current Loop A
+IOUT
+VOUT
+input
+input
+Anti-Windup
++ –
+HC(z)
+Compensator
+Current Loop B
++ –
+REF 
+ADC
+error PWM
+output
+Current
+Sense 
+Amp 
+IOUT
+input
+HC(z)
+Compensator+ –
+Gp(s)
+(Plant B)
+Figure 3. Control block diagram of the multi-loop 2-phase converter
+Design validation setup
+Figure 4 shows a photo of the 1/16th brick converter (EPC9143) mounted 
+on the EPC9531 test fixture. The power stage components (gate drivers, 
+GaN FETs and inductors) are on the top side, and control components 
+(current sense amplifiers, digital controller) are on the bottom side, 
+shown in figure 5. 
+The total stand-off height of the design is 9.1 mm, including 6 mm 
+from the inductors, 1.6 mm from the PCB thickness, and 1.5 mm for the 
+bottom component (0805 size capacitors).
+The EPC9531 test fixture has additional input capacitance of 47 µF and 
+additional output capacitance of 200 µF. These extra capacitances help 
+maintain controller stability. The fixture also provides programming 
+ports and USB communication.
+
+=== PAGE 3 ===
+How2AppNote 018 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020  | |    3
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Design results
+With 800 LFM airflow, the measured thermal steady state efficiency and 
+loss are shown in figure 6, for a range of output current up to 25 A with 
+different output voltages: 5 V, 9 V, and 12 V. The peak efficiency is 95% 
+when the current is from 20 A to 25 A at 12 V output. The maximum 
+device temperature reached 100°C, as illustrated in the thermal image 
+in figure 7.
+Due to space limitation, the brick converter can only fit a total of 8.2 µF 
+input capacitance. When an additional 2 µF capacitance is added, the peak 
+efficiency is improved to 95.8%, and the loss is reduced by 2.7 W (15%).
+Conclusion
+This application note evaluated the design challenges of a high power 
+1/16th brick converter and showed that using eGaN FETs could increase 
+maximum load current over state-of-art MOSFET designs. A 300 W,  
+48 V to 12 V maximum output, 300 W converter design with output 
+Figure 6. Measured efficiency and loss for the 1/16th brick converter
+Figure 7. Thermal image of the 1/16th brick converter operating in thermal steady 
+state. VIN = 48 V, VOUT = 12 V, 25 A output current, airflow 800 LFM
+current capability up to 25 A was tested with peak efficiency of the 
+converter reaching 95%. With 2 µF extra input capacitance, the peak 
+efficiency can reach 95.8%. 
+References
+[1] A. Lidow, M. De Rooij, J. Strydom, D. Reusch, and J. Glaser, GaN 
+transistors for efficient power conversion, 3rd ed. John Wiley & Sons, 
+2019. ISBN: 978-1119594147.
+[2] D. Reusch and J. Glaser, “DC-DC Converter Handbook - A 
+Supplement to GaN Transistors for Efficient Power Conversion, ” 1st ed. 
+Power Conversion Publications, 2015, ISBN 978-0-9966492-0-9.
+ [3] TDK. (2012). SMT power inductors, [Online]. Available: https://www.
+tdk-electronics.tdk.com/inf/30/db/ind_2008/b82559_a013.pdf.
+[4] Microchip Technology Inc. (2019). 16-bit PIC Microcontrollers 
+Family, [Online]. Available: https://www.microchip.com/design-
+centers/16-bit.

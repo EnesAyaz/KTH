@@ -1,0 +1,164 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN019 GaN Integration
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    1
+Simplifying Design  
+with DrGaNPLUS
+Gallium nitride based transistors 
+and ICs offer designers of power 
+converters a path towards achieving 
+higher output power, higher 
+efficiency, and higher power density.  
+This application note will address 
+an eGaN FET module designed as a 
+way for power-conversion systems 
+designers to easily evaluate the 
+exceptional performance of gallium 
+nitride transistors.
+EFFICIENT POWER CONVERSION
+David Reusch, Ph.D., Director of Applications Engineering
+Simplifying Design
+Power converters are constantly trending towards 
+higher output power, higher efficiency, higher 
+power density, higher temperature operation, 
+and higher reliability, all while providing a simpler 
+solution to the designer. The DrGaN PLUS, shown 
+in figure 1, demonstrates the high-power density 
+capability of eGaN FETs in an easy-to-use building 
+block. With a footprint occupying less real estate 
+than a U.S. penny, the optimized half-bridge design 
+is developed on an 11 mm x 12 mm four-layer 
+printed circuit board (PCB) with mounting pads 
+allowing for connection into any existing converter.
+The block diagram of the half-bridge circuit 
+design, shown in figure 2, consists of two eGaN 
+FETs, a driver integrated circuit (IC), pulse width 
+modulation (PWM) logic, dead-time adjust, and 
+high-frequency input capacitors. The design 
+and layout of these components is critical to fully  
+utilize the high-speed capability of the eGaN FET 
+technology. The DrGaN PLUS gate-drive circuitry 
+ensures the gate-drive requirements for eGaN 
+FETs are met and provides optimized performance 
+with the latest GaN driver IC technology. Users 
+can input two PWM signals to individually control  
+ 
+the devices or use the on board logic and dead-
+time adjust circuit to input a single PWM signal 
+and obtain an optimized dead-time for a buck 
+converter application to maximize performance. 
+The high-frequency input capacitors, also located 
+on board, are arranged with the two eGaN FETs in 
+an optimized PCB layout, minimizing the common
+source inductance and the high-frequency 
+power commutation loop inductance to decrease 
+switching losses and voltage overshoot. The 
+DrGaNPLUS eliminates complexity and provides the 
+designer an easy-to-use optimized solution with 
+available pads to mount to the PCB, shown on the 
+right in figure 1. 
+Figure 1:  EPC9203 DrGaNPLUS optimized half-bridge building block
+Top side Mounting side
+PWM
+VDD2
+HINPWM
+HIN LIN
+LINPWM
+5 V
+VDD2
+5 V
+Dead-time
+adjust logic
+LM5113
+gate driver
+Half-bridge with
+high frequency
+input capacitors
+Q1
+Q2
+CIN
+Figure 2:  Block diagram of optimized half-bridge DrGaNPLUS
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN019 GaN Integration
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    2
+Part 
+ Number
+VDS  
+(max)
+ID  
+(max RMS)
+Featured 
+Product
+  
+EPC9201 30 40 EPC2015C/EPC2023
+EPC9203 80 20 EPC2021
+Table 1: DrGaNPLUS Part Numbers
+Figure 3: Switching node waveforms of eGaN FET  design 
+(VIN = 48 V, VOUT = 12 V, IOUT = 20 A, fsw = 500 kHz)
+Figure 4: Efficiency for DrGaNPLUS EPC9203 using 80 V EPC2021 devices at 300 kHz and 500 kHz 
+98.0
+97.5
+97.0
+96.5
+96.0
+95.5
+95.0
+94.5
+94.0
+93.5
+93.0
+92.5
+92.0
+Output Current (A)
+0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32
+VIN = 48 V, VOUT = 12 V
+fSW = 300 kHz
+fSW = 500 kHz
+EPC9203
+Increasing Efficiency
+The gains in silicon-based device performance 
+have slowed in the past decade as the technology 
+reaches its theoretical limit, and the package 
+improvements have been limited by the inherent 
+trench structure at higher voltages. This is where 
+GaN transistors come in.
+The first commercially available enhancement 
+mode GaN-on-silicon power devices are good 
+potential replacements for the aging power 
+metal-oxide-semiconductor field-effect transistor 
+(MOSFET). eGaN FETs provide lower figures of merit 
+(FOMs), lower package parasitics, which combined 
+with lower parasitic printed circuit board (PCB) 
+layouts provide significant performance benefits 
+over state-of-the-art silicon (Si) technology. 
+Shown in figure 3 is a switching waveform for the 
+EPC9203 DrGaN PLUS module, using 80 V EPC2021 
+eGaN FETs. The GaN device, with low on-resistance 
+(RDS(on)) and reduced switching charges, enables 
+faster switching speeds and higher operating 
+currents with low voltage overshoot. This enables 
+circuit designers to achieve both lower dynamic-  
+switching losses and lower static-conduction  
+losses, improving converter efficiency. The 
+efficiency of a DrGaN PLUS solution using 80 volt 
+(V) eGaN FETs operating at 300 kHz is shown in  
+figure 4. With the low-dynamic switching losses 
+provided by eGaN FETs, the switching frequency 
+and power density of the system can be increased 
+without sacrificing performance as shown with the 
+500 kHz efficiency curve.
+There are currently two versions of the  module 
+available as noted in table 1 below. The  
+40 A EPC9201 uses the 40 V EPC2015C and 30 V 
+EPC2023.  The 20 A EPC9203 uses the 80 V EPC2021. 
+Summary
+The introduction of high-performance GaN devices 
+offers the potential to switch at higher frequencies 
+and with efficiency than possible with traditional  
+Si MOSFET technology. The eGaN FET-based 
+DrGaNPLUS building block demonstrates the ability 
+to simplify high-power density and high-efficiency 
+power conversion by providing an easy-to-use 
+way for designers to evaluate the exceptional 
+performance of gallium nitride transistors.

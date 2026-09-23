@@ -1,0 +1,21 @@
+(footprint "P7_Mechanical_Envelopes" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (fp_text reference "MECH1" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp d19bc2c8-9920-4baa-9f95-b257f4c0a8cd)
+  )
+  (fp_text value "P7 mechanical envelopes - review" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 2ff013ca-ce21-4edc-84fb-769ce68aec20)
+  )
+  (model "${KIPRJMOD}/models/P7-spreader-envelope.wrl"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KIPRJMOD}/models/P7-two-coil-envelopes.wrl"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+)

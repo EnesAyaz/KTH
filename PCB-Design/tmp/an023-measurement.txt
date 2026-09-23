@@ -1,0 +1,423 @@
+APPLICATION NOTE: AN023                                                                                         Accurately Measuring High Speed GaN Transistors
+
+
+
+Accurately Measuring
+High Speed GaN Transistors
+                                                                                                                           EFFICIENT POWER CONVERSION
+
+
+Suvankar Biswas, David Reusch, Michael de Rooij > Efficient Power Conversion Corporation, El Segundo, CA    Tom Neville > Tektronix Inc., Beaverton, OR
+
+The increase in switching speed offered by GaN transistors requires good                                                rise and fall times, peak overshoot, undershoot
+measurement technology, as well as good techniques to capture important details                                         and the expected switch node rising edge ringing
+                                                                                                                        frequency, which can be estimated by using the
+of high-speed waveforms. This application note focuses on how to leverage the
+                                                                                                                        ringing frequency equation:
+measurement equipment for the user’s requirement and measurement techniques
+to accurately evaluate high performance GaN transistors. The application note                                                          fr =          1                    (2)
+also evaluates high bandwidth differential probes for use with non-ground-                                                                    2π    LLoopCo2
+
+referenced waveforms. In order to demonstrate measurement techniques and
+                                                                                                                        In equation (2), LLoop is the high-frequency loop in-
+requirements for the wide ranging families of EPC eGaN® FETs; a (i) high speed, 10
+                                                                                                                        ductance, which is comprised of the high frequency
+MHz switching frequency, 65 V eGaN FET EPC8009 (Q1 and Q2 in figure 1) based                                            decoupling capacitors, the eGaN FETs (Q1 and
+half-bridge board, and a (ii) lower speed, 500 kHz switching frequency, EPC9080                                         Q2), and the PCB connections of the components.
+half-bridge demonstration board which uses the 100 V eGaN FET EPC2045 as                                                Co2 = Coss + Cpar, includes Coss, which is the output
+                                                                                                                        capacitance of the bottom side FET Q2 at the Q2
+the top switch (Q1) and 100 V EPC2022 as the bottom switch (Q2) are used. Both
+                                                                                                                        blocking voltage and Cpar is the parasitic and probe
+boards are configured to operate as buck converters in figure 1.                                                        capacitance at the switch node. LLoop is estimated
+                                                                                                                        to be approximately 200-300 pH for the demo
+                                                                                                                        boards considered in this application note [2].
+Impact of Bandwidth on Measurement                         scope, and probe, respectively. For this application         Coss is 30 pF for the EPC8009 in the test voltage
+The highest bandwidth available from the                   note, a 2 GHz oscilloscope (Tektronix MSO 5204)              range [3], and Cpar is roughly about 10 pF for this
+combined scope and probe system is given by (1):           is used. The passive probe (Tektronix TPP1000)               demonstration board. This translates to a ringing
+                                                           offers a maximum bandwidth of 1 GHz. The lower               frequency fr1~1.6 GHz. For the larger capacitance
+BW−3dB =                           1                       value between the scope and probe bandwidths                 EPC2045 and EPC2022 based design, the ringing
+                    1
+                             +
+                                    1        (1)           has the greater effect on system bandwidth. In               frequency is estimated to be fr2~ 0.44 GHz.
+                  2               2
+               BW−3dB, Scope   BW−3dB, Probe               this example, the overall system bandwidth is
+                                                                                                                        It is clear from (1) that the highest system
+                                                           calculated to be approximately 1 GHz.
+                                                                                                                        bandwidth available to us is below the ringing
+where BW-3dB, BW-3dB, Scope, and BW-3dB, Probe are the     When evaluating the layout of PCB (Printed Circuit           frequency of the EPC8009 based design. We will
+bandwidths (in Hz) corresponding to the system,            Board) designs, typical measurements include                 now observe how choice of system bandwidth
+                                                                                                                        affects the capture of the switch node waveform
+                                                                                                VIN                     for higher speed GaN transistors, such as the
+                                                                                                                        EPC8009, and relatively slower switching GaN
+                                                                                                HF output               transistors, such as the EPC2045 and EPC2022.
+         VDD          Gate drive                                                                                        To understand how this works, consider the
+                      regulator
+                                                                   Q1                                                   frequency response of the system plotted in
+                                          Level shift
+
+
+
+
+                                                                                                DC output               figure 2 below, with the various available
+                                                                                L Buck                                  measurement system bandwidths, and the ringing
+                     Logic and                                                                                          frequencies of the two designs considered in this
+      PWM            dead-time                                                 C Bypass     C OUT
+                       adjust                                                                                           application note.
+                                                                   Q2
+        GND                                                                                      PGND
+
+
+Figure 1: Simplified Schematic for eGaN FET test boards used in this application note.
+
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                                       | 1
+APPLICATION NOTE: AN023                                                                           Accurately Measuring High Speed GaN Transistors
+
+The deeper in the roll-off region fr lies, the less
+accurate the waveform capture will be for that                                 fr2 = 438 MHz (EPC9080)                   fr1 = 1.6 GHz (EPC8009 based board)
+particular probe. In this case, the measurement
+system is acting like a low-pass filter, attenuating
+the high frequency content. This is demonstrated
+
+
+
+
+                                                         Gain
+in figure 3, where the waveforms correspond to the
+colors used in the frequency response shown in                             1 GHz
+                                                                           500 MHz
+figure 2. The difference in the waveforms is evident
+                                                                           350 MHz
+for the different bandwidth measurements. It is                            250 MHz
+also observed in figure 3 that the rise times of the
+captured waveforms vary significantly. This can be
+                                                                                                Freq (Hz)
+attributed to the relationship between the system
+bandwidth and the rise time according to the
+                                                                           Figure 2: Frequency response of system (not drawn to scale).
+following equation [1]:
+
+                               0.35
+       trise (10% − 90%) ≈                      (3)[1]
+                              BW−3dB
+The fastest rise time captured in figure 3 is roughly
+0.4 ns, which corresponds to a system bandwidth                                                          VDD = 5 V, fs = 10 MHz, VIN = 12 V, IOUT = 1 A
+of ~1 GHz. Using the same probe and oscilloscope
+with the 500 MHz bandwidth digital filter, the
+measured rise time is 0.8 ns. Clearly the rise time
+of the measured signal is limited by the system
+bandwidth. Since the measured rise time is equal
+to the calculated system rise time, the input signal                                                                              1 GHz
+is faster than the measurement system rise time.                                                                                  500 MHz
+Therefore, the input signal rise time is likely much                                                                              350 MHz
+less than 0.4 ns.                                                                                                                 250 MHz
+The measured ringing frequency, fr1, is 1.176 GHz
+as shown in figure 4. This measurement was made
+with the highest bandwidth 1 GHz probe. The                     3 V/div.                                           1 ns/div.
+lower bandwidth cases shown in figure 3 further
+degrade the accuracy of the ringing frequency                                Figure 3: Effect of probe/system bandwidth on captured
+measurement. When looking at the peak voltage                                           waveform (EPC8009 based board).
+overshoot, it is also clear that lower bandwidth
+measurements underestimate the peak voltage
+across the switching devices. For timing dependent
+dead time measurements, the system bandwidth
+                                                                                                            VDD = 5 V, fs = 10 MHz, VIN = 12 V, IOUT = 1 A
+is also important. Shown in figure 3, there is a
+more definitive drop in the switching waveform
+for the bandwidths of 500 MHz and 1 GHz and the
+dead-times could be more clearly defined from
+measurement. At lower bandwidths, the drop
+becomes harder to clearly define. Table 1 shows
+the system bandwidths impact on the ability to
+make critical measurements for the highest speed,
+                                                                                                                      fr1_meas = 1.176 GHz
+EPC8009 based board.
+
+
+
+1
+ The 0.35 value is for oscilloscopes with Gaussian
+frequency response. This value may be different                 3 V/div.                                          1 ns/div.
+for oscilloscopes with different frequency response
+profiles and can vary between 0.35 and 0.45.                           Figure 4: Ringing frequency measurement (EPC8009 based board).
+
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                               | 2
+APPLICATION NOTE: AN023                                                                                    Accurately Measuring High Speed GaN Transistors
+
+The other test case is shown with the EPC9080               System Bandwidth               250 MHz               350 MHz                  500 MHz                1 GHz
+demonstration board, which has a much lower
+                                                            Dead time                         ×                      ×                        3                   3
+ringing frequency and switching speed from
+lower on-resistance and higher capacitance                  Ringing Frequency                 ×                      ×                        ×                   ×
+eGaN FETs [4]. The corresponding waveforms are              Overshoot                         ×                      ×                        ×                   ×
+shown in figure 5. The ringing frequency (fr2) of           Rise Time                         ×                      ×                        ×                   ×
+438 MHz and its amplitude measured with the
+1 GHz (blue) probe is valid, since fr2 is below the                                 Table 1: Measurable parameters (EPC8009 based board).
+-3dB frequency of the system. The 1 GHz (blue) and
+500 MHz (green) waveforms capture all the details
+accurately. However, for system bandwidths of
+350 MHz (orange) and 250 MHz (brown), fr2 is above
+the system bandwidth. As a result, it captures the
+                                                                                                              VDD = 5 V, fs = 500 kHz, VIN = 50 V, IOUT = 10 A
+ringing waveform shape, but the attenuation
+on the ringing is evident, thus underestimating
+the overshoot. The rise time measured by
+the different system bandwidths are roughly
+~ 3 ns. The lowest bandwidth we have used is
+250 MHz, which corresponds to a rise time of
+1.6 ns according to equation (2) and for all of the                                                                                      1 GHz
+cases the rise time can be captured accurately. This                                                                                     500 MHz
+discussion is summarized in table 2.                                                                                                     350 MHz
+                                                                                                                                         250 MHz
+Measurement Techniques
+In the second part of this application note, we
+demonstrate how good probing techniques and
+the importance of choice of measurement point in                        10 V/div.                                         5 ns/div.
+generating a high-fidelity and accurate waveform.
+                                                                         Figure 5. Effect of probe/system bandwidth on captured waveform (EPC9080).
+1. Use a probe with low input capacitance and keep
+ground as short as possible
+                                                            Probe Bandwidth                250 MHz               350 MHz                  500 MHz                1 GHz
+Two types of probe grounding solutions are used
+for the passive probe (Tektronix TPP1000): An               Dead time                         3                     3                         3                   3
+alligator clip and a spring clip [5] (shown in figure 6).   Ringing Frequency                 3                     3                         3                   3
+A long ground lead is convenient because the                Overshoot                         ×                      ×                        3                   3
+user can make one ground connection and probe               Rise Time                         3                     3                         3                   3
+many test points within the range of the ground
+                                                                                          Table 2: Measurable Parameters (EPC9080).
+lead. However, any piece of wire has distributed
+inductance, and the distributed inductance reacts
+to AC signals by increasingly impeding AC current
+flow as signal frequency increases. The ground
+lead’s inductance interacts with the probe input
+capacitance to cause ringing at a certain frequency
+(see equation 2). This ringing is unavoidable and
+may be seen as a sinusoid of decaying amplitude.
+As the length of the ground lead increases, the
+inductance increases and the measured signal will
+ring at a lower frequency.
+It is important to minimize the effects of the                                               “Long” loop
+probe’s input capacitance and ground lead length.
+                                                                                                                                                  “Short” loop
+It should be noted that the TPP1000’s 3.9 pF input
+capacitance is significantly lower than other passive
+probes which have approximately 9.5 pF input                                              Alligator clip                               Spring clip
+capacitance. Table 3 shows how input capacitance
+and ground lead length affect ringing frequency.                                            Figure 6: Different probing techniques.
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                                         | 3
+APPLICATION NOTE: AN023                                                                                                   Accurately Measuring High Speed GaN Transistors
+
+The EPC9080 half-bridge demonstration board will                                         Probe Input                            Grounding              Grounding Solution
+                                                         Probe                           Capacitance                              Solution                 Inductance                     Ring Frequency
+be used as the basis of this section on measurement
+techniques. Figure 7 shows the schematic of the          Standard Passive Probe             9.5 pF                             6” Ground Lead                150 nH                            133 MHz
+various test points used in this board, and figure 8     Tektronix TPP1000                    3.9 pF                           6” Ground Lead                         150 nH                   208 MHz
+shows a photo of the actual PCB. The switch node
+                                                         Standard Passive Probe               9.5 pF                          ½“ Ground Spring                        10 nH                    516 MHz
+waveform is measured at two points as shown in
+                                                         Tektronix TPP1000                    3.9 pF                          ½“ Ground Spring                        10 nH                    806 MHz
+figure 8: a “near point,” which is close to the switch
+node of the FETs, and a “far point,” which are the
+                                                                                              Table 3: Calculated probe ringing frequency.
+pin headers at the periphery of the PCB.
+The waveforms at the switch node (VSW) measured                                                                                                        VGS1
+with each combination of probing point and                                                                                                                                         VIN
+probing technique are shown in figure 9.
+                                                                                                                                                                                   HF output
+                                                                      VDD            Gate drive
+The measured waveforms of figure 9 clearly                                           regulator                                       +
+show that probing technique supersedes the                                                                                                  Q1
+
+
+
+
+                                                                                                         Level shift
+                                                                                                                                                                                   DC output
+choice of measurement point. Although there                                                                                               + _               L Buck
+is a marginal attenuation, the red and black                                        Logic and
+                                                                    PWM             dead-time                                                              C Bypass            C OUT
+waveforms are nearly identical. The waveform                                          adjust                                          +
+shape is quite inaccurate when the alligator clip                                                                                         _ Q2         _
+                                                                     GND                                                                                                           PGND
+is used, regardless of the choice of measurement                                                                                                                         VSW
+                                                                                                                       VGS2
+point. As a recommendation, the spring clip
+technique should be used in conjunction with a                                                    Figure 7: Measurement points for EPC9080.
+measurement point which is closest to the power
+device (“near point”).
+2. Use an isolated measurement system for non-                                                                                                   High side Gate-Source
+ground referenced high frequency measurements                                                        “Far Point”
+
+Differential measurements describe any
+measurement between two test points but the
+term is most commonly used when describing
+measurements involving test points that are not
+referenced to ground. A few commonly used                                                                                                        Low side Gate-Source
+methods for measuring differential signals are:                                              “Near Point”
+(a) using two single-ended probes and oscilloscope
+math to measure the difference, (b) using a high                                           Top Side                                                    Bottom Side
+bandwidth, high voltage differential probe, and
+                                                                                       Figure 8: Development board and measurement points.
+(c) using an isolated measurement solution [6].
+First consider the method of using the math
+function in the oscilloscope. The voltages at the
+two test points of interest are measured using two                          Alligator clip, far point
+ground referenced probes. Then, a math waveform
+                                                                                                                                 Alligator clip, near point
+can be created showing the difference between
+the two voltage waveforms. The difference math
+waveform is a pseudo differential measurement.
+                                                                       Spring clip, near point
+While limited in performance, this technique
+may be adequate for some low frequency
+measurements with small common mode signals.                                                                                  Spring clip, far point
+For proper operation, both inputs must be set
+to the same scale factor, and the probes must
+be identical models and closely matched. Any                                                                                     VDD = 5 V, fs = 500 kHz, VIN = 50 V, IOUT = 10 A
+mismatch between the probe’s attenuation/gain,
+propagation delay and mid and high frequency
+response will result in less accurate measurements.
+Common mode rejection ratio (CMRR) is extremely                        10 V/div.                                                              5 ns/div.
+poor at higher frequencies and large common
+mode signals will overdrive the scope inputs.                                 Figure 9: Effect of probing techniques and choice of measurement point.
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                                                                         | 4
+APPLICATION NOTE: AN023                                                               Accurately Measuring High Speed GaN Transistors
+
+The next method for making differential
+measurements uses a differential probe. Because
+these probes are truly differential, both of the                                                VDD = 5 V, fs = 500 kHz, VIN = 0 V, IOUT = 0 A
+inputs are high impedance (high resistance
+and low capacitance). With the balanced, low
+capacitance inputs of high-voltage differential
+probes, any point in the circuit can be safely
+probed with minimal loading to the circuit under
+test. However, conventional differential probes
+often fail to provide a good representation of the
+actual signal due to limitations in their common
+mode rejection ratio, voltage derating over                                         Math channel (using TPP1000)
+frequency, frequency response, and the probe’s                                      IsoVu TIVM1
+long input leads. These limitations are even more
+pronounced when testing on power devices with
+fast switching rates at even nominal common          1 V/div.                    BW = 1 GHz           20 ns/div.
+mode voltage.
+                                                           Figure 10: High side gate-to-source VGS1 waveform (clean environment).
+The most preferred method for making accurate
+differential measurements are high performance,
+isolated measurement solutions such as the
+Tektronix IsoVu measurement system. In circuits
+such as a half bridge where there are large common
+mode voltages and fast edge rates, signals such as
+the high-side gate-source voltage are impossible                                              VDD = 5 V, fs = 500 kHz, VIN = 50 V, IOUT = 10 A
+to measure without superior CMRR at high
+frequencies. While traditional differential probes
+offer relatively good common mode rejection
+at low frequencies up to a few MHz, their CMRR
+will substantially degrade past a few megahertz.
+An isolated system such as the Tektronix IsoVu
+enables high CMRR at high frequencies. When
+evaluating signals such as a high-side VGS riding
+on top of the switch node voltage, which is                                               Math channel
+rapidly switching between “ground” and the input                                          (using TPP1000)
+supply voltage, a measurement solution with the                                           IsoVu TIVM1
+following characteristics is required:
+   • Galvanic isolation                              1 V/div.                    BW = 1 GHz           20 ns/div.
+   • High bandwidth: > 500 MHz
+                                                           Figure 11: High side gate-to-source VGS1 waveform (noisy environment).
+   • Large common mode voltage: > the input
+     supply voltage
+   • Large common mode rejection ratio: > 60 dB
+     at 100 MHz
+   • Large input impedance: > 10 MΩ || < 2 pF
+The resultant measurement difference between
+the scope math technique and an isolated
+measurement system is illustrated in figures 10
+and 11. The waveform that is measured is the high-
+side gate-to-source signal (VGS1) of the EPC9080
+board (figures 7 and 8).
+
+
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                 | 5
+APPLICATION NOTE: AN023                                                                                    Accurately Measuring High Speed GaN Transistors
+
+Figure 10 shows the waveforms with only the                                                                                                                        CMRR @
+                                                          Probe                  Bandwidth      CMRR @ DC         CMRR @ 1 MHz          CMRR @ 100 MHz         Full Bandwidth
+logic circuits powered in a less noisy or “clean”
+environment (logic power supply Vdd = 5 V). The           Tektronix TIVM1           1 GHz          120 dB             120 dB                    120 dB               80 dB
+                                                                                                (1 Million:1)      (1 Million:1)             (1 Million:1)        (10,000:1)
+passive probe based math waveform is similar to
+                                                          Traditional High                        > 80 dB              50 dB                    27 dBł               15 dBł
+the one measured with high bandwidth isolated                                     200 MHz        (10,000:1)           (316:1)                   (22:1)              (5.6:1)
+                                                          Voltage Differential
+probe (Tektronix IsoVu [7]). However, when the                                            Table 4: Common mode rejection ratio comparison.
+circuit is powered with the voltage and current in                       ł: Not listed in the data sheet and estimated from the probe manual CMRR plot.
+figure 11, there is a high level of switching noise
+present in the “noisy” environment magnifying
+                                                        If the differential signal that is being measured is in
+the difference between the measurements. The
+waveform captured with the isolated probe is                                           Common Mode Error for 500 V Common Mode Voltage Across Bandwidth
+                                                          Probe
+much cleaner due to its high CMRR (common                                             DC               1 MHz                       100 MHz                   Full Bandwidth
+mode rejection ratio) [7].                                Tektronix TIVM1           500 µV             500 µV                      500 µV                        50 mV
+3. A probe’s Common Mode Rejection Ratio (CMRR) is        Traditional High           50 mV              1.6 V                       22.3 V                       89.3 V
+                                                          Voltage Differential
+a critical, but often overlooked, specification
+                                                                                 Table 5: Error due to insufficient common mode rejection ratio.
+The probe’s ability to reject the common mode
+signal is its common mode rejection ratio (CMRR).
+Ideally, a differential measurement system would
+have an infinite CMRR. The higher an amplifier’s                                                                    References:
+CMRR, the less impact the common-mode input             the presence of 500 V common mode voltage, how
+                                                        much error should you expect? Again, it depends             [1] A. Lidow, J. Strydom, M. De Rooij and
+voltage has on the differential measurement. In
+                                                        on the signal’s rise time. If the measurement is being          D. Reusch, GaN transistors for efficient power
+practice, a CMRR of at least 80 dB (10,000:1) will
+                                                        made at DC using a traditional differential probe, the          conversion, Second Edition, Wiley, 2014.
+result in usable measurements. Most differential
+probes can easily obtain a CMRR of 80 dB or higher      CMRR is 80 dB or 10,000:1. The common mode error
+                                                                                                                    [2] D. Reusch and J. Glaser, DC-DC Converter
+at DC and low frequencies where it’s possible to        is 500 V divided by 10,000, which is 50 mV of error.
+                                                                                                                        Handbook, Power Conversion Publications,
+tune the components accurately. As the frequency        Table 5 shows how much common mode error the
+                                                                                                                        2015.
+of the measurement increases, a differential probe’s    user would experience in the presence of 500 V
+CMRR degrades because the mismatches become             common mode voltage across bandwidth.                       [3] EPC8009 eGaN FET datasheet. http://epc-
+increasingly difficult to control. At 100 MHz, the      Note: Because the values at 100 MHz and full                    co.com/epc/Portals/0/epc/documents/
+CMRR capability of most measurement systems             bandwidth for traditional probes are not listed in              datasheets/EPC8009_datasheet.pdf
+is 20 dB or less. Table 4 compares the CMRR             the data sheet, these values were extracted from the
+                                                                                                                    [4] EPC2022 eGaN FET datasheet. http://epc-
+specifications of an isolated measurement system        common mode rejection plot in the user manual.
+                                                                                                                        co.com/epc/Portals/0/epc/documents/
+(Tektronix TIVM1) versus a traditional high voltage
+                                                        Conclusion                                                      datasheets/EPC2022_datasheet.pdf
+differential probe. These values are taken directly
+                                                        Measuring various EPC eGaN FET based power
+out of the probes’ data sheets.                                                                                     [5] Tektronix TPP0500 and 1000 passive probe:
+                                                        converters, including impacts of bandwidth,
+Because the CMRR capabilities of a traditional          probing techniques, and appropriate use of high-                Instruction. http://www.av.it.pt/medidas/
+differential probe are only effective from DC to        bandwidth isolated probes has been described                    data/Manuais%20&%20Tutoriais/60%20
+a few megahertz, a typical data sheet fails to          in this application note. Combining better                      -%20MSO71604C/Product%20Software/
+provide a CMRR number at higher bandwidths. A           measurement technologies and techniques with                    Documents/pdf_files/probes/0712809.pdf
+user may fall into the trap of thinking the 1 MHz       improved understanding of the requirements of
+                                                                                                                    [6] ABC of Probes: A Primer, Tektronix Inc. https://
+specification is “fast enough” for their application.   the measurement system for a specific application,
+                                                                                                                        faculty.unlv.edu/eelabs/docs/guides/ABC_of_
+However, it’s important to remember that while          circuit designers can better optimize their high
+                                                                                                                        Probes.pdf
+the repetition rate may not be fast, the rise time of   performance GaN based designs.
+the signal you’re measuring may be quite fast, in                                                                   [7] TIVM Series IsoVu Measurement System: Users
+the 1’s or 10’s of ns.                                                                                                  Manual, Tektronix Inc.
+
+
+
+
+EPC – EFFICIENT POWER CONVERSION CORPORATION | WWW.EPC-CO.COM | COPYRIGHT 2017 |                                                                                          | 6
+

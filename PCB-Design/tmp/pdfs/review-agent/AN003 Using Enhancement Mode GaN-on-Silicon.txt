@@ -1,0 +1,1014 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    1
+ 
+In an effort to make the transition from power  
+MOSFETs to the new generation of power 
+management devices as easy as possible, this  
+paper describes the general operation of enhance-
+ment mode GaN devices, gate drive techniques, 
+circuit layout considerations, thermal manage -
+ment techniques, and testing considerations. 
+General Description of eGaN 
+FETs and GaN-on-Silicon 
+Technology
+Structure
+A device’s cost effectiveness 
+starts with leveraging exist -
+ing production infrastructure  
+with a process with few  
+production steps. Depreciated, 
+low resolution CMOS foundries 
+are used in the fabrication 
+of eGaN FETs. EPC’s process  
+begins with silicon wafers  
+upon which a thin layer of  
+Aluminum Nitride (AlN) is grown to isolate the 
+device structure from the substrate. On top of 
+this, a layer of highly resistive Gallium Nitride 
+is grown. This layer provides a foundation on 
+which to build the GaN transistor. Aluminum  
+Gallium Nitride (AlGaN) is applied to the GaN. 
+This layer produces a physical strain, and because 
+GaN is a piezoelectric material, the strain attracts 
+electrons to the interface. This concentration of 
+electrons is called a two-dimensional electron 
+gas (2DEG). Further processing forms a deple -
+tion region under the gate, and metal layers are 
+added to connect the three terminals, Gate, Drain, 
+and Source. A cross section of this structure is  
+depicted in Figure 1. This structure is repeated 
+many times to form a power device. The end result 
+is a fundamentally simple, elegant, cost effective  
+solution for power switching. This device behaves 
+similarly to silicon MOSFETs with some exceptions 
+that will be explained in the following sections. 
+To obtain a higher voltage device, the distance  
+between the Drain and Gate is increased. As the 
+resistivity of the 2DEG is very low, the impact on 
+resistance by increasing blocking voltage capa -
+bility is much lower when compared with silicon. 
+Figure 2 shows the theoretical tradeoff between 
+device on resistance and blocking voltage for GaN, 
+SiC, and Si. After 30 years, silicon MOSFET develop-
+ment has approached its theoretical limits. Prog -
+ress in silicon has slowed to the point where small 
+gains have significant development cost. GaN is 
+young in its life cycle and as we have seen with 
+EPC’s first four generations of eGaN FETs, progress 
+in this technology is occurring very rapidly.
+Operation
+EPC’s eGaN FETs behave similarly to silicon Power 
+MOSFETs. A positive bias on the gate relative to 
+the source causes a field effect which attracts 
+electrons that complete a bidirectional channel  
+between the drain and the source. When the bias 
+is removed from the gate, the electrons under it 
+are dispersed into the GaN, recreating the deple -
+tion region, and once again, giving it the capability 
+to block voltage. Figures 3 and 4 show the transfer  
+Using Enhancement Mode 
+GaN-on-Silicon Power FETs (eGaN® FETs)
+Efficient Power Conversion Corporation’s 
+(EPC) hyper-fast enhancement mode 
+Gallium Nitride (GaN) power transistors  
+offer performance improvements well 
+beyond the realm of silicon-based 
+power MOSFETs. Standard power  
+converter topologies can greatly benefit 
+from the added performance and leap 
+to performance not attainable with  
+current MOSFET designs; improving 
+converter efficiency, while maintaining 
+the simplicity of converter designs. 
+Using eGaN FETs is very similar to using 
+modern power MOSFETs. However, due 
+to the significantly better performance, 
+there are additional design and test 
+considerations to make certain devices 
+are used efficiently and reliably.
+EFFICIENT POWER CONVERSION
+Johan Strydom, David Reusch, Steve Colino, Alana Nakata
+Si
+SG D
+GaN
+Electron Generating Layer
+Dielectric
+Aluminum Nitride
+Isolation Layer
+Figure 1 – EPC’s GaN power transistor structure.
+Figure 2 – Resistance vs. breakdown voltage.
+GaN Limit
+101
+100
+10-1
+10-2
+10-3
+10-4
+101 102 103 104
+SiC Limit
+Si Limit
+Breakdown Voltage (V)
+Ron  (Ω mm2)
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    2
+Figure 6: Effect of dv/dt on a device in the off-state and requirements for avoiding Miller-induced shoot-through.
+Figure 3 – transfer characteristics curve for EPC2001.   Figure 4 - RDS(on) vs VGS for various current for EPC2001.
+characteristics and R DS(on) vs. V GS of the EPC2001  
+respectively. The transfer characteristics show the 
+current capability as V GS varies. This is very similar  
+to MOSFETs except the transconductance (di d/
+dvgs) is much higher for eGaN FETs of similar R DS(on).  
+The R DS(on) vs. V GS curve shows that R DS(on) becomes 
+reasonably flat beyond VGS = 4 V.
+Drain to Source Maximum Voltage Rating
+The maximum drain to source breakdown voltage 
+(BVDSS) is specified in EPC GaN transistor datasheets. 
+Special considerations have to be taken when 
+switching inductive loads. These types of loads 
+present a possibility of the drain voltage exceeding 
+the maximum rating due to inductive “kickback” . 
+This phenomenon will cause the drain voltage to  
+increase beyond the breakdown and dissipate 
+the energy from the inductor in the device. EPC’s 
+GaN transistors are not rated for avalanche mode 
+operation, but they do have an overshoot rating 
+of 20% over the BV DSS for 10,000 cycles of 5 ms or 
+less in duration. If the devices will be subjected to 
+higher voltages or more repetitions, proper active or  
+passive clamps/snubbers must be used to limit 
+the rise in the V DS to a safe level. Also, proper  
+layout techniques must be used to limit the  
+parasitic inductance in the circuit and hence limit 
+the stray inductive energy present in the system. 
+Gate Drive
+eGaN FETs differ from their silicon counterparts be-
+cause of their significantly faster switching speeds 
+and consequently have different requirements for 
+gate drive, layout, and thermal management which 
+can all be interactive.
+ID – Drain Current (A)
+VGS – Gate -to-Source Voltage (V)
+150
+120
+90
+60
+30
+00.5 1 1.5 2 2.5 3 3.5 4 4.5 5
+VDS  = 3 V
+25˚C
+125˚C
+RDS(on)  – Drain-to-Source Resistance (mΩ)
+VGS – Gate-to-Source Voltage (V)
+20
+25
+15
+10
+5
+0
+2.5 2 3 3.5 4 4.5 5 
+ID = 10 A
+ID = 20 A
+ID = 40 A
+ID = 80 A
+Do Not Exceed Gate Drive Maximum Ratings
+As seen in Figure 4, full enhancement of the device 
+channel can be achieved by applying 4 V or greater 
+between the gate and source while the absolute 
+maximum gate-to-source voltage is 6 V. Similar 
+to the Power MOSFET, the equivalent gate circuit  
+consists of a small gate resistance and a small gate 
+capacitance (Figure 5). When used in a half bridge 
+configuration, care must be taken to not over-volt -
+age or under-voltage the gate. 
+dv/dt Immunity
+A high, positive-voltage slew rate (dv/dt) on the 
+drain of an off-state device can occur in both hard- 
+and soft-
+switching  
+applications, 
+and is charac -
+terized by a 
+quick charg -
+ing of the device’s capacitances as depicted 
+in Figure 6. During this dv/dt event, the drain-
+source capacitance (C DS) is charged. Concur -
+rently, the gate-drain (C GD) and gate-source (C GS)  
+capacitors in series also are charged. If unaddressed, 
+the charging current through the CGD capacitor will 
+flow through and charge C GS beyond V TH and turn 
+the device on. This event, sometimes called Miller 
+turn-on and well known to MOSFET users, can be 
+very dissipative.
+To determine the dv/dt susceptibility of a power 
+device, a Miller charge ratio (Q GD/QGS1), as a func -
+tion of drain-to-source voltage, needs to be evalu -
+ated. A Miller ratio of less than one will guarantee 
+Figure 5: EPC GaN power transistor gate structure.
+RG
+QG
+Gate
+Source
+High dv/dt Event
+High dv/dt Current Paths
+GaN Transistor
+Keep < Vth
+Gate Drive
+RSink
+C GD
+CGS
+CDS
+R G
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    3
+theoretical dv/dt immunity [1]. In Figure 7, the large 
+reduction of Miller ratios in EPC’s latest generation 
+eGaN FETs is shown, reduced by at least a factor of 
+two and resulting in the entire product line falling 
+below a value of 1 at half their rated voltage. Also 
+plotted, as triangular dots, in Figure 7 are Miller  
+ratios for current silicon MOSFETs which in general 
+are much higher.
+di/dt Immunity
+A rising current through an off-state device, as 
+shown in Figure 8, will induce a step voltage across 
+the common-source inductance (CSI). This positive 
+voltage step will induce an opposing voltage across 
+CGS. For a rising current, this causes the gate voltage 
+to be driven to a negative value and, with insuffi -
+cient damping of the off-state gate loop LCR reso -
+nant tank, this initial negative voltage step across 
+the gate could induce positive ringing and cause an 
+unintended turn-on and shoot-through as shown in 
+Figure 9.
+It is possible to avoid this type of di/dt turn-on 
+by sufficiently damping the gate turn-off loop,  
+although some level of undershoot may be  
+preferred as described in the dv/dt immunity case 
+above. However, increasing the gate turn-off power 
+loop damping through an increase in gate pull-
+down resistance would negatively impact dv/dt 
+immunity. Thus, adjusting gate resistance alone for 
+devices with marginal Miller charge ratios may not 
+be enough to avoid di/dt and/or dv/dt turn-on. 
+A better solution is to limit the size of the CSI  
+through improved packaging and device layout.  
+This is accomplished by separating the gate and 
+power loops to as close to the GaN device as possi -
+ble, and minimizing the internal source inductance 
+of the GaN device, which will remain common to 
+both loops. 
+For a more detailed discussion on the impact of 
+inductance on circuit performance please see our 
+white paper: Impact of Parasitics on Performance.
+Figure 7: The Miller ratio of 2nd and 4th generation eGaN FETs and state-of-the-art Si MOSFETs for  
+drain-to-source voltages at half their rated voltage.
+Figure 8: Impact of a positive di/dt of an off-state device with common-source inductance.
+Figure 9: di/dt induced turn-on (shoot-through) of an off-state device with under-damped gate  
+turn-off power loop.
+EPC Gen 4
+EPC Gen 2
+Vendor A
+Vendor C
+Vendor D
+Vendor E
+Vendor B
+0
+0.5
+1.0
+1.5
+2.0
+2.5
+Drain-to-Source Voltage (V)
+0 50 100 150 200 250
+eGaN FETs 2011
+eGaN FETs 2014
+2.5x
+2.5x2.0x
+Miller Ratio = Q GD/QGSI
+GaN Transistor
+Positive di/dt Generates 
+Voltage Across CSI
+Opposing
+Voltage Induced
+Across Gate
+Gate Current
+LCR Resonant Tank
+CSI
+_
++
+S
+Drain Current
+D
+Gate Drive
+G
+R Sink
+R G
+C GD
+C DS
+C GS
++
+–
+VGS
+VDS
+Vth
+IDS
+di/dt Due to 
+Complementary Device 
+Turn-On 
+Body Diode 
+Conduction 
+di/dt Induced Step On 
+Gate Voltage Due to CSI 
+0 
+Under-Damped Ringing Above 
+Threshold Voltage Causing 
+Shoot-Through 
+Sudden Damping of Ringing 
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    4
+Below are the key characteristics of preferred gate drivers 
+for EPC GaN transistors. For a controller to be functional 
+with eGaN FETs, its driver would also need the following:
+•  Ground bounce immunity: The gate driver design 
+should be made with the assumption that the driver  
+ground and the controller ground can differ signifi-
+cantly, and the input logic pin must be immune to 
+noise-induced changes in logic state.
+•  High dv/dt immunity for high-side drivers: logic-
+isolators or level-shifters used to transfer the  
+control logic signal to the floating high-side  
+device need to be immune to high dv/dt rise and 
+fall times without changing the logic state. For 
+100 V and below, 50 V/ns immunity should be suf-
+ficient, while higher voltages require increasingly 
+higher dv/dt immunity.
+•  Low inductance surface mount package and op -
+timized pin-out: The gate drive and high-speed 
+GaN device need to be closely connected with 
+the interconnection impedance minimized. This  
+requires pin-outs and packaging options that 
+complement the GaN transistor. QFN/DFN or  
+WLCSP packages are preferred. Complementary 
+pin-outs have the VBS/HG/VSW next to each other 
+and VCC/LG/PGND next to each other. 
+•  Gate power loop inductance minimization: The gate 
+driver should be designed to minimize the induc-
+tance between the V DD supply capacitor and the 
+actual gate driver power devices (sink and source 
+devices). This will minimize gate driver rise time and 
+maximize driver di/dt. Driving the smaller Genera-
+tion 3 devices with input capacitance in the 50 pF 
+range are best served by a driver with rise and fall 
+times in the 500 ps range or below.
+• Gate drive strength: For a general purpose GaN 
+driver, the speed of the driver needs to be matched 
+to the size and speed of the device being driven. 
+This flexibility requires a low-resistance gate driver 
+with the option of additional external resistors. 
+Gate drive strength in the 1 to 3 ohm range for pull 
+up/ pull down is preferred. 
+•  Gate drive strength for pull up / pull down should 
+be in the 1 to 3 ohm range. If it is larger it will be too 
+slow (or limited to lower power applications), while 
+much smaller can induce ringing issues - especially 
+when in combination with high inductance wire-
+bonded packages.
+•  Regulation of gate drive supply voltage: Both low-
+side drivers, and especially high-side drivers, need 
+to regulate the gate drive supply voltage to avoid 
+an over-voltage condition on the transistor gate. 
+Gate drive specification should be 5 V ±0.5 V max, 
+5 V ±0.25 V is preferred.
+• Dead-time: Minimizing dead-time will limit the  
+loss component of the ‘body-diode’ forward volt-
+age. Dead-time of 20 ns or less is preferred. For a 
+more detailed discussion of dead-time manage -
+ment for eGaN FETs please see the white paper: 
+Dead-Time Optimization for Maximum Efficiency
+•  High Frequency Operation: eGaN FETs are capable 
+of switching frequencies greater than 10 MHz. An 
+optimized gate driver for high frequency operation 
+would include low minimum on-time, minimal in-
+ternal capacitance between ground and the high 
+side supply as well as a bootstrap supply with mini-
+mal reverse recovery, such as available through the 
+use of an external schottky diode.  
+For a more detailed discussion please see eGaN® FET 
+Drivers and Layout Considerations 
+For a current listing of enhancement-mode GaN 
+compatible IC’s, please see www.epc-co.com/epc/
+Products/eGaNDrivers.aspx 
+Layout Considerations
+Due to the fast switching and high current-car -
+rying capability of EPC’s GaN transistors, special 
+considerations should be taken into account when 
+designing printed circuit boards utilizing these de-
+vices. To illustrate this we will look at the example 
+of a buck converter.
+In a practical buck converter, there are two major 
+parasitic inductances, as shown in Figure 10, which 
+have a significant impact on converter performance:
+1. Common source inductance, L S, is the induc -
+tance shared by the drain to source power current 
+path and gate driver loop.
+2. High frequency power loop inductance, L LOOP, is 
+the power commutation loop and comprised of the 
+parasitic inductance from the positive terminal of 
+the input capacitance, through the top device, syn-
+chronous rectifier, ground loop, and input capacitor.
+Top
+Switch
+Synchronous
+Recti/f_ier
+L
+L S
+L LOOP
+CIN COUT
+Driver
+Figure 10: Synchronous buck converter with parasitic 
+inductances
+frequency loop inductance is controlled by the PCB 
+layout and package inductance. In applications 
+utilizing low package parasitics, such as with the 
+eGaN FETs’ LGA, the PCB layout dominates the high  
+frequency loop inductance [7]-[10].
+With the significant reduction in package related  
+inductance provided by the eGaN FET, the common 
+source inductance is minimized and is no longer the 
+major parasitic loss contributor. The high frequency 
+loop inductance, controlled by PCB layout becomes 
+the major contributor to loss, making layout using the 
+eGaN FETs critical to high frequency performance.
+The common source inductance, L S, has been 
+shown to be critical to performance because 
+it directly impacts the driving speed of the  
+devices [2]-[4]. The common source induc -
+tance is mainly controlled by the package in -
+ductance of the device, and varies from pack -
+age to package [5], [6]. For the eGaN FET, the LGA  
+package (Figure 11b) offers low common source  
+inductance, reducing loss, as shown in Figure 11a.
+The high frequency loop inductance, L LOOP, impacts 
+the switching commutation time and the peak drain 
+to source voltage spike of the devices. The high  
+Gate 
+Drain Contacts
+Source Contacts
+Substrate
+(b) 
+(a)
+3 
+3.5 
+4 
+4.5 
+5 
+5.5 Power Loss (W) 
+0 0.3 0.6 0.9 1.2 1.5 1.8 2.1 2.4 2.7 3 
+Parasitic Inductance (nH) 
+LS
+L LOOP
+MOSFET 
+Packaging
+eGaN FET 
+Packaging
+Figure 11: (a) Parasitic inductance impact on power loss (VIN = 12 V, VOUT = 1.2 V, IOUT = 20 A, FSW = 1 MHz) 
+         Top Switch: EPC2015, Synchronous Rectifier EPC2015 (b) eGaN FET LGA package
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    5
+Optimal eGaN FET Layout for Reduced Parasitics
+To enable the high switching speed available from 
+the eGaN FETs, devices were developed in land grid 
+array (LGA) packages that not only have low internal 
+inductance, but enable user to design ultra-low in -
+ductance into their board. To provide the benefits of 
+reduced loop size, magnetic field self-cancellation, 
+consistent inductance independent of board thick -
+ness, a single sided PCB design, and high efficiency 
+for a multi-layer structure, an optimal layout is pro -
+posed for eGaN FETs. The design utilizes the first 
+inner layer, shown in Figure 12b, as a power loop 
+return path. This return path is located directly un -
+derneath the top layer’s power loop, Figure 12a, al-
+lowing for the smallest physical loop size combined 
+with field self-cancellation. The side view (Figure 
+12c) illustrates the concept of creating a low profile 
+self-cancelling loop in a multilayer PCB. 
+The improved layout places the input capacitors in 
+close proximity to the top device, with the positive 
+input voltage terminals located next to the drain 
+connections of the top eGaN FET. The eGaN FETs 
+are located in the same positions as the lateral and 
+vertical power loop cases. Located between the two 
+eGaN FETs is a series of interleaved switching node 
+and ground vias arranged to match the LGA fingers 
+of the synchronous rectifier eGaN FET. The inter -
+leaved switching node and ground vias are dupli -
+cated on the bottom side of the synchronous rectifi-
+er. These interleaved vias provide three advantages: 
+(1) The via set located in between the two eGaN 
+FETs provides a reduced-length high frequency 
+loop inductance path leading to lower parasitic in -
+ductance. 
+(2) The via set located beneath the synchronous 
+rectifier eGaN FET provides additional vias for  
+reduced resistance during the synchronous rectifier 
+eGaN FET freewheeling period, reducing conduc -
+tion losses. 
+(3) The interleaving of the via sets with current flow-
+ing in opposing direction allows for reduced eddy 
+and proximity effects, reducing AC conduction losses.
+Thermal Considerations
+A high density power device must not only be 
+more electrically efficient by generating less heat, 
+but also enable superior heat conduction proper -
+ties. The thermal efficiency of a package can be 
+determined by comparing the two parameters, R θ JC 
+and Rθ JB, normalized to the package area. R θ JC is the 
+thermal resistance from junction-to-case, this is 
+(c)
+(a) (b)
+x 
+x 
+Figure 12: Proposed optimal power loop with eGaN FETs (a) Top view (b) Top view of inner layer 1 (c) Side view
+Device Package RθJC  (ºC/W) RθJB  (ºC/W) Area (mm2)
+Blade [11] 1 1.6 10.2
+CanPAK S [12] 2.9 1 18.2
+CanPAK M [13] 1.4 1 30.9
+S308 [14] - 1.8 10.9
+S308 Dual Cool [15] 3.5 2.7 10.9
+Super SO8 [16] 20 0.9 30.0
+Super SO8 Dual Cool [17] 1.2 1.1 30.0
+EPC2001 eGaN FET [18] 1.0 2.0 6.7
+EPC2021 eGaN FET [19] 0.5 1.4 13.9
+TABLE 1: Comparison of Package Area and Thermal Resistance Components RθJC  and RθJB
+the thermal resistance from the active part of the 
+eGaN FET to the top of the silicon substrate, includ-
+ing the sidewalls. Rθ JB is the thermal resistance from 
+junction-to-board, this is the thermal resistance 
+from the active part of the eGaN FET to the printed  
+circuit board. For this path the heat must transfer 
+through the solder bars to the copper traces on the 
+board. In Table 1 is a compilation of thermally relat-
+ed characteristics for several popular surface mount 
+MOSFET packages as well as two popular eGaN FETs.
+Figure 13 shows a plot of the junction-to-board  
+resistance (R θ JB) for each of the packages given in 
+Table 1. Red square dots represent the MOSFET 
+packages, and blue circular dots represent the  
+eGaN FETs. The majority of the sampled packages 
+fall on a single trend line indicating that perfor -
+mance for this element of thermal resistance is  
+determined primarily by package size, and not tech-
+nology. In contrast, in Figure 14 shows a plot of the 
+thermal resistance from junction to case (R θ JC). The 
+CanPAK and double-sided cooling SO8 packages are 
+far less efficient at extracting the heat out of the top 
+of the package than either the Blade package or the 
+eGaN FETs. The eGaN FETs, however, are over 30% 
+lower than even the Blade [11] when normalized to 
+the same area. This makes the eGaN FETs the most 
+efficient thermal package for double sided cooling 
+and most suitable for high density power designs.
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    6
+Device Area (mm )2
+0 5 10 15 20 25 30 35
+RθJB_GaN
+0
+0.5
+1.5
+2.0
+2.5
+3.0
+1.0
+RθJB, Thermal Resistance (˚C/W)
+RθJB_Si
+Device Area (mm )2
+0 5 10 15 20 25 30 35
+0
+0.5
+1.5
+2.0
+2.5
+3.0
+1.0
+RθJC, Thermal Resistance (˚C/W)
+RθJC_GaN
+RθJC_Si
+Figure 13: Rθ JB (Junction-to-Board Thermal Resistance) for several package styles 
+listed in table 1, eGaN FETs represented by blue circular dots and Si MOSFETs  
+represented by red square dots.
+Figure 14: Rθ JC (Junction-to-Case Thermal Resistance) for several package styles listed 
+in table 1, eGaN FETs represented by blue circular dots and Si MOSFETs  
+represented by red square dots.
+A further advantage of EPC’s GaN transistors is the 
+capability for thermal resistance improvements to 
+both thermal heat paths as shown in Figure 15. 
+First, the PCB-to-ambient thermal resistance can 
+be reduced through the addition of thermal vias, 
+but with the thermal vias connecting to internal 
+and external copper layers to spread the heat later-
+ally. Secondly, the thermal interface material (TIM) 
+resistance can be reduced in two ways:
+1) By reducing the thickness of the device-to-heat -
+sink interface: typically some form of spacer be -
+tween heatsink and devices are required together 
+with a TIM, as any mounting force applied to the 
+heatsink cannot be transferred to the device for 
+fear of cracking. This spacer determines the mini -
+mum distance between the heatsink and GaN de -
+vices.
+2) By placing the thermal interface material on all 
+sides of the devices and not just the top (case): this 
+reduces thermal resistance, as the surface area of 
+the device perimeter side walls is larger than the 
+top surface, as shown in Figure 16.
+Further improvements are possible by utilizing 
+dual-sided heatsinking, forced-air cooling and 
+through the use of exotic PCB materials, such as 
+DBC (direct bonded copper) [20], or IMS (insulated 
+metal substrate). 
+ 
+Thermal Interface Material Copper Heat Spreading
+Heatsink
+LGASpacer
+PCB
+Figure 15: Thermal diagram of board-mounted LGA GaN transistors with dual-sided cooling showing top-side 
+heatsink and thermal vias with heat spreading through PCB.
+Figure 16: Diagram of an LGA GaN transistor showing the die surface area and area of die perimeter.
+EPC2001
+Perimeter of die adds additional surface area
+Part
+Number
+Die Area
+(mm2)
+Perimeter
+Area (mm2)
+EPC2015
+EPC2007
+EPC2014
+EPC2010
+EPC2012
+6.70
+1.85
+5.80
+1.57
+7.86
+3.82
+7.10
+3.60
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    7
+Using Device Models to Simulate Circuit Behavior
+Although enhancement-mode devices are made to 
+operate similarly to silicon MOSFETs, they cannot 
+be readily modeled with traditional physics-based 
+MOSFET models, as the physics of the GaN transis -
+tor is significantly different. The models developed 
+for EPC’s enhancement mode GaN transistors [21] 
+are a hybrid of physics-based and phenomeno -
+logical functions to achieve a compact spice model 
+with acceptable simulation and convergence  
+characteristics. Temperature effects have also been 
+included for conductivity and threshold parameters. 
+The basic equivalent circuit for an enhancement 
+mode GaN transistor is shown in Figure 17. The 
+main components are: a voltage-controlled cur -
+rent source ID, capacitors, CGD, CGS, and C DS, and the  
+termination resistors - RS, RD, and RG.
+As a demonstration of device model and circuit 
+considerations, a simple circuit was built and tested 
+to compare device performance with that predicted 
+by the model (Figure 18).
+The circuit consisted of a voltage source charging 
+a 13 μF cap through a 10 k  resistor used to isolate 
+the voltage source from the device under test. The 
+GaN transistor is driven with a 5 V pulse and the  
+capacitor is discharged through a 0.8  resistor and 
+the device with a 0.1  stray resistance. Comparison 
+of the simulated results for the demo circuit show 
+reasonable correlation with the measured values. 
+Although not perfect, overshoot and ringing is 
+qualitatively reproduced. Figure 19 shows the over-
+lay of the gate and drain voltages vs. time for the 
+measured and simulated circuit.
+The models developed by EPC accurately repro -
+duce the basic response of the devices under  
+circuit operation conditions. Models for EPC devices 
+are available for download from the EPC website 
+(https://epc-co.com/epc/design-support/device-
+models). 
+Curve Tracer and Auto-Testing Considerations
+EPC enhancement mode GaN transistors generally 
+behave like n-channel power MOSFETs. Common 
+curve tracers, parametric analyzers, and automatic 
+discrete device parametric testers that are used 
+for an n-channel power MOSFET will be applicable 
+for the characterization of GaN transistors. Below 
+are some general guidelines for characterizing 
+DC parameters using a Tektronix 576 curve tracer, 
+Keithley 238 parametric analyzer, or a TESEC 881-
+TT/A discrete device test system.
+ID (VGS, VDS)C (VGS ,VDS)GS C (VGS,VDS)GS
+C (VGS1  VDS)GD
+RD
+RS
+RG
+G_EXT
+G_EXT
+S_EXT
+DG
+S
+S_EXT
+D_EXT
+D_EXT
++
+–
+10 kΩ
+100 VDC
+Max
+5 VDC
+VDRIVER
+1 nH
+13 µF 2 nH
+Drain
+Source
+Gate
+0.8 Ω
+0.1 Ω 50 Ω
+100 Ω
+Figure 17: Equivalent circuit implemented by the GaN transistor model.
+Figure 18: Schematic of basic demo circuit.
+Figure 19: Comparison of simulated and measured demo circuit.
+20
+0.0E+00 5.0E-08 1.0E-07 2.0E-07 3.0E-07 4.0E-071.5E-07 2.5E-07 3.5E-07
+Time (S)
+Drain Voltage (V)
+15
+10
+5
+0
+-5
+VGATE
+VDRAIN
+SIM v(DRAIN)
+SIM v(GATE)
+
+=== PAGE 8 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    8
+Caution: GaN transistors are sensitive 
+to static. GaN transistors have very  
+low capacitances and a low maximum 
+allowed gate voltage. Wrist straps, 
+grounding mats, and other ESD precau -
+tions must be followed to avoid exceed -
+ing maximum device ratings.
+Caution for VTH curve tracer testing: 
+If there is no gate resistor (R G) in series 
+with the gate during the V TH measure -
+ment, you may see an oscillation on the 
+gate which will result in a typical S curve 
+like that shown in Figure 20. The oscil -
+lation voltage can become many times 
+the input voltage. THESE OSCILLATIONS 
+CAN DAMAGE OR DESTROY THE DEVICE.
+VTH Measurement
+VTH is the gate-source voltage (VDS = V GS) which pro-
+duces a specified drain current on the datasheet. This 
+test is typically done with the drain and gate shorted.
+0.0E+00
+5.0E-04
+1.0E-03
+1.5E-03
+2.0E-03
+2.5E-03
+3.0E-03
+3.5E-03
+4.0E-03
+4.5E-03
+5.0E-03
+0 0.2 0.4 0.60 .8 11 .2 1.4
+Bias (Drain/Gate to Source)(V)
+Current (Drain to Source) (A)
+With Rg
+Without Rg
+IGSS Measurement
+IGSS is the gate-source leakage current with the drain 
+shorted to the source.
+Do not exceed 6 V on the gate in the positive direc-
+tion or 4 V in the negative direction as that is the 
+maximum gate rating for the device.
+It is very important to have a very low resistance 
+short between the drain and the source in order to 
+get an accurate I GSS measurement. It is not recom -
+mended to use the Autorange function during I GSS 
+testing on an automated tester such as a TESEC 881-
+TT/A, as range-changes during testing can lead to 
+voltage spiking which may destroy the gate.
+RDS(on) Measurement
+RDS(on) is the drain to source resistance with VGS = 5 V. 
+Since RDS(on) is sensitive to temperature, it is impor -
+tant to minimize heating of the junction during the 
+test. A drain pulse test is therefore used to measure 
+RDS(on). Accurate R DS(on) measurement requires the 
+use of Kelvin Sense on both drain and source. The 
+locations of sense points have a strong influence 
+on RDS(on) reading. It is not recommended to use the 
+Autorange function during R DS(on) testing on an au -
+tomated tester such as a TESEC 881-TT/A, as range-
+changes during testing can lead to voltage spiking 
+which may destroy the gate.
+It is not recommended to use needles on a bare 
+die to measure RDS(on). Too high current density 
+at the probe needle/solder bump contacts could 
+damage the device.
+IDSS / BVDSS Measurement
+BVDSS is the rated voltage of the device at V GS = 0 V. 
+IDSS is the drain current at a specified drain-source 
+voltage which is equal or less than the rated voltage 
+of the device, with V = 0 V.
+The true breakdown voltage for a GaN device 
+from EPC is generally well above the maximum 
+drain-source Voltage rating of the device. There -
+fore a BV DSS test should not be done on the device  
+because the maximum VDSS rating will be exceeded. 
+Degradation of device RDS(on) may be seen if the max 
+rating is exceeded. It is also very important to short 
+the gate and the source to avoid floating the gate 
+with respect to the source and accidentally turning 
+on the device. The device could be damaged during 
+the IDSS testing if this occurs.
+As with I GSS and R DS(on) measurements, it is not rec -
+ommended to use the Autorange function during 
+IDSS testing on an automated tester such as a TESEC 
+881-TT/A, as range-changes during testing can lead 
+to voltage spiking which may destroy the gate. 
+The use of “Function BVDSS” should also be avoided  
+because the measurement of the drain-source volt-
+age at a fixed drain current may exceed device V DS 
+maximum rating.
+Users should first verify that there is no spiking 
+above voltage test settings during the I DSS mea -
+surements. It is recommended to use a controlled  
+voltage ramp to aid in avoiding voltage overshoot.
+It is very important to short the gate and the source 
+to avoid floating the gate with respect to the source 
+and accidentally turning on the device. The device 
+could be damaged during the I DSS testing if this  
+occurs. It is not sufficient to set the gate to 0 V; you 
+must have a very low resistance short from the gate 
+to the source.
+A Final Note
+How easy a device is to use depends on the skill of 
+the user, the degree of difficulty of the circuit under 
+development, how different the device is compared 
+with devices within the experience of the user, and 
+the tools available to help the user apply the device.
+The new generation of enhancement mode GaN 
+transistor is very similar in its behavior to existing 
+power MOSFETs, only much faster, and therefore 
+users can greatly leverage their past design experi -
+ence and achieve new levels of performance in their 
+products. The relatively high frequency response of 
+eGaN FETs, is both a step function improvement 
+over any prior silicon devices, and an added consid-
+eration for the user when laying out circuits.
+Figure 20: Comparison of VTH curves with and without a gate resistor for a 100 V eGaN FET.
+
+=== PAGE 9 ===
+APPLICATION NOTE: AN003 Using Enhancement Mode GaN-on-Silicon Power FETs
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   | |    9
+On the other hand, there are several characteristics 
+that render these devices easier to use than their sil-
+icon predecessors. For example, the threshold volt-
+age is virtually independent of temperature over a 
+wide range, and the on-resistance has a significantly 
+lower temperature coefficient than silicon.
+Table 2 is a summary comparison between a silicon 
+power MOSFET and an EPC2001C GaN transistor’s 
+basic characteristics.
+User-friendly tools can also make a big difference 
+in how easy it is to apply a new type of device. EPC 
+has developed a complete set of device models 
+available for user download. These models provide 
+reasonably reliable circuit performance predictions 
+that can enhance the engineer’s productivity and 
+the time it takes to get a product to market.
+Application notes and design tips codify the collec-
+tive experience of engineers over the years. EPC’s 
+Design Support Material (https://epc-co.com/epc/
+design-support) contains an extensive collection of 
+application notes, white papers, and scholarly jour-
+nals. Also, in its second edition, GaN Transistors for  
+Efficient Power Conversion  [22], is the defining 
+textbook on GaN technology and its applications. 
+The power MOSFET is not dead, but is nearing the 
+end of the road of major improvements in perfor -
+mance and cost. GaN is positioned to become the 
+dominant technology over the next decade due to 
+its large advantages in both performance and cost; 
+advantage gaps that promise to widen as we plum-
+met down the learning curve.
+References:
+[1] Wu, T. “Cdv/dt Induced Turn-On In Synchronous 
+Buck Regulators” , white paper, International Recti-
+fier Corporation 
+[2] A. Elbanhawy, “Effects of parasitic inductances 
+on switching performance, ” in Proc. PCIM Eur., May 
+2003, pp. 251–255.
+[3] G. Nobauer, D. Ahlers, J. Sevillano-Ruiz, “A  
+method to determine parasitic inductances in buck 
+converter topologies, ” in Proc. PCIM Eur., May 2004, 
+pp. 37–41.
+[4] B. Yang, J. Zhang, “Effect and utilization of  
+common source inductance in synchronous rectifi -
+cation, ” in Proc. IEEE APEC’05, Mar. 2005, vol. 3, pp. 
+1407–1411.
+Typical 100 V Power MOSFET EPC2001C Enhancement-Mode GaN
+Max Gate-Source Voltage ± 20 V +6 V / -5 V
+Operating Temperature 150°C 150°C
+Avalanche Energy OK Not Rated
+Gate Threshold 2-4 V 0.8-2.5 V
+Gate-Source Leakage few nA few uA
+Gate Resistance few Ω 0.3 Ω
+Switching Charge high very low
+Reverse Diode Recover Charge high zero
+Ratio RDS(on) 125˚C / 25˚C 2.2 1.65
+Ratio VTH 125˚C / 25˚C 0.66 0.95
+Table 2: Summary comparison between 100 V silicon Power MOSFET and 100 V eGaN FET
+[5] M. Pavier, A. Woodworth, A. Sawle, R. Monteiro, 
+C. Blake, and J. Chiu, “Understanding the effect of 
+power MOSFET package parasitic on VRM circuit  
+efficiency at frequencies above 1 MHz, ” in Proc. 
+PCIM Eur., May 2003, pp. 279–284.
+[6] D. Reusch, D. Gilham, Y. Su and F.C. Lee, “Gallium 
+nitride based multi-megahertz high density 3D 
+point of load module, ” APEC 2012. pp.38-45. Feb. 
+2012.
+[7] T. Hashimoto, T. Kawashima, T. Uno, Y. Satou, N. 
+Matsuura, “System in package with mounted ca -
+pacitor for reduced parasitic inductance in voltage 
+regulators, ” Applied Power Electronics Conference 
+and Exposition, 2008. APEC 2008. Twenty-Third  
+Annual IEEE, pp.187-191, 24-28 Feb. 2008.
+[8] Y. Kawaguchi, T. Kawano, H. Takei, S. Ono, A. Nak-
+agawa, “Multi Chip Module with Minimum Parasitic 
+Inductance for New Generation Voltage Regulator, ” 
+Power Semiconductor Devices and ICs, 2005.
+[9] A. Ball, M. Lim, D. Gilham, F.C Lee, “System design 
+of a 3D integrated non-isolated Point Of Load con -
+verter, ” Applied Power Electronics Conference and 
+Exposition, 2008. Twenty-Third Annual IEEE, pp.181-
+186, 24-28 Feb. 2008.
+[10] D. Reusch, F.C. Lee, Y. Su, D. Gilham, “Optimiza-
+tion of a High Density Gallium Nitride Based Non-
+Isolated Point of Load Module, ” Energy Conversion 
+Congress and Exposition (ECCE), IEEE, Sept. 2012.
+ [11] Infineon Blade BSN012N03LS datasheet, www.
+infineon.com 
+[12] Infineon CanPAK S-size BSF134N10NJ3 G data -
+sheet, www.infineon.com
+[13]  Infineon CanPAK M-size BSB012N03LX3 G 
+datasheet, www.infineon.com
+[14] Infineon S3O8 BSZ075N08NS5 datasheet, 
+www.infineon.com 
+[15] Texas Instruments S308 Dual Cool SON 
+3.3x3.3mm CSD16323Q3C datasheet, www.TI.com 
+[16] Super SO8 BSC010N04LS datasheet, www.infi -
+neon.com 
+[17] Texas Instruments Super SO8 Dual Cool SON 
+5x6mm CSD16321Q5C datasheet, www.TI.com
+[18] Efficient Power Conversion EPC2001 datasheet, 
+https://epc-co.com/epc/products/gan-fets-and-
+ics/epc2001 
+[19] Efficient Power Conversion EPC2021 datasheet, 
+https://epc-co.com/epc/products/gan-fets-
+and-ics/epc2021
+[20] D. Reusch, “High Frequency, High Power Den -
+sity Integrated Point of Load and Bus Converters,” 
+Ph.D. dissertation, Virginia Tech, http://scholar.
+lib.vt.edu/theses/available/etd-04162012-
+151740/ 2012.
+[21] R. Beach, A.Babakhani, R. Strittmatter, “Circuit 
+simulation using EPC device models,” epc-co.
+com/epc/documents/product-training/Cir -
+cuit_Simulations_Using_Device_Models.
+pdf
+[22] A. Lidow, J. Strydom, M. de Rooij, D. Reusch 
+“GaN Transistors for Efficient Power Conversion,” 
+Second Edition, Wiley, ISBN 978-1-118-84476-2.

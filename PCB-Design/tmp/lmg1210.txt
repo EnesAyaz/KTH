@@ -1,0 +1,1446 @@
+                                Product          Order            Technical           Tools &            Support &
+                                Folder           Now              Documents           Software           Community
+
+
+
+                                                                                                                               LMG1210
+                                                                                         SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+    LMG1210 200-V, 1.5-A, 3-A half-bridge MOSFET and GaN FET driver with adjustable dead
+                              time for applications up to 50 MHz
+1 Features                                                                3 Description
+•
+1    Up to 50-MHz operation                                               The LMG1210 is a 200-V, half-bridge MOSFET and
+                                                                          Gallium Nitride Field Effect Transistor (GaN FET)
+•    10-ns typical propagation delay                                      driver designed for ultra-high frequency, high-
+•    3.4-ns high-side to low-side matching                                efficiency applications that features adjustable
+•    Minimum pulse width of 4 ns                                          deadtime capability, very small propagation delay,
+•    Two control input options                                            and 3.4-ns high-side low-side matching to optimize
+                                                                          system efficiency. This part also features an internal
+     – Single PWM input with adjustable dead time                         LDO which ensures a gate-drive voltage of 5-V
+     – Independent input mode                                             regardless of supply voltage.
+•    1.5-A peak source and 3-A peak sink currents                         To enable best performance in a variety of
+•    External bootstrap diode for flexibility                             applications, the LMG1210 allows the designer to
+•    Internal LDO for adaptability to voltage rails                       choose the optimal bootstrap diode to charge the
+                                                                          high-side bootstrap capacitor. An internal switch turns
+•    High 300-V/ns CMTI                                                   the bootstrap diode off when the low side is off,
+•    HO to LO capacitance less than 1 pF                                  effectively preventing the high-side bootstrap from
+•    UVLO and overtemperature protection                                  overcharging and minimizing the reverse recovery
+                                                                          charge. Additional parasitic capacitance across the
+•    Low-inductance WQFN package                                          GaN FET is minimized to less than 1 pF to reduce
+                                                                          additional switching losses.
+2 Applications
+                                                                          The LMG1210 features two control input modes:
+•    High-speed DC-DC converters                                          Independent Input Mode (IIM) and PWM mode. In IIM
+•    RF envelope tracking                                                 each of the outputs is independently controlled by a
+•    Class-D audio amplifiers                                             dedicated input. In PWM mode the two
+                                                                          complementary output signals are generated from a
+•    Class-E wireless charging
+                                                                          single input and the user can adjust the dead time
+•    High-precision motor control                                         from 0 to 20 ns for each edge. The LMG1210
+                                                                          operates over a wide temperature range from –40°C
+                                                                          to 125°C and is offered in a low-inductance WQFN
+                                                                          package.
+
+                                                                                                 Device Information(1)
+                                                                               PART NUMBER               PACKAGE       BODY SIZE (NOM)
+                                                                              LMG1210                 WQFN (19)        3.00 mm × 4.00 mm
+                                                                              (1) For all available packages, see the orderable addendum at
+                                                                                  the end of the data sheet.
+
+                                                  Simplified Typical Application
+
+                                                                    BST
+
+                                                                                                            200 V
+                                                                                                 HB
+                              6 ± 18 V
+                                         VIN                                                     HO
+                                               LDO
+                                                                                                 HS
+
+                                               UVLO
+                                                OTP
+                                                                                                       5V
+                                                                                                 VDD
+                                     EN
+                        EN          PWM                  Dead                                    LO
+                                                                          Delay
+                       PWM                               Time
+                                                                          Match                  VSS
+
+
+
+
+                                                      DHL   DLH
+
+
+1
+
+
+
+
+       An IMPORTANT NOTICE at the end of this data sheet addresses availability, warranty, changes, use in safety-critical applications,
+       intellectual property matters and other important disclaimers. PRODUCTION DATA.
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                                                                      www.ti.com
+
+
+                                                                           Table of Contents
+    1    Features .................................................................. 1             7.4 Device Functional Modes........................................ 15
+    2    Applications ........................................................... 1          8    Application and Implementation ........................ 16
+    3    Description ............................................................. 1               8.1 Application Information............................................ 16
+    4    Revision History..................................................... 2                   8.2 Typical Application ................................................. 16
+                                                                                                   8.3 Do's and Don'ts ...................................................... 20
+    5    Pin Configuration and Functions ......................... 3
+    6    Specifications......................................................... 4           9 Power Supply Recommendations...................... 20
+         6.1    Absolute Maximum Ratings ...................................... 4            10 Layout................................................................... 21
+         6.2    ESD Ratings ............................................................ 4         10.1 Layout Guidelines ................................................. 21
+         6.3    Recommended Operating Conditions....................... 4                          10.2 Layout Example .................................................... 21
+         6.4    Thermal Information ................................................. 5      11 Device and Documentation Support ................. 22
+         6.5    Electrical Characteristics........................................... 5            11.1    Documentation Support ....................................... 22
+         6.6    Switching Characteristics .......................................... 7             11.2    Receiving Notification of Documentation Updates 22
+         6.7    Typical Characteristics .............................................. 8           11.3    Community Resources.......................................... 22
+         6.8    Timing Diagrams ..................................................... 10           11.4    Trademarks ........................................................... 22
+    7    Detailed Description ............................................ 11                      11.5    Electrostatic Discharge Caution ............................ 22
+         7.1 Overview ................................................................. 11         11.6    Glossary ................................................................ 22
+         7.2 Functional Block Diagram ....................................... 11             12 Mechanical, Packaging, and Orderable
+         7.3 Feature Description................................................. 11            Information ........................................................... 22
+
+
+
+4       Revision History
+Changes from Revision C (December 2018) to Revision D                                                                                                                         Page
+
+•   Changed Maximum High-side dynamic current from 0.61mA/MHz to 0.7mA/MHz .............................................................. 5
+
+
+Changes from Revision B (November 2018) to Revision C                                                                                                                         Page
+
+•   Changed mismatch from 2.5 ns to 3.4 ns ............................................................................................................................. 1
+•   Changed minimum pulse width from 3 ns to 4 ns ................................................................................................................. 1
+•   Changed Reordered Pin Functions table in alphabetical order.............................................................................................. 3
+•   Added Figure 14 IIM Timing Diagram ................................................................................................................................. 10
+•   Added CMTI performance reference app note..................................................................................................................... 13
+•   Added charge per cycle removed from the bootstrap due to dynamic high side current .................................................... 17
+•   Added Power Consumption Calculation reference app note ............................................................................................... 19
+
+
+Changes from Revision A (May 2018) to Revision B                                                                                                                              Page
+
+•   Changed marketing status from Product Preview to final. Initial release. .............................................................................. 1
+
+
+
+
+2        Submit Documentation Feedback                                                                        Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                                        Product Folder Links: LMG1210
+                                                                                                                                             LMG1210
+www.ti.com                                                                                               SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+5 Pin Configuration and Functions
+
+                                                                       RVR Package
+                                                                       19-Pin WQFN
+                                                                         Top View
+
+
+
+
+                                                                        NC1
+                                                                NC
+
+
+
+
+                                                                                                   NC
+                                                                                  HS
+
+
+                                                                                            HB
+                                                                15      14        13        12    11
+
+                                                                                 (HS)
+                                                        HS       16                               10      HO
+                                                                              Thermal Pad
+
+                                                                                                  9       HS
+
+
+
+
+                                                        BST      17                               8       LO
+
+                                                                                 (VSS)
+                                                    EN/HI        18                               7       VSS
+                                                                              Thermal Pad
+                                                  PWM/LI         19                               6       DLH
+
+
+                                                                 1      2          3        4      5
+                                                                                  VSS
+
+
+
+
+                                                                                                   DHL
+                                                                        VIN
+
+
+
+
+                                                                                            VDD
+                                                                NC
+
+
+
+
+                                                                      Pin Functions
+                 PIN
+                                        I/O                                                       DESCRIPTION
+      NAME                 NO.
+BST                         17           O    Bootstrap diode anode connection point.
+DHL                                           Sets the dead time for a high-to-low transition in PWM mode by connecting a resistor to VSS. If
+                            5            I
+                                              using IIM this pin can be left floating, tied to GND, tied to VDD.
+DLH                                           Sets the dead time for a low-to-high transition in PWM mode by connecting a resistor to VSS. Tie
+                            6            I
+                                              to VDD to select IIM.
+EN/HI                                         Enable input or high-side driver control. In PWM mode this is the EN pin. In IIM mode this is the
+                            18           I
+                                              HI pin.
+PWM/LI                                        PWM input or low-side driver control. In PWM mode this is the PWM pin. In IIM mode this is the
+                            19           I
+                                              LI pin.
+HB                          12           I    High-side driver supply. Bootstrap diode cathode connection point.
+HO                          10           O    High-side driver output.
+HS                       9,13,16         I    Switch node and high-side driver ground. These pins are internally connected.
+LO                          8            O    Low-side driver output.
+NC                       1,11,15        —     Not internally connected.
+NC1                         14           I    For proper operation, this pin should be either unconnected or tied to HS.
+Thermal Pad                                   Connected to HS.
+                            21           I
+(HS)
+Thermal Pad                                   Connected to VSS.
+                            20           I
+(VSS)
+VDD                         4            O    Low-side driver supply and LDO output. 5 V
+VIN                         2            I    6 V to 18 V input to LDO. If LDO is not required, connect to VDD.
+VSS                        3,7          —     Low-side ground return: all low-side signals are referenced to this ground.
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                                              Submit Documentation Feedback      3
+                                                              Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                                        www.ti.com
+
+
+6 Specifications
+6.1 Absolute Maximum Ratings
+Over operating free-air temperature range (unless otherwise noted) (1)
+                                                                                                              MIN           MAX         UNIT
+VIN                                                 Input Supply Voltage                                      -0.5            20         V
+VDD                                                 5V Supply Voltage                                         -0.5            5.5        V
+VHS                                                 High Side Voltage Without Bootstrap Diode                -300            300         V
+VHB-VHS                                             Bootstrap supply voltage, continuous                      -0.5            5.5        V
+VLI/PWM, VHI/EN                                     Input Pin Voltage on LI or HI                             -0.5            10         V
+VDHL, VDHL                                          Voltage on DLH and DHL pins                               -0.5     VDD + 0.5         V
+VLO                                                 Low-side gate driver output                               -0.5     VDD + 0.5         V
+VHO                                                 High-side gate driver output                          VHS-0.5       VHB+ 0.5         V
+VBST                                                Bootstrap pin voltage                                     -0.5     VDD + 0.5         V
+TJ                                                  Operating Junction Temperature Range                       -40           150         °C
+TSTG                                                Storage Temperature                                        -55           150         °C
+
+(1)   Stresses beyond those listed under Absolute Maximum Ratings may cause permanent damage to the device. These are stress ratings
+      only, which do not imply functional operation of the device at these or any other conditions beyond those indicated under Recommended
+      Operating Conditions. Exposure to absolute-maximum-rated conditions for extended periods may affect device reliability.
+
+6.2 ESD Ratings
+                                                                                                                         VALUE           UNIT
+                                          Human-body model (HBM), per ANSI/ESDA/JEDEC JS-001 (1)                          ±2000
+V(ESD)      Electrostatic discharge       Charged-device model (CDM), per JEDEC specification JESD22-                                      V
+                                                                                                                           ±500
+                                          C101 (2)
+
+(1)   JEDEC document JEP155 states that 500-V HBM allows safe manufacturing with a standard ESD control process. Manufacturing with
+      less than 500-V HBM is possible with the necessary precautions. Pins listed as ±XXX V may actually have higher performance.
+(2)   JEDEC document JEP157 states that 250-V CDM allows safe manufacturing with a standard ESD control process. Manufacturing with
+      less than 250-V CDM is possible with the necessary precautions. Pins listed as ±YYY V may actually have higher performance.
+
+6.3 Recommended Operating Conditions
+over operating free-air temperature range (unless otherwise noted)
+                                                                                                MIN           NOM            MAX        UNIT
+VIN               Input Supply Voltage (if using internal LDO)                                     6                              18      V
+VDD               5V Supply Voltage (if bypassing internal LDO)                                 4.75           5.00           5.25        V
+VHS-VSS           High-Side Voltage Without Bootstrap diode (1)                                 -200                           200        V
+VHB-VHS           Bootstrap Supply Voltage                                                      3.80                          5.25        V
+VLI,VHI           Input Pin Voltage                                                             -0.3                              10      V
+TJ                Operating Junction Temperature Range                                           -40                           125        °C
+CMTI              High Side Slew Rate                                                                                          300       V/ns
+RDHL, RDLH        Dead Time Adjustment External Resistance                                        20                         1800         kΩ
+VDT               Dead Time Voltage Range                                                        0.8                           1.8        V
+
+(1)   If using a bootstrap diode, actual negative HS pin voltage may be more limited, see Section 7.3.6 for details.
+
+
+
+
+4         Submit Documentation Feedback                                                       Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                        Product Folder Links: LMG1210
+                                                                                                                                LMG1210
+www.ti.com                                                                                SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+6.4 Thermal Information
+                                                                                                            LMG1210
+                                           THERMAL METRIC (1)                                              RVR (QFN)            UNIT
+                                                                                                             19 PINS
+RθJA               Junction-to-ambient thermal resistance                                                      40.5             °C/W
+RθJC(top)          Junction-to-case (top) thermal resistance                                                   40               °C/W
+RθJB               Junction-to-board thermal resistance                                                        16.2             °C/W
+ψJT                Junction-to-top characterization parameter                                                  2.9              °C/W
+ψJB                Junction-to-board characterization parameter                                                16.4             °C/W
+
+(1)    For more information about traditional and new thermal metrics, see the Semiconductor and IC Package Thermal Metrics application
+       report.
+
+6.5 Electrical Characteristics
+VDD=5V, HB-HS=4.6V, outputs unloaded over operating junction temperature range (unless otherwise noted)
+                    PARAMETER                                   TEST CONDITIONS                   MIN        TYP        MAX       UNIT
+SUPPLY CURRENT
+               Quiescent Current for Low-Side           LI, HI=0V, Independent Mode                           300         475       μA
+IDD            Circuits Only, Vin=6V, powered           EN=0V, PWM=X, PWM Input Mode,
+               through LDO                                                                                    380         550       μA
+                                                        RDHL and RDLH = 1.78MΩ
+IHB            HB Quiescent Current                     HI=0V, Independent Mode                               520         850       μA
+IHBS           HB to VSS Quiescent Current              VHS=100V                                                1                   nA
+IHBSO          HB to VSS Operating Current              VHS=100V, FSW=1MHz                                      1                   nA
+ILSDyn         Low-side dynamic current                 Unloaded, PWM Mode                                      1        1.25   mA/MHz
+IHSDyn         High-side dynamic current                Unloaded                                              0.5         0.7   mA/MHz
+LOW-SIDE TO HIGH-SIDE CAPACITANCE
+                                                        Low Side Pins Shorted Together,
+CISO           Capacitance from High to Low Side                                                             0.25                   pF
+                                                        High Side Pins Shorted Together
+5V LDO
+V5V            LDO Output                               VIN=10V                                   4.75       5.00        5.25       V
+VDO            Dropout Voltage                          IO=100mA                                              400         750       mV
+ILDOM          Maximum Current                          VIN=12V                                    100                              mA
+ISC            Short Circuit Current                    VIN=12V                                    105                    250       mA
+               Minimum Required Output                  Effective Capacitance at Bias
+COUT                                                                                                                      0.3       µF
+               Capacitance (1)                          Voltage
+DIGITAL INPUT PINS (LI/PWM & HI/EN)
+VIR            Input Rising Edge Threshold                                                        1.70                   2.45       V
+VIF            Input Falling Edge Threshold                                                       0.70                   1.30       V
+VIHYS          Input Hysteresis                                                                                 1                   V
+RIPD           Input Pull-Down Resistance               VLI, VHI=1V                                100        200         300       kΩ
+UNDERVOLTAGE LOCKOUT
+VDDR           VDD Rising Threshold                                                               4.00       4.25        4.50       V
+VDDF           VDD Falling Threshold                                                               3.8       4.05         4.3       V
+VDDH           VDD Hysteresis                                                                                 200                   mV
+VHBR           HB-HS Rising Threshold                                                             3.40       3.55         3.8       V
+VHBF           HB-HS Falling Threshold                                                            3.30       3.45        3.65       V
+VHBH           HB-HS Hysteresis                                                                               130                   mV
+BOOTSTRAP DIODE SWITCH
+RSW            Diode Switch On Resistance               ID=100mA                                              0.4                   Ω
+GATE DRIVER
+VOL            Low-Level Output Voltage                 IOL=100mA                                                        0.16       V
+
+(1)    Ensured by design
+Copyright © 2018–2019, Texas Instruments Incorporated                                               Submit Documentation Feedback         5
+                                                          Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                              www.ti.com
+
+
+Electrical Characteristics (continued)
+VDD=5V, HB-HS=4.6V, outputs unloaded over operating junction temperature range (unless otherwise noted)
+                  PARAMETER                              TEST CONDITIONS                  MIN           TYP          MAX       UNIT
+VDD-VOH      High-Level Output Voltage            IOH= -100mA                                                        0.30        V
+IOL          Peak Sink Current                    VLO,VHO=5V                               2.0           3.1           4.3       A
+IOH          Peak Source Current                  VLO,VHO=0V                              0.85          1.58           2.4       A
+                                                  VDD, VHB Floating, 1 mA pull-up
+VCLAMP       Unpowered Gate Clamp Voltage                                                               0.55           0.8       V
+                                                  applied to LO/HO
+THERMAL SHUTDOWN
+             Thermal Shutdown Switching, Rising
+TSD                                                                                        150                                  °C
+             Edge (2)
+             Thermal Shut Down LDO, Rising
+TSD_LDO                                                                                    160                                  °C
+             Edge (2)
+             Thermal Hysteresis, LDO &
+THYS_SD                                                                                      3            10                    °C
+             Switching (2)
+             Thermal Shutdown for High-Side,
+TSD_HS                                                                                     160                                  °C
+             Rising Edge (2)
+DEADTIME CONTROL RESISTORS
+RPU          Internal Pullup Resistor                                                     23.5            25           27       kΩ
+
+(2)   Ensured by design
+
+
+
+
+6        Submit Documentation Feedback                                              Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                    Product Folder Links: LMG1210
+                                                                                                                                    LMG1210
+www.ti.com                                                                                    SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+6.6 Switching Characteristics
+VDD=5V, VHB-HS=4.6V, outputs unloaded over operating junction temperature range (unless otherwise noted)
+                     PARAMETER                                  TEST CONDITIONS                       MIN        TYP        MAX      UNIT
+INDEPENDENT INPUT MODE
+tPHL           Turn-Off Delay                                                                                      10         18        ns
+tPLH           Turn-On Delay                                                                                       10         18        ns
+               High-Off to Low-On and Low-Off to
+tMTCH                                                   Over temperature, TjHI=TjLO                                 1         3.4       ns
+               High-On Delay Mismatch
+PWM INPUT MODE
+                                                        PWM rising to LO falling and PWM
+tPHL           Turn-Off Delay                                                                                      11         21        ns
+                                                        falling to HO falling
+tDEAD_MIN      Minimum Dead Time                        Rext=1.78 MΩ                                 -0.55        0.8         3.1       ns
+tDEAD_MAX      Maximum Dead Time                        Rext=20 kΩ                                      16         20         26        ns
+tEN            Enable Propagation Time                                                                             11         20        ns
+OTHER CHARACTERISTICS
+tOR            Output Rise Time, Unloaded               10%-90%                                                   0.5                   ns
+tOF            Output Fall Time, Unloaded               90%-10%                                                   0.5                   ns
+tORL           Output Rise Time, Loaded                 CO=1nF, 10%-90%                                           3.5         5.6       ns
+tOFL           Output Fall Time, Loaded                 CO=1nF, 90%-10%                                           2.3         3.3       ns
+                                                        Minimum input pulse width which
+tPW            Minimum Input Pulse Width (1)                                                                      1.8         4.0       ns
+                                                        changes the output
+tPW,ext        H-L-H Pulse extender width (1)           Unloaded (2)                                              4.5         10        ns
+               Start-Up Time of low side after VDD- Independent Control Mode                                       25         60        µs
+tSTLS
+               GND goes over UVLO threshold.        PWM Control Mode                                              100        150        µs
+               Start-Up Time of High-Side After
+tSTHS                                                                                                              16         28        µs
+               VHB-VHS Goes Above UVLO
+tPWD           Pulse-Width Distortion                   |tPLH-tPHL|, Independent Input Mode                         1          3        ns
+
+(1)    Ensured by design
+(2)    Pulses longer than tPW, but shorter than tPW,ext get extended to tPW,ext
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                                   Submit Documentation Feedback        7
+                                                          Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                                                                                 www.ti.com
+
+
+6.7 Typical Characteristics
+
+                     1.75                                                                                         4
+
+                      1.5                                                                                        3.5
+
+                                                                                                                  3
+                     1.25
+                                                                                                                 2.5
+    Current (A)
+
+
+
+
+                                                                                                  Current (A)
+                       1
+                                                                                                                  2
+                     0.75
+                                                                                                                 1.5
+                      0.5
+                                                                                                                  1
+
+                     0.25                                                                                        0.5
+
+                       0                                                                                          0
+                            0   0.5      1    1.5    2    2.5   3   3.5     4     4.5    5                             0    0.5     1      1.5    2    2.5   3   3.5    4     4.5   5
+                                                      LO, HO (V)                         D001
+                                                                                                                                                   LO, HO (V)                       D002
+
+                            Figure 1. Peak Source Current vs Output Voltage                                                Figure 2. Peak Sink Current vs Output Voltage
+                      50                                                                                         30
+                                 -40 qC                                                                                      -40 qC
+                                 25 qC                                                                                       25 qC
+                      40         125 qC                                                                          24          125 qC
+
+
+                                                                                                     IHBO (mA)
+                      30                                                                                         18
+          IDD (mA)
+
+
+
+
+                      20                                                                                         12
+
+
+                      10                                                                                          6
+
+
+                       0                                                                                          0
+                       0.05     0.1     0.2 0.3 0.5   1     2 3 4 5 67 10       20 30 50                          0.05      0.1     0.2 0.3 0.5   1     2 3 4 5 67 10        20 30 50
+                                                   Frequency (MHz)                      D003
+                                                                                                                                               Frequency (MHz)                      D004
+                                      Figure 3. IDD vs Frequency, Unloaded                                                        Figure 4. IHBO vs Frequency, Unloaded
+                     315                                                                                         700
+                     310
+                     305                                                                                         650
+                     300
+                     295                                                                                         600
+      IDD (PA)
+
+
+
+
+                                                                                                  IHB (PA)
+
+
+
+
+                     290
+                     285                                                                                         550
+                     280
+                     275                                                                                         500
+                     270
+                     265                                                                                         450
+                       -40      -20      0    20     40   60    80 100    120     140   160                        -40      -20      0      20    40   60    80 100    120    140   160
+                                                    Temperature (qC)                     D005
+                                                                                                                                                 Temperature (qC)                    D006
+                                          Figure 5. IDD vs Temperature                                                                   Figure 6. IHB vs Temperature
+
+
+
+
+8                     Submit Documentation Feedback                                                                                 Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                                                Product Folder Links: LMG1210
+                                                                                                                                                                                                              LMG1210
+www.ti.com                                                                                                                                                     SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+Typical Characteristics (continued)
+                                          13                                                                                                       1.1
+                                                                                                                                                              DHL
+                                                                                                                                                    1         DLH
+
+
+
+
+                                                                                                                          Minimum Dead Time (ns)
+                                          12
+                 Propagation Delay (ns)
+
+
+
+
+                                                                                                                                                   0.9
+
+                                                                                                                                                   0.8
+                                          11
+                                                                                                                                                   0.7
+
+                                                                                                                                                   0.6
+                                          10                                                   Low Side TPLH
+                                                                                               Low Side TPHL
+                                                                                               High Side TPLH                                      0.5
+                                                                                               High Side TPHL
+                                            9                                                                                                      0.4
+                                            -40     -20     0       20      40    60      80   100     120    140                                    -40     -20    0     20      40    60      80   100    120   140
+                                                                         Temperature (qC)                       D007
+                                                                                                                                                                               Temperature (qC)                    D008
+
+                                                    Figure 7. Propagation Delay vs Temperature                                                              Figure 8. Minimum Dead Time vs Temperature
+                                          0.8                                                                                                       12
+                                                                                                                                                                                                            50 V/ns
+                                          0.7                                                                                                                                                               100 V/ns
+                                                                                                                                                   11.6
+    Propagation Delay Change (ns)
+
+
+
+
+                                          0.6                                                                                                                                                               300 V/ns
+
+
+                                                                                                                        Propagation Delay (ns)
+                                          0.5                                                                                                      11.2
+
+                                          0.4                                                                                                      10.8
+                                          0.3
+                                                                                                                                                   10.4
+                                          0.2
+                                          0.1                                                                                                       10
+                                            0
+                                                                                                                                                    9.6
+                                          -0.1
+                                          -0.2                                                                                                      9.2
+                                              3.5    3.75       4     4.25    4.5    4.75      5       5.25     5.5                                   -20     -15    -10     -5     0        5     10       15     20
+                                                                     Bootstrap Voltage (V)                                                                          Phase of CMTI Relative to Signal (ns)              D010
+                                                                                                                 D009
+
+                                          Figure 9. Propagation Delay Change vs Bootstrap voltage                                                   Figure 10. Propagation Delay vs relative phase of CMTI
+                                                                                                                                                                            Phase
+                                          4.5                                                                                                      4.5
+                                                                                                     LO Sink                                                  HO Rise Time
+                                            4                                                        LO Source                                                LO Rise Time
+                                                                                                     HO Sink                                        4         LO Fall Time
+                                                                                                     HO Source                                                HO Fall Time
+                                          3.5
+                                                                                                                          Rise/Fall Time (ns)
+            Ouput Current (A)
+
+
+
+
+                                                                                                                                                   3.5
+                                            3
+
+                                          2.5
+                                                                                                                                                    3
+
+                                            2
+                                                                                                                                                   2.5
+                                          1.5
+
+                                            1                                                                                                       2
+                                            -40     -20     0       20      40    60      80   100     120    140                                   -40      -20    0     20      40    60      80   100    120   140
+                                                                         Temperature (qC)                        D011
+                                                                                                                                                                               Temperature (qC)                    D012
+
+                                             Figure 11. LO and HO Output Current vs Temperature                                                    Figure 12. 1 nF Loaded Rise and Fall Time vs Temperature
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                                                                                                        Submit Documentation Feedback                    9
+                                                                                                      Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                                    www.ti.com
+
+
+6.8 Timing Diagrams
+                       TPLH                TPHL                  TOR          TOF
+
+
+                                                      50%
+          PWM
+
+                                     TON
+
+                                                                                       90%
+                                                      50%
+           HO
+                                                                                      10%
+
+
+                          TDLH                TDHL
+
+
+           LO
+
+
+                 Figure 13. Timing diagram of LMG1210 in PWM mode under no load condition
+
+
+
+            HI
+
+
+
+            LI
+
+
+                              tPHL                                                  tPHL
+           HO                                        tMTCH                                             tMTCH
+
+
+
+           LO                 tPLH                                                                                tPHL
+                                                                 tPWD = |tPLH t tPHL|
+
+
+                  Figure 14. Timing diagram of LMG1210 in IIM mode under no load condition
+
+
+
+
+10     Submit Documentation Feedback                                                       Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                     Product Folder Links: LMG1210
+                                                                                                                                LMG1210
+www.ti.com                                                                                SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+7 Detailed Description
+
+7.1 Overview
+The LMG1210 is a high-speed half-bridge driver specifically designed to work with enhancement mode GaN
+FETs. Designed to operate up to 50 MHz, the LMG1210 is optimized for maximum performance and highly
+efficient operation. This includes reducing additional capacitance at the switch node (HS) to less than 1 pF and
+increased dV/dt noise immunity up to 300 V/ns on the HS pin to minimize additional switching losses. By having
+a 21 ns maximum propagation delay with 3.4 ns maximum mismatch, excessive dead times can be greatly
+reduced.
+Auxiliary input voltages applied above 5 V enables an internal LDO to precisely regulate the output voltage at 5-
+V, preventing damage on the gate. An external bootstrap diode allows the designer to select an optimal diode.
+An integrated switch in series with the bootstrap diode stops overcharging of the bootstrap capacitor and
+decreases Qrr losses in the diode.
+The LMG1210 comes in a low-inductance WQFN package designed for small gate drive loops with minimal
+voltage overshoot.
+
+7.2 Functional Block Diagram
+
+                                                                                    BST
+
+
+                                                                                                                           HB
+
+             VIN                                  LDO
+                                                                                                                           HO
+
+                                                                                                                           HS
+
+              EN
+                                                                                                                           VDD
+
+
+                                                                Dead Time                    Delay
+            PWM                                                                                                            LO
+                                                                                             Match
+
+                                                                                                                           VSS
+
+
+                                                        1.8 V               1.8 V
+
+                                        UVLO
+                                        OTP
+
+
+
+                                                                DHL DLH
+
+
+7.3 Feature Description
+The LMG1210 provides numerous features optimized for driving external GaN FETs.
+
+7.3.1 Bootstrap Diode Operation
+An internal low impedance switch enables the bootstrap only when the low-side GaN FET is on. If used in a
+converter where the low-side FET operates in third quadrant conduction during the dead times, this provides two
+main benefits. First, it stops the bootstrap diode from overcharging the high-side bootstrap rail. Second, if using a
+p-n junction diode with Qrr as the bootstrap diode, it decreases the Qrr losses of the diode. There is a 1 kΩ
+resistor connected between the drain and source of this internal bootstrap switch to allow the bootstrap capacitor
+to slowly charge at start-up before the low-side FET is turned on.
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                                Submit Documentation Feedback    11
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                               www.ti.com
+
+
+Feature Description (continued)
+The part does not have an actual clamp on the high-side bootstrap supply. The bootstrap switch disables
+conduction during the dead times, and the actual bootstrap capacitor voltage is set by the operating conditions of
+the circuit during the low-side on-time. The bootstrap voltage can be approximately calculated in Equation 1
+through Equation 3.
+The bootstrap voltage is given by Equation 1:
+     VBST = VDD – VF – VHS
+     where
+           •   VF is the forward voltage drop of the bootstrap diode and series bootstrap switch.                                      (1)
+VHS is calculated in Equation 2:
+     VHS = –IL × RDSON
+     where
+           •   IL is the inductor current defined as flowing out of the half-bridge
+           •   and RDSON is the FET on resistance.                                                                                     (2)
+Substituting (2) into (1) gives the expression for the bootstrap voltage as Equation 3:
+     VBST = VDD – VF + IL × RDSON                                                                                                      (3)
+From (3) one can determine that in an application where the current flows out of the half-bridge (IL is positive) the
+bootstrap voltage can be charged up to a voltage higher than VDD if IL × RDSON is greater than VF. Take care not
+to overcharge the bootstrap too much in this application by choosing a diode with a larger VF or limiting the IL ×
+RDSON product.
+In an application where IL is negative, the IL × RDSON product subtracts from the available bootstrap cap voltage.
+In this case using a smaller VF diode is recommended if IL × RDSON is large.
+
+7.3.2 LDO Operation
+An internal LDO allows the driver to run off higher voltages from 6 V to 18 V and regulates the supply to 5 V, so
+the LMG1210 can run off of higher input voltages with wide tolerances. To maintain stability of the internal LDO,
+care must be taken to make sure a capacitor of at least 0.3 µF from VDD to VSS with an ESR below 500 mΩ is
+used. A high-quality ceramic capacitor with an X7R dielectric is recommended. There is no maximum limit on the
+capacitance allowed on the output of the LDO.
+If the input supply is already 5 V ±5%, then the LDO can be bypassed. This is achieved by connecting the 5 V
+supply directly to the VDD pin. The VIN pin should be tied to the VDD pin, and the capacitor on the VIN pin can be
+removed. Do not ground the VIN pin.
+
+
+
+
+12     Submit Documentation Feedback                                                  Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                  Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+Feature Description (continued)
+7.3.3 Dead Time Selection
+In PWM mode the dead time can be set with a resistor placed between DHL/DLH and VSS. For a desired dead
+time (tdt), the corresponding required resistance can be calculated in Equation 4 with tdt in ns and Rext in kΩ.
+       Rext = (900/tdt ) – 25                                                                                                       (4)
+The maximum dead time is 20 ns, which gives a minimum resistor value of 20 kΩ. The minimum dead time is
+0.5ns, which gives a maximum resistor value of 1.8 MΩ. There is an internal pull-up resistor at DHL/DLH pin,
+which forms a voltage divider with the external resistor. This voltage decides the final dead time. The calculation
+between dead time tDT in ns and VDT is shown in Equation 5.
+tdt = (1.8-VDT ) x20                                                                                                                (5)
+Before being used to generate the dead times, the voltages on the DHL and DLH pins are first filtered through an
+internal RC filter with a nominal corner frequency of 10 kHz to attenuate switching noise.
+The pulse widths of the HO and LO outputs are decreased from the PWM input by the chosen dead-times. The
+timing diagram under no load condition is shown in Figure 13 and Figure 14. PWM mode and Independent mode
+configurations can be found in Figure 16 .
+
+7.3.4 Overtemperature Protection
+The LMG1210 has three separate overtemperature thresholds: two on the low-side and one on the high-side.
+The lowest overtemperature threshold is the low-side switching threshold at 150 degrees minimum. When
+exceeded, this disables switching on both the low and high sides. However, the 5 V LDO continues to operate.
+If the low-side temperature continues to rise, due to a short or external load on the 5 V LDO, then at 10 degrees
+higher, the low-side shuts down the 5 V LDO.
+The high-side has an independent overtemperature threshold at 160 minimum. When triggered, it only shuts off
+the high-side while the low-side may continue to operate.
+If it is undesirable in an application to have only the high side shut off and not the low side, TI recommends
+designing the thermal cooling of the board in a way to make the low-side die hotter. This can be achieved by
+controlling the size of the thermal planes connected to each thermal pad.
+
+7.3.5 High-Performance Level Shifter
+The LMG1210 uses a high-performance level shifter to translate the signal from the low side to the high side.
+The level shifter is built using TI's proprietary high-voltage capacitor technology, which showcases best-in-class
+CMTI (common-mode transient immunity), or dV/dt on the HS pin. The level shifter can handle very high CMT
+(common-mode transient) rates while simultaneously providing low propagation time which does not vary
+depending on CMT rate. For more information on LMG1210 CMTI performance refer to section 2.4 from Design
+Considerations for LMG1205 Advanced GaN FET Driver During High-Frequency Operation.
+
+7.3.6 Negative HS Voltage Handling
+The LMG1210 by itself can operate with -200V on the HS pin as stated in the recommended operating conditions
+table. However, if using a bootstrap diode, the system will be more limited based on the potential of high-currents
+flowing through the bootstrap diode.
+HS goes most negative during the dead times when the low-side FET is off. This also means the bootstrap
+switch is off so the BST pin is relatively high impedance. Therefore as HS goes negative, the bootstrap diode
+becomes forward biased and pulls the voltage at BST down with it. Because the bootstrap switch is off, very little
+current will flow until the bootstrap diode attempts to pull the BST pin below ground at which point the ESD diode
+on the BST pin will clamp the voltage at a diode drop below ground. The point where significant current begins to
+flow through the bootstrap diode is given in Equation 6
+VHS = – VBST – VESD – (VHB – VHS)                                                                                                   (6)
+Where VBST is the forward voltage drop of the selected bootstrap diode and VESD is the forward voltage drop of
+the ESD diode of the BST pin which is typically 0.7V at room temp. Figure 15 shows a schematic of this current
+path.
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     13
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                           www.ti.com
+
+
+Feature Description (continued)
+
+                                       VDD
+
+
+
+                         Bootstrap                             Bootstrap
+                        Switch (open)         BST               Diode
+                                                                                                    HB
+
+                          ESD Diode                                                      CBST
+                                                                                                    HS
+                                                                      Current Path
+
+                                 Figure 15. Current Path Across Bootstrap Diode
+
+Once this negative voltage is exceeded, large currents will begin to flow out of the BST pin and through the
+bootstrap diode. The currents may be limited by the following: resistance of the BST ESD diode, resistance of
+the bootstrap diode, inductance of the bootstrap loop, or additional resistance purposely added in series with the
+bootstrap diode. If this current is too high, damage to the bootstrap diode or the LMG1210 can result. If this
+current delivers significant enough total charge, this can over-charge the bootstrap rail as well.
+The BST pin ESD diode has been specifically designed to be robust to carry up to a couple amps surge current
+without damage.
+
+
+
+
+14     Submit Documentation Feedback                                              Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                  Product Folder Links: LMG1210
+                                                                                                                                    LMG1210
+www.ti.com                                                                                      SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+7.4 Device Functional Modes
+The mode of operation is determined by the state of DHL and DLH pins during power up. The state of the pins is
+sampled at power up and cannot be changed during operation. There are two different modes: independent
+operation where separate HI and LI signals are required, and PWM mode where one PWM input signal is
+required and the LMG1210 generates the complementary HI and LI signals. For PWM input, the dead time for
+the low-to-high and high-to-low switch-node transition is independently set by an external resistor at DHL and
+DLH. For independent input mode, DLH is tied to VDD and DHL is internally set to high-impedance and can be
+tied to VDD, tied to ground or left floating.
+
+                                                        Operating
+                                                                         DHL              DLH
+                                                         Mode
+
+
+                                                             PWM
+
+
+
+
+                                                                         Leave
+                                                        Independent                       VDD
+                                                                       Floating or
+                                                         Input Mode
+                                                                       Tie to VSS
+
+
+
+                                                Figure 16. Operation Mode Selection
+
+Table 1 lists the functional modes for the LMG1210.
+
+                                                        Table 1. LMG1210 Truth Table
+                INPUTS                                             PWM MODE                                    INDEPENDENT MODE
+      EN/HI                PWM/LI                       HO                           LO                       HO                   LO
+         0                    0                         0                            0                         0                    0
+         0                    1                         0                            0                         0                    1
+         1                    0                         0                            1                         1                    0
+         1                    1                         1                            0                         1                    1
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                                     Submit Documentation Feedback     15
+                                                             Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                            www.ti.com
+
+
+8 Application and Implementation
+
+                                                          NOTE
+              Information in the following applications sections is not part of the TI component
+              specification, and TI does not warrant its accuracy or completeness. TI’s customers are
+              responsible for determining suitability of components for their purposes. Customers should
+              validate and test their design implementation to confirm system functionality.
+
+
+8.1 Application Information
+The LMG1210 is designed to optimally drive GaN FETs in half-bridge configurations, such as synchronous buck
+and boost converters, as well as more complex topologies. By integrating the level shifting and bootstrap
+operation the complexities of driving the high-side device are solved for the designer.
+The list below shows some sample values for a typical 48 V to 12 V application synchronous buck.
+•    Input Voltage: 48 V
+•    Output Voltage: 12 V
+•    Output Current: 10 A
+•    Bias Voltage: 6 V
+•    Duty Cycle: 25 %
+•    Switching Frequency: 1 MHz
+•    Inductor: 4.7 µH
+
+8.2 Typical Application
+
+                                            BST                                         0 ± 200 V
+
+
+                                                                             HB
+       6 ± 18 V
+                  VIN                                                        HO
+                              LDO
+                                                                             HS
+
+
+
+
+                                                                                   5V
+                                                                             VDD
+                   EN
+                              Dead                                           LO
+                  PWM
+                              Time
+                                                                             VSS
+
+
+
+                                           LMG1210
+                        DHL          DLH
+
+
+
+
+                                                              Controller
+
+
+
+
+                    Figure 17. Simplified LMG1210 Configured as Synchronous Buck Converter
+
+
+
+
+16      Submit Documentation Feedback                                              Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                  Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+Typical Application (continued)
+8.2.1 Design Requirements
+When designing a multi-MHz application that incorporates the LMG1210 gate driver and GaN power FETs, some
+design considerations must be evaluated first to make the most appropriate selection. Among these
+considerations are layout optimization, circuit voltages, passive components, operating frequency, and controller
+selection.
+
+8.2.2 Detailed Design Procedure
+
+8.2.2.1 Bypass Capacitor
+To properly drive the GaN FETs, TI recommends placing high-quality ceramic bypass capacitors as close as
+possible between the HB to HS and VDD to VSS. If using the LDO, the VDD-VSS capacitor is required to be at least
+0.3 µF at bias for stability. However, a larger capacitor may be required for many applications.
+The bootstrap capacitor must be large enough to support charging the high-side FET and supplying the high-side
+quiescent current when the high-side FET is on. The required capacitance can be calculated as Equation 7:
+       (0.5 nC + Qrr + QgH + IHB × ton)/ΔV = CBST,min
+       where
+             •   QgH is the gate charge of the high-side GaN FET,
+             •   IHB is the quiescent current of the high-side driver,
+             •   tON is the maximum on time period of the high side,
+             •   Qrr is the reverse recovery of the bootstrap diode,
+             •   0.5 nC is the additional charge per cycle removed from the bootstrap due to high side dynamic current,
+             •   and ΔV is the acceptable droop on the bootstrap capacitor voltage.                                                 (7)
+When using larger bootstrap capacitors, TI recommends that the VDD-VSS capacitor also be increased to keep
+the ratio at least 5 to 1. If this is not maintained, the charging of the bootstrap capacitor can pull the VDD-VSS rail
+down sufficiently to cause UVLO conditions and potentially unwanted behavior.
+
+8.2.2.2 Bootstrap Diode Selection
+The bootstrap diode blocks the high voltage from the gate drive circuitry when the switch node swings high, with
+the rated blocking voltage equal to the maximum Vds of the GaN FET. For low or moderate frequency operation
+ultra-fast recovery diodes (<50 ns) are recommended. The internal low voltage switch in the LMG1210 acts to
+reduce the reverse recovery. For high-frequency operation a Schottky diode is recommended. To minimize
+switching losses and improve performance, it is important to select a diode with low capacitance.
+For extreme cases, where the low-side FET on time is less than 20 ns, TI recommends using a small GaN FET
+as synchronous bootstrap instead of a diode. In this case, TI recommends leaving the BST pin floating or
+connected to VDD, and to connect the source of the synchronous bootstrap directly to VDD.
+
+8.2.2.3 Handling Ground Bounce
+For the best switching performance, it is important to connect the VSS gate return to the source of the low-side
+FET with a very low-inductance path.
+However, doing so can cause the ground of the LMG1210 to bounce relative to the system or controller ground
+and cause erroneous switching transitions on the inputs. Multiple strategies can be employed to eliminate these
+undesired transitions.
+The LMG1210 has input hysteresis built into the input buffers to help counteract this effect, but this alone may
+not be sufficient in all applications. The simplest option is to tie the system ground together and the power
+ground only at the LMG1210 (single-point connection). This gives the cleanest solution but may not always be
+possible depending on system grounding requirements.
+For moderate ground-bounce cases, a simple R-C filter can be built with a simple resistor in series with the
+inputs. The resistor should be close to the inputs of the LMG1210. The input capacitance of the LMG1210
+produces an RC filter which can help decrease ringing at the inputs. The addition of a small C on the inputs to
+supplement the LMG1210 input capacitance can also be helpful. This solution is acceptable for moderate cases
+in applications where the extra delay is acceptable.
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     17
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                                        www.ti.com
+
+
+Typical Application (continued)
+For more extreme cases or where no delay is tolerable, using a common-mode choke provides the best results.
+One example application where the ground bounce is particularly challenging is when using a current sense
+resistor. In this application, the LMG1210 ground is connected to the GaN source, while the controller ground is
+connected to the other side of the current sense resistor as shown in Figure 18.
+
+                                                                    BST                                      0 ± 200 V
+
+
+                                                                                                  HB
+                          6 ± 18 V
+                                      VIN                                                         HO
+                                                   LDO
+                                                                                                  HS
+           RC filter
+
+                                                                                                        5V
+                                                                                                  VDD
+                                     EN/HI
+                                                   Dead                                           LO
+                                 PWM/LI
+                                                   Time
+                                                                                                  VSS                         Vsense
+
+
+                                                                  LMG1210                                                Rsense
+
+                                             DHL          DLH
+
+
+
+
+                            CM choke
+
+
+
+                                                                                          Controller
+
+
+
+
+            Figure 18. LMG1210 Configured With Current Sense Resistor Using a CMC as Filter
+
+
+The combination of high dI/dt experienced through the sense resistor inductance will cause severe ground noise
+that could cause false triggering or even damage the part. To prevent this, a common-mode choke (CMC) can be
+used. Each signal requires its own CMC. Also, to provide additional RC filtering, a 100 Ω resistor should be
+added to the signal output line before the LMG1210.
+
+8.2.2.4 Independent Input Mode
+In independent input mode, the signals LI and HI will propagate to the outputs LO and HO maintaining the same
+phase shift, varied only by the timing mismatch.
+In this mode, the dead time-generating circuit will be inoperative, and the correct dead time value would have to
+be generated by the controller.
+LI and HI cannot be high at the same time. The controller is responsible for assuring that the LI and HI on-times
+do not overlap and cause shoot-through.
+
+8.2.2.5 Computing Power Dissipation
+The power dissipation of the LMG1210 can be divided up into three parts. One is the quiescent current which is
+defined in the Electrical Characteristics table. This is the current consumed when no switching is taking place.
+The second is the dynamic power consumed in the internal circuits of the driver at each switching transition
+regardless of the load on the output. This can be measured by switching the driver with no output load.
+The third component is the power used to switch the load capacitance presented by the external FET.
+
+
+18     Submit Documentation Feedback                                                         Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                          Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+Typical Application (continued)
+If operating in PWM mode, there is an additional quiescent current consumed in the dead time resistors. The
+additional current consumed in each dead time pin can be calculated as Equation 8.
+       Iqdxx = 1.8/(25k + Rext)                                                                                                     (8)
+The first component, the quiescent power, is given in the Electrical Characteristics table. The second component,
+the dynamic power dissipation can be calculated as Equation 9.
+       IINT = IDYN × Fsw
+       where
+             •   IDYN is the dynamic current consumption found in the Electrical Characteristics table
+             •   and Fsw is the switching frequency in MHz.                                                                         (9)
+The third component of the power dissipation is the gate driver power. The current associated to this loss can be
+calculated given the Qg of the FET as Equation 10:
+       I FET,g= Qg × Fsw                                                                                                           (10)
+or alternatively in terms of Ciss as Equation 11:
+       IFET,g = Ciss × Vsup × Fsw                                                                                                  (11)
+These current consumption numbers should be calculated for both the high side and low side separately and
+added together. When a total current consumption is computed, multiplying it by the input supply voltage gives a
+worst-case approximation for the total power dissipation of the LMG1210. If using a non-zero external gate
+resistor of value Rg,ext, some of this power will be dissipated in this external resistor, and can be subtracted from
+the power consumed inside the IC. For further details when calculating total driver power loss see section 2 from
+Design Considerations for LMG1205 Advanced GaN FET Driver During High-Frequency Operation.
+
+The WQFN package has two thermal pads: one for the low-side die and another for the high-side die. Though
+there is good thermal coupling between the die and the associated thermal pad, there is very limited thermal
+coupling between a die and the opposite thermal pad. This means that if power dissipation calculations indicate a
+die needs improved cooling, the cooling must be focused on cooling the correct thermal pad.
+
+8.2.3 Application Curves
+
+
+
+
+                     Figure 19. 1-MHz, 80-V Operation                              Figure 20. 10-MHz Operation, No Bus Voltage
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     19
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                           www.ti.com
+
+
+8.3 Do's and Don'ts
+When using the LMG1210, DO:
+1. Read and fully understand the data sheet, including the application notes and layout recommendations.
+2. Use a four-layer board and place the return power path on an inner layer to minimize power-loop inductance.
+3. Use small, surface-mount bypass and bus capacitors to minimize parasitic inductance.
+4. Use the proper size decoupling capacitors and place them close to the IC as described in the Layout
+   Guidelines section.
+5. Use common-mode chokes for the input signals to reduce ground bounce noise. If not, ensure the signal
+   source is connected to the signal VSS plane which is tied to the power source only at the LMG1210 IC.
+To avoid issues in your system when using the LMG1210, DON'T:
+1. Use a single-layer or two-layer PCB for the LMG1210 as the power-loop and bypass capacitor inductances
+    will be excessive and prevent proper operation of the IC.
+2. Reduce the bypass capacitor values below the recommended values.
+3. Allow the device to experience pin transients above 200 V as they may damage the device.
+4. Drive the IC from a controller with a separate ground connection than the VSS pin of the IC, unless
+    connecting though a CMC.
+
+9 Power Supply Recommendations
+The power to the LMG1210 can be supplied either through the LDO or the LDO can be bypassed and 5 V can
+be supplied directly. The maximum input voltage to the LDO of the LMG1210 is specified in the electrical
+characteristics table. The minimum input voltage of the LDO is set by the minimum drop-out of the LDO at the
+operational current. The dropout at max current is specified in the electrical characteristics table, but a lower
+dropout can be used in a lower-current application. A local bypass capacitor must be placed between the VIN and
+VSS pins, and the VDD and VSS pins. This capacitor must be placed as close as possible to the device. TI
+recommends a low-ESR, ceramic, surface-mount capacitor. TI also recommends using 2 capacitors across VDD
+and VSS pin: a 100 nF ceramic surface-mount capacitor for high frequency filtering placed very close to VDD and
+VSS pin, and another surface-mount capacitor, 220 nF to 10 μF, for IC bias requirement. The VIN and VSS
+capacitor can be removed if the LDO is bypassed.
+
+
+
+
+20     Submit Documentation Feedback                                              Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                  Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+10 Layout
+
+10.1 Layout Guidelines
+The layout of the LMG1210 is critical for performance and functionality. The low inductance WQFN package
+helps mitigate many of the problems associated with board level parasitics, but take care with layout and
+placement with components to ensure proper operation. The following design rules are recommended.
+• Place LMG1210 as close to the GaN FETs as possible to minimize the length of high-current traces between
+   the HO/LO and the Gate of the GaN FETs
+• Place bootstrap diode as close as possible to the LMG1210 to minimize the inductance of the BST to HB
+   loop.
+• Place the bypass capacitors across VIN to VSS, VDD to VSS, and HB to HS as close to the LMG1210 pins as
+   possible. The VDD to VSS cap is a higher priority than the VIN to VSS cap.
+• Separate power traces and signal traces, such as output and input signals, and minimize any overlaps
+   between layers
+• Minimize capacitance from the high-side pins to the input pins to minimize noise injection.
+
+10.2 Layout Example
+
+
+
+
+                                                Figure 21. LMG1210 Layout Example
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     21
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                               www.ti.com
+
+
+11 Device and Documentation Support
+
+11.1 Documentation Support
+11.1.1 Related Documentation
+For related documentation see the following:
+• Dead Time Optimization for the LMG1210 Half-Bridge GaN Driver (SNVA815)
+• Design Considerations for LMG1205 Advanced GaN FET Driver During High-Frequency Operation
+   (SNVA723)
+• LMG1210 TINA-TI Reference Design (SNOM617)
+• LMG1210 TINA-TI Transient Spice Model (SNOM616)
+• LMG1210 PSpice Transient Model (SNOM615)
+
+11.2 Receiving Notification of Documentation Updates
+To receive notification of documentation updates, navigate to the device product folder on ti.com. In the upper
+right corner, click on Alert me to register and receive a weekly digest of any product information that has
+changed. For change details, review the revision history included in any revised document.
+
+11.3 Community Resources
+The following links connect to TI community resources. Linked contents are provided "AS IS" by the respective
+contributors. They do not constitute TI specifications and do not necessarily reflect TI's views; see TI's Terms of
+Use.
+TI E2E™ Online Community TI's Engineer-to-Engineer (E2E) Community. Created to foster collaboration
+           among engineers. At e2e.ti.com, you can ask questions, share knowledge, explore ideas and help
+           solve problems with fellow engineers.
+Design Support TI's Design Support Quickly find helpful E2E forums along with design support tools and
+           contact information for technical support.
+
+11.4 Trademarks
+E2E is a trademark of Texas Instruments.
+All other trademarks are the property of their respective owners.
+11.5 Electrostatic Discharge Caution
+        This integrated circuit can be damaged by ESD. Texas Instruments recommends that all integrated circuits be handled with
+        appropriate precautions. Failure to observe proper handling and installation procedures can cause damage.
+        ESD damage can range from subtle performance degradation to complete device failure. Precision integrated circuits may be more
+        susceptible to damage because very small parametric changes could cause the device not to meet its published specifications.
+
+11.6 Glossary
+SLYZ022 — TI Glossary.
+   This glossary lists and explains terms, acronyms, and definitions.
+
+12 Mechanical, Packaging, and Orderable Information
+The following pages include mechanical, packaging, and orderable information. This information is the most
+current data available for the designated devices. This data is subject to change without notice and revision of
+this document. For browser-based versions of this data sheet, refer to the left-hand navigation.
+LMG1210 is released as MSL3. Products that exceed their floor life can be re-worked with a bake to drive out
+residual moisture. IPC/JEDEC J-STD-033C provides guidance about the baking procedure and where you
+should take care to ensure that the plastic housing (trays, tape and reel or tubes) can withstand the temperatures
+being considered.
+
+
+
+22     Submit Documentation Feedback                                                  Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                   Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     23
+                                                        Product Folder Links: LMG1210
+LMG1210
+SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019                                                                           www.ti.com
+
+
+
+
+24     Submit Documentation Feedback                                              Copyright © 2018–2019, Texas Instruments Incorporated
+
+                                                  Product Folder Links: LMG1210
+                                                                                                                            LMG1210
+www.ti.com                                                                              SNOSD12D – NOVEMBER 2018 – REVISED JANUARY 2019
+
+
+
+
+Copyright © 2018–2019, Texas Instruments Incorporated                                             Submit Documentation Feedback     25
+                                                        Product Folder Links: LMG1210
+                                                                                                                                                                      PACKAGE OPTION ADDENDUM
+
+       www.ti.com                                                                                                                                                                                                    6-Feb-2026
+
+
+
+
+PACKAGING INFORMATION
+
+       Orderable part number          Status     Material type      Package | Pins      Package qty | Carrier        RoHS             Lead finish/              MSL rating/               Op temp (°C)          Part marking
+                                        (1)            (2)                                                             (3)            Ball material             Peak reflow                                           (6)
+                                                                                                                                            (4)                      (5)
+
+           LMG1210RVRR                Active      Production       WQFN (RVR) | 19       3000 | LARGE T&R             Yes                  SN             Level-2-260C-1 YEAR              -40 to 125             LMG1210
+          LMG1210RVRR.A               Active      Production       WQFN (RVR) | 19       3000 | LARGE T&R             Yes                  SN             Level-2-260C-1 YEAR              -40 to 125             LMG1210
+           LMG1210RVRT                Active      Production       WQFN (RVR) | 19        250 | SMALL T&R             Yes                  SN             Level-2-260C-1 YEAR              -40 to 125             LMG1210
+          LMG1210RVRT.A               Active      Production       WQFN (RVR) | 19        250 | SMALL T&R             Yes                  SN             Level-2-260C-1 YEAR              -40 to 125             LMG1210
+
+(1)
+      Status: For more details on status, see our product life cycle.
+
+(2)
+   Material type: When designated, preproduction parts are prototypes/experimental devices, and are not yet approved or released for full production. Testing and final process, including without limitation quality assurance,
+reliability performance testing, and/or process qualification, may not yet be complete, and this item is subject to further changes or possible discontinuation. If available for ordering, purchases will be subject to an additional
+waiver at checkout, and are intended for early internal evaluation purposes only. These items are sold without warranties of any kind.
+
+(3)
+      RoHS values: Yes, No, RoHS Exempt. See the TI RoHS Statement for additional information and value definition.
+
+(4)
+   Lead finish/Ball material: Parts may have multiple material finish options. Finish options are separated by a vertical ruled line. Lead finish/Ball material values may wrap to two lines if the finish value exceeds the maximum
+column width.
+
+(5)
+  MSL rating/Peak reflow: The moisture sensitivity level ratings and peak solder (reflow) temperatures. In the event that a part has multiple moisture sensitivity ratings, only the lowest level per JEDEC standards is shown.
+Refer to the shipping label for the actual reflow temperature that will be used to mount the part to the printed circuit board.
+
+(6)
+      Part marking: There may be an additional marking, which relates to the logo, the lot trace code information, or the environmental category of the part.
+
+Multiple part markings will be inside parentheses. Only one part marking contained in parentheses and separated by a "~" will appear on a part. If a line is indented then it is a continuation of the previous line and the two
+combined represent the entire part marking for that device.
+
+Important Information and Disclaimer:The information provided on this page represents TI's knowledge and belief as of the date that it is provided. TI bases its knowledge and belief on information provided by third parties, and
+makes no representation or warranty as to the accuracy of such information. Efforts are underway to better integrate information from third parties. TI has taken and continues to take reasonable steps to provide representative
+and accurate information but may not have conducted destructive testing or chemical analysis on incoming materials and chemicals. TI and TI suppliers consider certain information to be proprietary, and thus CAS numbers
+and other limited information may not be available for release.
+
+In no event shall TI's liability arising out of such information exceed the total purchase price of the TI part(s) at issue in this document sold by TI to Customer on an annual basis.
+
+
+
+
+                                                                                                          Addendum-Page 1
+                                                                   PACKAGE MATERIALS INFORMATION
+
+www.ti.com                                                                                                                 5-Jan-2021
+
+
+
+TAPE AND REEL INFORMATION
+
+
+
+
+*All dimensions are nominal
+             Device           Package Package Pins   SPQ       Reel   Reel   A0           B0     K0     P1     W     Pin1
+                               Type Drawing                  Diameter Width (mm)         (mm)   (mm)   (mm)   (mm) Quadrant
+                                                               (mm) W1 (mm)
+     LMG1210RVRR              WQFN     RVR     19    3000      330.0     12.4      3.3   4.3    1.1    8.0    12.0    Q2
+     LMG1210RVRT              WQFN     RVR     19    250       180.0     12.4      3.3   4.3    1.1    8.0    12.0    Q2
+
+
+
+
+                                                           Pack Materials-Page 1
+                                                                PACKAGE MATERIALS INFORMATION
+
+www.ti.com                                                                                                           5-Jan-2021
+
+
+
+
+*All dimensions are nominal
+             Device           Package Type   Package Drawing   Pins     SPQ     Length (mm)   Width (mm)   Height (mm)
+      LMG1210RVRR                WQFN             RVR           19      3000       367.0        367.0         38.0
+      LMG1210RVRT                WQFN             RVR           19      250        213.0        191.0         35.0
+
+
+
+
+                                                        Pack Materials-Page 2
+                                         IMPORTANT NOTICE AND DISCLAIMER
+TI PROVIDES TECHNICAL AND RELIABILITY DATA (INCLUDING DATASHEETS), DESIGN RESOURCES (INCLUDING REFERENCE
+DESIGNS), APPLICATION OR OTHER DESIGN ADVICE, WEB TOOLS, SAFETY INFORMATION, AND OTHER RESOURCES “AS IS”
+AND WITH ALL FAULTS, AND DISCLAIMS ALL WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT LIMITATION ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT OF THIRD
+PARTY INTELLECTUAL PROPERTY RIGHTS.
+These resources are intended for skilled developers designing with TI products. You are solely responsible for (1) selecting the appropriate
+TI products for your application, (2) designing, validating and testing your application, and (3) ensuring your application meets applicable
+standards, and any other safety, security, regulatory or other requirements.
+These resources are subject to change without notice. TI grants you permission to use these resources only for development of an
+application that uses the TI products described in the resource. Other reproduction and display of these resources is prohibited. No license
+is granted to any other TI intellectual property right or to any third party intellectual property right. TI disclaims responsibility for, and you fully
+indemnify TI and its representatives against any claims, damages, costs, losses, and liabilities arising out of your use of these resources.
+TI’s products are provided subject to TI’s Terms of Sale, TI’s General Quality Guidelines, or other applicable terms available either on
+ti.com or provided in conjunction with such TI products. TI’s provision of these resources does not expand or otherwise alter TI’s applicable
+warranties or warranty disclaimers for TI products. Unless TI explicitly designates a product as custom or customer-specified, TI products
+are standard, catalog, general purpose devices.
+TI objects to and rejects any additional or different terms you may propose.
+IMPORTANT NOTICE
+
+                                                Copyright © 2026, Texas Instruments Incorporated
+                                                                Last updated 10/2025
+

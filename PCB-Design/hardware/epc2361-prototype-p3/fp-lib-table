@@ -1,0 +1,9 @@
+(fp_lib_table
+(lib (name "Capacitor_SMD")(type "KiCad")(uri "${KIPRJMOD}/Capacitor_SMD.pretty")(options "")(descr ""))
+(lib (name "Connector_PinHeader_1.27mm")(type "KiCad")(uri "${KIPRJMOD}/Connector_PinHeader_1.27mm.pretty")(options "")(descr ""))
+(lib (name "Connector_PinHeader_2.54mm")(type "KiCad")(uri "${KIPRJMOD}/Connector_PinHeader_2.54mm.pretty")(options "")(descr ""))
+(lib (name "Diode_SMD")(type "KiCad")(uri "${KIPRJMOD}/Diode_SMD.pretty")(options "")(descr ""))
+(lib (name "Resistor_SMD")(type "KiCad")(uri "${KIPRJMOD}/Resistor_SMD.pretty")(options "")(descr ""))
+(lib (name "TerminalBlock_Wuerth")(type "KiCad")(uri "${KIPRJMOD}/TerminalBlock_Wuerth.pretty")(options "")(descr ""))
+(lib (name "epc2361-prototype")(type "KiCad")(uri "${KIPRJMOD}/epc2361-prototype.pretty")(options "")(descr ""))
+)

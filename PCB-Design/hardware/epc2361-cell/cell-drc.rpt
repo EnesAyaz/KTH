@@ -1,0 +1,62 @@
+** Drc report for C:\Github\KTH\PCB-Design\hardware\epc2361-cell\epc2361-cell.kicad_pcb **
+** Created on 2026-09-21 10:11:39 **
+
+** Found 0 DRC violations **
+
+** Found 13 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(20.2000 mm, 7.8000 mm): Track [DC+] on F.Cu, length 20.7000 mm
+    @(15.0000 mm, 5.0000 mm): Pad 1 [DC+] of JDC1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(7.0000 mm, 24.6700 mm): Track [DC-] on F.Cu, length 5.6480 mm
+    @(7.0000 mm, 25.6900 mm): Pad 2 [DC-] of RGS2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(7.0000 mm, 25.6900 mm): Pad 2 [DC-] of RGS2 on F.Cu
+    @(9.2000 mm, 26.3000 mm): Pad 1 [DC-] of TP4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(24.4000 mm, 11.5000 mm): Track [DC-] on F.Cu, length 0.6000 mm
+    @(23.2000 mm, 7.8000 mm): Pad 1 [DC-] of TP6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(24.0000 mm, 34.0000 mm): Pad 1 [DC-] of JDC2 on F.Cu
+    @(24.4000 mm, 29.1000 mm): Via [DC-] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(7.0000 mm, 16.6700 mm): Track [AC] on F.Cu, length 5.6480 mm
+    @(7.0000 mm, 17.6900 mm): Pad 2 [AC] of RGS1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(17.3520 mm, 22.5000 mm): Track [AC] on F.Cu, length 2.5000 mm
+    @(18.7000 mm, 20.0000 mm): Pad 1 [AC] of TP7 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(7.0000 mm, 17.6900 mm): Pad 2 [AC] of RGS1 on F.Cu
+    @(9.2000 mm, 18.3000 mm): Pad 1 [AC] of TP2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(15.4250 mm, 24.0000 mm): Pad 5 [AC] of QL1 on F.Cu
+    @(15.0000 mm, 34.0000 mm): Pad 1 [AC] of JAC1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(10.5000 mm, 12.8000 mm): Pad 1 [GH] of TP1 on F.Cu
+    @(10.5100 mm, 14.7700 mm): Pad 2 [GH] of RG1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(10.5100 mm, 14.7700 mm): Pad 2 [GH] of RG1 on F.Cu
+    @(7.0000 mm, 18.7100 mm): Pad 1 [GH] of RGS1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(10.5000 mm, 20.8000 mm): Pad 1 [GL] of TP3 on F.Cu
+    @(10.5100 mm, 22.7700 mm): Pad 2 [GL] of RG2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(10.5100 mm, 22.7700 mm): Pad 2 [GL] of RG2 on F.Cu
+    @(7.0000 mm, 26.7100 mm): Pad 1 [GL] of RGS2 on F.Cu
+
+** Found 0 Footprint errors **
+
+** End of Report **

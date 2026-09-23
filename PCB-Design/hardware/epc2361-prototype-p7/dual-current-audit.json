@@ -1,0 +1,64 @@
+{
+  "channels": {
+    "QL1": [
+      [
+        "LK1",
+        "2"
+      ],
+      [
+        "QL1",
+        "3"
+      ],
+      [
+        "QL1",
+        "5"
+      ],
+      [
+        "QL1",
+        "7"
+      ],
+      [
+        "TP8",
+        "1"
+      ]
+    ],
+    "QL2": [
+      [
+        "LK2",
+        "2"
+      ],
+      [
+        "QL2",
+        "3"
+      ],
+      [
+        "QL2",
+        "5"
+      ],
+      [
+        "QL2",
+        "7"
+      ],
+      [
+        "TP12",
+        "1"
+      ]
+    ]
+  },
+  "output_holes_removed": true,
+  "coil_planes_y_mm": [
+    34,
+    36
+  ],
+  "coil_outer_height_mm": [
+    3,
+    30.065
+  ],
+  "nominal_winding_clearance_mm": 0.4,
+  "closure_and_mating_fit": "unverified",
+  "link_underside_mm": 5,
+  "boss_contact_mm": [
+    4,
+    1.6
+  ]
+}

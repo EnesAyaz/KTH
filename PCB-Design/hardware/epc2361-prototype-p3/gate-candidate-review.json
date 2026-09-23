@@ -1,0 +1,33 @@
+{
+  "source": "C:\\Github\\KTH\\PCB-Design\\hardware\\epc2361-prototype-p3\\epc2361-prototype-p3.kicad_pcb",
+  "output": "C:\\Github\\KTH\\PCB-Design\\hardware\\epc2361-prototype-p3\\epc2361-prototype-p3-gate-candidate.kicad_pcb",
+  "status": "candidate, engineering review required",
+  "branches": {
+    "HO": {
+      "shared_trunk_mm": 21.65,
+      "star_to_gate_resistor_mm": [
+        12.310000000000045,
+        12.310000000000016
+      ],
+      "branch_difference_mm": 2.842170943040401e-14,
+      "source_branch_mm": [
+        10.710000000000008,
+        10.710000000000008
+      ]
+    },
+    "LO": {
+      "shared_trunk_mm": 18.85,
+      "star_to_gate_resistor_mm": [
+        13.310000000000002,
+        13.310000000000002
+      ],
+      "branch_difference_mm": 0.0,
+      "source_branch_mm": [
+        10.331622776601684,
+        10.331622776601684
+      ]
+    }
+  },
+  "errors": [],
+  "source_return": "Geometric paired returns; existing same-net plane connections remain. Not net-isolated Kelvin."
+}

@@ -1,0 +1,519 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN004 Enhancement-Mode GaN Transistors
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 1
+EPC GaN Transistor
+Parametric Characterization Guide
+TABLE OF CONTENTS
+General Information                                1
+VTH Measurement                                   2
+ V TH measurement on curve tracer .  .  .  .  .  .  2 
+ V TH measurement with a
+ Keithley 238 parametric analyzer  .  .  .  .  .  .  2
+ V TH measurement with TESEC 881-TT/A  .  .  2
+IGSS Measurement                                    3
+ I GSS measurement on curve tracer .  .  .  .  .  .  3
+ I GSS measurement with a
+ Keithley 238 parametric analyzer  .  .  .  .  .  .  3 
+ I GSS measurement with TESEC 881-TT/A  .  .  3
+ I GSS General ATE
+ measurement  guidelines .  .  .  .  .  .  .  .  .  .  .  3
+RDS(ON) Measurement                                4
+ R DS(ON) measurement on curve tracer  .  .  .  .  4
+ R DS(ON) measurement with a
+ Keithley 238 parametric analyzer  .  .  .  .  .  .  4
+ R DS(ON) measurement with
+ TESEC 881-TT/A  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  4
+IDSS / BVDSS Measurement                           5 
+ I DSS / BVDSS measurement
+ on curve tracer   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  5
+ I DSS / BVDSS measurement with a 
+ Keithley 238 parametric analyzer  .  .  .  .  .  .  5
+  IDSS / BVDSS measurement with 
+ TESEC 881-TT/A  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  5
+ I DSS ATE  Measurement  Guidelines  .  .  .  .  .  .5
+Test Socket Breakout Box Schematics
+and Definition Table                               6
+Useful References                                   6
+EFFICIENT POWER CONVERSION
+General Information
+The EPC GaN transistors generally behave like n-channel power MOSFETs  .  Common curve tracers, para-
+metric analyzers, and automatic discrete device parametric testers that are used for an n-channel power 
+MOSFET will be applicable for the characterization of GaN transistors  . This applications note provides 
+guidelines to characterize DC parameters using Tektronix 576 curve tracer, Keithley 238 parametric ana -
+lyzer, TESEC 881-TT/A discrete device test system .
+Some tests use high voltages . Proper safety procedures must be followed . 
+This apps note emphasizes those test areas that might be different from silicon power MOSFETs .   
+There are important notes, cautions or warnings in each section.  It is highly recommended that 
+those items be reviewed in advance of testing and be complied with to avoid accidental dam
+-
+age or degradation of the parts.
+MOS-gate transistors are sensitive to static  . GaN transistors have very low capacitances  .  Wrist straps, 
+grounding mats, and other ESD precautions must be followed .
+A summary of the key DC characteristics for EPC products is shown in the Tabl e 1, below:
+Edgar Abdoulin, Robert Beach, Jianjun Cao, Alana Nakata; Efficient Power Conversion Corporation
+Part
+Number
+VDS
+(Max) 
+VGS 
+(Max ) 
+VGSTH 
+(Typ) 
+VGSTH 
+(Min) 
+VGSTH 
+(Max)    
+RDS(ON) (Typ) 
+@ VGS=5VDC
+RDS(ON) (Max) 
+@ VGS=5VDC
+VSD 
+(Typ) ID Package  
+VDC VDC VDC VDC VDC mW mW VDC ADC (mm)
+EPC1014 40 +6/-5 1.4 0.7 2.5 12 16 1.80 10 LGA 1.7x1.1
+EPC1015 40 +6/-5 1.4 0.7 2.5 3 4 1.80 33 LGA 4.1x1.6
+EPC1009 60 +6/-5 1.4 0.7 2.5 24 30 1.80 6 LGA 1.7x1.1
+EPC1005 60 +6/-5 1.4 0.7 2.5 6 7 1.80 25 LGA 4.1x1.6
+EPC1007 100 +6/-5 1.4 0.7 2.5 24 30 1.80 6 LGA 1.7x1.1
+EPC1001 100 +6/-5 1.4 0.7 2.5 6 7 1.80 25 LGA 4.1x1.6
+EPC1013 150 +6/-5 1.4 0.7 2.5 70 100 1.80 3 LGA 1.7x0.9
+EPC1011 150 +6/-5 1.4 0.7 2.5 18 25 1.80 12 LGA 3.6x1.6
+EPC1012 200 +6/-5 1.4 0.7 2.5 70 100 1.80 3 LGA 1.7x0.9
+EPC1010 200 +6/-5 1.4 0.7 2.5 18 25 1.80 12 LGA 3.6x1.6
+WITH A TEKTRONIX 576, THE INITIAL SETTINGS ARE ASSUMED TO BE AS FOLLOWS:
+•	 LEFT	/	RIGHT	switch	is	in	“off”	position;
+•	 VARIABLE	COLLECTOR	SUPPLY	is	at	zero;
+•	 DISPLAY	is	not	inverted;
+•	 DISPLAY	OFFSET	is	at	zero;
+•	 STEP	/	OFFSET	POLARITY	is	not	inverted	(OUT);
+•	 VERT	/HORIZ	DISPLAY	MAGNIFIER	is	at	NORM	(OFF);
+•	 The	ZERO	button	for	OFFSET	is	IN.
+•	 STEPS	button	on	PULSED	STEPS	is	IN
+•	 The	REP	button	on	the	STEP	FAMILY	selector	is	IN;
+•	 The	NORM	button	on	the	RATE	is	IN
+•	 The	EMITTER	GROUNDED	switch	is	set	to	BASE	 TERM	SHORT
+Some tests use high 
+voltages. Proper 
+safety procedures 
+must be followed. 
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN004
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 2
+Enhancement-Mode GaN Transistors
+The EPC GaN device technology has a very high 
+transconductance . This makes the devices sensitive 
+to feedback between the gate and drain during test-
+ing of VTH . Figure 2 shows the high level of oscillation 
+seen without the damping gate resistor . Choice of 
+gate resistor is influenced by the test conditions of 
+the curve tracer used, such as power level . The inter-
+nal series resistor of the curve tracer acts to dampen 
+the oscillations as well  . An external gate resistor 
+above 100 Ω is also encouraged, with little change in 
+VTH test results from resistors of 1 kΩ or more . 
+ 
+VTH Measurement with a Keithley 238
+Parametric Analyzer
+Device terminal connection to SMU’s: Connect 
+Source to SMU1, short Drain to Gate and connect 
+to SMU2 .
+SMU settings:
+•	 SMU1	(Source):	 V
+S = 0 V, IS Max = 10 mA
+•	 SMU2	(Gate	&	Drain):	I D Max = 10 mA, 
+ sweep VD from 0 V to 2 V at 0 .05 V per step
+Record ID and VD: For EPC1001, VTH is the VD value at 
+ID = 5 mA . For other device types, take the reading 
+at the data sheet specified current .
+VTH Measurement with TESEC 881-TT/A
+•	 Select	function:	 VTH
+•	 Set	IG	=	5	mA	for	EPC1001	(set	ID	according
+ to data sheet drain current for VTH)
+•	 Set	test	time	=	380	µS	with	a	packaged	die
+ in a socket, or 2 .5 mS with probe needles on
+ the bare die .
+ 
+0.0E+00
+5.0E-04
+1.0E-03
+1.5E-03
+2.0E-03
+2.5E-03
+3.0E-03
+3.5E-03
+4.0E-03
+4.5E-03
+5.0E-03
+0 0.2 0.4 0.60 .8 11 .2 1.4
+Bias (Drain/Gate to Source)(V)
+Current (Drain to Source)(A)
+With Rg
+Without Rg
+Figure 1: Comparison of VTH curves obtained with and without gate resistor for EPC1001.
+Figure 2: Oscilloscope trace of VTH measurement a) 
+with 180 W resistor in series with gate, b) without gate 
+resistor.  A high level of gate and drain oscillation is seen 
+without the damping gate resistor.
+Caution for V TH curve tracer testing: If there is no gate resistor (R G) put into series with the gate 
+during the VTH measurement, you may see oscillation on the gate which will result in a typical S curve 
+like that shown in figure 1 for VTH curve without RG that can occur at the gate and drain pins during a 
+VTH test . The oscillation voltage can become many times the input voltage .  See Figure 2 oscilloscope 
+trace .   THESE OSCILLATIONS CAN DAMAGE OR DESTROY THE DEVICE.  Care must be taken to 
+avoid exposing devices to uncontrolled oscillation conditions!
+VTH Measurement
+VTH is gate-source voltage (VDS = VGS) which produces a specified drain current on the data sheet . This 
+test shorts the drain and gate .
+VTH measurement on curve tracer
+Device	terminal	connection	to	the	curve	tracer:	Drain	to	“C” ,	Source	to	“E” ,	Gate	to	Drain	is	shorted	
+through an external 100 Ω resistor  .
+Curve tracer settings:
+•	 Set	HORIZONTAL	 VOLTS	/DIV	to	500	mV/div	for	EPC1001.	Data	sheet	VTH is 0 .7 V to 2 .5 V
+ as shown in Table 1 .
+•	 Set	 VERTICAL	CURRENT	/DIV	to	1	mA/div	for	EPC1001.	It	should	be	noted	that	each	device	type	
+ has a different Id specification for the VTH .  Set VERTICAL CURRENT /DIV accordingly so that the 
+ specified drain current for Vth measurement is approximately at the middle of the screen .
+•	 Set	Polarity	to	NPN;
+•	 DISPLAY	INVERT	button	is	out
+•	 Set	Mode	control	to	NORM;
+•	 Set	MAX	PEAK	 VOLTS	to	15	V;
+•	 Set	SERIES	RESISTOR	to	0.3	Ω	(220	watts)
+•	 STEPS	button	on	PULSED	STEPS	is	IN
+•	 The	EMITTER	GROUNDED	switch	is	set	to	BASE	 TERM	SHORT
+•	 Connect	the	device	using	the	LRFT	/RIGHT	switch.
+Increase the VARIABLE COLLECTOR VOLTAGE until the current reaches 5mA .  Read the voltage which 
+is V
+TH for EPC1001 . For other device types, take the reading at the data sheet specified current .
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN004
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 3
+Enhancement-Mode GaN Transistors
+IGSS Measurement with a Keithley 238 
+Parametric Analyzer
+Device terminal connection to SMU’s: Connect 
+gate to SMU1, short Drain to Source and connect 
+to SMU2 .
+SMU settings:
+•	 SMU1	(Gate):	I G Max = 10 mA, sweep VG 
+ from -5 V to +5 V at 1 V per step
+•	 SMU2	(Drain	and	Source):	 VD = 0 V, 
+ I D Max = 10 mA
+•	 Record	I G and VG .
+IGSS measurement with TESEC 881-TT/A
+•	 Select	function:	I SGS
+•	 Set	 VG =5 V, check Rv flag for positive IGSS
+ gate measurement . Set IG Max to 10 mA .
+•	 Set	test	time	=	380	µS	with	a	packaged	die	in
+ a socket, or 2 .5 mS with probe needles
+ on the bare die .
+For negative IGSS measurement, uncheck the Rv flag .
+Note: It is NOT recommended to use the Autorange 
+function during I
+GSS testing as range changes during 
+testing can lead to spiking.
+IGSS General ATE measurement  guidelines
+It should be verified that there is no spiking above 
+voltage test settings in the measurements on the 
+gate .  It is recommended to use controlled voltage 
+ramp settings to aid in avoiding overshoots .
+The drain and the source are shorted together for 
+this measurement .
+It is suggested that ATE measurement be per
+-
+formed at +5 V and -5 V for comparison to speci -
+fication .  Suggest it is best if you use a 10 mA max 
+current clamp on the gate to source leakage test 
+at +/-5 V .
+Warning: Do not exceed 6 V on the gate in the 
+positive direction or 5 V in the negative direction 
+as that is the maximum gate rating for the device.
+IGSS Measurement
+IGSS is the gate-source leakage current with the drain shorted to the source .
+IGSS measurement on curve tracer
+Device	terminal	connection	to	the	curve	tracer:	Gate	to	“C” ,	Source	to	“E” ,		Drain	is	shorted	to	Source.
+Note: It is very important to short the drain and the source together to get an accurate IGSS measurement.
+Curve tracer settings:
+•	 Set	HORIZONTAL	 VOLTS	/DIV	to	1	V/div.	IGSS will be measured at 5 V according to data sheet .
+•	 Set	 VERTICAL	CURRENT	/DIV	to	1	mA/div	for	EPC1001.	It	is	set	with	respect	to	the	IGSS spec
+ for  the device being tested .
+•	 Set	POLARITY	to	NPN;
+•	 DISPLAY	INVERT	button	is	out
+•	 Set	Mode	control	to	NORM;
+•	 Set	MAX	PEAK	 VOLTS	to	15	V;
+•	 Set	MAX	PEAK	POWER	to	220	 W.
+•	 STEPS	button	on	PULSED	STEPS	is	IN
+•	 The	EMITTER	GROUNDED	switch	is	set	to	BASE	 TERM	SHORT
+•	 Connect	the	device	using	the	LEFT	/RIGHT	switch.
+Increase the VARIABLE COLLECTOR VOLTAGE until the voltage reaches 5 V .  Read the current
+which is I
+GSS at VGS = 5 V .
+Warning: Do not exceed 6 V on the gate in the positive direction or 5 V in the negative direction as 
+that is the maximum gate rating for the device. 
+The above procedure is for measuring I GSS with a positive gate voltage  . To make a measurement 
+with a negative voltage on the gate, reduce the VARIABLE COLLECTOR VOLTAGE TO zero and also :
+•	 Set		POLARITY	to	PNP	position
+•	 Press	in	DISPLAY	INVERT	button
+•	 Set	vertical	scale	to	50	µA	for	EPC1001
+•	 Reapply	the	voltage	to	5	 V.	
+The trace will take time to settle because of the gate-source capacitance .
+Note: Remember to take out the DISPLAY INVERT button after finishing the negative I
+GSS test. 
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN004
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 4
+Enhancement-Mode GaN Transistors
+RDS(ON) Measurement with a
+Keithley 238 Parametric Analyzer
+Device terminal connection to SMU’s: Connect 
+gate to SMU1, Source to SMU2, and Drain to SMU3 .
+SMU settings:
+•	 SMU1	(Gate):	 VG = 5 V, IG	Max	=	10	mA;
+•	 SMU2	(Source):	 VS = 0 V, IS	Max	=	1	A;
+•	 SMU3	(Drain):	I D Max = 1 A, sweep VD from 0 to 
+ 10 mV at 1 mV per step . The Max VD is selected 
+ according to the RDS(ON) specification of the
+ device . For example, EPC1001 RDS(ON) is 7 mΩ  .
+ At the Max current of 1 A on Keithley 238, 
+ Max VDS is 7 mΩ * 1 A = 7 mV  .
+Record VD and ID: RDS(ON) is obtained by dividing
+VDS by ID .
+RDS(ON) Measurement with TESEC 881-TT/A
+•	 Select	function:	R DS(ON)
+•	 Set	 VG	=	5	V
+•	 Set	ID	according	to	data	sheet	specification.	
+ Drain current is limited to 20 A on TESEC
+ 881-TT/A . If greater than 20 A is desired, a
+ high current unit will be required .
+•	 Clamp	max	R DS(ON) to 5X datasheet
+ R DS(ON) max value .
+•	 Set	test	time	=	380	µS	with	a	packaged	die
+ in a socket, or 5 mS with probe needles on
+ the bare die .
+Note: It is NOT recommended to use the Autorange 
+function during R
+DS(ON) testing as range changes dur -
+ing testing can lead to spiking.
+RDS(ON) Measurement
+RDS(ON) is the drain to source resistance at 25 °C with VGS = 5 V . Since RDS(ON) is sensitive to temperature, 
+it is important to minimize heating of the junction during the test  . A drain pulse test is therefore 
+used to measure RDS(ON) .
+Accurate RDS(ON)  measurement requires the use of Kelvin Sense on both drain and source  . The loca-
+tions of sense points have a strong influence on RDS(ON)  readings .
+RDS(ON) Measurement on Curve Tracer:
+Device	terminal	connection	to	the	curve	tracer:	Gate	to	“B” ,	Drain	to	“C” ,	Source	to	“E” .
+Curve Tracer settings:
+•	 For	EPC1001	example,	set	HORIZONTAL	 VOLTS	/DIV	to	50	mV/div.		Scale	is	set	according		to	the	
+ product of RDS(ON) and the drain current at  which RDS(ON)is specified on the data sheet .
+•	 For	EPC1001	example,	set	 VERTICAL	CURRENT	/DIV	to	2	A/div.	It	is	set	with	respect	to	the	drain	
+ current at which RDS(ON) is specified on the data sheet . Please note that the Max current for
+ Tektronix 576 is 20 A . For measurements requiring greater than 20 A, the Tektronix 176
+ Pulsed High Current Fixture must be used .
+•	 Set	POLARITY	to	NPN;
+•	 DISPLAY	INVERT	button	is	out
+•	 Set	Mode	control	to	NORM;
+•	 Set	MAX	PEAK	 VOLTS	to	15	V;
+•	 Set	MAX	PEAK	POWER	to	220	 W.
+•	 Set	the	STEP	AMPLITUDE	to	1	 V;
+•	 Set	the	NUMBER	OF	STEPS	to	5;
+•	 Set	the	OFFSET	LIMIT	to	0	 V;
+•	 The	STEP	MULTIPLIER	button	is	OUT	(the	0.1X	not	selected);
+•	 Set	the	80	microsec		button	on	the	PULSE	STEPs		to	the	IN	position;
+•	 Set	the	0.5X	button	on	the	RATE	selector	to	the	IN	position;
+•	 Set	the	EMITTER	GROUNDED	switch		to	the		 “STEP	GEN”	position	in	the	“BASE	TERM”	sector;
+•	 Connect	the	device	using	the	LEFT	/RIGHT	switch.
+Increase the VARIABLE COLLECTOR  VOLTAGE until the desired value of the drain current is obtained . 
+Rdson is obtained by dividing VDS by ID . Please note that the Max current on Tektronix 576 is 20 A .  
+The extreme left hand curve will be the 5 V gate reading .
+Caution: The R
+DS(ON) measurement is sensitive to the sense contact locations. With EPC bumped die on a 
+DUT card, the drain and source sense points should be immediately outside of the die.
+Warning: It is not recommended to use needles on a bare die to measure R DS(ON) measurement. Too high 
+current density at the probe needle /solder bump contacts could damage the device.
+It is also important to not exceed the 6V on the gate as that is the maximum gate rating for the device.  It 
+is also important to observe the maximum I D rating of the device and not exceed it during the R DS(ON) test.  
+Maximum ID ratings for EPC GaN products are shown in Table 2  on the previous page in the suggested 
+RDS(ON) curve trace setup table. 
+Part 
+Number
+Datasheet RDS(ON) 
+Max (mΩ)
+Datasheet ID 
+max (A)
+VG to use for 
+curve tracing (V)
+Horizontal V Range 
+to use
+Vertical  I 
+range to use
+Do not exceed this IMAX 
+for curve tracing (A)
+Typical horizontal 
+readings at IMAX (mV)
+RDS(ON) at typical horizontal 
+reading = VDS/ID   (mΩ)
+EPC1015 4 33 5 50 mV 2 A 20 60 3
+EPC1001 7 25 5 50 mV 2 A 20 120 6
+EPC1005 7 25 5 50 mV 2 A 20 120 6
+EPC1014 16 10 5 50 mV 2 A 10 120 12
+EPC1010 25 12 5 50 mV 2 A 12 220 18
+EPC1011 25 12 5 50 mV 2 A 12 220 18
+EPC1007 30 6 5 50 mV 1 A 6 145 24
+EPC1009 30 6 5 50 mV 1 A 6 145 24
+EPC1012 100 3 5 50 mV 0.5 A 3 210 70
+EPC1013 100 3 5 50 mV 0.5 A 3 210 70
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN004
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 5
+Enhancement-Mode GaN Transistors
+IDSS/BVDSS measurement with a
+Keithley 238 parametric analyzer
+Device terminal connection to SMU’s: Connect 
+Drain to SMU1, short Gate to Source and connect 
+to SMU2 .
+SMU settings:
+•	 SMU1	(Drain):	I D Max = 1 mA, sweep VD from
+ 0 to 100 V for EPC1001 . Max VD is according to
+ data sheet device VDSS rating . Do not exceed
+ device rating .
+•	 SMU2	(Gate	and	Source):	 VS = 0 V, 
+ I S Max = 1 mA .
+•	 Record	 VD and ID .
+IDSS/BVDSS Measurement with TESEC 881-TT/A
+•	 Select	function:	I DSS
+•	 Set	 VDS = 100 V for EPC1001 . It is set to the 
+ device BVDSS rating .
+•	 Set	test	time	=	380	µS	with	a	packaged	die	in
+ a socket, or 2 .5 mS with probe needles on
+ the bare die .
+Note : It is NOT recommended to use the Autorange func-
+tion during I DSS testing as range changes during testing 
+can lead to spiking
+Warning: Do not use Function BV DSS. Do not mea -
+sure device breakdown voltage at a fixed drain 
+current as it will exceed device V
+DS rating. 
+Degradation of device R DS(ON) characteristics may 
+be seen if the max rating is exceeded.   From a test-
+ing standpoint, the drain to source measurements 
+performed should be like those for an n-channel 
+FET in a traditional CMOS technology where I
+DSS 
+measurements at maximum ratings are performed 
+instead of BV
+DSS measurements.  
+IDSS / BVDSS Measurement
+BVDSS is the rated voltage of the device at VGS = 0 V . IDSS is the drain current at a specified drain-source 
+voltage which is equal or less than the rated voltage of the device, with VGS = 0 V .
+Important Note: The BVDSS for a device is generally above the maximum drain-source voltage rating 
+of the device .  Therefore a BVDSS test should not be done on the device because the maximum V DSS 
+rating will be exceeded .  Degradation of device RDS(ON) characteristics may be seen if the max rating is 
+exceeded .   From a testing standpoint, the drain to source measurements performed should be like 
+those for an n-channel FET in a traditional CMOS technology where IDSS measurements at maximum 
+ratings are performed instead of BVDSS measurements .  
+IDSS /BVDSS Measurement on Curve Tracer
+Device	terminal	connection	to	the	curve	tracer:	Drain	to	“C” ,	Source	and	Gate	are	shorted	and	to	“E” .
+Curve tracer settings:
+Note:  It is very important to short the gate and the source to avoid floating the gate with respect to the source 
+and accidentally turning on the device.  The device could be damaged during the IDSS testing if this occurs.
+•	 Set	HORIZONTAL	 VOLTS	/DIV	to	20	V/div	for	EPC1001.	It	is	set	with	respect	to	the	max	VDSS rating 
+ for the device .
+•	 Set	 VERTICAL	CURRENT	/DIV	to	50	µA/div	for	EPC1001	which	is	specified	at	300	µA	on
+ data sheet .  It is set according to the specified drain current at which the device VDSS is rated .
+•	 Set	Polarity	to	NPN;
+•	 DISPLAY	INVERT	button	is	out
+•	 Set	Mode	control	to	NORM;
+•	 STEPS	button	on	PULSED	STEPS	is	IN
+•	 The	EMITTER	GROUNDED	switch	is	set	to	BASE	 TERM	SHORT
+•	 Set	MAX	PEAK	 VOLTS	to	350	V.	It	is	set	according	to	the	device	V
+DSS rating .
+•	 Set	SERIES	RESISTOR	to	Max	peak	power	=	2.2	watts	for	EPC1001.	
+•	 Connect	the	device	using	the	LEFT	/RIGHT	switch.
+Increase the VARIABLE COLLECTOR VOLTAGE until the desired drain voltage is reached  . Read the 
+current which is I
+DSS at this VDS .
+Warning: During IDSS / BVDSS measurement, do not exceed the device V DSS rating. Degradation of de -
+vice RDS(ON) characteristics may be seen if the max rating is exceeded.  From a testing standpoint, the 
+drain to source measurements performed should be like those for an n-channel FET in a traditional 
+CMOS technology where I DSS measurements at maximum ratings are performed instead of BV DSS 
+measurements.
+  IDSS ATE Measurement  Guidelines
+User needs to verify that there is no spiking above voltage test settings in the IDSS measurements .  It is recommended to use controlled voltage ramp settings 
+to aid in avoiding overshoots .
+Suggest 10 mA max current clamp or less on the drain to source leakage test .
+The gate and the source are shorted together for this measurement . 
+Caution:  It is very important to short the gate and the source to avoid floating the gate with respect to the source and accidentally turning on the device.  The device 
+could be damaged during the IDSS testing if this occurs.  It is not sufficient to set the gate to 0 V.  It is very important to have a very low resistance short from the gate 
+to the source.
+Warning: Per previous notes, the BV DSS for a device is generally above the maximum rating of the device and therefore a BV DSS test should not be done on a 
+device because the maximum V DS rating will be exceeded.  Degradation of device R DS(ON) characteristics may be seen if the max rating is exceeded.   From a 
+testing standpoint, the drain to source measurements performed should be like those for an n-channel FET in a traditional CMOS technology where IDSS mea-
+surements at maximum ratings are performed instead of BVDSS measurements.
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN004
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2011   | |    PAGE 6
+Enhancement-Mode GaN Transistors
+Drain
+Drain
+Sense
+Gate
+Collector
+Collector Sense
+Emitter Sense
+Emitter
+Base
+A
+C
+B
+Source
+Sense
+Source
+DUT
+TEK 576
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+100Ω
+Test Socket Breakout Box Schematics and Definition Table
+Table 3: Definition Table for Test Box
+Box Knob
+Position
+Knob Position
+Test Name
+Collector
+connections
+Base 
+Connections
+Emitter
+Connections
+1 Through
+(for RDS(ON) testing) Drain Gate Source
+2 IDSS Drain Source, Gate
+3 IGSS Gate Source, Drain
+4 VTH Drain, Gate Source
+  Useful References
+1.	“Using	Enhancement	Mode	GaN-on-Silicon
+	 Power	 Transistor” ,	Edgar	Abdoulin,
+ Steve Colino, Alana Nakata,
+ www  .epc-co .com
+2 . International Rectifier, Application Note
+	 AN-957,	 “Measuring	HEXFET®	MOSFET
+	 Characteristics” ,	www.irf.com/technical-info/
+ appnotes/an-957 .pdf
+3.	“Fundamentals	of	Gallium	Nitride	Power	
+	 Transistors” ,	Steve	Colino	and	Robert	Beach,	
+ www  .epc-co .com
+Figure 3: Test Socket Breakout Box

@@ -1,0 +1,558 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN026 eGaN® FET Advantages in 48 V – 12 V Power Conversion
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    1
+eGaN® FET Advantages in
+48 V – 12 V Power Conversion
+EFFICIENT POWER CONVERSION
+Suvankar Biswas, David Reusch, and Edward A. Jones; Efficient Power Conversion Corporation
+Figure 1: Comparison of full load efficiency and power density of state-of-the-art 
+commercial products and previously published research in 48 V – 12 V power conversion
+With the power architecture transition from a 12 V to a 48 V  
+rack in modern data centers [1] there is an increased interest 
+in improving 48 V power conversion efficiency and power 
+density. In this context, DC-DC converters designed using 
+eGaN FETs provide a high efficiency and high density 
+solution. Additionally, with the advent of 48 V power  
+systems in mild hybrid, hybrid and plug-in hybrid electric 
+vehicles, GaN transistors can provide a reduction in size, 
+weight and BOM cost [2]. In this application note, we will 
+demonstrate how system optimization for a 48 V – 12 V non-
+isolated, fully regulated, intermediate bus converter (IBC) 
+can achieve higher power density and efficiency with eGaN 
+FETs. We will also take a detailed look at an eGaN FET based 
+multilevel topology that can further maximize the benefit of 
+using eGaN FETs over conventional silicon solutions. 
+For higher performance in 48 V applications [1,3-4], there 
+have been many different topological approaches ranging 
+from hard-switching [5-8] to highly resonant [9-12], fully 
+regulated to unregulated, and fully isolated to non-isolated. 
+A plot of efficiency performance vs density for the different 
+approaches with an output voltage of 12 V are shown in 
+figure 1. In general, resonant and soft-switching converters 
+provide the highest efficiency and power density but have 
+the least flexibility with regard to regulation and input 
+voltage variation. With the significant reduction in board 
+space occupied by the smaller GaN transistors, topologies 
+that require a greater number of active devices as a tradeoff 
+for reduced passive size also become attractive as passive 
+components are the main barrier to increased power density. 
+Switched capacitor circuits are good examples of topologies 
+that can effectively reduce or eliminate passive components 
+[13-19]. Following along the same lines, switched resonant 
+tank converters have also become popular [20,21].
+1600
+1400
+1200
+1000
+800
+600
+400
+200
+93.5 94.0 94.5 95.0 95.5 96.0 96.5 97.0
+Power Density (W/in3)
+Full Load Eﬃciency (%)
+Target
+Performance
+[11]
+[10]
+[9]
+[5]–[7]
+[12]
+Non-isolated regulated
+Isolated regulated
+Isolated regulated
+Isolated unregulated
+VIN = 48 V, VOUT = 12 V
+Isolated 
+semi-regulated
+with GaN
+[8]
+Hard-Switching
+Resonant or Soft-Switching
+
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN026
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    2
+eGaN® FET Advantages in 48 V – 12 V Power Conversion
+Power Density Barriers 
+For traditional buck converters, the inductor 
+size has been a well-known barrier to increased 
+power density. The ability of GaN devices to 
+increase switching frequency and reduce 
+passive size has been documented in previous 
+12 V input POL designs [22, 23]. For 48 V, the 
+voltage is increased by a factor of four, and 
+therefore the switching related losses are 
+increased by approximately four times for 
+switching commutation losses and 16 times 
+for output capacitance turn-on losses. When 
+combined with the higher required blocking 
+voltage of traditional power semiconductors 
+for 48 V, this leads to worse figures of merit, and 
+the need for an improved semiconductor is 
+clear. From figure 2(a), it can be seen that eGaN 
+FETs offer a significant four times reduction in 
+switching figure of merit over state of the art Si 
+MOSFETs at 100 V. In figure 2(b), the measured 
+in-circuit performance of similar on-resistance 
+Si MOSFET and eGaN FET based 48 V – 12 V 
+buck converters is compared (with the same 
+inductor). The advantage of using eGaN FETs 
+at high frequency is very clearly demonstrated. 
+Impact of Inductor Selection on 
+Performance and Power Density 
+For the 48 V eGaN FET based buck converter, an 
+inductor optimization process was completed 
+for forty different inductors, covering nine 
+different series, from four different vendors. 
+The impact of inductor volume and frequency 
+on performance is shown for the three best 
+performing inductors based on their relative 
+volume in figure 3(a) [24]. It can be seen that 
+the smaller the inductor size, the higher the 
+optimal frequency and overall loss of the 
+power converter. This trend occurs because 
+switching losses are proportional to frequency 
+and inductor core loss is inversely proportional 
+to frequency. Higher frequency can lead to 
+lower relative system losses while |ΔPinductor  | is 
+greater than | ΔPdevicesw | for a certain Δfsw. As the 
+inductor volume decreases, the relative loss of 
+the inductor is larger for the converter, pushing 
+the optimal frequency, and minimum loss point, 
+higher. The 3.3 µH inductance from series #4 
+IHLP-5050EZ-01 (Vishay), demonstrated a good 
+tradeoff in performance and power density, 
+and its system loss breakdown at a switching 
+frequency of 500 kHz, is shown in figure 3(b). 
+Figure 2: (a) Figure of merit (FOM) comparison of GaN and Si devices for voltages from 30 V to 200 V and 
+(b) experimentally measured impact of frequency on power loss for 100 V EPC2045 GaN transistor and 100 V Si MOSFET based designs
+Figure 3. (a) Experimentally measured impact of frequency and inductance on system performance for GaN transistor based 48 VIN to 12 VOUT non-isolated 
+IBC for three inductor series with varying volume where dot size is proportional to inductor current ripple (b) loss breakdown of 48 VIN to 12 VOUT  
+non-isolated IBC power loss breakdown plot of inductor series  Vishay IHLP-5050EZ-01, L=3.3 µH, Power devices: EPC2045, Gate Drive: LMG1205
+1000
+100
+10
+0 50 100 150 200 250
+Area ● RDS(on) (mm2  ● m/uni03A9)
+Drain-to-Source Voltage (V)
+11
+10
+9
+8
+7
+6
+5
+4
+3
+0 100 200 300 400 500 600 700 800 900 1000 1100 1200
+Power Loss (W)
+Switching Frequency (kHz)
+VDS = 0.5 ● VDSS, IDS = 20 A VIN = 48 V, VOUT  = 12 V, IOUT = 10 A
+Si MOSFETs
+~16x
+~4x
+Circa 2014
+Circa 2017
+Circa 2011
+Circa 2014
+Total System Loss
+Si
+GaN
+eGaN FETs
+Circa 2017
+(a)
+(a)
+(b)
+(b)
+100 200 300 400 500 600 700 800 900 1000 1100
+Total Power Loss (W)
+Frequency (kHz)
+7.0
+6.5
+6.0
+5.5
+5.0
+4.5
+4.0
+Inductor Series #4
+Volume    851 mm3
+Inductor Series #1
+Volume    424 mm3
+Inductor Series #7
+Volume    1090 mm3
+1.5 /uni03BCH
+1.8 /uni03BCH
+2.2 /uni03BCH
+3.3 /uni03BCH
+4.7 /uni03BCH
+5
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+200 300 400 500 600 700 800 900 1000
+Power Loss (W)
+Switching Frequency (kHz)
+Loss Breakdown
+Inductor Area ≈ 
+50% of Total Area
+Inductor Volume ≈ 
+80% of Total Volume 
+swf
+swfSwitching Loss ∝ Inductor Loss 1∝
+PL
+PSW
+PGate
+PRDS(on)
+PBD
+PTrace + Caps
+VIN = 48 V, VOUT = 12 V,
+IOUT = 10 A
+Air Flow = 200 LFM
+VIN = 48 V, VOUT = 12 V,
+IOUT = 10 A
+Density ≈
+1000 W/in3
+Driver
+circuitry
+Power FETsCIN
+COUT
+Current sense
+Inductor
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN026
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    3
+eGaN® FET Advantages in 48 V – 12 V Power Conversion
+“Long” loop
+Alligator clip Spring clip
+“Short” loop
+The eGaN FET based non-isolated intermedi -
+ate bus converter presented in this application 
+note, built using EPC2045 100 V eGaN FETs [24] 
+in Figure 3(b) achieves a power density over 
+1000 W/in3. The complete five-phase proto -
+type is shown in figure 4(a) and its thermal 
+image when operating at full-load is shown in 
+figure 4(b).
+Using a stronger gate drive [25] and improved 
+current sensing, the optimal switching frequen-
+cy increases. By using a smaller volume induc-
+tor (2.2 µH), the series #1 IHLP-4040DZ-01 from 
+Vishay, a power density of over 1400 W/in3 can be 
+achieved with efficiencies approaching 96%, as 
+shown in figure 5(a). The EPC9205 Dr GaNPlus de-
+velopment board, a 13.5 mm x 22 mm x 4.8 mm 
+prototype, built using EPC2045 eGaN FETs, is 
+shown in figure 5(b).
+For benchmarking purposes, a Si MOSFET 
+based design is compared with the EPC9205 
+prototype. The Si MOSFET design used the 
+same optimization procedure outlined ear -
+lier. A switching frequency of 300 kHz and the 
+largest volume 5.6 µH inductor from series 
+IHLP-5050FD-01 (Vishay) were selected for the 
+Si prototype. The electrical performance com-
+parison with Si prototype is shown figure 6(a). 
+The full-load efficiency of the EPC9130 and 
+EPC9205 eGaN FET based prototypes is then 
+laid side-by-side in figure 6(b) with the state 
+of the art in 48 V to 12 V DC-DC power conver-
+sion which has been discussed earlier in this 
+application note. The two graphs confirm the 
+expectation of higher performance achiev -
+able with eGaN FETs.
+Figure 4. (a) EPC9130 five-phase 48 V–12 V prototype, and 
+(b) its thermal image. Operating conditions: 400 LFM (2 m/s) forced convection, ambient temperature 25°C, thermal steady state. 
+Figure 5. (a)  Efficiency curves of 500 kHz EPC9130 and 700 kHz EPC9205 prototypes estimating inductor losses and 
+(b) picture of 1400 W/in3 EPC9205 prototype 
+VIN = 48 V, VOUT = 12 V, IOUT = 50 A, fsw = 500 kHz
+Max Temp = 86.1°C 100°C
+25°C
+Power FETs
+Air/f_low
+(a) (b)
+(a) (b)
+98
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+87
+86
+0 5 10 15
+Eﬃciency (%)
+Output Current (A)
+VIN = 48 V, VOUT = 12 V
+EPC9130 500 kHz
+EPC9205 700 kHz
+InductorPower FETs
+Driver
+circuitry
+Current sense
+network 
+Temperature
+sense 
+C IN C OUT
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN026
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    4
+eGaN® FET Advantages in 48 V – 12 V Power Conversion
+Figure 6: (a) Experimental 48 VIN –to–12 V OUT  electrical performance comparison between EPC9205 and Si prototype, and 
+(b) Electrical performance and power density comparison of EPC9130 and EPC9205 against state-of-the-art 
+commercial products and previously published research in 48 V – 12 V power conversion
+As mentioned earlier, multilevel topologies 
+offer a reduction in inductor size, which is the 
+main barrier to power density. Quantitatively, 
+we have:
+Figure 7: (a) Inductor size reduction in a three-level buck, and 
+(b) when compared to EPC9130 and EPC9205
+where VIN is input voltage, D is duty ratio, f sw 
+is switching frequency, ΔI L is peak-to-peak 
+inductor current ripple. These equations are 
+plotted in figure 7(a), which clearly shows 
+the size reduction gained with a three-level 
+topology over the entire range of duty ratio, 
+with 50% duty being the operating condition 
+of a conventional switched capacitor circuit. 
+The inductor volume reduction when 
+compared to the EPC9130 (500 kHz) and 
+EPC9205 (700 kHz) prototypes discussed 
+earlier is shown in figure 7(b).
+Further Improving Performance with Multilevel Topologies 
+300 kHz Si
+700 kHz GaN
+1600
+1400
+1200
+1000
+800
+600
+400
+200
+98
+97
+96
+95
+94
+93
+92
+91
+90
+93.50 2 4 6 8 10 12 14 16 94.0 94.5 95.0 95.5 96.0 96.5 97.0
+Power Density (W/in3)
+Full Load Eﬃciency (%)
+Eﬃciency (%)
+Output Current (A)
+Non-isolated regulated
+Isolated regulated
+Isolated regulated
+700 kHz
+EPC9205
+500 kHz
+EPC9130
+Isolated unregulated
+VIN = 48 V, VOUT = 12 VVIN = 48 V, VOUT = 12 V
+Isolated 
+semi-regulated
+with GaN
+GaN non-isolated
+regulated
+2.2 µH Volume ≈ 440 mm3 Hard-Switching
+Resonant or Soft-Switching
+1.1
+1.0
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0
+1 2 3 4 510 20 30 40 50 60 70 80 90 100
+Normalized Inductance
+Duty Cycle (%)
+1200
+1100
+1000
+900
+800
+700
+600
+500
+400
+300
+200
+100
+0
+0
+Inductor Volume (mm3)
+Inductance (/uni03BCH)
+Target Application
+Buck Converter
+VIN = 48 V, VOUT = 12 V,
+IOUT = 10 A 500 kHz buck
+700 kHz buck
+320 kHz 3 level
+Traditional buck
+3 level buck
+(a) (b)
+(a) (b)
+LBuck = (1)
+(2)
+(3)
+VIN (1− D)D
+ΔIL fsw
+L3−level = 
+VIN (0.5 − D)D
+, D < 0.5
+, D > 0.5
+ΔIL fsw
+ΔIL fsw
+L3−level = 
+VIN (D− 0.5)(1− D)
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN026
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    5
+eGaN® FET Advantages in 48 V – 12 V Power Conversion
+Beyond inductance reduction, multi-level 
+topologies also reduce the effective voltage 
+stress. Using lower voltage rated devices in a 
+three-level topology offers greater advantage 
+in terms of semiconductor losses, since lower 
+voltage rated devices have lower figures of 
+merit (FOM). This advantage is further enhanced 
+when using GaN transistors compared to silicon 
+[25]. The final three-level prototype, built using 
+EPC2015C 40 V eGaN FETs is shown in figure 8(a) 
+and the efficiency comparison with EPC9205 
+is shown in figure 8(b). This shows clearly 
+that high performance and high power 
+density is obtained using an eGaN FET 
+based multilevel solution. The prototype 
+in figure 8(a) can achieve a power density 
+approaching 2000 W/in3. 
+Figure 8: (a) Three-level prototype built with EPC2015C eGaN FETs (40 V), and 
+(b) efficiency comparison to EPC9205
+Conclusions
+This application note establishes eGaN 
+FETs as a faster, more efficient and compact 
+semiconductor for fast growing portfolio of  
+48 V applications, most notably data center 
+power delivery and automotive. These appli-
+cations demand very high performance 
+and power densities. We have analyzed the 
+advantages of using an eGaN FET, a superior 
+semiconductor compared to conventional 
+silicon, in order to achieve superior electrical 
+performance. Additionally, we have optimized 
+the inductor selection process for the typical  
+48 V – 12 V power conversion system, and shown 
+that using eGaN FETs leads to more compact 
+and efficient designs. The fully regulated 
+multiphase buck prototype ( EPC9130) and 
+the size optimized buck prototype ( EPC9205) 
+have shown a combination of high efficiency 
+(~96%) and high power density (> 1000 W/
+in3) is achievable and easily surpass silicon-
+based alternatives. This is further enhanced 
+when using multilevel topologies, which offer 
+efficiencies approaching 97% and power 
+densities approaching 2000 W/in3.
+REFERENCES
+1.  X. Li and S. Jiang, “Google 48V Power Architecture,” 2017 IEEE Applied Power Electronics Conference and Exposition 
+(APEC), Plenary. [Online]  https://www.apec-conf.org/Portals/0/APEC%202017%20Files/Plenary/APEC%20
+Plenary%20Google.pdf?ver=2017-04-24-091315-930&timestamp=1495563027516
+2. https://www.delphi.com/innovations/48-volt-mild-hybrid# 
+3. L. Tung, “Google, Facebook pause rivalries: Here’s their 48V power-saving rack spec for Open Compute Project,” 
+ZDNET, August 2016. http://www.zdnet.com/article/google-facebook-pause-rivalries-heres-their-48v-power-
+saving-rack-spec-for-open-compute-project/
+4. S Taranovich, “Data center next generation power supply solutions for improved efficiency,” EDN network, April, 
+2016.
+5. Ericsson PKB 4204B PI datasheet. [Online] www.ericsson.com
+6. General Electric EBDW025A0B datasheet. [Online] www.geindustrial.com
+7.  Ericsson BMR457 datasheet. [Online] www.ericsson.com
+8. J. Glaser, J. Strydom, and D. Reusch, “High Power Fully Regulated Eighth-brick DC-DC Converter with GaN FETs,” 
+International Exhibition and Conference for Power Electronics, Intelligent Motion, Renewable Energy and Energy 
+Management (PCIM Europe), 2015, pp. 406–413.
+9.  Delta Electronics E54SJ12040 datasheet.  www.deltaww.com
+10. Vicor PI3546-00-LGIZ evaluation board. [Online]  www.vicorpower.com
+11. D. Reusch, “High Frequency, High Power Density Integrated Point of Load and Bus Converters”, PhD Dissertation, 
+Virginia Tech, 2012.
+12. Vicor BCM48Bx120y300A00 datasheet. [Online]www.vicorpower.com
+13. T. A. Meynard and H. Foch, “Multi-level conversion: high voltage choppers and voltage-source inverters,” Power 
+Electronics Specialists Conference, 1992. PESC ‘92 Record., 23rd Annual IEEE, Toledo, pp. 397-403, 1992, vol.1
+14. Y. Lei, C. Barth, S. Qin, W.-C. Liu, I. Moon, A. Stillwell, D. Chou, T. Foulkes, Z. Ye, Z. Liao and R.C.N. Pilawa-Podgurski, 
+“A 2 kW, Single-Phase, 7-Level, GaN Inverter with an Active Energy Buffer Achieving 216 W/in3 Power Density and 
+97.6% Peak Efficiency”, IEEE Applied Power Electronics Conference, Long Beach, CA, 2016.
+98
+97
+96
+95
+94
+93
+92
+01
+90
+0 2 4 6 8 10 12 14 16 18 20 22
+Eﬃciency (%)
+Output Current (A)
+300 kHz 3 level buck 1.5 /uni03BCH
+700 kHz 2 level buck 2.2 /uni03BCH
+Driver
+circuitry
+Power FETs
+Inductor
+C IN
+C OUT
+C FLY
+(a) (b)
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN026
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC -CO.COM    |   COPYRIGHT 2018   | |    6
+eGaN® FET Advantages in 48 V – 12 V Power Conversion
+REFERENCES (continued)
+15. V. Yousefzadeh, E. Alarcon, and D. Maksimovic, “Three-level buck converter for envelope tracking applications,” IEEE Transactions on Power Electronics, vol. 21, no. 2, pp. 549–552, 
+March 2006.
+16. D. Reusch, F. C. Lee, and M. Xu, “Three level buck converter with control and soft startup,” in 2009 IEEE Energy Conversion Congress and Exposition, Sept 2009, pp. 31–35.
+17. J. S. Rentmeister and J. T. Stauth, “A 48V: 2V flying capacitor multilevel converter using current-limit control for flying capacitor balance,” 2017 IEEE Applied Power Electronics 
+Conference and Exposition (APEC), Tampa, FL, 2017, pp. 367-372.
+18. A. Stillwell, Robert C. N. Pilawa-Podgurski, “A 5-level flying capacitor multi-level converter with integrated auxiliary power supply and start-up,” 2017 IEEE Applied Power Electronics 
+Conference and Exposition (APEC), Tampa, FL, 2017, pp. 2932-2938.
+19. Z. Ye, Y. Lei, W. c. Liu, P. S. Shenoy and R. C. N. Pilawa-Podgurski, “Design and implementation of a low-cost and compact floating gate drive power circuit for GaN-based flying 
+capacitor multi-level converters,” 2017 IEEE Applied Power Electronics Conference and Exposition (APEC), Tampa, FL, 2017, pp. 2925-2931.
+20. Y. Li, X. Lyu, D. Cao, S. Jiang and C. Nan, “A high efficiency resonant switched-capacitor converter for data center,” 2017 IEEE Energy Conversion Congress and Exposition (ECCE), 
+Cincinnati, OH, 2017, pp. 4460-4466.
+21. S. Jiang, C. Nan, X. Li, C. Chung and M. Yazdani, “Switched tank converters,” 2018 IEEE Applied Power Electronics Conference and Exposition (APEC), San Antonio, TX, 2018, pp. 81-90.
+22. S. Ji, D. Reusch, and F. C. Lee, “High Frequency High Power Density 3D Integrated Gallium Nitride Based Point of Load Module,” Energy Conversion Congress and Exposition (ECCE), 
+pp. 4267-4273, 2012.
+23. H. Umeda, Y. Kinoshita, S. Ujita, T. Morita, S. Tamura, M. Ishida and T. Ueda, “Highly Efficient Low-Voltage DC-DC Converter at 2-5 MHz with High Operating Current Using GaN Gate 
+Injection Transistors,” International Exhibition and Conference for Power Electronics, Intelligent Motion, Renewable Energy, and Energy Management (PCIM Europe), pp. 1025-1032, 
+2014.
+24. EPC2045 eGaN FET Datasheet. [Online] www.epc-co.com
+25. D. Reusch, S. Biswas and Y. Zhang, “System Optimization of a High-Power Density Non-Isolated Intermediate Bus Converter for 48 V Server Applications,” in 2018 IEEE Applied Power 
+Electronics Conference and Exposition (APEC), San Antonio, TX, 2018, pp. 2191-2197.
+26. EPC2015C eGaN FET Datasheet. [Online] www.epc-co.com
+27. A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for Efficient Power Conversion, Second Edition, Wiley, 2014.

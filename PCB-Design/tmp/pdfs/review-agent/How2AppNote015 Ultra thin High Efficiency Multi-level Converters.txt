@@ -1,0 +1,191 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 015
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021   | |    1
+Motivation
+Over the past decade, DC-to-DC power modules in datacom, telecom, 
+and consumer electronics systems demand more power with 
+increasing limitations on space and volume, requiring ultra-thin and 
+highly efficient solutions. The multilevel converter is an exceptional 
+candidate to shrink the size of the magnetic components and achieve 
+high efficiency in a compact solution. Leveraging the advantages 
+of eGaN FETs, such as small size and low loss, would enhance its 
+performance. A 48 V to 20 V, 250 W three-level converter using eGaN® 
+FETs and digital control is presented with a peak total system efficiency 
+of 97.8% and only 5 mm overall thickness (including PCB).   
+Design of an eGaN-FET-based three-level converter   
+The simplified schematic of an eGaN-FET-based three-level buck 
+converter with synchronous bootstrap circuit is shown in figure 1. The 
+circuit has three operating modes at duty cycle lower than 0.5: 1) input 
+voltage charges up the flying capacitor and load inductor through  
+Q1 and Q 3; 2) flying capacitor discharges while the load inductor 
+charges through Q 2 and Q 4; 3) inductor current discharges through  
+Q3 and Q4 (either via the equivalent body diode of one and the channel 
+of the other during deadtime, or via the channel of both FETs). The 
+steady-state operation follows the cycle of 1 →3→2→3. The effective 
+frequency seen at the output inductor is thus twice of the switching 
+frequency for the FETs, allowing the use of lower inductance value 
+than required in a conventional synchronous buck converter.
+The switching frequency of the converter is optimized at 400 kHz 
+so that the effective frequency seen at the inductor is 800 kHz, high 
+enough to allow the use of a 3.5 mm tall, 2.4 µH inductor, whilst 
+maintaining low switching loss and thus high overall efficiency and 
+good thermal performance. The cascaded synchronous bootstrap 
+circuit that ensures adequate gate voltage (>4.5 V) for the upper FETs 
+is adopted. 
+Three control loops are implemented using a digital controller to 
+regulate the output voltage, output current, and flying capacitor 
+voltage respectively. Flying capacitor voltage should be kept at half of 
+the input voltage at any time to avoid overstressing any of the FETs and 
+ensure correct circuit operation. 
+How to Design an Ultra-thin, Highly Efficient, Multilevel 
+DC-to-DC Converter Using eGaN® FETs 
+EFFICIENT POWER CONVERSION
+Figure 1: Simplified schematic of the eGaN FET-based three-level converter
+Figure 2: Photo of the bump side of EPC2053 (left) and EPC2055 (right)
+Boot1
+Synchronous
+bootstrap
+PWM1
+VCC
+GND
+G1
+Level shift
+Synchronous
+bootstrap
+Boot2
+PWM2 G2
+Level shift
+Boot3
+PWM3 G3
+GN
+G4
+Q3
+Q4
+Q2
+CF LY
+COUT
+VOUT
+VIN
+GND
+CIN
+LOUT
+VBoot(N)
+VBoot(N-1)
+Q1
+Level shift
+PWM4
+Synchronous
+bootstrap
+Synchronous bootstrap
+PWM1
+PWM2
+PWM3
+PWM4
+VIN_sense
+VOUT_sense
+VCFLY_sense
+IOUT_sense
+Digital 
+controller
+3.5 mm
+2 mm 1.5 mm
+2.5 mm
+EPC2053 EPC2055
+Figure 3: Photo of the EPC9148 – 48 V to 20 V three-level buck converter
+
+
+=== PAGE 2 ===
+How2AppNote 015 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    2
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+High performance eGaN FETs for the three-level buck 
+converter  
+Q1 blocks the 48 V input voltage before the flying capacitor voltage is 
+established. As Q2-Q4 only need to block half of the input voltage, they 
+only need to be rated for 24 V. Therefore the 100 V rated EPC2053 with 
+RDSon of 3.8 mΩ and the 40 V rated EPC2055 with RDSon of 3.5 mΩ shown 
+in figure 2 are selected for Q 1 and Q2-Q4 respectively. Both eGaN FETs 
+are of tiny size, and can operate at up to 150°C junction temperature.  
+Experimental validation
+The three-level buck converter in figure 3 was built to verify the design. 
+The overall thickness of the circuit including the circuit board is only  
+5 mm. The circuit was tested with no forced air up to 12.5 A output current 
+with a temperature rise of 65 °C. The switch-node voltage VSW waveform 
+at 8 A output current is shown in figure 4. It can be seen that the capacitor 
+voltage is well-balanced during charge and discharge phases. 
+The overall power efficiency of the three-level converter operating at  
+20 V output and with 800 LFM forced air is shown in figure 5 with a peak 
+efficiency of 97.8%. It maintains efficiency above 97% above 4 A load 
+current. The overall power efficiency at 12 V output and with 800 LFM 
+forced air is shown in figure 6 
+with a peak efficiency of 97%. 
+This is all achieved within the 5 
+mm height limit. 
+The thermal image of the 
+converter operating at 48 V  
+to 20 V, 12.5 A output 
+current with 800 LFM forced 
+air cooling is shown in  
+figure 7. It can be seen that the 
+FETs are capable of carrying 
+more current with forced air.
+Conclusions
+The GaN-FET-based multilevel buck topology can be used for 
+designing an ultra-thin and highly efficient DC-to-DC converter. A 
+48 V to 20 V, 250 W three-level buck converter built using eGaN FETs 
+achieved a peak efficiency of 97.8% and an overall thickness of only  
+5 mm. The multilevel topology allows the use of a thin inductor with 
+low inductance value. The eGaN FETs not only reduce the area occupied 
+with their tiny footprints, but also improve the overall power efficiency 
+with their fast switching capability. 
+Figure 4: Switch-node voltage VSW waveform at 8 A output current
+Figure 5: Total system efficiency including the housekeeping power 
+consumption at 20 V output
+Figure 6: Total system efficiency including the housekeeping power 
+consumption at 12 V output
+98
+97
+96
+95
+94
+93
+92
+91
+1 2 3 4 5 6 7 8 9 10 11 12 13
+ Overall Power Efficiency (%)
+  Output Current (A)
+20 V Output Voltage
+VIN = 48 V
+VIN = 56 V
+98
+97
+96
+95
+94
+93
+92
+91
+90
+89
+88
+87 1 2 3 4 5 6 7 8 9 10 11 12 13
+ Overall Power Efficiency (%)
+  Output Current (A)
+12 V Output Voltage
+VIN = 36 V
+VIN = 48 V
+VIN = 56 V
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+Figure 7: Thermal image of the three-
+level buck converter at 12.5 A output 
+current and thermal steady state with 
+800 LFM forced air

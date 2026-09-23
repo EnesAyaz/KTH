@@ -1,0 +1,346 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN014 eGaN FET® Safe Operating Area
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    1
+Safe Operating Area (SOA) curves describe the 
+range of voltage and current and the length of 
+time under which a device may operate without 
+failure. The SOA is an indicator of the device’s abil-
+ity to transfer heat away from a resistive junction 
+and, thus, is directly dependent on a device’s Ther-
+mal Resistance (R θJC ). The more efficient a device 
+is at getting rid of generated heat, the lower R θJC 
+and the better the SOA performance. 
+eGaN FETs from Efficient Power Conversion (EPC) 
+exhibit a positive temperature coefficient across 
+their entire operating range and can therefore be 
+expected to operate with only voltage, current, 
+and temperature limitations. This paper will de -
+scribe the thermally derived SOA of power eGaN 
+FETs which demonstrate very good SOA charac -
+teristics while maintaining superior R DS(on). The 
+paper will then compare thermally derived calcu -
+lations with measured results.
+History
+The Safe Operating Area of a power device de -
+scribes its ability to handle voltage and current 
+simultaneously while the gate voltage is at or just 
+above threshold. Limits on SOA are typically two -
+fold: the first being the device’s maximum junction 
+temperature and the second is due to a nega -
+tive temperature coefficent which causes current 
+crowding. An example of this crowding is some -
+times seen in the base emitter junction in bipolar 
+junction transistors (known as second breakdown).
+Early power MOSFETs had significantly lower 
+current where the transfer characteristics’ tem -
+perature coefficient transitioned from negative 
+to positive (zero-tempco point). Cell densities in 
+today’s devices have increased which improve 
+the device’s on-resistance (R DS(on)). Most data -
+sheets for early MOSFETs showed the theoreti -
+cal SOA, which was okay since the small area of 
+negative temperature coefficient did not present 
+an additional limitation to voltage, current and 
+temperature. The modern MOSFET, however, has 
+a significant area of negative temperature coef -
+ficient in its transfer characteristics curve with a 
+high zero-tempco point. If this point is higher 
+than the device’s operating current, the device 
+will tend to “run-away” thermally at the higher 
+SOA power conditions [1,2]. This thermal run-
+away condition is due to what has previously 
+been labeled thermal focusing [3]. Therefore, the 
+solution to improving SOA performance is oper -
+ating the MOSFET above the zero-tempco point. 
+While many manufacturers still show theoretical 
+SOA, some are now quantifying their results with 
+empirical data and displaying the limitations that 
+this operating condition produces.  
+EPC’ s Gallium Nitride Solution 
+to Improved SOA Performance
+SOA limitations on a manufacture’s data sheet are 
+mathematically derived from a device’s Thermal 
+Impedance (ZθJC ) curve. The prudent manufacture 
+then modulates this ideal curve based upon labo -
+ratory testing. Figure 1 shows an example of EPC’s 
+normalized transient thermal impedance Z θJC  and 
+Table 1 lists EPC part numbers and associated RθJC .
+Figure 2 represents the transfer characteristics of 
+eGaN® FET Safe Operating Area
+A basic limitation of a power transistor is temperature. Calculations of device tempera-
+ture during operation assume that power dissipation is spread evenly over the entire 
+active area of the device, which is not always true. Because of negative temperature 
+coefficients in certain parameters of some technologies, current may crowd into a small 
+area, pushing up the localized temperature until failure.
+EFFICIENT POWER CONVERSION
+John Worman and Y anping Ma, Efficient Power Conversion Corporation
+Normalized Maximum Transient Thermal Impedance
+tp, Rectangular Pulse Duration, seconds
+Duty Factors:
+Notes:
+Duty Factor: D = t1/t2
+Peak TJ = PDM x ZθJC x RθJC + TC
+PDM
+t1
+t2
+0.5
+0.2
+0.1
+0.05
+0.02
+0.01
+Single Pulse
+1.000
+0.100
+0.010
+0.001
+1.0E-06 1.0E-05 1.0E-04 1.0E-03 1.0E-02 1.0E-01 1.0E+01
+ZθJC, Normalized Thermal Impedance
+Figure 1. Normalized transient thermal impedance ZθJC Table 1. EPC part numbers and associated RθJC
+Part Number RθJC  °C/Watt
+EPC2007C 33
+EPC2012C 25
+EPC2014 25
+EPC2019 12
+EPC2001C 10
+EPC2010C 6
+EPC2015 6
+EPC2014C 3
+EPC8004 3
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN014 eGaN FET® Safe Operating Area
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    2
+the EPC2001 eGaN FET, a 100 V, 7 milliohm device, 
+compared with the BSB056N10NN3 [4] power 
+MOSFET from Infineon. What is immediately ob -
+vious is that the temperature coefficient of the 
+eGaN FET is positive throughout its range of op -
+eration. This means that when the temperature 
+of a localized region of the device increases, its 
+current carrying capability is reduced causing the 
+current to be dispersed to other areas of the die. 
+This dispersion of the current equalizes the tem -
+perature of the die, and is known as “self-ballast -
+ing. ” The power MOSFET, on the other hand, has 
+a significant region of negative temperature coef-
+ficient operation (below 5.0 V on the gate) where 
+there is no self-ballasting. Operation within this 
+region creates localized hot spots within the die 
+and, thus, limits the SOA capability of the die.
+Figure 3 shows the safe operating area of the 
+EPC2001 eGaN FET compared with the same 
+MOSFET from Infineon (BSB056N10NN3). The 
+EPC2001 eGaN FET boundaries of the SOA curve 
+are 100 V (the absolute maximum drain to source 
+voltage), and 100 A (the absolute maximum pulse 
+current). Within these boundaries, the transistor 
+can operate for a limited amount of time before 
+its thermal limit is reached.
+ 
+The top left portion of the graph cannot be 
+reached because the RDS(on) is too low to generate 
+the voltage at the given current. Between the two 
+boundary conditions exists a set of sloping lines 
+that show SOA limitations as a function of a timed 
+rectangular power pulse. The black lines are cal -
+culated constant power lines representing the en-
+ergy it takes to raise the device junction tempera -
+ture to the maximum rated junction temperature 
+while maintaining a constant 25°C case tempera -
+ture. These black lines typically have a slope of mi-
+nus 1 (constant power: log(I DS) = log(PD)-log(VDS)) 
+at VDS = (IDScontinuous)(RDS(on)).  
+While the positive temperature coefficient over 
+the entire operating range of the EPC2001 eGaN 
+FET leads us to believe that the theoretical ther -
+mal limits bound safe operation, due diligence 
+for a young technology drives us to verify this 
+condition empirically to ensure that other failure 
+modes are not overlooked. Twenty-five units of 
+EPC2001 were taken to catastrophic failure where 
+each device was clamped to a water-cooled heat 
+sink; the case temperature was maintained at 
++25°C, ±2.5°C. Referring to Figure 3:
+1.  The RED line shows failure data when the de -
+vice was linearly biased under DC conditions. 
+2.  The BLUE line shows failure data when the de -
+vice was linearly biased for 100 milliseconds. 
+3.  The GREEN line shows failure data when the 
+device was linearly biased for 10 milliseconds.
+ 
+Figure 3. EPC2001 (left) and BSB056N10NN3 (right) Safe Operating Area
+0.1 0.1 1 10 100 1000
+1
+10
+100ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2001: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated,  TC = +25°C 
+Single Pulse
+limited by RDS(on)
+10 /uni03BCs
+1 ms
+100  /uni03BCs
+DC
+10 ms
+100 ms
+10-1
+10-1 10 0 10 1 10 2 10 3
+10 0
+10 1
+10 2
+ID (A)
+VDS (V)
+1µs
+10µs
+100µs
+1ms
+10 ms
+DC
+Limited by on-state resistance
+Figure 2. EPC2001 (left) and BSB056N10NN3 (right) transfer characteristics
+ID (A)
+VGS (V)
+120
+80
+100
+60
+40
+20
+0 0 1 2 3 4 5 6
+25˚C
+150˚C
+ID – Drain Current (A)
+VGS – Gate-to-Source Voltage (V)
+100
+80
+60
+40
+20
+0 0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5
+25°C
+125°C
+VDS  = 3 V
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN014 eGaN FET® Safe Operating Area
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    3
+0.1 
+1 
+10 
+100 
+0.1 1 10 100 1000 
+ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2007: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated, TC = +25°C
+Single Pulse
+100 ms
+1 ms
+10 ms
+DC
+100 /uni03BCs
+10 /uni03BCs
+limited by RDS(on)
+0.1 
+0.01 
+1 
+10 
+100 
+0.1 1 10 100 1000 
+ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2012: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated, TC = +25°C
+Single Pulse
+1 ms
+10 ms
+100 ms
+DC
+100 /uni03BCs
+10 /uni03BCs
+Limited by RDS(on)
+0.1 
+1 
+10 
+100 
+0.1 
+ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2014: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated, TC = +25°C
+Single Pulse
+1 ms
+10 ms
+100 ms
+DC
+100 /uni03BCs
+10 /uni03BCs
+1 10 100 
+Limited by RDS(on)
+0.1 
+1 
+10 
+100 
+0.1 1 10 100 1000 
+ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2010: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated, TC = +25°C
+Single Pulse
+1 ms
+10 ms
+100 ms
+DC
+100 /uni03BCs
+10 /uni03BCs
+Limited by RDS(on)
+0.1 
+1 
+10 
+100 
+0.1 1 10 100 
+ID – Drain Current (A)
+VDS – Drain-Source Voltage (V)
+EPC2015: Maximum Forward Bias Safe Operating Area
+TJ = Max Rated, TC = +25°C
+Single Pulse
+1 ms
+10 ms
+DC
+100 /uni03BCs
+10 /uni03BCs
+100 ms
+limited by RDS(on)
+Figure 4. EPC2007 Safe Operating Area
+Figure 6. EPC2012 Safe Operating Area
+Figure 8. EPC2014 Safe Operating Area
+Figure 5. EPC2010 Safe Operating Area
+Figure 7. EPC2015 Safe Operating Area
+Figure 4 through Figure 8 illustrate the SOA of other EPC part numbers, EPC2007, EPC2010, EPC2012, EPC2015, and EPC2014. All part numbers have been 
+evaluated empirically for SOA failure. The colored lines (as defined above) represent actual device failures. As shown, the 10 millisecond, 100 millisecond and 
+DC failures all occur at higher power levels than the published SOA conditions. 
+Conclusion
+High electron densities and very low temperature 
+coefficients give the eGaN FET major advantages 
+over the power MOSFET needed for today’s high 
+performance applications. High electron density yields 
+superior RDS(on), while positive temperature coefficients 
+inhibit hot spot generation within the die, resulting in 
+superior Safe Operating Area capabilities. An additional 
+benefit for eGaN FETs emerges when parallel devices 
+are mounted onto a common heat sink. Due to their 
+areas of positive temperature coefficient above the 
+zero-tempco, they tend to current share, thus reducing 
+the requirement for ballasting resistors.
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN014 eGaN FET® Safe Operating Area
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2020   | |    4
+References
+[1] Worman, J., “New Generation Power MOSFETs and Safe Operating Area” PCIM proceedings, Chicago, 2002.
+[2] Schoiswohi, J., “Linear Mode Operation and Safe Operating Area of Power-MOSFETs, ” Applications Note, AP99007, Infineon, V0.92, 2010.
+[3] Ronan, H. R., Jr., “Thermal Current Focusing in Power MOSFETs” PCIM, Aug. 1998.
+[4] http://www.infineon.com/dgdl/BSB056N10NN3+G_Rev+2.5.pdf?folderId=db3a304313b8b5a60113cee8763b02d7&fileId=db3a30442e152e91012e390b9a631459

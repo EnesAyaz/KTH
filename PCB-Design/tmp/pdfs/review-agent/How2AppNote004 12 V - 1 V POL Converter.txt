@@ -1,0 +1,135 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 004
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020   | |    1
+Motivation
+The smallest, most cost effective and highest efficiency non-isolated 
+12 V to 1.0 V POL converter, suitable for high-performance computing, 
+cryptocurrency and telecommunication applications, can be achieved 
+by employing monolithic eGaN® IC half-bridges such as the EPC2111. 
+The EPC9204 configured as a synchronous Buck converter yielded a 
+power density of 1000 W/in3 and is capable of delivering 12 A.  
+Introducing the EPC2111 eGaN monolithic  
+half-bridge 
+The EPC2111, shown in figure 1, is a Generation 4 eGaN IC asymmetrical 
+half-bridge rated at 30 V with an on-resistance of 19 mΩ for the upper 
+FET Q1 and 8 mΩ for the lower FET Q2 where each FET is capable 
+of carrying a continuous current of 16 A. The EPC2111 is nearly one 
+seventh the footprint area of comparable Si MOSFETs and was chosen 
+because it can switch much faster and has lower parasitic capacitances 
+than equivalent silicon devices, yielding the lowest switching loss 
+operation even at very high switching frequency (10 MHz), and is ideal 
+for POL applications.
+EPC9204 power module
+The EPC9204 power module, with the block diagram schematic shown 
+in figure 2, is configured as a synchronous Buck topology that is fitted 
+with the EPC2111 eGaN monolithic half-bridge. The EPC9204 power 
+module, shown in figure 3, also features the new PE29102 half-bridge 
+gate driver IC from pSemi Corp., input and output filters, as well as 
+current and temperature sensing. What’s more, the tallest component 
+on the EPC9204 board is a mere 1.2 mm.  The high frequency capability 
+of eGaN FETs greatly reduces the filtering requirements, allowing for an 
+optimized output filter inductor with much smaller size and lower loss.    
+Building a Low Cost, High Efficiency  
+12 V to 1 V POL Converter Using EPC2111  
+EFFICIENT POWER CONVERSION
+Figure 1: EPC2111 30 V monolithic half-bridge with  
+on-resistance 19 mΩ (Q 1) and 8 mΩ (Q 2)
+Figure 2: Block diagram schematic of the EPC9204 development board,  
+fitted with EPC2111, is ideal for 12 V to 1 V POL conversion
+Figure 4: Examples of various half bridge eGaN ICs  
+with voltage and RDS(on) ranges
+Figure 3: EPC9204 development board boasts a power density of > 1000 
+W/in3 based on component height only and when operating at  
+12 V input, 1 V output at 12 A load
+1.5 mm
+3.5 mm
+Q1
+Q2
+16 mm
+8 mm
+Max. component height = 1.2 mm 
+Q2
+CIN
+LOUT
+COUT
+VOUT
+VCC5V
+HINPWM
+LINPWM
+VIN
+Q1
+Level Shift
+PGNDGND
+Gate Driver
+EPC2111
+Current 
+Sensor
+Temperature 
+Sensor
+Current
+Temp
+EPC2111
+EPC2104 EPC2105
+EPC2106
+2.1 m/uni03A9 – 70 m/uni03A9 
+ 
+30 V – 100 V 
+Examples of other half bridge eGaN IC configurations, voltages and  
+RDS(on)  ranges are shown in figure 4.
+
+=== PAGE 2 ===
+How2AppNote 004 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2020   | |    2
+EPC9204 experimental performance validation
+The EPC9204 achieves a peak efficiency of 78% at 5 A load and 5 MHz, 
+with a maximum FET temperature of 100⁰C under 400 LFM airflow. 
+Figure 4 shows a plot of the load current range efficiency up to 12 A 
+load when operating at 3, 5 and 10 MHz respectively.
+Conclusions
+Migrating a high frequency 12 V to 1 V POL converter design from Silicon 
+MOSFETs to eGaN FETs is an obvious choice due to higher efficiency, 
+and also offers reduction in both size and cost. Table 1 shows the bill of 
+materials that yields a cost per watt of less than $0.20. 
+The eGaN FET based 12 V to 1 V, 12 A load converter was demonstrated 
+to yield a peak efficiency of 78% at 5 MHz with a power density of at 
+least 1000 W/in3, all with a cost below $0.20 per watt.
+Table 1: Bill of Materials for monolithic eGaN half-bridge 12 V to 1 V converter 
+based on 500 k unit pricing
+12 V - 1.0 V 12 A Buck Converter
+Component Qty GaN-based design
+eGaN® IC 1 EPC2111
+Inductor (100 nH) 1 IHLP1616ABERR10M01
+Input Capacitors (2.2 µF 25 V) 5 C1005X5R1E225M050BC
+Output Capacitors (2.2 µF 6.3 V) 5 CL05A226MQ5QUNC
+Gate Driver 1 PE29102
+Total Less than $0.20 per Watt
+50
+55
+60
+65
+70
+75
+80
+85
+0 2 4 6 8 10 12
+Output Current (A)
+Efficiency (%)
+VIN = 12 V
+VOUT = 1 V
+3 MHz
+5 MHz
+10 MHz
+Figure 5: EPC9204 efficiency vs. output current for 12 VIN to 1 VOUT using 
+EPC2111 eGaN IC Monolithic Half-Bridge
+Learn More about GaN
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation

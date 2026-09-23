@@ -1,0 +1,1660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>C:\Github\KTH\PCB-Design\hardware\epc2361-prototype-p6\epc2361-prototype-p6.kicad_sch</source>
+    <date>2026-09-22 16:43:05</date>
+    <tool>Eeschema 7.0.10</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Four EPC2361 onboard-driver prototype</title>
+        <company/>
+        <rev>P6</rev>
+        <date>2026-09-22</date>
+        <source>epc2361-prototype-p6.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9a1b58c0-99f1-544a-be66-9f02830baf40</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6fd0fec3-c8ce-5c26-89a4-aa873043d72c</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5c8f350d-6fd6-5688-9b67-d4ffc2df1e66</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bde7613c-8cc1-57ff-a5eb-4ef33665b50f</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e0b1ff2f-c1ba-5607-9b88-f64ee9c7e37a</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3134913e-7d0a-519a-aa95-7819f84dd313</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C7" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c4c77bab-877e-5693-9597-5961853ff53c</tstamps>
+    </comp>
+    <comp ref="C8">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C8" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>faa253ba-2936-5202-aaf4-96d40139b989</tstamps>
+    </comp>
+    <comp ref="C9">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C9" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>11f509a1-fa4c-5a09-9719-52d0a04606b3</tstamps>
+    </comp>
+    <comp ref="C10">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C10" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b4fe695d-1cdf-5909-a2ec-176f61b08cd9</tstamps>
+    </comp>
+    <comp ref="C11">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C11" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5777cd07-f62e-5f1d-95d9-c473c73563f8</tstamps>
+    </comp>
+    <comp ref="C12">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C12" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>66257b3c-0749-5814-8346-0fd0abf59a9e</tstamps>
+    </comp>
+    <comp ref="C13">
+      <value>1u 35V</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C13" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>07aa8f23-f638-523f-b2e8-8f2c62c3a6b1</tstamps>
+    </comp>
+    <comp ref="C14">
+      <value>10u 25V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C14" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fc304680-f8f0-580d-9d83-f6c7f0c8e3f8</tstamps>
+    </comp>
+    <comp ref="C15">
+      <value>10u 25V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C15" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>19c1976c-d19b-5b64-9473-6468c52856eb</tstamps>
+    </comp>
+    <comp ref="C16">
+      <value>100n 50V</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C16" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2d1b835f-ea8e-59a4-aef7-d3ca9babcea5</tstamps>
+    </comp>
+    <comp ref="C17">
+      <value>1u 16V</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C17" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>810d6148-2a1c-5cb5-8dd0-204d9a5d3a00</tstamps>
+    </comp>
+    <comp ref="C18">
+      <value>100n 50V</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C18" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>929863da-8150-5467-8cf1-eaec5642f853</tstamps>
+    </comp>
+    <comp ref="C19">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C19" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>54847d46-5b87-569d-a513-7b66f4faf88d</tstamps>
+    </comp>
+    <comp ref="C20">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C20" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f0b89736-35de-5802-b844-dc1cd5d3d675</tstamps>
+    </comp>
+    <comp ref="C21">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C21" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>eb2552e3-335f-5f94-859b-00eaefba5884</tstamps>
+    </comp>
+    <comp ref="C22">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C22" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>86a2543b-e8d2-5ec5-a316-50c2acf12087</tstamps>
+    </comp>
+    <comp ref="C23">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C23" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8443bb73-15ac-5786-a795-167d5094cec0</tstamps>
+    </comp>
+    <comp ref="C24">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C24" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ad936e2b-0f51-581a-a7c9-7ca9ca7863f4</tstamps>
+    </comp>
+    <comp ref="C25">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C25" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c7f5fcbd-0f70-5ca4-b5b7-4f5f2b557a00</tstamps>
+    </comp>
+    <comp ref="C26">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C26" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2dc35cc4-783a-595c-b362-5b976355db77</tstamps>
+    </comp>
+    <comp ref="C27">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C27" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>355e9797-11ad-50c1-b8c0-5e4698444daa</tstamps>
+    </comp>
+    <comp ref="C28">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C28" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bb4ae37b-6842-5fc6-957f-54c2ac4b3ca2</tstamps>
+    </comp>
+    <comp ref="C29">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C29" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5d0fa45b-905a-52c0-afb9-6487b47ca6ec</tstamps>
+    </comp>
+    <comp ref="C30">
+      <value>1u 100V</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <libsource lib="epc2361-prototype" part="C30" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2c4e3bab-8478-5f68-9a14-38e67aaf9e4b</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>BAS21H</value>
+      <footprint>Diode_SMD:D_SOD-123F</footprint>
+      <libsource lib="epc2361-prototype" part="D1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>626ab66a-1e54-5374-8042-96869e74b141</tstamps>
+    </comp>
+    <comp ref="H1">
+      <value>I_OUT coil access</value>
+      <footprint>epc2361-prototype:Coil_Access_3.2</footprint>
+      <libsource lib="epc2361-prototype" part="H1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3d4e0580-616d-57f3-9a0b-2cdcfb947a93</tstamps>
+    </comp>
+    <comp ref="H2">
+      <value>I_OUT coil access</value>
+      <footprint>epc2361-prototype:Coil_Access_3.2</footprint>
+      <libsource lib="epc2361-prototype" part="H2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>18114608-ef89-5def-ab5d-c07189ecf9e9</tstamps>
+    </comp>
+    <comp ref="JAC1">
+      <value>AC 24 pins</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JAC1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c1705e3a-58e9-5f35-a94c-57281d05697a</tstamps>
+    </comp>
+    <comp ref="JCTRL1">
+      <value>12V / GND / HI / GND / LI / GND</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JCTRL1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>adfd863c-947b-5f29-89e9-85dde78e5380</tstamps>
+    </comp>
+    <comp ref="JDC1">
+      <value>DC+ 24 pins</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JDC1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>16dd73cb-2eef-5df5-ae68-ad867b4ff20e</tstamps>
+    </comp>
+    <comp ref="JDC2">
+      <value>DC- 24 pins</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x12_P2.54mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JDC2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cf512545-9296-533d-adfa-261a102f2686</tstamps>
+    </comp>
+    <comp ref="JGH1">
+      <value>G / KS</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JGH1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fccd4a06-8a6d-5f5e-a960-5dd4aca2eb25</tstamps>
+    </comp>
+    <comp ref="JGH2">
+      <value>G / KS</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JGH2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2176a032-63e1-5130-ba26-f1aa7ef9faa7</tstamps>
+    </comp>
+    <comp ref="JGL1">
+      <value>G / KS</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JGL1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cc53db36-c0ad-5de9-b62f-36496acabedf</tstamps>
+    </comp>
+    <comp ref="JGL2">
+      <value>G / KS</value>
+      <footprint>Connector_PinHeader_1.27mm:PinHeader_1x02_P1.27mm_Vertical</footprint>
+      <libsource lib="epc2361-prototype" part="JGL2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9730b477-bf4c-54f6-b6f5-9e30ae4ec960</tstamps>
+    </comp>
+    <comp ref="LK1">
+      <value>QL1 drain current link</value>
+      <footprint>epc2361-prototype:Current_Link</footprint>
+      <libsource lib="epc2361-prototype" part="LK1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0eb25f8f-6571-5e2b-a1c5-4e8e04c00deb</tstamps>
+    </comp>
+    <comp ref="QH1">
+      <value>EPC2361</value>
+      <footprint>epc2361-prototype:EPC2361</footprint>
+      <libsource lib="epc2361-prototype" part="QH1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f357995f-8413-5897-8a1f-00a162953cc9</tstamps>
+    </comp>
+    <comp ref="QH2">
+      <value>EPC2361</value>
+      <footprint>epc2361-prototype:EPC2361</footprint>
+      <libsource lib="epc2361-prototype" part="QH2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>53ad2c99-0737-52fc-ad2b-fbca982aca14</tstamps>
+    </comp>
+    <comp ref="QL1">
+      <value>EPC2361</value>
+      <footprint>epc2361-prototype:EPC2361</footprint>
+      <libsource lib="epc2361-prototype" part="QL1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>82733fa6-5f9a-5426-88a1-56eb1d53e4b9</tstamps>
+    </comp>
+    <comp ref="QL2">
+      <value>EPC2361</value>
+      <footprint>epc2361-prototype:EPC2361</footprint>
+      <libsource lib="epc2361-prototype" part="QL2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8d284801-3172-5c67-a555-b0ddfda0c1e7</tstamps>
+    </comp>
+    <comp ref="RB1">
+      <value>2.2R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RB1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c5159e00-757f-55ab-af62-9ee5b46136a8</tstamps>
+    </comp>
+    <comp ref="RGH1">
+      <value>0R tune</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RGH1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>359d2b75-694a-58ee-9ae8-8ebfe0086a37</tstamps>
+    </comp>
+    <comp ref="RGH2">
+      <value>0R tune</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RGH2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d08d7e4d-ae37-5663-9a1f-ecd4e9d126d0</tstamps>
+    </comp>
+    <comp ref="RGL1">
+      <value>0R tune</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RGL1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>55466eb7-0441-5853-924d-d9ec793849cb</tstamps>
+    </comp>
+    <comp ref="RGL2">
+      <value>0R tune</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RGL2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a5ae4936-e1a7-5ff8-9b1e-cfc5fc59be61</tstamps>
+    </comp>
+    <comp ref="RH1">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RH1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7a58c4b3-2ac9-5cfb-8cb5-10472173074f</tstamps>
+    </comp>
+    <comp ref="RL1">
+      <value>10k</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <libsource lib="epc2361-prototype" part="RL1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ca783156-6f17-55f2-9d08-674a91723fac</tstamps>
+    </comp>
+    <comp ref="TP1">
+      <value>DC+</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>85ae2aa4-5228-5ac8-be09-0e9308ce1418</tstamps>
+    </comp>
+    <comp ref="TP2">
+      <value>DC-</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>16a9a9f5-a84e-5abc-ab1c-e6d42a64e143</tstamps>
+    </comp>
+    <comp ref="TP3">
+      <value>AC</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f6e8e1d5-c2ca-5133-8906-d326147daea9</tstamps>
+    </comp>
+    <comp ref="TP4">
+      <value>HB</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e3297feb-cb99-5261-8227-962e615b95d1</tstamps>
+    </comp>
+    <comp ref="TP5">
+      <value>VDD</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>aec90037-9af0-5a76-bee4-5361c9e3a289</tstamps>
+    </comp>
+    <comp ref="TP6">
+      <value>QH1 D</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ca9eef39-cfd3-5f11-a4a9-27c8ab531842</tstamps>
+    </comp>
+    <comp ref="TP7">
+      <value>QH1 S</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP7" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9b901210-5429-5e14-937e-ff9653a53f10</tstamps>
+    </comp>
+    <comp ref="TP8">
+      <value>QL1 D</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP8" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ad952dc1-618a-5470-b5c8-7f2ac6621719</tstamps>
+    </comp>
+    <comp ref="TP9">
+      <value>QL1 S</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP9" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4a093177-b347-5765-b792-36926cc8c485</tstamps>
+    </comp>
+    <comp ref="TP10">
+      <value>QH2 D</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP10" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9fc61689-dea1-596c-a2f3-fffbd772c794</tstamps>
+    </comp>
+    <comp ref="TP11">
+      <value>QH2 S</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP11" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9767c2a5-7741-58b2-9911-553a3e68c28f</tstamps>
+    </comp>
+    <comp ref="TP12">
+      <value>QL2 D</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP12" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e4a7fbc9-151c-5b2f-a065-8adab95ce781</tstamps>
+    </comp>
+    <comp ref="TP13">
+      <value>QL2 S</value>
+      <footprint>epc2361-prototype:Probe_Pad</footprint>
+      <libsource lib="epc2361-prototype" part="TP13" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b668d872-5bf5-5ce2-8c51-190eb43b7ad5</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>LMG1210</value>
+      <footprint>epc2361-prototype:LMG1210_RVR</footprint>
+      <libsource lib="epc2361-prototype" part="U1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="epc2361-prototype-p6.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9df504e4-85b9-5fdc-bd7f-dcf0d3b81617</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="epc2361-prototype" part="C1">
+      <fields>
+        <field name="Reference">C1</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C10">
+      <fields>
+        <field name="Reference">C10</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C11">
+      <fields>
+        <field name="Reference">C11</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C12">
+      <fields>
+        <field name="Reference">C12</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C13">
+      <fields>
+        <field name="Reference">C13</field>
+        <field name="Value">1u 35V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C14">
+      <fields>
+        <field name="Reference">C14</field>
+        <field name="Value">10u 25V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C15">
+      <fields>
+        <field name="Reference">C15</field>
+        <field name="Value">10u 25V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C16">
+      <fields>
+        <field name="Reference">C16</field>
+        <field name="Value">100n 50V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C17">
+      <fields>
+        <field name="Reference">C17</field>
+        <field name="Value">1u 16V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HB" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C18">
+      <fields>
+        <field name="Reference">C18</field>
+        <field name="Value">100n 50V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HB" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C19">
+      <fields>
+        <field name="Reference">C19</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C2">
+      <fields>
+        <field name="Reference">C2</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C20">
+      <fields>
+        <field name="Reference">C20</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C21">
+      <fields>
+        <field name="Reference">C21</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C22">
+      <fields>
+        <field name="Reference">C22</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C23">
+      <fields>
+        <field name="Reference">C23</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C24">
+      <fields>
+        <field name="Reference">C24</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C25">
+      <fields>
+        <field name="Reference">C25</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C26">
+      <fields>
+        <field name="Reference">C26</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C27">
+      <fields>
+        <field name="Reference">C27</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C28">
+      <fields>
+        <field name="Reference">C28</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C29">
+      <fields>
+        <field name="Reference">C29</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C3">
+      <fields>
+        <field name="Reference">C3</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C30">
+      <fields>
+        <field name="Reference">C30</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C4">
+      <fields>
+        <field name="Reference">C4</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C5">
+      <fields>
+        <field name="Reference">C5</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C6">
+      <fields>
+        <field name="Reference">C6</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C7">
+      <fields>
+        <field name="Reference">C7</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C8">
+      <fields>
+        <field name="Reference">C8</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="C9">
+      <fields>
+        <field name="Reference">C9</field>
+        <field name="Value">1u 100V</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="D1">
+      <fields>
+        <field name="Reference">D1</field>
+        <field name="Value">BAS21H</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HB" type="passive"/>
+        <pin num="2" name="BST_A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="H1">
+      <fields>
+        <field name="Reference">H1</field>
+        <field name="Value">I_OUT coil access</field>
+      </fields>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="H2">
+      <fields>
+        <field name="Reference">H2</field>
+        <field name="Value">I_OUT coil access</field>
+      </fields>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JAC1">
+      <fields>
+        <field name="Reference">JAC1</field>
+        <field name="Value">AC 24 pins</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+        <pin num="3" name="AC" type="passive"/>
+        <pin num="4" name="AC" type="passive"/>
+        <pin num="5" name="AC" type="passive"/>
+        <pin num="6" name="AC" type="passive"/>
+        <pin num="7" name="AC" type="passive"/>
+        <pin num="8" name="AC" type="passive"/>
+        <pin num="9" name="AC" type="passive"/>
+        <pin num="10" name="AC" type="passive"/>
+        <pin num="11" name="AC" type="passive"/>
+        <pin num="12" name="AC" type="passive"/>
+        <pin num="13" name="AC" type="passive"/>
+        <pin num="14" name="AC" type="passive"/>
+        <pin num="15" name="AC" type="passive"/>
+        <pin num="16" name="AC" type="passive"/>
+        <pin num="17" name="AC" type="passive"/>
+        <pin num="18" name="AC" type="passive"/>
+        <pin num="19" name="AC" type="passive"/>
+        <pin num="20" name="AC" type="passive"/>
+        <pin num="21" name="AC" type="passive"/>
+        <pin num="22" name="AC" type="passive"/>
+        <pin num="23" name="AC" type="passive"/>
+        <pin num="24" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JCTRL1">
+      <fields>
+        <field name="Reference">JCTRL1</field>
+        <field name="Value">12V / GND / HI / GND / LI / GND</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+        <pin num="3" name="HI" type="passive"/>
+        <pin num="4" name="DC-" type="passive"/>
+        <pin num="5" name="LI" type="passive"/>
+        <pin num="6" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JDC1">
+      <fields>
+        <field name="Reference">JDC1</field>
+        <field name="Value">DC+ 24 pins</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+        <pin num="2" name="DC+" type="passive"/>
+        <pin num="3" name="DC+" type="passive"/>
+        <pin num="4" name="DC+" type="passive"/>
+        <pin num="5" name="DC+" type="passive"/>
+        <pin num="6" name="DC+" type="passive"/>
+        <pin num="7" name="DC+" type="passive"/>
+        <pin num="8" name="DC+" type="passive"/>
+        <pin num="9" name="DC+" type="passive"/>
+        <pin num="10" name="DC+" type="passive"/>
+        <pin num="11" name="DC+" type="passive"/>
+        <pin num="12" name="DC+" type="passive"/>
+        <pin num="13" name="DC+" type="passive"/>
+        <pin num="14" name="DC+" type="passive"/>
+        <pin num="15" name="DC+" type="passive"/>
+        <pin num="16" name="DC+" type="passive"/>
+        <pin num="17" name="DC+" type="passive"/>
+        <pin num="18" name="DC+" type="passive"/>
+        <pin num="19" name="DC+" type="passive"/>
+        <pin num="20" name="DC+" type="passive"/>
+        <pin num="21" name="DC+" type="passive"/>
+        <pin num="22" name="DC+" type="passive"/>
+        <pin num="23" name="DC+" type="passive"/>
+        <pin num="24" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JDC2">
+      <fields>
+        <field name="Reference">JDC2</field>
+        <field name="Value">DC- 24 pins</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC-" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+        <pin num="3" name="DC-" type="passive"/>
+        <pin num="4" name="DC-" type="passive"/>
+        <pin num="5" name="DC-" type="passive"/>
+        <pin num="6" name="DC-" type="passive"/>
+        <pin num="7" name="DC-" type="passive"/>
+        <pin num="8" name="DC-" type="passive"/>
+        <pin num="9" name="DC-" type="passive"/>
+        <pin num="10" name="DC-" type="passive"/>
+        <pin num="11" name="DC-" type="passive"/>
+        <pin num="12" name="DC-" type="passive"/>
+        <pin num="13" name="DC-" type="passive"/>
+        <pin num="14" name="DC-" type="passive"/>
+        <pin num="15" name="DC-" type="passive"/>
+        <pin num="16" name="DC-" type="passive"/>
+        <pin num="17" name="DC-" type="passive"/>
+        <pin num="18" name="DC-" type="passive"/>
+        <pin num="19" name="DC-" type="passive"/>
+        <pin num="20" name="DC-" type="passive"/>
+        <pin num="21" name="DC-" type="passive"/>
+        <pin num="22" name="DC-" type="passive"/>
+        <pin num="23" name="DC-" type="passive"/>
+        <pin num="24" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JGH1">
+      <fields>
+        <field name="Reference">JGH1</field>
+        <field name="Value">G / KS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GH1" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JGH2">
+      <fields>
+        <field name="Reference">JGH2</field>
+        <field name="Value">G / KS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GH2" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JGL1">
+      <fields>
+        <field name="Reference">JGL1</field>
+        <field name="Value">G / KS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GL1" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="JGL2">
+      <fields>
+        <field name="Reference">JGL2</field>
+        <field name="Value">G / KS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GL2" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="LK1">
+      <fields>
+        <field name="Reference">LK1</field>
+        <field name="Value">QL1 drain current link</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+        <pin num="2" name="D_QL1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="QH1">
+      <fields>
+        <field name="Reference">QH1</field>
+        <field name="Value">EPC2361</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GH1" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+        <pin num="3" name="DC+" type="passive"/>
+        <pin num="4" name="AC" type="passive"/>
+        <pin num="5" name="DC+" type="passive"/>
+        <pin num="6" name="AC" type="passive"/>
+        <pin num="7" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="QH2">
+      <fields>
+        <field name="Reference">QH2</field>
+        <field name="Value">EPC2361</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GH2" type="passive"/>
+        <pin num="2" name="AC" type="passive"/>
+        <pin num="3" name="DC+" type="passive"/>
+        <pin num="4" name="AC" type="passive"/>
+        <pin num="5" name="DC+" type="passive"/>
+        <pin num="6" name="AC" type="passive"/>
+        <pin num="7" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="QL1">
+      <fields>
+        <field name="Reference">QL1</field>
+        <field name="Value">EPC2361</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GL1" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+        <pin num="3" name="D_QL1" type="passive"/>
+        <pin num="4" name="DC-" type="passive"/>
+        <pin num="5" name="D_QL1" type="passive"/>
+        <pin num="6" name="DC-" type="passive"/>
+        <pin num="7" name="D_QL1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="QL2">
+      <fields>
+        <field name="Reference">QL2</field>
+        <field name="Value">EPC2361</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GL2" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+        <pin num="3" name="AC" type="passive"/>
+        <pin num="4" name="DC-" type="passive"/>
+        <pin num="5" name="AC" type="passive"/>
+        <pin num="6" name="DC-" type="passive"/>
+        <pin num="7" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RB1">
+      <fields>
+        <field name="Reference">RB1</field>
+        <field name="Value">2.2R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="BST" type="passive"/>
+        <pin num="2" name="BST_A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RGH1">
+      <fields>
+        <field name="Reference">RGH1</field>
+        <field name="Value">0R tune</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HO" type="passive"/>
+        <pin num="2" name="GH1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RGH2">
+      <fields>
+        <field name="Reference">RGH2</field>
+        <field name="Value">0R tune</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HO" type="passive"/>
+        <pin num="2" name="GH2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RGL1">
+      <fields>
+        <field name="Reference">RGL1</field>
+        <field name="Value">0R tune</field>
+      </fields>
+      <pins>
+        <pin num="1" name="LO" type="passive"/>
+        <pin num="2" name="GL1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RGL2">
+      <fields>
+        <field name="Reference">RGL2</field>
+        <field name="Value">0R tune</field>
+      </fields>
+      <pins>
+        <pin num="1" name="LO" type="passive"/>
+        <pin num="2" name="GL2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RH1">
+      <fields>
+        <field name="Reference">RH1</field>
+        <field name="Value">10k</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HI" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="RL1">
+      <fields>
+        <field name="Reference">RL1</field>
+        <field name="Value">10k</field>
+      </fields>
+      <pins>
+        <pin num="1" name="LI" type="passive"/>
+        <pin num="2" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP1">
+      <fields>
+        <field name="Reference">TP1</field>
+        <field name="Value">DC+</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP10">
+      <fields>
+        <field name="Reference">TP10</field>
+        <field name="Value">QH2 D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP11">
+      <fields>
+        <field name="Reference">TP11</field>
+        <field name="Value">QH2 S</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP12">
+      <fields>
+        <field name="Reference">TP12</field>
+        <field name="Value">QL2 D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP13">
+      <fields>
+        <field name="Reference">TP13</field>
+        <field name="Value">QL2 S</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP2">
+      <fields>
+        <field name="Reference">TP2</field>
+        <field name="Value">DC-</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP3">
+      <fields>
+        <field name="Reference">TP3</field>
+        <field name="Value">AC</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP4">
+      <fields>
+        <field name="Reference">TP4</field>
+        <field name="Value">HB</field>
+      </fields>
+      <pins>
+        <pin num="1" name="HB" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP5">
+      <fields>
+        <field name="Reference">TP5</field>
+        <field name="Value">VDD</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP6">
+      <fields>
+        <field name="Reference">TP6</field>
+        <field name="Value">QH1 D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP7">
+      <fields>
+        <field name="Reference">TP7</field>
+        <field name="Value">QH1 S</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP8">
+      <fields>
+        <field name="Reference">TP8</field>
+        <field name="Value">QL1 D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="D_QL1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="TP9">
+      <fields>
+        <field name="Reference">TP9</field>
+        <field name="Value">QL1 S</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DC-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="epc2361-prototype" part="U1">
+      <fields>
+        <field name="Reference">U1</field>
+        <field name="Value">LMG1210</field>
+      </fields>
+      <pins>
+        <pin num="1" name="NC1" type="no_connect"/>
+        <pin num="2" name="VIN" type="passive"/>
+        <pin num="3" name="DC-" type="passive"/>
+        <pin num="4" name="VDD" type="passive"/>
+        <pin num="5" name="DC-" type="passive"/>
+        <pin num="6" name="VDD" type="passive"/>
+        <pin num="7" name="DC-" type="passive"/>
+        <pin num="8" name="LO" type="passive"/>
+        <pin num="9" name="AC" type="passive"/>
+        <pin num="10" name="HO" type="passive"/>
+        <pin num="11" name="NC11" type="no_connect"/>
+        <pin num="12" name="HB" type="passive"/>
+        <pin num="13" name="AC" type="passive"/>
+        <pin num="14" name="AC" type="passive"/>
+        <pin num="15" name="NC15" type="no_connect"/>
+        <pin num="16" name="AC" type="passive"/>
+        <pin num="17" name="BST" type="passive"/>
+        <pin num="18" name="HI" type="passive"/>
+        <pin num="19" name="LI" type="passive"/>
+        <pin num="20" name="DC-" type="passive"/>
+        <pin num="21" name="AC" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries/>
+  <nets>
+    <net code="1" name="/AC">
+      <node ref="C17" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="C18" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="10" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="11" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="12" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="13" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="14" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="15" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="16" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="17" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="18" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="19" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="20" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="21" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="22" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="23" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="24" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="3" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="4" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="5" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="6" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="7" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="8" pinfunction="AC" pintype="passive"/>
+      <node ref="JAC1" pin="9" pinfunction="AC" pintype="passive"/>
+      <node ref="JGH1" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="JGH2" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="LK1" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="QH1" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="QH1" pin="4" pinfunction="AC" pintype="passive"/>
+      <node ref="QH1" pin="6" pinfunction="AC" pintype="passive"/>
+      <node ref="QH2" pin="2" pinfunction="AC" pintype="passive"/>
+      <node ref="QH2" pin="4" pinfunction="AC" pintype="passive"/>
+      <node ref="QH2" pin="6" pinfunction="AC" pintype="passive"/>
+      <node ref="QL2" pin="3" pinfunction="AC" pintype="passive"/>
+      <node ref="QL2" pin="5" pinfunction="AC" pintype="passive"/>
+      <node ref="QL2" pin="7" pinfunction="AC" pintype="passive"/>
+      <node ref="TP11" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="TP12" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="TP3" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="TP7" pin="1" pinfunction="AC" pintype="passive"/>
+      <node ref="U1" pin="13" pinfunction="AC" pintype="passive"/>
+      <node ref="U1" pin="14" pinfunction="AC" pintype="passive"/>
+      <node ref="U1" pin="16" pinfunction="AC" pintype="passive"/>
+      <node ref="U1" pin="21" pinfunction="AC" pintype="passive"/>
+      <node ref="U1" pin="9" pinfunction="AC" pintype="passive"/>
+    </net>
+    <net code="2" name="/BST">
+      <node ref="RB1" pin="1" pinfunction="BST" pintype="passive"/>
+      <node ref="U1" pin="17" pinfunction="BST" pintype="passive"/>
+    </net>
+    <net code="3" name="/BST_A">
+      <node ref="D1" pin="2" pinfunction="BST_A" pintype="passive"/>
+      <node ref="RB1" pin="2" pinfunction="BST_A" pintype="passive"/>
+    </net>
+    <net code="4" name="/DC+">
+      <node ref="C1" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C10" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C11" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C12" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C19" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C20" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C21" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C22" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C23" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C24" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C25" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C26" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C27" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C28" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C29" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C3" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C30" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C4" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C5" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C6" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C7" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C8" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="C9" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="10" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="11" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="12" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="13" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="14" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="15" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="16" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="17" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="18" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="19" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="2" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="20" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="21" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="22" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="23" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="24" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="3" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="4" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="5" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="6" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="7" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="8" pinfunction="DC+" pintype="passive"/>
+      <node ref="JDC1" pin="9" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH1" pin="3" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH1" pin="5" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH1" pin="7" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH2" pin="3" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH2" pin="5" pinfunction="DC+" pintype="passive"/>
+      <node ref="QH2" pin="7" pinfunction="DC+" pintype="passive"/>
+      <node ref="TP1" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="TP10" pin="1" pinfunction="DC+" pintype="passive"/>
+      <node ref="TP6" pin="1" pinfunction="DC+" pintype="passive"/>
+    </net>
+    <net code="5" name="/DC-">
+      <node ref="C1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C10" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C11" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C12" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C13" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C14" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C15" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C16" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C19" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C20" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C21" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C22" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C23" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C24" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C25" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C26" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C27" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C28" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C29" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C3" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C30" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C4" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C5" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C6" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C7" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C8" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="C9" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="JCTRL1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="JCTRL1" pin="4" pinfunction="DC-" pintype="passive"/>
+      <node ref="JCTRL1" pin="6" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="1" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="10" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="11" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="12" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="13" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="14" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="15" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="16" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="17" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="18" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="19" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="20" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="21" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="22" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="23" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="24" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="3" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="4" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="5" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="6" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="7" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="8" pinfunction="DC-" pintype="passive"/>
+      <node ref="JDC2" pin="9" pinfunction="DC-" pintype="passive"/>
+      <node ref="JGL1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="JGL2" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL1" pin="4" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL1" pin="6" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL2" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL2" pin="4" pinfunction="DC-" pintype="passive"/>
+      <node ref="QL2" pin="6" pinfunction="DC-" pintype="passive"/>
+      <node ref="RH1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="RL1" pin="2" pinfunction="DC-" pintype="passive"/>
+      <node ref="TP13" pin="1" pinfunction="DC-" pintype="passive"/>
+      <node ref="TP2" pin="1" pinfunction="DC-" pintype="passive"/>
+      <node ref="TP9" pin="1" pinfunction="DC-" pintype="passive"/>
+      <node ref="U1" pin="20" pinfunction="DC-" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="DC-" pintype="passive"/>
+      <node ref="U1" pin="5" pinfunction="DC-" pintype="passive"/>
+      <node ref="U1" pin="7" pinfunction="DC-" pintype="passive"/>
+    </net>
+    <net code="6" name="/D_QL1">
+      <node ref="LK1" pin="2" pinfunction="D_QL1" pintype="passive"/>
+      <node ref="QL1" pin="3" pinfunction="D_QL1" pintype="passive"/>
+      <node ref="QL1" pin="5" pinfunction="D_QL1" pintype="passive"/>
+      <node ref="QL1" pin="7" pinfunction="D_QL1" pintype="passive"/>
+      <node ref="TP8" pin="1" pinfunction="D_QL1" pintype="passive"/>
+    </net>
+    <net code="7" name="/GH1">
+      <node ref="JGH1" pin="1" pinfunction="GH1" pintype="passive"/>
+      <node ref="QH1" pin="1" pinfunction="GH1" pintype="passive"/>
+      <node ref="RGH1" pin="2" pinfunction="GH1" pintype="passive"/>
+    </net>
+    <net code="8" name="/GH2">
+      <node ref="JGH2" pin="1" pinfunction="GH2" pintype="passive"/>
+      <node ref="QH2" pin="1" pinfunction="GH2" pintype="passive"/>
+      <node ref="RGH2" pin="2" pinfunction="GH2" pintype="passive"/>
+    </net>
+    <net code="9" name="/GL1">
+      <node ref="JGL1" pin="1" pinfunction="GL1" pintype="passive"/>
+      <node ref="QL1" pin="1" pinfunction="GL1" pintype="passive"/>
+      <node ref="RGL1" pin="2" pinfunction="GL1" pintype="passive"/>
+    </net>
+    <net code="10" name="/GL2">
+      <node ref="JGL2" pin="1" pinfunction="GL2" pintype="passive"/>
+      <node ref="QL2" pin="1" pinfunction="GL2" pintype="passive"/>
+      <node ref="RGL2" pin="2" pinfunction="GL2" pintype="passive"/>
+    </net>
+    <net code="11" name="/HB">
+      <node ref="C17" pin="1" pinfunction="HB" pintype="passive"/>
+      <node ref="C18" pin="1" pinfunction="HB" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="HB" pintype="passive"/>
+      <node ref="TP4" pin="1" pinfunction="HB" pintype="passive"/>
+      <node ref="U1" pin="12" pinfunction="HB" pintype="passive"/>
+    </net>
+    <net code="12" name="/HI">
+      <node ref="JCTRL1" pin="3" pinfunction="HI" pintype="passive"/>
+      <node ref="RH1" pin="1" pinfunction="HI" pintype="passive"/>
+      <node ref="U1" pin="18" pinfunction="HI" pintype="passive"/>
+    </net>
+    <net code="13" name="/HO">
+      <node ref="RGH1" pin="1" pinfunction="HO" pintype="passive"/>
+      <node ref="RGH2" pin="1" pinfunction="HO" pintype="passive"/>
+      <node ref="U1" pin="10" pinfunction="HO" pintype="passive"/>
+    </net>
+    <net code="14" name="/LI">
+      <node ref="JCTRL1" pin="5" pinfunction="LI" pintype="passive"/>
+      <node ref="RL1" pin="1" pinfunction="LI" pintype="passive"/>
+      <node ref="U1" pin="19" pinfunction="LI" pintype="passive"/>
+    </net>
+    <net code="15" name="/LO">
+      <node ref="RGL1" pin="1" pinfunction="LO" pintype="passive"/>
+      <node ref="RGL2" pin="1" pinfunction="LO" pintype="passive"/>
+      <node ref="U1" pin="8" pinfunction="LO" pintype="passive"/>
+    </net>
+    <net code="16" name="/VDD">
+      <node ref="C14" pin="1" pinfunction="VDD" pintype="passive"/>
+      <node ref="C15" pin="1" pinfunction="VDD" pintype="passive"/>
+      <node ref="C16" pin="1" pinfunction="VDD" pintype="passive"/>
+      <node ref="TP5" pin="1" pinfunction="VDD" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="VDD" pintype="passive"/>
+      <node ref="U1" pin="6" pinfunction="VDD" pintype="passive"/>
+    </net>
+    <net code="17" name="/VIN">
+      <node ref="C13" pin="1" pinfunction="VIN" pintype="passive"/>
+      <node ref="JCTRL1" pin="1" pinfunction="VIN" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="VIN" pintype="passive"/>
+    </net>
+    <net code="18" name="unconnected-(U1-NC1-Pad1)">
+      <node ref="U1" pin="1" pinfunction="NC1" pintype="no_connect"/>
+    </net>
+    <net code="19" name="unconnected-(U1-NC11-Pad11)">
+      <node ref="U1" pin="11" pinfunction="NC11" pintype="no_connect"/>
+    </net>
+    <net code="20" name="unconnected-(U1-NC15-Pad15)">
+      <node ref="U1" pin="15" pinfunction="NC15" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>

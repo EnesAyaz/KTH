@@ -1,0 +1,697 @@
+
+=== PAGE 1 ===
+GaN Module Design Recommendations Based on the 
+Analysis of a Commercial 3-Phase GaN Module
+John Alex Brothers  
+Mainstream Engineering Corporation 
+200 Yellow Place 
+Rockledge, Florida, Brevard, 32955 
+jbrothers@mainstream-engr.com 
+ 
+Troy Beechner 
+Mainstream Engineering Corporation 
+200 Yellow Place 
+Rockledge, Florida, Brevard, 32955 
+tbeechner@mainstream-engr.com 
+Abstract—In this paper, a detailed analysis of a commercial 3-
+phase, 100 V, 270 A (per phase) GaN module is presented.  A high 
+frequency parasitic circuit model was derived for the module, 
+which was simulated to demonstrate a unique sensitivity of low 
+voltage GaN modules: its susceptibility to VDS overshoot at hard 
+turn-off switching transients due to large currents, fast GaN 
+switching, large package parasitics, and low V DS overshoot 
+margins of 100 V rated dies.  Hardware double pulse test (DPT) 
+results confirmed this when the commercial module experienced 
+premature failure due to VDS overshoot when hard switched at 
+36% of its current rating.  Module design layout recommendations 
+are provided based on an analysis of the commercial GaN 
+module’s layout (using 3D electromagnetic software) as well as 
+GaN module layouts from existing literature.  The paper concludes 
+with hardware DPT results of a custom 100 V, 360 A GaN module.  
+The hardware was successfully hard switched at 375 A, 
+demonstrating the feasibility of low voltage (≤ 100 V), high current 
+(> 300 A) GaN modules capable of hard switching at their die 
+current ratings.   
+Keywords—Gallium Nitride (GaN), GaN module, parasitics, 
+module layout, paralleling, Double Pulse Test (DPT) 
+I. INTRODUCTION 
+For low voltage (< 100 V), high current (> 300 A) power 
+converters, GaN based power modules seem to be a promising 
+technology.  Compared to Si , GaN can achieve significantly 
+increased switching frequency operation due to its lower 
+switching losses, near-zero reverse recovery, and smaller gate 
+charge.  With proper design, GaN has the potential to achieve 
+higher efficiency and power density for these applications.  
+However, as the power electronics community transitions from 
+Si to GaN, care must be taken during the design of the power 
+modules, as design techniques that may have been acceptable 
+for Si based power modules can detriment the operation of a 
+GaN based module.  Most notably, large package parasitic 
+inductances can cause premature failure of the GaN dies due to 
+VDS overshoot at hard switching turn-off transients.  This is 
+particularly true for the low voltage GaN dies due to high 
+currents, fast GaN switching transients, large package parasitics, 
+and low VDS overshoot margins of ≤ 100 V rated dies.  Other 
+negative impacts that parasitics can introduce include increased 
+losses (circulating resonant currents, large gate/power inductive 
+loops require slower switching), increased EMI noise, reduced 
+short circuit survivability, and increased risk of gate false turn-
+on. 
+Thus, the goal of this paper is to 1) demonstrate the practical 
+limitations and detriments caused by package parasitics for GaN 
+modules, 2) recommend design strategies to minimize package 
+parasitics, and 3) demonstrate the feasibility of low voltage high 
+current GaN modules.  This is achieved by analyzing a 
+commercial GaN module (100 V, 3-phase, 270 A per phase), 
+existing modules from literature, and a custom GaN design (100 
+V, 2-phase, 180 A per phase).   
+In Section II, a commercial GaN module is analyzed.  A 
+parasitics model was developed based on experimental 
+impedance measurements.  This model was simulated using 
+LTSpice, suggesting premature failure of the dies due to VDS 
+overshoot caused by the package parasitics.  This prediction was 
+verified by configuring the module in a double pulse test (DPT) 
+and switching it at increasing currents until failure.  Test results 
+confirmed premature failure when hard switching at 36% of its 
+current rating (failed at 292 A, rated for 810 A based on die 
+current rating).  Options to work with the existing module are 
+explored, revealing that the route for optimal performance 
+would be a redesign of the power stage with improved parasitics. 
+In Section III, the module’s layout is analyzed using 3D 
+electromagnetic modeling software Computer Simulation 
+Technology (CST).  Design recommendations are given based 
+on an analysis and critique of the commercial GaN module as 
+well as an analysis of GaN modules from existing literature.   
+In Section IV, a custom GaN module (100 V, 2-phase, 180 
+A per phase) is implemented in a DPT to demonstrate the 
+feasibility of low voltage high current GaN modules.  The 
+hardware was successfully hard switched up to 375 A.  
+Compared to the commercial module, this module demonstrated 
+a 35% increase in hard switching current capability (375 A 
+compared to 277 A) with less VDS overshoot (109.5 V compared 
+to > 137.5 V).  Additionally, this module used smaller gate 
+resistors (4 Ω per die compared to 6.8 Ω per die) and had less 
+than half the number of parallel dies (4 parallel GS61008T dies 
+compared to 9). 
+II. COMMERCIAL GAN MODULE CHARICTARIZATION 
+A. Parasitics Model Extraction 
+In this section, the extraction of a detailed parasitics model 
+for a commercial 3-phase GaN power module is presented.  Fig. 
+1 shows the module and its equivalent circuit, not including 
+parasitics.  There are three half bridge phases, each containing 
+six GS61008T dies, six 6.8 Ω gate resistors, and one 0.1 µF 
+decoupling capacitor.  Given the 90 A rated GS61008T dies, 
+each phase’s theoretical current rating is 270 A. The five large 
+tabs are the DC inputs and three switching nodes, and the smaller 
+pins are connections for the six device gates, source returns, and 
+internal thermocouple. 
+This work was supported by the US Army CCDC Ground Vehicle 
+Systems Center under SBIR contract number W56HZV-18-C-0021. 
+978-1-7281-0395-2/19/$31.00 ©2019 IEEE 4109
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+ 
+(a) 
+ 
+(b) 
+Fig. 1. (a) Commercial GaN module (3-phase, 100 V, 270 A per phase) 
+(b) schematic of the commercial GaN module 
+Fig. 2 shows the proposed high frequency differential mode 
+equivalent circuit model.  For simplicity, parallel dies within 
+each phase are lumped into a single switch.  Thus, C DS, CGD, 
+and CGS account for three dies in parallel and Rg is equivalently 
+three 6.8 Ω resistors in parallel.  Unlabeled components are the 
+same across high and low side devices as well as across the 
+three phases.   
+ 
+Fig. 2. Developed model of GaN module including packaging parasitics 
+TABLE I.  SUMMARY OF MODULE PARASITIC ELEMENTS 
+ 
+ 
+To derive the equivalent parasitics model, techniques from 
+[1] through [3] were used.  Table II outlines the first four 
+impedance measurements taken on the module using an Agilent 
+E4990A RF impedance analyzer, providing a capacitance, 
+inductance, and resistance for each measurement.  Based on the 
+equivalent circuit model, equations were generated to relate 
+components in the equivalent model to the measured values.  For 
+example, (1) shows the measurement 1 equivalent capacitance 
+equation.  With four equations (from equivalent circuit model), 
+four solutions (from four measurements), and four unknowns 
+(CDS, CGS, CGD, and Cd), Mathematica was used to solve for CDS, 
+CGS, CGD, and Cd.  The results are provided in Table I.  Note: in 
+(1), CGAN is a single lumped capacitance accounting for C DS, 
+CGS, and CGD.   
+ ܥ௠௘௔௦ଵൌ
+஼ಸೄ஼ಸೌಿା಴ಸವ಴ವೄ
+಴ಸವశ಴ವೄ
+஼ಸೌಿ
+஼ಸೄା಴ಸವ಴ವೄ
+಴ಸವశ಴ವೄ
+ା஼ಸೌಿ
+ܥௗܥீ௔ே (1) 
+TABLE II.  SUMMARY OF IMPEDANCE MEASUREMENTS 1 THROUGH 4 
+Measurement # Node 1 Node 2 
+1 (All devices) Gate Source 
+2 (All phases) High-side source Low-side gate 
+3 (All phases) High-side source Low-side source 
+4 (All phases) High-side gate Low-side gate 
+TABLE III.  EQUIVALENT EQUATIONS OF MEASUREMENTS 1 THROUGH 4 
+Equivalent 
+Capacitance Equivalent Inductance Equivalent 
+Resistance 
+Equation (1) ܮ௚ܮଶ ܴ௚ܴଶ 
+F(CDS, CGS, 
+CGD, Cd) ܮଶܮ௚൅ܮଵܮௗ
+ܮଵܮௗ
+ ܴ௚ܴଵܴଶ 
+F(CDS, CGS, 
+CGD, Cd) ܮଶ൅ܮଵܮௗ
+ܮଵܮௗ
+ ܴଵܴଶ 
+F(CDS, CGS, 
+CGD, Cd) 
+ܮଵܮௗ
+ܮଵܮௗ
+ܮ௚ ܴ௚ܴଵ 
+ 
+Measurements 1 through 4 were also used to derive parasitic 
+elements Lg, Ld, L1, L2, Rg, Rd, R1, and R2.  For measurements 
+2 through 4, only a single Ld was considered in parallel with L1 
+because the parallel inductive paths through Ld2 and Ls2 were so 
+large compared to L1 that they were considered negligible.  R1 
+and R2 are in series with L1 and L2, but were not included in the 
+final parasitics model due to their relative insignificance.  The 
+final parameter values are provided in Table I.   
+In a similar fashion, measurements 5 through 7 were used 
+to derive L d1, L d2, L s1, L s2, L m, and R m, whose results are 
+included in Table I.  A final 8th measurement of the module’s 
+input impedance was taken to observe the module’s resonances 
+due to its trace inductances, internal decoupling capacitors, and 
+die capacitances, as well as verify the theoretical model.  
+Measurements 5 through 8 are described in Table IV.   
+TABLE IV.  SUMMARY OF IMPEDANCE MEASUREMENTS 5 THROUGH 8 
+Measurement # Node 1 Node 2 
+5 (All phases) High-side source Switch node 
+6 (All phases) Low-side gate Negative DC input 
+7 (All phases) High-side gate Positive DC input 
+8 Positive DC input Negative DC input 
+4110
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+ Fig. 3 shows the developed theoretical model’s input 
+impedance superimposed on the measured input impedance of 
+the studied module, demonstrating strong agreement between 
+the theoretical model and the hardware up to about 40 MHz.  
+Comparable agreement was found for all measurements.  Note 
+the minimum impedance at 1.4 MHz caused by resonance 
+between the internal decoupling capacitors C d and trace 
+inductances Ld, L d1, L d2, L s1, and L s2.  This low frequency 
+underdamped resonance is unique compared to conventional 
+modules because it is caused by the use of local internal 
+decoupling capacitors inside the module.  Consequentially, this 
+resonance is easily excited during switching transients, which 
+will be further explored in following sections.   
+ 
+Fig. 3. Input inpedance of GaN module (red) experimental measurement 
+(black) equivalent circuit model 
+B. Performance Impacts Due to Package Parasitics 
+In this section, the various performance impacts and 
+limitations caused by the module’s parasitics are explored by 
+simulating the derived model from Fig. 2.  The module’s model 
+was simulated using LTSpice in a DPT configuration with all 
+three switch nodes tied together, thus operating the module as 
+a single half bridge with nine parallel GS61008T dies.  Physics 
+based device models were provided by the device 
+manufacturer.  Key simulation parameters include: Cbulk = 500 
+µF, L = 4 µH, VDC = 48 V, Rg(on) = 54.8 Ω (per die), Rg(off) = 6.8 
+Ω (per die), VGS(on) = 6.2 V, and VGS(off) = -2.8 V.   
+Fig. 4 shows the simulated DPT waveforms.  As seen, the 
+third phase’s low side dies experience a VDS overshoot reaching 
+140 V when hard switched at 110 A.  Based on the GS61008T 
+datasheet [4], the dies can withstand an absolute maximum VDS 
+transient pulse of 130 V for up to 1 µs.  Thus, the simulation 
+was not pushed to higher currents.   
+ 
+Fig. 4. DPT waveforms of the simulated parasitics model 
+Considering that the module is operating as a half bridge 
+with nine parallel GS61008T dies (each die rated for 100 V, 90 
+A), the module’s theoretical current rating is 810 A.  Since 
+simulation suggests that the dies exceed their VDS rating when 
+hard switching at 110 A, VDS overshoot is expected to be the 
+major performance limiting factor.  Although more work is 
+needed to determine the actual die failure point, it is predicted 
+that the dies will fail well below the 810 A module rating.  This 
+also limits the survivable short circuit current unless additional 
+soft turn-off protection features are implemented. 
+There are several other performance impacts that the 
+module’s parasitics introduce.  Fig. 5 shows a zoomed in view 
+of the simulation’s second DPT pulse.  As seen on the V DS 
+signal, there is a large underdamped 1.4 MHz oscillation.  This 
+is caused by resonance between the internal decoupling 
+capacitors Cd and trace inductances Ld, Ld1, Ld2, Ls1, and Ls2.  
+During operation, this resonance is excited at switching 
+transients and induces circulating currents (causing unwanted 
+conduction losses) and voltage ripple on the input and output 
+buses.  This voltage ripple is a major contributor to the die VDS 
+overshoot (the primary current limiting factor for the module) 
+and causes increased EMI noise which could require additional 
+filtering to meet commercial or military EMI standards. 
+A second oscillation can also be seen in Fig. 5 at 
+approximately 80 MHz.  This is primarily caused by resonance 
+between the die off-state capacitances CDS, CGS, and CGD and 
+parasitic inductances L1, Ld, however, Ld1, Ld2, Ls1, and Ld2 also 
+have an influence.  This resonance is the second major 
+contributor to V DS overshoot (limiting the module’s current 
+capability) as well as causes increased switching losses.   
+Another impact of the package parasitics is the inability to 
+accurately measure the die VDS.  Notice how in Fig. 5 the die 
+VDS reaches 140 V yet the voltage at the module terminals 
+peaks at only 85 V.  This is because the package parasitics act 
+as impedance between the dies and the module terminals.  Thus, 
+whatever VDS is measured during hardware testing, the true die 
+VDS is larger.   
+ 
+Fig. 5. Zoomed in view of the DPT simulation’s second pulse 
+Another potential negative impact of this design relates to 
+the gate.  The large gate loop inductance (Lg and L2 combine to 
+24.8 nH) and large 6.8 Ω internal gate resistor (per die) can 
+reduce the pull-down capability of the gate driver which 
+increases the chances of false turn-on.  This can be combatted 
+by increasing the turn-on gate resistance, however, this 
+increases turn-on switching losses [5].   
+4111
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+C. Hardware Testing of Commercial GaN Module 
+To validate the claims of reduced switching current 
+capability, the hardware DPT setup shown in Fig. 6 was 
+assembled.  Four-layer PCBs were developed for the gate drive 
+circuitry and external decoupling capacitors, using interleaving 
+flux canceling layers to provide low inductance gate and power 
+loop connections.  The decoupling capacitor board had 154 µF 
+of ceramic capacitors and 400 µF of film capacitors.  Key 
+hardware parameters were: L = 4 µH, VDC = 48 V, Rg(on) = 54.8 
+Ω (per die), Rg(off) = 6.8 Ω (per die), VGS(on) = 6.2 V, and VGS(off) 
+= -2.8 V.   
+ 
+Fig. 6. Hardware DPT setup using the commercial GaN module 
+The module was subjected to increasing DPT currents until 
+it experienced catastrophic failure.  Fig. 7 shows the module 
+hard switching at 277 A which was the test point before failure.  
+The low side die V DS was measured at the module terminals 
+(actual die VDS is larger).  This V DS measurement reached a 
+peak of 130 V and had 2.1 MHz and 70 MHz components.  The 
+higher frequency 70 MHz oscillation matches the simulated 80 
+MHz reasonably well.  The hardware’s resonant frequency 
+could be lower due to added inductance from the external 
+capacitor PCB and/or the model’s limited accuracy of the 
+module’s internal distributed inductances.  The lower 
+frequency resonance at 2.1 MHz is higher than the simulated 
+1.4 MHz because the hardware’s internal capacitance 
+decreased with the 48 V DC bias, a common trait of ceramic 
+capacitor dielectrics.   
+ 
+Fig. 7. Hardware DPT waveforms of the GaN module at 277 A 
+Finally, Fig. 8 shows the waveforms that resulted in module 
+failure.  When hard switched at 292 A, the measured V DS 
+overshoot reached a peak voltage of 137 V (at the module 
+terminals) which irreversibly damaged the internal dies.  This 
+is why the 2.1 MHz V DS oscillation is not present after the 
+second pulse of this DPT.   
+ 
+ 
+Fig. 8. Hardware DPT waveforms at 292 A resulting in module failure 
+D. The Necessity for Improved Parasitics 
+In this section, methods to improve the switching current 
+capability of the existing module are presented, as well as their 
+corresponding tradeoffs.  This is used to emphasize why the only 
+way to achieve optimal all-around performance is by improving 
+the module’s parasitics.   
+To improve the switching current capability of this module, 
+the factors that dictate VDS overshoot must first be understood.  
+In this scenario, four factors contribute to the VDS overshoot: 1) 
+switching current amplitude (per die), 2) DC bus voltage, 3) 
+switching speed, and 4) circuit parasitics.   
+The switching current amplitude and DC bus voltage are 
+typically dictated by the application and topology, which makes 
+them difficult to change.  One way to reduce these is with the 
+use of a unique topology which splits the current between more 
+dies (such as using a full bridge instead of a half bridge), or 
+subjects the dies to less than the DC bus voltage (such as the 
+topology presented in [6]).  These can come at the expense of 
+increased die count and/or increased layout and control 
+complexities.  Another method to decrease the die switching 
+current is to parallel multiple  modules at the expense of 
+increased size, cost, and complexity. 
+A simpler way to decrease the VDS overshoot at hard turn-
+off is to decrease the switching speed by increasing the gate turn-
+off resistor value.  This decreases the di/dt in the parasitic 
+inductances and thus decreases the VDS overshoot.  This comes 
+at the expense of increased turn-off switching losses [5] as well 
+as diminished gate driver decoupling/pull down capability.  This 
+increases the risk of false turn-on and shoot-through when the 
+complementary device(s) turn-on.  This false turn-on can be 
+mitigated by increasing the turn-on resistors (at the expense of 
+increased turn-on switching losses), adding parallel capacitance 
+to C GS (decreases switching speed which gives increased 
+switching losses, increased gate drive losses), implementing 
+miller clamping (increased gate drive complexity), and/or by 
+using a negative off gate bias (increased reverse conduction 
+losses, increased gate drive complexity). 
+ 
+4112
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+ The final factor that affects the circuit’s V DS overshoot is the 
+circuit parasitics, which are unchangeable for a preassembled 
+module.  However, one way to effectively alter the resonant 
+impedance of the module is to add a snubber network.  A 
+snubber such as an RC damper could be added to the module’s 
+DC input and/or between the switching nodes and one of the DC 
+input terminals.  This method could be useful for damping the 
+2.1 MHz resonant component found in the hardware testing but 
+practically cannot damp the 70 MHz component due to parasitic 
+inductances between the 70 MHz resonant loop and the damper.  
+Additionally, this approach adds unnecessary losses, size, and 
+complexity. 
+ Another possibility for altering the module’s resonant 
+structure is to increase the internal capacitance value (not a 
+possibility from the user side, only from the manufacturer side).  
+This would effectively lower the resonant frequency between 
+the external and internal capacitors and increase the damping 
+factor of this RLC network.  However, even if the internal 
+capacitor were as large as possible, the available space only 
+allows for a 22 µF 100 V ceramic capacitor in a 2220 package.  
+Although this would decrease the VDS overshoot compared to 
+the existing 0.1 µF version, there would still be a non-negligible 
+resonance between the external and internal decoupling 
+capacitors.  Thus, the package inductances are still a source of 
+unnecessary circulating currents causing additional losses and 
+EMI noise.   
+ Although these presented options would allow the exiting 
+module to achieve an increased switching current capability, 
+they diminish the potential performance that GaN power 
+transistors offer by increasing complexity, size, cost, losses, 
+and/or sacrificing reliability.  To achieve high switching current 
+capability, small switching losses, high switching frequency 
+operation, reduced EMI noise generation, and high gate drive 
+reliability, a module with improved parasitics is necessary. 
+III. GAN MODULE DESIGN ANALYSIS, EXAMPLES, AND 
+RECCOMENDATIONS 
+In this section, GaN module layout recommendations are 
+provided by analyzing the design of the commercial module as 
+well as designs from modules presented in [11], [12], and [13].   
+A. Layout Analysis of a Commercial GaN Module 
+To analyze the design of the commercial GaN module, the 
+casing was removed to reveal the layout, shown in Fig. 9.  It 
+was revealed that this module uses a dual bonded copper (DBC) 
+substrate and wire bonds for die and trace connections. To 
+better understand the electrical implications of this layout, the 
+traces were modeled in 3D electromagnetic simulation software 
+Computer Simulation Technology (CST).  Fig. 10 shows the 3D 
+model, developed using measurements of the module’s traces.  
+Using this model, three major aspects of the layout are 
+analyzed, including: 1) lateral inner power loops, 2) cascaded 
+layout of the parallel phases, and 3) use of wire bonds.   
+ 
+(a) 
+ 
+(b) 
+Fig. 9. (a) View of exposed commercial GaN module  
+(b) Close up view of a single phase 
+ 
+Fig. 10. CST model of the commercial GaN module’s traces 
+1) Layout Analysis: Lateral Power Loops 
+The first aspect of the design that was analyzed is the use of 
+a lateral inner power loop (loop including the internal local 
+decoupling capacitor and its adjacent dies).  This loop 
+inductance is the major cause for the 70 MHz VDS oscillation 
+observed in the module hardware testing.  To quantify the 
+consequences of this layout, the loop inductance was simulated 
+for each set of parallel dies (from closest to furthest from the 
+decoupling capacitor).  Fig. 11 shows the 3D model used for 
+this simulation.  For simplicity, the wire bonds and dies were 
+modeled as continuous flat traces.  The resulting loop 
+inductances for the closest to furthest set of parallel dies were 
+11.4 nH, 19.8 nH, and 28.0 nH.   
+ 
+4113
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+ 
+Fig. 11. CST model of the module’s lateral power loop inductances 
+There are a couple points to make from this information.  
+The first pertains to the asymmetry of the power loop 
+inductances for the parallel dies.  References [7] and [8] discuss 
+the consequences of asymmetrical power loop inductances for 
+paralleled GaN dies.  The result is that the current sharing and 
+switching characteristics aren’t equal among all paralleled dies.  
+This overstresses certain dies and underutilizes others, resulting 
+in non-uniform VDS overshoots, losses, and heat distribution.   
+Secondly, it has been shown that a lateral power loop 
+(meaning the decoupling capacitor, dies, and connecting traces 
+lie in the same plane) is not optimal for GaN applications due 
+to its relatively large loop inductance.  This is especially true 
+for paralleled dies, as the further die in the lateral power loop 
+will inherently have a larger and asymmetrical loop inductance.  
+Instead, both EPC and GaN Systems recommend for their 
+designs the use of flux canceling traces to achieve symmetric 
+and minimized power loop trace inductances [9] [10].  
+Additionally, [9] discusses specifically how their recommended 
+layout has significantly lower loop inductance than a lateral 
+power loop.  Although it is easiest and most effective to 
+implement flux canceling traces using a PCB, it can be achieved 
+using DBC or an Insulated Metal Substrate (IMS), which will 
+be discussed in following sections.   
+2) Layout Analysis: Cascaded Layout of Parallel Phases 
+The second design aspect to be analyzed is the cascaded 
+layout of the three parallel phases.  Fig. 12 helps visualize the 
+inductive loops created by this cascaded structure. These three 
+inductive loops resonate with the internal 0.1 µF capacitors and 
+cause the 2.1 MHz V DS oscillation observed during hardware 
+testing.  Based on the parasitics model derived in Section II, the 
+cumulative loop inductances from the module’s +DC to -DC 
+tabs through the first to third phase’s internal decoupling 
+capacitors are 29.1 nH, 51.8 nH, and 74.5 nH.   
+ 
+Fig. 12. Illistration of cascaded structure of parallel phases 
+There are two major issues related to this layout structure.  
+Firstly, since the DC inputs to the module are not distributed 
+bus bars, the loop inductances for each phase are inherently not 
+equal.  As discussed earlier, this creates non-uniform current 
+sharing and resonances, overstressing certain dies and 
+underutilizing the remaining.  Secondly, since the cascaded 
+phases have sections of shared parasitic inductances (namely 
+Ld1, Ls1, and the leftmost Ld2 and Ls2 in Fig. 12), the switching 
+operations of one phase directly impacts the other phases.   
+To illustrate this, the simulation model from Section II was 
+implemented such that only the third phase was switching with 
+an output DPT current of 90 A (one third of the third phase’s 
+current rating) and the first two phase’s devices were kept off 
+with their switch nodes connected to ground.  Fig. 13 shows 
+operation waveforms of this simulation.  As shown, when only 
+the third phase is switching there is still an induced VDS spike 
+and oscillations on the first two phase’s devices.  This causes 
+additional losses and is a direct effect of the shared inductances 
+of each phase’s power loops.   
+ 
+Fig. 13. Simulation results showing the effects of shared power loop 
+inductances of parallel phases 
+The solution to both of these issues is to implement a DC 
+bus input to the module with a distributed capacitance bank, 
+such as the module shown in Fig. 14 [11].  A distributed bus 
+like this would provide symmetrical power loop inductances for 
+all parallel phases with no or minimized shared inductance 
+between the parallel phases.   
+3) Layout Analysis: Wire Bonds 
+Wire bonds have been a common interconnect method in 
+power modules for both power and signal traces.  
+Unfortunately, wire bonds are one of the major sources of 
+failure, increase inductance, and can potentially limit the 
+module’s current handling capability [11].  The inductance 
+introduced by wire bonds can be on the scale of several 
+nanohenries, which as demonstrated is non-negligible for GaN 
+operation.  Additionally, wire bonds inherently cannot be 
+implemented in a flux canceling fashion.  Thus, a wire bondless 
+assembly has the potential to achieve smaller loop inductances 
+than a wire bonded alternative, especially if trace flux 
+cancelation is utilized.   
+4114
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 7 ===
+B. Layout Reccomendations from Existing GaN Modules 
+One of the first design choices when designing a module is 
+the selection whether to implement the dies on DBC, IMS, or 
+PCB (or alternative).  The most common approach is to use 
+DBC with a thick baseplate for thermal spreading and 
+mechanical stability.  Fig. 14 shows a GaN module (half bridge, 
+650 V, 150 A) designed using this approach from [11].  Their 
+design paralleled five GS66508 dies with a claimed inductance 
+between the +DC and -DC inputs of 5.1 nH to 5.6 nH 
+(frequency dependent).   
+The low power loop inductance can be attributed to the low 
+package profile, wide busbar and power traces, and the absence 
+of wire bonds in the power loop.  Additionally, the distributed 
+DC busbar inputs help keep the power loop inductance for each 
+set of paralleled dies symmetric.  One limitation of this design 
+relates to the gate drive design.  As seen, the gate drive circuitry 
+inputs are located at one end of the module.  Presumably, this 
+means that the gate loop inductance for each set of paralleled 
+dies will be asymmetric and relatively large for the dies placed 
+furthest from the gate drive circuitry.  Also, it was stated that 
+wire bonds were used for the die gate and source return 
+connections, introducing additional gate loop inductance.   
+ 
+Fig. 14. DBC based GaN module design from [11] 
+Designed in a less traditional fashion, Fig. 15 shows a GaN 
+module (half bridge, 650 V, 120 A) implemented on IMS from 
+[12].  This module has four parallel GS66508B dies and 
+integrates the power stage decoupling capacitors and gate driver 
+ICs on a board elevated directly above it.  The distributed power 
+stage decoupling capacitors allow each paralleled set of dies to 
+have symmetric power loop inductances for uniform current 
+sharing and thermal performance.  Additionally, the close 
+proximity of the gate driver board allows for partial loop flux 
+cancelation of the power and gate loop traces, resulting in a 
+claimed commutation loop inductance of 1.3 nH, a quasi-
+common source inductance of < 0.3 nH, and gate driver loop 
+inductances ranging from 6.8 nH to 7.4 nH (slight asymmetry).   
+ 
+Fig. 15. IMS based GaN module design from [12] 
+The final module to be discussed is shown in Fig. 16 from 
+[13].  This module (half bridge, 650 V, 240 A) is implemented 
+on a 6-layer PCB and parallels four GS66516T dies.  A high 
+level of integration was achieved with the use of a PCB since it 
+allows for the dies, power stage decoupling capacitors, and gate 
+driver circuitry to all reside on a single board.  Additionally, the 
+close proximity of the PCB layers allows for optimal flux 
+cancelation of the power loop traces, resulting in a claimed 
+commutation loop inductance of 0.7 nH and quasi-common 
+source inductance of < 0.2 nH.  This low inductance design 
+allowed for a DPT demonstration at its full current rating of 240 
+A while operating with a DC bus voltage of 400 V, achieving a 
+VDS overshoot of only 52 V.   
+ 
+Fig. 16. PCB based GaN module design from [13] 
+IV. DEMONSTATION OF A 100 V, 360 A GAN MODULE 
+To demonstrate the feasibility of a low voltage, high current 
+GaN module, a prototype with four parallel GS61008 dies was 
+developed, resulting in a 100 V, 360 A rated module.  Fig. 17 
+shows a picture of the assembled DPT hardware setup.  The 
+dies were implemented on a 6-layer PCB in a low inductance 
+flux canceling design [13].  Key hardware parameters were: L 
+= 2 µH, VDC = 48 V, Rg(on) = 10 Ω (per die), Rg(off) = 4 Ω (per 
+die), VGS(on) = 6 V, and VGS(off) = -3.3 V.   
+ 
+Fig. 17. Hardware DPT setup of a custom 100 V, 360 A GaN module 
+Fig. 18 shows the DPT waveform when hard switching up 
+to 367 A.  The first pulse’s hard turn-off was at 200 A, and the 
+VDS peaked at 98.7 V and achieved a switching speed of 34.5 
+V/ns.  The second pulse’s hard turn-off was at 367 A, and the 
+VDS peaked at 85.5 V with a turn-off switching speed of 20.4 
+V/ns.  This result was surprising, as the V DS overshoot was 
+expected to increase with an increasing current.  Although it 
+makes sense that the VDS overshoot is less since the switching 
+speed was slower, more work is needed to understand the 
+mechanism causing the reduced switching speed of the second 
+pulse. This will be reported in a future work.   
+4115
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 8 ===
+ 
+Fig. 18. Custom GaN module DPT waveforms at 367 A 
+In an attempt to further charictarize the module, it was 
+subjected to a 375 A single pulse (same hardware setup).  The 
+waveforms are shown in Fig. 19.  As seen, the VDS reached a 
+peak of 109.5 V with a measured switching speed of 35.0 V/ns.  
+Additionally, there is no low frequency oscillation on the VDS 
+waveform (such as the 2.1 MHz oscillation observed in the 
+commercial module’s DPT) due to the optimal power stage 
+layout inspired by [13].   
+ 
+Fig. 19. Custom GaN module single pulse waveforms at 375 A 
+As demonstrated, this module was capable of hard 
+switching at currents surpassing its die current ratings and with 
+VDS switching speeds reaching 35 V/ns.  Compared to the 
+commercial module analyzed in this paper, the custom module 
+successfully switched at a 36% larger current (375 A compared 
+to 277 A), had a > 20% reduction in VDS overshoot at that higher 
+current (109.5 V compared to > 137.5 V), achieved faster 
+switching (gate resistance of 4 Ω per die compared to 6.8 Ω per 
+die), and used less than half of the parallel dies (4 parallel 
+GS61008 dies compared to 9), successfully demonstrating the 
+feasibility of a low voltage, high current GaN module and the 
+benefits of minimized layout parasitics.   
+V. CONCLUSION 
+In this paper, the analysis of a commercial 3-phase, 100 V, 
+270 A (per phase) GaN module was presented.  A detailed 
+parasitics model was derived and used to predict the premature 
+failure of the module due to V DS overshoot, a unique 
+susceptibility for low voltage, high current GaN modules.  This 
+was confirmed with a hardware DPT setup, demonstrating 
+module failure due to VDS overshoot at 36% of its die current 
+rating (failed at 292 A hard switching, rated for 810 A).  
+Methods to work with the exis ting module were explored, 
+demonstrating that optimal performance is only achievable with 
+improved module parasitics.  GaN module layout 
+recommendations were presented based on analysis of the 
+commercial module’s layout as well as layouts from [11], [12], 
+and [13].  The paper concluded with a hardware DPT 
+demonstration of a custom 100 V, 360 A GaN module.  The 
+hardware was successfully hard switched at 375 A with a DC 
+bus of 48 V, achieving a VDS switching speed of 35 V/ns.  This 
+demonstrated the feasibility of a low voltage (< 100 V), high 
+current (> 300 A) GaN module. 
+ACKNOWLEDGMENT 
+Mainstream Engineering Corp. would like to thank the US 
+Army CCDC Ground Vehicle Systems Center for supporting 
+this work under SBIR contract number W56HZV-18-C-0021. 
+REFERENCES 
+[1] Q. Tao, J. Graham, J. Sun, “Characterization of IGBT modules for system 
+EMI simulation”, Proc. 25th Appl. Power Electron. Conf. Exp., pp. 2220-
+2225, 2010-Feb. 21-25 
+[2] Lemmon, A., and Graves, R.: ‘Parasitic extraction procedure for silicon 
+carbide power modules’. Proc. Int. Workshop on Integrated Power 
+Packaging, Chicago, USA, May 2015, pp. 91–94 
+[3] Yang, L., and Odendaal, W.: ‘Measurement-based method to characterize 
+parasitic parameters of the integrated power electronics modules’, Trans. 
+Power Electron., 2007, 22, (1), pp. 54–62 
+[4] GaN Systems, “GS61008T Top-side cooled 100 V E-mode GaN 
+transistor,” GS61008T datasheet, 2018.   
+[5] GaN Systems, “GaN Switching Loss Simulation using LTSpice,” 2018.  
+[6] B. Hu, J. A. Brothers, X. Zhang, L. Fu, Y. M. Alsmadi and J. Wang, "An 
+Isolated Phase-Shift-Controlled Quasi-Switched-Capacitor DC/DC 
+Converter With Gallium Nitride Devices," in IEEE Journal of Emerging 
+and Selected Topics in Power Electronics, vol. 7, no. 2, pp. 609-621, June 
+2019. 
+[7] EPC, Reusch, D., “Effectively Paralleling Gallium Nitride Transistors for 
+High Current and High Frequency Applications,” 2016. 
+[8] N. Sang, P. Jeannin and P. Lefranc, "Analyses of the unbalanced 
+paralleled GaN HEMT transistors," 2018 20th European Conference on 
+Power Electronics and Applications (EPE'18 ECCE Europe), Riga, 2018, 
+pp. P.1-P.9. 
+[9] EPC, Reusch, D., “Optimizing PCB Layout,” 2014. 
+[10] GaN Systems, “Design considerations of Paralleld GaN HEMT-based 
+Half Bridge Power Stage,” 2018. 
+[11] B. Passmore et al., "A 650 V/150 A enhancement mode GaN-based half-
+bridge power module for high frequency power conversion systems," 
+2015 IEEE Energy Conversion Congress and Exposition (ECCE), 
+Montreal, QC, 2015, pp. 4520-4524. 
+[12] J. L. Lu, D. Chen and L. Yushyna, "A high power-density and high 
+efficiency insulated metal substrate based GaN HEMT power module," 
+2017 IEEE Energy Conversion Congress and Exposition (ECCE), 
+Cincinnati, OH, 2017, pp. 3654-3658.  
+[13] J. L. Lu and D. Chen, "Paralleling GaN E-HEMTs in 10kW–100kW 
+systems," 2017 IEEE Applied Power Electronics Conference and 
+Exposition (APEC), Tampa, FL, 2017, pp. 3049-3056. 
+ 
+4116
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:16 UTC from IEEE Xplore.  Restrictions apply. 

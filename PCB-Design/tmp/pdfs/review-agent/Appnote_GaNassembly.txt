@@ -1,0 +1,628 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    1
+Extensive testing has proven that eGaN FET and ICs are reliable [3] when 
+designed into application circuits correctly. In fact, between 2010 and 2017 
+there have been a total of only 127 device failures out of a total of more than 
+30 billion hours in actual use in the field, 75 of the failures were the result of 
+poor assembly technique or poor printed circuit board (PCB) design practices 
+[3]. The graph of figure 2 shows a breakdown of those 127 failures.
+Ensuring high reliability and to extract maximum performance from eGaN 
+devices, it is important to follow some simple PCB design and assembly 
+guidelines, which are presented in this application note along with examples 
+of what can go wrong if those guidelines are not followed.
+NOTE: EPC should be contacted to assist in the development of any stencil 
+thickness/solder combination that deviates from those recommended here.
+EPC WLCSP die are not compatible with wave soldering process technique.  
+Contact EPC via email at info@epc-co.com.
+Overview
+For a reliable, high yielding assembly, LGA or BGA eGaN devices must:
+1.  Have the correct PCB solder mask defined (SMD) footprint for each solder 
+bump to ensure proper containment of solder on a clean PCB surface. 
+2. Have the correct solder volume and reflow process to provide sufficient 
+height for proper rinsing of any solder flux from between the lands, but not 
+excessive solder, where the joint becomes unstable and tilts or collapses 
+during reflow.
+3.  Have all flux rinsed from between lands and be dry before applying power.
+4.  Use underfill if the assembly will be exposed to moisture during use.
+Figure 3 shows a side view of a properly mounted device.
+Assembling eGaN® FETs  
+and Integrated Circuits
+When customers express wishes for better packaging of power semiconductors –  
+transistor, diode, or integrated circuit – their requests fall into six categories [1]:
+1. Can the package be smaller?
+2. Can package inductance be reduced?
+3. Can the product be made with lower conduction losses?
+4. Can the package be more thermally efficient?
+5. Can the product have a lower price?
+6. Can the package be more reliable?
+eGaN® FETs and integrated circuits from EPC have taken a very different approach to packaging 
+power semiconductors – we have ditched the package altogether and thus improved all six of the 
+above requests at the same time. EPC’s innovative wafer level, Land Grid Array (LGA) and Ball Grid 
+Array (BGA) packaging has enabled a new state-of-the-art in power density [2]. Figure 1 shows 
+a photograph of the mounting side of an EPC2001C, which has a land pitch of 0.4 mm and an 
+EPC2045 with a ball pitch of 0.5 mm.
+Figure 1(a): Mounting side of EPC2001C [2].
+Figure 1(b): Mounting side of EPC2045.
+Figure 2: After more than 30 billion hours in actual applications, eGaN  
+devices have experienced only three (3) device related failures.  
+The largest cause of field failure is poor assembly.
+EFFICIENT POWER CONVERSION
+Over 30 Billion Hours in the Field
+Device
+degradation (3)
+Application (12)
+Assembly (75)
+Good - No
+anomaly  (37)
+Figure 3: Properly mounted eGaN device (side view).
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    2
+Printed circuit board design considerations for eGaN FETs and ICs
+Power designers may not be as familiar with fine pitch devices as their digital 
+circuit counterparts. This section will cover the many design aspects designers 
+need to consider when designing a footprint for eGaN devices.
+The quality of the solder bump interfacing the eGaN device to the PCB is crucial 
+for a reliable electrical, thermal, and mechanical connection. The factors that 
+define solder bump quality include symmetry, volume, height, and finish. These 
+factors may be overlooked by a designer who is focused primarily on layout, 
+thus the device manufacturer must take on the responsibility for providing clear 
+and simple guidelines in their product datasheets. Those guidelines include 
+the recommended footprint (copper dimension and solder mask opening) and 
+solder paste stencil designs.
+1. Solder mask defined pads
+For eGaN devices, a solder mask defined (SMD) footprint for the LGA and BGA 
+bumps is recommended as shown in figure 4 (right). Figure 4 (left) shows 
+a non-solder mask defined (NSMD) footprint pad that is typically used for 
+PCB deigns. In our investigations of failures at customers’ assembly facilities, 
+we have found instances where PCB manufacturers modified Gerber files to 
+accommodate their internal manufacturing design guidelines developed for 
+much larger packages thus over-riding the design provided. 
+A design review prior to final board release would highlight this problem 
+prior to incurring scrap or rework expenses in assembly. Figure 5 shows how 
+the SMD pad works to reduce mechanical stress by ensuring a symmetrical 
+bump after soldering. In contrast, using an NSMD footprint can result in 
+an asymmetrical solder bump since 100% perfect registration between 
+the copper and mask layers in not likely. In the case of the SMD footprint, 
+immunity is ensured within the manufacturing tolerances of the PCB.
+2. Solder mask quality
+Not all solder masks are the same, and it is important to know what to look for 
+when specifying the solder mask to yield a high-quality PCB with the thickness 
+and consistency being the most important. If the solder mask is too thick, it will 
+be difficult to properly dispense the solder paste as the distance into which the 
+paste needs to be pressed becomes larger. 
+If the consistency of the solder mask is not uniform, it can lead to bumps that 
+prevent the stencil from being seated properly against the board. Solder mask 
+defects, or excessive solder mask openings, can result in reduced bump height 
+and lead to cracking and/or die tilt or even open circuits in extreme cases. The 
+resultant deformed bumps will cool with increased mechanical stress that can 
+accelerate thermally induced failures.
+Suitable solder masks for PCBs employing eGaN devices fall under IPC-SM-840 
+class T, such as Taiyu 4000HFX L.P .I, PSR-2000/LF02/CA-25, or equivalents. It is 
+important to specifically state in the PCB fabrication files that the solder mask 
+not be enlarged or modified by the PCB manufacturer.
+Laser Direct Imaging (LDI) should be used to register the solder mask to 
+a tolerance as specified in the master drawing or 2 mils with respect to the 
+copper layers. Finally, the solder mask should not be clipped. Clipping places 
+greater emphasis on the designer to ensure that the layout software has the 
+correct design rules setup and that the footprint is correctly designed.
+3. Solder bump volume
+The height of the solder bump between the board and the device is also critical 
+for mechanical stress. The height of the solder bump has been determined to 
+Figure 6. Impact of solder type on stencil design.
+Figure 4: Solder mask defined versus non-solder mask defined pad.
+Figure 5: Effect of copper to solder mask layer registration on  
+the solder ball symmetry.
+Solder mask de/f_ined
+Symmetrical solder ball
+(Regardless of registration)
+Asymmetrical solder ball
+(Sensitive to registration)
+PCB PCB
+Non-solder mask de/f_ined
+DeviceDevice
+SAC305 Type 3 Solder SAC305 Type 4 Solder
+Stencil cut outline
+influence the balance between reliability, electrical, and thermal performance. 
+If the bump height is too low, the device will experience high thermally 
+induced mechanical stresses that will result in solder ball or under bump metal 
+fatigue. Devices seated too high will experience higher electrical and thermal 
+stresses (due to reduced thermal extraction effects from the PCB) [3]. 
+Optimal height is different for each device. For LGA and BGA devices, additional 
+options such as various solder types must be part of the design decisions. 
+Figure 6 shows how different solder types can yield different stencil designs. 
+It should be noted that if a customer desires to use the same solder mask for 
+both Type 3 and Type 4 solder, EPC can work with the customer to provide a 
+recommendation that can possibly work for both solder types if possible. Such 
+recommendations will also be shown in the datasheet.
+PCB
+Non-solder mask de/f_ined Solder mask de/f_ined
+Exposed board
+Expansion
+PCB
+Conductive
+pad
+Solder
+mask Overlap
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    3
+4. Solder pad finish
+Many designers opt to use a hot air solder leveling finish (HASL) for their boards, 
+which deposits solder on the pads. These solder deposits yield small amounts 
+of solder on the pads that add to the amount of solder that will be dispensed 
+via the stencil. This added solder will be included in the bump solder volume, 
+ultimately affecting the finished bump volume and hence its quality. 
+In addition, the HASL process is imprecise and typically yields uneven solder on 
+the pads of varying quantities, as can be seen in figure 7 (right). This can lead 
+to die tilt or open solder joints. It is recommended to use an electroless nickel 
+immersion gold (ENIG) pad finish that yields a very uniform and flat pad as 
+shown in figure 7 (left). 
+For the ENIG finish, a typical nickel (Ni) thickness of 150 micro inches, and 
+a gold (Au) thickness of 3 - 5 micro inches in accordance with IPC-4552 are 
+recommended.
+5. Silkscreen
+While silkscreen has traditionally played a minor role in PCBs, it can be a part of 
+the reliability function because it does not have zero thickness and, as a result, 
+can impede the flow of flux during reflow process.
+If the flux flow is impeded during reflow, it can lead to die tilt and flux residue. 
+The silkscreen is also used to properly register the die during the assembly 
+process, and many designers will tend to design a fully enclosed silkscreen 
+pattern outlining the device as shown in figure 8 (right). This can lead to 
+damming when the flux cannot flow out from under the die during reflow, and 
+is particularly acute with a thick silkscreen that extends around all or most of 
+the die. Flux damming can result in uncured flux being present under the die 
+and can lead to thermal and electrical dendrite formation (See troubleshooting 
+section below). 
+Simply opening the silkscreen walls at various locations as shown in figure 8 (left) 
+can prevent damming. Silkscreen can also be a source of pad contamination and 
+care should be taken to avoid this. The silk screen should also be kept as thin as 
+possible, as far below 1mil that the vendor can do (probably in the 0.7mil range). 
+6. Vias
+Vias form an integral part of the PCB design for eGaN devices due to their 
+small size and electrical performance requirements [4]. Via dimensions are at 
+the discretion of the designer who needs to be aware of several limitations 
+depending on how the via is used.
+The basic via is a vertical connection between the layers of the PCB and is made 
+up of a hole with annular ring of copper. Manufacturing restrictions limit hole 
+sizes to a minimum of 6 mils and the minimum annular ring dimension of 5 mils. 
+Designers may recognize that this already exceeds the dimensions of some 
+eGaN device bump spacing and a compromise in one direction may be made. 
+Vias that are near the die should always be tented (covered with the solder 
+mask) to prevent solder from wicking into the hole during the reflow process, 
+and to prevent voltage clearance issues due to exposed copper in proximity to 
+the die. 
+In some cases, it may be necessary to place a via under a device pad. If this 
+is required, the via must be filled and capped to prevent the solder required 
+for optimal bump height from draining into the hole during reflow. Capping 
+is required to prevent the filler from outgassing under the solder bump. This 
+via should be tented in the layout design software so that the pad solder mask 
+Figure 7: ENIG finish versus HASL finish showing uneven solder heights.
+Figure 8: Device land pattern with open device outline silkscreen (left) and 
+dammed-closed silkscreen device outline (right).
+ENIG /f_inish HASL /f_inish
+Rounded
+solder
+Flat
+solder
+Open silkscreen pattern Silkscreen damPaste opening
+Copper pad
+Die outline
+Silkscreen
+opening, should it overlap the via, will determine which part of the via to 
+cover or expose. The finished via must have essentially the same height as the 
+remainder of the pad. This will ensure proper solder paste dispensing.
+Some designs may require many vias, which are used to distribute the current 
+and increase the total current transferred to another layer. Despite the vias 
+being connected to the same electrical node, manufacturing restrictions 
+require at least 10 mil wall-to-wall spacing for vias to prevent weaknesses in 
+the board and ensure a uniform board thickness finish. Tented vias near, or 
+within the device, can lead to high spots that cause the stencil to sit up higher 
+and may lead to solder over-deposit during manufacturing. When using vias 
+close to or within the device, make sure the PCB manufacturer is aware of your 
+stencil seating concerns.
+Some designs may have minimum via hole size restrictions, which means 
+placing vias under the pads of the device is not possible and must be placed 
+next to the device such as the example design shown in figure 9 (top). Figure 
+9 (bottom) shows a design without the via in pad restrictions where the photo 
+clearly shows that the FET pads have been plated over and the via can no 
+longer be seen.
+7. Layer registration
+The many layers that make up the PCB need to be aligned (registered) with 
+each other. This ensures a proper functional board and is specified by providing 
+a registration tolerance. Layers of the same type are typically specified 
+differently from layers of different types. Layers typically registered with each 
+other are copper-to-copper, copper-to-solder mask, copper-to-hole, and 
+copper-to-silkscreen (not typically specified but is helpful for die placement).
+Most layers can be specified with a registration tolerance of 2 mils with respect 
+to a copper layer, except holes, which should use 3 mils minimum.
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    4
+Vias in pad
+design – vias
+are /f_illed
+Vias next
+to pad
+design
+PCB layout PCB photo
+Figure 10: PCB stack-up for a typical PCB suitable for eGaN devices.
+Figure 9: Layout design with vias next to the FETs (top) and  
+within the pads of the FET (bottom).
+8. Layer stack-up
+A stack-up defines the thickness of each of the layers that make up the PCB. 
+PCB’s for eGaN FETs and ICs typically use copper thicknesses between 1 and 
+2 oz (35 & 70 µm), depending on the design and the current density required. 
+The insulating layers are typically made using materials such as FR4 or 
+FR370-HR. Substrates with higher glass transition ratings (T g of at least 180°C) 
+are preferred for higher reliability. 
+The balance between manufacturability and electrical properties drives the 
+thicknesses of the insulating layers. The optimal layout for 100 V devices 
+specifies a 5-mil core thickness between layers 1 (e.g. top) and 2. Due to 
+symmetry requirements, this will also force layers 3 and 4 to be 5-mils thick 
+with the prepreg layer being adjusted to meet the final board thickness 
+(typically 1.5 mm or 62 mils). For higher voltage devices, and to ensure 
+proper “creepage” requirements, a minimum core thickness of 12 mils is 
+recommended. The prepreg layer will then adjust to approximately 25 mils. 
+Figure 10 shows a typical PCB stack-up.
+9. Board flatness
+A lesser-known PCB specification is board flatness. It is still an important 
+specification because a board with excessive bow can prevent the stencil from 
+being properly seated on the board, potentially leading to pads not being 
+properly dispensed with solder paste. An array with maximum horizontal or 
+vertical dimensions of 200 mm (8000 mils) should be specified with a flatness 
+to be within 40 mm per meter (7.5 mil per inch).
+10. Fiducials
+Fiducials are used for component registration during the placement process of 
+assembly. Due to the fine pitch of eGaN devices, it is typically required to add 
+fiducials to the PCB. There are two types of fiducials, global and local. Global 
+fiducials are used to align a PCB array and local fiducials are used on a single 
+board. Most designs will require local fiducials to accommodate eGaN devices. 
+A typical board should have at least three (3) fiducials with at least two (2) 
+aligned vertically and two (2) aligned horizontally. Fiducials should be placed 
+as close to the board edge and as far apart from each other as possible. This 
+placement improves the registration over longer distances. If the eGaN devices 
+are located more to one side of the board, then the fiducials should be located 
+in close proximity to one another. A 40-mil diameter fiducial should be sufficient 
+for most assemblers. 
+11. Board or array size limits
+PCBs and PCB arrays using eGaN devices should be limited in size. Larger 
+boards are more difficult to register for precise assembly of the eGaN devices 
+with their small feature size. Boards and arrays should be limited to 200 mm 
+on each side. For arrays, it is recommended to rotate the boards in an attempt 
+to locate all of the eGaN devices of the various boards as close to each other 
+as possible. This allows larger boards to be used, then the registration location 
+can still be located as close as possible to the eGaN devices. 
+Assembly process for eGaN devices
+The discussion up to this point has focused on the PCB design and its 
+manufacturability. In this section, the assembly process that goes hand in 
+hand with the PCB will be presented.
+12. Solder paste choice
+EPC currently uses Kester NXG1 Type 3 SAC305 and Kester NP505-HR SAC305 
+1 – 2 oz
+1 – 2 oz
+1 – 2 oz
+1 – 2 oz
+5 – 12 mils
+Soldermask Copper
+~43 – 25 mils
+5 – 12 mils
+Core
+Core
+Prepreg
+Type 4 solder pastes for soldering eGaN devices. Both pastes are no-clean flux 
+with 88.5% metal.
+To prevent the formation of thermal and electrical dendrites, it is recommended 
+to clean the flux from the board even if no-clean flux is used. EPC uses Kyzen 
+Aquanox® A4625 chemical in a Nu/Clean AquaBatch XL standard system 
+manufactured by Technical Devices Company to remove the no clean flux.
+If a no-clean flux is used and it is not rinsed off, a post-reflow bake for a 
+minimum of 60 minutes at 150°C is recommended. This ensures that the no-
+clean flux is properly cured and helps prevents dendrite formation.
+If a water rinseable flux is used, the eGaN device needs to be rinsed on all four 
+sides to ensure proper flux removal. A tilted device can obstruct the flow of the 
+rinse and cause flux to remain trapped under the die. For this reason, using a 
+no rinse solder flux with low ionic content and then rinsing the no rinse flux 
+is recommended.
+13. Stencil design
+A laser-cut stainless steel stencil of 100-µm thickness is recommended. A 
+smooth wall laser-cut stencil is more likely to release the desired dispense 
+volume. Type 3 solder paste requires a larger opening than Type 4 solder, 
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    5
+and recommendations are available for both in reference [15], and for each 
+die configuration. In the case that a stamped stencil must be used, it may be 
+necessary to enlarge the opening slightly to compensate for proper solder 
+release volume.
+14. Reflow profile
+Figure 11 shows the recommended reflow profiles for eGaN devices based on 
+the solder paste manufacturers’ recommendations for the pastes. The vendor-
+recommended reflow profiles should always be followed for the paste being used.
+Troubleshooting PCB design and assembly problems
+There are many issues that can arise if proper PCB design rules not followed. 
+These issues can be exacerbated by poor assembly techniques. This section 
+presents the many issues we have encountered and explains their origins.
+Die Placement Pressure
+Die damage due to over pressure can occur. EPC recommends limiting maximum 
+backside pressure to 50 psi or less.  Please see Reliability Report Phase 11 for 
+more information.
+15. Electrical dendrites
+Electrical dendrites are considered ionic contamination formed when the flux 
+is exposed to an electric voltage and forms conductive crystals [5]. The higher 
+the voltage the faster dendrites can form. Electrical dendrites can quickly lead 
+to failures because during their formation they can generate a lot of heat in 
+addition to creating short circuits. Figure 12 shows an example of dendrite 
+formation around a solder bar of an eGaN FET.
+16. Thermal dendrites
+Thermal dendrites are a relatively new discovery and are not to be confused 
+with electrical dendrites, although they may appear similar. They are caused by 
+flux cracks formed during furnace cool down. Solder, which has not cooled can 
+diffuse into the flux cracks. These solder filaments can significantly reduce the 
+electrical distance between bumps and can breakdown during operation. Flux 
+cracks can remain after the assembly process even when using no-clean flux. 
+Figure 13 shows a flux crack on a PCB formed in the absence of a die.
+Thermal dendrites are slightly different from traditional thermal dendrites seen 
+in metal melts where the presence of a nucleation source can lead to “arms” 
+growing from the particles in a super-cooled liquid forming dendrites [6,7,8]. 
+This type of dendrite can be prevented or removed by cleaning the no-clean flux.
+Examples of thermal dendrites are also shown in figure 14.
+17. Poor solder adhesion
+Contaminated solder pads can lead to poor solder adhesion, voiding, and large 
+un-wetted areas. Most contamination arises from a poor PCB fabrication process 
+where solder mask residue is left on the pads, for example from contaminated 
+cleaning liquids. Solder mask bleed and silk screen residue are also common 
+sources of pad contamination.
+Figure 15 shows an example of a clean pad finish (left) alongside an extremely 
+contaminated pad finish (right). Poor solder adhesion can lead to open circuits, 
+and in high-current capable devices, will lead to excessive current densities 
+as currents are forced into undefined directions that will ultimately cause the 
+device to fail. Figure 16 shows an example of a solder wetting issue.
+18. Solder bump cracking
+Solder bumps crack mainly due to thermally induced mechanical stresses. If 
+the solder solidifies under stress during the assembly process, it can lead to 
+accelerated failure as the solidified stresses are added to those induced by 
+thermal expansion and contraction.
+Figure 12: eGaN FET showing electrical dendrite formation  
+after exposure to residual flux.
+Figure 11: Recommended solder reflow profile.
+Figure 13: Example of thermal dendrite formation path in  
+cracked residual flux without a die present.
+Figure 14: eGaN IC showing thermal  
+dendrite formation in cracked residual flux.
+Solder bump Cracked /f_lux path
+Solder bump Thermal dendrites
+1Re/f_low
+zone
+Soak zone
+Pre-heat
+zone
+Time (s)
+260
+240
+220
+200
+180
+160
+140
+0 50 100 150 200 250 300
+Temperature (°C)
+Peak temp (235 – 250°C)
+Recommended solder re/f_low pro/f_ile (SnAgCu alloys)
+Ramp rate 45 – 90 s
+typical
+60 – 120 s typical
+40 – 80 s typical
+<2.5°C/sec
+Total pro/f_ile length: 3 – 5 mins
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    6
+A well-known industry analytical model [9] for strain on solder joints during 
+thermal cycling is:
+where:
+ε = Strain on solder joint
+Δα = Difference in coefficient of thermal expansion between die and PCB [°C -1]
+ΔT = Cyclic temperature swing [°C]
+DNP = Distance from neutral point (stress centroid based on die size & solder 
+bump/bar locations) [m]
+h = Solder joint standoff height [m]
+Equation 1 suggests a very tall solder bump height will reduce the thermally 
+induced stress to near zero, which is not always practical. The balance 
+between thermally induced stresses and reliability is typically determined by 
+the manufacturer of the devices and given in product datasheets. In the case 
+of eGaN devices, the solder mask-defined pad further reduces the stresses 
+induced during the reflow process. 
+An example of solder bump cracking is shown in figure 17.
+19. Solder voids
+Solder voids are open volumes within the solder as shown in figure 18. Solder 
+voids can have various causes including poor solder adhesion to the pad, 
+outgassing from contaminated pads during reflow, insufficient device standoff 
+height [10], and incorrect solder profile.
+Voids reduce the contact area between the device and PCB pad and induce 
+uneven mechanical and thermally induced stresses within the solder bump. 
+Over time, these voids can grow and lead to failure. 
+20. Die tilt
+Die tilt can be caused due to several reasons such as poor solder adhesion, 
+uneven solder paste dispensing, excessive vibration during reflow, non-
+optimized temperature profile, and oversized solder mask or oversized solder 
+stencil apertures. Die tilt is detrimental to device reliability, as it causes uneven 
+thermal mechanical stress across the die. It may also be an indication of short 
+or open circuit bumps. Figure 19 shows an example of a tilted eGaN device.
+21. Underfill
+Underfill should be used in applications where the board is exposed to 
+moisture. Moisture and other contaminants may provide an environment 
+that allows dendrite growth. For 150 ºC-capable EPC devices, some available 
+underfills are Hysol FP4531, Namics U8437-2, Namics 8410-406B, and Henkels 
+Loctite Eccobond UF 1173.  The die surface should be free of any flux residue 
+before applying the underfill per the vendor recommendations. Bump layout 
+directionality must be taken into consideration when choosing the sides to 
+apply the underfill.
+Cracks after 3200 temp cycles
+Solder bar
+CU trace
+100 /uni03BCmPost 3200 cycles
+Figure 17: Cross section x-ray of an eGaN IC solder bump showing bump cracking.
+Figure 15: Examples of a contaminated pad versus clean pad.
+Figure 16: Example of poor solder wetting.
+Pad opening barely visibleExtreme solder mask residual 
+Clean pad /f_inish Contaminated pad /f_inish
+Poor solder wetting 
+Figure 18: 3D-X-ray of an eGaN FET showing excessive solder bump voids (top)
+ Contaminant on the pad to solder interface leads to voids formation (bottom).
+Device
+PCB
+Solder voids
+Cross section line Solder voids
+Pad contamination
+Cross section
+ε = 
+(∆α·∆T·DNP)
+h (1)
+EPC2014C Under/f_ill order
+Under/f_ill application at sides 1 and 2
+Check sides 3 and 4 for completeness
+1
+2 4
+3
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    7
+Figure 19: Side view of an eGaN device with severe die tilt after soldering.
+Figure 20: Cross section of a representative PCB mount using  
+EPC2001C (Pre-reflow).
+Figure 21: X-ray of a board showing the EPC2019 and the LM5113 driver. The 
+image shows voiding in the solder bars and uneven looking joint shapes in the EPC 
+part and driver. This is example of possible solder paste volume or reflow issue.
+Figure 22: X-ray of a properly reflowed EPC2019 and LM5113 driver. No obvious 
+voids in the EPC part or driver. Joints are a solid dark color and joint shapes are 
+very consistent in size and even looking.
+PCB PLANE
+Trapped /f_lux residue coming up the side of die
+Tilted die
+22. Design example
+Figure 20 is a drawing of a cross section of an EPC2001C with an LGA format 
+(it is also valid for BGA footprints) on the NC257-2 SAC305 [13] Lead Free, No 
+Clean Solder Paste mounted on the PCB with a two-ounce copper topside 
+metal layer. The cross-sectional area will be used as a proxy for solder volume. 
+Per the datasheet, the solder bump radius is 100 µm giving a cross sectional 
+area of 15.7 nm2. Using NC257-2 SAC305 lead free, no clean, type 3 solder paste 
+with an 88.5% metal load, and 100-µm stencil thickness, the solder mask width 
+comes to approximately 180 µm.
+23. Inspection
+eGaN devices are mechanically robust and have demonstrated high yield 
+in volume assembly. Damage, however, can still occur if several standard 
+precautions are not taken to ensure adequate solder reflow, reduce excessive 
+die tilt, and avoid residual uncured solder flux.
+Even though eGaN devices have been designed such that the reflowed solder 
+is visible to the unaided eye, the best way to determine if devices have been 
+properly reflowed is by producing X-ray images. Figures 21 and 22 show 
+X-ray images of an EPC2019 assembled with a solder stencil process. Figure 
+21 shows an image with voids and uneven shaped joints indicating potential 
+solder volume or reflow issue. As can be seen in figure 22, minimal voiding and 
+consistent joints represent giving high reliability and excellent thermal and 
+electrical characteristics.
+24. Rinsing
+If the assembly process uses a solder with a flux that requires rinsing, die tilt 
+can obstruct the flow of the rinse and cause flux to be trapped under the die. 
+This residual flux can cause rapid formation of dendrites (figure 12), which will 
+cause early device failure. For this reason, using a no rinse solder flux with low 
+ionic content and then rinsing the no rinse flux is recommended. Some EPC 
+devices require rinsing in a specific manner to properly clean under the die. 
+Attention should be given to properly rinse the part to remove the flux. The 
+example shown in figure 23 is an EPC2001C type die that requires rinsing on a 
+minimum of three sides to adequately clean the flux.
+Cu trace (2 oz)
+Solder bar
+Solder maskSolder  paste Solder  paste
+200 µm
+100 µm
+275 µm 125 µm 180 µm
+100 µm
+Cu trace (2 oz)
+
+
+=== PAGE 8 ===
+APPLICATION NOTE: AN009 Assembling eGaN FETs and Integrated Circuits
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2023   |   For more information: info@epc-co.com  |    8
+About LGA and BGA packages
+Devices are lead and halogen free. The RoHS compliant LGA and BGA package 
+uses a Sn/Ag/Cu solder with a composition of 95.5% Sn, 4% Ag, 0.5% Cu or a 
+Sn/Ag solder with composition of 97.5% Sn, 2.5% Ag. All lead-free products 
+are moisture sensitivity level 1 (MSL1 260 ºC), the highest commercial 
+semiconductor level. 
+Normal manufacturing ESD precuations should be taken when handling EPC 
+eGaN FETs and ICs. Recommended warehouse storage conditions for tape and 
+reel: temperature 20°C to 28°C, Humidity 40% to 60%.
+Quick-Start Engineering Lab Assembly
+EPC’s eGaN devices can be mounted directly onto PC boards without added 
+solder by using a tacky flux to hold the part in place while reflowing the solder. 
+An example of an acceptable Lead Free (PbF) process uses Kester TSF6502 
+no-rinse flux. Quick reference die attach and removal instructions, as well as 
+videos, are available on the assembly page of the EPC website ( http://epc-co.
+com/epc/DesignSupportbr/Applications/AssemblyBasics.aspx).
+Summary
+LGA and BGA packages provide the low inductance, small size, and excellent 
+thermal performance necessary to take full advantage of the capabilities of 
+eGaN technology. With proper manufacturing techniques, assemblies using 
+eGaN devices will have high yield and a long, reliable working life.
+The LGA and BGA device footprint must be solder mask defined. Solder 
+mask designs should be according to the recommended land pattern on the 
+datasheet.
+Correct solder volume and reflow profile will help ensure mounted die are level 
+with enough standoff for proper rinsing. Rinsing in all directions and drying 
+are required to remove residue that would otherwise enable dendrite growth.
+The reflow temperature profile must be adjusted to ensure complete reflow 
+and to help avoid die tilt.
+Critical to rinse out all the channels in a minimum of 3 directions
+Figure 23: Example of EPC2001C die and minimum rinsing  
+required to properly clean the flux.
+Information subject to change 
+without notice.
+Revised July, 2021
+REFERENCES
+1.  A. Lidow, “Six Reasons to Rethink Power Semiconductor Packaging,” https://www.
+linkedin.com/pulse/six-reasons-rethink-power-semiconductor-packaging-
+alex-lidow 
+2. A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for Efficient Power 
+Conversion. Second Edition, Wiley, ISBN 978-1-118-84476-2.
+3. C. Jakubiec, R. Strittmatter, C. Zhou, “EPC eGaN® FETs Reliability Testing: 
+Phase 8,” 2016, [Online] Available: http://epc-co.com/epc/DesignSupport/
+eGaNFETReliability/ReliabilityReportPhase8.aspx
+4. D. Reusch, J. Strydom, “Understanding the Effect of PCB Layout on Circuit 
+Performance in a High Frequency Gallium Nitride Based Point of Load Converter,” 
+Applied Power Electronics Conference, APEC 2013, pp. 649–655, 16-21 March 2013.
+5. R. Ambat, M. S. Jellesen, D. Minzari, U. Rathinavelu, M. A. K. Johnsen, P. Westermann, 
+P. Møller, “Solder Flux Residues and Electrochemical Migration Failures of Electronic 
+Devices,” Proceedings of the Eurocorr 2009, Paper No. 8141, 6-10 September 2009.
+6. “Development of Thermal Dendrites,” 366-2012-Lecture7, Course: MATE 366, School: 
+Drexel University.
+7.  V. Pines, A. Chait, M Zlatkowski, “Thermal diffusion dominated dendritic growth – an 
+analysis of the wall proximity effect,” Journal of Crystal Growth 167 (1996) 383–386
+8. R.F. Sekerka, S.R. Coriell, G.B. McFadden, “The effect of container size on dendritic 
+growth in microgravity,” Journal of Crystal Growth 171 (1997) 303–306
+9.  Denis Barbini, Ph.D. & Michael Meilunas, “Reliability of Lead-Free LGAs and BGAs: 
+Effects of Solder Joint Size, Cyclic Strain and Microstructure,” IPC APEX EXPO 
+Conference Proceedings.
+10. Muffadal Mukadam, Michael Meilunas, Peter Borgesen, Ph.D., K. Srihari, Ph.D., 
+“Assembly and Reliability Issues Associated With Leadless Chip Scale Packages,” 
+October 2, 2006.
+11. http://www.mv-group.biz/images/loctite.pdf?nconline=208d580d695356b
+06651cd3ccceaabfc
+12. http://www.shinetsu.co.jp/encap-mat/e/product/k_s/smc/index.html
+13. NC257-2 SAC305 Datasheet - http://www.aimsolder.com/sites/default/files/
+nc257_sac305_solder_paste_tds.pdf
+14. M. de Rooij, A. Nakata, “Designing Manufacturable and Reliable Printed Circuit 
+Boards Employing Chip Scale eGaN® FETs,” International Exhibition and Conference 
+for Power Electronics, Intelligent Motion, Renewable Energy and Energy 
+Management (PCIM Europe), May 2017, pp 1399–1406.
+15. A. Lidow, J. Strydom, M. de Rooij, Y. Ma, GaN Transistors for Efficient Power Conversion. 
+First Edition, Chapter 10, Power Conversion Publications, ISBN 978-0-615-56925-3.

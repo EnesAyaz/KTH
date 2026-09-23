@@ -1,0 +1,379 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    1
+Solder Stencil Design Guidelines for 
+Reliable Assembly of PQFN GaN Devices
+EFFICIENT POWER CONVERSION
+Gerald Adriano, Duanhui Li, Ph.D., and Shengke Zhang, Ph.D.
+Figure 1: Cross-sectional view of a stencil, where L is the length of the 
+aperture, W is the width of the aperture, and T is the thickness of the stencil.
+In this application note, a set of solder stencil design guidelines are developed and presented for power quad flat no-lead (PQFN) packaged 
+GaN transistors and ICs. Extensive assembly experiments are conducted and followed with physical cross-section analysis, where the 
+measured solder stand-off heights are found to be consistent with the projected values based on the design rules. Such stencil design 
+guidelines enable us to predict the stand-off height with minimum component tilt, yielding the optimal temperature cycling lifetime.
+1.0  Introduction
+Power quad flat no-lead (PQFN) packages have become increasingly 
+popular in power electronics. The solder stand-off height of PQFN 
+packages is intrinsically lower than the traditional ball grid array 
+(BGA) packages. Therefore, it is critical to develop a first-principles 
+stencil design rule that yields consistent solder standoff height with 
+minimum die tilt. 
+IPC-7525A [1] was the main document used for developing these 
+stencil design guidelines for PQFN devices. By following the design 
+rules, a large number of assembly experiments were conducted 
+and followed with cross-section analysis to quantify the resulting 
+standoff height and component tilt. The cross-sectional results 
+showed consistent planarity of standoff height in all assemblies, 
+validating the effectiveness of stencil designs, and therefore 
+improving thermo-mechanical reliability. 
+2.0  Critical Components of Stencil Design
+A combination of aperture dimensions and stencil thickness 
+determines the actual solder paste volume that is deposited to the 
+PCB. A representative cross-sectional view of a stencil is shown in 
+Figure 1. Solder paste fills the stencil aperture during the stencil 
+printing process. When the stencil separates from the PCB, the 
+solder paste is transferred to the PCB with some remaining on the 
+sidewall of the stencil, as illustrated in Figure 2. The aspect ratio and 
+area ratio must meet the minimum requirements specified by the 
+IPC standard [1].
+2.1  Aspect Ratio
+Aspect Ratio is the ratio of the aperture’s width to the stencil 
+thickness, which is defined by Equation 1. The design rule for 
+acceptable solder paste release is specified to be greater than 1.5. 
+A lower aspect ratio can cause excessive amount of solder paste to 
+stick to the aperture wall during the release process. 
+2.2  Area Ratio
+Area ratio is the ratio of the aperture area opening to the total area 
+of the aperture sidewalls, as specified by Equation 2. This is a critical 
+parameter in stencil printing for a better paste release. IPC-7525A 
+specifies that the area ratio should be greater than 0.66. 
+2.3  Transfer Efficiency
+Transfer efficiency is the ratio between the actual solder volume 
+deposited on the PCB and the total printed solder volume according 
+to the aperture dimensions. Equation 3 defines the transfer efficiency 
+and is further illustrated by Figure 2. There are three main components 
+that determine the transfer efficiency , which are the stencil technology 
+used (laser cut, chemical etching, etc.), aspect ratio, and area ratio. 
+Eq. 2
+2            
+Eq. 3
+Eq. 1                                
+Figure 2: Transfer of Solder Paste onto the pad (Volume deposit). Due to 
+the solder paste adhesion force, some solder paste residue is left on the 
+sidewall of the aperture.
+Stencil
+Pad
+Volume aperture (VA )
+Volume deposit (VD )
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    2
+Figure 3 demonstrates that the area ratio significantly impacts the 
+transfer efficiency and repeatability of the solder paste deposit. The 
+data shows that a larger area ratio is preferred, which yields higher 
+transfer efficiency and lower assembly variations. 
+2.4  Solder Paste Shrinkage
+Solder paste mainly consists of two portions, which are solder 
+spheres and flux, as illustrated in Figure 4. After the reflow process, 
+the solder paste would shrink to approximately 50% of the 
+initially deposited volume, equivalent to 85-90% of the weighted 
+percentage [3]. Figure 3: Transfer efficiency vs. area ratio and standard deviation cited 
+from ref. [2].
+120
+100
+80
+60
+40
+20
+0
+200
+150
+100
+50
+0
+Transfer Efficiency
+Standard Deviation
+Area Ratio
+0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+3  Stencil Design Methodology and the Impact on Stand-Off Height (SOH)
+PCB land patterns are the exposed copper pads that serve as a connection pathway to the components via solder joints. Solder paste is the 
+only added interconnect medium between the PCB and QFN components. After reflow, the solder joints formed, where the land pattern and 
+stencil opening predominantly determined the shape and dimensions of the solder joints. To develop a design rule, the solder joints of PQFN 
+devices can be generally categorized into four sub-components that will be discussed in the following discussions. 
+3.1  Solder at Body
+Solder at body is defined as the solder portion that exclusively sits beneath the exposed pads, as highlighted by the red dash box in Figure 
+5. The entirety of the solder at body contributes to the stand-off height. Therefore, 100% of the solder paste deposited stays in this location. 
+Stencil foil Stencil foil
+Flux Solder sphere
+Solder maskCu layer
+Figure 4 (a) shows the volume of the solder sphere and flux inside the aperture. (b) shows an example of deposited solder paste on the pad after release.
+(b)(a)
+Figure 5: Illustration of the impact of the solder body on stand-off height 
+SideSide
+Toe
+Heel
+Body
+Body
+QFN Package 
+Body
+Body
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    3
+3.2  Solder at Side
+Sidewall solder fillets are the sides of a triangular solder joint formed after reflow, as illustrated in Figure 6. The triangular shape is because 
+the land patterns are typically larger than the exposed pads. Figure 6 shows that approximately 50% of the solder paste deposited stays at 
+the sides after reflow. 
+3.3  Solder at Heel
+Heel solder fillet is the inner portion of the solder joint formed after reflow, as shown in Figure 7. The solder at heel contributes to approximately 
+50% of the solder paste deposited. 
+3.4  Solder at Toe
+Toe solder fillet is the outer portion of the solder joint and stays outside the exposed pads, as illustrated by Figure 8. Hence, the toe fillet 
+does not impact stand-off height. Although it does not directly contribute to the stand-off height, it plays a vital role in determining the fillet 
+height of the sidewall solder connection. The complete wetting of the sidewall wettable flanks leads to the maximum fillet height, which 
+usually improves the mechanical bonding strength of the solder joints and, therefore, better temperature cycling reliability performance [4]. 
+Figure 6: Illustration of the impact of the solder at the side on stand-off height 
+SideSide
+Toe
+Heel
+Body
+QFN Package 
+Side
+Side Side
+Side
+Heel
+QFN Package 
+Heel
+Heel
+Figure 7: Illustration of the impact of the solder at the heel on stand-off height
+Figure 8: Illustration of the impact of the solder at the toe on stand-off height 
+Toe
+QFN Package 
+Toe
+Toe
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    4
+3.5  Solder Paste Coefficient Factor (k)
+Solder paste coefficient factor is the by-product of solder paste shrinkage and transfer efficiency as discussed in Figure 2–4.  Equation 4 further quantifies 
+this parameter.  
+Table 1 summarizes the coefficient factors of various shapes of exposed pads with 100 µm and 150 µm thick stencil. The transfer efficiency decreases when 
+increasing the stencil thickness from 100 µm to 150 µm but solder paste shrinkage stays the same.  The detailed calculations for each exposed pad are 
+documented in the Appendix
+Table 1: Coefficient Factor (k) for small, medium, and big pads with 100 µm and 150 µm thick stencils  
+
+Pad Category Representative Pad Shape
+Coefficient Factor (k)
+100 μm Thick Stencil
+(Shrinkage x Transfer Efficiency)
+Coefficient Factor (k)
+150 μm Thick Stencil
+(Shrinkage x Transfer Efficiency)
+1. Small Opening k = 50% Î 90% = 45% k = 50% Î 80% = 40%
+2. Medium Opening k = 50% Î 100% = 50% k = 50% Î 80% = 40%
+3. Big Opening k = 70% Î 100% = 70% k = 70% Î 80% = 56%
+3.6  Formula of Calculating Stand-Off Height
+After transfer and reflow, the deposited solder sphere alloy volume is Aaperture Ît Î k, where Aaperture is the total area of the solder stencil opening, t is 
+its thickness, and k is the solder paste coefficient. For toe land pattern area Atoe, a solder volume of approximately Atoe Ît Î k is used for the solder toe. 
+Solder joint components other than the toe will combine to determine the solder stand-off height based on the remaining deposited solder volume. By 
+this logic, the solder stand-off height (SOH) of each lead can be calculated as shown in Equation 5. 
+where Abody, Asides, and Aheel are the body, total side, and heel areas, respectively, and the factors of 0.5 are due to the triangular shape of the side 
+and heel solder components.
+4. Case Study 1:  A 3.5 x 5 mm PQFN IC EPC23102 [5] with 100 µm Thick Stencil
+Figure 9 is the die layout of the PQFN IC, EPC23102, and Figure 10 is the stencil design developed by following the design rule as discussed earlier. 
+Eq. 5
+Eq. 4
+1
+765
+4
+3
+2
+13 12 11 10
+8
+9
+Figure 9: EPC23102 PQFN 3.5 x 5 mm bump layout
+Figure 10: EPC23102 Stencil Design
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    5
+4.1  Stand-off Height of a Small Pad (Pin 1 in Figure 9)
+Equation 5 was used to calculate the stand-off height, which is estimated 
+to be 46 µm. Figure 11 shows the respective areas that were used for the 
+calculation, where the coefficient factor, k, is 0.45, and the stencil thick-
+ness, t, is 0.1 mm. Figure 12 shows the SEM cross-sectional results of Pin 1 
+post assembly, where the resulting stand-off height is measured to be 48 
+µm matching well the estimated stand-off height.
+4.2  Stand-off Height for a “L-shaped” Pad (Pin 13 in Figure 9)
+Equation 5 was also used to estimate the stand-off height of a “L-shaped” 
+exposed pad, where it was calculated to be 54 µm. Figure 13 shows the 
+respective areas that were used for the calculation, where the coefficient 
+factor, k, is 0.50, and the stencil thickness, t, is 0.1 mm. Figure 14 shows 
+the SEM cross-sectional results of the pin 13 post reflow. The stand-off  
+height is measured to be 52 µm, matching reasonably well with the 
+estimated stand-off height. 
+Figure 1 1: Illustration of solder area on a small pad where Aaperture is to 
+area of stencil opening over printing the land pattern as shown in the 
+red box, Aaperture = 0.19 mm2. The area of the toe, Atoe = 0.06 mm2. 
+The area of the body, Abody = 0.09 mm2. The total area of the sides,  
+Asides = 0.03 mm2. The area of the heel, Aheel = 0.04 mm2.
+Figure 12:  Actual Solder Stand-Off Height at Pin 2 of EPC23102 using 
+100 μm thick stencil.
+Atoe
+Aheel
+Abody
+Aside
+Aside
+Aaperture
+Abody
+Aaperture
+Atoe
+Atoe
+Aside
+Aside
+Aaperture
+Figure 13: Illustration of solder area of a “L-shaped” pad where 
+Aaperture is the total area of stencil opening over printing the land 
+pattern as shown in the red boxes, Aaperture = 0.31 mm2. The total area 
+of the toe, Atoe = 0.12 mm2. The area of the body, Abody = 0.16 mm2. The 
+total area of the sides, Asides = 0.04 mm2. 
+Figure 14: Actual Solder Stand-Off Height at Pin 13 of EPC23102 using 
+100 µm thick stencil. 
+4.3 Stand-off Height for a Big Pad (Pin 10 in Figure 9)
+Figure 15 shows the SEM cross-sectional results of the pin 10 post 
+assembly, where the resulting stand-off height is measured to be  
+57 µm, precisely matching the estimated stand-off height.  
+The stand-off height of a big pad is calculated to be 57 µm.  Figure 16 
+shows the respective areas that were used for the calculation, where the 
+coefficient factor, k, is 0.70, and the stencil thickness, t, is 0.1 mm. 
+Figure 15: Actual Solder Stand-Off Height at Pin 10 of EPC23102 using 
+100 µm thick stencil. 
+
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    6
+Table 2: EPC23102 Stand-Off Height Comparison 
+Stand-Off 
+Height PIN 2 PIN 13 PIN 10 TILT 
+(P13 -P10)
+Prediction 46 μm 54 μm 57 μm 3 μm
+Actual 48 μm 52 μm 57 μm 5 μm
+Figure 16: Illustration of solder area of a big-exposed pad where Aaperture is the total area of stencil opening over printing the land pattern as shown in 
+the red boxes, Aaperture = 2.01 mm2. The total area of the toe, Atoe = 0.38 mm2. The area of the body, Abody = 1.85 mm2. The total area of the sides,  
+Asides = 0.14 mm2. The area of the heel, Aheel = 0.15 mm2.
+Aside
+Aaperture
+Atoe
+Aside
+Abody
+Aaperture Aaperture
+Aaperture Aaperture Aaperture Aaperture Aaperture Aaperture
+Aheel
+toe toetoe toe toe AA A AA
+Table 2 summarizes stand-off height prediction vs. the actual measure-
+ments. The package tilt is the stand-off height difference between the 
+two opposite pads between Pin 13 to Pin 10. Table 2 shows that the tilt 
+prediction is consistent with the actual cross-section measurements, fur-
+ther validating the design rule. 
+5.  Case Study 2: A 3 x 5 mm Discrete PQFN 
+Transistor EPC2302 [6] with 150 µm Thick Stencil 
+A 50% increase in stencil thickness increases the adhesion of solder 
+paste on the aperture wall surface area, which reduces the percentage 
+of transfer efficiency, yielding a lower coefficient factor, k. Figure 17 
+shows the bump layout of EPC2302, and Figure 18 is the 150 µm thick 
+stencil recommendation based on the design rules. 
+5.1 Stand-off Height of an “L-shaped” Pad in EPC2302 
+(Pin 1 in Figure 17)
+The stand-off height of a “L-Shaped” pad is calculated to be 76 µm.  
+Figure 19 shows the respective areas that were used for the calcula-
+tion, where the coefficient factor, k, is 0.40, and the stencil thickness, t, 
+is 0.15 mm. Figure 20 shows the SEM cross-sectional results of the pin 
+1 post assembly, where the resulting stand-off height is measured to 
+be 81 µm matching reasonably well the estimated stand-off height. 
+76543
+2
+1
+Figure 17: EPC2302 PQFN 3 x 5 mm bump layout
+Figure 18: 150 μm stencil design for EPC2302
+Atoe
+Aaperture
+Atoe Abody
+Aaperture
+Aside
+Aside
+Figure 19: Illustration of solder area on an “L-shaped” pad where 
+Aaperture is the total area of stencil opening over printing the land 
+pattern as shown in the red boxes, Aaperture = 0.52 mm2. The total area of 
+the toe, Atoe = 0.13 mm2. The area of the body, Abody = 0.25 mm2. 
+The total area of the sides, Asides = 0.10 mm2.
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    7
+5.2  Stand-off Height for a Big Pad in EPC2302 (Pin 7 in Figure 17)
+The stand-off height of a big-exposed pad is calculated to be 81 µm.  Figure 21 shows the respective areas that were used for the calculation, 
+where the coefficient factor, k, is 0.56, and the stencil thickness, t, is 0.15 mm. Figure 22 shows the SEM cross-sectional results of the pin 7 post 
+assembly, where the resulting stand-off height is measured to be 76 µm, reasonably consistent with the estimated stand-off height. 
+Figure 20: EPC2302 Actual Solder Stand-Off Height at Pin 1 using 150 
+µm thick stencil. 
+Aside
+Abody
+Aaperture Aaperture Aaperture Aaperture Aaperture
+Aside
+Aaperture Aaperture Aaperture
+Aheel
+Atoe AtoeAtoe Atoe Atoe
+Figure 21: Illustration of solder area on a big pad where Aaperture is the total area of stencil opening over printing the land pattern as shown in the red 
+boxes, Aaperture = 1.55 mm2. The total area of the toe, Atoe = 0.39 mm2. The area of the body, Abody = 1.1 mm2. The total area of the sides,  
+Asides = 0.08 mm2. The area of the heel, Aheel = 0.12 mm2.
+Figure 22: EPC2302 Actual Solder Stand-Off Height at Pin7 using 150 µm 
+stencil thickness. 
+Table 3: EPC2302 Stand-Off Height Comparison using 150 μm stencil 
+thickness.  
+Stand-Off Height PIN 1 PIN 7 TILT
+Prediction 76 µm 81 µm 5 µm
+Actual 81 µm 76 µm 5 µm
+6. Conclusion
+By quantifying each solder component’s volume, the stand-off height 
+for pads of all sizes and shapes can be calculated. A stencil should be 
+designed such that the stand-off heights calculated using Equation 
+5 are consistent across the part, which prevents die tilt and improves 
+board level solder joint reliability.
+Table 3 summarize stand-off height prediction vs the actual mea -
+surements. Package tilt between the two opposite pads from Pin 1 to 
+Pin 7 is small, showing the effectiveness of the design rule. 
+
+=== PAGE 8 ===
+APPLICATION NOTE: AN029 Solder Stencil Design Guidelines for Reliable Assembly of PQFN GaN Devices
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2024   |   For more information: info@epc-co.com  |    8
+REFERENCES
+1. IPC 7525A Stencil Design Guidelines
+2. Stęplewski et al, “Influence of Stencil Design and Parameters of Printing Process on lead-free paste transfer efficiency”,   
+MATERIAŁY ELEKTRONICZNE, 2009 
+3. Department of Electronic Technology [Online]. Available: https://www.ett.bme.hu/meca/Courses/TEP/2_3.html
+4. Bae et al, “Board-Level Reliability of Lead-Frame Based Substrate and Surface Finishing Technology”,  
+IMAPS 2022 - 55th International Symposium on Microelectronics, 2022
+5. Efficient Power Conversion Corporation, “EPC23102 – ePower™ Stage IC,” EPC23102 datasheet. [Online].  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC23102_datasheet.pdf
+6. Efficient Power Conversion Corporation, “EPC2302 – Enhancement-mode power transistor,” EPC2302 datasheet.[Online].  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2302_datasheet.pdf
+Appendix
+A-1 Defining solder paste Coefficient Factor for 100 μm thick solder stencil:
+Coefficient factor for a small opening (area ratio = 0.80) 
+ k = solder paste shrinkage % (50%)  x transfer efficiency % (90%) = 45%   
+Coefficient factor for a medium opening (e.g. L-shaped area ratio = 0.90 – 1.10)
+ k = solder paste shrinkage % (50%)  x transfer efficiency % (100%) = 50%     
+The coefficient factor for a big opening (area ratio > 1.10)
+ k = solder paste shrinkage % (70%)  x transfer efficiency % (100%) = 70%     
+A-2 Defining solder paste coefficient factor for 150 μm thick solder stencil:
+Coefficient factor for a small opening (area ratio = 0.66 - 0.69)
+ k = solder paste shrinkage % (50%)  x transfer efficiency % (80%) = 40%                                         
+Coefficient factor for a medium opening (e.g. L-shaped area ratio = 0.70 - 0.80)
+ k = solder paste shrinkage % (50%)  x transfer efficiency % (80%)=40% 
+Coefficient factor for a big opening (area ratio > 0.80)   
+ k = solder paste shrinkage % (70%)  x transfer efficiency % (80%) = 56%    

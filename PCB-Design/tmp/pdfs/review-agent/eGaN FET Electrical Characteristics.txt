@@ -1,0 +1,687 @@
+
+=== PAGE 1 ===
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   | |    PAGE 1
+WHITE PAPER: WP007 eGaN® FET Electrical Characteristics
+MaxiMuM  Ratings:
+Every semiconductor has a limit to its capabilities.  These limits are typically expressed prominently in a device data sheet and serve as a guide to designers as 
+to how to create designs that do not have hidden quality or reliability issues.  EPC’s eGaN FET data sheets display these maximum limits at the top of the first 
+page.  An example is shown in Table 1.
+For the EPC2010 the maximum V DS (Voltage applied from drain to source) is listed as 200 V.  This limit assumes the voltage applied to the gate is 0 V with refer -
+ence to the source.  A higher gate-to-source voltage might result in current flow between drain and source which could overheat the device if the FET thermal 
+limit is exceeded.  This thermal limit is given in the second-to-last row of Table 1.  In this example, it is a maximum of 125°C.
+The maximum drain current (ID) rating is given both as a continuous current and as a pulsed current.  The continuous current rating (12 Amperes in this example) 
+assumes the ambient temperature is maintained at 25°C and that there is a thermal resistance from the device junction to the ambient of less than 13 °C/Watt.  
+With a worst case device on-resistance and a worst case temperature coefficient to that on-resistance, the device will remain under 125°C with 12 A DC applied.  
+The pulsed I D (60 A in this example) is also set such that the maximum junction temperature of the device will remain below 125°C if a single pulse of 300 µS 
+duration is applied.
+VGS (The voltage applied between gate and source) has a maximum of 6 V in the positive direction and 5 V in the negative direction.  These values are relatively 
+low compared with power MOSFETs and designers need to make certain their layouts do not have overshoot that takes the gate voltage beyond these limits.
+eGaN FETs have a minimum operating and storage temperature (T
+J and TSTG) of -40°C.  Below that value there has been no testing to establish functionality and 
+therefore that has been chosen as the lower limit.  Similarly, the maximum operating temperature of 125°C and storage temperature of 150°C are the highest 
+temperatures at which devices were tested for long-term stability.
+eg an® FEt Electrical Characteristics
+EFFICIENT POWER CONVERSION
+Alex Lidow PhD, CEO and Michael de Rooij, PH.D., Director, Applications, Efficient Power Conversion Corporation
+In this paper the basic electrical characteristics of eGaN FETs are explained and compared against silicon MOSFETs. A good understanding 
+of the similarities and differences between these two technologies is a necessary foundation for understanding how much we can improve 
+existing power conversion systems.
+Maximum Ratings
+VDS Drain-to-Source Voltage 200 V
+ID
+Continuous (TA =25˚C, θJA = 17)1 2
+A
+Pulsed (25˚C, Tpulse = 300 µs) 60 
+VGS
+Gate-to-Source Voltage6 VGate-to-Source Voltage- 5
+TJ Operating Temperature -40 to 125 ˚C
+TSTG Storage Temperature -40 to 150
+Table 1: Maximum ratings for an EPC2010 eGaN FET [1] as an example.
+
+=== PAGE 2 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   | |    PAGE 2
+eGaN® FET Electrical Characteristics
+KEy DE viCE  PaRaMEtERs:
+The key operating parameters should give the designer much of the informa-
+tion necessary to design a system with predictable results.  Table 2 is an ex -
+ample of these key parameters for the same EPC2010 used in the prior section.  
+These parameter values are for room temperature except where indicated 
+otherwise.
+BVDSS (Drain-to-source breakdown voltage – line (1) in Table 2) is the same as 
+the maximum VDS however, in this table, the maximum current that the device 
+will conduct at this voltage is given (200 µA).  This leakage current, multiplied 
+by the BVDSS, indicates this device will only dissipate 40 mW while blocking full 
+voltage; insignificant in most power conversion systems.
+IDSS (Drain-to-source leakage current – line (2) in Table 2) is another way of look-
+ing at the amount of power dissipated while blocking voltage.  In this example, 
+the IDSS is specified at 80% of rated BVDSS because it is a more common operat-
+ing point for most systems using 200 V rated transistors.  Note that at 160 V the 
+typical power loss from the current leaking from drain to source is only 8 mW.
+I
+GSS (Gate-to-source leakage lines (3) and (4) in Table 2) is specified in both 
+the forward and reverse direction.   Most designs will be able to easily accom-
+modate the small leakage current that is normal in an e-mode GaN transistor.  
+Figure 1 shows the I GSS for an EPC2010 as a function of voltage for 25°C and 
+125°C.
+VGS(TH) (Threshold voltage – line (5) in Table 2) is the voltage applied from gate-
+to-source below which the device is conducting minimal current.  It has a typi-
+cal value of 1.4 V in this example.  This device as specified will have less than 
+3 mA current from drain-to-source if the gate voltage is maintained below 0.7 
+V.  Unlike a power MOSFET, this threshold voltage is relatively insensitive to 
+temperature as shown in Figure 2.
+RDS(ON) (On-Resistance – line (6) in Table 2) is the resistance of the eGaN FET 
+when 5 V is applied from gate to source and 6 A is flowing from drain to source 
+at 25oC.  The RDS(ON) will vary with both the gate voltage applied and the junc-
+tion temperature of the device.  As can be seen in Figure 3, only 4 V is needed 
+to be applied to the gate in order to achieve the lowest (fully saturated) RDS(ON) 
+for drain currents less than 40 A.
+IG – Gate Current (A)
+VGS  – Gate-to-Source Voltage (V)
+.03
+.025
+.02
+.015
+.01
+.005
+0 0 1 2 3 4 5 6
+25˚C
+125˚C
+Gate Current
+Normalized Threshold Voltage (V) 
+0.8
+0.85
+0.9
+0.95
+1
+1.05
+1.1
+1.15
+1.2
+-20 0 20 40 60 80 100 120 140 
+I
+Normalized Threshold Voltage vs Temperature 
+TJ – Junction Temperature ( ˚C)  
+ID = 3 mA
+PARAMETER TEST CONDITIONS
+Static Characteristics (TJ= 25˚C unless otherwise stated)
+BVDSS Drain-to-Source Voltage VGS = 0 V, ID = 200 µA 200 V
+IDSS Drain Source Leakage VDS = 160 V, VGS = 0 V 150 µA
+IGSS
+Gate-Source Forward Leakage VGS = 5 V mAGate-Source Reverse Leakage VGS = -5 V 0.2 1
+VGS(TH) Gate Threshold Voltage VDS = VGS, ID = 3 mA 0.7 1.4 2.5 V
+RDS(ON) Drain-Source On ResistanceV GS = 5 V, ID = 6 A
+Source-Drain Characteristics (TJ= 25˚C unless otherwise stated)
+VSD Source-Drain Forward Voltage IS = 0.5 A, VGS = 0 V, T = 25˚C 1.8
+1.8
+V
+IS  = 0.5 A, VGS = 0 V, T = 125˚C
+All measurements were done with substrate shorted to source.
+MIN TYP MAX UNIT
+50
+1
+18
+3
+25 m/uni03A9
+(1)
+(2)
+(3)
+(4)
+(5)
+(6)
+(7)
+Table 2: Key operating parameters for the EPC2010 eGaN FET as an example
+Figure 1: Gate current vs gate-source voltage at 25°C and 125°C
+ for the EPC2010 as an example.
+Figure 2: Normalized threshold voltage vs temperature showing only 
+a 3% change over the operating range of the EPC2010.
+
+=== PAGE 3 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   | |    PAGE 3
+eGaN® FET Electrical Characteristics
+One of the advantages of eGaN technology over silicon is the lower increase in on-resistance (R DS(ON)) with temperature as shown in Figure 5. Whereas silicon has 
+>70% increase in RDS(ON)  between 25°C and 100°C [2], the eGaN FET shows about 50% increase. This translates into roughly 15% lower RDS(ON)  at a typical 100°C junc-
+tion temperature assuming the same initial RDS(ON)  at 25°C. 
+VSD (Source-drain forward voltage – line (7) in Table 2) is the voltage drop across the device when voltage is applied from source to drain.  This is the reverse direc-
+tion from the normal forward FET conduction.  At 0.5 A and with 0 V between gate and source, the typical value of VSD is 1.8 V.  Figure 6 shows how this “body diode” 
+forward drop varies with source-drain current.  It should be noted that, because this body diode is formed by turning on the 2DEG in the reverse direction using the 
+drain-gate voltage to enhance the channel, if the gate voltage is lowered below 0 V, the forward drop will follow.  For example, if the gate drive of a circuit turns off  
+the eGaN FET by applying a negative 1 V to the gate, the VSD at 0.5 A will be 2.8 V.
+RDS(ON)   – Drain to Source Resistance (m/uni03A9)
+VGS  – Gate to Source Voltage (V)  
+50
+60
+40
+30
+20
+10
+0
+2.5 23  3.5 4 4.5 5 5.5
+ID = 10 A 
+ID = 20 A 
+ID = 40 A 
+ID = 60 A 
+RDS(ON)  vs VG for Various Current    
+Normalized On-State Resistance – RDS(ON)  
+TJ  – Junction Temperature ( ˚C)   
+0
+0.5
+1
+1.5
+2
+2.5
+3
+-20 0 20 40 60 80 100 120 140 
+ID = 12 A
+VGS = 5 V 
+Normalized On Resistance vs Temperature  
+Figure 3:  On-resistance vs gate-to-source voltage for various 
+drain current levels for the EPC2010.
+Figure 4: On-resistance vs temperature for the EPC2010.
+Figure 5: Comparison between normalized RDS(ON) vs temperature for the 
+EPC2010 eGaN FET and various 200 V rated silicon MOSFETs.
+Figure 6: Body-diode forward drop vs source-drain current 
+and temperature for the EPC2010.
+ Normalized On-state Resistance - RDS(ON) 
+0 20 40 60 80 100 120
+2
+1.8
+1.6
+1.4
+1.2
+1
+0.8
+EPC2010
+200 V MOSFET B
+200 V MOSFET A
+200 V MOSFET C
+Die Temperature ( ˚C) 
+~15% RDS(ON)
+ISD  – Source to Drain Current (A)
+VSD – Source to Drain Voltage (V) 
+10
+20
+30
+40
+50
+60
+0 
+0 
+0.5 1 1.5 2 2.5 3 3.5 4 4.5
+25˚C
+125˚C
+ Reverse Drain-Source Characteristics
+
+=== PAGE 4 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   |  |    P AGE 4
+eGaN® FET Electrical Characteristics
+The capacitive elements in 
+Figure 7 can be related to the 
+data sheet values as follows:
+• C OSS=CGD+CDS
+• C ISS=CGD+CGS
+• C RSS=CGD
+Ca PaC itan CE an D Cha R g E
+A FET’s capacitance is the biggest factor in determining the energy that will be lost in 
+a device during a transition from the ON to OFF state, or from the OFF to the ON state.  
+The capacitance determines the amount of charge that needs to be supplied to various 
+terminals of the device to change the state.  The faster this charge is supplied, the faster 
+the device will switch.  As an example, Table 3 lists the values for Capacitance (in pico-
+farads) and Charge (in nanocoulombs) that can be expected from the EPC2010.  Figure 
+7, a cr
+oss section depicting a typical eGaN FET, illustrates the location of the capacitive 
+component elements of each of the data sheet values and their physical origin. 
+PARAMETER TEST CONDITIONS MINT YP MAX UNIT
+Dynamic Characteristics (TJ= 25˚C unless otherwise stated)
+CISS Input Capacitance
+VDS = 100 V, VGS = 0 V
+480
+pFCOSS Output Capacitance 270
+CRSS Reverse Transfer Capacitance 9.2
+540
+350
+12
+QG Total Gate Charge (VGS = 5 V)
+VDS = 100 V, ID = 12 A
+5
+nC
+QGD Gate to Drain Charge 1.7
+QGS Gate to Source Charge 1.3
+QOSS Output Charge 40
+7.5
+2.6
+2
+50
+QRR Source-Drain Recovery Charge 0
+All measurements were done with substrate shorted to source.
+Table 3:  Capacitance and charge specifications for EPC2010.
+Figure 7:  Cross section of the eGaN FET showing the 
+location of capacitive elements.
+Figure 8: Capacitance vs Drain-Source Voltage for the EPC2010.
+Figure 9:  Gate charge vs gate voltage for the EPC2010.
+S
+GaN
+D
+CGS CDS
+CGD
+These capacitances are a function of the voltage applied to various terminals.  Figure 
+8 shows how the values change as the voltage from drain to source increases.  The 
+reason for the drop in capacitance as V
+DS goes up is that the free electrons in the GaN 
+are depleted away.  For example, the initial step down in COSS (Output capacitance) 
+is caused by the depletion of the 2DEG near the surface.  Further increase in VDS ex-
+tends the depletion region deeper into the body of the device thus increasing the 
+distanc
+e between the plates of the capacitor. 
+If you integrate the capacitance between two terminals across a range of voltage ap-
+plied to the same terminals, you obtain the amount of charge, “Q” that was consumed 
+char
+ging the capacitor.  Since current over time equals charge, it is often very conve-
+nient to look at the amount of charge necessary to change the voltage across various 
+t
+erminals in the eGaN FET.  Figure 9 shows the amount of gate charge, QG, which must 
+be supplied to increase the voltage from gate to source to a desired voltage.  Referring 
+to this figure, it can be seen that about 5 nanocoulombs are needed to achieve 5 V on 
+the gate.  If a designer wants to achieve 5 V on the gate, a value that will ensure the 
+device is fully turned ON, they must deliver this amount of charge.  If the gate drive 
+is capable of supplying 1 A of current, it will take about 4.5 nS to achieve this voltage.  
+C–  Capacitance (nF)
+VDS – Drain to Source Voltage (V) 
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 50 100 150 200
+ Capacitance
+COSS = CGD + CSD
+CISS = CGD + CGS
+CRSS = CGD 
+QG – Gate Charge (nC)
+5
+4
+3
+2
+1
+0
+0 1 2 3 4 5 6 
+ID = 12 A
+VD = 100 V 
+Gate Charge
+VG  – Gate Voltage (V) 
+
+=== PAGE 5 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   |  |    P AGE 5
+eGaN® FET Electrical Characteristics
+The same concept is true for the charge needed to be supplied to the output terminals (QOSS).  
+The QGD and QGS are also specified separately because the ratio of these two values, QGD/QGS, called the Miller Ratio, is often an important metric to determine the point 
+at which a device can turn on due to a transient applied between drain and source.  
+Out Put Ca PaC itan CE l O ss E s
+During ‘hard’ switching (device commutates both voltage and current) of a half-bridge, the turn on transition, energy equal to that stored in the COSS of both devices is 
+dissipated in the switch turning on. By way of example, a common topology used in DC-DC conversion is the buck converter [3].  In a typical buck converter, the other 
+switch node voltage transition (turn-off ) is considered ‘soft’ switching, as the inductor energy is used to charge COSS in a lossless manner. In the past, when using older 
+power MOSFETs, this loss component was much less important compared to the actual switching loss, but, as device switching FOM keeps improving, this component 
+is becoming more dominant and therefore more important when determining total loses in the device.  This value can be calculated by integrating the C
+OSS vs. voltage 
+curve to the working voltage for a converter employing the device. In Figure 10, the COSS vs. voltage for 100 V and 200 V eGaN and silicon MOSFETs is compared.   (All 
+devices have been normalized to 25 mΩ). Overall, the total eGaN FET QOSS losses are much lower than comparable silicon as evident when plotting QOSS vs. voltage for 
+the same devices as in Figure 11. At half rated voltage eGaN FETs show between three quarters and half the QOSS losses of comparative silicon devices.
+DiODE R ECO v ER y
+There is one other charge element, QRR, in Table 3 that does not directly relate to a device capacitance. EPC’s eGaN structure is a lateral device, absent of the parasitic bi-
+polar junction common to silicon MOSFETs. As such, ‘body diode’ operation has a different mechanism, but similar function. With zero bias applied from gate to source, 
+ther
+e is an absence of electrons under the gate region (device is OFF). As the drain voltage is decreased, a positive bias on the gate is created relative to the drift region, 
+injecting electrons under the gate. Once the gate threshold is reached, there will be sufficient electrons under the gate to form a conductive channel. The benefit of 
+this mechanism is that there are no minority carriers involved in conduction, and therefore no reverse recovery losses. Q
+RR therefore is ZERO. 
+t hERMal R Esistan CE
+The thermal properties of the eGaN FET in the Land Grid Array (LGA) package are shown in Table 4. 
+Drain - Source Voltage (V)
+Coss Capacitance (pF)
+10000
+1000
+100
+0                 20                 40                60                 80               100               120              140               160             180               200
+100 V Devices
+200 V Devices
+100V EPC2007 x 6/5
+100 V Scaled MOSFET A
+100 V Scaled MOSFET B
+200 V EPC2010
+200 V Scaled MOSFET C
+200 V Scaled MOSFET D
+200 V Scaled MOSFET E
+Drain - Source Voltage (V)
+Total Qoss Charge (nC)
+0                 20                 40                 60                80                100              120               140              160             180              200
+100 V EPC2007 x 6/5
+100 V Scaled MOSFET A
+100 V Scaled MOSFET B
+200 V EPC2010
+200 V Scaled MOSFET C
+200 V Scaled MOSFET D
+200 V Scaled MOSFET E
+90
+80
+70
+60
+50
+40
+30
+20
+10
+0
+200 V Devices
+100 V Devices
+Figure 10: COSS vs. VDS normalized to 25 mΩ for various eGaN FETs 
+and comparable MOSFETs.
+ Figure 11: QOSS vs VDS normalized to 25 mΩ for various eGaN FETs 
+and comparable MOSFETs.
+Thermal Characteristics
+RθJC Thermal Resistance, Junction to Case 1.8 ˚C/W
+RθJB Thermal Resistance, Junction to Board 16 ˚C/W
+RθJA Thermal Resistance, Junction to Ambient (Note 1) 56 ˚C/W
+TYP
+Note 1:  RθJA is determined with the device mounted on one square inch of copper pad, single layer 2 oz copper on FR4 board.
+See http://epc-co.com/epc/documents/product-training/Appnote_Thermal_Performance_of_eGaN_FETs.pdf for details.
+Table 4: Thermal Characteristics of the EPC2010.
+
+=== PAGE 6 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   |  |    P AGE 6
+eGaN® FET Electrical Characteristics
+Normalized Maximum Transient Thermal Impedance
+Rectangular Pulse Duration, seconds
+Duty F actors:
+Notes:
+Duty F actor: D = t 1 /t 2
+Peak T J  = P DM  x Z θJB  x R θJB  + T B
+P DM
+t 1
+t 2
+0.5
+0.2
+0.1
+0.05
+0.02
+0.01
+Single Pulse
+1
+0.1
+0.01
+0.001
+0.0001
+10-5 10-4 10-3 10-2 10-1 11 0 100
+ZθJB, Normalized Thermal
+Impedance
+ The three parameters listed are defined as follows:
+• RθJB is the Thermal Resistance from the device junction to the bottom of the solder bumps, without consideration of the type or size of the mounting circuit board.
+• RθJC, is the thermal resistance from the device junction through the back (silicon side) of the device, and is given for those end user who wish to add additional
+heat-sinking to the top of the eGaN FET [4].
+• RθJA, is given for those cases where the end user simply wants to mount the eGaN FET onto the application’s circuit board with no additional heat sinking.  It speci-
+fies the thermal resistance that a user can expect when the device is mounted onto an FR4 PCB with one square inch of 2 ounce copper.
+Onc
+e the electrical and mechanical design of a circuit is completed, these values for thermal resistance can be used to determine the final device temperature that can 
+be expected under various operating conditions.
+tR ansi Ent t hERMal iMPED an CE
+Rarely is a transistor used with a continuous DC 
+flow of current through the device.  In order to 
+give designers a measure of the thermal impact 
+with a short pulse, or a repetition of pulses of vari-
+ous duty cycles, eGaN FET data sheets also have a 
+T
+ransient Thermal Impedance Graph as shown in 
+Figure 12 [5].  
+As an example let’s look at an EPC2010 mounted 
+on a PCB without a heatsink on the back.  If the 
+circuit pulses the part with a 10 W instantaneous 
+pulse (P
+DM) at a 10% duty cycle, and the pulses are 
+100 µs long, and the board is sufficient to absorb 
+the heat with little temperature impact, the effec-
+tive thermal resistance and junction temperature 
+r
+ise would be as follows:
+RθJB(Effective)= RθJB x 0.1 or 5.6 oC/W (1)
+TJ = PDM x 5.6 oC/W or 56 oC (2)
+Note that you would have to add to the ∆TJ in equation (2) any measured rise in the temperature of the surface of the PCB to get a more accurate gauge of the actual 
+rise in device temperature.
+t hE Figu RE OF M ER it (FOM)
+It is helpful to compare the electrical performance of an eGaN FET with a power MOSFET so a designer can understand the benefits that can be achieved with this 
+displacement technology.  To effectively compare the two technologies, some figures of merit need to first be defined.
+A FOM that has been used by MOSFET manufactures to show both generational improvements and to compare their products to other competitive devices is the 
+product of the gate charge, Q
+G, and the RDS(ON) for a given device. What makes this so useful is that no matter the size of the die, this FOM is almost constant for a given 
+technology or ‘Generation’ of device. As we will show below, this FOM is related to device performance and can be useful in predicting power loss improvements with 
+improved technologies, but it is less sensitive to differences when a device is used more as a switching element than as a conducting element. We will therefore discuss 
+two distinct FOMs.  The first of these is the traditional FOM.  We will call that the “Rectifier FOM” because it is most applicable when a FET is used as a rectifier element 
+such as in the lower transistor of a buck converter.  The second and new FOM, we will call the “Switching FOM” because it best describes relative performance of devices 
+used mostly as switching elements such as in the upper transistor in a classic buck converter.
+1) T
+he Rectifier FOM (lower is better), also known as the conduction FOM, compares rectifier performance in terms of conduction and gate drive power loss
+(RDS(ON)x QG). For a ‘soft’ switching device, where QGD is not important, you would like to lower RDS(ON) to improve efficiency, but this increases QG and thereby in-
+creases gate drive losses and overdrive time. 
+2) T
+he Switching FOM (lower is better) compares switching performance. RDS(ON)x QGD is used because QGD plays a dominant role in switching loss, and it is difficult
+to reduce this number without increasing RDS(ON) for a given technology.
+Figure 12 Transient Thermal Response Curve for all EPC eGaN FETs.
+
+=== PAGE 7 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   |  |    P AGE 7
+eGaN® FET Electrical Characteristics
+Of these two FOMs, the switching performance is more im -
+portant in ‘hard switching’ converter circuits. 
+F
+igure 13 plots RDS(ON) vs. QGD for eGaN FETs as well as for vari-
+ous equivalent silicon MOSFETs.  We can see that, based on 
+swit
+ching FOM, eGaN FETs offer a distinct advantage over 
+any equivalent voltage rated silicon device. Below are some 
+general observations:
+• 
+40 
+V eGaN FETs are comparable to 25 V lateral silicon 
+devices. 
+• 100 
+V eGaN FETs are comparable to 40 V vertical 
+silicon devices
+• 200 
+V eGaN FETs are comparable to 100 V vertical 
+silicon devices
+The rectifier FOM is shown in Figure 14 and plots R DS(ON)vs. 
+QG for the eGaN FET as well as for different equivalent silicon 
+MOSFETs. From this we can draw a number of conclusions:
+• 40 
+V eGaN FETs are comparable to the best 25 V lateral 
+silicon devices. 
+• 100 
+V eGaN FETs are comparable to 25 V vertical 
+silicon devices
+• 200 
+V eGaN FETs are comparable to 40 V vertical 
+silicon devices
+Although a FOM is a useful tool for comparing switching 
+power devices, there are a number of other parameters of 
+equal importance that also need to be considered. We will 
+now look at package-related comparisons between eGaN 
+FETs and state-of-the-art MOSFETs.
+PaCKa g E RE lat ED Pa R a ME t ER s
+As low voltage silicon MOSFET performance has improved 
+over the last number of years, the need for high performance 
+packaging has become a significant limiting factor in device 
+performance. This led to the development of such innova -
+tive packages as the DirectFET [6], and PolarPak [7]. This still 
+lea
+ves the question: What are the key requirements of a high 
+performance package?
+Semiconductor devices are packaged to improve robustness 
+and ease of handling. At higher voltages, some packaging 
+may also be needed to meet voltage clearance and creep -
+age requirements. Packaging, however, degrades performance compared to the bare semiconductor die in the form of increased cost, increased on-resistance, 
+incr
+eased lead inductance, increased size, and reduced thermal performance. 
+What sets high performance packaging apart is being able to realize the required advantages of device packaging while minimizing the drawbacks. With low volt-
+age, leadless, dual-side-cooled packages such as DirectFET, PolarPak, chipscale, or LGA (Land Grid Array) become elegant solutions. Here the choice of package 
+is lar
+gely dictated by the device terminal structure; vertical vs. lateral. A lateral device lends itself to easy chipscale packaging (e. g. Greatwall BGA MOSFETs [8]), 
+while a vertical, “flipped” device needs to bring the ‘back’ terminal down to the printed circuit board (such as DirectFet or PolarPak). In a similar fashion, EPC’s eGaN 
+devices are in LGA packages where the interdigitation of source and drain terminals is used to minimize both connection resistance and parasitic inductance.
+11
+0.10.1
+11
+1010
+100100
+1010 100100 10001000
+25 V Si
+Switching FOM
+Lower is better
+200 V MOSFET FOM (~400pF /uni03A9)
+40 V MOSFET FOM (~2pC /uni03A9)
+100 V MOSFET FOM (~50pC /uni03A9)
+RDS(ON)  (m/uni03A9)
+QGD (nc@1/2BV DSS )
+30 V Si
+40 V Si
+100 V Si
+200 V Si
+40 V EPC
+100 V EPC
+200 V EPC
+200 V MOSFET FOM (~400pF /uni03A9)
+100 V MOSFET FOM (~220pC /uni03A9)
+40 V MOSFET FOM (~90pC /uni03A9)
+11
+0.10.1
+11
+1010
+100100
+1010 100100 10001000
+25 V Si
+Conduction FOM
+Lower is better
+RDS(ON)  (m/uni03A9)
+QG (nc)
+30 V Si
+40 V Si
+100 V Si
+200 V Si
+40 V EPC
+100 V EPC
+200 V EPC
+Figure 13: RDS(ON) vs. QGD for various eGaN FETs and MOSFETs.
+Figure 14: RDS(ON) vs. QG for various eGaN FETs and MOSFETs.
+
+=== PAGE 8 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   |  |    P AGE 8
+eGaN® FET Electrical Characteristics
+PaCKa g E RE sistan CE
+The estimated packaging resistance of various standard power packages is shown in Figure 15 alongside the LGA parts. 
+PaCKa g E i n D u Ct an CE
+The addition of package inductance can have varied effects, depending on which terminal of the die the package inductance is added. A comparison of package 
+inductance for the LGA is shown in Figure 16 compared to estimated values for some standard power packages.  Common source inductance (inductance inside 
+the package connected to the source terminal that carry both drain and gate return currents) can significantly increase switching losses by slowing down device 
+switching through induced opposition of the applied gate voltage. To understand this further, consider the turn-on of a device as shown in Figure 17. As the device 
+reaches threshold voltage and starts carrying increasing current, the di/dt induces a voltage across the source inductance that opposes the gate drive voltage.  This 
+voltage is trying to turn the device back OFF. The same is true during turn-off where the induced voltage adds to the gate drive voltage, thus trying to keep the 
+device ON. It is therefore important to minimize common source impedance for optimum switching performance. 
+Figure 17: Equivalent circuit of device at turn-on showing di/dt induced voltage generated by the common source inductance.
+Estimated Package Resistance
+ Figure2.15 : Estimated die free package resistance for diﬀerent power package s
+Package Resistance (m/uni03A9)
+SO-8 DPAK D2PAK 5x6 PQFN+
+wire bond
+5x6 PQFN+
+Cu clip
+DirectFET PolarPAK eGaN FET
+LGA
+1.6
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+0
+Estimated Package Inductance
+ Figure2.15 : Estimated die free package resistance for diﬀerent power package s
+Package Resistance (m/uni03A9)
+SO-8 DPAK D2PAK 5x6 PQFN+
+wire bond
+5x6 PQFN+
+Cu clip
+DirectFET PolarPAK eGaN FET
+LGA
+1.6
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+0
+Estimated Package Inductance
+Package Inductance (nH)
+SO-8 DPAK D2PAK 5x6 PQFN+
+wire bond
+5x6 PQFN+
+Cu clip
+DirectFET PolarPAK eGaN FET
+LGA
+6
+5
+4
+3
+2
+1
+0
+Figure 15: Estimated die free package resistance 
+for various power packages.
+Figure 16: Estimated die free package inductance 
+for various power packages.
+Drain 
+Current
+Drain 
+Current
+Gate
+Current
+Common source 
+inductance
+Gate
+Drive
+Gate
+Current
+di/dt induced voltage 
+opposes gate drive
+Gate
+Drive
+
+=== PAGE 9 ===
+WHITE PAPER: WP007
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2012   | |    PAGE 9
+eGaN® FET Electrical Characteristics
+PaCKagE  sizE
+As end-products face the pressures of lower cost and smaller size, the size of the power devices has become of increasing importance. In general, a smaller size is 
+desirable as long as the thermal requirements can be met. As mentioned earlier, the act of encapsulating a device inside a package will almost always deteriorate 
+thermal and electrical performance. eGaN FETs allow a much lower on-resistance  per unit area for the same voltage rating which leads to significantly smaller die 
+and package size. 
+suMMaRy
+In this paper we discussed the basic electrical, thermal, and mechanical characteristics of eGaN FETs and showed they have distinct advantages over current state-
+of-the-art silicon power MOSFETs. Since the silicon power MOSFET has come a long way since its introduction over thirty years ago, it would be fair to assume that 
+future optimization of the basic eGaN power transistor structure and geometry will show similar improvement in years to come. 
+References:
+1. http://epc-co.com/epc/Products/eGaNFETs/EPC2010.aspx
+2. http://www.vishay.com/docs/67197/sir870dp.pdf
+3. A.Lidow, J. Strydom, M. deRooij, and Y, Ma, GaN Transistors for Efficient Power Conversion” , Power Conversion Press, 2012, Chapter 5
+4. J. Strydom, M. deRooij, and A.Lidow, “Gallium Nitride Transistor Packaging Advances and Thermal Modeling” , EDN China, to be published August, 2012.
+5. John Worman and Yanping Ma, “Thermal Performance of eGaN FETs” , http://epc-co.com/epc/documents/product-training
+6. http://www.irf.com/product-info/hexfet/directfet.htm
+7. http://www.vishay.com/company/press/releases/2005/051214mosfets/
+8. http://www.greatwallsemi.com/AppNotes/BGAMounting.pdf

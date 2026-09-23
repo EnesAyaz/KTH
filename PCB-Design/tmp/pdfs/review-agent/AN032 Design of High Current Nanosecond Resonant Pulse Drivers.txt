@@ -1,0 +1,2119 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |   ©2025   |   For more information: info@epc-co.com  |    1
+Design of High Current Nanosecond 
+Resonant Pulse Drivers for Laser Diodes, 
+Lidar, and other Applications
+EFFICIENT POWER CONVERSION
+John S. Glaser, Director of Applications Engineering; Efficient Power Conversion Corporation Revised June 3, 2025
+1.0  Abstract
+Gallium nitride (GaN) power FETs and ICs have found broad application in nanosecond high current pulse generators. One application 
+in particular, time-of-flight (ToF) lidar, has been enabled by cost-effective GaN-based diode laser  drivers capable of generating current 
+pulses with pulse widths of a few nanoseconds and peak currents of tens to hundreds of amps. EPC has been at the forefront of this and 
+other applications that benefit from the extreme speed, repetitive peak current capability, low inductance and high reliability inherent 
+to GaN power semiconductor technology. EPC supports a wide range of current pulse capability, and makes available a series of 
+development boards so that engineers needing or wanting this capability can get up to speed quickly. The schematics, bills of material, 
+and PCB layout files for these designs are freely available for download. High current pulse drivers are conceptually simple, but they 
+are dominated by parasitics, especially inductance, and this presents many challenges. This article attempts to provide the basic 
+background and design methods that are used to achieve repeatable and predictable single digit nanosecond high current pulses. 
+2.0  Introduction
+Gallium nitride (GaN) power FETs and ICs 
+have demonstrated order-of-magnitude 
+improvements in performance figures-
+of-merit over silicon MOSFETs while 
+achieving cost parity to silicon on an 
+equal voltage and R
+DS(on)  basis [1]. The key 
+improvements are increased switching 
+speed and decreased size, and the 
+obvious application is switched-mode 
+power conversion. Hence, the rapidly 
+increasing adoption of GaN in power 
+converters is not surprising, especially 
+for those uses needing superior 
+efficiency, power density, and reliability. 
+Less predictable is the enabling of 
+new applications that previously 
+simply didn’t exist, were impractical, or 
+astronomically expensive. One recent 
+example is the development of cost-
+effective time-of-flight (ToF) lidar-based 
+three-dimensional imaging, which is 
+finding widespread use in autonomous 
+navigation for many applications includ- 
+ing automotive ADAS systems and 
+robots
+ [2], [3], [4], [5]. GaN power devices 
+have made possible the development and 
+commercialization of cost-effective lidar 
+systems because they enable tiny laser 
+diode drivers capable of pulses of 10s to 
+100s of amps in a few short nanoseconds. 
+What does tiny mean? As a point of 
+reference, one of the designs in this article 
+uses a 2 x 3.5 x 0.64 mm chip-scale GaN 
+FET to drive lasers with pulses in excess 
+of 200 A at tens or hundreds of kilohertz 
+for years, i.e. many trillions of pulses with 
+no signs of degradation [6]. All this can be 
+accomplished with standard PCBs and at 
+low cost with few components.
+While this article will focus on laser diode 
+drivers for lidar applications, the design 
+methods are suitable for any application 
+where high current nanosecond pulses are 
+needed. It is safe to say that this a wide open 
+space, because the capability is new. Diode 
+laser machining, high-power impulse radar, 
+and medical imaging might be possibilities, 
+and the reader is invited to use their imagi-
+nation. What can you do with tens or hun-
+dreds of amps in a few nanoseconds?
+This article will cover the following 
+topics: First, there will be short 
+discussion of lidar, laser diodes, and 
+pulse requirements. This will be 
+followed by a review of GaN power 
+semiconductor technology with an eye 
+towards pulse power applications. Next 
+will be an introduction to resonant 
+pulse laser drivers, followed by a 
+detailed discussion of resonant pulse 
+circuit design and a design procedure. 
+This will be followed by a design 
+example based on EPCs EPC9179 laser 
+driver [7]. The next section will present 
+experimental results of EPC’s laser 
+drivers. The last technical section will 
+cover a broad array of ancillary topics 
+including alternate driver topologies, 
+voltage and current sensing, and 
+resonant capacitor charging, as well 
+as potential design pitfalls. Finally, 
+the Appendix summarizes currently 
+active EPC demonstration boards 
+targeted at lidar and other high current 
+nanosecond pulse applications.
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    2
+Figure 1. Basic lidar system
+Figure 2. Simplified operation of DToF lidar system
+3-D point cloud
+Target
+Laser
+transmitter Receiver
+Signal processing
+Scan optics Transmitted beam
+Re/f_lected beam
+TX
+RX
+Transmission
+∆t
+t0 t1
+Re/f_lection
+3.0  Lidar and the need for high 
+power laser transmitters
+Lidar is a form of radar where the electro- 
+magnetic radiation happens to be in the 
+optical band [8]. A typical lidar system is shown 
+in Figure 1. In the last few years, one particular 
+form of lidar, time-of-flight (ToF) distance 
+measurement, has become commercially 
+produced in high volume. If a laser is used 
+as the optical source, one can measure the 
+distance of a small spot even at long range. 
+When combined with steerable optics, one 
+can sweep the spot distance measurement 
+and map objects in 3D space.
+There are two main kinds of ToF lidar: direct 
+time-of-flight (DToF) and indirect time-of-
+flight (IToF). We will look only at DToF lidar 
+requirements in this article. The basic operating 
+principle is shown in Figure 2. In DToF systems, 
+single pulses are transmitted, reflected from 
+a target and detected. The time between the 
+transmitted and detected pulses, i.e. the time 
+of flight, is measured and the distance can be 
+calculated from Equation 1:
+td = 2d/c
+Please keep in mind that this is a very simplified 
+view, but the basic principle is valid.
+4.0  DToF lidar transmitter 
+requirements
+DToF lidar requires short duration, high power 
+optical pulses of a specified wavelength, 
+and these requirements usually come to the 
+transmitter designer from the lidar system 
+design level. System level concerns are typically 
+range, field of view, pixel count, frame rate, and 
+operating environment. The latter may include 
+sources of interference (the sun, other lidars, 
+multipath) and signal attenuation (rain, fog, 
+haze, dirty optics), as well as regulatory concerns 
+(eye safety). The designer needs numerical 
+targets for desired wavelength, pulse duration, 
+and pulse power. This section will provide a 
+brief overview of typical requirements for cost-
+effective DToF lidar systems.
+(1)
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    3
+Figure 3. Some typical laser diodes used in ToF lidar systems. All diodes are 
+from ams OSRAM: (a) SPL PL90_3, single channel triple junction EEL, (b) SPL 
+S1L90A_3 A01 single channel triple junction EEL, (c) SPL S4L90A_3 A01 quad 
+channel triple junction EEL, and (d) EGA2000-940-W single channel triple 
+junction VCSEL array with diffuser removed.
+4.1  Diode lasers
+DToF lidar most commonly uses near-infrared (NIR) semi-conductor 
+laser diodes, either edge-emitting lasers (EELs) or vertical cavity 
+surface emitting lasers (VCSELs). Some typical laser diodes are 
+shown in Figure 3 [9], [10], [1 1], [12]. Electrically, the laser diode 
+behaves as a very fast PN junction diode. When forward biased 
+above the lasing threshold current, it emits laser radiation with the 
+output optical power approximately proportional to the forward 
+current. Thus, if we drive it with a pulse of current, we get a pulse 
+of laser light [13]. The majority of these lasers have wavelengths in 
+the range of 900 nm to 950 nm, with some choosing 1450 nm to 
+1550 nm. Other light sources such as fiber lasers may also be used, 
+but diode lasers have a very compelling combination of price, 
+performance, size, reliability, and ease of use.
+Diode laser technology has been advancing rapidly in the last 
+decade. For high-power laser diodes, the most obvious advances 
+have been multijunction and parallel lasers on a single die along 
+with a move towards surface mount packages. These techniques 
+allow an increase in the optical power of a given die. Each approach 
+has advantages and drawbacks, and modern high power laser 
+diodes often use both approaches on a single die. Table 1 shows a 
+summary of parameters for a selection of commercially available 
+laser diodes targeted at ToF lidar applications. This is not an 
+exhaustive selection, and it is chosen based on the availability 
+of manufacturers’ data rather than actual usage. There are many 
+more lasers available, both packaged and unpackaged, and the 
+number continues to grow.
+For laser diodes targeted at pulsed operation, the actual laser die is quite small, especially for EELs. The high power dissipation during 
+the pulse means that the average output power is usually limited to a few watts or less due to thermal management challenges.  
+This means the operating duty cycle for these laser diodes is usually limited to duty cycles of 1% or even as low as 0.1%.
+An unfortunate consequence of the optical heritage of laser diodes is that circuit simulation models or the electrical parameters 
+needed to develop such models are often difficult or impossible to obtain from the manufacturer, and this presents a challenge for 
+electrical design. It is hoped that the situation will improve. 
+Part Number Manufacturer λ
+[nm]
+IFmax
+(A)
+VFmax
+(V)
+Popt,max
+(W) Technology Die area 
+[mm2] Package L 
+(nH)
+SPL PL90_3 OSRAM 905 30 9 75 EEL Unknown Through hole > 5
+TPGAD1S09H Excelitas 905 30 12.5 75 EEL Unknown Surface mount 1.6
+SPL S1L90A_3 A01 OSRAM 915 40 11 120 EEL 0.24 Surface mount < 0.5
+SPL S4L90A_3 A01 OSRAM 915 160 11 480 EEL Unknown Surface mount < 0.5
+EGA2000-940-W OSRAM 940 10 3.3 7. 5 VCSEL Unknown Surface mount < 0.5
+TPG3AD1S09 Excelitas 905 40 11. 6 120 EEL Unknown Surface mount 1.6
+RLD90QZW8 Rohm 905 38 13 120 EEL Unknown Through hole > 5
+T PGAD1S11A - 4A Excelitas 905 120 12.5 300 EEL Unknown Surface mount < 1
+PVGR4S12H Excelitas 1550 40 100 80 EEL Unknown Through hole 5.6
+M53-100 Lumentum 905 98 16 400 VCSEL 1.08 Chip < 0.5
+Table 1. A selection of lasers targeted at DToF pulsed lidar applications.
+(a) (b)
+(c) (d)
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    4
+4.2  Pulse requirements
+The pulse width of the transmitted 
+optical signal has a great influence on 
+the distance resolution of a lidar system. 
+Figure 4 helps show why this is the case. 
+If we look at the top case, we send narrow 
+pulses of light out from the lidar. Since 
+the light pulse must travel to the target, 
+be reflected, and travel back, for a target 
+at distance d, the time td between pulse 
+transmission and reception is 
+td = 2d/c
+where c is the speed of light in air, approx-
+imately 30 cm/ns (about 1 foot/ns for the 
+imperialists among us). By measuring the 
+time td, we can compute the distance. 
+Now suppose that we send longer duration 
+pulses, as shown in the bottom case. 
+We see that if the pulse length becomes 
+long enough, the reflected pulses begin 
+to overlap, and it becomes harder to 
+distinguish between reflections that 
+represent features in the environment.
+For an idea of what pulse lengths are 
+desirable in practice, consider an electrical 
+current pulse width of 1 ns driving the 
+laser diode, which corresponds to an 
+optical pulse length of 30 cm. As features 
+of the target approach 15 cm, the received 
+pulses begin to overlap and become 
+harder to distinguish. While various signal 
+processing techniques can improve the 
+resolution for a given pulse width, it is clear 
+that a shorter pulse gives better inherent 
+precision, and that pulses on the order of 
+a few nanoseconds or less are desirable for 
+human-scale resolution.
+Pulse energy determines the range of 
+the lidar. As demand for better resolution 
+drives designs towards narrower pulses, 
+the diode current must increase in order 
+to maintain sufficient pulse energy. Typical 
+pulse current can range from a few amps to 
+hundreds of amps.
+Figure 5 provides some typical numbers 
+necessary to drive laser diodes in present-
+day DToF lidar laser transmitters. They are 
+grouped into long-range and short-range 
+lidars. Note that longer pulse widths are 
+more acceptable for longer range lidar 
+as the distance measurement resolution 
+needs are normally less for distant targets. 
+Commercial lidar is a rapidly changing 
+technology, hence both the numbers and 
+definitions of quantities such as range are 
+still in flux. Nevertheless, these numbers 
+provide an understanding of the parameter 
+space for a DToF laser driver design.
+tp
+tp
+Lidar
+Transmission
+Re/f_lection
+Transmission
+Re/f_lection
+Lidar
+Short range
+Target distance: <1 m to 50 m
+Pulse width: 0.5 ns to 5 ns
+Pulse peak current: 3 A to 30 A
+Long range
+Target distance: 50 m to 500 m
+Pulse width: 2 ns to 20 ns
+Pulse peak current: 30 A to 300 A
+Figure 4. Effect of lidar pulse width on resolution. Top: narrow pulses allow reflections to be easily distinguished.  
+Bottom: wider pulses can overlap, making them harder to distinguish and reducing distance resolution.
+Figure 5. Typical laser driver specifications for DToF lidar systems
+(2)
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    5
+5  Laser drivers
+One can find a huge variety of different 
+types of diode laser driver circuits and 
+implementations. This is a result of the vast 
+number of different uses of diode lasers in 
+fields ranging from communication, medicine, 
+law enforcement, material processing, and 
+of course, lidar. The majority of these are 
+functionally equivalent to the circuit shown 
+in Figure 6. This is essentially a common 
+source amplifier. Many laser drivers operate 
+in the linear mode, e.g. the laser current i
+DL 
+is approximately proportional to the input 
+v
+command. Because this is basically a Class A 
+amplifier, it has the associated low efficiency 
+and hence is not suitable for high power 
+operation due to the high power dissipation 
+in Q
+1. Hence, for high power, Q1 is operated 
+as a switch. This greatly reduces the power 
+dissipation, but the current i
+DL is now 
+controlled by the bus voltage V IN, the diode 
+semiconductor forward voltage V DLF, and 
+the power loop impedance Z PL. The latter 
+includes the source impedance, R DS(on) of Q1, 
+and any other parasitic impedance in the 
+circuit. Since Q
+1 is operated as a switch, it is a 
+good assumption that any voltage drop due 
+to R
+DS(on)  is small. The impedance Z PL is thus 
+the dominant impedance in the loop. Since it 
+depends on the physical construction of all the 
+components and associated interconnections, 
+it is considered approximately constant and 
+power is thus controlled by varying V
+IN.
+Figure 7 shows a very simple laser driver 
+with all key components visible. There is a 
+high frequency loop denoted as the power 
+loop which consists of capacitor
+ C 1, a stray 
+inductance L1, a diode laser D 1, and a switch 
+Q1. There is also a low frequency loop called 
+the charging loop consisting of V IN, ZIN, and  
+C1. Q1 is turned on and off by a gate driver 
+GD1, which is in turn controlled by an input 
+signal v command. In normal operation, Q1 is 
+commanded to turn on and off periodically. 
+The energy needed for transitions in the 
+power loop containing the laser is supplied 
+from
+ C 1, and this energy is replenished via 
+the charging loop. Performance is limited 
+by stray inductance and the speed of the 
+semiconductor power switch.
+Figure 6. Simple laser driver
+VIN
+v1
+ZPL
+Q1
+vGS
++
++
++
+_
+_
+_vDSvCommand
+VDLF
+DL
+iDL
+Figure 8. Key waveforms for capacitive discharge resonant driver of Figure 7
+vD
+vGS
+vcommand
+t
+t
+trecharge
+ton
+v1
+tw
+IDLM
+0.5 IDLM
+2 VDFL –VIN
+VIN
+iDL
+twb
+t0 t2 t3t1
+If we assume for the moment that the switch 
+is ideal, the dominant parasitic component 
+is inductance. Those experienced in power 
+electronics will recognize that this inductance 
+will limit the current risetime, and if the 
+switch is turned off, interrupting a non-zero 
+inductor current is likely cause ringing and its 
+associated problems of voltage stress and EMI 
+generation. If the inductor current is relatively 
+small and the turn-off transition time of Q
+1 
+is relatively slow, the ringing and associated 
+problems are also correspondingly small and 
+thus are tolerable. However, lidar demands 
+extreme currents and fast transitions, which 
+can lead to extreme ringing, overvoltage and 
+EMI. The resonant pulse driver described in 
+the next section is a practical solution to these 
+problems.
+5.1  Resonant capacitive 
+discharge laser driver design
+There are many kinds of laser driver 
+topologies, but for high power, short 
+pulses, only the resonant design is 
+practical due to the fact parasitic 
+inductance dominates the behavior. 
+Figure 7 shows the simplified schematic 
+of a resonant capacitive discharge laser 
+driver, and Figure 8 shows the main 
+waveforms.
+Figure 7 . Simple laser driver with parasitic 
+inductance and non-zero power supply 
+impedance
+VIN
+v1
+L1
+R1
+Gate drive
+C1
+Q1GD1
+vGS
++
++
+_
+_
+VDLF
+DL
+iDL
++
+_vDS
+
+=== PAGE 6 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    6
+Assuming that Q1 is an ideal switch, R1 is large, 
+and DL is an ideal diode with a fixed forward 
+voltage drop VDLF , the driver works as follows: 
+Q1 starts in the off-state, so iDL = 0. The capacitor 
+voltage v1 = VIN, has been fully charged through 
+R1 . At t = t 0, vcommand triggers the gate drive, 
+turning Q1 fully on at t = t 1. This discharges C1 
+through the laser D L and inductor L 1. C1 and 
+L1 form a resonant network, hence iDL and vC1 
+ring sinusoidally. The effective initial capacitor 
+voltage driving the resonance is VC1,0 = VIN–VDLF 
+due to the laser diode forward drop. At t = t2, iDL 
+returns to zero and vC1 = 2 VDLF–VIN. At this point 
+DL prevents the current from reversing and C1 
+recharges via R1. Switch Q1 is turned off before 
+v1 crosses zero at t = t3. 
+The capacitor charging time constant τchrg and 
+the resonant period tres are
+τchrg = R1C1
+tres = 2π√(L1C1) = 2twb
+Typically, τchrg >> t res , so R 1 has little effect 
+on the L 1–C1 resonance. The resonant 
+characteristic impedance R0 and the full width 
+half maximum (FWHM) pulse width tw are
+This laser driver topology has the following 
+benefits
+● The topology utilizes stray inductance
+● The pulse shape is stable
+● Pulse energy is set via the value of VIN
+● The switch is ground-referenced for  
+ s imple drive
+● Only gate turn-on needs precise control 
+ ( single edge control)
+● Laser current pulse width can be shorter 
+ t han gate drive minimum pulse width
+(5)
+(4)
+(3)
+(6)
+5.2  Effect of stray inductance
+The inductance has a large effect on the de -
+sign, which we can understand by calculating 
+the peak laser diode current I DLpk using the 
+following equation:
+ 
+From (4), (5), (6), and (7), we solve for VIN to find
+ 
+Equation 8 allows calculation of the effect of 
+pulse width t
+w and peak current I DLpk on the 
+required voltage V IN. Figure 9 illustrates this 
+more clearly. A laser diode voltage drop of 
+V
+DLF = 12 V is assumed, typical of a three or 
+4 junction laser at operating current. Figure 
+9a shows the calculated voltage V
+IN from 
+(7) versus L1 for a fixed 50 A pulse at several 
+typical values of pulse width, and Figure 9b 
+shows the same for a fixed 2 ns pulse width 
+at various typical values of peak current. It is 
+clearly seen that the required V
+IN increases 
+approximately linearly with L1 for a given laser 
+and pulse shape.
+5.3  Driver switch properties
+The analysis above assumes an ideal switch, but 
+practical semiconductor switches have non-
+zero switching times and saturation current 
+limits. In addition, switches and their packages 
+can have significant inductance which not only 
+increases the required voltage for a given pulse 
+shape, but also slows switch turn-on.
+In the last decade, new power FETs based on 
+GaN have become commercially available. GaN 
+FETs have several overwhelming advantages 
+for lidar applications compared to silicon 
+MOSFETS. First, they have up to 10x lower input 
+capacitance C
+ISS than MOSFETs of comparable 
+current rating , enabling the GaN FETs to 
+turn on much faster. Second, GaN FETs are a 
+lateral device, which allows the use of a wafer 
+level chip scale package (WLCSP). The WLCSP 
+provides extremely low inductance, excellent 
+thermal performance, high reliability, and 
+minimal cost. Finally, GaN FET die are much 
+smaller than packaged silicon power MOSFETs 
+of comparable voltage and current rating, 
+further reducing inductance, and allowing 
+tight spacing of adjacent lasers for applications 
+such as multi-channel lidar.
+(7)
+(8)
+IDLpk = VIN –VDLF
+R0
+VIN = I DLpk + VDLF
+2πL1
+3tw
+Figure 9. Bus voltage VIN versus inductance L1. (a) shows effect of pulse width for a specific peak pulse 
+current of 50 A, and (b) shows the effect of current for a specific pulse width of 2 ns FWHM.
+Inductance L1 (nH)
+1 ns
+25 A
+200 A 100 A 50 A
+2 ns
+4 ns 8 ns
+Required input voltage VIN (V)Required input voltage VIN (V)
+10 2 3 4 5
+Inductance L1 (nH)
+10 2 3 4 5
+200
+150
+100
+50
+0
+200
+150
+100
+50
+0
+(a)
+(b)
+50 A Pulse
+2 ns Pulse
+0 = 1
+1
+ 
+=
+−11
+2 = 3
+
+=== PAGE 7 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    7
+At the beginning of the twenty-first century, 
+the switch technology of choice was a silicon 
+power MOSFET. Packaging and PCB tech-
+nology had advanced to where inductance 
+could be controlled sufficiently that values of  
+< 10 nH became feasible. Combined with 
+state-of-the-art silicon MOSFETs, pulse widths 
+of tens of nanoseconds and tens of amps 
+became commercially viable. However, as 
+lidar system designers strive to get more 
+performance, silicon power MOSFETs have 
+become the major limiting factor for two 
+reasons. The first is the large gate charge, 
+which greatly slows the turn-on of the MOSFET. 
+Second, large silicon MOSFETs are vertical 
+devices with connections on both sides of 
+the die. This leads to the use of an external 
+package, which adds substantial inductance 
+in both the power loop and the gate drive 
+loop . The former results in a higher voltage 
+requirement and an even larger die, and the 
+latter further slows the device turn on. As we 
+have seen, this at least a factor of ten worse 
+than the needs of modern lidar systems. Even 
+though ToF lidar had existed for decades, it 
+was relegated to niche applications.
+This all changed with the advent of cost-
+effective gallium nitride (GaN) power FETs.  
+These became commercially available around 
+2010, with significantly lower inductance and 
+switching figures of merit (FOMs) up to 10x 
+better than comparable silicon MOSFETs.  
+Figure 10 shows three 80 V AEC-Q101 auto -
+motive qualified eGaN® FETs, the EPC2252, 
+EPC2204A, and the EPC2218A, with pulse cur-
+rent ratings 75 A, 125 A, and 231 A, respectively 
+[14], [15], [16].
+Table 2 shows a comparison of a GaN FET 
+[14] and a state-of-the-art silicon MOSFET 
+[17]. They are selected to have comparable 
+voltage ratings and pulse current ratings and 
+to have automotive qualification, which are 
+key specifications for lidar. It is clear that GaN 
+has large performance benefits over silicon 
+Figure 10. EPC2252 (a), EPC2204A (b), and EPC2218A (c) 80 V eGaN FETs, to scale [12].  
+Each of these FETs uses a chip-scale package for extremely low inductance and 
+are automotive qualified according to the AEC-Q101 standard.
+Parameter EPC2252 IAUZ40N08S5N100 Benefit of 
+GaN over Si 
+Effect on 
+optical pulseTechnology GaN transistor Si MOSFET
+Voltage rating VDS,max [V] 80 80 1 Speed, Power
+Gate voltage VGS [V] 5 6* 1.2 Speed
+Max pulse current Ipulse,max  [A] 100 (min) 90 (typ) 1.1 Power
+Gate FOM RG • QGtot [Ω • nC] 2.1 15 7.1 Speed
+Gate inductance LG [nH] <0.2 2.0 >10 Speed, Power
+Source inductance LS [nH] <0.05 0.25 >5 Speed, Power
+Drain inductance LD [nH] <0.1 0.1 >1 Speed, Power
+Package footprint [mm x mm] LGA 1.5 x 1.5 DFN 3.3x3.3 6.2 Speed, Power
+Table 2. Comparison of GaN FET and silicon MOSFET parameters for devices with 
+comparable pulse current and voltage ratings at 25°C.
+*Typical ultrafast gate drives for lidar have 6 V absolute maximum voltage rating.
+5.4  Basic design process
+Now we can put the above information 
+together in order to design a resonant lidar 
+driver. We start with some specifications on the 
+laser pulse, which will generally result from the 
+system design. These requirements are:
+• P ulse peak amplitude I DLpk
+• F ull width half maximum (FWHM)  
+ pulse width tw
+• P ulse repetition frequency PRF
+• Laser diode v oltage drop VDLF
+Once the basic pulse requirements have been 
+chosen, the next factor needed to complete 
+the design is the power loop inductance 
+L
+1. The determination of L 1 is discussed in 
+Section 5.5, but for now, assume we can 
+obtain a value.
+The required bus voltage V
+IN is determined 
+from (8), which together with I DLpk is used to 
+select the appropriate part number for FET Q1.
+To determine the value of resonant capacitor 
+C1, we use (5) and (7) to get
+The value of recharge resistor R1 is determined 
+from (3), so that
+Since τchrg ≫ t res , we simply need to pick 
+a large enough value of τchrg . Because of 
+thermal limitations forcing the pulse duty 
+cycle to be typically less than 1% or so, the 
+value of R1 does not usually need precise 
+determination. This is discussed further in 
+Section 6.4 for those needing to operate at 
+higher duty cycle values.
+Together, (8), (9) and (10) determine the 
+remaining values to complete the design.
+(9)
+(10)
+C1 = L1
+IDLpk 2
+VIN –VDLF
+R1 = 
+τchrg
+C1
+EPC2252
+1.5 x 1.5 mm
+Pulsed ID @125°C = 80 A
+EPC2204A
+2.5 x 1.5 mm
+Pulsed ID @125°C = 134 A
+EPC2218A
+3.5 x 1.95 mm
+Pulsed ID @125°C = 247 A
+(a) (b) (c)
+across the board, and the Gate FOM alone 
+is enough to make the MOSFET unsuitable 
+for high performance DToF lidar. The greatly 
+improved performance of eGaN FETs over the 
+older silicon MOSFET technology translates 
+to much faster switching for a given peak 
+current capability.
+
+=== PAGE 8 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    8
+5.5  Determination of power loop 
+inductance
+We have seen that the required input voltage 
+increases nearly linearly with the laser 
+inductance, and the input voltage determines 
+the rating of the FET and the capacitors. 
+Furthermore, the laser driver bus voltage must 
+come from somewhere, most likely another 
+boost converter. The smaller the value of L
+1, the 
+simpler and lower cost the rest of the design 
+will be. The core principles of minimizing PCB 
+inductance are explained in depth in [18], 
+which covers a variety of useful techniques for 
+reducing power loop inductance. The referred 
+article shows that with the eGaN FET’s chip-
+scale package, the power loop inductance 
+contribution of the FET, PCB, bus capacitance, 
+and current sensing shunt (if desired) can be 
+kept well below 1 nH and can approach values 
+below 500 pH.
+Now, we turn to other sources of inductance, 
+and the main one is the laser. Figure 1 1 shows 
+typical power loop inductance with a short 
+circuit load and both surface mount and 
+through-hole lasers, as determined by the 
+author’s experience. These are superimposed 
+on the graph of Figure 9a to provide an idea 
+of what performance is attainable. A through-
+hole laser can be expected to lead to a total 
+inductance L
+1 of about 5 nH in the absolute best 
+case, but typically it is in the range of 6–20 nH 
+if care is taken to minimize the package lead 
+lengths. Such a high value means that a 50 A 
+pulse of approximately 10 ns is the best that can 
+Figure 1 1. Typical inductance ranges for a well designed laser driver for short circuit load (no laser), surface mount lasers, and through-hole lasers
+Table 3. EPC Automotive DToF demo boards
+be achieved in practice. While a higher voltage 
+part could be used for Q
+1, such parts are larger, 
+have greater package inductance, and require 
+greater PCB clearance both between traces on 
+a PCB layer and between layers. All of these 
+factors increase the total inductance further, 
+which results in little improvement being 
+obtained in practice beyond 200 V. Surface 
+mount lasers will result in an inductance L
+1 
+closer to 0.6 nH to 2 nH. In this case, we see 
+that pulses of 2-3 ns are readily achieved with 
+switches rated from 80 V to 100 V.
+Note that most of the laser inductance comes 
+from the laser package, including wire bonds. 
+Laser and lidar manufacturers have become 
+aware that the laser package inductance 
+dominate performance, so work is underway 
+to develop advanced packaging or methods 
+of chip scale packaging for laser diodes. This 
+is a greater challenge for high power laser 
+diodes because they have all the constraints 
+of power semiconductors combined with the 
+additional challenge of meeting optical system 
+requirements. 
+Parameter Description EPC9179 EPC9180 EPC9181 Units
+Q1 FET part number EPC2252 EPC2218A EPC2204A n/a
+CRES
+(C2-C6)
+Effective total resonant 
+capacitance 1.10 10.8 3.4 nF
+Ipeak
+Nominal peak current 
+@125°C for ideal diode load 80 247 134 A
+TPW Nominal pulse width 2-3 5-6 3-4 ns
+Inductance L1 (nH)
+1 ns
+2 ns
+4 ns 8 ns
+Required input voltage VIN (V)
+10 2 3 4 5 6
+200
+150
+100
+50
+0
+50 A Pulse
+Including 
+surface 
+mount laser
+Including 
+through-hole 
+laser
+Copper
+foil short
+Unfortunately, the value for  L1 is difficult to 
+know exactly at the beginning of the design. 
+This means that it is likely that some iteration 
+will be necessary. For an initial design, 
+consider giving yourself some additional 
+voltage margin, which will allow one to 
+overcome a certain amount of unanticipated 
+inductance.
+6  Hardware Driver Design
+This section will cover a real laser driver 
+design in some detail by exploring 
+the EPC9179 laser driver development 
+board. The EPC9179 uses an EPC2252, an 
+automotive qualified 80 V eGaN FET with a 
+pulse current rating of 80 A @ 125°C. It is part 
+of a set of development boards (EPC9179, 
+EPC9180, EPC9181) that cover various peak 
+current levels, and these are summarized 
+in Table 3 [7], [19], [20]. All three of these 
+demonstration boards are identical except 
+for the FETs, the resonant capacitors, and the 
+current measurement shunts. All discussion 
+about the operation and physical design is 
+equally applicable to the three boards.
+
+=== PAGE 9 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    9
+6.1  Operation
+Figure 12 shows the EPC9179 block diagram reproduced from 
+the EPC9179 Quick Start Guide  (QSG) [7]. The development 
+board supports different types of logic level inputs and include 
+a narrow pulse generator that can produce a fast, short pulse 
+from a longer input pulse (output range approximately 1–50 ns). 
+However, we are only concerned with the main laser driver and 
+test points associated with key waveforms Those interested in 
+greater details can fine this information in both the QSG and the 
+EPC9179 web page [19]. 
+6.2  Construction
+The importance of the physical design and construction of a 
+high speed, high current laser driver cannot be overstated. This 
+aspect of design determines the minimum possible inductance. 
+With the use of GaN power switch technology, the switch is no 
+longer the limit and parasitic inductance is the key determining 
+factor of performance. In this section we will cover the key 
+aspects of the physical design, namely the PCB layout.
+When considering PCB technology, it is highly desirable to use 
+standard technologies to minimize cost. The designs discussed 
+here use only through-hole vias and a four-layer design. This is 
+enough to illustrate the methods. Some additional performance 
+can be obtained by using blind-, buried-, or micro-vias, but this 
+is not required for basic pulse performance shown here. This is 
+especially true for designs using packaged lasers or lasers with 
+bond wires. Note that use of HDI PCB processes may have other 
+benefits, such as more compact layout and improved thermal 
+performance.
+6.2.1 Common source inductance versus 
+power loop inductance
+In Figure 7 , we added L 1 to model all parasitic inductance in 
+the power loop. This is generally a good approximation for 
+calculating the value of the resonant capacitor, but it obscures 
+one important consideration of high speed, high current 
+switching, namely common source inductance (L
+CS) [3]. Figure 
+13 shows L CS as an explicit inductor. The total power loop 
+inductance L1 is the same, so now we also define L1 to represent 
+the part explicitly in series with the drain. LCS represent the part 
+of the power loop inductance that is in common with the gate 
+loop, hence the term “common.”
+Why go through the trouble? Let’s consider some typical 
+numbers. Suppose L
+1 = 1 nH, which would be a well-designed 
+layout with a well-packaged SMT laser diode (see Figure 1 1). 
+Further suppose that the value of L
+CS = 50 pH. A common rule of 
+thumb is that a bond wire has approximately 1 nH/mm length, 
+so this would be the inductance of a 50 μm bond wire. Finally, 
+the slope of the laser current d
+ILD/dt can approach 100 A/ns.  
+In this case, the voltage vLCS across LCS is
+Figure 13. Laser driver showing common source inductance LCS
+Figure 12. Block diagram of EPC9179, EPC9180, and EPC9181 laser drivers
+(11)
+Given that the recommended drive voltage of an eGaN FET is 5 V, and the 
+gate threshold around 2 V, it is clear that 50 pH is unacceptably high. Given 
+that 50 pH can be generated by a 50 um bond wire, we can see how a silicon 
+MOSFET with source bond wires is completely unable to switch fast enough 
+even with an ideal gate drive. It might seem impossible to get a more usable 
+number, say on the order of 10 pH, until we realize that L
+CS models the 
+coupling of the power loop and gate loop. With this understanding of the 
+role of L
+CS, we can take a closer look at layout.
+6.2.2  Layout
+The discussion of layout below requires that the reader is familiar with two key 
+concepts. First, they should be familiar with the principles for minimizing power 
+loop inductance. If they are unfamiliar with the topic or a little rusty, it’s worth 
+VIN
+vcommand
+v1
+Ldrain
+LCS
+CBUS
+ZIN
+Common
+source
+inductance
+Q1
+vGS
++
++
+_
+_
+DL
+iLaser
+vdrain
+vLCS
+RCHRG
+RSHUNT
+VBUS
+VOUT (J3)
+VGS
+(J6)
+VGDIN
+(J5)
+Laser diode or
+other load
+LSTRAY
+Input select
+(J10)
+CRES
+Cap (J1)
+Single-ended (SE)
+Input (J9)
+Diﬀerential (DIFF)
+Input (J11)
+Shunt (J2)
+V3V3
+V3V3
+V5V0
+5 V Supply 3.3 V SupplyV5V0
+PW ADJ (P1)
+(J4)
+DIS
+ENB
++
+_
+D1
+D1, D2, D3
+optional
+= = (50 pH) 100 A
+ns = 5 V
+
+=== PAGE 10 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    10
+reviewing these principles, which can be found here [18]. Second, one must 
+recall that currents will primarily flow in regions of lowest impedance. For 
+high frequency currents or currents that change rapidly, this means they 
+will follow the paths of lowest inductance. Since we are only considering 
+such currents, it is a good assumption that the currents will always travel in 
+the smallest area loop since this has the lowest inductance. Keeping these 
+principles in mind, we now take a look at a high-performance laser driver 
+layout [21].
+Figure 14 shows a simplified view of a high-performance laser driver 
+power loop layout, looking at the top of the PCB. First note that the gate 
+drive and power loops are on the left and right sides respectively of the 
+eGaN FET Q
+1. Second, note that most of the top layer is a ground plane. 
+Figure 15 shows the flow of current when turning on Q1. First, referring to 
+Figure 15a, the small arrows on the left shows how the current flows when 
+the gate driver turns the FET on. At this time, the gate driver discharges the 
+gate drive bypass capacitor into the gate of Q
+1, as shown by the small red 
+arrow. This same current must flow out of the source back into the other 
+terminal of the bypass capacitor. Since the speed is high, this gate turn-on 
+current will flow in the smallest, lowest inductance path as shown. Once 
+Q
+1 is turned on, the power loop current flows. The large red arrows on 
+the right indicate the current discharging from the resonant capacitor C1. 
+This flows across the top layer into the laser or 
+other load, and then out of the load into the 
+through vias down to the 2
+nd layer shown in 
+Figure 15b. On the second layer, the power 
+loop current flows left and then up through 
+the vias to the drain of Q
+1.
+This layout is different from the more usual 
+approach of keeping the second layer an 
+uninterrupted ground or return plane, and 
+there are good reasons behind this. First, 
+each of the gate and power loops have 
+the source current flowing in opposite 
+directions and away from each other, which 
+reduces any common conductive path and 
+also reduces mutual inductance simply due 
+to the increasing physical distance of the 
+two paths. This is made possible due to the 
+interdigitated drain and source terminals 
+as shown in Figure 10. Second, it keeps the 
+power loop source current from flowing through vias. Since vias are a major 
+source of parasitic inductance, this minimizes the source inductance seen by 
+the power loop. The total power loop path would be the same if the current 
+flow were reversed, so the total power loop inductance is unchanged; this 
+layout means that we move some of the power loop inductance from the 
+source to the drain, where it can do little harm.
+The PCB layout concepts above allow one to obtain extremely good pulse 
+performance using standard PCB technology. However, pulse performance 
+is only one of several requirements. Thermal performance is often a limiting 
+factor, and in the case of lidar, the laser is part of an optical systems that has 
+its own set of requirements. This layout does have some accommodation for 
+these factors as well. In this layout, the via array connecting the load on the 
+top side to the drain node on the second layer are through vias terminating 
+on a copper land on the bottom of the PCB. This provides a path for heat 
+flow from the load to a heat sink. Since this path is electrically connected to 
+Figure 15. Physical location of power loop currents when FET is turned on
+Figure 14. Typical power loop component layout.
+Gate drive bypass
+capacitor Q1 (eGaN FET)
+C1 (resonant
+capacitor)
+DL (laser or load)
+Ground
+Gate drive
+Drain node
+(1
+ST layer)
+v1 (charging node)
+Gate loop 
+source current
+Gate loop
+gate current
+Drain current
+(through vias from 
+2nd to 1st layer)
+Drain current
+(on 2
+ND to 1ST layer)
+Laser current
+Power loop 
+source current
+Drain current
+(through vias from
+1
+ST to 2ND layer)
+Drain node
+(2
+ND layer)
+(a) (b)
+the switch node, the usual methods for heat sinking apply [1]. 
+For optical purposes, the layout shown accommodates EELs by 
+allowing the EEL to be mounted at the edge of the PCB so that 
+the optical output is free and clear of the PCB. The same layout 
+principles are still applicable to VCSELs, but since the latter’s 
+optical emission is perpendicular to the PCB plane, the edge 
+mounting is no longer necessary.
+Finally, due to the extreme values of dv/dt and di/dt present 
+in the power loop, it is highly recommended to have an ad -
+ditional ground plane underneath the entire power loop 
+structure, and to use via shielding around the entire power 
+loop connecting this plane to the top ground. Clearly there 
+must be gaps in the via shielding to allow connections to the 
+power loop structure, but these should be kept to a minimum. 
+The layout files for the EPC9179/80/81 show examples of a 
+practical implementation.
+
+=== PAGE 11 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    11
+Figure 16. EPC9179 resonant pulse driver with closeup of power loop that highlights the key 
+components of the resonant network. Inductance L1 is not shown because it is strictly due to 
+stray inductance of the power loop components and the PCB.
+R1
+Rshunt C1Gate drive EPC2252 FET
+Laser
+mounting
+7  Experimental Results 
+This section shows experimental results to 
+illustrate the excellent performance that 
+can be obtained by using eGaN FETs and 
+following the design and construction 
+information presented in Section 6. 
+7.1  Overview of the EPC resonant 
+driver development boards
+Figure 16 shows a photograph of the EPC9179 
+development board, and the expanded view 
+shows the key components of the power 
+loop. Inductance L
+1 is not shown because it is 
+strictly due to stray inductance of the power 
+loop components and the PCB, and there is 
+no explicit inductor added in this design. The 
+first three designs (EPC9179, EPC9180, and 
+EPC9181) have nearly identical layouts, and 
+so the inductance of each is similar. The basic 
+design approach is to get the shortest pulse 
+that will be close to the rated current of the 
+device at an operating temperature of 125°C. 
+This is done because in a realistic design, the 
+laser is the main source of heat. Since the laser 
+is mounted in close proximity to the FET, the 
+power dissipation in the laser will result in 
+raising the temperature of the FET. Because 
+the inductance in each case is similar and 
+the voltage ratings are identical, increasing 
+peak current requires increasing the value of 
+the resonant capacitor. This will also cause an 
+increase in pulse width.
+The last design (EPC9150) is targeted at high 
+current applications (~200 A) similar to the 
+EPC9180, but where a shorter pulse is desired 
+[22], [23]. Since the layouts have already been 
+optimized for low inductance, and the target 
+currents are similar, Equation (7) shows the 
+only way to decrease the pulse width is to 
+increase the voltage, hence the use of an 
+EPC2034C 200 V FET [24]. It should be noted 
+that the higher voltage design requires other 
+changes, like higher voltage capacitors and 
+increased PCB conductor clearances and 
+interlayer insulation. The two latter factors 
+both act to increase inductances, so one 
+cannot increase voltage indefinitely.
+Figure 17 shows the stackups for the two 
+sets of boards, with the dielectric spacing 
+highlighted between the 1st (“Top Layer”) and 
+the 2nd (“MidLayer1”) layers. The lower voltage 
+boards are rated at 80 V due to the FETs, but 
+are suitable for 100 V, and use a spacing of 
+75 μm (3 mils). The higher voltage board is 
+rated at 200 V and uses a spacing of 127 μm 
+(5 mils). These spacings are conservative, and 
+inductance can be reduced by decreasing this 
+spacing. However, since the laser inductance 
+normally dominates the designs in this 
+section, the performance gain may be small. 
+If better laser packages are available, reducing 
+this thickness may help improve performance.
+Also, the material used is Isola FR408HR [25]. 
+This is a relatively low-cost material that has 
+better RF properties than standard FR4. This 
+is not strictly necessary from a pulse current 
+performance standpoint, and it was chosen 
+primarily to make the measurement points on 
+the development boards more consistent.
+(a)
+EPC9179
+EPC9180
+EPC9181
+80 V
+(b)
+EPC9150
+200 V
+Figure 17 . PCB stackups used for EPC’s development boards. EPC9179, EPC9180, EPC9181
+80 V boards (a) and EPC9150 200 V board (b). The thickness of highlighted dielectric layer should be 
+minimized to reduce power loop inductance.
+
+=== PAGE 12 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    12
+7.2  Experimental waveforms
+Selected experimental results are shown for each of the designs in the following subsections. 
+7.2.1 EPC9179 with EPC2252 Automotive 80 V, 80 A eGaN FET
+7.2.2  EPC9180 with EPC2018A Automotive 80 V, 247 A eGaN FET
+7.2.3  EPC9181 with EPC2204A Automotive 80 V, 134 A eGaN FET
+Figure 18. Waveforms for the EPC9179 demo board using an ams OSRAM SPL S1L90A_3 A01 single 
+channel triple junction laser diode mounted with the EPC9989 interposer. vBUS = 70 V.
+Figure 19. Waveforms for the EPC9180 demo board using an ams OSRAM SPL S4L90A_3 A01 four channel triple 
+laser diode mounted with the EPC9989 interposer. All channels are connected in parallel. vBUS = 70 V.
+Figure 20. Waveforms for the EPC9181 demo board using an ams OSRAM SPL S4L90A_3 A01 four channel triple 
+laser diode mounted with the EPC9989 interposer. All channels are connected in parallel. vBUS = 70 V.
+SHUNT (iLASER),
+19.4 A/div
+VGS, 1 V/divVCAP , 20 V/div
+Pulse width: 1.96 ns
+Peak current: 63.1A 2 ns/div
+VOUT (vDS), 
+10 V/div
+SHUNT (iLASER),
+50 A/div
+VGS, 1 V/divVCAP , 20 V/div
+VOUT (vDS), 
+10 V/div
+Pulse width: 5.59 ns
+Peak current: 223 A 2 ns/div
+VGS, 1 V/divVCAP , 20 V/div
+VOUT (vDS), 
+10 V/div
+Pulse width: 3.16 ns
+Peak current: 135 A 2 ns/div
+SHUNT (iLASER),
+50 A/div
+
+=== PAGE 13 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    13
+7.2.3  EPC9150 with EPC2034C 200 V, 214 A eGaN FET
+Figure 21. Waveforms for the EPC9150 demo board using an ams OSRAM SPL S4L90A_3 A01 four channel triple laser 
+diode mounted with the EPC9989 interposer. All channels are connected in parallel. VBUS = 150 V.
+Table 4. Summary of experimental results for EPC development boards.
+7.3  Summary of Results
+Table 4 summarizes the results for the waveforms given above.
+8  Additional features of the EPC laser driver development boards
+Board FET Recommended 
+Max Bus Voltage Laser Peak current Pulse width Peak dId/dt Peak dVds/dt
+EPC9179 EPC2252 70 S1L90A_3 A01 64 2.0 79 132
+EPC9180 EPC2218A 70 S4L90A_3 A01 223 5.6 112 60
+EPC9181 EPC2204A 70 S4L90A_3 A01 135 3.2 Not measured Not measured
+EPC9150 EPC2034C 160 S4L90A_3 A01 221 2.9 Not measured Not measured
+The EPC9179/80/81 series of DToF 
+development boards have a great deal 
+of flexibility and can be used as a base 
+from which to try out new ideas or gain 
+deeper understanding of real component 
+behavior for fast, high current pulses. This 
+section provides some further detail on 
+these designs along with suggestions 
+on different directions to pursue further. 
+The block diagram of Figure 12 applies 
+to the EPC9179/80/81 series and provides 
+a useful reference for this section. While 
+the EPC9150 is an older design, it has 
+most of the features in the newer series, 
+hence most of the discussion in this 
+section is still applicable. If using the 
+EPC9150, please be aware that there 
+are a few differences from the details 
+presented here. The web pages for all 
+the designs include full schematics, PCB 
+layout files, bills of materials (BOMs), and 
+Quick Start Guides (QSGs) as well as links 
+to related applications notes. These are 
+summarized in the Appendix, and it is 
+recommended to review this material if 
+using the development boards.
+8.1 Inputs and outputs
+The high speeds involved in laser pulse drivers 
+dictate the use of RF techniques, in particular 
+the use of controlled impedances and the use 
+of a 50 Ω standard impedance for cables and 
+measurements. If you are not sure what this 
+means, there are some good references to 
+get started, as a full explanation is beyond the 
+scope of this article. An excellent reference for 
+those new to the topic is [26].
+The input is terminated with a 50 Ω resis -
+tance. When connected to a signal source 
+with a 50 Ω cable, there will be a minimum 
+of ringing and reflection from the input. 
+If using a pulse generator with a 50 Ω output, 
+remember to account for the voltage divider 
+formed by the signal generator output imped-
+ance and the input impedance of the board. If 
+it is desired to drive the board with a logic gate 
+directly, please keep in mind that the output 
+impedance of some logic gates can be as high 
+as a few hundred ohms, meaning that they will 
+not drive the input to high enough voltage.  
+In such case, the input terminating resistors 
+can be removed, but the connection to the 
+logic gate must be made in a manner to mini-
+mize any ringing or pulse reflections. If this 
+sounds unfamiliar, please review the reference 
+above. There are two possible inputs: a single-
+ended logic input and an LVDS input [27]. The 
+single-ended input has a logic level translator 
+that is set to be compatible with 2.5 V CMOS 
+Optical Output
+VGS, 
+1 V/div
+VOUT (VDS), 
+20 V/div
+Pulse width: 2.9 ns
+Peak current: 221 A
+2 ns/div
+SHUNT (ILASER),
+50 A/div
+
+=== PAGE 14 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    14
+logic levels; this can be changed according 
+to instructions in the QSG. Similarly, the QSG 
+gives instructions on using the LVDS input.
+All the outputs are designed to operate 
+properly into a 50 Ω load. This is best ac -
+complished with the use of a 50 Ω coaxial 
+cable connecting to an oscilloscope with a 
+50 Ω internal input. Please note that the use 
+of external 50 Ω terminators at the scope 
+input is not recommended due to the mea-
+surement bandwidth limitation resulting 
+from the high input capacitance of typical 1 
+megohm scope inputs. This capacitance will 
+usually limit the measurement bandwidth 
+to < 200 MHz, giving a minimum measure -
+ment rise time on the order of 2 ns. This too 
+slow for anything beyond verification of  
+basic functionality.
+8.2  Voltage sensing with 
+transmission line probes
+All sense measurement outputs, except for 
+the shunt measurement, use the transmission 
+line voltage probe principle to obtain 
+waveform fidelity at sub-ns time scales. Such 
+probes typically have a relatively low probing 
+impedance, on the order of 500 to 5k, but 
+the impedance is nearly purely resistive and 
+the bandwidth can be very high, i.e. multiple 
+GHz. These probes are built into the PCB to 
+allow near ideal connection to the node of 
+interest, thus improving waveform fidelity 
+and repeatability. The probe networks and 
+transmission lines are on the bottom of 
+the PCB to minimize interference from the 
+extreme signals in the power loop. They 
+also won’t slip off the measurement points, 
+which is an important consideration when 
+measuring the high voltages in the circuit! The 
+basic principles of such probes are discussed 
+in are beyond the scope of this article, but 
+further information can be found in [28].
+In order to get useful measurements with the 
+built-in probes, one has to take into account 
+the following three properties. First, they 
+must be connected to an oscilloscope with 
+the scope input set to 50 Ω. The use of a  
+1 MΩ input with a 50 Ω terminator will severely 
+limit the bandwidth for almost all scopes and 
+is not recommended. Second, each built-in 
+probe has its own attenuation factor that 
+must be considered. These attenuation 
+factors are given for each board type in its 
+corresponding QSG. Third, the low impedance 
+of the probe means that for points with a large 
+average DC voltage, e.g. drain voltage and 
+resonant capacitor voltage, substantial power 
+dissipation can occur in the probe input 
+resistor. Unfortunately, this resistor must be 
+physically small in order to minimize parasitics, 
+so it will have a very short lifetime due to the 
+resultant heating. To prevent this dissipation, 
+the test points for high voltage measurements 
+include a DC blocking capacitor. This forms 
+a high pass filter that has little effect for the 
+high-speed waveforms of interest. However, if 
+long pulse widths are used, these test points 
+may yield erroneous results, and an external 
+probe should be used. Also, charging and 
+discharging the blocking capacitors will result 
+in extra power dissipation. Finally, the high 
+voltage probes with the blocking capacitors 
+also have a 50 Ω termination on the PCB. This 
+termination prevents leakage currents from 
+charging a connected coaxial cable up to the 
+bus voltage. This is important because if a 
+charged cable is inadvertently connected to 
+the 50 Ω input of a high speed oscilloscope, it 
+can result in an uncomfortable conversation 
+about an expensive oscilloscope repair.
+The built-in transmission line probes have 
+been verified to produce near-identical results 
+to a Tektronix P6158 3 GHz transmission line 
+probe [29], so their estimated bandwidth is at 
+least 3 GHz.
+8.3  Current sensing
+Ahh, current sensing… the bane of power 
+electronics!
+There are both pros and cons to current 
+sensing in pulse laser drivers. The pros 
+include verification of operation, timing 
+determination of the laser pulse, control of 
+optical power for maximizing range while 
+meeting eye safety, and troubleshooting. 
+However, current sensing has a long list of 
+cons, including added inductance, increased 
+power dissipation, poor waveform accuracy, 
+cost, reduced drive voltage to overcome 
+inductance, and difficulty of implementation.
+Current measurement capability is included in 
+EPC’s resonant current pulse drivers in the form 
+of a frequency compensated resistive current 
+shunt. This shunt is in series with the low-
+potential terminal of the resonant capacitor, 
+as shown in Figure 22. This location allows  
+the use of a ground-referenced shunt that 
+does not introduce impedance into the source 
+path. As discussed in Section 6.2.1, such source 
+path impedance can be hugely detrimental to 
+performance. Since the charging resistor R
+1 is 
+much larger than all other circuit impedances, 
+the capacitor current is nearly equal to the 
+laser or load current.
+The need to minimize power loop inductance 
+and the high bandwidth required to measure 
+pulses of a few nanoseconds width means 
+careful attention must be paid to the 
+implementation of the shunt. A typical shunt 
+has parasitic inductance, as shown in Figure 
+23. There are two parts to this inductance, 
+L
+ESL and L ext. L ESL is the part of the shunt 
+inductance that contributes to the voltage 
+drop vsense that is used to determine the 
+shunt current, and Lext is an additional 
+inductance to account for the extra distance 
+taken on the PCB as a result of the physical 
+spacing of component pads inter-component 
+spacing. Both inductances should be 
+minimized, but they cannot be eliminated.  
+The sum of L
+ext and LESL adds to the power loop, 
+and this must be minimized for maximum 
+performance of the driver. However, its 
+effects on the power loop are straightforward 
+as seen 
+in Section 5. L ESL contributes to 
+the frequency response of the shunt, and 
+its effect is to distort the measurement by 
+adding a zero to the frequency response. 
+Finally, the impedance Z
+sense of the voltage 
+sensing network provides a path for some of 
+the test current, and this can also contribute 
+to a measurement error.
+Figure 22. Circuit location of current 
+measurement shunt in resonant pulse 
+development boards.
+VIN
+v1
+L1
+R1
+Gate drive
+C1
+Rshunt
+Q1GD1
+vGS
++
++
+_
+_
+VDLF
+DL
+iDL
++
+_vDS
+Ground referenced
+current sense
+
+=== PAGE 15 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    15
+drop due to the high peak current and to mini-
+mize the loading effects due to Zsense. Unfor-
+tunately, even after the aforementioned steps 
+taken to reduce inductance, enough residual 
+inductance can remain to affect the measure-
+ment. The problem is the zero introduced by 
+L
+ESL, whose location is given by
+An estimate of the effect can be made by con-
+sidering the EPC9179. Assuming a rectangular 
+pulse with edge transition times t
+t = 1 ns gives 
+a 3 dB bandwidth of the pulse of
+The partial inductance of the shunt was 
+estimated to be approximately LESL = 40 pH 
+using the results of [21]. From Eqs. 12-13, the 
+inductive reactance for 
+LESL is 
+The resistive value of the shunt should be at 
+least 10x the inductive reactance, which would 
+imply R
+shunt ≥ 0.88 Ω. This would result in a 
+voltage drop of 57 V at the peak current of 65 A, 
+which is > 70% of the transistor voltage rating. 
+This would ruin the performance of the design.
+The solution to this is to compensate the ESL 
+zero with a pole, which can then allow the use 
+The shunt resistor is comprised of five parallel 
+0402 resistors integrated as part of the same 
+layout as the rest of the power loop in order to 
+minimize all inductance (Figure 16). To further 
+reduce inductance, the resistors chosen for 
+the design have the resistive element adjacent 
+to the PCB, which reduces the current loop 
+area due to the shunt relative to conventional 
+surface mount resistors. The low duty cycle of 
+DToF laser drivers allows the use of such small 
+resistors even at very high currents.
+Normally, it is desired to have a very small resis-
+tance value for the shunt to minimize voltage 
+Figure 23. Current measurement shunt resistor 
+with parasitic inductance.
+Figure 24. Simulation of current shunts and comparison of results for ideal shunt, uncompensated shunt with ESL, and compensated shunt using 
+RC network. In this simulation, Rshunt = 100 mΩ and Lshunt = LESL = 40 pH. A half-sine pulse with pulse width of 2 ns FWHM.
+of a much smaller shunt resistor value, in the 
+same manner that a power converter might use 
+inductor equivalent series resistance for current 
+sensing [30]. In practice, it is still best to keep the 
+ESL zero as high as practical without penalizing 
+the overall pulse current performance of 
+the design. The reason is that it is difficult to 
+compensate the ESL zero exactly, so as it is 
+increased in frequency, exact compensation 
+becomes less critical. In the EPC9179, the chosen 
+solution is to pick a value R
+shunt = 100 mΩ, which 
+is selected provide a maximum output voltage 
+of approximately 10% of rated voltage at the 
+max rated current. We can then determine the 
+ESL pole frequency and use an RC network to 
+compensate. If we choose a 50 Ω series resistor 
+for the filter, R
+shunt = 100 mΩ, and LESL = 40 pH, 
+means that a compensation capacitor of 15 
+pF will create a pole to cancel the zero. Figure 
+24 shows simulation results for an ideal shunt, 
+an uncompensated shunt, as described, and 
+a compensated shunt using the values given. 
+One can see the error introduced by 
+LESL and the 
+effectiveness of the compensation. The small 
+glitch at the beginning of the compensated 
+waveform is due to a small 200 pH inductance 
+to check the effect of the capacitor ESL. The 
+width of this glitch is approximately 25 ps 
+which would not be seen in practice due to 
+other bandwidth limitations in the real system 
+(connector, scope, cable, etc.).
+(12)
+(13)
+(14)
+I3
+SINE(0 1 {fres} 0 0 0 1)
+C3
+10p
+R6
+{Rshunt}
+L3
+{Lshunt}
+R8
+50
+R10
+50
+Lser=200p
+C4
+15p
+R5
+VsenseCcomp
+Shunt
+equivalent
+circuit
+I4
+SINE(0 1 {fres} 0 0 0 1)
+C5
+10p
+R1
+{Rshunt}
+R3
+50
+50
+VsenseIdeal
+Shunt
+equivalent
+circuit
+I1
+SINE(0 1 {fres} 0 0 0 1)
+C1
+10p
+R2
+{Rshunt}
+L1
+{Lshunt}
+R11
+50
+R12
+50
+Vsense
+Shunt
+equivalent
+circuit
+0.0ns 0.3ns 0.6ns 0.9ns 1.2ns 1.5ns 1.8ns 2.1ns 2.4ns 2.7ns 3.0ns
+-20mV
+-10mV
+0mV
+10mV
+20mV
+30mV
+40mV
+50mV
+60mV
+V(vsense) V(vsenseccomp)
+V(vsenseideal)
+Ideal shunt
+Uncompensated
+Compensated 
+itest
+LESL
+vRshunt
+Lext
+Rshunt
+vLESL
+vsenseZsense
+ℎ
+2
+, ℎ ≅
+0.35
+= 350 MHz 
+ | | = 2 , ℎ =
+2π(350 MHz)(40 pH) = 88 mΩ  
+
+=== PAGE 16 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    16
+Determination of the LESL is not straightforward. 
+In the case of a laser diode load, the shape of 
+the optical waveform can be determined with 
+a high-speed optical detector. The optical 
+power versus current characteristic is usually 
+quite linear above the lasing threshold current 
+of the diode, so the shape of the optical pulse 
+is a good representation of the shape of the 
+current pulse. This method does not provide 
+a good means of determining the absolute 
+pulse amplitude when used with diode lasers, 
+but it can still be used to match the shape of 
+the waveform and its timing relationship with 
+other waveforms. Since the shape is very close 
+to a half-sine, once the compensation yields the 
+correct shape and timing, the result should be 
+fairly accurate. All EPC development boards in 
+this article have been verified with this method, 
+and further work is ongoing to make the 
+procedure more rigorous.
+8.4  Resonant capacitors
+A parallel set of small surface mount capacitors 
+can be used to make a low inductance 
+capacitor. The example of Figure 16 shows 
+such an implementation using five 0402 
+capacitors in parallel.  Once the inductance 
+has been minimized, the main parameters 
+under the designer’s control are voltage and 
+resonant capacitance. Resonant capacitors 
+should use NPO/C0G ceramic dielectric or 
+some other type of dielectric with low loss 
+and linear, stable properties, such as porcelain, 
+glass, or mica. NPO/C0G capacitors are well 
+suited for this application and the cost is low. 
+Fortunately, it has been found when using 
+NPO/C0G capacitors that a set of five parallel 
+0402 or four parallel capacitors can meet 
+almost all needs up to 200 V. In many cases, 
+the necessary capacitance can be obtained 
+with even fewer capacitors, but there will be 
+some inductance penalty for choosing that 
+route. This is frequently acceptable for many 
+practical lidar designs.
+8.5  Resonant capacitor charging
+Charging of the resonant capacitor is key 
+to proper operation. There are two main 
+considerations: charging time and charging 
+efficiency. Often, charging time is not a 
+serious concern due to the low duty cycle of 
+the laser. Until recently, charging efficiency 
+was secondary, but this has changed with the 
+increasing commercialization of lidar systems.
+There are two main charging methods: 
+resistive and inductive. Resistive charging 
+is simple to implement and forgiving to 
+the designer, i.e. it has very little impact on 
+the power loop. However, it is not efficient. 
+Inductive charging is usually implemented 
+with a boost or flyback operating in DCM, 
+often using a single pulse charging regime. It 
+has much higher efficiency and the additional 
+advantage of being able to boost a low voltage 
+to the necessary charging voltage. However, 
+the complexity is much higher, and it has the 
+potential to contribute significant parasitics 
+to the power loop. The development boards 
+discussed in this document use resistive 
+charging.
+The resonant capacitor is charged through the 
+charging resistor R
+1, with a time constant τchrg  
+given by (3). Since it takes t = 5 τchrg to charge 
+the resonant cap to > 99% of the final value, 
+we can set the max pulse repetition frequency 
+to PRF  = 1/5 · τchrg. If a designer wants a 
+higher value of PRF, they can either accept 
+some droop in the laser output, or they can 
+reduce the value of R
+1. Reducing R1 will allow 
+additional current to flow in Q1 when on, but 
+this is likely to be acceptable for  5 τchrg >> tw.
+For an ideal resonant system like that shown 
+in Fig. 5 and the associated waveforms in Fig. 
+6, we can see that except for the very first time 
+the capacitor C
+1 is charged, the initial state 
+of the capacitor is VC1(t2) = VIN - 2 V DFL. It is a 
+good approximation that during recharge, all 
+power dissipation occurs in R
+1, and the energy 
+dissipated in R1 will be
+Note that this is independent of R1. The power 
+dissipation will be
+A final consideration with resistive charging 
+as described herein is that if the FET Q1 is 
+on after the pulse is over, current will flow 
+through the laser diode, limited by the value 
+of the charging resistor 
+R1. This will cause 
+some light emission even if the current 
+is below the lasing threshold of the laser 
+diode, known as the LED mode of operation. 
+Although this emission is very small, i.e. 4-5 
+orders of magnitude below the peak laser 
+emission, the end user should be aware of 
+this and check that it is not a system concern.
+8.6  Narrow pulse generator
+A narrow pulse generator is also included 
+on the EPC9150/79/80/81 series of boards. 
+This circuit can be used to clean up the input 
+of standard function generators, which by 
+themselves are often not suitable as a signal 
+source because the minimum pulse widths 
+and transition times are often too long. 
+The basic circuit is recommended by the 
+manufacturer of the LMG1020 gate drive used 
+in the boards [31], which is loosely based on 
+the classic Jim Williams design [32]. This circuit 
+can be enabled by a set of jumpers and has an 
+adjustment range of approximately 1 ns to 50 
+ns, enough to meet most needs.
+8.7 Laser mounting
+The EPC9150/79/80/81 series of boards was 
+designed for flexibility in the package and 
+mounting of the laser or other load. Figure 
+16 shows the mounting pads on the PCB. 
+The development boards also ship with 
+the EPC9989 interposer assortment, which 
+is a set of interposers that can be used to 
+mount several commercial lasers as well as 
+an assortment of different pad arrangements 
+to accommodate a wide variety of loads and 
+connectors. The use of an interposer is highly 
+recommended if the laser or other load does 
+not easily fit directly in the PCB, as is provides 
+a repeatable connection with low inductance. 
+The footprint is available online for those who 
+wish to design an interposer for their own 
+purpose [19, 20]. Detailed instructions on the 
+use of the interposers are given in the QSGs 
+for the boards. Figure 25 shows an example of 
+a laser mounted with an interposer.
+(15)
+(16)
+1 ℎ = 2 1( − )2 
+1 ℎ = ∙ 1 ℎ  
+
+=== PAGE 17 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    17
+Figure 25. Photograph of an ams OSRAM SPL S1L90A_3 A01 laser mounted to an
+EPC9179 development board using a low inductance interposer.
+8.8  Alternative operating modes 
+and topologies
+In most of this article, the discussion has 
+focused on resonant pulse drivers, with many 
+of the advantages discussed in Section 5. 
+However, resonant operation is not the only 
+option. There are two key modifications 
+that the user can make to the main mode of 
+operation, and these are discussed below.
+8.8.1 Dual edge control
+As discussed, resonant capacitive discharge 
+laser drivers have many useful properties. 
+However, they do have a major limitation, 
+namely that for a given power loop 
+inductance, one has good control over the 
+pulse height, but not the pulse width. Pulse 
+width may also be used to control total pulse 
+energy, and it can be easier to control than 
+pulse amplitude, especially if such control is 
+desired for individual pulses. Furthermore, 
+in some cases, the laser diode or other load 
+will need to be off the PCB. This necessitates 
+some kind of interconnect which will add 
+considerable inductance. Finally, in some 
+cases, there is the need for ultra-fast edges on 
+pulses of arbitrary width. In order to work with 
+some of these limitations, one may use dual 
+edge control, i.e. both turn-on and turn-off of 
+the drive FET are used to control pulse shape.
+For typical dual edge control applications, the 
+values of the resonant capacitor and charging 
+resistors will likely need to be changed. 
+Typically, dual-edge control is a move away 
+from resonant operation. Hence, it may be 
+useful to replace the resonant capacitor with a 
+larger value. If so, a change to Class II dielectric 
+capacitors, e.g. X7R, makes sense. In the case 
+where current must be limited, the charging 
+resistor may be used for this purpose, since 
+there is additional bus capacitance at the bus 
+voltage input to the PCB. 
+Finally, one must consider that the current in 
+the power loop inductance will be interrupted 
+when the switch is turned off, and this is likely 
+to cause ringing and overshoot on the drain 
+terminal of the FET and the laser diode or 
+other load. This ringing will depend on the 
+inductance, the current at the time of turn-off, 
+and the capacitance of the laser, FET, and PCB. 
+There is a provision for the addition of some 
+clamp diodes to control voltage overshoot.
+Finding a suitable clamp diode is very 
+challenging. Most diodes have package 
+inductance on the same order or even 
+higher than the power loop inductance, 
+and this limits response speed of the clamp. 
+Furthermore, if the clamp current is high, a 
+diode rated to handle this will tend to have 
+substantial capacitance that will contribute 
+additional ringing, which in some cases can 
+result in repeated output pulses. In lidar 
+applications, the latter is unacceptable. While 
+smaller diodes can work in low duty cycle 
+applications, and appear to survive, there 
+is little in the way of manufacturers’ data 
+about the behavior and reliability under such 
+conditions. Unfortunately, the author cannot 
+recommend a suitable clamp diode at this 
+time. This is an area of open research.
+When using the EPC9150/79/80/81 develop-
+ment boards for dual edge control applications, 
+it is recommended that both careful simulation 
+and experimentation are planned. The 
+latter is especially important, as the author’s 
+experience is that for diodes selected to have 
+the necessary voltage and current ratings, the 
+available models do not accurately represent 
+the behavior of the diodes for the extremely 
+short transitions found in lidar applications. 
+For commercial applications, a robust program 
+of reliability testing is recommended for the 
+clamp diodes.
+The challenges of dual-edge control generally 
+mean that the peak current must be limited 
+to much lower values than discussed in this 
+article. For lidar applications, this is generally 
+the realm of IToF systems. This will be the 
+focus of another article. EPC also makes a 
+series of development boards targeted at 
+IToF applications, and these are listed in the 
+Appendix.
+8.8.2  Fail-safe capacitor charging
+There is another use case for a clamp diode, 
+which is to provide an alternate charging and 
+discharging path for the resonant capacitor. 
+Such an alternate path is useful in the case 
+where, during a fault that causes the switch 
+Q1 
+to stay on, the capacitor charging circuit can 
+provide sufficient current to the laser to cause 
+the system to fail eye safety radiation limits 
+[33], [34]. This can happen at relatively low 
+currents because the laser duty cycle is 100% 
+under such conditions, and the average power 
+can then exceed regulatory limits, which can 
+be prevented using an alternate charging 
+path, as shown in Figure 26.
+With the conventional charging scheme, if V
+IN 
+is high enough and ZIN is low enough, a stuck 
+on command or short circuit failure will result 
+in a continuous current in the laser diode DL. 
+In normal operation, the laser duty cycle is 
+typically 0.1% to 1%, but a small continuous 
+current of a few amps, in some cases < 1 A, 
+can result in higher average power than one 
+would get using 100 A pulses under normal 
+PLACEMENT ONLY
+EPC2252 FET
+C1
+Laser Interposer
+
+=== PAGE 18 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    18
+operation. Using the fail-safe scheme, a short 
+resulting in Q1 staying on will prevent C 1 
+from charging and laser DL from turning on. 
+The EPC9179/80/81 (not the EPC9150) have 
+a provision to employ the fail-safe charging 
+scheme, and the instructions are in the QSG.
+The fail-safe scheme has some additional 
+properties of interest. In theory, it will prevent 
+v
+BUS from going negative and should slow 
+down the turn-off of DL. In practice, the effect 
+is small. It is supposed that the extra impe-
+dance of the diode path slows the diode 
+conduction enough that the turn-off speed 
+penalty is small. However, the effect turns 
+out to be difficult to model and predict at this 
+time, in part due to the fact that the typical 
+diode models do not always reflect behavior 
+accurately at nanosecond time scales, and also 
+because inductive parasitics play a beneficial 
+role here by providing additional impedance 
+that prevents the diode current from increasing 
+so quickly that it affects laser D
+L turn-off. This is 
+not yet completely analyzed, but in this case 
+the slow clamping discussed in Section 8.8.1 
+may be a benefit rather than a drawback.  
+If there are concerns about this, a small resistor 
+in series with D
+clmp can ensure that the clamp 
+diode path time constant is slow enough to 
+have little effect on D
+L turn-off speed. Another 
+benefit of this scheme is that it provides a 
+means for the resonant cap to naturally return 
+to ~ 0 V after the resonant inductor current 
+pulls it below zero. This means that not all the 
+recharging current is supplied from the high 
+potential of v
+BUS and thus power dissipation in 
+9  Conclusion
+The superior performance of GaN power 
+transistors and ICs enables the generation of 
+extreme current pulses of tens to hundreds 
+of amps a few nanoseconds wide from a 
+couple square centimeters of PCB area. All 
+this can be done at low cost, in high volume 
+production using standard PCB technology 
+with automotive qualified components. 
+This ability has already revolutionized the 
+lidar market by making affordable, high 
+performance lidar possible in a small form 
+factor. It is likely that there are many other 
+applications for this capability. What can 
+you do with hundreds of amps in a few 
+nanoseconds?
+ Figure 26. Conventional (left) versus fail-safe (right) charging and discharging paths.
+Figure 27 . Comparison of conventional and fail-safe charging modes for an EPC9179 evaluation board with an ams OSRAM S1L90A_3 A01 
+laser installed. The thin traces show the unmodified board and the thick traces show the results with the fail-safe modification.
+the charging resistor is reduced compared to 
+that given by (15).
+Although the fail-safe charging method has 
+some potential advantages, the boards are 
+shipped using the conventional method. 
+This is because the fail-safe charging method 
+is subject to an additional set of parasitic 
+components both within the layout and 
+especially within the diode used for the 
+clamp. This makes operation less predictable 
+and design more ad hoc. However, the 
+method is promising and for a commercial 
+application where the particular laser 
+specifications are set, it is likely that a design 
+can be found. Hence, the option is available in 
+the development board PCB.
+VCAP , 20 V/div
+VOUT (vDS), 
+10 V/div
+SHUNT (iLASER),
+19.6 A/div Eye-safe
+VGS, 1 V/div
+VIN
+Conventional
+Charge
+Discharge
+Short failure
+Fail-safe
+v1
+L1
+ZIN
+C1
+vcommand
+Q1
+vGS
++
++
+_
+_
+DL
+iDL
+vDS
+v1
+L1
+C1
+Dclmp
+vcommand
+Q1
+vGS
++ _
+DL
+iDL
+vDS
+ZIN
+
+=== PAGE 19 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    19
+10  Appendix
+Table 5 summarizes a subset of EPC FETs and ICs that have associated development boards targeted for use as laser drivers and other high current 
+pulse applications.
+11  References
+[1] A . Lidow, M. de Rooij, J. Glaser, A. Pozo Arribas, S. Zhang, M. Palma, D. Reusch, GaN Transistors for Efficient Power Conversion, 4th ed. Wiley, 2025.
+[2] J . Glaser, “How GaN power transistors drive high-performance lidar: Generating ultrafast pulsed power with GaN FETs,” IEEE Power Electronics 
+Magazine, vol. 4, no. 1, pp. 25–35, Mar. 2017 , doi: 10.1 109/MPEL.2016.2643099
+[3] G laser, John S., “GaN-based Solutions for Cost Effective Direct and Indirect Time-of-Flight Lidar Transmitters,” presented at the PSMA Power 
+Technology Roadmap Webinar Series, Dec. 10, 2020.
+[4] “ Global Automotive LIDAR Market Analysis and Forecast Report 2023: A $3.1 Billion Market by 2028 from $555 Million in 2022 - Rising Demand for 
+Autonomous Vehicles/Increasing Sales of Electric Vehicles - ResearchAndMarkets.com,” Apr. 07 , 2023. Available: https://www.businesswire.com/
+news/home/20230407005055/en/Global-Automotive-LIDAR-Market-Analysis-and-Forecast-Report-2023-A-3.1-Billion-Market-by-2028-from-555-
+Million-in-2022---Rising-Demand-for-Autonomous-VehiclesIncreasing-Sales-of-Electric-Vehicles---ResearchAndMarkets.com. [Accessed: Apr. 14, 
+2024]
+[5] P . Boulay, “LIDAR for ADAS and AV Applications: Emerging Trends and Developments,” presented at the Automotive LIDAR 2022 Conference and 
+Expo, Online, Sep. 22, 2022. Available: www.automotivelidar.com
+[6] P ozo, Alejandro et al., “EPC eGaN® Device Reliability Testing: Phase 12,” Efficient Power Conversion Corporation, 2021.  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/product-training/Reliability%20Report%20Phase%2012.pdf
+[7] G laser, John S., “EPC9179, EPC9180, and EPC9181 Quick Start Guide Rev. 2.” Efficient Power Conversion Corporation, 2023.  
+Available: https://epc-co.com/epc/documents/guides/EPC9179_qsg.pdf
+[8] P . F. McManamon, LiDAR Technologies and Systems. SPIE, 2019. doi: 10.1 1 17/3.2518254. Available: https://www.spiedigitallibrary.org/ebooks/PM/
+LiDAR-Technologies-and-Systems/eISBN-9781510625402/10.1117/3.2518254. [Accessed: Mar. 02, 2022]
+[9] O SRAM Opto Semiconductors, Inc., “SPL PL90_3 Datasheet.” Nov. 20, 2015.  
+Available: https://www.osram-os.com/Graphics/XPic3/00194568_0.pdf/SPL%20PL90_3.pdf
+[10] a ms-OSRAM AG, “SPL S1L90A_3 A01 Datasheet.” Jul. 19, 2019.  
+Available: https://ams-osram.com/products/lasers/ir-lasers-eel/osram-smt-laser-spl-s1l90a-3-a01
+[1 1] a ms-OSRAM AG, “SPL S4L90A_3 A01 Datasheet.” Dec. 20, 2023.  
+Available: https://ams-osram.com/products/lasers/ir-lasers-eel/osram-smt-laser-spl-s4l90a-3-a01
+Part Number Technology Special Features Automotive 
+Qualification Voltage Rating Pulse Current 
+Rating
+Suggested 
+Application
+Development 
+Board
+EPC2212 eGaN FET AEC-Q101 100 75 DToF EPC9126
+EPC2001C eGaN FET n/a 100 150 DToF EPC9126HC
+EPC2216 eGaN FET AEC-Q101 15 28 IToF EPC9144
+EPC2034C eGaN FET n/a 200 213 DToF EPC9150
+EPC21601 eToF IC Integrated gate drive with 
+logic level input, 150 MHz n/a 40 15 IToF EPC9154
+EPC21603 eToF IC Integrated gate drive with 
+LVDS input, 150 MHz n/a 40 15 IToF EPC9156
+EPC21701 eToF IC Integrated gate drive with 
+logic level input, 50 MHz n/a 80 15 IToF EPC9172
+EPC2252 eGaN FET AEC-Q101 80 75 DToF EPC9179
+EPC2218A eGaN FET AEC-Q101 80 135 DToF EPC9180
+EPC2204A eGaN FET AEC-Q101 80 230 DToF EPC9181
+EPC2203 eGaN FET AEC-Q101 80 17 IToF, DToF E PC91116
+Table 5. Summary of EPC laser and pulse current driver development boards
+
+=== PAGE 20 ===
+APPLICATION NOTE: AN032 Design of High Current Nanosecond Resonant Pulse Drivers for Laser Diodes, Lidar, and other Applications
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM    |    ©2025   |   For more information: info@epc-co.com  |    20
+[12] a ms-OSRAM AG, “EGA2000_940_W_Short_Datasheet.” Apr. 26, 2021.
+[13] S . Morgott, “Range finding using pulse lasers,” Osram Opto Semiconductors, Regensberg, Germany, Application note, Sep. 2004.  
+Available: http://www.osram-os.com/Graphics/XPic2/00054201_0.pdf/Range%20Finding%20using%20Pulsed%20Laser%20Diodes.pdf
+[14] E fficient Power Conversion Corporation, “EPC2252 data sheet.” Jan. 2023.  
+Available: http://epc-co.com/epc/Portals/0/epc/documents/datasheets/epc2252_datasheet.pdf
+[15] E fficient Power Conversion Corporation, “EPC2204A Datasheet.” Aug. 2022.  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2204A_datasheet.pdf. [Accessed: Oct. 08, 2024]
+[16] E fficient Power Conversion Corporation, “EPC2218A data sheet.” May 2023.  
+Available: http://epc-co.com/epc/Portals/0/epc/documents/datasheets/epc2216_datasheet.pdf
+[17] I nfineon Technologies AG, “IAUZ40N08S5N100 data sheet.” Sep. 16, 2019.  
+Available: https://www.infineon.com/dgdl/Infineon-IAUZ40N08S5N100-DataSheet-v01_00-EN.pdf?fileId=5546d4626f1cf1c5016f1e6c94a801de
+[18] D . Reusch and J. Strydom, “Understanding the effect of PCB layout on circuit performance in a high frequency gallium nitride based point of 
+load converter,” in 2013 twenty-eighth annual IEEE applied power electronics conference and exposition (APEC), Mar. 2013, pp. 649–655. doi: 
+10.1109/APEC.2013.6520279
+[19] “ EPC9179: 80 V, 75 A Laser Diode Driver Evaluation Board | EPC.”  
+Available: https://epc-co.com/epc/products/evaluation-boards/epc9179. [Accessed: Apr. 14, 2024]
+[20] “ EPC9180: 80 V, 230 A Laser Diode Driver Evaluation Board | EPC.”  
+Available: https://epc-co.com/epc/products/evaluation-boards/epc9180. [Accessed: Apr. 14, 2024]
+[21] J . S. Glaser, “Kilowatt Laser Driver with 120 A, sub-10 nanosecond pulses in lt; 3 cm2 using an GaN FET,” in PCIM asia 2018; international 
+exhibition and conference for power electronics, intelligent motion, renewable energy and energy management, Jun. 2018, pp. 1–6.
+[22] E fficient Power Conversion Corporation, “Development Board EPC9150 Quick Start Guide,” 2021.  
+Available: https://epc-co.com/epc/Portals/0/epc/documents/guides/EPC9150_qsg.pdf
+[23] “ EPC9150: 2000 V, 214 A Laser Diode Driver Evaluation Board | EPC.”  
+Available: https://epc-co.com/epc/products/evaluation-boards/epc9150. [Accessed: Apr. 14, 2024]
+[24] E fficient Power Conversion Corporation, “EPC2034C data sheet.” Jun. 2020.  
+Available: http://epc-co.com/epc/Portals/0/epc/documents/datasheets/epc2034c_datasheet.pdf
+[25] I sola Group, “Isola FR408HR data sheet,” Aug. 2017 ,  
+Available: http://www.isola-group.com/wp-content/uploads/data-sheets/fr408hr.pdf. [Accessed: Oct. 14, 2017]
+[26] H oward Johnson and Martin Graham, High Speed Digital Design: A Handbook of Black Magic, 1st Edition. Prentice Hall, Inc., 1993.
+[27] “ LVDS Application and Data Handbook,” 2002.
+[28] J . Weber, “Oscilloscope probe circuits,” Tektronix, Inc., 1969.
+[29] T ektronix Inc., “Tektronix P6158 20X 1 kohm Low Capacitance Probe For 50 Ohm Oscilloscopes, 071-0123-00.” Feb. 24, 1998.  
+Available: https://download.tek.com/manual/071012300.pdf
+[30] L infinity, Inc., “A simple current-sense technique eliminating a sense resistor,” Jul. 1998.
+[31] T exas Instruments, “LMG1020 5-V, 7-A, 5-A Low-Side GaN and MOSFET Driver For 1-ns Pulse Width Applications datasheet (Rev. B).” Oct. 16, 
+2018. Available: https://www.ti.com/lit/gpn/lmg1020
+[32] J . Williams, “Signal sources, conditioners and power circuitry - circuits of the fall, 2004,” Linear Technology, Application note AN98, Nov. 2004.
+[33] S . Morgott, “Optical radiation safety information,” Osram Opto Semiconductors, Application note, Dec. 2004.  
+Available: http://www.osram-os.com/Graphics/XPic4/00018294_0.pdf/Optical
+[34] “ IEC 60825-1:2014 Safety of laser products - Part 1: Equipment classification and requirements.” International Electrotechnical Commission (IEC), 
+May 15, 2014. Available: https://webstore.iec.ch/en/publication/3587

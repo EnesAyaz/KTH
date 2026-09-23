@@ -1,0 +1,308 @@
+** Drc report for hardware/epc2361-prototype/epc2361-prototype.kicad_pcb **
+** Created on 2026-09-21 16:08:30 **
+
+** Found 41 DRC violations **
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(45.7500 mm, 36.4000 mm): Track [AC] on F.Cu, length 0.7000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(46.9000 mm, 35.0000 mm): Track [AC] on F.Cu, length 1.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(46.2500 mm, 33.6000 mm): Track [AC] on F.Cu, length 1.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(46.9000 mm, 34.5000 mm): Track [AC] on F.Cu, length 1.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(44.7500 mm, 33.6000 mm): Track [BST] on F.Cu, length 1.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(44.2500 mm, 36.4000 mm): Track [DC-] on F.Cu, length 0.7000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(43.1000 mm, 36.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(43.1000 mm, 35.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(46.9000 mm, 35.5000 mm): Track [HB] on F.Cu, length 1.2000 mm
+[via_dangling]: Via is not connected or connected on only one layer
+    Local override; Severity: warning
+    @(47.8000 mm, 22.0000 mm): Via [HB] on F.Cu - B.Cu
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(46.2500 mm, 36.4000 mm): Track [HO] on F.Cu, length 1.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(44.7500 mm, 36.4000 mm): Track [LO] on F.Cu, length 1.2000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(43.1000 mm, 35.5000 mm): Track [VDD] on F.Cu, length 1.3000 mm
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(43.7500 mm, 36.4000 mm): Track [VDD] on F.Cu, length 1.2000 mm
+[via_dangling]: Via is not connected or connected on only one layer
+    Local override; Severity: warning
+    @(48.8000 mm, 45.0000 mm): Via [VDD] on F.Cu - B.Cu
+[track_dangling]: Track has unconnected end
+    Local override; Severity: warning
+    @(43.1000 mm, 34.5000 mm): Track [VIN] on F.Cu, length 1.3000 mm
+[clearance]: Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(44.2500 mm, 33.6000 mm): Track [HI] on F.Cu, length 1.3000 mm
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+[clearance]: Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.0000 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(43.7500 mm, 33.6000 mm): Track [LI] on F.Cu, length 1.3000 mm
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(40.5000 mm, 39.2300 mm): Footprint JGH1
+    @(40.5000 mm, 33.2300 mm): Footprint JGL1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(40.5000 mm, 39.2300 mm): Footprint JGH1
+    @(38.0000 mm, 39.2300 mm): Footprint RGH1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(40.5000 mm, 33.2300 mm): Footprint JGL1
+    @(38.0000 mm, 33.2300 mm): Footprint RGL1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(56.0000 mm, 38.0000 mm): Footprint QL2
+    @(52.0000 mm, 36.7700 mm): Footprint RGL2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(56.0000 mm, 32.0000 mm): Footprint QH2
+    @(52.0000 mm, 30.7700 mm): Footprint RGH2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(34.0000 mm, 32.0000 mm): Footprint QL1
+    @(38.0000 mm, 33.2300 mm): Footprint RGL1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(38.0000 mm, 39.2300 mm): Footprint RGH1
+    @(34.0000 mm, 38.0000 mm): Footprint QH1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(52.0000 mm, 36.7700 mm): Footprint RGL2
+    @(49.5000 mm, 36.7700 mm): Footprint JGL2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(47.0000 mm, 29.3000 mm): Footprint C17
+    @(49.5000 mm, 30.7700 mm): Footprint JGH2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(52.0000 mm, 30.7700 mm): Footprint RGH2
+    @(49.5000 mm, 30.7700 mm): Footprint JGH2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(49.5000 mm, 30.7700 mm): Footprint JGH2
+    @(49.5000 mm, 36.7700 mm): Footprint JGL2
+[lib_footprint_mismatch]: Footprint 'LMG1210_RVR' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(45.0000 mm, 35.0000 mm): Footprint U1
+[lib_footprint_mismatch]: Footprint 'EPC2361' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(56.0000 mm, 38.0000 mm): Footprint QL2
+[lib_footprint_mismatch]: Footprint 'EPC2361' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(56.0000 mm, 32.0000 mm): Footprint QH2
+[lib_footprint_mismatch]: Footprint 'EPC2361' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(34.0000 mm, 32.0000 mm): Footprint QL1
+[lib_footprint_mismatch]: Footprint 'EPC2361' does not match copy in library 'epc2361-prototype'.
+    Local override; Severity: warning
+    @(34.0000 mm, 38.0000 mm): Footprint QH1
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(52.8000 mm, 36.8000 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(52.8000 mm, 30.8000 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(37.2000 mm, 33.2000 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(47.7350 mm, 44.7613 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(37.2000 mm, 39.2000 mm): Circle on F.Silkscreen
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(44.2500 mm, 33.6000 mm): Track [HI] on F.Cu, length 1.3000 mm
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(43.7500 mm, 33.6000 mm): Track [LI] on F.Cu, length 1.3000 mm
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+
+** Found 40 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(46.9000 mm, 35.0000 mm): Pad 13 [AC] of U1 on F.Cu
+    @(46.9000 mm, 34.5000 mm): Pad 14 [AC] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(46.9000 mm, 35.0000 mm): Pad 13 [AC] of U1 on F.Cu
+    @(45.9750 mm, 35.0000 mm): Pad 21 [AC] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(46.2500 mm, 33.6000 mm): Pad 16 [AC] of U1 on F.Cu
+    @(46.9000 mm, 34.5000 mm): Pad 14 [AC] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(45.7500 mm, 36.4000 mm): Track [AC] on F.Cu, length 0.7000 mm
+    @(45.9750 mm, 35.0000 mm): Pad 21 [AC] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(53.6480 mm, 32.6700 mm): Track [AC] on F.Cu, length 4.1971 mm
+    @(46.9000 mm, 34.5000 mm): Track [AC] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 30.2250 mm): Pad 2 [AC] of C18 on F.Cu
+    @(46.2500 mm, 33.6000 mm): Track [AC] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 30.2250 mm): Pad 2 [AC] of C18 on F.Cu
+    @(47.0000 mm, 28.5250 mm): Pad 2 [AC] of C17 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.7500 mm, 33.6000 mm): Track [BST] on F.Cu, length 1.3000 mm
+    @(44.0000 mm, 28.3250 mm): Pad 1 [BST] of RB1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 26.6750 mm): Pad 2 [BST_A] of RB1 on F.Cu
+    @(48.4000 mm, 24.0000 mm): Pad 2 [BST_A] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(43.1000 mm, 35.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+    @(43.1000 mm, 36.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.2500 mm, 35.0000 mm): Pad 20 [DC-] of U1 on F.Cu
+    @(43.1000 mm, 35.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(43.1000 mm, 36.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+    @(44.2500 mm, 36.4000 mm): Track [DC-] on F.Cu, length 0.7000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 38.7250 mm): Pad 2 [DC-] of C16 on F.Cu
+    @(44.2500 mm, 36.4000 mm): Track [DC-] on F.Cu, length 0.7000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(47.0000 mm, 43.5500 mm): Pad 2 [DC-] of C15 on F.Cu
+    @(44.0000 mm, 43.5500 mm): Pad 2 [DC-] of C14 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(39.0000 mm, 20.4900 mm): Pad 2 [DC-] of RL1 on F.Cu
+    @(36.0000 mm, 20.4900 mm): Pad 2 [DC-] of RH1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(39.7750 mm, 24.0000 mm): Pad 2 [DC-] of C13 on F.Cu
+    @(39.0000 mm, 20.4900 mm): Pad 2 [DC-] of RL1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(40.5000 mm, 30.6900 mm): PTH pad 2 [DC-] of JGL1
+    @(43.1000 mm, 35.0000 mm): Track [DC-] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 43.5500 mm): Pad 2 [DC-] of C14 on F.Cu
+    @(44.0000 mm, 38.7250 mm): Pad 2 [DC-] of C16 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(36.0000 mm, 20.4900 mm): Pad 2 [DC-] of RH1 on F.Cu
+    @(33.8000 mm, 25.0000 mm): Via [DC-] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(15.0000 mm, 31.6200 mm): PTH pad 4 [DC-] of JCTRL1
+    @(15.0000 mm, 36.7000 mm): PTH pad 6 [DC-] of JCTRL1
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(15.0000 mm, 26.5400 mm): PTH pad 2 [DC-] of JCTRL1
+    @(15.0000 mm, 31.6200 mm): PTH pad 4 [DC-] of JCTRL1
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(28.7500 mm, 44.9500 mm): Track [DC-] on F.Cu, length 1.2500 mm
+    @(15.0000 mm, 36.7000 mm): PTH pad 6 [DC-] of JCTRL1
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(47.0000 mm, 22.0000 mm): Track [HB] on F.Cu, length 0.8000 mm
+    @(45.6000 mm, 24.0000 mm): Pad 1 [HB] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(47.0000 mm, 30.0750 mm): Pad 1 [HB] of C17 on F.Cu
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 31.7750 mm): Pad 1 [HB] of C18 on F.Cu
+    @(46.9000 mm, 35.5000 mm): Track [HB] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(47.0000 mm, 30.0750 mm): Pad 1 [HB] of C17 on F.Cu
+    @(45.6000 mm, 24.0000 mm): Pad 1 [HB] of D1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.2500 mm, 33.6000 mm): Track [HI] on F.Cu, length 1.3000 mm
+    @(36.0000 mm, 21.5100 mm): Pad 1 [HI] of RH1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(36.0000 mm, 21.5100 mm): Pad 1 [HI] of RH1 on F.Cu
+    @(15.0000 mm, 29.0800 mm): PTH pad 3 [HI] of JCTRL1
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(51.4900 mm, 30.7700 mm): Pad 1 [HO] of RGH2 on F.Cu
+    @(46.2500 mm, 36.4000 mm): Track [HO] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(38.5100 mm, 39.2300 mm): Pad 1 [HO] of RGH1 on F.Cu
+    @(46.2500 mm, 36.4000 mm): Track [HO] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(43.7500 mm, 33.6000 mm): Track [LI] on F.Cu, length 1.3000 mm
+    @(39.0000 mm, 21.5100 mm): Pad 1 [LI] of RL1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(39.0000 mm, 21.5100 mm): Pad 1 [LI] of RL1 on F.Cu
+    @(15.0000 mm, 34.1600 mm): PTH pad 5 [LI] of JCTRL1
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(51.4900 mm, 36.7700 mm): Pad 1 [LO] of RGL2 on F.Cu
+    @(44.7500 mm, 36.4000 mm): Track [LO] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(38.5100 mm, 33.2300 mm): Pad 1 [LO] of RGL1 on F.Cu
+    @(44.7500 mm, 36.4000 mm): Track [LO] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(43.7500 mm, 36.4000 mm): Track [VDD] on F.Cu, length 1.2000 mm
+    @(43.1000 mm, 35.5000 mm): Track [VDD] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 40.2750 mm): Pad 1 [VDD] of C16 on F.Cu
+    @(43.7500 mm, 36.4000 mm): Track [VDD] on F.Cu, length 1.2000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 45.4500 mm): Pad 1 [VDD] of C14 on F.Cu
+    @(47.0000 mm, 45.4500 mm): Pad 1 [VDD] of C15 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.0000 mm, 45.4500 mm): Pad 1 [VDD] of C14 on F.Cu
+    @(44.0000 mm, 40.2750 mm): Pad 1 [VDD] of C16 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(38.2250 mm, 24.0000 mm): Pad 1 [VIN] of C13 on F.Cu
+    @(43.1000 mm, 34.5000 mm): Track [VIN] on F.Cu, length 1.3000 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(38.2250 mm, 24.0000 mm): Pad 1 [VIN] of C13 on F.Cu
+    @(15.0000 mm, 24.0000 mm): PTH pad 1 [VIN] of JCTRL1
+
+** Found 0 Footprint errors **
+
+** End of Report **

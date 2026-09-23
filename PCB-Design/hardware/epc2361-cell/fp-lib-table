@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name "epc2361-cell")(type "KiCad")(uri "${KIPRJMOD}/epc2361-cell.pretty")(options "")(descr "Project-local placement footprints"))
+  (lib (name "Capacitor_SMD")(type "KiCad")(uri "${KICAD7_FOOTPRINT_DIR}/Capacitor_SMD.pretty")(options "")(descr "KiCad capacitors"))
+  (lib (name "Resistor_SMD")(type "KiCad")(uri "${KICAD7_FOOTPRINT_DIR}/Resistor_SMD.pretty")(options "")(descr "KiCad resistors"))
+)

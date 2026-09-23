@@ -1,0 +1,135 @@
+
+=== PAGE 1 ===
+eGaN® TECHNOLOGYHow2AppNote 023
+    
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021   | |    1
+Motivation
+Modern displays typically require a low power boost converter. In this 
+application, the screen intensity is low to moderate and the converter 
+operates at light load most of the time, so the light load efficiency is very 
+important. The low switching loss of eGaN FETs can help address this 
+challenge. This application note will look into designing a 12 V to 60 V,  
+50 W DC-to-DC power module with low temperature rise using eGaN FETs 
+in the simple and low-cost synchronous boost topology.
+Design of a Small and Highly Efficient eGaN-FET-Based 
+Synchronous Boost Converter  
+The synchronous boost topology is popular in DC-to-DC step-up 
+converter designs for its simplicity, ease of control, and low cost. 
+The schematic diagram of the eGaN FET-based synchronous boost 
+converter is shown in Figure 1. The 100 V rated eGaN FET EPC2052 
+with R DS(on) of 6 mΩ as shown in Figure 2 is selected for the 12 V to 
+60 V, 50 W power stage. The uP1966E gate driver featuring high 
+driving strength is used to drive the FETs. The synchronous bootstrap 
+circuit with EPC2038 ensures a 4.9 V gate voltage is used for the high-
+side gate drive. Digital control that allows sub-10 ns dead-time and 
+flexibility in control scheme development is used. In order to optimize 
+the efficiency, two small on-board switch-mode power supply circuits 
+are used to generate the housekeeping 5 V and 3.3 V voltages for the 
+gate driver and the digital controller respectively. The house keeping 
+power can also be powered from either high or low voltage port using 
+the simple diode “OR” circuit, which enables bi-directional operation. 
+The switching frequency of the converter is designed to operate at  
+500 kHz and the inductor is a 10 µH TDK ferrite inductor. At light 
+load, the inductor core and AC copper losses are dominating factors. 
+Therefore, a larger inductance improves the light load efficiency due to 
+the decreased ripple and thus lower core losses and AC copper losses.  
+How to Design a 12 V-to-60 V Boost Converter  
+with Low Temperature Rise Using eGaN® FETs EFFICIENT POWER CONVERSION
+Figure 2. Photo of the bump side of EPC2052 (die area 2.25 mm2). 
+Figure 3. Photo of the 12 V to 60 V, 50 W synchronous boost converter EPC9162.
+1.5 mm
+1.5 mm
+GaN
+half-
+bridge
+VHV
+VLV
+Current
+sense
+DSP
+VIN
+Q1
+Q2
+CIN
+LOUT
+5 V
+PWMH
+PWML
+GND
+COUT
+VLV
+PWMH
+PWML
+5 V for gate driver
+3.3 V
+VIN_sense
+VOUT_sense
+IOUT_sense
+3.3 V for digital
+controller and
+current ampli/f_ier
+PGND
+Gate driver
+Level shift
+HV
+PSU
+Digital
+controller
+Figure 1. Simplified schematic of the EPC9162 eGaN FET-based synchronous boost 
+converter. The design is also bi-directional capable.
+
+=== PAGE 2 ===
+How2AppNote 023 eGaN® TECHNOLOGY
+EPC – POWER CONVERSION TECHNOLOGY LEADER    |  EPC-CO.COM    |  ©2021  | |    2
+Figure 4. Switch-node voltage vSW waveform at 0.15 A output current. 
+Figure 5. Total system efficiency including the housekeeping power consumption at 60 V output.
+Figure 6. Thermal image of the synchronous boost converter operating from 12 V and 
+outputting 60 V with 0.85 A output and thermal steady state without forced air cooling.
+Experimental Validation 
+The switch-node voltage (V SW) waveform at 0.15 A output current is 
+shown in Figure 4; the switching is fast and clean. 
+The overall power efficiency and power loss of the EPC9162 
+synchronous boost converter operating at different input voltages are 
+shown in Figure 5 with a peak efficiency of 95.3% at 12 V input and  
+60 V / 0.85 A output. 
+The thermal image of the converter operating at 12 V to 60 V, 0.85 A  
+output current without forced air cooling is shown in Figure 6. A tempera-
+ture rise of only 40 °C is achieved. The eGaN FETs are capable of carrying 
+more current given a relaxed temperature rise or with forced air cooling.
+95
+93
+91
+89
+87
+85
+Eﬃciency (%)
+IOUT (A)
+0.1 0.3 0.5 0.7 0.9
+IOUT (A)
+0.1 0.3 0.5 0.7 0.9
+3
+2
+1
+0
+Loss (W)
+VLV = 12 VVLV = 12 V
+Conclusion
+A 12 V to 60 V, 50 W, eGaN-FET-based synchronous boost converter 
+is designed and achieves 95.3% peak efficiency, 86% light load 
+efficiency and only 40°C temperature rise despite the small die size 
+of 2.25 mm 2. In applications where light load efficiency is critical, 
+such as LED backlighting for laptops and monitors, the fast-switching 
+speed of eGaN FETs significantly reduces switching losses for higher 
+efficiency operation.
+For More Information
+Please contact info@epc-co.com  
+or your local sales representative 
+ 
+Visit our website: epc-co.com  
+ 
+Sign-up to receive EPC updates at  
+bit.ly/EPCupdates  or text “EPC” to 22828 
+EFFICIENT POWER CONVERSION
+eGaN is a registered trademark of Efficient Power Conversion Corporation
+10 V/div
+100 ns/div

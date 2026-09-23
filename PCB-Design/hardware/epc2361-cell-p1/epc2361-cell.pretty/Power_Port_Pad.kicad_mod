@@ -1,0 +1,5 @@
+(footprint "Power_Port_Pad" (version 20221018) (generator pcbnew)
+    (layer "F.Cu") (descr "Study power access pad; not a rated high-current terminal") (attr smd)
+    (fp_text reference "REF**" (at 0 -3) (layer "F.SilkS") (effects (font (size .7 .7) (thickness .12))))
+    (fp_text value "Power_Port_Pad" (at 0 3) (layer "F.Fab") (effects (font (size .7 .7) (thickness .1))))
+    (pad "1" smd roundrect (at 0 0) (size 3 3) (layers "F.Cu" "F.Mask") (roundrect_rratio 0.016667)))

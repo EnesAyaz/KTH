@@ -1,0 +1,12 @@
+(footprint "Support_NPTH_2p4" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (fp_text reference "MH3" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 17277a32-9f73-468c-9dfa-f34d42bf8286)
+  )
+  (fp_text value "M2 support STUDY" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 8c6a8ef1-2885-40a4-b9b1-8ace2feb9bc0)
+  )
+  (pad "" np_thru_hole circle (at 0 0) (size 2.4 2.4) (drill 2.4) (layers "*.Cu") (tstamp 7ab40b46-18a5-4e2b-8546-d8cbcfcecaa3))
+)

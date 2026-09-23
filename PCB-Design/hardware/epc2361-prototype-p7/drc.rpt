@@ -1,0 +1,14 @@
+** Drc report for C:\Github\KTH\PCB-Design\hardware\epc2361-prototype-p7\epc2361-prototype-p7.kicad_pcb **
+** Created on 2026-09-22 22:02:28 **
+
+** Found 0 DRC violations **
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(64.7250 mm, 32.0000 mm): Pad 3 [DC+] of QH2 on F.Cu
+    @(64.9500 mm, 44.9500 mm): Track [DC+] on F.Cu, length 1.1500 mm
+
+** Found 0 Footprint errors **
+
+** End of Report **

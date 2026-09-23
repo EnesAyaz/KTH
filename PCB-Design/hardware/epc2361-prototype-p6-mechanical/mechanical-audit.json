@@ -1,0 +1,181 @@
+{
+  "source": "P5 unchanged",
+  "supports": [
+    {
+      "hole_center_mm": [
+        40,
+        8
+      ],
+      "drill_mm": 2.4,
+      "nearest_existing_track_or_pad_edge_clearance_mm": 2.01,
+      "nearest_item": "JDC1.24",
+      "nearest_five": [
+        [
+          2.01,
+          "JDC1.24"
+        ],
+        [
+          2.21,
+          "JDC1.23"
+        ],
+        [
+          4.55,
+          "JDC1.22"
+        ],
+        [
+          4.664,
+          "JDC1.21"
+        ],
+        [
+          5.263,
+          "JDC2.24"
+        ]
+      ],
+      "zone_status": "Existing copper zones require refill/DRC around new NPTH; numeric scan excludes zones."
+    },
+    {
+      "hole_center_mm": [
+        74,
+        8
+      ],
+      "drill_mm": 2.4,
+      "nearest_existing_track_or_pad_edge_clearance_mm": 12.322,
+      "nearest_item": "JAC1.1",
+      "nearest_five": [
+        [
+          12.322,
+          "JAC1.1"
+        ],
+        [
+          13.128,
+          "JAC1.2"
+        ],
+        [
+          13.848,
+          "track/via DC-"
+        ],
+        [
+          13.848,
+          "track/via DC-"
+        ],
+        [
+          14.36,
+          "track/via DC-"
+        ]
+      ],
+      "zone_status": "Existing copper zones require refill/DRC around new NPTH; numeric scan excludes zones."
+    },
+    {
+      "hole_center_mm": [
+        40,
+        53
+      ],
+      "drill_mm": 2.4,
+      "nearest_existing_track_or_pad_edge_clearance_mm": 2.505,
+      "nearest_item": "track/via VDD",
+      "nearest_five": [
+        [
+          2.505,
+          "track/via VDD"
+        ],
+        [
+          2.507,
+          "TP5.1"
+        ],
+        [
+          2.68,
+          "track/via VDD"
+        ],
+        [
+          2.73,
+          "track/via VDD"
+        ],
+        [
+          2.77,
+          "track/via VDD"
+        ]
+      ],
+      "zone_status": "Existing copper zones require refill/DRC around new NPTH; numeric scan excludes zones."
+    },
+    {
+      "hole_center_mm": [
+        74,
+        53
+      ],
+      "drill_mm": 2.4,
+      "nearest_existing_track_or_pad_edge_clearance_mm": 2.648,
+      "nearest_item": "JAC1.23",
+      "nearest_five": [
+        [
+          2.648,
+          "JAC1.23"
+        ],
+        [
+          4.487,
+          "TP3.1"
+        ],
+        [
+          4.5,
+          "JAC1.21"
+        ],
+        [
+          4.503,
+          "track/via AC"
+        ],
+        [
+          4.678,
+          "track/via AC"
+        ]
+      ],
+      "zone_status": "Existing copper zones require refill/DRC around new NPTH; numeric scan excludes zones."
+    }
+  ],
+  "plate_mm": [
+    38,
+    6,
+    76,
+    55
+  ],
+  "plate_underside_z_mm": 9,
+  "plate_top_z_mm": 12,
+  "boss_bottom_z_mm": 1.05,
+  "boss_foot_mm": [
+    4,
+    2
+  ],
+  "TIM_nominal_uncompressed_mm": 0.5,
+  "TIM_visual_compressed_mm": 0.35,
+  "windows_mm": [
+    [
+      39.2,
+      29,
+      42.8,
+      40
+    ],
+    [
+      57.2,
+      29,
+      60.8,
+      40
+    ],
+    [
+      50.8,
+      29,
+      54,
+      40
+    ],
+    [
+      68.8,
+      29,
+      72,
+      40
+    ],
+    [
+      38,
+      33.25,
+      76,
+      36.75
+    ]
+  ],
+  "qualification": "Geometry study only. No thermal, electrical insulation, compression, strength or fluid qualification."
+}

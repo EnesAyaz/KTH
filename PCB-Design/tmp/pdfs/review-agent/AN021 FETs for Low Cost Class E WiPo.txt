@@ -1,0 +1,533 @@
+
+=== PAGE 1 ===
+APPLICATION NOTE: AN021 eGaN FETs for Low Cost Resonant Wireless Power Applications
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    1
+eGaN® FETs for Low Cost Resonant  
+Wireless Power Applications
+EFFICIENT POWER CONVERSION
+Yuanzhe Zhang, Ph.D., Director of Applications Engineering, Michael de Rooij, Ph.D., Vice President of Applications Engineering
+In this application note, we will present a differential 
+class E amplifier using EPC2037 for 6.78 MHz 
+loosely coupled highly resonant wireless power 
+applications. A photo of the EPC2037 die is shown 
+in figure 1, with its specifications given in table 1.  
+It has very low gate charge and parasitics. As a 
+result, no dedicated gate driver chips are required 
+and it can be driven directly from logic. 
+Class E amplifier design basics
+The schematic of a single-ended class E amplifier is 
+shown in figure 2. It consists of a ground-referenced 
+transistor (Q1), an RF choke (LRFck), an extra inductor 
+(Le) and a shunt capacitor (C sh). The load of the 
+amplifier (ZLoad) represents the power transmitting 
+coil and is assumed to be inductive. A capacitor (Cs) 
+is connected in series for coil tuning. The resistance 
+of the tuned coil is R Load. The amplifier operates at 
+a fixed frequency with a fixed duty cycle of 50%.  
+The transistor voltage and current waveforms 
+under ideal operation is sketched in figure 3. 
+Because of zero-voltage switching (ZVS) and zero-
+current switching (ZCS) at the optimum operating 
+point, the class E amplifier has high efficiency 
+(usually well above 90%). 
+Figure 1:  Mounting side of EPC2037 eGaN FET 
+Dimension: 0.9 x 0.9 mm
+Figure 2. Schematic of a single-ended class E amplifier Figure 3. Ideal FET voltage and current waveforms for the class E amplifier
+Table 1. EPC2037 specifications
+Source
+EPC2037
+0.95 x 0.95 mm
+Gate Drain
+EPC Part Number VDS                
+(V)
+RDS(on)  
+@5 V (mΩ)
+QG @5 V Typ         
+(pC)
+QGS Typ    
+(pC)
+QGD Typ 
+ (pC)
+QOSS      
+ (pC)
+ID                
+(A)
+Package       
+(mm)
+  
+EPC2037 100 550 115 32 25 600 1.7 BGA 0.9 x 0.9
+VDD
++
+LRFck
+CS
+Csh
+Q1 ZLoad
+Le
+VDS
+ID
+time
+3.56 x VDD
+V / I
+50%
+VDS
+ID
+Resonant wireless power systems use loosely-coupled, highly-resonant coils that 
+are tuned to high frequencies (6.78 MHz or 13.56 MHz). The AirFuel Alliance has 
+developed the standard for resonant wireless power applications. They address 
+convenience-of-use issues such as source to device distance, device orientation on 
+the source, multiple devices on a single source, higher power capability, simplicity of 
+use, and imperfect placement. 
+eGaN® FETs from EPC offer significantly lower capacitance and inductance with 
+zero reverse recovery charge (Q RR) in a smaller footprint for a given R DS(on) than 
+comparable MOSFETs. This enables a number of applications that require higher 
+switching frequency such as 6.78 MHz highly resonant wireless power transfer.
+
+=== PAGE 2 ===
+APPLICATION NOTE: AN021 eGaN FETs for Low Cost Resonant Wireless Power Applications
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    2
+However, the voltage stress on the transistor is 
+higher than the supply voltage. While 3.56 times 
+supply voltage is shown in figure 3 for ideal 
+operation, it can be as high as 7 times when load 
+impedance changes. Therefore, despite the high 
+efficiency, it is challenging to design a class E 
+amplifier that works for a wide load impedance 
+range, which is generally required in wireless 
+power systems. 
+The design equations for a class E amplifier with 
+an RF choke are well-known [1], summarized as 
+follows:
+Given R Load, P Load and operating frequency, the 
+values of the supply voltage (V DD), the extra 
+inductor (Le) and the shunt capacitor (C sh) can be 
+calculated.
+The RF choke only needs to be large enough such 
+that the deviation of the amplifier parameters can 
+be neglected. According to the analysis in [2], it can 
+be written as:
+The third equation reveals that, when the load 
+resistor is fixed, the output power is limited by the 
+supply voltage.
+Differential class E amplifier
+In order to get higher output power without 
+increasing the voltage stress on the transistor, we 
+need to consider the differential class E topology, 
+as shown in figure 4. Note that the ideal switch (Q1 
+in figure 3) is replaced by the actual eGaN FET. As a 
+result, the equivalent shunt capacitance is the sum 
+of the output capacitance of the FET (C OSSQ) and 
+the shunt capacitor (Csh). Q1 and Q 2 are driven by 
+complementary signals. For design purposes, the 
+circuit can be simplified according to half-circuit 
+analysis. First, the load (and series tuning capacitor 
+Cs) can be divided into two parts, resulting in a 
+symmetrical circuit shown in figure 5. Then, taking 
+half of the circuit results in figure 6. Therefore, in the 
+design of a differential class E amplifier, the external 
+components (Le, Csh) are the same as designed for 
+ZLoad/2, or equivalently RLoad/2 and for PLoad/2 in the 
+single-ended configuration. 
+ω • LRFck / RLoad  → ∞
+ω • LRFck / RLoad  > 22
+ω • LRFck / RLoad  > 11
+ω • Csh • RLoad  = 0.1836
+PLoad • RLoad /VDD  = 0.5768  2
+  2
+ω • Le / RLoad  = 1.152
+ω • Csh • RLoad  = 0.3672
+PLoad • RLoad /VDD  = 2.3072
+ω • Le / RLoad  = 0.5762
+ω • LRFck / RLoad  → ∞
+ω • LRFck / RLoad  > 22
+ω • LRFck / RLoad  > 11
+ω • Csh • RLoad  = 0.1836
+PLoad • RLoad /VDD  = 0.5768  2
+  2
+ω • Le / RLoad  = 1.152
+ω • Csh • RLoad  = 0.3672
+PLoad • RLoad /VDD  = 2.3072
+ω • Le / RLoad  = 0.5762
+Figure 4. Schematic of a differential class E amplifier
+Figure 5. Half-circuit analysis of a differential class E amplifier Figure 6. Equivalent circuit for designing a  
+differential class E amplifier
+VDD
++ LRFck CS
+Csh1 Csh2
+ZLoad
+Q1 Q2
+Le2Le1
+LRFck
+VDD
++ LRFck 2CS 2CS
+Csh1 Csh2
+ZLoad/2
+Virtual GND
+ZLoad/2
+Q1 Q2
+Le1 Le2
+LRFck
+VDD
++ LRFck 2CS
+Csh1 ZLoad/2
+Q1
+Le
+
+=== PAGE 3 ===
+APPLICATION NOTE: AN021 eGaN FETs for Low Cost Resonant Wireless Power Applications
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    3
+Figure 8. Differential-mode class E configured 
+EPC9051 development board
+Figure 9. Measured total amplifier efficiency 
+including gate driver losses over the whole required 
+impedance range
+The modified design equations for differential class 
+E amplifier are listed below.  
+Similar to the case of the single-ended class 
+E amplifier, given R Load, P Load and operating 
+frequency, the values of the supply voltage (V DD), 
+the extra inductor (Le) and the shunt capacitor (Csh) 
+can be calculated. Note that C sh in the equation is 
+the sum of the actual shunt capacitor (Csh1, or Csh2) 
+and the output capacitance of the FET (COSSQ). 
+The value for those actual shunt capacitors (C sh1 
+and Csh2) is therefore:
+Nominal load and ideal operation
+As mentioned above, the design equations require 
+a specified nominal load resistor, denoted as RLoad,N 
+in the following discussions. The actual value 
+of R Load seen by the amplifier, however, may be 
+different from RLoad,N. Therefore, the amplifier needs 
+to handle a certain range of RLoad. For instance, for 
+one of the AirFuel Class 2 [3] standard coils, the 
+required load range RLoad is from 6.5 Ω to 70 Ω.  
+When R Load ≠ R Load,N, the amplifier efficiency 
+drops due to either reverse conduction losses or 
+switching (C OSS) losses [4]. The goal is therefore  
+to select the optimum nominal R Load,N so that the 
+losses over the entire RLoad range is minimum. For 
+each specified RLoad,N, the values of L e and C sh are 
+calculated according to the design equations and 
+listed in table 2.
+LTSpice simulation with EPC2037 device model is 
+used to help determine the optimum R Load,N. The 
+differential class E amplifier in figure 4 is simulated 
+for the desired R Load range and the losses of the 
+FETs are recorded. Shown in figure 7 as an example,  
+20 Ω R Load,N is a bad choice as the FET losses increase 
+rapidly at high RLoad values. The optimum RLoad,N is 
+between 40 Ω to 50 Ω, resulting in lowest FET losses 
+over the wide range. Further simulation with smaller 
+step gives the optimum RLoad,N =42 Ω.
+     
+ω • LRFck / RLoad  → ∞
+ω • LRFck / RLoad  > 22
+ω • LRFck / RLoad  > 11
+ω • Csh • RLoad  = 0.1836
+PLoad • RLoad /VDD  = 0.5768  2
+  2
+ω • Le / RLoad  = 1.152
+ω • Csh • RLoad  = 0.3672
+PLoad • RLoad /VDD  = 2.3072
+ω • Le / RLoad  = 0.5762
+VDD =
+Csh1 = Csh2 = Csh – COSSQ
+VDD
+0
+RLoad, N  PLoad  (π 2 + 4)
+32
+Le =
+π(π 2 – 4) R Load, N
+64πf
+LRFck >
+(π2 + 4) R Load, N
+8f
+COSSQ +  Csh = π(π 2 + 4) fR Load, N
+8
+COSSQ  = COSS  (vDS)dvDSVDD
+1
+∫
+VDD =
+Csh1 = Csh2 = Csh – COSSQ
+VDD
+0
+RLoad, N  PLoad  (π 2 + 4)
+32
+Le =
+π(π 2 – 4) R Load, N
+64πf
+LRFck >
+(π2 + 4) R Load, N
+8f
+COSSQ +  Csh = π(π 2 + 4) fR Load, N
+8
+COSSQ  = COSS  (vDS)dvDSVDD
+1
+∫
+Table 2. The values of Le and Csh for different RLoad,N
+RLoad,N [Ω] Le1, Le2 [nH] Csh1, Csh2 [pF]
+20 270 417
+30 406 272
+40 541 201
+50 677 159
+Figure 7. Simulated FET losses for a range of RLoad in the differential class E amplifier with different nominal RLoad,N
+4.0
+3.5
+3.0
+2.5
+2.0
+1.5
+1.0
+0.5
+0.0 0 10 20 30 40 50 60 70
+20 /uni03A9
+30 /uni03A9
+40 /uni03A9
+50 /uni03A9
+RLoad, N
+RLoad, (Ω)
+PLoss, FET(W)
+Amplifier test
+The differential class E amplifier is constructed 
+using an EPC9051 development board. A photo 
+of the configured amplifier is shown in figure 8. 
+The component values are: L e = 568 nH (custom 
+made air core), Csh = 200 pF (Vishay VJ0505 series),  
+LRFck: 47 µH (Coilcraft 1812PS). Although air core 
+inductors are used in this test, suitable low profile 
+ferrite inductors may be used. 
+AirFuel class 2 [3] standard specifies the reflected 
+load reactance form -65j Ω to 5j Ω, or a relative 
+range of 70j Ω. By impedance rotation on Smith 
+Chart, we decided to perform the test from -30j Ω 
+to +40j Ω instead. With the discrete programmable 
+load [4], the amplifier is tested first without 
+transmitting wireless power. The test stops when 
+the device temperature reaches or exceeds 100°C 
+or the drain voltage reaches or exceeds 82 V. 
+Note that no heat sink is mounted and no forced 
+air cooling is used. The measured total amplifier 
+efficiency over the whole required impedance 
+range is shown in figure 9. The measured gate 
+drive power consumption is only 13 mW. The last 
+data point at 65-30j Ω is not completed due to the 
+temperature exceeding 100°C. 
+No gate
+driver required 
+RF Choke
+LRFck 
+Extra
+Inductor
+Le1
+Coil
+Connection
+Extra
+Inductor
+Le2
+eGaN FET
+100
+95
+90
+85
+80
+75
+70
+65
+14
+12
+10
+8
+6
+4
+2
+0
+0 10 20 30 40 50 60 70
+Re/f_lected Resistance (/uni03A9)
+Eﬃciency  (%)
+Output Power (W)
++40j /uni03A9
++20j /uni03A9
+0j /uni03A9
+-10j /uni03A9
+-25j /uni03A9
+-30j /uni03A9
+Pout
+
+=== PAGE 4 ===
+APPLICATION NOTE: AN021 eGaN FETs for Low Cost Resonant Wireless Power Applications
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    4
+Wireless power transfer test
+Next, the amplifier is connected to a tuned class 2 
+coil and tested when transmitting wireless power. 
+A photo of the test setup is shown in figure 10.  
+Two different device coil orientations are con -
+sidered as device location is not specified in the  
+AirFuel standards. The distance between the source 
+coil and the device coil is 9 mm. 
+Device orientation A is considered first. The total 
+system efficiency including the rectifier loss on 
+the device board is also measured for a range 
+of output power at different tuned source coil 
+reactance, as shown in figure 11. The maximum 
+allowed DC load power is 6.5 W. The efficiency 
+curves in figure 11 have very little spread with 
+peak efficiency of 75%.
+The total system efficiency for device orientation B 
+is also measured, as shown in figure 12.  
+The light load and peak efficiency for orientation 
+B is slightly higher, but at high output power, the 
+efficiency gets lower compared to orientation A. 
+Example waveforms of source coil current and FET 
+drain voltage are shown in figure 13.
+Comparison: differential class E vs. ZVS class D
+The total system efficiency of the class E amplifier 
+(orientation A) is compared to that of the ZVS 
+class D amplifier (EPC9114 with EPC9510 amplifier 
+board) [6] at selected load reactances, shown in 
+figure 14. The ZVS class D amplifier provides slightly 
+higher peak efficiency, but it has wider efficiency 
+spread. It can easily meet AirFuel class 2 standard, 
+but it requires a half-bridge eGaN driver. Whereas 
+the differential class E amplifier achieves 96% of the 
+required impedance range.
+Summary
+In this application note, a differential class E 
+amplifier suitable for a wireless power system is 
+introduced. The basics of differential class E amplifier 
+and the design procedure with EPC2037 [5]  
+eGaN FETs are given, as well as test results for 
+AirFuel class 2 compatibility. 
+With low gate charge and low input and output 
+capacitances [7], eGaN FETs continues to improve 
+performance, and even reduce cost in 6.78 MHz 
+wireless power transfer applications. 
+EPC9051
+Ampli/f_ier
+EPC9051
+Ampli/f_ier
+Class 2 Source Class 2 Source
+Category 3 Device
+Category 3 Device
+9 mm
+(a) (b)
+Figure 10. System test setup for wireless power transfer: differential class E amplifier (EPC9051) with class 2 
+source coil and category 3 device coil. Two possible device coil orientations.
+Figure 11. Measured total system efficiency with a category 3 device. Orientation A
+Figure 12. Total system efficiency comparison between two possible device coil orientations
+80
+70
+60
+50
+40
+30
+20
+10
+0
+8.0
+7.0
+6.0
+5.0
+4.0
+3.0
+2.0
+1.0
+0.0
+DC Load Current (mA)
+Eﬃciency (%)
+Power (W)
++40j /uni03A9
++30j /uni03A9
++20j /uni03A9
++10j /uni03A9
+0j /uni03A9
+-5j /uni03A9
+-15j /uni03A9
+-25j /uni03A9
+PDCLoad
+0 200 400 600 800 1000
+80
+75
+70
+65
+60
+55
+50
+45
+40
+8.0
+7.0
+6.0
+5.0
+4.0
+3.0
+2.0
+1.0
+0.0
+0 200 400 600 800 1000
+DC Load Current (mA)
+Eﬃciency (%)
+Power (W)
++40j /uni03A9 B
++40j /uni03A9 A
+0j /uni03A9 B
+0j /uni03A9 A
+-25j /uni03A9 B
+-25j /uni03A9 A
+PDCLoad
+
+=== PAGE 5 ===
+APPLICATION NOTE: AN021 eGaN FETs for Low Cost Resonant Wireless Power Applications
+EPC – THE LEADER IN GaN TECHNOLOGY    |   WWW.EPC-CO.COM   |   COPYRIGHT 2018   | |    5
+Figure 13. Source coil current and FET drain voltage waveform of the differential class E amplifier.  
+Operation conditions: device coil orientation A, source coil tuned to +20j Ω, 16.3 V input,  
+10 Ω DC load, 6.5 W DC output power, and 75% total system efficiency.
+Figure 14. Efficiency comparison of differential class E and ZVS class D amplifiers in wireless power systems.
+Source coil current FET drain voltage
+0 200 400 600 800 1000
+80
+70
+60
+50
+40
+30
+20
+10
+0
+8.0
+7.0
+6.0
+5.0
+4.0
+3.0
+2.0
+1.0
+0.0
+DC Load Current (mA)
+Eﬃciency (%)
+Power (W)
++40j /uni03A9 EPC9051
++35j /uni03A9 EPC9510
++20j /uni03A9 EPC9051
++20j /uni03A9 EPC9510
+0j /uni03A9 EPC9051
+0j /uni03A9 EPC9510
+-15j /uni03A9 EPC9051
+-25j /uni03A9 EPC9510
+PDCLoad
+References:
+[1] F. H. Raab, “Idealized operation of the class E tuned power amplifier,”  
+IEEE Trans. Circuits Syst., vol. CAS-24, pp. 725-735, Dec. 1977.
+[2] M. Kazimierczuk, “Collector amplitude modulation of the class E tuned power 
+amplifier, ” IEEE Trans. Circuits Syst., vol. 31, no. 6, pp. 543-549, Jun. 1984.
+[3] A4WP PTU Resonator Class 2 Design - Spiral Type 140-90 A4WP standard 
+document RES-14-0008 RES-14-0006 Ver. 1.2 June 26, 2014.
+[4] M. A. de Rooij, Wireless Power Handbook, Second Edition, El Segundo, October 
+2015, ISBN 978-0-9966492-1-6.
+[5] Efficient Power Conversion, “EPC2037 – Enhancement Mode Power Transistor,” 
+EPC2037 datasheet
+[6] M. A. de Rooij, “The ZVS Voltage-Mode Class-D amplifier, an eGaN® FET-enabled 
+Topology for Highly Resonant Wireless Energy Transfer, ” IEEE Applied Power 
+Electronics Conference (APEC), March 2015. 
+[7] A. Lidow, J. Strydom, M. de Rooij, D. Reusch, GaN Transistors for Efficient Power 
+Conversion, Second Edition, Chichester, United Kingdom, Wiley, ISBN 978-1-118-
+84476-2.
+eGaN® FET is a registered trademark of Efficient Power Conversion Corporation.
