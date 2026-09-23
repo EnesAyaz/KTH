@@ -1,0 +1,64 @@
+.subckt EPC2361 gatein drainin sourcein
+.param  si={aWg} so={aWg} sr={aWg}
+.param  aWg={Wg*1E-3} Wg=3610000 A1={1.934e-02*aWg} k2=1.948e+00 k3=9.000e-02 rpara=2.915e-04
++      rpara_s_factor=2.759e-01 aITc=1.000e-12 arTc=-1.652e-02 k2Tc=6.750e-04
++      x0_0=2.554e+00 x0_0_TC=-1.000e-02 x0_1=1.000e-03 x0_1_TC=-5.000e-01
++      dgs1=4.3e-07 dgs2=2.6e-13 dgs3=0.8 dgs4=0.23												
++      ags1={9.593e-13*si} ags2={9.094e-14*si} ags3=1.825e+00 ags4=6.406e-01					
++      ags5={3.669e-13*si} ags6=1.590e+00 ags7=1.312e-01									
++      agd1={1.816e-15*sr} agd2={4.778e-14*sr} agd3=-9.089e+00 agd4=2.047e+00					
++      agd5={1.987e-13*sr} agd6=4.510e+01 agd7=1.380e+01 agd8={8.332e-14*sr}					
++      agd9=2.687e+02 agd10=1.570e+01 agd11={1.987e-13*sr} agd12=2.177e+01					
++      agd13=1.352e+01									
++      asd1={2.357e-13*so} asd2={8.381e-14*so} asd3=-2.744e+01 asd4=1.369e+00					
++      asd5={2.211e-13*so} asd6=-1.463e+01 asd7=1.437e+00 asd8={4.553e-14*so}					
++      asd9=-5.012e+01 asd10=3.831e+00 asd11={4.781e-13*so} asd12=-1.075e-18					
++      asd13=1.974e+01									
++      rg_value=0.4
+
+rd drainin drain {((1-rpara_s_factor)*rpara*(1-arTc*(Temp-25)))}
+rs sourcein source {(rpara_s_factor*rpara*(1-arTc*(Temp-25)))}
+rg gatein gate {(rg_value)}
+
+Rcsdconv drain source {100000Meg/aWg}
+Rcgsconv gate source {100000Meg/aWg}
+Rcgdconv gate drain {100000Meg/aWg}
+
+bswitch drain source I=if(v(drain,source)>0,
++	(A1*(1-aITc*(Temp-25))*log(1.0+exp((v(gate,source)-(k2*(1-k2Tc*(Temp-25))))/k3))* 
++	v(drain,source)/(1 + (x0_0*(1-x0_0_TC*(Temp-25))+x0_1*(1-x0_1_TC*(Temp-25))*v(gate,source))*v(drain,source))),
++	(-A1*(1-aITc*(Temp-25))*log(1.0+exp((v(gate,drain)-(k2*(1-k2Tc*(Temp-25))))/k3))* 
++	v(source,drain)/(1 + (x0_0*(1-x0_0_TC*(Temp-25))+x0_1*(1-x0_1_TC*(Temp-25))*v(gate,drain))*v(source,drain))))
+
+bgsdiode gate source I=if( v(gate,source)>10,
++	(0.125*aWg/1077*(dgs1*(exp((10.0)/dgs3)-1)+dgs2*(exp((10.0)/dgs4)-1))),
++	(0.125*aWg/1077*(dgs1*(exp((v(gate,source))/dgs3)-1)+dgs2*(exp((v(gate,source))/dgs4)-1))))
+
+bgddiode gate drain I=if( v(gate,drain)>10,
++	(0.125*aWg/1077*(dgs1*(exp((10.0)/dgs3)-1)+dgs2*(exp((10.0)/dgs4)-1))),
++	(0.125*aWg/1077*(dgs1*(exp((v(gate,drain))/dgs3)-1)+dgs2*(exp((v(gate,drain))/dgs4)-1))))
+
+
+
+
+
+C_GS    gate source {ags1}  TC=0,0
+C_CGS1  gate source Q=( ags2*ags4*log(1+exp((v(gate,source)-ags3)/ags4))+
++       ags5*ags7*log(1+exp((v(gate,source)-ags6)/ags7)))
+
+
+C_GD      	gate drain  {agd1}  TC=0,0 
+C_CGD1    	gate drain Q=(
++	        agd2*agd4*log(1+exp((v(gate,drain)-agd3)/agd4))+
++           agd5*agd7*log(1+exp((v(gate,drain)-agd6)/agd7))+ 
++           agd8*agd10*log(1+exp((v(gate,drain)-agd9)/agd10))+
++           agd11*agd13*log(1+exp((v(gate,drain)-agd12)/agd13)))
+
+C_SD       	source drain  {asd1}  TC=0,0
+C_CSD1	source drain Q=(asd2*asd4*log(1+exp((v(source,drain)-asd3)/asd4))+
++	asd5*asd7*log(1+exp((v(source,drain)-asd6)/asd7))+ 
++	asd8*asd10*log(1+exp((v(source,drain)-asd9)/asd10))+ 
++	asd11*asd13*log(1+exp((v(source,drain)-asd12)/asd13)))           
+        
+
+.ends

@@ -45,6 +45,13 @@ capacitance:
   c_oss_ref_pF: 1284.0           # COSS, VDS=50V, VGS=0V (max column; typ not separately given)
   c_oss_table_V_pF: []           # datasheet gives log/linear plots, not a digitized table;
   # use c_oss_ref (COSS(ER), energy-equivalent, is 1419 pF for the 0-50V swing per Note 1)
+  c_iss_ref_pF: 4373.0            # CISS = CGS+CGD, VDS=50V, VGS=0V (max column; typ=3599pF)
+  c_rss_ref_pF: 13.0              # CRSS = CGD, VDS=50V, VGS=0V, for reference only
+  # NOTE: these are fixed-bias reference points from the datasheet table, NOT what the
+  # LTSpice model actually uses -- the real .lib subckt implements Cgs/Cgd as nonlinear,
+  # charge-based (Q=f(Vgs,Vds)) elements (C_CGS1/C_CGD1 in EPCGaNLibrary.lib), matching
+  # the shape of the gate-charge curve (Fig. 7), not a single capacitance value. Treat
+  # c_iss_ref_pF as "the number on the datasheet," not "the number the simulator uses."
 
 third_quadrant_conduction:
   v_sd0_V: 1.6                 # datasheet: VSD @ Is=0.5A, Vgs=0V, 25C
