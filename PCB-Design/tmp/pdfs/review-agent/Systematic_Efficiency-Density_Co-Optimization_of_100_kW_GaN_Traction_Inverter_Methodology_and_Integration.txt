@@ -1,0 +1,1491 @@
+
+=== PAGE 1 ===
+IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025 16281
+Systematic Efﬁciency-Density Co-Optimization of
+100 kW GaN Traction Inverter: Methodology
+and Integration
+Mingrui Zou , Student Member , IEEE,P e n gS u n , Student Member , IEEE, Zheng Zeng , Member , IEEE,
+Yu l e i Wa n g, Student Member , IEEE, Jiakun Gong , Y uxi Liang , and Liang Wang , Student Member , IEEE
+Abstract—The increasing pursuit of high efﬁciency and power
+density in EV traction inverters is accelerating the deployment
+of the wide bandgap device, including silicon carbide (SiC) and
+gallium nitride (GaN). As the efﬁciency-density boundary of the
+SiC traction inverter has approached its limitation, the traction
+inverter utilizing GaN devices, with lower power loss and higher
+switching speed, is considered as a promising solution. Focusing
+on the GaN traction inverter for EV applications, this article
+proposes a design methodology considering the co-optimization of
+the pursued efﬁciency and power density objectives. Based on the
+created mathematical models of design concerns, including power
+loss, dc-link ripple, and thermal resistance, the efﬁciency-density
+design domain of the GaN inverter is established, upon which the
+optimal design space of the efﬁciency-density is determined through
+Pareto frontier analysis. Based on the co-optimization results, a
+100 kW / 400 V GaN traction inverter prototype is compactly
+integrated, incorporating meticulously designed key components,
+including the GaN power module, dc-link capacitor, and heat sink.
+Experimental validation conﬁrms the effectiveness of the proposed
+co-optimization methodology and demonstrates the feasibility of
+the integrated GaN inverter, achieving the high power density 62.1
+kW/L and peak efﬁciency 99.3%.
+Index Terms —Coordination optimization, gallium nitride
+(GaN), high efﬁciency, high power density, integration design,
+traction inverter .
+I. I NTRODUCTION
+D
+RIVEN by global energy challenges and semiconductor
+technology breakthroughs, electric vehicles (EV) are ex-
+periencing unprecedented development [1], [2], [3]. The trac-
+tion inverter (see Fig. 1) is the core of energy conversion in
+Received 17 March 2025; revised 28 May 2025; accepted 25 June 2025. Date
+of publication 1 July 2025; date of current version 27 August 2025. This work
+was supported in part by the National Natural Science Foundation of China
+under Grant 52177169, in part by the Chongqing Research Program of Basic
+Research and Frontier Technology under Grant CSTB2024NSCQ-JQX0016, in
+part by the Graduate Research and Innovation Foundation of Chongqing under
+Grant CYB240023, and in part by the Shanghai Automotive Industry Science
+and Technology Development Foundation. Recommended for publication by
+Associate Editor B. Singh. (Corresponding author: Zheng Zeng.)
+The authors are with the State Key Laboratory of Power Transmis-
+sion Equipment Technology, School of Electrical Engineering, Chongqing
+University, Chongqing 400044, China (e-mail: zoumingrui@cqu.edu.cn;
+sunpeng_96@cqu.edu.cn; zengerzheng@cqu.edu.cn; yulei_wang@cqu.edu.cn;
+gonjiakun@cqu.edu.cn; yuxiliang@cqu.edu.cn; wangliangedu@cqu.edu.cn).
+Color versions of one or more ﬁgures in this article are available at
+https://doi.org/10.1109/TPEL.2025.3584763.
+Digital Object Identiﬁer 10.1109/TPEL.2025.3584763
+Fig. 1. Exploded structure of traction inverter in EV system.
+the EV , regulating the energy ﬂow between the battery and
+the motor [4], [5]. Due to the demands of extended driving
+range and enhanced vehicle performance, the traction inverter
+is continuously pursuing higher efﬁciency and power density
+[6], [7], thus accelerating the adoption and development of
+wide bandgap (WBG) devices in EV [8], [9], [10]. Some com-
+mercialized traction inverters have employed silicon carbide
+(SiC) devices to replace traditional silicon (Si) counterparts,
+enhancing efﬁciency and power density [11], [12], [13], [14].
+However, the efﬁciency-density limitation of the SiC traction
+inverter is being approached, and the high cost of devices con-
+strains their broader deployment. Compared with SiC, gallium
+nitride (GaN) features a faster switching speed, lower power
+loss, and cost-reduction potential [15], [16], [17]. Therefore,
+the high-capacity GaN traction inverter emerges as a promising
+solution to surpass the existing SiC efﬁciency-density bound-
+ary, marking the technological frontier of the next-generation
+EV .
+Several research efforts have been explored for GaN traction
+inverters to enhance power density and improve efﬁciency, as
+well as to meet the high-power demands of EV traction systems.
+Regarding enhancing power density, the volume of the inverter
+is compressed through the miniaturization of active and passive
+components [18], [19]. To reduce the volume of GaN power
+modules, embedded packaging [20], 3D packaging [21], and
+integrated gate driver [22], [23] have been explored. Further-
+more, some advanced high-density capacitor solutions, such as
+stacked ceramic capacitors [24], [25], hybrid electrolytic-ﬁlm
+capacitors [26], and active switching capacitors [27],h a v er e -
+placed traditional large-sized ﬁlm capacitors in dc-link. Besides,
+the current source inverter discards the capacitor in the topol-
+ogy [28], [29], which is conducive to miniaturization design.
+0885-8993 © 2025 IEEE. All rights reserved, including rights for text and data mining, and training of artiﬁcial intelligence and similar technologi es.
+Personal use is permitted, but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index. html for more information.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+16282 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Additionally, the volume of heat sink is signiﬁcantly reduced
+through employing high-heat-ﬂux cooling techniques, including
+substrate microchannels cooling [30] and 3D printed microjets
+cooling [31], etc. Regarding improving efﬁciency, the primary
+focus is on reducing power losses at device-level and system-
+level. To minimize the switching losses of the GaN device, the
+additional p-GaN-layer process reduces the dynamic on-state
+resistance [32], and the active gate driver enhances the switching
+speed by regulating switching trajectory [33]. Since turn- ON
+losses dominate the power losses of GaN devices, achieving zero
+voltage switching mode through resonant networks can enhance
+the converter efﬁciency [34]. Besides, by applying adaptive
+dead-time technology [35], dynamic switching frequency regu-
+lation [36], and switching mode sequence control[37], the power
+losses under various operating conditions can be effectively
+decreased. The adoption of more efﬁcient topologies, such as
+the dual-bridge inverter[38] and T-type three-level inverter[39],
+[40], is beneﬁcial to the system efﬁciency. Moreover, multiob-
+jective optimization methods for power electronic converters
+have also been developed [41], [42], [43], providing valuable
+references for optimizing the efﬁciency and power density of
+GaN-based systems. Regarding expanding power capacity, due
+to the limited current capacity of the single GaN device, multiple
+devices must be parallel connected to meet the high-power
+requirements of EV traction inverter [44]. In general, utilizing
+printed circuit board (PCB) to parallel connect GaN devices is a
+ﬂexible and cost-effective solution[45]. The parallel connection
+of multiple devices increases the demand for heat dissipation,
+which can be effectively managed by employing the insulated-
+metal-substrate [46] and direct-bonded copper board [47],t o
+establish a low-thermal-resistance pathway. In order to reduce
+the parasitic inductance in parallel, the direct parallel packaging
+of GaN bare chips can improve the parallel performance [48],
+[49]. In addition, some other novel packaging concepts have
+been introduced into GaN modules, which are conducive to im-
+proving the electrical and thermal performance, including silver
+sintering [50], ﬂexible PCB [51], double-sided cooling [52],
+integrated ﬁlters [53], and center-symmetric layouts [54],e t c .
+Thanks to the impetus of these researches, the efﬁciency-density
+performance and power capacity of GaN are enhancing, which
+is accelerating the adoption of GaN in EV traction inverters.
+However, due to the inherent trade-off between efﬁciency and
+power density, independent optimization alone cannot achieve
+the systematic optimal performance required for GaN invert-
+ers to surpass the existing efﬁciency-density limitation. Mean-
+while, to meet the 100 kW-class power demand of EV traction
+inverters, the high-power integration of GaN devices is still
+scarce.
+Motivated by these challenges, this article proposes a com-
+prehensive design methodology for the efﬁciency-density co-
+optimization of high-capacity GaN traction inverter. Based on
+the derived analytic model of device power loss, dc-link capac-
+itor, and heat sink thermal management, the frequency-based
+“efﬁciency-power density” design space for the GaN inverter
+is formulated. The Pareto frontier analysis is utilized to iden-
+tify the optimal design point in terms of efﬁciency and power
+density. Finally, the stepwise design and integration of GaN
+Fig. 2. State-of-the-art and trends of EV inverters. (a) Peak power and
+(b) volumetric power density.
+traction inverter with high efﬁciency and high power density
+are conducted.
+The rest of this article is organized as follows. The current
+technological status, challenges and optimization approaches
+of the EV traction inverter are highlighted in Section II. Tak-
+ing the power losses, dc-link, and heat sink into account,
+the model-based development of an “efﬁciency-power den-
+sity” design space and co-optimization methodology for the
+GaN inverter are established in Section III. Based on the
+co-design results, details of the stepwise design and integra-
+tion for the GaN traction inverter are demonstrated in Sec-
+tion IV. In Section V, the developed GaN inverter prototype
+is experimentally validated. Finally, Section VI concludes this
+article.
+II. G ANT RACTION INVERTERS:S TATE-OF-THE-ART,M AIN
+CHALLENGES AND SYSTEMA TICOPTIMIZA TIONAPPROACHES
+A. State-of-the-Art and Trends of EV Traction Inverter
+The current development status and trends of EV traction
+inverters are illustrated in Fig. 2(a). As the power ratings of
+traction inverters continue to increase, this trend is accom-
+panied by a rise in volume and total losses. Therefore, the
+challenge of jointly enhancing efﬁciency and power density
+has become progressively more prominent. The power density
+of traction inverters is summarized in Fig. 2(b). It is evident
+that the power density of traction inverters can be signiﬁ-
+cantly improved through the utilization of SiC and GaN power
+devices.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16283
+Fig. 3. “Efﬁciency-power density” boundary in EV traction inverters with
+various power devices.
+Fig. 4. V oltage-current rating distribution across various GaN devices.
+Additionally, efﬁciency is another key factor that needs to be
+considered simultaneously. The efﬁciency and power density
+distribution of traction inverters are depicted in Fig. 3.T h e
+results demonstrate that, owing to the superior electrothermal
+properties, the WBG devices extends the “efﬁciency-density”
+frontier of the EV traction inverters in comparison with Si-based
+devices. Due to the high junction temperature tolerance of the
+SiC devices and the application development in recent years,
+the SiC inverters has performed outstandingly in terms of power
+density. However, their efﬁciency has approached the limitation.
+Beneﬁting from enhanced semiconductor properties, the GaN
+inverters demonstrates superior efﬁciency boundaries and ex-
+hibits promising high power density evolutionary trends. Thus,
+the GaN traction inverters is progressively pushing the existing
+“efﬁciency-density” frontier.
+B. Challenges of GaN Traction Inverters for EV Applications
+The voltage and current ratings of available GaN devices are
+statistically summarized in Fig. 4. On the one hand, the EV
+traction inverter imposes relatively high-power level demands,
+whereas commercially available GaN devices are rated for low-
+power levels, and there is a lack of mature high-current power
+module solutions. On the other hand, compared with Si and
+SiC devices, the GaN devices offer multiple technical variants
+with distinct characteristics. Consequently, for the GaN traction
+inverter applications, it is essential to carefully select the GaN
+device type and integrate the devices in parallel for the high-
+power module.
+Furthermore, the volume of traction inverters is primarily
+composed of the power module, dc-link, and heat sink. However,
+in the current research on GaN inverters, the optimization and
+design of each component are usually presented in separate
+literature. In practice, the design parameters of these components
+are intricately linked to the switching frequency and output
+power of the inverter. Meanwhile, due to the dependency on
+switching frequency and the inﬂuence of output power, there is
+a fundamental trade-off between efﬁciency and power density.
+The design space for efﬁciency and power density is bounded by
+a fundamental frontier, as shown in Fig.3. Therefore, to promote
+higher performance in GaN inverters, it is crucial to uniformly
+consider the design of the power module, dc-link, and heat sink
+comprehensively.
+In light of the above issues, in order to achieve a breakthrough
+in efﬁciency-density of the next-generation GaN traction invert-
+ers, some challenges need to be overcome.
+Challenge 1: How to comprehensively consider the impact
+of power module, dc-link capacitor, and heat sink on the
+“efﬁciency-power density” of GaN inverters?
+Challenge 2: How to achieve the co-optimization of “efﬁciency
+and power density” in GaN inverters?
+Challenge 3: How to select and integrate GaN devices in parallel
+for the high-power traction inverter applications?
+C. Systematic Optimization Methodology of GaN Traction
+Inverter
+To address the challenges currently encountered by GaN
+traction inverters, a systematic co-optimization methodology for
+“efﬁciency-density,” coupled with an integrated design frame-
+work, is proposed. This method accounts for the inﬂuence of
+all key components in the traction inverter, starting from the
+modeling of power modules, dc-link capacitors, and heatsinks, to
+construct a system-level efﬁciency-density design space, within
+which co-optimization is achieved. The optimization outcomes
+are then used to guide the design of each key component and the
+integration of the GaN traction inverter.
+The proposed optimization methodology and integration for
+GaN traction inverter are systematically summarized and gen-
+eralized into a ﬂowchart, as shown in Fig. 5. In Section III,t h e
+“efﬁciency-density” co-optimization methodology is developed.
+Based on the optimization results, a 100 kW GaN prototype is
+stepwise designed and high density integrated in Section IV.
+III. M ETHOD OF CO-OPTIMIZA TIONDESIGN FOR EFFICIENCY
+AND POWER DENSITY IN GANT RACTION INVERTERS
+In this section, the co-optimization methodology for
+efﬁciency-power density in GaN traction inverters will be elabo-
+rated in detail. First, a loss evaluation model for the GaN inverter
+is established, and candidate GaN devices are assessed and
+selected. Second, the volume-switching frequency relationship
+of the dc-link capacitor and the thermal resistance-switching
+frequency constraint of the heat sink are separately formulated.
+Finally, based on these models, the “efﬁciency-power density”
+design space of the GaN inverter is constructed, and the optimal
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+16284 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 5 Flowchart of co-optimization method and integration for GaN traction inverter.
+design points for achieving both high efﬁciency and high power
+density are identiﬁed through the Pareto frontier analysis.
+A. Power Losses Modeling of GaN Traction Inverter
+Evaluation of power loss is a critical aspect of inverter design,
+as it not only inﬂuences the conversion efﬁciency of the inverter,
+but also signiﬁcantly impacts the thermal design of the system.
+In this article, the three-phase two-level topology, a fundamental
+and widely used conﬁguration for traction inverters in EVs, is
+utilized, as depicted in Fig. 6(a). In addition, the dc-link bus
+voltage of 400 V and the maximum output power of 100 kW are
+taken as the design objectives in this article.
+According to the inverter topology, the output power of the
+inverter is related to the output voltage and the phase leg currents,
+which can be expressed as
+Po =
+√
+3VacIrms=
+√
+3VacIm/
+√
+2 (1)
+where Po is the output power. Vac is the root mean square
+(RMS) value of output line-line voltage. Irms and Im represent
+the RMS and amplitude value of the output current for phase-leg,
+respectively. The output voltageVac is determined by the dc-link
+voltage Vdc, the modulation method, and modulation ratio m.
+Considering the classical SPWM modulation shown in Fig.6(b),
+the amplitude of phase-leg output current can be written as
+Im =
+√
+6Po
+3mVac
+= 4Po
+3mVdc
+(2)
+Fig. 6. Schematic of GaN traction inverter. (a) Topology of inverter and
+(b) modulation principle of phase-leg.
+where m =
+√
+2 Vac/Vdc is modulation ratio. Based on the
+operating conditions of the inverter and the characteristics of
+the devices, the power losses can be evaluated.
+The power losses of GaN devices consist of conduction loss
+and switching loss. To evaluate the losses of GaN devices in the
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16285
+inverter, the average power losses over one sinusoidal cycle are
+consistently used as a standard metric for assessment.
+1) Conduction Loss: For high-power level inverters, the loss
+calculation is conducted based on a phase-leg switch consisting
+of n parallel-connected GaN devices. Additionally, to account
+for the impact of the dead time in the phase-leg, the conduction
+loss is analyzed and calculated for the entire phase-leg as a whole
+[19]. In a phase-leg, the conduction loss of an individual GaN
+device in the high-side switch S 1 or the low-side switch S4 can
+be expressed respectively as
+{
+Pcon.H = I2
+m
+n2
+(1
+8 + mcosϕ
+3π
+)
+Rds.on
+Pcon.L = I2
+m
+n2
+(1
+8 −mcosϕ
+3π
+)
+Rds.on
+(3)
+where Rds.on is ON-state resistance of GaN device. In particular,
+due to the self-commutated reverse conduction mechanism of
+GaN HEMT, the increased conduction loss during dead-time
+needs to be taken into consideration. The conduction loss of a
+phase-leg during the dead time can be represented as
+Pcon.dt = tdtfsw
+π
+(π
+2RF
+I2
+m
+n2 +2VF
+Im
+n
+)
+(4)
+where VF and RF stand for equivalent reverse voltage drop and
+reverse conduction resistance, respectively. tdt is dead-time. fsw
+is switching frequency. Considering the dead-time, the portion of
+the aforementioned conduction loss occurring during this period
+should be reduced accordingly for the necessary adjustment.
+This process can be described as
+Pcon.red = 1
+2
+I2
+m
+n2 Rds.ontdtfsw. (5)
+Based on (3) to (5), the total conduction loss of a phase-leg
+with n parallel GaN devices can be expressed as
+Pcon = n(Pcon.H +Pcon.L +Pcon.td −Pcon.red). (6)
+2) Switching Loss: The losses during the switching transient
+of the device include turn-ON loss, turn-OFF loss, output capaci-
+tance loss and gate loss. The turn-ON and turn-OFF losses can be
+respectively written as
+{
+Psw.on = Eon
+fsw
+π
+VdcIm
+nVnIn
+Psw.oﬀ= Eoff
+fsw
+π
+VdcIm
+nVnIn
+(7)
+where Eon and Eoﬀ are the turn- ON and turn- OFF losses of
+the device under the rated test conditions, respectively. Vn
+and In represent the rated voltage and current of the device,
+respectively. Operating as a free continuation device, the reverse
+recovery loss can be yielded as
+Prec = Erec
+fsw
+π
+VdcIm
+nVnIn
+(8)
+where Erec is the recovery loss of the device at the rated test
+conditions. With the exception of Cascode GaN devices, the
+reverse recovery loss in other GaN HEMT is negligible because
+the reverse recovery charge is almost zero. Along with the
+switching transient, the charging and discharging loss of the
+output capacitor can be expressed as
+Poss = VdcQossfsw (9)
+where Qoss is the output charge of the GaN device. The corre-
+sponding loss induced by the charging and discharging of the
+gate charge can be expressed as
+Pg =( VC −VE)Qg.totfsw (10)
+where Qg.tot is the total gate charge of the GaN device. VC and
+VE are the turn- ON and turn-OFF driving voltages, respectively.
+According to (7) to (10), the total switching loss of a switch with
+n parallel GaN devices can be written as
+Psw = n(Psw.on +Psw.oﬀ+Prec +Poss +Pg). (11)
+3) Total Power Loss: Based on (6) and (11), in a phase-leg,
+the total power loss in its high side and low side devices can be
+expressed as
+Ploss.ph = Pcon +2Psw. (12)
+In addition to the power devices, the dc-link capacitor loss
+Ploss.dc should be considered in the inverter loss analysis
+Ploss.dc = I2
+c.rms · ESR(f) (13)
+where Ic,rms is the ripple current RMS value of the dc-link
+capacitor. ESR (f) is the frequency-dependent equivalent series
+resistance of the capacitor, which can be taken from datasheets
+at the principal ripple frequency.
+Therefore, the total power loss of the three-phase inverter can
+be expressed as
+Ploss.inv =3 Ploss.ph +Ploss.dc =3 Pcon +6Psw +Ploss.dc.
+(14)
+B. Selection and Evaluation of GaN Devices
+1) Candidate GaN Devices: Selection of the appropriate
+GaN power device according to the design objectives of the
+inverter is an essential step for the subsequent design. First of
+all, the device is required to meet the voltage and current stress
+requirements. For voltage stress, the 650 V nominal voltage
+of conventional GaN devices already meets the 400 V dc-link
+voltage requirement. However, for current stress, according to
+(2), the current amplitude is Im = 370 A, and currently, there are
+no commercially available GaN products that meet this current
+rating. Therefore, the proposed GaN inverter requires a solution
+with multiple GaN devices in parallel. In order to reduce the
+number of chips in parallel to reduce the size of the power
+module, GaN devices with high current rating are therefore
+prioritized. Among the existing commercially GaN HEMTs,
+GS66516T (GaN Systems) and V08TC65S1A2 (VisIC) are the
+devices with the largest current rating in E-mode and D-mode,
+respectively, and TP65H015G5WS (Transphorm) is the Cascode
+device with the largest current rating. Thus, the above three
+devices are taken as candidates, and their information is given
+in Table I.
+2) Number of Parallel Devices: Based on the phase-leg cur-
+rent amplitude Im, and the current rating of the devices, the
+number of GaN devices in parallel in a phase-leg switch can be
+determined. In addition, thermal and current margins should also
+be considered to expand the safe operating area and improve the
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+16286 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+TABLE I
+PARAMETERS OF CANDIDA TEGAND EVICES
+Fig. 7. Total power loss of GaN devices at different output powers and
+switching frequencies.
+capability to handle overload conditions. Considering the der-
+ating of device current due to increased operating temperature,
+the number of parallels can be calculated as
+n =
+⌈ImkTkI
+ID
+⌉
+(15)
+where kT = ID.@25◦C / ID.@ 100◦C is the current derating factor
+with temperature rise of device. kI is the current margin factor,
+which is taken as 1.2 in this design. Therefore, the number of
+parallel devices required for candidate GaN devices are n1 =
+3 (Device 1, V08TC065S1), n2 = 10 (Device 2, GS66516T),
+n3 = 8 (Device 3, TP65H015G5WS).
+3) Power Loss and Efﬁciency: Based on the above power
+losses assessment model and the number of parallel devices,
+the total power losses of the candidate GaN devices at different
+output powers and switching frequencies are given in Fig. 7.
+Device 1 maintains the lowest total power loss under different
+operating conditions. In addition, the various power losses of
+candidate devices at full load conditions are calculated and
+shown in Fig. 8. The conduction losses Pcon of each candidate
+device are relatively similar. Meanwhile, for switching loss,
+device 1 has the lowest turn- ON loss, which is only 53% of that
+of device 2. The turn- OFF loss Psw.oﬀ of device 1 and device 2
+are similar and signiﬁcantly lower than that of device 3. Device 3
+experiences reverse recovery loss, whereas device 1 and device
+Fig. 8. Comparison of various power losses in candidate GaN devices under
+full-load conditions.
+Fig. 9. Detailed power loss comparison of candidate GaN devices.
+2 have little to none. Overall, device 1 exhibits the lowest total
+power loss among candidate GaN devices.
+4) Comprehensive Comparison of GaN Devices: The com-
+prehensive comparison results of candidate GaN devices are
+given in Fig.9 to help in selecting a suitable device for designing
+high density inverters. Device 1 features the fewest parallel
+connections, aiding in the reduction of parasitic inductance and
+facilitating current balancing. Besides, the total areas of the
+parallel devices are calculated. It is found that the total area
+of the device 3 conﬁguration is the largest, approximately twice
+that of the device 1 or device 2 conﬁgurations. Moreover, device
+1 demonstrates the lowest total power loss and achieves the
+highest theoretical full-load peak efﬁciency of 99.64%. Con-
+sequently, summarizing the above comparisons, the device 1
+(VisIC, V08TC065S1) is selected for the inverter design in this
+article.
+C. fsw-Cdc-V olume Modeling of DC-Link Capacitor
+The dc-link capacitor in the inverter stabilizes the dc-link volt-
+age and absorbs the ripple current. Thus, the design of dc-link
+capacitor needs to simultaneously satisfy the requirements of
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 7 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16287
+Fig. 10. Graph of function q(m,ϕ)inm ∈(0,1),ϕ∈(0,π/2).
+ripple voltage and ripple current, which can be expressed as
+Cdc =m a x (Cv,Ci) (16)
+where Cv and Ci are the minimum capacitance to support ripple
+voltage and ripple current, respectively. The calculation of Cv
+and Ci are derived as follows
+1) Capacitance for Ripple V oltage: DC-link capacitors are
+essential for absorbing voltage ripple to ensure the stability of
+the dc voltage. The ripple voltage ΔVdc, pp is related to the
+peak-to-peak chargeΔQc of the capacitor [55], [56], which can
+be expressed as
+ΔVdc,pp = ΔQc
+Cv
+= Im
+Cvfsw
+q(m,ϕ) (17)
+where q (m, ϕ) is a coefﬁcient function of the capacitor charge
+with respect to the modulation ratio m and power factor angleϕ.
+Considering the effective operating area of the EV inverter, i.e.,
+m /2208(0, 1), ϕ/2208(0, π/2), the graph of the function q (m, ϕ)i s
+displayed in Fig.10. In order to meet the maximum voltage ripple
+requirements, the worst operating conditions are obtained when
+m= 1,ϕ=π/2, while considering the margin of voltage ripple,
+the capacitance to support ripple voltage Cv can be expressed as
+Cv ≈ Im
+5fswΔVdc,pp
+. (18)
+In this design, a 5% ripple voltage margin is considered, i.e.,
+ΔVdc,pp = 5%Vdc.
+2) Capacitance for Ripple Current: The minimum ripple
+current capability Ic.rms required by the dc-link capacitor is
+determined by the ac output current amplitude Im, modulation
+ratio m, and power factor angle ϕ[25], [56], which can be
+calculated as
+Ic.rms = Im
+√2m
+[√
+3
+4π+cos2 (ϕ)
+(√
+3
+π − 9
+16m
+)]
+. (19)
+Owing to the superior reliability and cost-effectiveness of ﬁlm
+capacitors, they are preferentially employed in the dc-link of
+EV inverter. The ripple current tolerance and capacitance of
+ﬁlm capacitors from TDK, Kemet, and Vishay are concluded
+and illustrated in Fig. 11(a). Based on the statistical analysis
+Fig. 11. Characteristics of various capacitors. (a) Current-capacitance and
+(b) capacitance-volume.
+TABLE II
+PARAMETERS OF CAPACITOR CURRENT-CAPACIT ANCE AND
+CAPACITANCE-VOLUME MODELS
+of commercially available capacitors, it is evident that there
+is a positive correlation between ripple current tolerance and
+capacitance. This relationship can be ﬁtted and expressed as
+Ci = kC1Ic.rms +kC2 (20)
+where kC1 and kC2 denote the current-capacitance coefﬁcients.
+According to the samples show in Fig. 11(a), these coefﬁcients
+can be estimated, as given in Table II. It is noted that TDK
+exhibits the highest current-capacitance density among the ﬁlm
+capacitor candidates. This characteristic will be advantageous
+in reducing the capacitance necessary for ripple currents, con-
+sequently minimizing the overall volume of the capacitor.
+3) V olume of Capacitors: The volume of the dc-link capac-
+itor is dependent on both rated voltage and capacitance, which
+are constrained by the manufacturing processes and ﬁlm insula-
+tion distances. The relationships of capacitance-volume-voltage
+from manufacturers TDK, Kemet, and Vishay, are shown in
+Fig. 11(b). The capacitance is positively correlated with vol-
+ume/voltage, which can be expressed as
+vc =( kV1Cdc +kV2)Vn (21)
+where vc is the volume of the capacitor. kV1 and kV2 are
+coefﬁcients of calculating capacitor volume. Vn is rated voltage
+of the capacitor. According to the samples shown in Fig. 11(b),
+these coefﬁcients can be estimated, as given in Table II.
+Based on (16), (18), and (20), the ripple voltage capacitance
+Cv and ripple current capacitanceCi can be computed for various
+switching frequency operating scenarios. These calculations
+enable the establishment of “switching frequency-capacitance”
+boundary for the dc-link capacitance, i.e., fsw-Cdc,a ss h o w ni n
+Fig. 12(a). It can be observed that the dc-link capacitance is
+dominated by the ripple voltage capacitance Cv at low frequen-
+cies. As the frequency rises, the dc-link capacitance gradually
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 8 ===
+16288 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 12. (a) Current-capacitance and (b) capacitance-volume characteristics
+of commercial capacitors.
+Fig. 13. Thermal circuit model of phase-leg with n parallel chips.
+decreases and ultimately becomes deﬁned by the current rip-
+ple capacitance Ci at high frequencies. According to (21),t h e
+“switching frequency-volume” boundary of the dc-link capaci-
+tor, i.e., fsw-vc, can be obtained in Fig. 12(b). In conclusion, the
+fsw-Cdc-vc model for the dc-link capacitor has been established,
+which can be applicable for calculating the capacitance value and
+estimating the volume of the dc-link capacitor in GaN inverters.
+Among the results, the TDK ﬁlm capacitor exhibits the lowest
+volume boundary and is therefore selected for this design.
+D. fsw-Rth-V olume Modeling of Heat Sink
+The power losses Ploss generated by the GaN devices in the
+inverter are dissipated via the heat sink, ensuring that the chip
+junction temperature Tj remains below the maximum allowable
+junction temperature Tj.max, thereby maintaining device ther-
+mal stability. The thermal resistance of the thermal path consists
+of the junction-to-case resistance Rth.jc of the GaN device, the
+thermal interface material (TIM) resistanceRth.TIM, and the heat
+sink resistance Rth.hs. Based on the path of heat dissipation, for
+a phase-leg with n parallel devices, the thermal circuit model is
+shown in Fig. 13.
+In practice, device power loss Ploss.i and heat sink thermal
+resistance Rth.hs play signiﬁcant roles in junction temperatureTj
+due to the basically ﬁxed thermal resistance of device junction-
+to-case Rth.jc and TIM Rth.TIM. Device power loss vary with
+TABLE III
+STRUCTURE SIZE AND MA TERIALCHARACTERISTIC PARAMETERS FOR
+THERMAL MODELS
+switching frequency and output power. Based on the power loss
+model presented in Section II-A, the power loss of single GaN
+device can be formulated as
+Ploss.i = 1
+2nPloss.ph (22)
+where i= 1, 2, …, n denotes the device index in a phase-leg with
+n parallel devices. The relationship between the device junction
+temperature Tj and heat sink temperature Th can be denoted as
+Tj.i −Th = Ploss.i(Rth.jc.i +Rth.TIM.i). (23)
+Through the thermal circuit model, the relationship between
+the heat sink temperature Th and the cooling ﬂuid temperature
+Tf can be derived as
+Th −Tf = Rth.hs
+2n∑
+i=1
+Ploss.i. (24)
+Substituting (22) and (24) into (23), the thermal resistance
+limit constraint of the heat sink can be obtained as
+Rth.hs ≤Tj.max −Tf −Ploss.i(Rth.jc +Rth.TIM)
+2n∑
+i=1
+Ploss.i
+. (25)
+In the thermal model, the junction-to-case thermal resistance
+and the maximum junction temperature of the GaN device can
+be obtained from the device datasheet, i.e., Rth.jc = 0.1 K/W,
+Tj.max = 150 °C. The structural size and material characteristics
+of each layer in the thermal model are detailed in Table III.T h e
+thermal resistance Rth.TIM of the TIM layer can be calculated
+as
+Rth.TIM = hTIM
+λTIMATIM
+. (26)
+The thermal resistance Rth.hs of the heat sink plays a crucial
+role in determining the overall heat dissipation performance of
+the system, especially considering the relatively ﬁxed thermal
+resistances of the device Rth.jc and the TIM Rth.TIM. Based on
+(25), the distribution of thermal resistance Rth.hs and junction
+temperature Tj under different switching frequencies, i.e., fsw-
+Tj-Rth.hs, is shown in Fig. 14(a). In practical design considera-
+tions, an adequate temperature margin needs to be guaranteed,
+so the maximum operational junction temperature Tj.max is set
+at 125 °C.
+Upon collecting the data, the thermal resistance and volume
+of the heat sink are intricately related to the heat dissipation
+method. Some typical samples of natural air cooling, forced air
+cooling, and liquid cooling are presented in Fig. 14(b). Under
+the same heat dissipation method, the volume of the heatsink
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 9 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16289
+Fig. 14. Thermal resistance modeling of heat sink. (a) fsw-Tj-Rth.hs distribu-
+tion and (b) Rth.hs-volume relationship for different cooling methods.
+TABLE IV
+PARAMETERS OF THERMAL RESISTANCE-VOLUME MODELS
+vhs is negatively correlated with its thermal resistance Rth.hs.
+As the volume of the heat sink increases, its heat dissipation
+performance enhances, and its thermal resistance decreases.
+B a s e do nt h ed a t ai nF i g .14(b), the relationship between the
+thermal resistance Rth.hs of the heat sink and the volume vhs of
+the heat sink is ﬁtted and can be approximated as
+vhs = khs(Rth.hs)αhs (27)
+where khs and αhs are coefﬁcients of calculating heat sink
+volume, respectively. The coefﬁcients for volume calculation
+associated with different types of heat sinks are given in TableIV.
+It is evident that, under identical thermal resistance condi-
+tions, the volume of the heat sink required for liquid cooling is
+minimized. Consequently, liquid cooling heat sinks are highly
+effective in enhancing the power density of inverters and are
+given primary consideration in EV . In summary, based on the
+models depicted in Fig. 14(a) and (b), the “switching frequency-
+thermal resistance-volume” constraint of the heat sink, i.e.,
+fsw-Rth.hs-vhs, is established.
+E. Efﬁciency-Density Space and Pareto Frontier
+Co-Optimization
+Based on the power loss model of inverter, the fsw-Cdc-vc
+model of dc-link capacitor, and fsw-Rth.hs-vhs constraint of heat
+sink, the “efﬁciency-power density” ( η–ρ) model for the GaN
+traction inverter is formulated.
+1) Efﬁciency of GaN Inverter: According to the power loss
+model, inverter efﬁciency ηcan be expressed as
+η= Po
+Pin
+= Po
+Po +Ploss.inv
+(28)
+where Pin is the dc-link input power. Po represents the rated
+output power as speciﬁed in the system design. The total in-
+verter power loss Ploss.inv, which was previously discussed in
+(14), exhibits a signiﬁcant dependence on both the switching
+frequency fsw, and the rated power Po, denoted as Ploss.inv (fsw,
+Po). Therefore, based on (14) and (28), the inverter efﬁciencyη
+can be characterized as a function of switching frequency and
+rated power, denoted as η(fsw, Po).
+2) Power Density of GaN Inverter: The volume of the GaN
+inverter is primarily determined by the GaN power module, dc-
+link capacitor, and heat sink. The power density ρis given by
+ρ= Po
+vtot
+= Po
+vM +vc +vhs +vother
+(29)
+where vtot is the total volume of inverter. vother is the additional
+volume attributed to other components and is considered a ﬁxed
+value. Considering the relationship between the rated current
+and the number of parallel-connected devices, the volume of the
+power module is correlated with the rated powerPo, i.e.,vM (Po).
+B a s e do nt h efsw-Cdc-vc model for the dc-link, the volume of the
+dc-link capacitor is determined by the switching frequency and
+the rated power, i.e.,vc (fsw, Po). According to thefsw-Rth.hs-vhs
+constraint relationship of the heat sink, the volume of the heat
+sink is related to the switching frequency and the rated power, i.e,
+vhs (fsw, Po). Therefore, the power density of the GaN inverter
+is determined by the switching frequency and the rated power,
+denoted as ρ(fsw, Po).
+3) Efﬁciency-Power Density Design Space: Based on the
+aforementioned analysis, both efﬁciency ηand power density
+ρof GaN inverters are interdependent functions of switching
+frequency fsw and rated power Po, which can be collectively
+expressed as
+{
+η= fη(fSW,Po)
+ρ= fρ(fSW,Po) (30)
+The “efﬁciency-power density” distribution of the GaN trac-
+tion inverter, under varying switching frequencies (1 to 200 kHz)
+and rated power (1 to 100 kW), is illustrated in the fsw–Po
+operating space, as depicted in Fig. 15(a). It can be observed
+that the inverter exhibits excellent efﬁciency and power density
+in certain regions. However, the optimal “efﬁciency-power den-
+sity” design point is inconvenient to determine under the fsw–
+Po coordinate. Therefore, the relationship between efﬁciency,
+power density and switching frequency is re-expressed in the
+η–ρ–fsw space, as shown in Fig. 15(b).T h eη–ρupper convex
+envelope clearly identiﬁes the Pareto frontier. The knee point of
+this frontier corresponds to the optimal design pointfsw.opt = 16
+kHz, where both efﬁciency and power density are maximized.
+Additionally, the 3D space representing theη–ρ–fsw relationship
+is shown in Fig. 15(c). This multidimensional representation
+reveals the trend variations in design objectives through their
+orthogonal projections.
+1) Front View Projection: Fig. 15(d) depicts the fsw–ηre-
+lationship under rated power conditions, demonstrat-
+ing the efﬁciency degradation trend at higher switching
+frequencies.
+2) Top View Projection: Fig. 15(e) illustrates the fsw–ρrela-
+tionship, showing a distinct peak power density achievable
+at fsw.opt = 16 kHz.
+Notably, the Pareto-optimal solution lies at this critical fre-
+quency pointfsw.opt, where the theoretical maximum power den-
+sity (ρmax.theory = 80 kW/L) is achieved while maintaining an
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 10 ===
+16290 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 15. GaN inverter efﬁciency-power density design space. (a) Efﬁciency-power density distribution at varying switching frequencies and rated p owers.
+(b) Pareto frontier analysis of efﬁciency-power density. (c) 3D design space visualization of η–ρ–fsw relationships. (d) fsw –ηprojection at rated power conditions.
+(e) fsw -ρprojection at rated power conditions.
+TABLE V
+OPTIMIZED DESIGN PARAMETERS OF GANI NVERTER
+exceptional theoretical peak efﬁciency ( ηmax.theory = 99.5%).
+Based on the co-design, the parameters of the proposed GaN
+traction inverter are given in Table V.
+IV . INTEGRA TION OF GANT RACTION INVERTER:P OWER
+MODULE,D C - LINK,H EA TSINK, AND PROTOTYPE
+The GaN inverter prototype is fabricated and integrated in
+this section. The design and manufacture of each component are
+based on the co-optimization results in SectionIII, with fsw.opt =
+16 kHz, Po = 100 kW. The details of the design and integration
+are elaborated as follows.
+A. Integration of High-Power GaN Module
+As a result of the selection of GaN devices, a direct-drive
+D-mode GaN device V08TC65S1A2 from VisIC Technology
+is employed in the traction inverter design. Based on the co-
+design results, to achieve the target power level Po = 100 kW,
+a half-bridge unit is implemented by paralleling three GaN
+devices (V08TC65S1A2). The three-phase inverter topology,
+composed of three half-bridge modules, offers a ﬂexible and
+easily integrated solution.
+1) Planar Layout of GaN Power Module: The layout and
+form factor of the module have been meticulously designed
+based on several critical considerations. First, the dimensions of
+the half-bridge module must be carefully designed to accommo-
+date the spatial requirements for six GaN devices while ensuring
+sufﬁcient spacing between the chips. Second, considering the
+high power density of the integrated half-bridge module, an
+“I-shaped” layout of parallel chips is employed to achieve a
+more compact inverter design. Third, the outer contour of the
+GaN module is designed with reference to existing commercial
+power modules, ensuring compatibility with standard installa-
+tion and application requirements. Based on the area of the GaN
+device (21 mm × 23 mm) and the number of parallel devices
+(n = 3), the width and power terminal conﬁguration of the
+designed module are modeled after the EconDual packaging.
+The GaN devices are integrated into the power module using a
+PCB as the interconnection carrier. To enhance current-carrying
+capacity and reduce parasitic inductance, copper blocks are
+embedded in the PCB for the dc +, dc–, and ac power paths.
+The planar layout of the designed power module is illustrated in
+Fig. 16(a) and (b). The current density distribution is obtained
+through the ﬁnite-element analysis (FEA) simulation, as shown
+in Fig. 16(c). Based on the simulation results, the parasitic
+inductance of the power loop in the designed power module is
+6.4 nH.
+2) V ertical Structure of GaN Power Module: The designed
+power module features a vertically integrated “Sandwich” struc-
+ture, as shown in Fig.17(a). The structure consists of three layers,
+from top to bottom: the driver isolation stage, the driver output
+stage, and the power stage. The power stage is integrated onto
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 11 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16291
+Fig. 16. Designed GaN power module layout and FEA-based simulation.
+(a) Top view, (b) bottom view, and (c) current density distribution.
+Fig. 17. Designed GaN power module. (a) V ertical structure schematic dia-
+gram and (b) fabricated prototype.
+the bottom surface of the PCB module, making direct contact
+with the heat sink to minimize the thermal resistance of the
+thermal path. The driver output stage is integrated onto the
+top surface of the PCB module, thereby minimizing the parasitic
+inductance in the gate loop as much as possible and achieving
+a high degree of integration. The gate loop is carefully laid
+out, with the projection of driver output on the PCB nearly
+overlapping the gate and source pads of the GaN device. The
+output of the driver totem-pole is directly connected to the GaN
+gate through PCB vias, ensuring a gate drive path length of
+less than 2 mm. Based on the FEA, the loop inductance of the
+gate drive path is as low as 1.4 nH. Moreover, the decoupling
+Fig. 18. Parameter design and optimization of the pin-ﬁn heat sink.
+(a) Deﬁnition of structural parameters. (b) Simulation results under different
+values of d and r. (c) ﬁtted thermal resistance surface within the design domain.
+capacitors and RC snubber circuits are also integrated into the
+PCB module. The driver isolation stage is implemented on a
+daughter-board at the top of the GaN module, connected to the
+GaN module via Pin headers, ensuring the delivery of driving
+signals and isolated power supply. The fabricated prototype of
+the designed GaN module is shown in Fig. 17(b).
+B. Design of Low Thermal Resistance Liquid Cooling Heat
+Sink
+Based on the optimization outcomes from the co-design pro-
+cess, the heat sink of the GaN inverter utilizes the liquid cooling
+solution. The pin-ﬁn liquid cooling is selected for this design
+due to its high heat ﬂux and high density, as well as its superior
+performance in commercial power modules. Optimizing the lay-
+out of the pin-ﬁn array can effectively enhance heat dissipation
+performance. The geometry of the pin-ﬁn structure is primarily
+deﬁned by two parameters: the pin spacing d and radius r,a s
+illustrated in Fig. 18(a). Considering manufacturing feasibility
+and referencing typical values from commercial pin-ﬁn designs,
+the design range for the pin-ﬁn parameters is set as: 2 mm ≤
+d ≤ 8 mm, 0.5 mm ≤ r ≤ 2 mm. To avoid design conﬂicts,
+such as pin overlap, a constraint must be applied to the design:
+r < d / 2. The pin height, which has relatively little inﬂuence
+on thermal performance, is ﬁxed at a typical value of 5.5 mm.
+Starting from a set of typical commercial values ( d = 5 mm,
+r = 1 mm) as the initial parameters, FEA-based simulations
+are conducted for pin-ﬁn heat sinks with varying pin radius
+r and spacing d. The corresponding thermal resistances are
+extracted, and the simulation results are shown in Fig. 18(b).
+Based on the simulation results, regression analysis is performed
+to ﬁt a parametric surface of the heat sink thermal resistance
+within the design domain, as shown in Fig. 18(c). Due to the
+high heat ﬂux capability of pin-ﬁn liquid cooling, the thermal
+design constraints are generally satisﬁed across the design space.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 12 ===
+16292 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 19. Designed heat sink prototype and its FEA-based simulation. (a) Pin-
+Fin cooling plate, (b) water channel, and (c) thermal distribution.
+However, selecting the lowest point on the ﬁtted surface can
+further enhance heat sink performance. Therefore, considering
+manufacturing tolerances and design constraints, the optimized
+pin-ﬁn parameters of d= 4.2 mm, r= 1.2 mm are adopted near
+the surface minimum.
+The designed heat sink consists of two main components: a
+pin-ﬁn cooling plate and a water channel, as shown in Fig. 19(a)
+and (b), respectively. The pin-ﬁn cooling plate is directly inter-
+faced with the heat dissipation surface of GaN devices, establish-
+ing a thermal conduction pathway with low thermal resistance.
+The pin-ﬁn design area encompasses the entire region beneath
+the GaN devices layout of the power module. Furthermore,
+the heat sink is designed with multiple precision-engineered
+mechanical mounting holes to facilitate convenient and secure
+installation and fastening. V alidated through FEA-based simu-
+lation models, the heatsink demonstrates a thermal resistance
+of 0.029 K/W, meeting the thermal resistance design require-
+ments under the maximum junction temperature constraint of
+co-design, i.e., Rth.hs ≤0.135 K/W (according to SectionIII-D).
+Under a 100 kW full-load current condition, the GaN device
+reaches a steady-state junction temperature of 86.7 °C. The ther-
+mal simulation results of the temperature distribution are shown
+in Fig. 19(c).
+C. Integration of High V olume Density DC-Link
+Through the calculations and comparisons in the Section III,
+the TDK capacitors are employed in the dc-link. Based on
+the co-design results, the dc-link capacitor exceeds 484 μFt o
+ensure sufﬁcient absorption of current ripples and support for the
+dc-link voltage. Furthermore, considering the dc-link capacitor
+Fig. 20. Designed DC-link capacitor. (a) Prototype. (b) Current distribution
+FEA- based simulation. (c) Measured impedance parameters.
+vertically positioned beneath the module and heatsink, its pro-
+jection area should closely match the footprint of the three-phase
+power module. This design ensures that the GaN inverter system
+attains high power density and a compact form factor. Therefore,
+based on the datasheet of the TDK ﬁlm capacitor [57],t h e
+selection and design are as follows: with the voltage rating of 500
+V@85 °C, 40μF capacitors are arranged in a 3×3 conﬁguration,
+and 22 μF capacitors are arranged in a 1 ×6 conﬁguration. This
+design achieves a total capacitance of 492 μF( ≥484 μF) with
+dimensions of 150 mm × 124 mm × 40 mm, thereby fulﬁlling
+the speciﬁed requirements for dc-link capacitance. Furthermore,
+in the dc-link design, the input terminals, output terminals, and
+PCB layout, all adopt a stack-up design for dc+ and dc– to ensure
+minimal parasitic inductance. The fabricated prototype of the dc-
+link capacitor is shown in Fig. 20(a). The FEA-based simulation
+results of the dc-link current density distribution are shown in
+Fig. 20(b). Finally, the designed dc-link capacitor is measured
+using an impedance analyzer, with the resulting test curve shown
+in the Fig. 20(c). The measured capacitance is 489 μF, meeting
+the design target, while the parasitic inductance is as low as
+13.4 nH.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 13 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16293
+Fig. 21. Designed GaN traction inverter. (a) Prototype and (b) 3D exploded
+view.
+Fig. 22. Installation of designed GaN traction inverter into a housing.
+D. High Density Integration of GaN Traction Inverter
+The designed GaN traction inverter is composed of GaN
+power modules, a dc-link capacitor, and a liquid cooling heat
+sink, all of which are vertically integrated into a compact stack.
+The prototype and exploded view of the designed GaN traction
+inverter are shown in Fig. 21(a) and (b), respectively. This
+integrated approach can enhance the compactness of the inverter
+prototype, thereby ensuring a high power density. The volume
+of the GaN traction inverter prototype, calculated based on its
+external contour, is 1.61 L. At the rated output power of 100
+kW, the power density of the prototype is 62.1 kW/L. Addi-
+tionally, Fig. 22 illustrates a demonstration of the assembled
+GaN inverter within a commercial traction inverter housing.
+Finally, the volume and weight distribution of various compo-
+nents in the GaN traction inverter prototype are summarized
+in Fig. 23.
+Fig. 23. Designed GaN traction inverter. (a) V olume distribution. (b) Weight
+distribution.
+V. E XPERIMENTAL RESULTS AND ANAL YSES
+This section conducts switching characteristic tests on the
+designed GaN power module and performs power loading
+tests along with efﬁciency evaluations on the GaN trac-
+tion inverter prototype. These experiments validate the ef-
+ﬁciency and correctness of the proposed “efﬁciency-power
+density” co-design methodology, as well as demonstrate
+the feasibility and potential of the GaN traction inverter
+prototype.
+A. Comprehensive Assessment of Dynamic Switching
+Performance for Designed GaN Module
+The designed GaN power module, serving as the pivotal com-
+ponent of the GaN inverter prototype, necessitates dynamic char-
+acteristic evaluation across a range of conditions. A representa-
+tive set of dynamic switching waveforms is shown in Fig. 24(a).
+Under a dc-link voltage Vdc = 400 V and a junction temperature
+Tj = 25 °C, Fig. 24(b) illustrates the measured turn-ON and turn-
+OFF trajectories of the GaN power module for load currents rang-
+ing from 150 to 600 A. Besides, under the conditions of load cur-
+rents Id = 600 A and junction temperature Tj = 25 °C, Fig.24(c)
+presents the experimental switching trajectories for various dc-
+link voltages ranging from 200 to 400 V . It can be observed that
+the GaN module exhibits extremely fast switching speed, with
+current rise/fall times within 15 ns. Additionally, the switching
+time increases with the increasing load current and dc-link
+voltage.
+Furthermore, the switching waveforms of the GaN module
+at various junction temperatures Tj from 25 to 125 °C, while
+maintaining the dc-link voltage Vdc = 400 V and load current
+Id = 600 A, are shown in Fig. 24(d). The test results show that
+as the junction temperature Tj rises, the turn- ON speed slightly
+decreases, whereas the turn- OFF remains virtually unaffected.
+Therefore, switching losses are also inﬂuenced by the junction
+temperature.
+The measurement results of the switching loss varying with
+junction temperature under different load currents are shown
+in Fig. 25(a) and (b).T h et u r n -ON loss increases with the
+rise of junction temperature, while the turn- OFF loss changes
+slightly. The turn- ON loss exhibits a signiﬁcant increase as
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 14 ===
+16294 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 24. (a) Representative switching waveforms of the fabricated GaN power
+module at 400 V/600 A, and measured switching behaviors under different.
+(b) Load currents. (c) DC-link voltages. (d) Junction temperatures.
+the junction temperature rises, whereas the turn- OFF loss re-
+mains relatively unchanged. Furthermore, as the load cur-
+rent increases, the dependence of the loss on the junction
+temperature becomes increasingly signiﬁcant. Therefore, op-
+timal heat dissipation and a low operation junction temper-
+ature are beneﬁcial for enhancing the efﬁciency of the GaN
+inverter.
+Fig. 25. Measured (a) turn- ON and (b) turn-OFF losses of GaN power module
+under different load currents and junction temperatures.
+Fig. 26. Topology of power test circuit.
+TABLE VI
+PARAMETER SETUP OF TEST RIG
+B. Performance Evaluation of the Designed GaN Inverter
+Under Operational Conditions
+To assess the load-carrying performance of the designed GaN
+inverter prototype, a power pump-back circuit based on the
+front-to-front topology is utilized for power testing, as shown
+in Fig. 26. Meanwhile, the test bench has been set up, as shown
+in Fig. 27, and its parameter conﬁguration is given in Table VI.
+Startup and Shutdown Waveforms: Under the dc-link voltage
+of Vdc = 400 V and half-load current of Id = 130 Arms, the
+overall waveforms of the line voltage vab and phase current ia
+during the startup and shutdown of the GaN inverter are shown
+in Fig. 28(a). The detailed zoomed-in waveforms are shown in
+Fig. 28(b).
+Additionally, the startup waveforms under full-load current
+of Id = 260 Arms, along with the detailed views, are presented
+in Fig. 29(a) and (b), respectively.
+Full-Load Continuous Waveform:The designed GaN inverter
+achieves a full power output Po = 100 kW, with the dc-link
+voltage of Vdc = 400 V and a phase current RMS reaching
+Id = 260 A. The full-load continuous operation waveforms are
+illustrated in Fig. 30, providing detailed views of the line voltage
+and three-phase currents.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 15 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16295
+Fig. 27. Power test. (a) Conﬁguration of test rig and (b) output current
+waveform.
+Fig. 28. Experimental results of proposed GaN inverter under half-load con-
+dition. (a) Startup and shutdown waveforms. (b) Zoomed-in startup waveforms.
+C. Efﬁciency Assessment of Designed GaN Inverter Under
+V arious Operation Points
+Under the dc-link voltage of Vdc = 400 V , efﬁciency
+measurements are performed at various output power points
+across ac output frequencies ranging from 50 to 600 Hz.
+The resulting efﬁciency curves of the GaN traction in-
+verter under different output frequencies and power levels
+are plotted in Fig. 31. Meanwhile, these efﬁciency curves
+can be transformed into an efﬁciency map in “ac fre-
+quency and output power” coordinate system, as illustrated
+in Fig. 32.
+Fig. 29. Experimental results of proposed GaN inverter under full-load con-
+dition. (a) Overall startup waveforms. (b) Zoomed-in startup waveforms.
+Fig. 30. Line voltage and phase current waveforms and details under full-load
+steady-state operation.
+Based on the efﬁciency test results, the GaN inverter demon-
+strates a high-efﬁciency operating state even under light load
+conditions. As the output ac frequency increases, the efﬁciency
+improves and reaches the peak at 500 Hz, after which it begins
+to decline slightly. At the ac output frequency of 500 Hz and
+under a light load condition, efﬁciency reaches the peak ηmax
+= 99.3%. Within the measured range of the experiment, the
+efﬁciency exceeds 98% across 79.3% of the efﬁciency MAP
+area. The GaN inverter showcases remarkable peak efﬁciency
+and consistently high performance across the entire mission
+proﬁles.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 16 ===
+16296 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+Fig. 31. Measured efﬁciency results of designed GaN traction inverter.
+Fig. 32. Experimental efﬁciency map of designed GaN traction inverter.
+D. WLTP Standard Drive Cycle Testing of the GaN Traction
+Inverter
+The Worldwide harmonized Light vehicles Test Procedure
+(WLTP) is a globally adopted automotive testing standard.
+By conducting WLTP drive cycle tests, the actual operating
+performance of the designed GaN inverter prototype can be
+effectively evaluated. Based on the rated power of prototype,
+the equivalent WLTP operating control for the inverter is derived
+and conﬁgured using vehicle dynamics model. Under the WLTP
+drive cycle, the output current waveform of the designed GaN
+inverter is shown in Fig. 33(a). The corresponding output power
+and efﬁciency curves are recorded and presented in Fig. 33(b)
+and (c), respectively.
+The test results validate the feasibility of the designed proto-
+type under cyclic driving conditions. Moreover, the efﬁciency
+curve demonstrates the of GaN traction inverter rapid respon-
+siveness in reaching the high-efﬁciency region across a wide
+range of conditions.
+E. Comparisons and Discussions
+To ensure the effectiveness of the proposed co-design method
+and demonstrate the advancements of the designed GaN proto-
+type, key parameters from several commercial and prototype-
+level traction inverters are compared in Table VII, revealing
+notable contrasts.
+Fig. 33. WLTP driving cycle test results of the GaN inverter. (a) Output current
+waveform. (b) Output power curve. (c) Efﬁciency curve.
+Regarding power density , current SiC experimental pro-
+totypes demonstrate a clear advantage—for example, the
+MARC·100 (70 kW/L) [55] and the UArk Prototype (86 kV A/L)
+[58]. This may be attributed to the high-voltage and high-
+temperature capabilities of SiC devices, as well as their more
+mature technological development compared to GaN devices.
+The proposed GaN prototype achieves a power density of 62.1
+kW/L, closely approaching the ﬁrst-tier SiC designs and com-
+parable to the commercial benchmark Porsche Taycan inverter
+(62.3kW/L). Moreover, it signiﬁcantly outperforms most com-
+mercial SiC inverters, indicating that GaN traction inverters have
+strong potential to compete with SiC in high-density integration.
+Regarding efﬁciency , the proposed GaN inverter achieves a
+signiﬁcant breakthrough enabled by the high-speed and low-loss
+characteristics of GaN devices. The prototype reaches a peak
+efﬁciency of 99.3%, surpassing the other compared automotive
+traction inverters. Moreover, among all full-power device types
+listed in the table, GaN is the only one to exceed the 99%
+efﬁciency boundary for traction inverters. Regarding simul-
+taneous improvements in efﬁciency and power density ,t h e
+proposed GaN traction inverter in this article represents a core
+advancement. Traditionally, a tradeoff is often required between
+high power density and high efﬁciency. However, this article
+introduces a system-level “efﬁciency-density” co-optimization
+methodology. The optimization and integrated design enable the
+GaN traction inverter to maintain a high power density of 62.1
+kW/L while achieving a peak efﬁciency of 99.3%. These results
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 17 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16297
+TABLE VII
+COMPARISONS OF COMMERCIAL AND PROTOTYPE-LEVEL TRACTION INVERTER AND PROPOSED GANI NVERTER PROTOTYPE
+demonstrate the technical feasibility of GaN power devices in
+high-efﬁciency, high-density EV applications, offering a new
+paradigm for next-generation advanced inverters.
+VI. C ONCLUSION
+This article introduces a co-design methodology of efﬁciency
+and power density for the GaN traction inverter in EV applica-
+tions, considering the design and integration of the key compo-
+nent. GaN are a potential solution to break through the efﬁciency
+and power density boundaries of SiC, whereas the utilization of
+GaN devices in traction inverters remains underdeveloped in
+terms of systematic design and integration. To overcome these
+challenges, an “efﬁciency-density” co-design methodology for
+GaN traction inverter is proposed, incorporating a comprehen-
+sive analysis of key components. The “ η–ρ–fsw” design space
+of the GaN inverter is systematically constructed, based on the
+derived the “fsw–Ploss” model of the inverter, the “ fsw–Cdc–vc”
+relationship of the dc-link capacitor, and the “ fsw–Rthhs–vhs”
+constraint of the heat sink. Through pareto frontier analysis, the
+co-optimization design point of efﬁciency and power density
+is determined. Based on the co-design results, key components
+are developed and integrated, including the high-power GaN
+module with integrated gate driver, a dc-link capacitor with
+high volume density, and a pin-ﬁn liquid cooling heat sink.
+Ultimately, a 400 V / 100 kW GaN traction inverter prototype
+is high-density integrated, utilizing a vertical stack structure of
+“power module-heat sink-capacitor”. Experimental validation
+conﬁrmed the superior performance of the designed prototype,
+achieving a full-load power density of 62.1 kW/L and a peak
+efﬁciency of 99.3%, thereby surpassing the existing “efﬁciency-
+density” boundary of EV traction inverters (see Fig. 3). This
+research serves as a valuable reference for the application of
+GaN devices in EV . It offers signiﬁcant insights and practical
+value for advancing the next generation of EV traction inverter
+technology.
+ACKNOWLEDGMENT
+The authors gratefully acknowledge the technical collabo-
+ration with United Automotive Electronic Systems Company,
+Ltd. (UAES), SAIC V olkswagen Automotive Company, Ltd.,
+and Shanghai Jieneng Automotive Technology Company, Ltd.
+REFERENCES
+[1] L. Woodley et al., “Climate impacts of critical mineral supply chain
+bottlenecks for electric vehicle deployment,”Nat. Commun., vol. 15, 2024,
+Art. no. 6813.
+[2] C.-C. Tu et al., “Industry perspective on power electronics for electric
+vehicles,” Nat. Rev. Elect. Eng., vol. 1, pp. 435–452, Jun. 2024.
+[3] I. Husain et al., “Electric drive technology trends, challenges, and op-
+portunities for future electric vehicles,” Proc. IEEE , vol. 109, no. 6,
+pp. 1039–1059, Jun. 2021.
+[4] C. S. Goli, S. Essakiappan, P . Sahu, M. Manjrekar, and N. Shah, “Review
+of recent trends in design of traction inverters for electric vehicle appli-
+cations,” in Proc. IEEE 12th Int. Symp. Power Electron. Distrib. Gener .
+Syst., 2021, pp. 1–6.
+[5] P . B. C. Costa, J. F. Silva, and S. F. Pinto, “Experimental evaluation of
+SiC MOSFET and GaN HEMT losses in inverter operation,” in Proc. 45th
+Annu. Conf. IEEE Ind. Electron. Soc. , 2019, pp. 6595–6600.
+[6] J. W. Kolar et al., “Application of WBG power devices in future 3- Φvari-
+able speed drive inverter systems: How to handle a double-edged sword,”
+in Proc. IEEE Int. Electron Devices Meeting , 2020, pp. 27.7.1–27.7.4.
+[7] A. K. Morya et al., “Wide bandgap devices in AC electric drives: Op-
+portunities and challenges,” IEEE Trans. Transp. Electriﬁc., vol. 5, no. 1,
+pp. 3–20, Mar. 2019.
+[8] D. Cittanti, E. Vico, and I. R. Bojoi, “New fom-based performance evalu-
+ation of 600/650 V SiC and GaN semiconductors for next-generation EV
+drives,” IEEE Access, vol. 10, pp. 51693–51707, 2022.
+[9] J. P . Kozak et al., “Stability, reliability, and robustness of GaN power
+devices: A review,” IEEE Trans. Power Electron. , vol. 38, no. 7,
+pp. 8442–8471, Jul. 2023.
+[10] J. Saha, S. S. Manohar, P . Sundararajan, and S. K. Panda, “Comparative
+evaluation of SiC/GaN/Si-based drive-train inverters for light electric-
+vehicles,” in Proc. IEEE Appl. Power Electron. Conf. Expo. , 2024,
+pp. 822–829.
+[11] K. Olejniczak et al., “A compact 110 kV A, 140 °C ambient, 105 °C liquid
+cooled, all-SiC inverter for electric vehicle traction drives,” in Proc. IEEE
+Appl. Power Electron. Conf. Expo., 2017, pp. 735–742.
+[12] C. -W. Chang et al., “Thermal consideration and design for a 200-kW SiC-
+based high-density three-phase inverter in more electric aircraft,” IEEE J.
+Emerg. Sel. Top. Power Electron., vol. 11, no. 6, pp. 5910–5929, Dec. 2023.
+[13] X. Zhao, R. Phukan, C. -W. Chang, R. Burgos, D. Dong, and P . Asfaux,
+“Design and optimization of 2 ×211-kW SiC-based aircraft propulsion
+inverter system with high power density and high efﬁciency,” in Proc.
+IEEE Appl. Power Electron. Conf. Expo. , 2023, pp. 1009–1016.
+[14] Z. Zeng, X. Zhang, F. Blaabjerg, H. Chen, and T. Sun, “Stepwise design
+methodology and heterogeneous integration routine of air-cooled SiC
+inverter for electric vehicle,” IEEE Trans. Power Electron., vol. 35, no. 4,
+pp. 3973–3988, Apr. 2020.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 18 ===
+16298 IEEE TRANSACTIONS ON POWER ELECTRONICS, VOL. 40, NO. 11, NOVEMBER 2025
+[15] N. Keshmiri, D. Wang, B. Agrawal, R. Hou, and A. Emadi, “Current
+status and future trends of GaN HEMTs in electriﬁed transportation,”IEEE
+Access, vol. 8, pp. 70553–70571, 2020.
+[16] K. J. Chen et al., “GaN-on-Si power technology: Devices and applications,”
+IEEE Trans. Electron Devices, vol. 64, no. 3, pp. 779–795, Mar. 2017.
+[17] E. A. Jones, F. F. Wang, and D. Costinett, “Review of commercial GaN
+power devices and GaN-based converter design challenges,” IEEE J.
+Emerg. Sel. Top. Power Electron., vol. 4, no. 3, pp. 707–719, Sep. 2016.
+[18] J. W. Kolar, J. Biela, S. Wafﬂer, T. Friedli, and U. Badstuebner, “Perfor-
+mance trends and limitations of power electronic systems,” in Proc. 6th
+Int. Conf. Integr . Power Electron. Syst., 2010, pp. 1–20.
+[19] E. Gurpinar and A. Castellazzi, “Tradeoff study of heat sink and output
+ﬁlter volume in a GaN HEMT based single-phase inverter,” IEEE Trans.
+Power Electron., vol. 33, no. 6, pp. 5226–5239, Jun. 2018.
+[20] S. Savulak, B. Guo, and S. Krishnamurthy, “Three-phase inverter employ-
+ing PCB embedded GaN FETs,” in Proc. IEEE Appl. Power Electron.
+Conf. Expo., 2018, pp. 1256–1260.
+[21] A. I. Emon et al., “Design and optimization of gate driver integrated
+multichip 3-D GaN power module,”IEEE Trans. Transp. Electriﬁc.,v o l .8 ,
+no. 4, pp. 4391–4407, Dec. 2022.
+[22] L. Zhu, Y . Y an, and H. Bai, “Design and transient analysis of a
+650 V/150 A GaN power module with integrated bias power and gate-drive
+circuit,” IEEE Trans. Compon., Packag. Manuf. Technol. , vol. 14, no. 3,
+pp. 417–427, Mar. 2024.
+[23] X. Zhao et al., “Design of ultracompact gate driver integrated with cur-
+rent sensor and commutation path for a 211-kW three-level SiC aircraft
+propulsion inverter,” IEEE J. Emerg. Sel. Top. Power Electron. , vol. 11,
+no. 4, pp. 4077–4094, Aug. 2023.
+[24] S. Chowdhury, E. Gurpinar, and B. Ozpineci, “Capacitor technologies:
+Characterization, selection, and packaging for next-generation power
+electronics applications,” IEEE Trans. Transp. Electriﬁc. , vol. 8, no. 2,
+pp. 2710–2720, Jun. 2022.
+[25] D. Cittanti et al., “Analysis, design, and experimental assessment of a
+high power density ceramic dc-link capacitor for a 800 V 550 kV A
+electric vehicle drive inverter,” IEEE Trans. Ind. Appl. , vol. 59, no. 6,
+pp. 7078–7091, Nov./Dec. 2023.
+[26] H. Wang, C. Li, G. Zhu, Y . Liu, and H. Wang, “Model-based design
+and optimization of hybrid dc-link capacitor banks,” IEEE Trans. Power
+Electron., vol. 35, no. 9, pp. 8910–8925, Sep. 2020.
+[27] H. Wang, Y . Liu, and H. Wang, “On the practical design of a two-
+terminal active capacitor,” IEEE Trans. Power Electron., vol. 34, no. 10,
+pp. 10006–10020, Oct. 2019.
+[28] M. Guacci, D. Zhang, M. Tatic, D. Bortis, J. W. Kolar, and Y . Kinoshita,
+“Three-phase two-third-PWM buck-boost current source inverter system
+employing dual-gate monolithic bidirectional GaN e-FETs,” CPSS Trans.
+Power Electron. Appl., vol. 4, no. 4, pp. 339–354, Dec. 2019.
+[29] M. U. Hassan, Y . Wu, A. I. Emon, Z. Y uan, and F. Luo, “Design con-
+siderations and their optimization for a two-level GaN-based current
+source inverter,” IEEE J. Emerg. Sel. Top. Power Electron., vol. 12, no. 3,
+pp. 3173–3187, Jun. 2024.
+[30] R. V . Erp, R. Soleimanzadeh, L. Nela, G. Kampitsis, and E. Matioli, “Co-
+designing electronics with microﬂuidics for more sustainable cooling,”
+Nature, vol. 585, pp. 211–216, 2020.
+[31] G. Zhang, J. W. Pomeroy, M. E. Navarro, H. Cao, M. Kuball, and Y . Ding,
+“3-D printed microjet impingement cooling for thermal management of
+ultrahigh-power GaN transistors,” IEEE Trans. Compon., Packag. Manuf.
+Technol., vol. 11, no. 5, pp. 748–754, May 2021.
+[32] H. Amano et al., “The 2018 GaN power electronics roadmap,” J. Phys. D:
+Appl. Phys., vol. 51, 2018, Art. no. 163001.
+[33] H. C. P . Dymond et al., “Reduction of oscillations in a GaN bridge leg
+using active gate driving with sub-ns resolution, arbitrary gate-resistance
+patterns,” in Proc. IEEE Energy Convers. Congr . Expo., 2016, pp. 1–6.
+[34] Q. Huang and A. Q. Huang, “V ariable frequency average current mode con-
+trol for ZVS symmetrical dual-buck H-bridge all-GaN inverter,” IEEE J.
+Emerg. Sel. Top. Power Electron., vol. 8, no. 4, pp. 4416–4427, Dec. 2020.
+[35] H. Qin, X. Zheng, W. Wang, and Q. Xun, “A novel adaptive dead-time con-
+trol method for GaN-based motor drives,” IEEE Trans. Energy Convers.,
+vol. 40, no. 1, pp. 258–269, Mar. 2025.
+[36] S. Hori, Y . Kanazawa, H. Akatuka, S. Wang, S. Doki, and H. Tadano,
+“Application of variable carrier frequency control by using wide bandgap
+semiconductors inverter for WLTC mode driving,” inProc. 22nd IEEE Int.
+Conf. Ind. Technol., 2021, pp. 322–326.
+[37] S. Satpathy, P . P . Das, S. Bhattacharya, and V . V eliadis, “Switching
+modes for reduction of peak voltage transients in GaN-based three-level
+ANPC inverter,” IEEE Trans. Ind. Appl. , vol. 60, no. 6, pp. 9066–9079,
+Nov./Dec. 2024.
+[38] D. Cittanti, E. Vico, E. Armando, and R. Bojoi, “Analysis and con-
+ceptualization of a 400V 100 kV A full-GaN double bridge inverter for
+next-generation electric vehicle drives,” in Proc. IEEE Transp. Electriﬁc.
+Conf. Expo, 2022, pp. 740–747.
+[39] F. V ollmaier, N. Nain, J. Huber, J. W. Kolar, K. K. Leong, and B. Pandya,
+“Performance evaluation of future T-type PFC rectiﬁer and inverter sys-
+tems with monolithic bidirectional 600 V GaN switches,” in Proc. IEEE
+Energy Convers. Congr . Expo., 2021, pp. 5297–5304.
+[40] R. Phukan et al., “Characterization and mitigation of conducted emissions
+in a SiC based three-level T-type motor drive for aircraft propulsion,”IEEE
+Trans. Ind. Appl., vol. 59, no. 3, pp. 3400–3412, May/Jun. 2023.
+[41] J. E. Huber and J. W. Kolar, “Optimum number of cascaded cells for
+high-power medium-voltage AC–DC converters,”IEEE J. Emerg. Sel. Top.
+Power Electron., vol. 5, no. 1, pp. 213–232, Mar. 2017.
+[42] J. Saha, D. Hazarika, N. B. Y . Gorla, and S. K. Panda, “Machine-
+learning-aided optimization framework for design of medium-voltage
+grid-connected solid-state transformers,” IEEE J. Emerg. Sel. Top. Power
+Electron., vol. 9, no. 6, pp. 6886–6900, Dec. 2021.
+[43] J. Saha, N. B. Y . Gorla, A. Subramaniam, and S. K. Panda, “Analysis of
+modulation and optimal design methodology for half-bridge matrix-based
+dual-active-bridge (MB-DAB) AC–DC converter,” IEEE J. Emerg. Sel.
+Top. Power Electron., vol. 10, no. 1, pp. 881–894, Feb. 2022.
+[44] A. I. Emon, A. B. M. Mustafeez-ul-Hassan, J. Kaplun, S. S. V ala, and
+F. Luo, “A review of high-speed GaN power modules: State of the art,
+challenges, and solutions,” IEEE J. Emerg. Sel. Top. Power Electron. ,
+vol. 11, no. 3, pp. 2707–2729, Jun. 2023.
+[45] P . Han, P . Liu, Q. Huang, Z. Chen, and A. Q. Huang, “A 650 V , 2.1 m ω
+GaN half-bridge power module for 400V EV traction inverter application,”
+in Proc. IEEE Energy Convers. Congr . Expo., 2022, pp. 1–6.
+[46] M. T. Tran et al., “A high performance GaN power module with parallel
+packaging for high current and low voltage traction inverter applications,”
+IEEE J. Emerg. Sel. Top. Power Electron., vol. 13, no. 1, pp. 1188–1209,
+Feb. 2025.
+[47] A. I. Emon et al., “A 650V/60A gate driver integrated wire-bondless
+multichip GaN module,” in Proc. IEEE 12th Int. Symp. Power Electron.
+Distrib. Gener . Syst., 2021, pp. 1–6.
+[48] B. Li, X. Y ang, K. Wang, H. Zhu, L. Wang, and W. Chen, “A compact
+double-sided cooling 650V/30A GaN power module with low 3parasitic
+parameters,” IEEE Trans. Power Electron. , vol. 37, no. 1, pp. 426–439,
+Jan. 2022.
+[49] Y . Sun et al., “Packaging a 100kW all-GaN-based three-level active neutral
+point clamped power module for electric vehicle motor drives,” in Proc.
+IEEE Energy Convers. Congr . Expo., 2023, pp. 5474–5479.
+[50] Z. Dong, H. Y an, Y . Fan, X. Wu, and J. Zhang, “A 3-D integrated power
+module of GaN HEMTs based on silver sintering processes,” IEEE Trans.
+Power Electron., vol. 39, no. 3, pp. 2932–2937, Mar. 2024.
+[51] H. Kong, L. Jia, L. Wang, Y . Y ao, F. Y ang, and H. Cui, “A ﬂexible-PCB on
+DPC GaN power module with ultralow parasitic inductance,”IEEE Trans.
+Power Electron., vol. 40, no. 4, pp. 5241–5251, Apr. 2025.
+[52] S. Lu et al., “Double-sided cooling half-bridge power module of
+650V/150A gallium nitride high-electron-mobility transistor,” IEEE
+Trans. Ind. Electron., vol. 71, no. 12, pp. 15578–15586, Dec. 2024.
+[53] X. Tian et al., “PCB-on-DBC GaN power module design with high-density
+integration and double-sided cooling,” IEEE Trans. Power Electron. ,
+vol. 39, no. 1, pp. 507–516, Jan. 2024.
+[54] T. Modeer, N. Pallo, T. Foulkes, C. B. Barth, and R. C. N. Pilawa-
+Podgurski, “Design of a GaN-based interleaved nine-level ﬂying capacitor
+multilevel inverter for electric aircraft applications,” IEEE Trans. Power
+Electron., vol. 35, no. 11, pp. 12153–12165, Nov. 2020.
+[55] W. Taha et al., “Holistic design and development of a 100-kW SiC-based
+six-phase traction inverter for an electric vehicle application,”IEEE Trans.
+Transp. Electriﬁc., vol. 10, no. 2, pp. 4616–4627, Jun. 2024.
+[56] W. Taha, P . Azer, A. Poorfakhraei, S. Dhale, and A. Emadi, “Compre-
+hensive analysis and evaluation of DC-link voltage and current ripples in
+symmetric and asymmetric two-level six-phase voltage source inverters,”
+IEEE Trans. Power Electron., vol. 38, no. 2, pp. 2215–2229, Feb. 2023.
+[57] TDK, “Film Capacitors–Capacitors for DC Link, Series/Type:
+B3277∗X/Y/Z,” 2025. [Online]. Available: https://www.tdk-electronics.
+tdk.com/inf/20/20/ds/MKP_B32774XYZ_778XYZ.pdf
+[58] T. Adamson et al., “An 800-V high-density traction inverter—Electro-
+thermal characterization and low-inductance PCB bussing design,”IEEE J.
+Emerg. Sel. Top. Power Electron., vol. 10, no. 3, pp. 3013–3023, Jun. 2022.
+[59] E. Nazerian, R. Y u, Q. Huang, M. Heydari, H. S. Rizi, and A. Q. Huang,
+“High efﬁciency, high power density 10 kW ﬂying capacitor converter
+based on 650V GaN for 800V EV applications,” in Proc. IEEE Energy
+Convers. Congr . Expo., 2023, pp. 1863–1869.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 19 ===
+ZOU et al.: SYSTEMA TIC EFFICIENCY -DENSITY CO-OPTIMIZA TION OF 100 KW GAN TRACTION INVERTER: METHODOLOGY AND INTEGRA TION 16299
+Mingrui Zou (Student Member, IEEE) received the
+B.Sc. degree in electrical engineering from Kun-
+ming University of Science and Technology, Kun-
+ming, China, in 2020. He is currently working
+toward the Ph.D. degree in electrical engineering with
+Chongqing University, Chongqing, China.
+His research interests include advanced packaging
+and industrial application of wide bandgap power
+devices.
+Peng Sun(Student Member, IEEE) received the B.Sc.
+and M.Sc. degrees in electrical engineering from
+China University of Petroleum, Beijing, China, in
+2017 and 2020, respectively, and the Ph.D. degree
+in electrical engineering from Chongqing University,
+Chongqing, China, in 2025.
+From January 2024 to January 2025, he was a
+Visiting Student with the Department of Engineering,
+King’s College London, London, U.K. He is currently
+a Postdoctoral Fellow with the School of Electri-
+cal Engineering, Chongqing University, Chongqing,
+China, in July 2015. His research interests include advanced packaging and
+industrial application of wide bandgap power devices.
+Zheng Zeng (Member, IEEE) received the B.Sc.
+degree from Wuhan University, China, in 2009, and
+the Ph.D. degree from Zhejiang University, China, in
+2014, both in electrical engineering.
+In July 2014, he was with the School of Electri-
+cal Engineering, Chongqing University, Chongqing,
+China, where he was promoted to an Associate Pro-
+fessor in August 2017 and a Full Professor in Au-
+gust 2022. From July 2018 to July 2019, he was
+also a Research Fellow with the School of Electrical
+and Electronic Engineering, Nanyang Technological
+University, Singapore. His research interests include advanced packaging and
+industrial application of wide bandgap power devices.
+Yulei Wang (Student Member, IEEE) received the
+B.Sc. degree from China University of Mining and
+Technology, Xuzhou, China, in 2019, and the M.Sc.
+degree from Chongqing University, Chongqing,
+China, in 2023, both in electrical engineering. He is
+currently working toward the Ph.D. degree in elec-
+trical and computer engineering with McMaster Uni-
+versity, Hamilton, ON, Canada.
+His research interests include advanced packaging
+and industrial application of wide bandgap power
+devices.
+Jiakun Gong received the B.Sc. degree in electri-
+cal engineering in 2022 from Chongqing University,
+Chongqing, China, where he is currently working
+toward the Ph.D. degree in electrical engineering.
+His research interests include advanced packaging
+and industrial application of wide bandgap power
+devices.
+Yuxi Liang received the B.Sc. and M.Sc. degrees
+in electrical engineering in 2021 and 2024, re-
+spectively, from Chongqing University, Chongqing,
+China, where she is currently working toward the
+Ph.D. degree in electrical engineering.
+Her research interests include advanced packaging
+and industrial application of wide bandgap power
+devices.
+Liang Wang (Student Member, IEEE) received the
+B.Sc. degree from Chongqing University of Posts and
+Telecommunications, Chongqing, China, in 2016,
+and the M.Sc. and Ph.D. degrees from Chongqing
+University, Chongqing, China, in 2019 and 2024, all
+in electrical engineering.
+He was a Visiting Student with the Department of
+Engineering, University of Cambridge, Cambridge,
+U.K. His research interests include advanced packag-
+ing and industrial application of wide bandgap power
+devices.
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:21:38 UTC from IEEE Xplore.  Restrictions apply. 

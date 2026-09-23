@@ -1,0 +1,555 @@
+
+PAGE 1
+WHITE PAPER: WP008
+eGaN® FET Drivers & Layout Considerations
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    1
+eGaN® FET Drivers 
+and Layout Considerations 
+EFFICIENT POWER CONVERSION
+DRIVING eGaN® FETS
+When considering gate drive requirements, the three most important parameters for eGaN FETs are (1) the maximum allowable gate voltage, (2) the gate threshold volt­
+age, and (3) the “body diode” voltage drop. The maximum allowable gate-source voltage for an eGaN FET of 6 V is low in comparison with traditional silicon. Secondly, 
+the gate threshold is also low compared to most power MOSFETs, but does not suffer from as strong a negative temperature coefficient as MOSFETs.  Thirdly, the “body 
+diode” forward drop can be higher than comparable silicon MOSFETs, which requires additional attention to timing for the gate drive as compared to MOSFETs. 
+Table 1 highlights some of these key parameters as compared with a power MOSFET.
+Gate pull-down resistance
+A great advantage of eGaN FETs is their switching speed. However, the accompanying higher di/dt and dv/dt require a layout with less parasitic capacitance, resistance, 
+and inductance, which will require some new considerations for the gate driver. To understand this further we will look at a half- bridge with a high dv/dt turn-on of 
+a complementary device as shown in Figure 1. The current from the Miller charge flows from the drain through CGD and CGS to the source as well as through CGD to the 
+internal gate resistance (RG) and the gate driver sink resistance (RSink) to the source. The requirement for avoiding dv/dt (Miller) turn-on is then given by:
+CGD  x  dv/dt  x  (RG + RSink) x (1 – e - dt / a)   <  VTH         (1)
+Where α is the passive network time constant (RG + RSink) · (CGD + CGS) and dt is the dv/dt switching time. Therefore, to avoid Miller turn-on of an eGaN FET, it is necessary 
+to limit the total resistance path (RG + RSink) between the device gate and source for some second generation devices.  
+For devices with good Miller ratios (QGD/QGS · (VTH) < 1), this is not required.  It should be noted that, since QGD increases with VDS, this ratio will get worse with increasing 
+drain-source voltage and may therefore lead to Miller turn-on.  On the other hand, Eq. (1) improves at very low bus voltages where QGD/QGS( VTH) is much less than one. 
+To be safe, a gate drive pull-down resistance of 0.5 Ω or less is recommended for higher voltage devices. 
+Even with a low resistance pull down, the maximum drain 
+node dv/dt that will avoid Miller turn-on will still be limited 
+by:
+dv/dtmax  ≈ VTH / (Zpull-down · CGD)
+where Zpull-down is the impedance of the external gate driver 
+loop between gate and source of the device. This includes 
+the Device gate resistance RG, gate driver pull-down resis­
+tance RSINK as well as the loop inductance. Keeping the loop 
+inductance low is further complicated by traditional design­
+ing long narrow leads between the gate driver and the device 
+gate. This can be avoided by widening and shortening the 
+traces between the gate driver and gate of the device.
+Alex Lidow PhD, CEO and Johan Strydom, PhD, Vice President Applications Engineering, Efficient Power Conversion Corporation
+eGaN FETs differ from their silicon counterparts because of their significantly faster switching speeds and consequently have different 
+requirements for gate drive, layout, and thermal management which can all be interactive.
+Table 1: Comparison between 100 V Si MOSFETs and 100 V eGaN FETs.
+FET Type
+Typical 100 V Silicon
+100 V eGaN FET 
+Maximum gate-source voltage
+±20 V
++6 V /-5 V
+Reverse body diode voltage
+~1 V
+~1.5-2.5 V
+Gate threshold
+2 V – 4 V
+0.7 V - 2.5 V
+dv/dt capacitance (Miller) ratio QGD(50 V)/QGS(VTH)
+0.5-0.8
+0.8
+Internal gate resistance
+>1 Ω
+<0.6 Ω
+Change in RDS(ON) from 25°C to 100°C
+>+50%
+<+40%
+Change in VTH from 25°C to 100°C
+-20%
++3%
+Gate to source leakage
+few nA
+few mA
+Body diode reverse recovery charge
+high
+none
+Avalanche capable
+Yes
+not rated
+
+PAGE 2
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    2
+eGaN® FET Drivers & Layout Considerations
+GATE PULL-UP RESISTANCE
+Because the total Miller charge (QGD) is much lower for an eGaN 
+FET than for a similar on-resistance power MOSFET, it is possible 
+to turn on the device much faster. Too high a dv/dt can reduce 
+efficiency by creating shoot-through during the ‘hard’ switch­
+ing transition. It would therefore be an advantage to adjust the 
+gate drive pull-up resistance to minimize transition time without 
+inducing other unwanted loss mechanisms. This also allows ad­
+justment of the switch node voltage overshoot and ringing for 
+improved EMI. In power MOSFET applications this is achieved by 
+placing a resistor and anti-parallel diode in series with the gate 
+drive output. For eGaN FETs, where the threshold voltage is low, 
+this is not recommended. The simplest general solution is to split 
+the gate pull-up and pull-down connections in the driver and al­
+low the insertion of a discrete resistor as needed. 
+GATE DRIVE DEAD-TIME 
+The eGaN FET reverse bias or “body diode” operation has the ben­
+efit of no reverse-recovery losses.  This advantage, however, can 
+be offset by the higher body diode forward voltage drop [1]. The 
+diode conduction losses can be significant, especially at low voltages and high frequencies. Unlike silicon diode reverse recovery losses, these conduction losses can 
+be minimized through proper dead-time management that keeps the body diode conduction interval as short as possible. The shorter and less variable switching 
+times of eGaN FETs allow for much tighter dead-time control which, in turn, reduces body diode conduction loss. A reduction of dead-time to just a few nanoseconds 
+virtually eliminates body diode losses.
+GATE DRIVE SUPPLY REGULATION
+The maximum gate voltage limitation of 6 V on the eGaN FET adds restrictions to the gate drive supply range, and requires some form of supply regulation. Of greatest 
+concern is the floating or high-side supply in a half-bridge configuration. A simple implementation to improve matching between low-side (ground referenced) and 
+high-side supplies is through the use of a ‘matching’ diode as shown for a discrete gate drive implementation in Figure 2.
+This implementation is only suited for complementary switched, half-bridge applications where the dead-time and body diode conduction is minimal. For applications 
+where the eGaN body diode conduction can be significantly longer than the bootstrap diode turn-on time, the approximately 2 V body diode voltage drop will add to 
+the supply voltage and can cause overvoltage of the high-side 
+supply. In such cases, some form of post-bootstrap supply regu­
+lation is required. 
+The LM5113, from Texas Instruments, is an example of an eGaN 
+FET optimized half bridge driver that implements bootstrap 
+regulation.  Integrated in the undervoltage lockout is an over­
+voltage clamp that limits bootstrap voltage to 5.2 V ensuring 
+sufficient reliable operation under all circuit conditions.  In addi­
+tion to the clamp, there are separate source and sink pins, >50 V/
+ns dv/dt capability, matched propagation time, 0.5 Ω pull down, 
+and separate high side and low side inputs to unlock the effi­
+ciencies the eGaN FETs enable.
+eGaN Power Device
+High dv/dt event
+Gate Drive
+R SINK
+RG
+CGD
+CGS
+CDS
+Keep
+V NODE < VTH
+High dv/dt current paths
+Bootstrip or ‘matching’ low-side diode
+Adjustable
+pull-up
+Minimize loop
+5.6 V
+D1
+~5.0 V
+C1
+M3
+R1
+M1
+Logic
+input
+M4
+R2
+M2
+D
+G
+S
+U1
+EPC GaN FET
+Figure 1:  Effect of dv/dt on a device in the “OFF” state, 
+and requirements for avoiding Miller-induced shoot-through.
+Figure 2: Discrete eGaN FET gate-driver solution showing method 
+for complementary high-side and low-side supply voltage matching.
+
+PAGE 3
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    3
+eGaN® FET Drivers & Layout Considerations
+LAYOUT CONSIDERATIONS
+Gate drive loop inductance 
+The maximum allowable gate voltage of 6 V is one and a half volts above the recommended 4.5 V drive voltage. This limited headroom requires an accurate gate drive 
+supply, as well as a limited inductance between the eGaN FET and gate driver as the inductance can cause a voltage overshoot on the gate. Although some overshoot 
+is acceptable, overshoot can be avoided entirely if the gate loop inductance is limited to:
+1/4 x (RG + RSource)2  x CGS ≥  LG     (2)
+Where RSource is the source resistance on the gate driver and LG is the loop inductance between the gate driver and eGaN FET. Therefore, for a given gate loop inductance 
+there will be a minimum source resistance value needed to keep VGS from exceeding its maximum limit. Stated in another way, the pull-up resistance of the gate drive 
+path should be adjusted for a given gate loop layout to ensure at least near critical damping to limit overshoot. Thus the inductance of the gate loop will directly limit 
+the switching speed of the device and care should be taken to minimize it resulting in maximum efficiency.
+Effect of common source inductance (CSI)
+eGaN FETs in voltage ratings of 200 V or less come in LGA packag­
+es with very low package inductance and resistance.  The impact 
+of common source inductance could therefore be considered a 
+layout issue rather than a gate driver requirement. The reality is 
+not that simple.  
+The addition of CSI effectively reduces efficiency by inducing a 
+voltage across the inductance that opposes the gate drive volt­
+age during di/dt, thus increasing turn-on and turn-off times. It is 
+therefore important to minimize common source inductance for 
+optimum switching performance. In what seems to be a contra­
+dictory statement, the increase of CSI will decrease the possibility 
+of Miller turn-on [2] by applying a voltage that adds to the VGS, 
+if the designer is willing to accept the cost of increased switch­
+ing loss. This is due to the fact that at the ‘hard’ turn-on of the 
+complementary device, the current commutation di/dt across 
+the CSI induces a negative voltage across the gate to help keep 
+the device off during part of the voltage transition. What is not 
+stated is that the CSI, gate capacitance, and gate drive pull down 
+loop now forms an LCR resonant tank that needs to be damped 
+to avoid an equivalent positive voltage ringing across the gate. 
+This ringing could turn the device on again near the end, or even 
+past the end of the voltage transition.  Although increasing the 
+gate drive sink resistance can help damp this LCR resonance 
+at the cost of increased Miller turn-on sensitivity, the addition 
+of a ferrite bead that is resistive at the resonant frequency can 
+achieve the same result with less increase in Miller turn-on sen­
+sitivity. Figure 3 shows the equivalent circuit and Figure 4 shows 
+switching waveforms. 
+In summary, CSI is more important to eGaN FETs than power 
+MOSFETs due to the higher di/dt and dv/dt, and should be mini­
+mized through careful layout. 
+eGaN FET 
+Optional ‘bead’ to damp
+HF LCR resonance
+Gate
+Drive
+R SINK
+G
+R G
+LCR Resonant tank
+CGS
+CGD
+D
+CDS
+S
+CSI
+–
+CSI induces
+opposing voltage
+across gate
+Negative freewheeling
+current decreasing at
+complementary
+device turn-on
++
+VGS
+VTH
+Complementary device VGS
+Gate voltage negative ﬁrst,
+but rings positive later
+Increased CSI
+Capacitive
+charging current
+Cross
+conduction
+current
+Ringing crosses VTH
+Deadtime
+‘body diode’
+conduction
+Increasing
+switching time
+and
+voltage ‘knee’
+0  
+0  
+0  
+IS
+VDS
+Figure 3: Equivalent partial power circuit showing the di/dt effect of ‘hard’ turn-on.
+Figure 4: Waveforms for circuit in Figure 3 during ‘hard’ turn-on of 
+complementary device showing effect of CSI ringing.
+
+PAGE 4
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    4
+eGaN® FET Drivers & Layout Considerations
+SUGGESTED LAYOUTS
+Given the different considerations listed above, it is possible to develop some recommend­
+ed PCB layouts for the eGaN FETs. In this section three levels of layout recommendations 
+will be discussed, each with increasing performance metrics:
+1)	 Single-sided termination suitable for PCB designs with 2 layers or more 
+2)	 Dual-sided termination PCB designs implementable with 4 layers or more 
+3)	 Filled-via dual-sided termination where the lowest possible CSI is required.
+Single sided termination PCB layout
+Where cost is an important factor in the design, a single-sided terminated design is recom­
+mended. This can be implemented on PCBs with 2 layers or more, an example of which is 
+shown in Figure 5. The power connection to the drain and source are routed on the same layer of the PCB and terminate to one side of the FET. It is recommended that 
+the drain and source terminals be connected, using vias, to additional layers to further enhance their current carrying capability. The recommended via design is a 10 
+mil (250 µm) hole diameter and 20 mil (500 µm) annular ring. Two vias per pad are recommended and should be sufficiently spaced based on PCB design guidelines and 
+common source inductance design limits. To further reduce common source inductance, it is recommended to place a solid copper plane, connected to source, one 
+layer below the top layer (Die pad layer). This source plane serves as both a power plane for the main current and gate return and shown as the gold color plane in Figure 
+5. Further reduction in coupling between the gate-source circuit and drain-source circuit can be achieved by designing the two circuit’s current’s to be orthogonal with 
+respect to each other. Using at least 2 oz thick copper for all layers will ensure the lowest possible connection resistance.
+For lower voltage dies (40 V and 100 V) with small trace width and spacing specifications recommend for the land pattern [3], designers may need to consult with their 
+board manufacturers to determine options to meet the all design requirements. In most cases, reducing the copper thickness to 1 oz will satisfy most board manufac­
+turer’s tolerance requirements.
+The EPC9001 and EPC9002 series of demonstration boards have been designed using this technique [4,5].
+Dual-sided termination PCB layout
+When performance and cost are important factors in the design, a dual-sided terminated design is recommended. This design can be implemented on PCBs with 4 lay­
+ers or more. Two examples for this layout method are shown in Figure 6. The first option is with the source terminal on the top (pad) layer and the drain one layer below. 
+The second option is with the drain terminal on the top (pad) layer and the source connection one layer below. Power connection to the drain and source are routed on 
+different layers of the PCB and terminate on both sides of the Die as shown in Figure 6. It is recommended that the drain and source terminals be connected using vias 
+to additional layers to further enhance current carrying capability. The preferred via design is a 6 mil (150 µm) drilled hole diameter and a 8 mil (200 µm) annular ring for 
+the low voltage devices (40 V and 100 V) and 8 mil (200 µm) drilled hole with 12 mil (300 µm) annular ring for medium voltage devices (200 V). Two vias per pad side are 
+recommended and should be sufficiently spaced based on PCB design guidelines and common source inductance design limits. This design will tend to cluster the vias 
+very close to each other and the designer needs to stagger the vias to prevent a tear zone from forming on the PCB. Alternatively, the designer can request the board 
+manufacturer to rotate the PCB fiber grain of the PCB by 45° (This may add cost to the PCB). 
+To further reduce common source inductance, it is recommended to place a solid copper plane connected to gate return source one layer below the top layer (Die pad 
+layer). Further reduction in coupling between the gate-source circuit and drain-source circuit can be achieved by designing the two circuit’s current’s to be orthogonal 
+to each other as depicted in Figure 6. Using 2 oz thick copper for all layers will ensure the lowest possible connection resistance. The gate return need only be routed on 
+one layer, leaving more room on other layers for high-current planes.
+ 
+ID
+ID
+ID
+ID
+IG
+IG
+Gate
+Gate return
+Drain
+Top Layer
+Inner Layer
+Source
+Source
+Drain
+Figure 5: Example of a single-sided terminal layout configuration.
+Figure 6: Example of a Dual-sided terminal layout configuration with 2 options for layer assignment.
+ID
+ID
+ID
+ID
+IG
+IG
+Top Layer
+Inner Layer 1
+Option 2
+Option 1
+Gate Return
+Drain
+Source
+Source
+Gate
+ID
+ID
+ID
+ID
+IG
+IG
+Top Layer
+Inner Layer 1
+Source
+Drain
+Gate
+Gate return
+Drain
+
+PAGE 5
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    5
+eGaN® FET Drivers & Layout Considerations
+Filled via dual-sided termination PCB layout
+When performance drives the design, a filled via dual-sided terminated design is recommended. This can be implemented on PCBs with 4 layers or more. Two examples 
+for this layout method are shown in Figure 7. The first option is with the source terminal on the top (pad) layer and the drain one layer below. The second option is 
+with the drain terminal on the top (pad) layer and the source connection one layer below. Power connections to the drain and source are routed on different layers 
+of the PCB and terminate on both sides of the die as shown in Figure 7. It is recommended that the drain and source terminals be connected using vias to additional 
+layers in order to further enhance the current carrying capability. The recommended via design is a 6 mil (150 µm) drilled hole diameter and a 8 mil (200 µm) annular 
+ring for the low voltage devices (40 V and 100 V) and 8 
+mil (200 µm) drilled hole with 12 mil (300 µm) annular 
+ring for medium voltage devices (200 V). Two vias per 
+pad side are recommended and should be sufficiently 
+spaced based on PCB design guidelines and common 
+source inductance design limits. This design will tend 
+to cluster the vias very close to each other and the 
+designer needs to stagger the vias to prevent a tear 
+zone from forming on the PCB. Vias placed in the pad 
+areas of the die need to be micro vias with a hole of 
+6 mils (150 µm) drilled and  8 mil (200 µm) annular 
+ring diameter not to exceed the pad width and must 
+be filled with either a non-conductive, or conductive 
+filler (This may add to cost). Vias with holes located di­
+rectly under the source, gate, or drain solder bars will 
+cause wide variation in the die stand-off distance to 
+the PCB. Variation in stand-off distance could (1) af­
+fect the user’s ability to thoroughly clean between the 
+FET and the PCB, (2) could add to die tilt variation, and 
+(3) might reduce the transistor’s temperature cycling 
+performance.
+To further reduce CSI, it is recommended to place a 
+solid copper plane, connected to gate return source, 
+one layer below the top layer (Die pad layer). Further 
+reduction in coupling between the gate-source circuit 
+and drain-source circuit can be achieved by designing 
+the two circuit’s current paths to be orthogonal with 
+respect to each other as depicted in Figure 7. Using 
+2 oz thick copper for all layers will ensure the lowest 
+possible connection resistance. The gate return need 
+only be routed on one layer, leaving more room on 
+other layers for high current planes.
+Figure 7: Example of a filled via dual-sided terminal layout configuration with 2 options for layer assignment.
+ID
+ID
+ID
+ID
+IG
+IG
+Top Layer
+Inner Layer 1
+Option 2
+Option 1
+Gate Return
+Drain
+Source
+Source
+Gate
+ID
+ID
+ID
+ID
+IG
+IG
+Top Layer
+Inner Layer 1
+Source
+Drain
+Gate
+Gate return
+Drain
+Bottom Layer
+Switch Node 
+VBUS
+3rd Layer
+GND 
+VBUS
+Alternative bus
+capacitor location
+Suggested bus
+capacitor location
+2nd Layer
+Top Gate
+Return 
+Bottom Gate
+Return 
+Switch Node 
+GND 
+IG(TG)
+IG(BG)
+Suggested Switch Node Current Direction
+Alternative Switch Node Current Direction
+Top Layer
+Top Gate
+Return
+Switch 
+Node 
+IG(TG)
+Bottom 
+Gate
+Return
+IG(BG)
+ISW
+ISW
+Figure 8: Example of a half-bridge layout using 4-layer PCB.
+
+PAGE 6
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    6
+eGaN® FET Drivers & Layout Considerations
+Interconnecting the devices PCB layout
+Designs such as half bridge topologies will require devices to be interconnected with each other. The recommended method to interconnect two devices is shown in 
+Figure 8 based on a 4 layer design. The copper thickness needs to be maximized to limit resistive losses and improve thermal spreading (2 oz copper on outer layers is 
+recommended). In this layout example, the source connection of each part is brought underneath to act as an E-field shield (especially under the device gate structure) 
+and minimize additional parasitic gate drain capacitance (CGD). Every source is connected through Layer Two to the shield that now doubles as the gate drive return 
+path. Drain connections are brought out on the third layer. The tradeoff is that to achieve a much lower common source inductance and overall layout inductance, the 
+geometry requires increased parasitic capacitance – in particular output capacitance (COSS) - as there is still the need to minimize the parasitic CGD. The main supply bus 
+decoupling capacitors can be located directly beneath the device pair, or to one side (see Figure 8) and as close as possible to minimize loop inductance. The gate driver 
+output needs to be located as close as possible to the gates of their respective FETs. The long sides of the FETs need to be placed side by side to further reduce inter-
+device inductance.
+PARALLELING
+Paralleling switching devices enables increased power performance for switching converters. Paralleling eGaN FETs poses many new challenges as these devices can 
+be switched ten times faster than commercial MOSFETs. These challenges discussed in detail in references [6] and [7] where recommendations are made to ensure the 
+highest possible performance from a paralleled eGaN FET switch converter. 
+THERMAL CONSIDERATIONS
+Due to the fundamentally lower eGaN FET on-resistance [8] per die area, these devices are only a fraction of the size of an equivalent on-resistance power MOSFET 
+die, and therefore have a higher equivalent thermal resistance.  However, eGaN FETs also have a much lower FOM and will therefore have offsetting lower switching 
+power losses.
+Can this improvement in power loss make up for the higher thermal resistance? 
+To answer this question we need to look at two common scenarios; (1) devices mounted as “flipchips” on a printed circuit board without additional heatsinking, and (2) 
+devices mounted with dual-sided cooling.
+SINGLE-SIDED COOLING:
+eGaN FETs are constructed on a very thin layer of heterojunction material on top of a standard silicon wafer and when mounted directly onto PCBs without any backside 
+cooling behave thermally like any similarly mounted silicon device.  The variables needed to completely understand the resulting thermal performance are, (1) PCB cop­
+per area, (2) Copper thickness, (3) PCB material, and (4) airflow over the device and PCB.
+Reference [9] tests several industry standard packages mounted directly onto FR-4 PCB material.  Measurements were made on one square inch, 2-ounce Cu, and on 
+devices with only enough Cu to make electrical contact to the leads.  This methodology separated the effect of device footprint from the cooling that comes from the 
+copper on the PCB.  Relatively little impact was seen when different packages were mounted on one square inch Cu (the minimum RJA was 18 °C/W for a D2PAK and the 
+maximum was 34 °C/W for an SO-8) because the dominant thermal resistance factor was the heat dissipating through the PCB.  Consistent with these tests, it is estimated 
+that RJA for eGaN FETs mounted to one square inch of 2 ounce Cu should be about 40 °C/W in still air [10,11,13]. This performance can be improved significantly with 
+increased airflow.
+DOUBLE-SIDED COOLING:
+To determine the best possible top-side cooling for EPC’s eGaN FETs, the setup in Figure 9 
+was constructed.  RDS(ON) was used as the temperature sensitive parameter and the heatsink 
+was water cooled for these “best-case” thermal measurements.  Across the family of eGaN 
+FETs, the data suggests a 12-14 °C-mm2­ normalized RJA when cooling is primarily through the 
+silicon substrate beneath the eGaN FET active area.  Under these conditions, large area eGaN 
+FETs (EPC2015, EPC2001, and EPC2010) have an RJC of about 2 °C/W and the small area FETs 
+(EPC2014, EPC2007, and EPC2012) have an R RJC of about 8 °C/W.
+Practical implementations of double sided cooling are certainly less elaborate than the one 
+shown in Figure 9, but can result in higher final thermal impedance.  In Figure 10, one such 
+configuration where two devices are simultaneously cooled by one heat sink is illustrated. 
+In the case where multiple die are placed under the same heatsink, however, care must be 
+taken to avoid mechanical damage from uneven pressure on die that might be slightly tilted 
+Water Cooled
+Pneumatic
+Plunger
+30 PSI Force
+“T” Type
+#40AWG
+Drain Lead
+(Kelvin)
+Source Lead
+(Kelvin)
+QFN Board
+Shim Spacer
+10 Ohm
+Resistor
+Gate Lead
+DUT
+Figure 9:  Test setup for measuring EPC eGaN FET 
+“best-case” thermal resistance.
+
+PAGE 7
+WHITE PAPER: WP008
+EPC – EFFICIENT POWER CONVERSION CORPORATION   |   WWW.EPC-CO.COM   |   COPYRIGHT 2016   |	
+|    7
+eGaN® FET Drivers & Layout Considerations
+or at different heights off the PCB.  Thermally conductive materials such as from 3M [11], Dow Corning [12], or Berquist[13] have been successfully used to double-side 
+cool multiple die under one heatsink attaining 6 °C/W into the heatsink and 15 °C/W into the board [15].  Thermal models for all of our devices are also available from our 
+website, www.EPC-co.com. Because the FET substrates must be connected to source potential, the heatsink, must be electrically isolated from at least one of the die or 
+thermal interface material must also be an electrical insulator.
+SUMMARY
+EPC’s eGaN FETs give the designer a whole new spectrum of performance compared with silicon power MOSFETs. To extract full advantage from this new technology, 
+designers must understand how to design cost-effective drive circuitry that works on a cost-effective PCB. In this paper, we looked at gate drive requirements, layouts, 
+and thermal design considerations that are important to final system performance and reliability. 
+References:
+[1]	 EPC2001 Datasheet: http://epc-co.com/epc/documents/datasheets/EPC2001_datasheet_final.aspx
+[2]	 Fairchild Semiconductor AN-7019, “Limiting Cross-Conduction Current in Synchronous Buck Converter Designs”, http://www.fairchildsemi.com/an/AN/AN-7019.pdf#page=1
+[3] 	 Alana Nakata, “Assembling eGaN FETs”, http://epc-co.com/epc/documents/product-training/Appnote_GaNassembly.pdf 
+[4] 	 EPC9001 demo board at: http://epc-co.com/epc/Products/DemoBoards.aspx
+[5] 	 EPC9002 demo board at: http://epc-co.com/epc/Products/DemoBoards.aspx
+[6]  	 J. Strydom, M. deRooij, “Shootout Volume 5: Paralleling eGaN® FETs”, Power Electronics Technology, October 2011
+[7]  	 A. Lidow, J.Strydom, M. deRooij, Y. Ma, “GaN Transistors for Efficient Power Conversion”, Power Conversion Press, 2012, Chapter 4.
+[8]	 Steve Colino, Robert Beach, “Fundamentals of Gallium Nitride Power Transistors”, http://epc-co.com/epc/documents/product-training/Appnote_GaNfundamentals.aspx
+[9]	 International Rectifier, http://www.irf.com/technical-info/whitepaper/thermalpcim02.pdf 
+[10]	 Edgar Abdoulin, Steve Colino, Alana Nakata, “Using Enhancement Mode GaN-on-Silicon Power Transistors”, http://epc-co.com/epc/documents/product-training/Using_GaN_r4.aspx
+[11]	 3M pads : http://solutions.3m.com/wps/portal/3M/en_WW/electronics/home/productsandservices/products/TapesAdhesives/ThermalInterface/
+[12]	 Dow Corning Pads: http://www.dowcorning.com/content/etronics/etronicspadsfilm/
+[13]	 Bergquist Pads: http://www.bergquistcompany.com/thermal_materials/gap_pad/pdfs/gap-pad-vo-soft/PDS_GP_VOS_12.08_E.pdf
+[14] 	John Worman and Yanping Ma, “Thermal Performance of EPC eGaN FETs”, http://epc-co.com/epc/documents/product-training/Appnote_Thermal_Performance_of_eGaN_FETs.aspx
+[15] 	Johan Strydom, “The eGaN® FET- Silicon Power Shoot-Out  Volume 8: Envelope Tracking”, 
+	
+http://powerelectronics.com/power_semiconductors/gan_transistors/egan-fet-silicon-power-shoot-out-volume-8-0430/ 
+Figure 10:  Dual die under one heat sink with thermal pad.
+Heat Sink
+Thermal Pad
+EPC GaN Die
+PCB

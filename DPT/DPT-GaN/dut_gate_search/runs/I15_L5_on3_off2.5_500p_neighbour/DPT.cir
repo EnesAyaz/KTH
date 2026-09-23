@@ -1,0 +1,52 @@
+* EPC2361 low-side DPT; upper GaN held off
+Vdc supply 0 {Vin}
+Rcharge supply bus {Rcharge}
+Rcap bus cap_esl {ESR}
+Lcap cap_esl cap {max(ESL,1e-15)} Rser=0
+Cin cap 0 {Cin}
+Llayout bus rail {max(Lloop,1e-15)} Rser={Rloop}
+Lload rail sw {Lload} Rser={Rload}
+XHS gh rail sh EPC2361
+Lsh sh sw {max(CSI,1e-15)} Rser=0
+Vsense sw drain 0
+XDUT gl drain sl EPC2361
+Lsl sl 0 {max(CSI,1e-15)} Rser=0
+Vhs offhs sw {Voff}
+Rhs offhs gh {Rg_HS}
+Vcmd cmd 0 PWL(0 0 {Tdelay} 0 {Tdelay+Tr} 5 {A} 5 {A+Tf} 0 {B} 0 {B+Tr} 5 {C} 5 {C+Tf} 0 {Stop} 0)
+Von on 0 {Von}
+Voff off 0 {Voff}
+Sup on pu cmd 0 DRV_ON
+Rup pu gl {Rg_on+RGD_PU}
+Sdown off pd cmd 0 DRV_OFF
+Rdown pd gl {Rg_off+RGD_PD}
+.param Vin=75 Itest=15 Lload=2e-05 Rload=0.02 Tj=100 AutoT1=0 Tcharge=4.02740343688e-06 Fsw=500000 Vlimit=100
+.param Tdelay=1e-06 Toff=1e-06 Tsecond=1e-06 Tr=2e-09 Tf=2e-09 Ttail=2e-06 Maxstep=5e-10 Wpre=2e-08 Wpost=1e-07
+.param Cin=0.00047 ESR=0.005 ESL=2e-10 Lloop=5e-09 Rloop=0.005 Rcharge=10 CSI=1e-10
+.param Von=5 Voff=-4 Rg_on=3 Rg_off=2.5 RGD_PU=0.7 RGD_PD=0.4 Rg_HS=0.9
+.param T1=if(AutoT1,Itest*Lload/Vin,Tcharge)
+.param A=Tdelay+Tr+T1 B=A+Tf+Toff C=B+Tr+Tsecond Stop=C+Tf+Ttail
+.model DRV_ON SW(Ron=1m Roff=1G Vt=2.5 Vh=0)
+.model DRV_OFF SW(Ron=1G Roff=1m Vt=2.5 Vh=0)
+.include ".\EPCGaNLibrary.lib"
+.temp {Tj}
+.tran 0 {Stop} 0 {Maxstep}
+.options plotwinsize=0 method=gear reltol=1e-4 abstol=1e-9 vntol=1e-6 numdgt=7
+.save V(cmd) V(gl,sl) V(gh,sh) V(drain,sl) V(bus) V(rail) V(sw) I(Lload) I(Vsense) I(Cin)
+.meas tran I_first_off FIND I(Lload) AT={A}
+.meas tran I_second_on FIND I(Lload) AT={B}
+.meas tran Vds_peak MAX V(drain,sl)
+.meas tran Vds_HS_peak MAX V(rail,sh)
+.meas tran Vds_HS_min MIN V(rail,sh)
+.meas tran Vgs_HS_peak MAX V(gh,sh)
+.meas tran Vgs_HS_min MIN V(gh,sh)
+.meas tran Vbus_min MIN V(bus)
+.meas tran Eoff1_window INTEG V(drain,sl)*I(Vsense) FROM={A-Wpre} TO={A+Wpost}
+.meas tran Eon2_window INTEG V(drain,sl)*I(Vsense) FROM={B-Wpre} TO={B+Wpost}
+.meas tran Eoff2_window INTEG V(drain,sl)*I(Vsense) FROM={C-Wpre} TO={C+Wpost}
+.meas tran Eoff1_uJ PARAM Eoff1_window*1e6
+.meas tran Eon2_uJ PARAM Eon2_window*1e6
+.meas tran Eoff2_uJ PARAM Eoff2_window*1e6
+.meas tran Psw_DUT_W PARAM (Eon2_window+Eoff1_window)*Fsw
+.meas tran Psw_second_pair_W PARAM (Eon2_window+Eoff2_window)*Fsw
+.end

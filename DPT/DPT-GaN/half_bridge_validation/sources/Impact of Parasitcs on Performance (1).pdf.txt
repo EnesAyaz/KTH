@@ -1,0 +1,484 @@
+
+PAGE 1
+WHITE PAPER: WP009
+Impact of Parasitics on Performance
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2020   |	
+|    1
+Impact of Parasitics on Performance
+EFFICIENT POWER CONVERSION
+COMPARISON OF eGaN FETS AND MOSFETS IN LOW VOLTAGE BUCK CONVERTER
+In a traditional hard switching transition, the switching losses are impacted by two device parameters, QGD, known as the miller charge, which controls the volt-
+age rising and falling speed; and QGS2, which is the portion of the gate source charge from the device threshold voltage to the gate plateau voltage, which controls 
+the current rising and falling speed.  The turn off period, shown in figure 1a, begins with a decrease of gate drive voltage; when the gate voltage reaches the plateau, 
+the voltage across the device will begin to rise, being driven by the gate current, IG.  During the voltage rising period, the device encounters both current and voltage in 
+the device, resulting in switching loss.  For the voltage rising period, the device parameter determining loss is QGD.  When the device voltage reaches the input voltage, the 
+current in the device will begin to fall and more switching loss in the device will be incurred.  For the current falling period, the device parameter determining loss is QGS2. 
+The power loss during the turn off switching transition can be given by: 
+For the turn on switching losses, the same principles apply, as shown in figure 1b.  Minimizing the QGD and QGS2 parameters will decrease switching losses incurred in 
+a hard switching application.  The turn on loss is given by:
+David Reusch, Ph.D., Director, Applications, Efficient Power Conversion Corporation
+The ability of enhancement mode gallium nitride based power devices, such as the eGaN® FET, to achieve higher efficiencies and higher 
+switching frequencies than possible with silicon MOSFETs has been demonstrated for a variety of applications in previously published ar-
+ticles [1]-[4]. With improvements in switching figure of merit provided by eGaN FETs, the packaging and PCB layout parasitics are critical to 
+high performance. This white paper will study the effect of parasitic inductance on performance for eGaN FET and MOSFET based point of 
+load (POL) buck converters operating at a switching frequency of 1 MHz, an input voltage of 12 V, an output voltage of 1.2 V, and an output 
+current up to 20 A.  
+Figure 1: Ideal Hard Switching (a) Turn Off Transition (b) Turn On Transition  
+OFF
+IN
+SW(OFF)
+I
+V
+P
+⋅
+GI
+⋅
+GD
+GS2
+(Q
++ Q
+)
+⋅
+=
+2
+(1)
+ON
+IN
+SW(ON)
+I
+V
+P
+⋅
+GI
+⋅
+GD
+GS2
+(Q
++ Q
+)
+⋅
+=
+2
+(2)
+ 
+ 
+ 
+ 
+ 
+QGD
+TVF
+TCR
+TCF
+TVR
+ 
+QGD 
+QGS2
+QGS2
+ 
+VDS
+VDS
+VGS
+VGS
+VIN
+VIN
+VTH
+VPL
+VTH
+VPL
+IDS
+IDS
+ION
+IOFF
+t
+t
+(a)
+(b)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+PAGE 2
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2020   |	
+|    2
+WHITE PAPER: WP009
+Impact of Parasitics on Performance
+Figure of merit (FOM) is widely used to compare the performance of competing 
+power devices [5].  The FOM of hard switching applications such as a synchro-
+nous buck converter is defined as the product of the dynamic loss parameters, 
+QGD + QGS2, and static losses, RDS(on).  When comparing 40 V eGaN FETs to 
+40 V MOSFETs currently on the market, eGaN FETs offer a significant reduction 
+in FOM, as shown in figure 2.  For designs requiring lower input voltages, for 
+example a 12 V input buck converter, lower voltage MOSFETs can be utilized. 
+The FOM of a 25 V Si MOSFET is comparable to a higher rated 40 V eGaN FET.
+From an FOM comparison, the eGaN FET should achieve higher efficiency than 
+the equally rated 40 V MOSFET devices and similar efficiency to the 40% lower 
+rated 25 V MOSFETs.  In practical applications, FOM is just one of the contribu-
+tors to achieving higher efficiency. The others are die size optimization [6], 
+package parasitics, and PCB layout parasitics.  To enable the high switching 
+speed available from low FOM, low parasitic packaging and PCB layout is re-
+quired.  eGaN FETs were developed in advanced land grid array (LGA) packages 
+that not only have low internal inductance, but enable the user to design ultra-
+low inductance into their board.  This analysis will cover the impact of package 
+and PCB layout parasitics on converter performance and compare the in circuit 
+performance of eGaN FET and MOSFET devices. 
+To evaluate the performance of the 40 V eGaN FET against different combina-
+tions of 40 V and 25 V MOSFETs, similar power loop designs were tested for 
+the eGaN FET and MOSFETs.  The PCB layout for the designs is shown in figure 
+3 with the high frequency loop highlighted in red in figure 3a. This conven-
+tional PCB layout places the input capacitors and devices on opposite sides of 
+the PCB, with the capacitors being located directly underneath the devices to 
+minimize the physical loop size, leading to reduced PCB parasitic inductance. 
+Space is left in between the devices for the switching node connection which is 
+connected to the output inductor in a buck converter.  
+Figure 2: 40 V Device Figure of Merit Comparison (VDS=12 V, IDS=20 A)
+Figure 3: Conventional vertical power loop PCB layout
+(a) Side view  (b) MOSFET top view  (c) eGaN FET top view
+Table 1:  Device parameters for 40 V eGaN FET, 40 V MOSFETs, and 25 V 
+MOSFETs. +: QGD at 12 V, QGS2 at 20 A.  *: MOSFETs driven at 8 V.
+0 
+5 
+10 
+15 
+20 
+25 
+30 
+35 
+EPC2015 
+BSZ097N04LSG 
+BSZ040N04LSG 
+BSZ060NE2LS 
+BSZ036NE2LS 
+FOM = (QGD+QGS2) · RDS(on) (nC · Ω) 
+QGD 
+QGD 
+QGD 
+QGD 
+QGD 
+QGS2 
+QGS2 
+QGS2 
+QGS2 
+QGS2 
+40 V MOSFETs
+25 V MOSFETs 
+40 V 
+eGaN FET 
+(a)
+(b)
+(c)
+The eGaN FET and MOSFET prototypes, shown in figure 3b and 3c, used similar part layouts and identical board builds to ensure the comparison would only be influ-
+enced by the devices.  For the MOSFET device, the smallest package was chosen, a 3 x 3 mm TSDSON-8, to compare against the eGaN FET 4.1 x 1.6 mm LGA package. 
+For the drivers, the eGaN FET used the LM5113, designed to meet the driving requirements of the eGaN FET, while the MOSFET employed an ISL2111 MOSFET driver. 
+For the device comparisons, MOSFETs with similar on resistance were selected for the synchronous rectifiers and two different criteria were used to compare the top 
+switch.  The first criterion for the MOSFET top switch selection was to minimize dynamic loss parameters, QGD + QGS2, in an effort to offer the lowest switching losses at 
+higher switching frequencies.  The second criterion for MOSFET top switch selection was to select similar on resistance as the 40 V eGaN FET, to offer similar conduction 
+losses.  The selected devices and their characteristics are shown in table 1. 
+Top Switch
+(QGD + QGS2)(nC)
+RDS(on)(mΩ)
+Figure of Merit
+(pC · Ω)
+Synchronous
+Rectifier
+RDS(on)(mΩ)
+40 V eGaN FET
+EPC2015
+2.4+
+3.2
+7.6
+EPC2015
+3.2
+40 V MOSFET Pair 1
+BSZ097N04LSG
+3.3+
+8.2
+27
+BSZ040N04LSG
+3.4*
+40 V MOSFET Pair 2
+BSZ040N04LSG
+9.0+
+3.4
+30.5
+BSZ040N04LSG
+3.4*
+25 V MOSFET Pair 1
+BSZ060NE2LS
+1.6+
+5.1
+8.3
+BSZ036NE2LS
+3.0*
+25 V MOSFET Pair 2
+BSZ036NE2LS
+2.7+
+3.0
+8.1
+BSZ036NE2LS
+3.0*
+
+PAGE 3
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2020   |	
+|    3
+WHITE PAPER: WP009
+Impact of Parasitics on Performance
+The efficiency comparison of the 40 V eGaN FET, 40 V MOSFETs, and 25 V 
+MOSFETs are shown in figure 4.  At a switching frequency of 1 MHz, the eGaN 
+FET provided higher efficiency than all of the benchmark MOSFETs.  The 40 V 
+eGaN FET can outperform the best pair of 25 V MOSFETs by almost 1% and 
+the best 40 V MOSFETs by almost 3%.  To explain the performance gains of the 
+eGaN FET over the MOSFETs with similar FOM and a more optimized die size 
+selection, the influence of package parasitics and PCB layout parasitics must be 
+considered.  For the eGaN FETs, switching losses can be reduced at higher fre-
+quencies by using the EPC 2014 for the top switch, an eGaN FET with a smaller 
+switching charge.   
+INFLUENCE OF CONVERTER PARASITICS 
+In the previous section, it was shown that devices with similar switching 
+charges and on resistances performed differently in circuit, as can be seen by 
+the over one percent difference in efficiency between the 40 V eGaN FET and 
+the lower rated 25 V MOSFET pair 2.  The reason for the improved performance 
+of the eGaN FET when compared to a MOSFET with similar characteristics is 
+the superior eGaN FET packaging.  In this section, the influence of parasitics on 
+converter performance will be discussed.
+In a practical buck converter, there are two major parasitic inductances, as 
+shown in figure 5, which have a significant impact on converter performance:
+1.	 Common source inductance, LS, is the inductance shared by the drain to 
+source power current path and gate driver loop.  
+2.	 High frequency power loop inductance, LLOOP, is the power commutation 
+loop and comprised of the parasitic inductance from the positive terminal 
+of the input capacitance, through the top device, synchronous rectifier, 
+ground loop, and input capacitor.   
+76 
+77 
+78 
+79 
+80 
+81 
+82 
+83 
+84 
+85 
+86 
+87 
+88 
+89 
+90 
+91 
+2 
+4 
+6 
+8 
+10 
+12 
+14 
+16 
+18 
+20 
+22 
+Eﬃciency (%)
+Output Current (IOUT)
+40 V eGaN FET
+40 V MOSFET Pair 1
+40 V MOSFET Pair 2
+25 V MOSFET Pair 1
+25 V MOSFET Pair 2
+Top
+Switch
+Synchronous
+Rectiﬁer
+L
+L S
+L LOOP
+CIN
+COUT
+Driver
+Figure 4: Efficiency comparison of 40 V eGaN FET and 40 V and 25 V Si MOSFETs  
+at VIN =12 V, VOUT  = 1.2 V, fSW = 1 MHz, LBUCK  = 300 nH (Devices listed in table 1)
+Figure 5: Synchronous buck converter with parasitic inductances
+Gate 
+Drain Contacts
+Source Contacts
+Substrate
+(b) 
+(a)
+3 
+3.5 
+4 
+4.5 
+5 
+5.5 
+Power Loss (W) 
+0 
+0.3 
+0.6 
+0.9 
+1.2 
+1.5 
+1.8 
+2.1 
+2.4 
+2.7 
+3 
+Parasitic Inductance (nH) 
+LS
+L LOOP
+eGaN FET 
+Packaging
+MOSFET 
+Packaging
+The common source inductance, LS, has been shown to be critical to performance because it directly impacts the driving speed of the devices [7]-[9].  The common 
+source inductance is mainly controlled by the package inductance of the device and varies from package to package [10], [11].  For the eGaN FET, the LGA package 
+(figure 6b) offers low common source inductance, reducing loss, as shown in figure 6a. 
+Figure 6: (a) Parasitic inductance impact on power loss (VIN = 12 V, VOUT =1.2 V, IOUT  = 20 A, fSW =1 MHz), 
+Top Switch: EPC2015, Synchronous Rectifier: EPC2015 (b) eGaN FET LGA package
+
+PAGE 4
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2020   |	
+|    4
+WHITE PAPER: WP009
+Impact of Parasitics on Performance
+The high frequency loop inductance, LLOOP, impacts the switching commuta-
+tion time and the peak drain to source voltage spike of the devices.  The high 
+frequency loop inductance is controlled by the PCB layout and package induc-
+tance.  In applications utilizing low package parasitics, e.g. eGaN FETs, the PCB 
+layout dominates the high frequency loop inductance [12]-[15]. 
+The impact of parasitic inductance on power loss for an eGaN FET based buck 
+converter is calculated and shown in figure 6a [16], it can be seen that by intro-
+ducing common source and high frequency loop inductance the loss increases. 
+Understanding the impact of parasitic inductance on performance, the eGaN 
+FET made the reduction of package parasitics a high priority. For the eGaN FET, 
+a device with a higher voltage lateral structure, all of the connections are con-
+tained on the same side of the die.  This allows for the die to be mounted directly 
+to the PCB, minimizing the total parasitics to the internal bussing and external 
+solder bumps. To further decrease parasitics, the drain and source connections 
+are arranged in an interleaved LGA package, as shown in figure 6b, providing 
+multiple parallel connections to the PCB from the die. The result is a device pack-
+age inductance in the range of a couple hundred pico Henry [5], [11].
+INFLUENCE OF PCB LAYOUT ON PERFORMANCE
+With the significant reduction in package related inductance provided by the 
+eGaN FET, the common source inductance is minimized and is no longer the 
+major parasitic loss contributor. The high frequency loop inductance, con-
+trolled by PCB layout becomes the major contributor to loss, making layout 
+using the eGaN FETs critical to high frequency performance.
+To compare the performance of different PCB layouts for both eGaN FETs and 
+MOSFETs, two different board builds were considered based on the PCB layout 
+in figure 3. For the layout comparison, a 4 layer PCB was used with two ounce 
+copper on each layer and an overall board thickness of 62 and 31 mils were 
+tested.  In the conventional vertical power loop design, the loop inductance is 
+heavily dependent on the board thickness as the power loop is contained on 
+the top and bottom layers of the PCB.  As the board thickness increases so does 
+the high frequency loop inductance, leading to higher losses and consequently 
+lower efficiency. 
+Figure 7b shows the simulated high frequency loop inductance of the eGaN 
+FET and MOSFET based PCB designs. Due to the smaller size and reduced pack-
+age parasitics of the eGaN FET, the loop inductance is reduced around 50% 
+when compared to the MOSFET design. For the eGaN FET, the PCB layout 
+dominates the loop inductance, with the inductance increasing 80% when 
+the board thickness increases from 31 to 62 mils.  As a result of the larger high 
+frequency loop inductance, the 62 mil board designs all suffer an efficiency 
+drop of at least 1%.   
+While figure of merit is an important metric in determining the best performing 
+device, the package and layout parasitics are also a major contributor to loss. 
+In this paper, eGaN FETs and MOSFETs were compared using similar traditional 
+PCB layouts.  The eGaN FET, combining low FOM, low package parasitics, and 
+a small footprint reducing PCB parasitics, outperformed MOSFETs rated for 
+much lower voltages.  As FOM and packages improve, the PCB layout becomes 
+critical to high efficiency.  In the next white paper, the topic of PCB layout 
+optimization will be explored to further improve the performance achievable 
+with eGaN FETs.     
+(a)
+Board
+Thickness
+Top Layer
+Inner Layer 1
+Inner Layer 2
+Bottom Layer
+(b)
+0 
+0.5 
+1 
+1.5 
+2 
+2.5 
+3 
+3.5 
+20 
+30 
+40 
+50 
+60 
+70 
+Loop Inductance (nH) 
+Board Thickness (mil) 
+eGaN FET   
+Vertical Loop 
+Si MOSFET   
+Vertical Loop 
+80 
+81 
+82 
+83 
+84 
+85 
+86 
+87 
+88 
+89 
+90 
+91 
+2 
+4 
+6 
+8 
+10 
+12 
+14 
+16 
+18 
+20 
+22 
+Eﬃciency (%) 
+Output Current (IOUT)
+40 V eGaN FET
+40 V MOSFET 
+25 V MOSFET
+31 Mils
+62 Mils
+Figure 7:  (a) PCB cross section drawing 
+(b) Simulated high frequency loop inductance vs. board  
+thickness in vertical power loop design
+Figure 8: Efficiency comparison of different board thicknesses, 31 and 62 mils 
+(VIN =12 V, VOUT =1.2 V, fSW =1 MHz, LBUCK  = 300 nH, eGaN FETs: Top Switch: EPC2015, 
+Synchronous Rectifier: EPC2015, 40 V MOSFETs: Top Switch: BSZ097N04LSG, 
+Synchronous Rectifier: BSZ040N04LSG, 25 V MOSFETs: Top Switch: BSZ036NE2LS, 
+Synchronous Rectifier: BSZ036NE2LS)
+
+PAGE 5
+EPC – THE LEADER IN GaN TECHNOLOGY   |   WWW.EPC-CO.COM   |   COPYRIGHT 2020   |	
+|    5
+WHITE PAPER: WP009
+Impact of Parasitics on Performance
+References:
+[1] 	 J. Strydom, “The eGaN® FET-Silicon Power Shoot-Out Vol. 7: Buck Converters”, Power Electronics Technology, Vol.38, No.2, February, 2012.
+[2] 	 J. Strydom, “The eGaN® FET-Silicon Power Shoot-Out Vol. 8: Envelope Tracking”, Power Electronics Technology, Vol.38, No.5, May, 2012.
+[3] 	 M. de Rooij and J. Strydom, “eGaN® FET – Silicon Shoot-out Vol. 9: Wireless Power Converters”, Power Electronics Technology, Vol. 38, No. 7, July 2012.
+[4] 	 D. Reusch and J. Strydom, “The eGaN® FET-Silicon Power Shoot-Out Vol. 10: High Frequency Resonant Converters”, Power Electronics Technology, Vol.38, No.9, September, 2012.
+[5] 	 J. Strydom, “The eGaN® FET-Silicon Power Shoot-Out Vol. 1: Comparing Figure of Merit (FOM)”, Power Electronics Technology, Vol.36, No.9, September, 2010.
+[6]	 J. Strydom, “The eGaN® FET-Silicon Power Shoot-Out Vol. 11: Optimizing FET On-Resistance”, Power Electronics Technology, Vol.38, No.10, October, 2012.
+[7]	 A. Elbanhawy, “Effects of parasitic inductances on switching performance,” in Proc. PCIM Eur., May 2003, pp. 251–255.
+[8] 	 G. Nobauer, D. Ahlers, J. Sevillano-Ruiz, “A method to determine parasitic inductances in buck converter topologies,” in Proc. PCIM Eur., May 2004, pp. 37–41.
+[9] 	 B. Yang, J. Zhang, “Effect and utilization of common source inductance in synchronous rectification,” in Proc. IEEE APEC’05, Mar. 2005, vol. 3, pp. 1407–1411.
+[10] 	M. Pavier, A. Woodworth, A. Sawle, R. Monteiro, C. Blake, and J. Chiu, “Understanding the effect of power MOSFET package parasitic on VRM circuit efficiency at frequencies above 1 MHz,” in Proc. PCIM 
+Eur., May 2003, pp. 279–284.
+[11] 	D. Reusch, D. Gilham, Y. Su and F.C. Lee, “Gallium nitride based multi-megahertz high density 3D point of load module,” APEC 2012. pp.38-45. Feb. 2012. 
+[12] 	T. Hashimoto, T. Kawashima, T. Uno, Y. Satou, N. Matsuura, “System in package with mounted capacitor for reduced parasitic inductance in voltage regulators,” Applied Power Electronics Conference and 
+Exposition, 2008. APEC 2008. Twenty-Third Annual IEEE, pp.187-191, 24-28 Feb. 2008.
+[13] 	Y. Kawaguchi, T. Kawano, H. Takei, S. Ono, A. Nakagawa, “Multi Chip Module with Minimum Parasitic Inductance for New Generation Voltage Regulator,” Power Semiconductor Devices and ICs, 2005.
+[14] 	A. Ball, M. Lim, D. Gilham, F.C Lee, “System design of a 3D integrated non-isolated Point Of Load converter,” Applied Power Electronics Conference and Exposition, 2008. Twenty-Third Annual IEEE, pp.181-
+186, 24-28 Feb. 2008.
+[15] 	D. Reusch, F.C. Lee, Y. Su, D. Gilham, “Optimization of a High Density Gallium Nitride Based Non-Isolated Point of Load Module,” Energy Conversion Congress and Exposition (ECCE), IEEE, Sept. 2012.
+[16] 	D. Reusch, “High Frequency, High Power Density Integrated Point of Load and Bus Converters,” PhD Dissertation, Virginia Tech, 2012. 

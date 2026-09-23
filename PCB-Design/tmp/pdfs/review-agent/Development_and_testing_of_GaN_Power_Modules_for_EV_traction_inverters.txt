@@ -1,0 +1,445 @@
+
+=== PAGE 1 ===
+Development and testing of GaN Power Modules for EV traction in-
+verters.
+Dima Novo, Adam Briga, Gregory Bunin, Ilia Bunin, Oren Cohen, Joey Chang, Oleg Dubinsky, Alex Firtel, Yuri 
+Gitelmakher, Nissim Iskhakbayev, Dieter Liesabeths, Mahsa Montazeri, Memo Romero, Evgeny Rozanov, David 
+Shapiro, Lev Stessin, Ray Tsai, Roman Volkov, Valery Veprinsky, Dana Veprinski, Yulia Roiter, Simon Wainwright,
+VisIC technologies 
+Dima@visic-tech.com
+Abstract 
+The necessity for affordable long-distance electrical cars is widely recognized. Gallium Nitride (GaN) is an acknowl-
+edged semiconductor technology for achieving this target through improved efficiency of the power train inverter.
+However, to successfully implement GaN in electric vehicle (EV) inverters, the challenges of high-power delivery must 
+be resolved. High power, from a technical perspective, requires the design of high voltage, high current dice, driving in 
+parallel of several dice, and maintaining low thermal resistance between the transistor junction and the coolant liquid of 
+the inverter cold plate. Using power modules instead of discrete devices is an industry mainstream allowing for signifi-
+cantly higher power density. Developing and manufacturing modules with a new semiconductor material, such as GaN, 
+and meeting the aggressive demand of carmakers to reduce cost, weight, and size of power modules while increasing 
+delivered power calls for extraordinary inventiveness of engineers and well-orchestrated communication between pack-
+aging, electronics and semiconductor experts. To efficiently integrate power modules in EV inverters, and meet all the 
+requirements stated above, A profound understanding of the trade-offs between different performance parameters and 
+size is essential. This work will demonstrate how these challenges have been addressed in VisIC D3GaN power mod-
+ules using the methodology of a demonstrator module based on discrete devices and the development of a transfer 
+molded power module, based on bare dice. These modules were developed to showcase the D3GaN technology for EV 
+traction inverters supporting up to 150kW and a battery voltage of 400V.
+1 Introduction
+In this paper, we will present our D3GaN power module 
+technology demonstrators. The modules are developed to
+define main tradeoffs, test and showcase the technology 
+for EV traction inverters. D-mode GaN and D3GaN spe-
+cifically present several benefits that make it highly suita-
+ble for applications that require high power, high reliabil-
+ity, and low cost. Fundamentally, fast turn-on and turn-off 
+and very low switching losses of GaN devices improve 
+application efficiency even at relatively low switching 
+frequencies of 20kHz and allow for much higher frequen-
+cies when motor technology allows. At the same time, 
+gate reliability is a critical requirement for automotive
+high-power applications. In the challenge of keeping sim-
+ultaneously advantages of GaN and reliable operation at 
+high power, D-mode GaN devices show a significant ad-
+vantage over E-mode GaN devices. We adopted internally 
+developed D3GaN technology, as most suitable for high-
+power automotive applications, where “D3” stands for 
+Direct Drive D-mode. The gate driver is connected direct-
+ly to the GaN Gate which allows utilizing the fast turn-on 
+and turn-off times and slew-rate control. D3GaN topology 
+is radically different from cascode topology. First, we
+present and discuss the technology demonstrator VM022 
+Half Bridge power module based on D3GaN 8mOhm dis-
+crete devices, which was developed to showcase high 
+power operation of 4 parallel devices in a traction inverter 
+application. In this paper, we will present the electrical 
+and mechanical aspects of the module design and the effi-
+ciency test results performed on the dyno closed-loop test 
+bench according to the World Harmonized Light Vehicles 
+Test Procedure (WLTP).
+ Second, we will present the pro-
+duction target transfer molded module that is currently in 
+development, showcasing high power density and im-
+proved thermal resistance. 
+2 VM022 D3GaN Power Module 
+design
+2.1 Module Overview
+Fig. 1 shows the VM022 650V, 2mOhm D3GaN Half 
+Bridge Power module. The key performance parameters 
+are shown in Table I
+  
+ 
+ 
+ 
+ 
+Figure 1: VM022 Half Bridge side view
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH Â Berlin Â Offenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+TABLE I
+VM022 Key Performance Parameters
+Parameter Value Unit
+VDS 650 V
+RDS(ON) 2 mΩ
+QG 800 nC
+ID,pulse 1520 A
+ID 460 A
+VM022 is a PCB-based Half Bridge module, with 4 paral-
+lel D3GaN 8mOhm discrete devices for high and low 
+sides, a total of 8 GaN dice. The driving board with con-
+nectors to a control board is placed on top of the module.
+Gate drivers are located above the devices to reduce the 
+gate loop length and inductance. The module block dia-
+gram is shown in Fig. 2
+ 
+Figure 2: VM022 Block Diagram
+To further reduce the power loop inductance decoupling 
+capacitors are integrated on the module PCB.
+2.2 Power and Gate loop design considera-
+tions 
+Power and gate loop inductances have a critical impact on 
+system operation. Reducing the parasitic inductances is 
+even more important in applications utilizing GaN devic-
+es due to their high switching speeds, leading to high 
+di/dt. Reducing voltage overshoots, minimizing power 
+losses, and EMI. Much attention was put into reducing
+power and gate loop inductances, both in the power PCB 
+layout, control pin’s location, and driver board PCB lay-
+out. The measured power loop inductance is approximate-
+ly 3.9nH. To minimize mismatch in time during turn-on
+between parallel power devices, special attention was put 
+into the design of the power and driver PCBs, ensuring
+that the control signals will commutate the devices simul-
+taneously. In power loop design we need to make sure 
+that the parasitic inductances per device are equal in value
+to create even current distribution during switching
+events. GaN devices have a positive Ron/Temp coeffi-
+cient, i.e. Ron increases with an increase in temperature.
+This effect helps to “naturally” balance current between 
+parallel devices during ON state. Reduction of power loop 
+parasitic inductances is done by 2 methods described in
+[1],[2]: 1) reducing the area enclosed by the power loop.
+2) using field cancelation techniques. In Fig. 3 you can 
+see the power PCB stack-up. In red is the High Frequency 
+current path where (1) & (2) are implemented. 
+Figure 3: VM022 Power PCB stack-up
+2.2.1 Operation of parallel devices
+For testing the parallel operation of the GaN devices we 
+have developed a special technique utilizing the LV 
+MOSFET integrated in the D3GaN platform. By measur-
+ing the voltage drop on the MOSFET of parallel devices 
+during turn-on, we can verify that the devices turn on 
+simultaneously (current flow begins at the same time). In 
+Fig. 4,5&6 the voltage spike on the parasitic inductance 
+of LV MOSFET during turn-on is shown comparing pairs 
+of the 4 parallel devices. In these waveforms, it is easy to 
+see that current flow starts simultaneously on the devices
+(∆t=2.807nS, at its max, on device #1 the farthest from 
+reference device #4) (Blue is the DUT, Gray is the refer-
+ence device).
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 4: VM022 LV MOSFET or device #1 compared 
+to device #4
+ 
+Figure 5: VM022 LV MOSFET or device #2 compared 
+to device #4
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH Â Berlin Â Offenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+Figure 
+6: VM022 LV MOSFET or device #3 compared 
+to device #4 
+2.3 Thermal stack
+As described in the previous sections and figures, the 
+VM022 power module uses a multilayer power PCB for 
+routing both signal and power traces.   Soldered to one 
+side of this PCB are the pre-packaged discrete 8 mOhm
+D3GaN devices.  These packages are electrically isolated 
+via an internal Aluminum Nitride DBC substrate and are 
+then attached to a copper baseplate via a standard solder-
+ing process.  The assembly, shown in Fig. 7, is considered 
+a typical “baseplate” power module from a thermal stand-
+point but uses a combination of wirebonding and PCB 
+layers for all interconnections.   
+ 
+Figure 7: VM022 Power PCB, Discrete devices, and the 
+baseplate
+ 
+The industry mainstream is to use semiconductor bare die 
+directly attached to the DBC and interconnect through 
+wire/ribbon bonding or clip connection. While this ap-
+proach is optimal for making mass-production products, it 
+makes the process of tuning, optimization, or debugging 
+of the module design practically impossible. Therefore, we 
+used a different approach which allows tuning of the lay-
+out and circuit on a “living” technology demonstrator 
+module. The primary differen ce is that the pre-packaged 
+discrete GaN devices are first assembled and tested to con-
+firm the operation, then attached both to the power PCB 
+on the terminal side and the baseplate on the DBC side.  
+This provides a conventional thermal path to a cooler (typ-
+ically liquid cooled), but also a secondary thermal path to 
+the power PCB, where some heat, 10% to 15%, can be 
+dissipated via the thick copper traces, encapsulation mate-
+rials, and surrounding environment.    Fig. 8 depicts the 
+complete vertical structure from die to fluid.   
+ 
+Figure 8 VM022 Thermal stack
+With this thermal stack, and with typical fluid flow rates 
+of 8-10 LPM per inverter, we can expect a thermal re-
+sistance of device channel to fluid inlet in the range Rth 
+C-
+FLUID 0.4 to 0.55 °C/W per die, depending on details of the 
+cooler. Some improvements can be made but these must 
+be balanced with minimizing mechanical stresses and oth-
+er reliability considerations.  
+3 WLTC test results
+WLTC is a cycle test that is part of WLTP [3] and is a 
+globally adopted chassis dynamometer test cycle for the 
+determination of emissions and fuel consumption for ICU 
+or electric efficiency for EV light-duty vehicles. The test 
+was set up in the lab of a major EU car manufacturer. The
+set-up included a 3-phase inverter power stage (Fig. 9)
+based on a single VM022 module per phase, a dynamome-
+ter system with an EV PMSM machine, a DC power sup-
+ply, a cooling system, and other auxiliary systems required 
+for the operation and measurement during the experiment.
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH Â Berlin Â Offenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+The whole 3-phase power stage system, including control
+and measurement equipment, was designed and assembled 
+by the VisIC team. 
+Figure 9: VM022 3-phase power stage test system
+3.1 WLTP tested conditions:
+In Fig. 10 we show the full WLTP test conditions (condi-
+tions tested are marked in red). In this experiment, we
+tested up to 350ARMS phase current and 2400rpm (electri-
+cal frequency of 160Hz).
+Figure 10: WLTP Current Vs. RPM
+Red dote indicates the maximal tested conditions. The red 
+rectangle indicates the area where several data points 
+were collected to build a Torque Vs. Efficiency plot (Fig. 
+11)
+Figure 11 Measured Torque & Efficiency
+In this test, we achieved a maximal efficiency of 99.295% 
+at 24.4kW output, 2400RPM, and 92.8Nm.
+4 D3GaN Transfer Molded Half-
+Bridge Module
+Following the successful development and testing of the 
+VM022 module VisIC took the next step of developing a
+transfer-molded Half Bridge module. This module is 
+much more compact: 50x30x4mm [LxWxH]. Power ter-
+minals are designed for laser welding to reduce power 
+loop inductance when connected to busbars, and the mod-
+ule is designed for sintering or soldering to a cold plate to 
+reduce thermal resistance. The development is a work in 
+progress and here we’re presenting preliminary data. 
+4.1 Module structure 
+For optimal thermal efficiency as well as long-term relia-
+bility, the VM027 Module structure is designed for a
+straightforward assembly process and transfer molding. 
+The module is designed for a direct attachment of the Di-
+rect Bonded Copper ceramic substrate (DBC) to the cold
+plate, in this design a baseplate is unnecessary, lowering 
+the cost and improving the thermal performance. Figure 
+12 below shows an exploded view of this design.
+Figure 12: Transfer molded module exploded view
+One beneficial feature of this structure is that a typical
+stamped lead frame is not needed for the power or signal 
+terminals.  Instead, low-cost metal injection components 
+are used and placed using standard pick-and-place pro-
+cesses.  The novel power terminal geometry provides for 
+low inductance and allows for laser welding to a system-
+level power connection. The fabricated module after 
+molding is shown in Figure 13.
+Figure 13: Transfer molded module 
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH Â Berlin Â Offenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+4.1.1 Power and Gate loop design considerations 
+The incentive for minimizing power and gate loop induct-
+ance is the same as for the VM022 module. The transfer 
+molded modules present additional constraints: Smaller 
+size and less area for a high cross-section of the power 
+conductors. Cancelation layers are also not practical as 
+readily available DBC has only a single layer of copper.
+Multi-layer DBCs have been long promised but we were 
+not able to exercise this path. As mentioned above power 
+terminals enable laser welding to busbars, reducing the 
+overall power loop inductance. Control pins are located to 
+ensure a minimal length of control paths. ANSYS Q3D is 
+used for power and gate loop parasitic simulations. Based 
+on the simulations the main power loop inductance is 
+2.45nH and the gate loop inductance of 6.82nH for the
+high side gate and 7.53nH for the low side gate. 
+4.1.2 Paralleling of GaN dice
+GaN die statistical Vth data as measured on-wafer is 
+shown in Fig. 12. (46,004 dice). Narrow Vth spread as-
+sists with the paralleling of dice, as the turn-on and turn-
+off difference at the same gate voltage is low. Real-life 
+operation (as we did with the VM022 module) has not 
+been performed yet. 
+ 
+Figure 12: Threshold Voltage Statistics 
+4.1.3 Thermal stack
+This power module is a DBC based transfer molded pow-
+er module that does not utilize a typical copper baseplate,
+allowing for direct and thermally efficient attachment to a 
+cooler via solder or large area Ag-sinter bonding.   This 
+design has many of the same features as other transfer 
+molded products suitable for automotive applications, in-
+cluding a high-volume production assembly process and 
+cost structure. To maintain an acceptable final flatness of 
+the substrate and to minimize the stresses on the GaN die
+special attention was given to optimize the mechanical 
+design, as well as the molding process parameters. For the 
+transfer molded module, this has been achieved by careful 
+optimization of DBC layout geometry and metal thick-
+nesses, mechanical design, die attach material, and mold 
+design details. Figure 12 shows this module design.
+Power terminals are designed for laser welding, which has 
+become the preferred method due to lower costs and the 
+elimination of typical electrical contact resistances.  
+The substrate is Silicon Nitride (Si3N4) due to its superior 
+mechanical strength, compared to AlN, and its increased
+acceptance in the power electronics industry.  Without a 
+baseplate and associated attachment layer, the thermal 
+stack, shown in Figure 13 is further simplified.  Conse-
+quently, thermal resistance is also lower, with achievable 
+Rth C-FLUID values between 0.3 and 0.5 C/W depending on 
+details of the cooler and with flow rates of 8-10 LPM.
+Figure 13: Module thermal stack
+The DBC metal thickness in this design is 300uM, much 
+thicker than in the VM022 demonstrator, primarily be-
+cause this layer must handle the full current load directly 
+on the substrate. A benefit of this approach is more heat
+spreading, where there is space around the GaN device. 
+The Si3N4 ceramic is thinner than AlN to compensate for 
+the lower thermal conductivity value. 
+4.2 Multi Pulse Test setup & Preliminary 
+Results
+For dynamic evaluation of the module, we are using a
+multi-pulse test. After module fabrication and testing that 
+the module is electrically operational, a multi-pulse test 
+set-up is assembled using a dedicated evaluation board,
+developed for the module by VisIC team, and providing 
+all the necessary control signals. A 1-GHz high band-
+width oscilloscope and high accuracy optical differential 
+probes are used to measure Drain-Source and Gate signals 
+with minimal distortion. The test set up is shown in Fig. 
+14. The module is located at the bottom of the EVB. 
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH Â Berlin Â Offenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 6 ===
+Figure 14: Multi-pulse test setup.
+At this early stage of the development, the purpose of the 
+testing is to verify the stability of the switching, evaluate 
+the power loop parasitic inductances, and measure switch-
+ing energy and additional parameters that are critical for 
+making improvements for the next revision. In Fig. 15 the 
+half bridge mid-point to ground voltage and the coil cur-
+rent were captured. In this test bus voltage is 400V, coil 
+current was up to 200A. 
+Figure 15: – Transfer molded HB module multi-pulse 
+waveform
+The measured power loop inductance is 8nH (including 
+busbars and power capacitor), this measurement indicates 
+a high inductance of the connection between the DC link 
+capacitor and the module. 
+Switching Energy measurements are next in line, after 
+finishing the initial optimization of the switching behav-
+ior. 
+5D 3GaN Driving Circuit and it’s 
+implementation with D3GaN 
+Power Modules.
+D3GaN schematic is shown in Fig. 16 and includes: 1) D-
+mode GaN die, 2)LV MOSFET die,  3) pn Diode. In this 
+example, the GaN and P-MOSFET die are connected in 
+series Source to Source. The pn diode is connected be-
+tween the GaN Gate and the Drain of the LV MOSFET. 
+Figure 16:– D
+3GaN Schematics
+The LV MOSFET is in conductive mode all the time 
+driver is present, and not playing a role in the switching of 
+the GaN die. Fig. 17 & 18 show the simplified gate drive 
+and MOSFET enables circuit schematics. The gate of the 
+MOSFET is connected to a dedicated enable circuitry. 
+Enable signal turns the MOSFET to ON state when the 
+auxiliary power supply turns ON and stays ON as long as 
+the auxiliary power is above the Under Voltage Lockout 
+(UVLO) Level. If the auxiliary power supply voltage lev-
+el drops below the UVLO, the MOSFET turns OFF and 
+allows for a safe turn-off of the GaN die. 
+Figure 17: – D
+3GaN Driving Circuit Schematics – ON
+state
+Driving of the D3GaN
+Standard off-the-shelve gate drivers are used for driving a 
+D3GaN and are connected to the GaN Gate (sizing of the 
+gate driver is done in the same way as for SiC or IGBT 
+power devices). There is no need in inverting or changing 
+the driver input PWM signal. The difference in the 
+D3GaN driving circuit is that the GaN die Kelvin Source
+is connected to the auxiliary power supply (VDD) instead 
+of GND . This allows for switching the GaN Gate be-
+tween VDD and GND potentials, while GaN Source is 
+hardwired to VDD.
+Optical probes
+Control 
+PCB
+Inductor
+D
+3
+GaN Schematics
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH ÂBerlin ÂOffenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 7 ===
+Figure 18: – D3GaN Driving Circuit Schematics – OFF
+stat.
+For Turn OFF the GaN V GS = GND – VDD = -VDD (Fig. 
+18), and ON when VGS =V D D– VDD = 0.
+For implementing the D3GaN inside a module. it is re-
+quired to have the GaN and Si MOSFET on the substrate 
+for cooling, while all the other components can be imple-
+mented on the Gate drive PCB.
+D3GaN utilizes the benefits of a more robust D-mode 
+GaN device with highly reliable gate structure without the 
+added switching losses of the Si MOSFET.
+6L i t e r a t u r e
+[1] Eric Persson: Optimizing PCB Layout for HV GaN 
+Power Transistors.IEEE Power Electronics Maga-
+zine, Vol. 10, No.2 June 2023.
+[2] Juncheng(Lucas) Lu: Paralleling GaN E-HEMTs in 
+10kW-100kW Systems, 2017 IEEE Applied Power 
+Electronics Conference and Exposition (APEC).
+[3] https://dieselnet.com/standards/cycles/wltp.php
+
+CIPS 2024
+ISBN: 978-3-8007-6288-0 © VDE VERLAG GMBH ÂBerlin ÂOffenbach
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:20:39 UTC from IEEE Xplore.  Restrictions apply. 

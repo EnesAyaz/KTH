@@ -1,0 +1,55 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=15mm]{geometry}\usepackage{graphicx,booktabs,amsmath,xcolor,fancyhdr,hyperref}
+\definecolor{navy}{HTML}{173B51}\hypersetup{colorlinks=true,urlcolor=navy}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small EPC2361 | Selected-case switching rates}\fancyhead[R]{\small 75 V / +5,-4 V}\fancyfoot[L]{\small Saved LTspice waveforms | 0.125 ns maximum timestep}\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth,height=#2,keepaspectratio]{#1}\end{center}}
+\begin{document}
+{\LARGE\bfseries\color{navy} Switching rates of selected DPT cases}\par
+\textbf{Signed average slopes; DUT terminal voltage and current.}\hfill 17 September 2026
+
+\begin{center}\begin{tabular}{rrrrrrr}\toprule
+$L$ & Setpoint & External $R_{on}/R_{off}$ & \multicolumn{2}{c}{Second turn-on} & \multicolumn{2}{c}{First turn-off}\\
+(nH) & (A) & ($\Omega$) & $dv/dt$ & $di/dt$ & $dv/dt$ & $di/dt$\\
+ & & & (V/ns) & (A/ns) & (V/ns) & (A/ns)\\\midrule
+1 & 15 & 0.5/0.5 & -12.48 & 14.62 & 5.38 & -0.91 \\
+1 & 30 & 0.5/0.5 & -10.95 & 21.08 & 10.61 & -3.25 \\
+1 & 45 & 0.5/0.5 & -9.47 & 24.91 & 14.89 & -5.57 \\
+3 & 15 & 0.5/0.5 & -12.16 & 12.22 & 5.46 & -0.98 \\
+3 & 30 & 0.5/0.5 & -10.51 & 15.06 & 9.87 & -2.45 \\
+3 & 45 & 0.5/2 & -8.70 & 18.92 & 20.07 & -10.00 \\
+5 & 15 & 4/1 & -6.72 & 4.83 & 5.36 & -0.85 \\
+5 & 30 & 4.5/1.5 & -5.61 & 6.67 & 14.21 & -5.13 \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Second turn-off and actual current references}
+\begin{center}\begin{tabular}{rrrrr}\toprule
+$L$ (nH) & Setpoint (A) & $I_{on2}/I_{off1}/I_{off2}$ (A) & $dv/dt$ (V/ns) & $di/dt$ (A/ns)\\\midrule
+1 & 15 & 14.76/15.02/18.45 & 6.10 & -1.04 \\
+1 & 30 & 29.72/30.02/33.37 & 11.36 & -3.61 \\
+1 & 45 & 44.69/45.02/48.30 & 17.40 & -10.83 \\
+3 & 15 & 14.77/15.02/18.46 & 6.79 & -1.45 \\
+3 & 30 & 29.73/30.02/33.38 & 14.73 & -10.56 \\
+3 & 45 & 44.71/45.02/48.32 & 19.18 & -9.98 \\
+5 & 15 & 14.72/14.97/18.34 & 6.79 & -5.46 \\
+5 & 30 & 29.68/29.96/33.26 & 8.73 & -2.53 \\
+\bottomrule\end{tabular}\end{center}
+\small No selected pair exists for 5 nH / 45 A under the previous 100 V screening criterion; no slope is presented as a passing setting for that case.\normalsize
+
+\textbf{Why can $R_{off}$ exceed $R_{on}$?} Only 3 nH / 45 A has that external-resistor ordering. Five cases have equal 0.5 $\Omega$ external resistors, but the driver adds 0.7/0.4 $\Omega$: the drive paths are approximately 1.2/0.9 $\Omega$, before internal gate resistance. The 5 nH selections also have lower $R_{off}$.
+
+A strong pull-down helps hold the gate off against Miller current. However, current commutation and ringing in a parasitic inductance can limit turn-off speed. The search minimized $R_{on}+R_{off}$ (ties: lower $R_{on}$) subject to DUT peak voltage, not energy, switching time, or a required resistance ratio. The plot below shows the actual voltage trade-off; it does not prove a monotonic gate-resistance/slopes relationship.
+\fig{../../figures/roff_voltage_evidence.pdf}{42mm}
+\small Gate-drive background: EPC AN003, pp.2--3, discusses Miller turn-on, gate-loop damping and their trade-off. \href{https://epc-co.com/epc/Portals/0/epc/documents/product-training/Using_GaN_r4.pdf}{EPC: Using Enhancement Mode GaN-on-Silicon Power FETs}.\normalsize
+\newpage
+{\Large\bfseries\color{navy} Measured rates and extraction windows}\par
+\fig{../../figures/switching_rate_comparison.pdf}{108mm}
+\small Magnitudes are plotted for readability; the tables retain signs. Each point uses its own selected resistors, so these are not fixed-resistance inductance sweeps.\normalsize
+\fig{../../figures/switching_rate_windows.pdf}{62mm}
+\small Example: 3 nH / 45 A, external 0.5/2 $\Omega$. Dashed chords and dots mark the extracted voltage and current intervals. Early incomplete current excursions are excluded.\normalsize
+
+\textbf{Definition:} voltage thresholds are 7.5 and 67.5 V (10--90\% of the nominal 75 V link). Current thresholds are 10--90\% of $I_{load}$ at each command edge. Rates are signed $\Delta V/\Delta t$ and $\Delta I/\Delta t$. Within 200 ns after the command, take the first completed directed transition, using the last start-threshold crossing preceding its end-threshold crossing. Linear interpolation determines crossing times.
+
+\textbf{Interpretation:} $I_D=I(Vsense)$ includes device capacitive/displacement current. It is not internal channel current, nor necessarily the current in $L_{layout}$. These are transition averages, not peak derivatives or settled-current slopes; ringing remains visible. Rates use the saved 0.125 ns runs and have not received a separate slope-convergence study. Settings remain 75 V, 100 $^\circ$C and +5/-4 V gate rails; the original voltage-screening limitations still apply.
+
+\small Data and crossing times: \texttt{dut\_gate\_search/switching\_rates.csv}. Reproduce: \texttt{python build\_switching\_rates\_report.py}. The GUI and original three-page report are unchanged.
+\end{document}

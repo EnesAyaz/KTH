@@ -1,0 +1,1644 @@
+
+PAGE 1
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    1
+Selecting eGaN® FET Optimal  
+On-Resistance
+EFFICIENT POWER CONVERSION
+DEVICE LOSSES MODELING
+Previously published articles showed that eGaN FETs behave for the most part just like silicon devices and can be evaluated using similar performance metrics. 
+Since these devices behave like silicon MOSFETs, they can also be optimized in a similar fashion; by balancing static and dynamic losses through adjusting die size. 
+Static losses include loss components unaffected by changes in switching frequency, while dynamic losses are very much frequency dependent. An assumption is that 
+all device parameters will scale with die size but that the device Figures of Merit (FOMs) will remain unchanged. Although applications may be varied, the different 
+loss components are easily summarized [3, 4, 5]; only their relative sizes change with application and operating frequency. With eGaN FETs, the relative weights of the 
+loss components will also differ from silicon MOSFETs and thus result in different ‘optimum’ die size values. To better understand this, lets first break down the total 
+semiconductor losses within a power FET (PSEMI) as follows:
+Johan Strydom, Ph.D., V.P., Applications, Efficient Power Conversion Corporation
+Figure 1:  Idealized switching waveforms used for calculating switching loss.
+In this white paper the die size optimization process for selecting the eGaN FET optimal on-resistance is discussed and an example applica-
+tion is used to show specific results. Since ‘optimum’ means different things to different people, this process is aimed at maximizing switch-
+ing device efficiency at a given load condition. 
+(
+)
+A
+R
+D
+I
+A
+on
+DS
+L
+(
+,)
+2 ⋅
+⋅
+SW
+PL
+DR
+GS2,A
+GS2,A
+A
+GD
+G
+L
+BUS
+f
+V
+V
+A
+Q
+Q
+R
+I
+V
+⋅
+−
+⋅
++
+⋅
+⋅
+)
+(
+2
+,
+SW
+PL
+A
+GD
+G
+L
+BUS
+f
+V
+A
+Q
+Q
+R
+I
+V
+⋅
+⋅
++
+⋅
+⋅
+)
+(
+2
+,
+SW
+DR
+G, A
+f
+V
+A
+Q
+⋅
+⋅
+⋅
+SW
+BUS
+R
+R
+A
+f
+V
+A
+Q
+⋅
+⋅
+⋅
+,
+SW
+BUS
+A
+OSS
+f
+V
+A
+Q
+⋅
+⋅
+⋅
+2
+,
+SW
+F
+L
+f
+t
+V
+I
+⋅
+∆
+⋅
+⋅
+1 
+PCOND is the device channel conduction loss when on
+ 
+ 
+2a 
+PT-ON is the device turn-on commutation loss (Figure 1a)
+ 
+ 
+2b 
+PT-OFF is the device turn-oﬀ commutation loss (Figure 1b)
+3 
+PDR is the device gate drive loss 
+ 
+4 
+PQRR is the device diode reverse recovery loss 
+ 
+5 
+PQOSS is the device output capacitance charge loss  
+6 
+PDIODE is the device diode conduction loss 
+ 
+where:
+PSEMI  =  PCOND  +  PDIODE  +  PT-ON  +  PT-OFF  +  PDR  +  PQRR  +  PQOSS
+(1)
+‘A’ refers to the normalized die area and subscript A refers to the parameter per normalized die area.
+See appendix for terms, assumptions and approximations made.
+Equation
+Conﬁguration
+ 
+VDS
+VPL
+VPL
+VDR
+VDR
+VTH
+VTH
+VBUS
+VGS
+VGS
+IDS
+IDS
+IL
+VBUS
+IL
+ 
+ 
+t 
+tr 
+tf 
+ 
+ 
+t 
+tr 
+tf 
+ 
+ 
+(a) Turn-on
+(b) Turn-oﬀ
+VDS
+
+PAGE 2
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    2
+Note that not all devices will have all these loss components, e.g. a synchronous buck converter would have practically no turn-on or turn-off losses in the synchro-
+nous rectifier. Furthermore, to optimize multiple devices in a converter, the losses stemming from the interaction between devices also need to be considered (e.g. 
+the diode reverse recovery losses of one device may be dissipated in another FET.  This occurs in circuits such as synchronous buck converters where synchronous FET 
+related losses are dissipated in the control FET, but by optimizing the control FET only, this loss component will remain unchanged. Thus for optimization purposes, 
+this issue is resolved by considering all the losses induced by a device to be relevant for its sizing, regardless of where the power is dissipated. 
+DIE SIZE OPTIMIZATION
+By considering each of these device loss components in eq. (1) in turn, some conclusions can be drawn:
+•	
+The conduction losses (item 1) are frequency independent
+•	
+Commutation loss (items 2a and 2b) are both frequency and load current dependent and can be combined as follows:
+•	
+Loss components in items 3, 4 and 5 are all frequency dependent, but current independent and can be combined.  While QRR is current related, MOSFET vendors 
+neglect to present their characteristic adequately over current, temperature and di/dt to accurately calculate these losses:
+•	
+Diode losses, item 6, are assumed die size independent (only a weak function of die size) and neglected for the optimization process.
+If we now define two new variables ΔIEQ and  ΔIEQRR as:
+Then combining eq. (2) and eq. (3) and substituting eq. (4a) and (4b), the switching losses are:
+OFF
+ON
+k
+k
+k
++
+=
+ON
+k
+SW
+L
+A
+SW
+BUS
+COMM
+f
+I
+A
+Q
+k
+V
+P
+⋅
+⋅
+⋅
+⋅
+=
+,
+2
+PL
+DR
+G
+ON
+V
+V
+R
+−
+=
+PL
+G
+OFF
+V
+R
+k
+=
+A
+GD
+A
+SW
+Q
+Q
+,
+,
++
+=
+GS2, A
+Q
++
+where:
+and
+(2)
+(3)
+CHARGE
+P
+=
+SW
+BUS
+R
+R
+A
+DR
+G,A
+BUS
+A
+OSS
+f
+A
+V
+Q
+V
+Q
+V
+Q
+⋅
+⋅
+⋅
++
+⋅
++
+⋅
+,
+,
+2
+W
+(
+)
+(4a)
+(4b)
+A
+SW
+BUS
+DR
+G,A
+BUS
+A
+OSS
+EQ
+Q
+k
+V
+V
+Q
+V
+Q
+I
+,
+,
+2
+⋅
+⋅
+⋅
++
+⋅
+⋅
+=
+∆
+A
+SW
+R
+R
+A
+EQRR
+Q
+k
+Q
+I
+,
+,
+2
+⋅
+⋅
+=
+∆
+(5)
+G,A
+(
+)
+[
+]
+[
+]
+[
+]
+(
+)
+(
+)
+A
+P
+A
+f
+I
+I
+I
+Q
+k
+V
+f
+A
+I
+I
+Q
+k
+V
+I
+Q
+k
+V
+f
+A
+V
+Q
+V
+Q
+V
+Q
+I
+Q
+k
+V
+P
+A
+SW
+SW
+EQRR
+EQ
+L
+A
+SW
+BUS
+SW
+EQRR
+EQ
+A
+SW
+BUS
+L
+A
+SW
+BUS
+SW
+BUS
+R
+R
+A
+DR
+BUS
+A
+OSS
+L
+A
+SW
+BUS
+SW
+⋅
+=
+⋅
+⋅
+∆
++
+∆
++
+⋅
+⋅
+=
+⋅
+⋅
+∆
++
+∆
+⋅
+⋅
++
+⋅
+⋅
+=
+⋅
+⋅
+⋅
++
+⋅
++
+⋅
++
+⋅
+⋅
+=
+,
+,
+,
+,
+,
+,
+,
+2
+2
+2
+2
+2
+
+PAGE 3
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    3
+Thus the non-current dependent losses in eq. (3) can be modeled as an equivalent switching loss with an equivalent current ΔIEQRR for reverse recovery related losses, 
+and ΔIEQ as the remaining charge related losses as defined in eq. (4). The QRR related losses term can be neglected for eGaN FETs where QRR is equal to zero, but is 
+included for MOSFET compatibility. Thus from eq. (5) and item 1 from eq. (1), the total device losses for optimization purposes can be written as:
+To find the optimum (minimum loss) point, we set the derivate to zero and calculate A:
+If we normalize all charge values to 1 Ω RDS(on), then the optimum device on-resistance is given by:
+The normalized eGaN FET device specific parameters are given in Table 1 for a typical ‘hot’ operating temperature of 100 °C junction. Thus with eq. (8) and the values 
+from Table 1, the optimum required die resistance can be readily calculated for a given bus voltage.
+Table 1:  eGaN FETs normalized to 1 Ω typical RDS(on) for difference voltage ratings.
+(6)
+(
+)
+A
+R
+D
+I
+A
+P
+A
+P
+A
+ON
+DS
+L
+A
+SW
+SEMI
+(
+,)
+2
+,
+)
+(
+⋅
+⋅
++
+⋅
+=
+(7)
+(
+)
+A
+SW
+A
+ON
+DS
+L
+A
+ON
+DS
+L
+A
+SW
+SEMI
+P
+R
+D
+I
+A
+A
+R
+D
+I
+P
+dA
+A
+dP
+,
+(
+,)
+2
+(
+,)
+2
+,
+0
+)
+(
+⋅
+⋅
+=
+∴
+⋅
+⋅
+−
+=
+=
+(8)
+[
+] (
+)
+SW
+EQRR
+EQ
+L
+A
+SW
+BUS
+L
+OPT
+f
+I
+I
+I
+Q
+k
+V
+D
+I
+R
+⋅
+∆
++
+∆
++
+⋅
+⋅
+⋅
+⋅
+=
+,
+2
+1
+Ω
+Normalize to typical RDS(on) at 100°C (~1.45 x RDS(on) at 25°C)
+40 V eGaN FETs
+40 V eGaN FETs
+100 V eGaN FETs
+200 V eGaN FETs
+VBUS
+12 V
+24 V
+48 V
+100 V
+ 
+QGS2,A @ rated IDS
+5  pC/ Ω
+5  pC/ Ω
+7  pC/ Ω
+13  pC/ Ω
+QGD,A @ VBUS
+9  pC/ Ω
+10  pC/ Ω
+21  pC/ Ω
+51  pC/ Ω
+QG,A @ 5 V rated VDR
+46  pC/ Ω
+46  pC/ Ω
+73  pC/ Ω
+145  pC/ Ω
+QOSS,A @ VBUS
+57  pC/ Ω
+97 pC/ Ω
+290  pC/ Ω
+1085  pC/ Ω
+QRR,A @ rated IS
+0  pC/ Ω
+0  pC/ Ω
+0  pC/ Ω
+0  pC/ Ω
+VPL @ rated IDS
+2.2 V
+2.2 V
+2.3 V
+2.4 V
+VF @ rated IDS
+2.2 V
+2.2 V
+2.3 V
+2.4 V
+kON  =
+2.6/2.8 = 0.93
+2 Ω pull up
+2.6/2.8 = 0.93
+2 Ω pull up
+2.6/2.8 = 0.96
+2 Ω pull up
+2.6/2.8 = 1.0
+2 Ω pull up
+kOFF = 
+1.1/2.2 = 0.5
+0.5 Ω pull up
+1.1/2.2 = 0.5
+0.5 Ω pull up
+1.1/2.3= 0.48
+0.5 Ω pull up
+1.1/2.4= 0.46
+0.5 Ω pull up
+k = kON + kOFF
+1.43 / A
+1.43 / A
+1.44 / A
+1.46 / A
+QSW,A
+14 pC/ Ω
+15  pC/ Ω
+28  pC/ Ω
+64  pC/ Ω
+ΔIEQ
+4.0 A
+5.0 A
+7.7 A
+12.4  A
+ΔIEQRR
+0 A
+0 A
+0 A
+0 A
+RG
+VDR−VPL
+RG
+VPL
+
+PAGE 4
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    4
+This process may best be explained by example, but first the decision as what 
+load conditions are to be used for optimization must be chosen. To explain this, 
+consider the following sets of efficiency curves for the same application shown 
+in Figure 2. 
+•	
+Full Load Optimization: will result in the best full load efficiency at the cost of 
+reduced light load and peak efficiency.
+•	
+Medium Load Optimization: will result in the best medium load efficiency 
+at the cost of full load efficiency. This is likely to result in the most ‘flat’ 
+efficiency curve. 
+•	
+Light Load Optimization: Best light load efficiency achieved at a significant 
+cost of full load efficiency. May be useful where certain light load efficiency 
+standards need to be met or minimum energy consumption standards need 
+to be met.
+100
+95
+90
+85
+80
+75
+70
+65
+60
+55
+50
+Efficiency (%)
+0
+20
+40
+60
+80
+100
+Load (%)
+Light Load
+Medium Load
+Full Load
+Optimized For:
+Figure 2:  Conceptual efficiency curves optimized  
+for difference load conditions.
+Thus the load current should be chosen based on where on the efficiency curve should peak (or as close as possible). This selection is complicated by the fact that the 
+device losses are not the only current dependent circuit losses, i.e. bussing resistance and inductor DCR also increase quadratically with load current. Thus the die size 
+optimization should be skewed towards higher dynamic losses to compensate, but with multiple devices each device can account for some arbitrary fraction of the 
+total circuit resistance losses. If REQ is an equivalent circuit resistance to be compensated for, then the adjusted optimum on-resistance (ROPT-ADJ) is given by:
+eGaN FET OPTIMIZATION EXAMPLE 
+Consider a high frequency Buck converter with the following specifications [6]:
+VIN = 45 V, VOUT = 22 V, fSW = 1 MHz, ILMAX = 30 A
+For optimization, peak die or circuit efficiency is to be achieved at 15 A (50% load). From Table 1, we get ΔIEQ = 7.7 A,  ΔIEQRR = 0 A, k = 1.44 /A and QSW,A = 28 pF / Ω (using 
+the 48 V). Also needed are D = 22/45 = 0.49 and IL = 15A. 
+For the adjusted optimum on-resistance a total equivalent circuit resistance of 8 mΩ is estimated from [6]. Since the high-side control FET losses dominate total device 
+losses, lets arbitrarily choose 7 mΩ of this be compensated for in the high-side. Since equivalent resistance losses are compensated by increasing switching losses, it 
+makes sense to compensate most (if not all) of these losses in the device with higher switching loss.
+A)	 Control FET optimization
+For the control FET, the on-state duty cycle is ‘D’, there are no QRR losses, but there are QOSS and hard switching losses. Thus from eq. (9) we get:
+thus ROPT(25°C) = ~9.7 mΩ typical
+(9)
+(
+( )
+)
+=
+−
+R
+ADJ
+OPT
+Ω
+⋅
+−
++
+=
+D
+I
+P
+R
+R
+I
+P
+L
+A
+SW
+EQ
+EQ
+L
+A
+SW
+2
+,
+2
+2
+,
+2
+2
+[
+] (
+)
+Ω
+=
+Ω
+⋅
+⋅
+=
+°
+⋅
++
++
+⋅
+Ω
+⋅
+⋅
+⋅
+=
+°
+m
+W
+A
+C
+R
+MH
+A
+A
+A
+pF
+A
+V
+A
+C
+R
+OPT
+OPT
+4
+1 .1
+0.0206
+0. 9
+4
+15
+1
+)
+(
+0
+0
+1
+1
+0
+7.7
+15
+/
+28
+/
+1. 4
+4
+2
+45
+0. 9
+4
+15
+1
+)
+(
+0
+0
+1
+
+PAGE 5
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    5
+Considering the equivalent circuit resistance, the adjusted optimum on-resistance is from eq. (9)
+thus ROPT-ADJ (25°C) = ~5.7 mΩ typical
+B)	 Synchronous FET optimization
+For the synchronous FET, the load current IL at switching is taken as zero, while there are no turn-on or turn-off commutation losses in the synchronous FET, QOSS 
+induced losses and QRR losses are present (zero for eGaN FET).  Also the on-state duty cycle is ‘1-D’. Thus from eq. (9) we get:
+thus ROPT (25°C) = ~5.2 mΩ typical
+Considering the equivalent circuit resistance, the adjusted optimum on-resistance is from eq. (9) for the remaining 1 mΩ:
+thus ROPT-ADJ (25°C) = ~4.3 mΩ typical
+As can be seen from this example, the optimum on-resistance changes significantly for any large (same range as the device on-resistances) additional circuit resistance 
+being compensated for. Obviously, these additional circuit losses could be minimized prior to compensation and any such additional optimization adjustment would 
+be minor. To see the impact of adjusting for some of the equivalent circuit resistance, the control FET and synchronous FET optimum resistance are plotted versus load 
+current for this same example in Figures 3 and 4 respectively.
+EXPERIMENTAL RESULTS
+To evaluate the validity of this optimization approach, some experimental efficiency curves were taken for the same buck converter used in the example above [6]. The 
+same circuit was built and only the EPC devices were changed, as outlined in Table 2, using various combinations of the EPC2001 [7] and EPC2016 [8] eGaN FETs. The 
+efficiency and power loss curves as function of load current for these three cases are plotted and shown in Figure 5. Their estimated optimized points are color coded 
+and added as dots to Figures 3 and 4. Table 2 shows good correlation between the adjusted on-resistance and actual current levels at peak efficiency. 
+OPTIMIZATION COMPARISON WITH MOSFETS
+To see how this optimization process compares when using MOSFETs, it is necessary to find representative high performance MOSFETs and normalize them in a similar 
+manner. The resultant values are given in the appendix, Table 3 for reference. Using the same design example as before, the resultant optimum on-resistance values for 
+the control and sync FETs are plotted versus load current in Figures 6 and 7 respectively. The reverse recovery losses (QRR) for these MOSFETs taken from the datasheets 
+are rather large and could be mitigated by the addition of a freewheeling Schottky diode. Therefore the resultant MOSFET on-resistance, neglecting QRR, losses is also 
+shown in Figure 7. This clearly shows the similarity between eGaN FETs and MOSFETs and shows that an optimal eGaN FET would in all cases have a lower resistance 
+than a similarly optimized MOSFET device. This results from the reduced dynamic losses offered by the eGaN FET due to its lower FOM [1].
+(
+)
+(
+)
+(
+)
+Ω
+=
+⋅
++
+Ω
++
+Ω
+Ω
+Ω
+=
+°
+−
+m
+A
+W
+m
+m
+A
+W
+C
+R
+ADJ
+OPT
+8.3
+/ 5
+1
+0. 9
+4
+0.0206
+2
+7
+2
+7
+/ 5
+1
+0.0206
+)
+(
+0
+0
+1
+2
+2
+2
+[
+] (
+)
+Ω
+=
+Ω
+⋅
+⋅
+=
+°
+⋅
++
++
+⋅
+Ω
+⋅
+⋅
+⋅
+=
+°
+m
+W
+A
+C
+R
+MH
+A
+A
+A
+pF
+A
+V
+A
+C
+R
+OPT
+OPT
+7.6
+0.
+7
+0
+0
+0. 1
+5
+15
+1
+)
+(
+0
+0
+1
+1
+0
+7.7
+0
+/
+28
+/
+1. 4
+4
+2
+45
+0. 1
+5
+15
+1
+)
+(
+0
+0
+1
+(
+)
+(
+)
+⋅
+Ω
+(
+)
+(
+)
+Ω
+=
++
+Ω
++
+Ω
+Ω
+=
+°
+−
+m
+A
+W
+m
+m
+A
+W
+C
+R
+ADJ
+OPT
+6.2
+/ 5
+1
+0.51
+0.
+7
+0
+0
+2
+1
+2
+1
+/ 5
+1
+0.
+7 
+0
+0
+)
+(
+0
+0
+1
+2
+2
+2
+
+PAGE 6
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    6
+100
+10
+Adjusted Optimum Die Resistance (mΩ)
+0
+5
+10
+15
+20
+25
+30
+35
+Load Current (A)
+EPC2016
+EPC2001
+0 mΩ REQ
+2 mΩ REQ
+5 mΩ REQ
+10 mΩ REQ
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Efficiency (%)
+Power Loss (W)
+0
+2
+4
+6
+8
+10
+12
+14
+16
+Output Current (A)
+EPC2016 x 2
+EPC2016, EPC2001
+EPC2001 x 2
+EPC2016 x 2
+EPC2016, EPC2001
+EPC2001 x 2
+Efficiency
+Power Loss
+98.0
+97.5
+97.0
+96.5
+96.0
+95.5
+95.0
+94.5
+94.0
+93.5
+93.0
+100
+10
+Adjusted Optimum Die Resistance (mΩ)
+0
+5
+10
+15
+20
+25
+30
+35
+Load Current (A)
+EPC2016
+EPC2001
+0 mΩ REQ
+2 mΩ REQ
+5 mΩ REQ
+10 mΩ REQ
+Figure 3: Adjusted optimum on-resistance (25 °C) for the control FET for a 45 V 
+to 22 V / 1 MHz buck converter for varying values of equivalent circuit resistance 
+REQ.  Solid circles represent experimental test cases from Table 2.
+Figure 5:  Efficiency and loss curves for different eGaN FETs per Table 2,  
+45 VIN, 22 VOUT, 1 MHz.
+Figure 4: Adjusted optimum on-resistance (25 °C) for the synchronous FET for 
+a 45 V to 22 V / 1 MHz buck converter for varying values of equivalent circuit 
+resistance REQ. Solid circles represent experimental test cases from Table 2.
+* Taken from Figure 5
+Table 2: Experimental test cases and calculated optimum on-resistances
+TESTED eGaN FET 
+combinations
+Load current at optimum 
+on-resistance Equation (8)
+Load current at adjusted optimum on-
+resistance (amount of REQ adjusted)
+Load current at 
+peak efficiency*
+Control FET
+Sync-FET
+Control FET
+Sync-FET
+ 
+EPC2016 + EPC2016
+10.6 A
+6.8 A
+6.8 A (8 mΩ)
+6.8 A (8 mΩ)
+~ 8 A
+EPC2016 + EPC2001
+10.6 A
+14.4 A
+10.6 A (0mΩ)
+10.3 A (8 mΩ)
+~ 10 A
+EPC2001 + EPC2001
+34 A
+14.4 A
+14.3 A (8 mΩ)
+14.4 A (8 mΩ)
+~ 14 A
+
+PAGE 7
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    7
+100
+10
+Optimum Die Resistance (mΩ)
+0
+5
+10
+15
+20
+25
+30
+35
+Load Current (A)
+eGaN FET
+MOSFET
+Figure 6:  Optimum on-resistance (25 °C) for the control FET (high side) 
+for a 45 V to 22 V / 1 MHz buck converter. 
+100
+10
+Optimum Die Resistance (mΩ)
+0
+5
+10
+15
+20
+25
+30
+35
+Load Current (A)
+eGaN FET
+MOSFET - QRR
+MOSFET
+Figure 7: Optimum on-resistance (25 °C) for the synchronous FET (low side) 
+for a 45 V to 22 V / 1 MHz buck converter. 
+EFFECT OF PACKAGE AND LAYOUT ON OPTIMIZATION
+It has been shown [9, 10, 11] that common source inductance (CSI) will sig-
+nificantly increase switching loss for hard switching devices. Equations for the 
+estimation of this increase are complex and somewhat varied. This loss in-
+crease, although significant has also been shown to be die size independent 
+for a given device technology [12] and therefore has little impact on die size 
+optimization process. For eGaN FETs in practice, however, the CSI would be a 
+weak function of die size as all the wafer level chip-scale package (WLCSP) in-
+ductances will scale with die size, but this complexity is beyond the scope of 
+this paper. Such an inverse relationship between CSI and die size means that 
+some small portion of switching losses actually decreases with increasing die 
+size, even though this may seems counter intuitive.
+SUMMARY
+Using the simple optimization method presented here is a quick way to find the 
+optimum eGaN FET on-resistance value. As with many simple solutions, the ac-
+curacy is limited and the actual optimum resistance may deviate. Furthermore, 
+the optimum combination of die size and on-resistance is also a function of 
+the non-device related equivalent circuit conduction resistance. This paper 
+presents a method for optimization that compensates for these additional cur-
+rent-dependent losses. Experimental results show good agreement through 
+accurate predictions of load current at peak efficiency.
+Since eGaN FETs will always optimize to a lower on-resistance than MOSFETs, 
+the overall peak efficiency will therefore be higher (total conduction and 
+switching losses equal at peak) than MOSFETs (given the assumptions made). 
+If the same on-resistance is used, the eGaN FET efficiency will peak at a lower 
+current.  
+References:
+[1] 	 J. Strydom, “eGaN® FET-Silicon Power Shoot-Out Part 1: Comparing Figure of Merit (FOM)”, Power Electronics Technology, Sept. 2010,  
+http://powerelectronics.com/power_semiconductors/power_mosfets/fom-useful-method-compare-201009/ 
+[2] 	 J.  Strydom, “The eGaN FET-Silicon Power Shoot-Out: 2: Drivers, Layout”, Power Electronics Technology, Jan. 2011,  
+http://powerelectronics.com/power_semiconductors/first-article-series-gallium-nitride-201101/
+[3] 	 Jon, Klein, “Synchronous buck MOSFET loss calculations with Excel model”, Fairchild Semiconductor, App. note AN-6005, http://www.fairchildsemi.com/an/AN/AN-6005.pdf 
+[4] 	 Jon Gladish, “MOSFET Selection to Minimize Losses in Low-Output-Voltage DC-DC Converters”, Fairchild Semiconductor Power Seminar 2008 – 2009.
+[5] 	 “Properly Sizing MOSFETs for PWM Controllers”, Sipex App. note ANP-20, http://www.exar.com/common/content/document.ashx?id=1245 
+[6] 	 J. Strydom, “eGaN® FET- Silicon Power Shoot-Out Volume 8: Envelope Tracking”, Power Electronics Technology, Apr. 2012,  
+http://powerelectronics.com/power_semiconductors/gan_transistors/egan-fet-silicon-power-shoot-out-volume-8-0430/ 
+[7] 	 EPC2001 datasheet, EPC Corporation, https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2001.aspx
+[8] 	 EPC2016 datasheet, EPC Corporation, https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2016.aspx 
+[9] 	 D. Jauregui, B. Wang, R. Chen, “Power Loss Calculation with Common Source Inductance Consideration for Synchronous Buck Converters”, Texas Instruments, SLPA009A, June 2011,  
+http://www.ti.com/lit/an/slpa009a/slpa009a.pdf 
+[10] 	W. Eberle, Z. Zhang, et. al, “A Practical Switching Loss Model for Buck Voltage Regulators”, IEEE Transactions on Power Electronics, Vol. 24, No. 3, March 2009.
+[11] 	T. Hashimoto, M. Shiraishi, et. al, “System in Package (SiP) With Reduced Parasitic Inductance for Future Voltage Regulator”, IEEE Transactions on Power Electronics, Vol. 24, No. 6, June 2009.
+[12] 	Y. Ying, “Device Selection Criteria - Based on Loss Modeling and Figure of Merit”, M.Sc. Thesis, Virginia Tech, http://scholar.lib.vt.edu/theses/available/etd-05272008-143141/
+
+PAGE 8
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    8
+GS2,A
+Q
+A
+GD
+Q
+,
+ VBUS 
+12 V 
+24 V 
+48 V 
+100 V
+                @ rated IDS 
+3.5 pC / Ω 
+3.5 pC / Ω 
+5 pC / Ω 
+9 pC / Ω
+             @ VBUS 
+6 pC / Ω 
+7 pC / Ω 
+14 pC / Ω 
+35 pC / Ω
+QGD/(QSW) 
+6/9.5 = 0.63 
+7/10.5 = 0.67 
+14/19 = 0.73 
+35/42 = 0.83
+Error of QSW with varying load current 
+0 to 37% 
+0 to 33% 
+0  to 27% 
+0 to 17%
+40 V
+40 V
+100 V
+200 V
+APPENDIX
+RDS(on),A	 On state resistance at 100 °C normalized for a die area taken as 1 Ω.  All other device parameters are normalized with respect to this.
+RG	
+Resistance of gate drive path – either pull-up or pull-down as needed. This includes a 2 Ω pull-up and a 0.5 Ω pull down driver resistance (that is die size 
+independent) and 0.6 Ω internal eGaN FET gate resistance. This number tends to be die size independent as smaller die have both shorter and narrower 
+effective gate traces. For MOSFETs, the datasheet value is used and also assumed die size independent.
+VBUS	
+The DC bus voltage that the switching node sees during operation. e.g. Input voltage for a Buck and output voltage for a Boost.
+IL	
+This is the average inductor current and/or switch current during the switch on-state. Ripple is neglected such that the same value can be used throughout.
+D	
+Device on-time duty cycle is the fraction of the total cycle for with the device being optimized is conducting.
+fSW	
+This refers to the frequency  at which the eGaN FET or MOSFET is switching.
+VPL	
+The plateau voltage of a device at rated current. Although this value may vary significantly with load, it is assumed constant during optimization for simplicity.
+VDR	
+Gate drive voltage
+QGD,A 	
+Miller charge per normalized die area. This is assumed constant for a given bus voltage and calculated from the datasheet values and related charge graph.
+QGS2,A 	
+Gate charge between device threshold and plateau voltage per normalized die area. This is constant for a given load current and calculated from the data-
+sheet value at rated current.
+QG,A 	
+Total normalized gate charge at given device drive voltage calculated from datasheet.  
+QSW,A	
+Total normalized switching charge from reaching threshold to end of plateau.
+QOSS,A	
+Total normalized device output charge a given bus voltage and calculated from the datasheet values and related charge graph.
+QRR,A 	
+Total normalized device diode reverse recovery charge taken from the MOSFET datasheets.
+VF	
+Forward drop of the device diode carrying a current IL. 
+Δt	
+Total diode conduction interval per switching cycle.
+kON	
+The inverse of the gate current during device turn-on ; assumed constant for optimization.
+kOFF	
+The inverse of the gate current during device turn-off;  assumed constant for optimization.
+Assumptions and approximations
+•	
+Common source inductance (CSI) related increase in switching loss is discussed separately, but neglected for optimization purposes.
+•	
+Temperature dependence of on-resistance is considered. All values are optimized based on ‘typical’ datasheet values at 100 °C. To determine the equivalent 25 °C 
+values, the final optimized on-resistance value has to be normalized back to 25 °C.
+•	
+QOSS losses assume one switching edge is ZVS and one is ‘hard’ switching, i.e. the QOSS energy is lost at device turn-on or turn-off only.
+•	
+QGS2 varies with current at turn-on/off, but the value used is taken from the data sheet at rated current – thus will overestimate this component for lighter loads. It 
+has a smaller impact at higher voltages as shown below.  Also the gate drive current for this interval is calculated using the same plateau voltage, thereby overes-
+timating turn-on time and under estimating turn-off.
+
+PAGE 9
+WHITE PAPER: WP011
+Selecting eGaN® FET Optimal On-Resistance
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2020   |	
+|    9
+•	
+Diode losses will vary with die size, but this variation is neglected for the optimization process for simplicity. The diode losses will vary inversely to other charge 
+dependent losses with die size (will actually get smaller with increased die size), but this variation is assumed small in comparison to that of the charge dependent 
+losses. 
+•	
+The current at turn-on and turn-off are assumed equal and the influence of inductor current ripple is ignored.  To quantify the error of doing so, consider turn on at 
+IL-IP and turn off at IL+IP, then the turn-on/off losses are:
+[
+]
+[
+]
+[
+]
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)(
+)
+SW
+A
+SW
+OFF
+ON
+P
+BUS
+L
+BUS
+SW
+A
+SW
+OFF
+P
+BUS
+ON
+P
+BUS
+OFF
+L
+BUS
+ON
+L
+BUS
+SW
+A
+SW
+OFF
+P
+L
+BUS
+ON
+P
+L
+BUS
+f
+A
+Q
+k
+k
+I
+V
+k
+I
+V
+f
+A
+Q
+k
+I
+V
+k
+I
+V
+k
+I
+V
+k
+I
+V
+f
+A
+Q
+k
+I
+I
+V
+k
+I
+I
+V
+⋅
+⋅
+⋅
+−
+⋅
++
+⋅
+=
+⋅
+⋅
+⋅
+⋅
+−
+⋅
++
+⋅
++
+⋅
+=
+⋅
+⋅
+⋅
+−
+⋅
++
++
+⋅
+,
+,
+,
+2
+2
+2
+2
+2
+2
+2
+2
+So the error is an underestimation for eGaN FETs:
+L
+pp
+L
+p
+L
+OFF
+ON
+p
+I
+I
+I
+I
+k
+I
+k
+k
+I
+6
+1
+3
+1
+≈
+≈
+⋅
+(
+)
+for a peak to peak ripple = 30%, then error = 5% (even smaller for MOSFET, where kON and kOFF values are almost equal.
+•	
+Error for soft-switching devices where QG is used on driver loss and incorrectly includes QGD. This error, QGD/QG is about 30% over estimation of soft switching gate 
+drive losses.
+Table 3:  State of the art MOSFETs normalized to 1 Ω typical RDS(on) for difference voltage ratings
+Normalize to typical RDS(on) at 100°C (~1.45 x RDS(on) at 25°C)
+25 V MOSFETs
+40 V MOSFETs
+80 V MOSFETs
+150 V MOSFETs
+VBUS
+12 V
+24 V
+48 V
+100 V
+ 
+QGS2,A @ rated IDS
+4  pC/ Ω
+7  pC/ Ω
+35  pC/ Ω
+116  pC/ Ω
+QGD,A @ VBUS
+6  pC/ Ω
+21  pC/ Ω
+55  pC/ Ω
+96  pC/ Ω
+QG,A @ 5 V rated VDR
+42  pC/ Ω
+65  pC/ Ω
+290  pC/ Ω
+535  pC/ Ω
+QOSS,A @ VBUS
+84  pC/ Ω
+116 pC/ Ω
+375  pC/ Ω
+1500  pC/ Ω
+QRR,A @ rated IS
+90  pC/ Ω
+70  pC/ Ω
+520  pC/ Ω
+8700  pC/ Ω
+VPL @ rated IDS
+1.8 V
+2.4 V
+4.6 V
+5.7 V
+VF @ rated IDS
+0.8 V
+0.8 V
+0.9 V
+1.0 V
+kON  =
+2.5/3.2 = 0.78
+1 Ω pull up
+2.0/2.8 = 0.77
+1 Ω pull up
+3.0/5.4 = 0.56
+1 Ω pull up
+3.0/4.3 = 0.7
+1 Ω pull up
+kOFF = 
+2.0/1.8 = 1.1
+0.5 Ω pull up
+1.5/2.4 = 0.62
+0.5 Ω pull up
+2.5/4.6= 0.54
+0.5 Ω pull up
+2.5/5.7= 0.44
+0.5 Ω pull up
+k = kON + kOFF
+1.88 / A
+1.39 / A
+1.10 / A
+1.14/ A
+QSW,A
+10 pC/ Ω
+28  pC/ Ω
+90  pC/ Ω
+212  pC/ Ω
+ΔIEQ
+6.3 A
+3.8 A
+5 A
+6.7  A
+ΔIEQRR
+9.5 A
+3.5 A
+10.5 A
+72 A
+RG
+VDR−VPL
+RG
+VPL

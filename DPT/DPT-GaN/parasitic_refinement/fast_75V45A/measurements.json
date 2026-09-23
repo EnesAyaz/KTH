@@ -1,0 +1,23 @@
+{
+  "i_first_off": 44.4593,
+  "i_second_on": 44.2869,
+  "vds_peak": 88.771,
+  "vds_hs_peak": 109.588,
+  "vds_hs_min": -3.6951,
+  "vgs_ls_peak": 5.32179,
+  "vgs_ls_min": -1.46314,
+  "rail_peak": 90.1403,
+  "vgs_hs_peak": 0.902656,
+  "vgs_hs_min": -2.75466,
+  "vbus_min": 67.2042,
+  "eoff1_window": 3.6773e-06,
+  "eon2_window": 1.72124e-05,
+  "eoff2_window": 3.76272e-06,
+  "eoff1_uj": 3.6773,
+  "eon2_uj": 17.2124,
+  "eoff2_uj": 3.76272,
+  "psw_dut_w": 10.4449,
+  "psw_second_pair_w": 10.4876,
+  "return_peak": 8.5165,
+  "return_min": -8.66809
+}

@@ -1,0 +1,49 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=15mm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,amsmath,fancyhdr,hyperref}
+\definecolor{navy}{HTML}{173B51}\hypersetup{colorlinks=true,urlcolor=navy}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small EPC2361 | DUT-only gate-resistance screening}\fancyhead[R]{\small 75 V / +5,-4 V}\fancyfoot[L]{\small Simulation-only; upper-device Vds is not a pass/fail condition}\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth,height=#2,keepaspectratio]{#1}\end{center}}
+\begin{document}
+{\LARGE\bfseries\color{navy} Minimum tested gate resistance}\par
+\textbf{Constraint: maximum DUT $V_{DS}<100$ V over the entire DPT.}\hfill 17 September 2026
+\fig{../../figures/resistance_map.pdf}{76mm}
+\begin{center}\begin{tabular}{rrrrrr}\toprule
+$L_{layout}$ & Setpoint & Measured $I_{off1}/I_{off2}$ & External $R_{on}/R_{off}$ & Worst checked peak & Margin\\
+nH & A & A & $\Omega$ & V & V\\\midrule
+1 & 15 & 15.02/18.45 & 0.5/0.5* & 88.47 & 11.53 \\
+1 & 30 & 30.02/33.37 & 0.5/0.5* & 88.21 & 11.79 \\
+1 & 45 & 45.02/48.30 & 0.5/0.5* & 91.80 & 8.20 \\
+3 & 15 & 15.02/18.46 & 0.5/0.5* & 89.66 & 10.34 \\
+3 & 30 & 30.02/33.38 & 0.5/0.5* & 97.08 & 2.92 \\
+3 & 45 & 45.02/48.32 & 0.5/2* & 96.22 & 3.78 \\
+5 & 15 & 14.97/18.34 & 4/1 & 99.66 & 0.34 \\
+5 & 30 & 29.96/33.26 & 4.5/1.5 & 99.63 & 0.37 \\
+5 & 45 & --- & no pass & --- & --- \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Selection:} minimize $R_{on}+R_{off}$ on a 0.5--12 $\Omega$ grid in 0.5 $\Omega$ steps; ties favor lower $R_{on}$. All lower-sum grid pairs are checked before selection. Runs at 0.5, 0.25 and 0.125 ns must all pass. This optimizes the stated resistor objective, not measured switching time or loss. *Search floor reached; smaller values were not tested.
+
+\textbf{Fixed setup:} EPC2361, 75 V DC link, 100 $^\circ$C, +5/-4 V gate rails; $C_{in}=470\,\mu$F, ESR=5 m$\Omega$, ESL=0.2 nH; $L_{load}=20\,\mu$H, DCR=20 m$\Omega$; loop R=5 m$\Omega$, CSI=0.1 nH per device. Driver adds 0.7/0.4 $\Omega$ to the listed external on/off resistors. Upper gate held off through 0.9 $\Omega$.
+
+\textbf{Voltage margin:} peaks near 100 V are boundary candidates, with insufficient demonstrated allowance for hardware tolerances. The simple $di/dt=(100-75)/L$ budget is 25, 8.3 and 5 A/ns at 1, 3 and 5 nH; additional inductance and ringing reduce this budget.
+
+\textbf{Current definition:} first pulse calibrated once per cell for the first turn-off setpoint, then held fixed during resistor search. The second 1 $\mu$s pulse raises current further; its turn-off is included in the voltage constraint. Off gap=1 $\mu$s; command edges=2 ns.
+\fig{../../figures/topology.pdf}{45mm}
+\newpage
+{\Large\bfseries\color{navy} Tested resistance pairs}\par
+\fig{../../figures/search_points.pdf}{200mm}
+Circle: nominal-step pass. X: DUT peak $\geq100$ V. Orange star: selected and checked at both finer steps. Red +: unresolved run. Blank locations were not tested. Colour is the DUT voltage only; values above 130 V saturate the scale. Additional neighbours show local sensitivity and do not imply monotonic behaviour. No pass means no verified pair was found; unresolved runs cannot be classified as voltage failures.
+\small 750 search/verification/neighbour runs; 0 unresolved. Separate calibration runs are retained with the data.\normalsize
+\newpage
+{\Large\bfseries\color{navy} Selected-pair voltage checks}\par
+\fig{../../figures/selected_waveforms.pdf}{133mm}
+\fig{../../figures/step_check.pdf}{46mm}
+\small Waveform timesteps are shown in the panel titles. For a case with no pass, the lowest nominal-peak pair is shown (finer-step recheck when available) and omitted from the selected-pair comparison.
+\small
+\textbf{Scope:} smallest tested pairs for this model and test sequence. Full numerical convergence and bus, temperature, device or parasitic tolerance envelopes were not qualified. The upper-device voltage was excluded as requested; that does not establish its physical safety. The -4 V off setting is at the EPC2361 negative gate limit and has no undershoot allowance. These are DUT-voltage-pass candidates, not half-bridge-safe gate-drive prescriptions.
+
+\textbf{Reproduce:} \texttt{python search\_gate\_limits.py}; \texttt{python build\_gate\_report.py}. Gear solver, reltol=$10^{-4}$, abstol=$10^{-9}$ A, vntol=$10^{-6}$ V; no waveform compression. Data: \texttt{dut\_gate\_search/trials.csv}, per-case JSON/netlists/raw files and model hash. Existing GUI unchanged.
+
+\textbf{Rating reference:} EPC2361 datasheet (July 20, 2026), p.1: 100 V continuous; 120 V repetitive transient only for duty factor $\leq1\%$. This study uses 100 V. \url{https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2361_datasheet.pdf}
+\end{document}

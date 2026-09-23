@@ -1,0 +1,148 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=18mm]{geometry}
+\usepackage{graphicx,booktabs,array,xcolor,amsmath,fancyhdr,hyperref}
+\definecolor{navy}{HTML}{183D54}
+\definecolor{teal}{HTML}{007F86}
+\hypersetup{colorlinks=true,urlcolor=teal,linkcolor=navy}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small EPC2361 | DPT simulation study}\fancyhead[R]{\small 75 V / 0--50 A}\fancyfoot[L]{\small Simulation results -- not a manufacturer datasheet}\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}
+\newcommand{\fig}[2]{\begin{center}\includegraphics[width=\linewidth,height=#2,keepaspectratio]{#1}\end{center}}
+\begin{document}
+{\Huge\bfseries\color{navy} EPC2361}\par
+{\LARGE\color{teal} Double-pulse simulation datasheet}\par
+{\large Setup, waveforms and switching-energy comparisons}\par
+16 September 2026\hfill Revision 1\par
+\medskip
+\colorbox{navy}{\parbox{0.96\linewidth}{\color{white}\textbf{Study conditions:} 75 V DC supply, fixed 100 $^\circ$C model temperature, +5 / -4 V gate-drive rails. Five example configurations; nominal 0, 10, 20, 30, 40 and 50 A.}}
+\section*{Purpose and interpretation}
+This report characterizes the supplied EPC2361 SPICE model in a low-side double-pulse test (DPT). It retains the existing GUI and library. It is a reproducible simulation comparison, not measured hardware data, a guaranteed device specification, or a qualified 75 V / 50 A design.
+\section*{Example configurations}
+The resistances below are external gate resistors. The driver adds 0.7 $\Omega$ pull-up and 0.4 $\Omega$ pull-down resistance; the EPC library also contains its own device model.
+\begin{center}\begin{tabular}{clrrr}\toprule
+ID & Comparison & $R_{g,on}$ ($\Omega$) & $R_{g,off}$ ($\Omega$) & $L_{layout}$ (nH)\\\midrule
+A & Reference & 2 & 0.5 & 1\\
+B & Higher layout inductance & 2 & 0.5 & 5\\
+C & Higher on/off resistances & 5 & 2 & 1\\
+D & Isolate on-resistance change & 5 & 0.5 & 1\\
+E & Isolate off-resistance change & 2 & 2.5 & 1\\\bottomrule
+\end{tabular}\end{center}
+\section*{Limits that affect these results}
+The EPC2361 datasheet specifies 100 V continuous drain-source voltage and 120 V repetitive transient voltage only at a duty factor of at most 1\%. Gate-source limits are +6 / -4 V. Thus the requested -4 V off rail leaves no negative-undershoot margin. A SPICE model can still return numbers beyond these limits; those numbers do not establish device survival or accuracy outside the ratings [1].
+Of 30 completed runs, 18 exceed 100 V, 6 exceed 120 V on at least one device, and 30 cross below -4 V gate-source voltage. See the stress graphs and per-run CSV for details.\par
+\section*{What is included}
+A setup explanation, full switching waveforms, event zooms, signed $E_{on}$/$E_{off}$ versus measured current, both-device voltage stress, gate undershoot, numerical checks and tabulated data. Each event integral uses the explicitly specified window; it must not be substituted uncritically for datasheet loss values.
+\newpage
+\section*{1. DPT setup and measurement definition}
+\fig{../../figures/setup.pdf}{78mm}
+The load inductor connects DC+ to the switching node. The lower EPC2361 is the DUT. Its first pulse builds load current, the off interval commutates current through the upper device in reverse conduction, and the second pulse measures loaded turn-on. The upper gate stays at -4 V relative to its driver return; no synchronous upper pulse is applied.
+\begin{center}\begin{tabular}{lr@{\qquad}lr}\toprule
+Quantity & Setting & Quantity & Setting\\\midrule
+Supply / temperature & 75 V / 100 $^\circ$C & Load inductance / DCR & 20 $\mu$H / 20 m$\Omega$\\
+DC-link capacitance & 470 $\mu$F & Capacitor ESR / ESL & 5 m$\Omega$ / 0.2 nH\\
+Charging resistance & 10 $\Omega$ & Layout resistance & 5 m$\Omega$\\
+CSI per device & 0.1 nH & Upper off-state gate R & 0.9 $\Omega$\\
+Initial delay / off gap & 1 / 1 $\mu$s & Second pulse / tail & 1 / 2 $\mu$s\\
+Command rise / fall & 2 / 2 ns & Nominal maximum step & 0.5 ns\\\bottomrule
+\end{tabular}\end{center}
+The capacitor charges through the finite supply resistance during the DC operating-point solution. The first pulse is estimated as $T_1=I_{target}L/V_{DC}$. Parasitic drops, finite edges and reverse conduction mean that actual current differs from the nominal setting. Each graph uses the measured current immediately before its corresponding event.
+\textbf{Energy definition.} $E_{off}$ is from the first turn-off; $E_{on}$ is from the second turn-on. With $t_e$ the start of the corresponding command edge:
+\[E_{event}=10^6\int_{t_e-20\,\mathrm{ns}}^{t_e+100\,\mathrm{ns}}v_{DS,DUT}(t)i_{D,DUT}(t)\,dt\quad[\mu\mathrm{J}].\]
+Current is positive into the DUT drain. These signed terminal-energy integrals include capacitive exchange, ringing and a small conduction contribution. No absolute-value rectification or forced monotonic fitting is used. Gate-driver energy and upper-device energy are excluded.
+\textbf{Nominal 0 A.} A separate no-load companion uses a 1 MH load approximation. It is shown with isolated open-square markers. Without load current, the DUT may not recover the blocking voltage before pulse 2; this is not a zero-current 75 V hard-switching loss measurement.
+\newpage
+\section*{2. Full switching waveforms}
+\fig{../../figures/waveforms.pdf}{183mm}
+Reference A, nominal 50 A: measured first-turn-off current 49.283 A and second-turn-on current 48.953 A. The upper-device waveform is its drain-to-source voltage, not its drain voltage relative to ground.\par
+The negative gate rail applies to both off-state gate drivers. The upper device must remain off while the lower device is on. Adding an upper on-command at the instant of low-side turn-on would short the DC link; synchronous freewheeling is a different switching sequence and requires dead time.
+\newpage
+\section*{3. Switching transitions and energy accumulation}
+\fig{../../figures/edges.pdf}{201mm}
+Shading identifies the integration window. The cumulative-energy trace continues to +250 ns to expose any remaining oscillatory energy exchange; the reported value is sampled at +100 ns. A different endpoint can change the signed energy, even when peak voltage is nearly unchanged.
+\newpage
+\section*{4. Switching energy versus current}
+\fig{../../figures/energy_current.pdf}{182mm}
+Lines connect the 10--50 A nominal settings, plotted at actual pre-event current. Open squares near 0 A are the separate no-load companion runs. Resistance values are in ohms. The curves are raw signed-window simulation results, including runs that exceed the device ratings; they are not qualified loss specifications.
+Increasing gate resistance changes transition duration as well as voltage overshoot. Increasing layout inductance changes resonant energy exchange. A smaller signed energy in a high-overshoot case does not establish improved efficiency.
+\newpage
+\section*{5. Drain-source voltage stress}
+\fig{../../figures/voltage_stress.pdf}{185mm}
+Peak values cover the entire DPT sequence, including first turn-on and the observation tail. The 120 V line is shown for context only; its datasheet duty-factor condition has not been qualified here. A curve below 100 V in this study alone does not establish worst-case voltage margin for a physical half-bridge.
+The load-current targets, pulse widths and gate resistors do not define actual PCB inductance. The selected 1--5 nH values and 0.2 nH capacitor ESL are circuit assumptions that need layout extraction or measurement.
+\newpage
+\section*{6. Gate stress with -4 V off drive}
+\fig{../../figures/gate_stress.pdf}{172mm}
+The horizontal line is the negative gate-source rating, not a recommended design target. Actual Vgs includes common-source inductance and capacitive coupling; a -4 V source setting does not clamp device-terminal Vgs to -4 V. The positive peaks and all per-run limit flags are also included in the CSV.
+EPC identifies 0 V as the typical off drive and notes that negative bias increases reverse drain-source voltage. The requested -4 V case is retained here as a simulation experiment, not recommended as a gate-drive design [1].
+\newpage
+\section*{7. Numerical checks and interpretation}
+Gear integration is used consistently for the sweep, with maximum timestep 0.5 ns, relative tolerance $10^{-4}$, absolute current tolerance $10^{-9}$ A, voltage tolerance $10^{-6}$ V, and waveform compression disabled. Binary waveforms are stored in double precision. Energies are recomputed with trapezoidal integration after interpolating the exact window endpoints.
+\begin{center}\begin{tabular}{lrrr}\toprule Quantity & 0.5 ns & 0.25 ns & Change (\%)\\\midrule
+$E_{on}$ ($\mu$J) & 22.8813 & 22.8833 & +0.01\\
+$E_{off}$ ($\mu$J) & 3.4899 & 3.4884 & -0.04\\
+DUT peak (V) & 88.9629 & 88.9616 & -0.00\\
+Upper peak (V) & 112.1454 & 112.1421 & -0.00\\
+\bottomrule\end{tabular}\end{center}
+\textbf{Window sensitivity at 50 A nominal, configuration A:}\par
+$E_{on}$: 22.8813 $\mu$J at +100 ns versus 23.0701 $\mu$J at +200 ns.\par
+$E_{off}$: 3.4899 $\mu$J at +100 ns versus 3.8127 $\mu$J at +200 ns.\par
+Agreement in one case is not convergence of every configuration. Continuing ringing and window dependence limit how confidently these values can be interpreted as dissipated switching loss. No semiconductor failure, dynamic self-heating, load-inductor saturation, model variation or full repetitive converter operation is established by this study.
+\subsection*{Relating the study to the GUI}
+The existing GUI is unchanged. It can still load saved settings and run individual DPTs. This report uses a separate sweep script, with its numerical options recorded in each saved netlist and schematic. The GUI's frequency-based power estimate is $P_{sw}=(E_{on}+E_{off})f_{sw}$ after converting microjoules to joules; it is an event-energy extrapolation, not a full converter loss simulation.
+For conduction, the GUI uses independently entered ON-interval RMS current, ON fractions and operating-temperature Rds(on). That estimate is distinct from these signed switching integrals and from reverse conduction during this DPT.
+\subsection*{Reproduction}
+Run \texttt{python datasheet\_sweep.py} followed by \texttt{python build\_datasheet.py}. Successful case results are cached; use \texttt{--force} to rerun. Each run retains its JSON settings, ASC schematic, CIR netlist, LTspice log/raw data, reduced NPZ waveform and result JSON. Summary data are in \texttt{results.csv}. SHA-256 hashes of the model and GUI are recorded in \texttt{provenance.json}.
+\newpage
+\section*{8. Numerical data: configurations A--C}
+\subsection*{A: $R_{g,on}=2$ $\Omega$, $R_{g,off}=0.5$ $\Omega$, $L_{layout}=1$ nH}
+\begin{center}\small\begin{tabular}{rrrrrrr}\toprule Target & $I_{on}$ & $I_{off}$ & $E_{on}$ & $E_{off}$ & DUT peak & Upper peak\\ A & A & A & $\mu$J & $\mu$J & V & V\\\midrule
+0 & 0.000 & 0.000 & 0.000 & -0.000 & 75.203 & 112.153\\
+10 & 9.693 & 9.927 & 7.926 & 3.711 & 83.927 & 112.145\\
+20 & 19.581 & 19.856 & 11.667 & 3.481 & 89.079 & 112.145\\
+30 & 29.433 & 29.730 & 14.858 & 3.820 & 87.816 & 112.145\\
+40 & 39.227 & 39.541 & 18.554 & 3.328 & 92.716 & 112.145\\
+50 & 48.953 & 49.283 & 22.881 & 3.490 & 88.963 & 112.145\\
+\bottomrule\end{tabular}\end{center}
+\subsection*{B: $R_{g,on}=2$ $\Omega$, $R_{g,off}=0.5$ $\Omega$, $L_{layout}=5$ nH}
+\begin{center}\small\begin{tabular}{rrrrrrr}\toprule Target & $I_{on}$ & $I_{off}$ & $E_{on}$ & $E_{off}$ & DUT peak & Upper peak\\ A & A & A & $\mu$J & $\mu$J & V & V\\\midrule
+0 & 0.000 & 0.000 & 0.014 & 0.024 & 75.197 & 169.579\\
+10 & 9.694 & 9.928 & 2.897 & 3.952 & 88.850 & 185.974\\
+20 & 19.582 & 19.855 & 3.916 & 3.844 & 117.366 & 187.258\\
+30 & 29.433 & 29.727 & 4.312 & 3.790 & 86.772 & 187.014\\
+40 & 39.226 & 39.536 & 6.912 & 2.471 & 141.370 & 186.569\\
+50 & 48.950 & 49.276 & 8.323 & 1.430 & 133.601 & 188.641\\
+\bottomrule\end{tabular}\end{center}
+\subsection*{C: $R_{g,on}=5$ $\Omega$, $R_{g,off}=2$ $\Omega$, $L_{layout}=1$ nH}
+\begin{center}\small\begin{tabular}{rrrrrrr}\toprule Target & $I_{on}$ & $I_{off}$ & $E_{on}$ & $E_{off}$ & DUT peak & Upper peak\\ A & A & A & $\mu$J & $\mu$J & V & V\\\midrule
+0 & 0.000 & 0.000 & 0.000 & -0.000 & 75.101 & 88.985\\
+10 & 9.662 & 9.881 & 10.791 & 3.796 & 86.055 & 91.587\\
+20 & 19.551 & 19.811 & 15.144 & 4.110 & 88.485 & 91.587\\
+30 & 29.404 & 29.685 & 20.184 & 3.728 & 87.582 & 91.853\\
+40 & 39.198 & 39.496 & 26.097 & 4.295 & 89.574 & 91.470\\
+50 & 48.925 & 49.238 & 32.822 & 4.480 & 83.704 & 90.479\\
+\bottomrule\end{tabular}\end{center}
+\newpage\section*{9. Numerical data: configurations D--E}
+\subsection*{D: $R_{g,on}=5$ $\Omega$, $R_{g,off}=0.5$ $\Omega$, $L_{layout}=1$ nH}
+\begin{center}\small\begin{tabular}{rrrrrrr}\toprule Target & $I_{on}$ & $I_{off}$ & $E_{on}$ & $E_{off}$ & DUT peak & Upper peak\\ A & A & A & $\mu$J & $\mu$J & V & V\\\midrule
+0 & 0.000 & 0.000 & 0.000 & -0.000 & 75.101 & 88.983\\
+10 & 9.647 & 9.881 & 10.782 & 3.708 & 83.939 & 91.590\\
+20 & 19.536 & 19.811 & 15.128 & 3.484 & 89.088 & 91.582\\
+30 & 29.388 & 29.685 & 20.185 & 3.822 & 87.699 & 91.842\\
+40 & 39.182 & 39.496 & 26.078 & 3.334 & 92.705 & 91.503\\
+50 & 48.909 & 49.238 & 32.811 & 3.489 & 88.999 & 90.485\\
+\bottomrule\end{tabular}\end{center}
+\subsection*{E: $R_{g,on}=2$ $\Omega$, $R_{g,off}=2.5$ $\Omega$, $L_{layout}=1$ nH}
+\begin{center}\small\begin{tabular}{rrrrrrr}\toprule Target & $I_{on}$ & $I_{off}$ & $E_{on}$ & $E_{off}$ & DUT peak & Upper peak\\ A & A & A & $\mu$J & $\mu$J & V & V\\\midrule
+0 & 0.000 & 0.000 & 0.000 & -0.000 & 75.202 & 112.153\\
+10 & 9.712 & 9.927 & 8.862 & 3.881 & 86.082 & 112.146\\
+20 & 19.602 & 19.856 & 11.675 & 3.843 & 87.894 & 112.146\\
+30 & 29.454 & 29.730 & 14.862 & 3.808 & 87.886 & 112.146\\
+40 & 39.249 & 39.541 & 18.556 & 3.905 & 88.295 & 112.146\\
+50 & 48.975 & 49.283 & 22.895 & 4.541 & 83.177 & 112.146\\
+\bottomrule\end{tabular}\end{center}
+\subsection*{Source documents}
+[1] Efficient Power Conversion, \emph{EPC2361 eGaN FET datasheet}, revision July 20, 2026, pp. 1--3. \url{https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2361_datasheet.pdf}. Accessed September 16, 2026. The supplied library version is identified by its hash, not assumed to match this datasheet revision.
+
+[2] Wolfspeed, \emph{Power Module SPICE Models User Guide}, PRD-07913 Rev. 2, December 2023, pp. 7--8, supplied PDF. Used for the clamped-inductive DPT arrangement and external-parasitic interpretation; no Wolfspeed SiC model was substituted.
+
+[3] D. Levett, Z. Zheng and T. Frank, Infineon, \emph{Double Pulse Testing: The How, What and Why}, Bodo's Power Systems, April 2020, supplied PDF, pp. 1 and 4. Used for the pulse sequence and measurements of current, voltage and switching behavior.
+\end{document}

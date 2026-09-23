@@ -1,0 +1,465 @@
+
+=== PAGE 1 ===
+XXX-X-XXXX-XXXX-X/XX/$XX.00 ©20XX IEEE 
+Design and Evaluation of a 650 V , 300 A GaN-
+Based Power Module with Integrated Drivers and 
+Ultra-Low Inductance Layout 
+Mohammad Dehan Rahman, Tanzila Akter, Abu Shahir Md Khalid Hasan, Hamood-Ur- Rehman, Yuxiang Chen, 
+H. Alan Mantooth and Xiaoqing Song 
+ Department of Electrical Engineering and Computer Science Engineering, University of Arkansas, Fayetteville, 
+Arkansas/United States, mr117@uark.edu  
+Abstract— Gallium Nitride (GaN) devices offer high 
+switching speed, low loss, and compact design. To fully exploit 
+these advantages, packaging is critical. In this paper, a 650 V/ 
+300 A half bridge GaN power module is designed and packaged. 
+The module features a multilayer substrate design, embedded 
+decoupling capacitors, and co-packaged gate drivers, enabling a 
+fast switching speed with reduced parasitic inductances. A low 
+power loop inductance with about 40% reduction (~5.52 nH) in 
+the proposed design is achieved compared conventional single-
+layer substrate design (9.1 nH). Thermal performance is 
+analyzed with finite element analysis (FEA) to evaluate the high 
+current operation. Experimental results validate the module 
+concept with fast switching and reduced switching losses. The 
+proposed design demonstrates a path toward reliable high-
+current GaN modules for electric vehicle chargers and 
+industrial systems. 
+Keywords— Gallium Nitride (GaN), multilayer substrate, 
+Q3D, high current operation, finite element. 
+I. INTRODUCTION  
+Gallium Nitride (GaN) HEMT technology has seen rapid 
+progress in recent years. Manufacturing costs have steadily 
+decreased, making these devices increasingly accessible. 
+Today, 650 V GaN devices are becoming strong alternatives 
+to conventional silicon MOSFETs in low- and medium-
+voltage power conversion applications. Compared to silicon, 
+GaN devices offer higher switching speeds, lower switching 
+losses, and greater power density. These characteristics allow 
+for more compact and efficient designs. As a result, GaN 
+devices are being widely adopted in data centers, on-board 
+chargers (OBCs), renewable energy systems, and motor drive 
+applications. Their fast switching capability also enables 
+improved system dynamics and reduced cooling 
+requirements, supporting the trend toward more energy-
+efficient power electronics. 
+To fully utilize the advantages of GaN devices, the 
+packaging of high-current GaN power modules has become a 
+critical research area in both academia and industry [5]. 
+Leading manufacturers, including Infineon, GaN Systems, 
+Transphorm, and EPC, are actively developing advanced 
+module platforms. These designs often combine multiple GaN 
+dies in parallel to achieve current ratings that exceed 150 A 
+[6]–[8]. Such parallelization is essential for meeting the 
+demands of high-power applications while maintaining 
+compact form factors. 
+Academic groups have also introduced innovative 
+approaches. Several research efforts have focused on reducing 
+parasitics through the use of embedded substrates, planar 
+interconnection schemes, and integrated decoupling 
+capacitors. These techniques enable low-inductance half-
+bridge configurations, which are crucial for GaN devices 
+operating at high switching speeds. The reported modules 
+demonstrate fast and stable switching with minimized voltage 
+overshoot and reduced ringing [9]- [11]. Beyond performance, 
+these designs also highlight the importance of packaging in 
+ensuring system reliability, thermal management, and 
+electromagnetic compatibility. 
+Integration has become an important trend in GaN module 
+development. Power modules such as Infineon’s CoolGaN™ 
+devices and Navitas’s integrated GaN platforms, combine 
+multiple functions into a single package. These include gate 
+drivers, protection features, and monitoring circuits. By 
+bringing these elements together, these modules can achieve 
+faster switching performance, simplified system design, and 
+improved reliability. 
+Despite these advantages, current efforts have been mostly 
+limited to low and medium power applications. Only a few 
+studies have focused on high-current GaN modules that can 
+operate under the demanding requirements of electric vehicle 
+on-board chargers (OBCs), DC fast chargers, and industrial 
+power conversion systems [12-20]. Developing such modules 
+remains a challenge due to the combined needs of thermal 
+management, low-inductance packaging, and system-level 
+integration. Addressing these challenges will be critical for 
+enabling GaN technology to expand into high-power, high-
+current domains. 
+This work presents a highly integrated 650 V GaN power 
+module rated at 300 A. The design features ultra-low parasitic 
+inductance and supports high switching speeds. A multi-layer 
+substrate, embedded decoupling capacitors, and co-packaged 
+gate drivers are heterogeneously integrated. This approach 
+minimizes both power and gate loop inductances, enabling 
+reliable fast switching and significantly improving efficiency 
+and power density at the system level. 
+II. MODULE DESIGN 
+To meet the design goals of high integration and faster 
+switching, a multilayer substrate GaN power module is 
+proposed. The exploded view of the module is illustrated in 
+Fig. 1(b). The internal structure of the module is shown in 
+Fig. 1(b). The module has compact dimensions of 80 mm × 
+65 mm × 25 mm. Both DC+ and DC− terminals are located 
+on the same side, which simplifies system integration and 
+reduces layout complexity. The module is designed as a half-
+bridge configuration, featuring integrated decoupling 
+capacitors and built-in gate drivers. Each switch position 
+incorporates two 650 V GaN HEMTs connected in parallel,  
+Identify applicable funding agency here. If none, delete this text box. 
+979-8-3315-6925-9/25/$31.00 ©2025 IEEE
+2025 IEEE 12th Workshop on Wide Bandgap Power Devices and Applications (WiPDA)
+2025 IEEE 12th Workshop on Wide Bandgap Power Devices and Applications (WiPDA) | 979-8-3315-6925-9/25/$31.00 ©2025 IEEE | DOI: 10.1109/WiPDA63755.2025.11303416
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:27 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 2 ===
+(a)  
+ 
+(b) 
+Fig. 1: Module design concept (a) Exploded view of the GaN 
+module (b) Module size and internal structure. 
+ 
+Table I: Module Specification 
+Design  Value  
+Module dimensions  80 mm × 65 mm × 25 mm  
+Topology  Half bridge  
+Chip type  Infineon GS -065 -150V -7-D6  
+Switch configuration  2 chips per switch position  
+Module integration   Multilayer Substrate  
+ Embedded decoupling capacitor 
+ Built in gate driver 
+enhancing current handling and reducing conduction losses. 
+The proposed 650 V, 300 A module employs MCX series  
+coaxial connectors, which provide robust mechanical support 
+for the integrated gate drivers and ensure reliable  signal 
+connections. This design allows for high power density while 
+maintaining thermal efficiency and low parasitic in ductance. 
+The module is well-suited for high-performance appl ications 
+such as on-board chargers, data center power suppli es, and 
+industrial module converter. The main features and 
+specifications of the proposed multilayer substrate 650 V GaN 
+power module are summarized in Table I. 
+III.  M
+ODULE FABRICATION  
+The fabrication of the 300 A GaN power module was 
+carried out in seven main steps. First, the GaN die s and PCB 
+components were soldered using SMD291SNL10 solder 
+paste, with reflow conducted at 249 °C to ensure re liable 
+attachment. Following die assembly, wire bonding wa s 
+performed with a Hesse BJ935 heavy aluminum wire bonder. 
+Twelve-mil aluminum wires were used for the source 
+connections, while finer wires were used for the gate terminals 
+to minimize parasitic inductance. Power terminals and coaxial  
+Table II: Fabrication Process of the GaN Module 
+Step  Processes to be used in each 
+Fabrication Steps 
+3D model  
+FS 1 
+ Soldering of PCB and GaN chip 
+using Sikama. 
+ SMD291SNL10 solder paste will be 
+used for attachment. 
+ Reflow temperature 249 °C. 
+ 
+FS 2 
+ Wire bonding of the module  
+ Hesse BJ935 Heavy Aluminum 
+Wire Bonder to be used for 
+wirebonding. 
+ 
+12 mil wire bonds to be used.   
+FS 3 
+ Soldering of Coaxial connectors and 
+Power terminals.  
+ TS391LT10 solder paste will be 
+used for attachment. 
+ Reflow temperature 165°C 
+ 
+FS 4 
+ Soldering of baseplate with the 
+module 
+ TIM will be used for attachment 
+ 
+FS 5 
+ Attach the side part of the case on 
+the DBC 
+ RTV167 adhesive is used for 
+attachment. 
+ Curing time 24 hrs at room 
+temperature. 
+ 
+FS 6 
+ Wacker SilGel 612 A/B 
+encapsultant to be used.  
+ Exact dispensing vacuum to be 
+used. 
+ Filling and degassing twice before 
+curing. 
+ Attach the top part of the case.  
+ RTV167 adhesive is used for 
+attachment. 
+ 
+connectors were then mounted onto the PCB using 
+TS391LT10 solder paste, with reflow soldering carried out at 
+165 °C. 
+Next, a thermal interface material (TIM) was applie d to 
+secure the module onto the baseplate, providing eff ective 
+thermal conduction. The sidewalls of the case were attached 
+to the DBC substrate using RTV167 adhesive, followed by a 
+curing period of 24 hours at room temperature to en sure 
+mechanical stability. Encapsulation was performed u sing 
+Wacker SilGel 612 A/B. A vacuum dispensing method w as 
+applied, with the filling and degassing steps repeated twice to 
+eliminate trapped air and ensure uniform coverage. Finally, 
+the top cover of the case was mounted using RTV167 
+adhesive, completing the module assembly. To valida te the 
+proposed module concept, a PCB based module is developed 
+with 2 oz copper layers. The fabrication process of the module 
+is shown in Table II. 
+IV.  T
+HERMAL ANALYSIS VIA FEA  MODEL  
+A finite element analysis (FEA) model was created t o 
+evaluate the thermal performance of the high-curren t GaN 
+module. The model used the material properties summ arized 
+in Table III. A heat transfer coefficient of 1000 W /m²·K was 
+applied to represent forced liquid cooling and esti mate the 
+junction temperature of the devices. 
+Each GaN die in the module operates at a current level of  
+Table III: Thermal Parameters of 300 A GaN Module 
+Parts  Thermal Conductivity (W/m·K)  
+GaN  230  
+Silver Sinter  280  
+Copper  398  
+AlN  310  
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:27 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 3 ===
+ 
+Fig. 2: Thermal Analysis of the module with each die having power loss 
+of 225 W.  
+150 A. At this rating, the devices generate substantial heat due 
+to conduction losses. For a die with an on-resistance (R dson ) of 
+10 mΩ, the estimated power loss is approximately 225 W per 
+device. This loss translates into a significant ris e in junction 
+temperature, as illustrated in Fig. 2. Elevated jun ction 
+temperature can severely impact device reliability, switching 
+performance, and overall system efficiency.  
+To mitigate this issue, robust thermal management i s 
+essential. Conventional air cooling or basic heat sinks are not 
+sufficient for such high power densities. Advanced cooling 
+strategies, such as liquid cooling or two-phase hea t transfer 
+systems, may be required to maintain safe operating  
+conditions. Optimized thermal interface materials a nd 
+package architectures can also enhance heat spreadi ng and 
+reduce thermal resistance. Without effective therma l 
+management, the module is at risk of overheating, which can 
+shorten device lifetime and compromise system-level  
+performance. 
+V.  PARASITIC INDUCTANCE SIMULATION  
+Minimizing parasitic inductance is one of the prima ry 
+goals in power module packaging. For GaN devices, reduced 
+inductance directly improves switching performance.  It also 
+lowers voltage overshoot, decreases device stress, and helps 
+suppress electromagnetic interference (EMI).  
+To evaluate the proposed design, a Q3D finite eleme nt 
+analysis was carried out using ANSYS. Power loop wa s 
+extracted. The analysis was performed at a referenc e 
+frequency of 10 MHz, which is commonly used for hig h-
+frequency module evaluation. The results show that the power 
+loop parasitic inductance is 5.52 nH. This confirms  that the 
+proposed architecture provides a significant reduction in loop 
+inductance. This is due to the magnetic flux cancel lation, as 
+the current loop flows in opposite direction. The current loop 
+of the designed module is shown in Fig. 3. 
+For comparison, a conventional single-layer design 
+exhibits a power loop inductance of 9.1 nH, as summarized in 
+Table IV. The reduction achieved demonstrates the 
+effectiveness of the multilayer packaging structure . Lower 
+inductance not only enables faster switching but also improves 
+system efficiency and reliability, especially under high current 
+operation. 
+VI.  E
+XPERIMENTAL VERIFICATION  
+To verify the proposed module concept, a prototype was first 
+fabricated on a PCB that reproduced the layout of t he target 
+multi-layer substrate. The PCB served as a low-cost platform 
+for preliminary evaluation before moving to the final design. 
+One GaN die was mounted on the high-side and anothe r on 
+the low-side, as shown in Fig. 4. This configuration allowed  
+ 
+(a)  
+(b) 
+Fig. 3: Power loop parasitic inductance comparison between the 
+conventional GaN power module and proposed GaN power module. (a) 
+Power loop layout of conventional GaN power module (Ls=9.1nH); (b) 
+Power loop layout of proposed GaN power module (Ls=5.52nH) 
+Table IV: Power Loop Inductance comparison of 300 A 
+GaN Module 
+ Power Loop inductance  
+Multilayer architecture with terminals  5.52 nH  
+Single layer architecture with terminals  9.1 nH  
+ 
+ 
+Fig. 4: Picture of the developed GaN Module.  
+validation of the basic half-bridge structure and a ssessment 
+of parasitics in a simplified form. The prototype also provided 
+an opportunity to test assembly procedures and ensu re 
+compatibility with the planned integration approach. 
+A.  Static Characterization 
+The static characterization of the solder-ball-conn ected 
+GaN die was performed using a curve tracer. This me thod 
+enabled the evaluation of key electrical parameters , such as 
+the output characteristics and the on-resistance (R
+dson ). The 
+measured R dson  was approximately 20 mΩ, which is consistent 
+with expected device performance. These results confirm the 
+electrical feasibility of the packaging approach an d validate 
+proper die-to-substrate integration. Due to probe l imitations, 
+the maximum drain current during testing was restri cted to 4 
+A. As a result, the measurements primarily reflect the device 
+behavior under low-current conditions. The results provided 
+insight into device linearity, conduction  
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:27 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 4 ===
+ 
+(a)  
+(b) 
+Fig. 5: Static Characterization of the GaN Module, (a) Output 
+Characteristics of the GaN die, (b) On state resistance of the GaN die. 
+Fig. 6: Double Pulse experiment setup of the GaN Module.  
+Fig. 7: Double Pulse Results of the GaN Module.   
+(a) 
+(b) 
+Fig. 8: Drain-source voltage of the device under testing, (a) Turn-on 
+transient, (b) Turn-off transient.  
+behavior, and packaging reliability at the initial level. The 
+static characteristics results are shown in Fig. 5. 
+B.  Dynamic Characterization 
+To evaluate the proposed design, a Q3D finite eleme nt A 
+double-pulse test (DPT) was carried out on the fabricated GaN 
+module to evaluate its dynamic switching behavior. The 
+experimental setup is illustrated in Fig. 6. In thi s 
+configuration, the high-side device was held at a constant gate 
+bias of –3 V, allowing it to operate as a freewheel ing diode. 
+The low-side device was then driven with two consec utive 
+short pulses to observe its turn-on and turn-off transitions. 
+The test was performed with a DC bus voltage of 350 V. The 
+corresponding waveforms are presented in Fig. 7. Th e 
+measured signals include the gate-to-source voltage  of the 
+low-side switch, the drain-to-source voltage (V DS ) of the low-
+side switch, and the inductor current. These result s provide 
+direct insight into the switching dynamics, voltage overshoot, 
+and current response of the module under realistic operating 
+conditions. The data also confirm the capability of  the 
+proposed packaging design to support fast switching  
+transitions while maintaining stable operation. 
+Figure 7 shows the transient turn-on and turn-off t he device 
+under testing (low side GaN switch).  
+VII.  C
+ONCLUSION  
+      A 650 V, 300 A GaN power module has been desi gned 
+and demonstrated. The module uses a multilayer subs trate 
+with embedded capacitors and co-packaged gate drivers. This 
+approach reduces parasitic inductance to 5.52 nH from 9.1 nH 
+which is the power loop inductance of a single layered design. 
+Inductance extraction confirms significant reductio n 
+compared to a single-layer design. The simulated ma ximum 
+junction temperature of the module is 118.63  °C with 225 W 
+losses under a heat transfer coefficient of 1000 W/ m²·K.  
+Experimental tests validate stable switching and re liable 
+operation. The results highlight the potential of t he proposed 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:27 UTC from IEEE Xplore.  Restrictions apply. 
+
+=== PAGE 5 ===
+module for EV chargers and industrial applications.  It also 
+demonstrates the feasibility of compact, high-curre nt GaN 
+packaging. Further work will focus on reliability e valuation 
+and advanced cooling strategies. 
+ 
+REFERENCES  
+[1]  Talukder, Arnab, Mohiminur Rahman Ifty, and Abdulla h Al Fahad. 
+"Comprehensive Review of GaN HEMTs: Architectures, Recent 
+Developments, Reliability Concerns, Challenges, and  Multifaceted 
+Applications." e-Prime-Advances in Electrical Engin eering, 
+Electronics and Energy (2025): 101059. 
+[2]  Ma, Chao-Tsung, and Zhen-Huang Gu. "Review of GaN H EMT 
+applications in power converters over 500 W." Electronics 8.12 (2019): 
+1401. 
+[3]  N. Keshmiri, D. Wang, B. Agrawal, R. Hou and A. Ema di, "Current 
+Status and Future Trends of GaN HEMTs in Electrifie d 
+Transportation," in IEEE Access, vol. 8, pp. 70553- 70571, 2020, doi: 
+10.1109/ACCESS.2020.2986972. 
+[4]  M. D. Rahman, A. S. M. K. Hasan, H. A. Mantooth and X. Song, "High 
+Temperature Characterization and Degradation Test o f a Cascode 
+Gallium Nitride Field Effect Transistor," 2024 IEEE  11th Workshop 
+on Wide Bandgap Power Devices & Applications (WiPDA ), Dayton, 
+OH, USA, 2024, pp. 1-6, doi: 10.1109/WiPDA62103.2024.10773107. 
+[5]  Wang, Lin, et al. "Design and switching characteris tics of Flip-Chip 
+GaN half-bridge modules integrated with drivers." A pplied Sciences 
+11.15 (2021): 7057. 
+[6]  M. Tuan Tran et al., "A High-Performance GaN Power Module With 
+Parallel Packaging for High-Current and Low- Voltag e Traction 
+Inverter Applications," in IEEE Journal of Emerging  and Selected 
+Topics in Power Electronics, vol. 13, no. 1, pp. 1188-1209, Feb. 2025, 
+doi: 10.1109/JESTPE.2024.3477743.  
+[7]  Y. Yan, L. Zhu, J. Walden, Z. Liang, H. Bai and M. H. Kao, "Packaging 
+A Top-cooled 650 V/150 A GaN Power Modules with Ins ulated 
+Thermal Pads and Gate-Drive Circuit," 2021 IEEE App lied Power 
+Electronics Conference and Exposition (APEC), Phoen ix, AZ, USA, 
+2021, pp. 2345-2350, doi: 10.1109/APEC42165.2021.9487427. 
+[8]  S. Lu, T. Zhao, Z. Zhang, K. D. T. Ngo, R. Burgos and G. -Q. Lu, "Low 
+Parasitic-Inductance Packaging of a 650 V/150 A Half-Bridge Module 
+Using Enhancement-Mode Gallium-Nitride High Electro n Mobility 
+Transistors," in IEEE Transactions on Industrial El ectronics, vol. 70, 
+no. 1, pp. 344-351, Jan. 2023, doi: 10.1109/TIE.2022.3148750. 
+[9]  M. D. Rahman, T. Akter, A. S. M. K. Hasan, H. A. Ma ntooth and X. 
+Song, "Design of Low Parasitic Inductance GaN HEMT Flip-Chip 
+Power Module," 2025 IEEE Applied Power Electronics Conference 
+and Exposition (APEC), Atlanta, GA, USA, 2025, pp. 1844-1849, doi: 
+10.1109/APEC48143.2025.10977129. 
+[10]  B. Li, X. Yang, K. Wang, H. Zhu, L. Wang and W. Chen, "A Compact 
+Double-Sided Cooling 650V/30A GaN Power Module With  Low 
+Parasitic Parameters," in IEEE Transactions on Power Electronics, vol. 
+37, no. 1, pp. 426-439, Jan. 2022, doi: 10.1109/TPEL.2021.3092367. 
+[11]  K. Wang, B. Li, H. Zhu, Z. Yu, L. Wang and X. Yang,  "A Double-
+Sided Cooling 650V/30A GaN Power Module with Low Pa rasitic 
+Inductance," 2020 IEEE Applied Power Electronics Co nference and 
+Exposition (APEC), New Orleans, LA, USA, 2020, pp. 2772-2776, 
+doi: 10.1109/APEC39645.2020.9124425. 
+[12]  Soomro, Hassan Ali, et al. "Applications of wide ba ndgap 
+semiconductors in electric traction drives: Current  trends and future 
+perspectives." Results in Engineering (2025): 104679. 
+[13]  N. Kamarajugadda, B. G. Fernandes and K. Chatterjee , "GaN-Based 
+High Power Density Multifunctional Onboard Charger for Electric 
+Vehicles Eliminating Auxiliary Power Module," in IEEE Transactions 
+on Industrial Electronics, vol. 72, no. 8, pp. 7920-7931, Aug. 2025, doi: 
+10.1109/TIE.2024.3525125. 
+[14]  Dar, Abrar Rasool, et al. "On-board chargers for el ectric vehicles: A 
+comprehensive performance and efficiency review." E nergies 17.18 
+(2024): 4534. 
+[15]  Bay, Olcay, et al. "A comprehensive review of gan-based bi-directional 
+on-board charger topologies and modulation methods. " Energies 16.8 
+(2023): 3433. 
+[16]  Reali, Alessandro, et al. "Development of GaN-based, 6.6 kW, 450 V, 
+bi-directional on-board charger with integrated 1 k W, 12 V auxiliary 
+DC-DC converter with high power density." Micromachines  15.12 
+(2024): 1470. 
+[17]  Kumar, Piyush, et al. "Design and Modeling of 3.3 k W GaN-Based 
+HPFC Converter for Onboard EV Charger." Recent Advances in Power 
+Electronics and Drives: Select Proceedings of EPREC  2021 . 
+Singapore: Springer Nature Singapore, 2022. 409-420. 
+[18]  ai, Hua, et al. A Modular Designed Three-phase~ 98%-Efficiency 
+5kW/L On-board Fast Charger for Electric Vehicles Using Paralleled 
+E-mode GaN HEMTs . No. 2017-01-1697. SAE Technical Paper, 2017. 
+[19]  Y. Li et al ., "Optimal Synergetic Operation and Experimental 
+Evaluation of an Ultracompact GaN-Based Three-Phase  10-kW EV 
+Charger," in IEEE Transactions on Transportation Electrification, vol. 
+10, no. 2, pp. 2377-2396, June 2024, doi: 10.1109/TTE.2023.3297502.  
+[20]  Taylor, Allan, et al. "Comparison of SiC MOSFET‐bas ed and GaN 
+HEMT‐based high‐efficiency high‐power‐density 7.2 k W EV battery 
+chargers." IET Power Electronics  11.11 (2018): 1849-1857. 
+ 
+ 
+ 
+ 
+ 
+ 
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on September 19,2026 at 19:23:27 UTC from IEEE Xplore.  Restrictions apply. 

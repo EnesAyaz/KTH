@@ -1,0 +1,71 @@
+* C:\Github\KTH\DPT\DPT-GaN\half_bridge_validation\fine\HalfBridge.asc
+Vdc supply 0 {Vin}
+Rcharge supply bus {Rcharge}
+Rcap bus cap_esl {ESR}
+Lcap cap_esl cap {max(ESL,1e-15)} Rser=0
+Cin cap 0 {Cin}
+Llayout bus rail {max(Lloop*LplusFrac,1e-15)} Rser={Rloop*RplusFrac}
+Lload sw load_r {Lload} Rser={Rload}
+XXHS gh rail sh EPC2361
+Lsh sh hs_ref {max(CSI,1e-15)} Rser={RCSI}
+Vsense sw drain 0
+XXDUT gl drain sl EPC2361
+Lsl sl pgnd {max(CSI,1e-15)} Rser={RCSI}
+Vcmd cmd 0 PWL(0 0 2.01e-06 0 2.012e-06 5 2.998e-06 5 3e-06 0 4.01e-06 0 4.012e-06 5 4.998e-06 5 5e-06 0 6.01e-06 0 6.012e-06 5 6.998e-06 5 7e-06 0 8.01e-06 0 8.012e-06 5 8.998e-06 5 9e-06 0 1.001e-05 0 1.0012e-05 5 1.0998e-05 5 1.1e-05 0 1.201e-05 0 1.2012e-05 5 1.2998e-05 5 1.3e-05 0 1.401e-05 0 1.4012e-05 5 1.4998e-05 5 1.5e-05 0 1.601e-05 0 1.6012e-05 5 1.6998e-05 5 1.7e-05 0 1.801e-05 0 1.8012e-05 5 1.8998e-05 5 1.9e-05 0 2.001e-05 0 2.0012e-05 5 2.0998e-05 5 2.1e-05 0 2.201e-05 0 2.2012e-05 5 2.2998e-05 5 2.3e-05 0 2.401e-05 0 2.4012e-05 5 2.4998e-05 5 2.5e-05 0 2.601e-05 0 2.6012e-05 5 2.6998e-05 5 2.7e-05 0 2.801e-05 0 2.8012e-05 5 2.8998e-05 5 2.9e-05 0 3.001e-05 0 3.0012e-05 5 3.0998e-05 5 3.1e-05 0 3.201e-05 0 3.2012e-05 5 3.2998e-05 5 3.3e-05 0 3.401e-05 0 3.4012e-05 5 3.4998e-05 5 3.5e-05 0 3.601e-05 0 3.6012e-05 5 3.6998e-05 5 3.7e-05 0 3.801e-05 0 3.8012e-05 5 3.8998e-05 5 3.9e-05 0 4.001e-05 0 4.0012e-05 5 4.0998e-05 5 4.1e-05 0)
+Von on lret {Von}
+Voff off lret {Voff}
+Sup on pu cmd 0 DRV_ON
+Rup pu ldrive {Rg_on+RGD_PU}
+Sdown off pd cmd 0 DRV_OFF
+Rdown pd ldrive {Rg_off+RGD_PD}
+Lmid hs_ref sw {max(Lloop*(1-LplusFrac-LreturnFrac),1e-15)} Rser={Rloop*max(1-RplusFrac-RreturnFrac,0)}
+Lreturn pgnd 0 {max(Lloop*LreturnFrac,1e-15)} Rser={Rloop*RreturnFrac}
+LgateLS ldrive gl {max(LgLS,1e-15)} Rser={RgTraceLS}
+LgateReturnLS lret pgnd {max(LgrLS,1e-15)} Rser={RgrLS}
+LgateHS hdrive gh {max(LgHS,1e-15)} Rser={RgTraceHS}
+LgateReturnHS hret hs_ref {max(LgrHS,1e-15)} Rser={RgrHS}
+Rdecap rail decap_esl {ESRdecap}
+Ldecap decap_esl decap {max(ESLdecap,1e-15)} Rser=0
+Cdecap decap pgnd {Cdecap}
+Rout load_r pgnd {Rout}
+VcmdHS cmdhs 0 PWL(0 0 1.01e-06 0 1.012e-06 5 1.998e-06 5 2e-06 0 3.01e-06 0 3.012e-06 5 3.998e-06 5 4e-06 0 5.01e-06 0 5.012e-06 5 5.998e-06 5 6e-06 0 7.01e-06 0 7.012e-06 5 7.998e-06 5 8e-06 0 9.01e-06 0 9.012e-06 5 9.998e-06 5 1e-05 0 1.101e-05 0 1.1012e-05 5 1.1998e-05 5 1.2e-05 0 1.301e-05 0 1.3012e-05 5 1.3998e-05 5 1.4e-05 0 1.501e-05 0 1.5012e-05 5 1.5998e-05 5 1.6e-05 0 1.701e-05 0 1.7012e-05 5 1.7998e-05 5 1.8e-05 0 1.901e-05 0 1.9012e-05 5 1.9998e-05 5 2e-05 0 2.101e-05 0 2.1012e-05 5 2.1998e-05 5 2.2e-05 0 2.301e-05 0 2.3012e-05 5 2.3998e-05 5 2.4e-05 0 2.501e-05 0 2.5012e-05 5 2.5998e-05 5 2.6e-05 0 2.701e-05 0 2.7012e-05 5 2.7998e-05 5 2.8e-05 0 2.901e-05 0 2.9012e-05 5 2.9998e-05 5 3e-05 0 3.101e-05 0 3.1012e-05 5 3.1998e-05 5 3.2e-05 0 3.301e-05 0 3.3012e-05 5 3.3998e-05 5 3.4e-05 0 3.501e-05 0 3.5012e-05 5 3.5998e-05 5 3.6e-05 0 3.701e-05 0 3.7012e-05 5 3.7998e-05 5 3.8e-05 0 3.901e-05 0 3.9012e-05 5 3.9998e-05 5 4e-05 0)
+VhsOn h_on hret {Von}
+VhsOff h_off hret {Voff}
+Shup h_on h_pu cmdhs 0 DRV_ON
+Shdown h_off h_pd cmdhs 0 DRV_OFF
+Rhup h_pu hdrive {Rg_on+RGD_PU}
+Rhdown h_pd hdrive {Rg_off+RGD_PD}
+Rfilm bus film_l {ESRfilm}
+Lfilm film_l film_c {max(ESLfilm,1e-15)} Rser=0
+Cfilm film_c 0 {Cfilm}
+* EPC2361 - named terminals connect electrically
+* REFINED: distributed power paths and private gate loops.
+* Re-export from the GUI after changing model mode or enabling local decoupling.
+.param Vin=75 Itest=45 Lload=2e-05 Rload=0.02 Tj=100 AutoT1=1 Tcharge=6.667e-06 Fsw=500000 Vlimit=100 Tdelay=1e-06 Toff=1e-06 Tsecond=1e-06 Tr=2e-09 Tf=2e-09 Ttail=2e-06 Maxstep=1e-10 Wpre=2e-08 Wpost=1e-07 Cin=0.00047 ESR=0.02 ESL=1e-08 Rcharge=0.02 Cdecap=4.7e-06 ESRdecap=0.003 ESLdecap=3e-10 Von=5 Voff=-1 Rg_on=1 Rg_off=0 RGD_PU=0.7 RGD_PD=0.4 Rg_HS=0.4 Refined=1 Lloop=6e-10 Rloop=0.005 CSI=1e-10 RCSI=0.0001 LplusFrac=0.5 LreturnFrac=0.5 RplusFrac=0.5 RreturnFrac=0.5 LgLS=5e-10 LgrLS=5e-10 RgTraceLS=0.02 RgrLS=0.02 LgHS=5e-10 LgrHS=5e-10 RgTraceHS=0.02 RgrHS=0.02 Mode=1 Duty=0.5 Deadtime=1e-08 Cycles=20 Rout=0.8133333333 Iinitial=45 Cfilm=2.2e-05 ESRfilm=0.005 ESLfilm=3e-09 Stop=4.1e-05
+.include ".\EPCGaNLibrary.lib"
+.temp {Tj}
+.model DRV_ON SW(Ron=1m Roff=1G Vt=2.5 Vh=0)
+.model DRV_OFF SW(Ron=1G Roff=1m Vt=2.5 Vh=0)
+.ic I(Lload)={Iinitial}
+.tran 0 {Stop} 0 {Maxstep}
+.options plotwinsize=0
+.save V(cmd) V(cmdhs) V(gl,sl) V(gh,sh) V(drain,sl) V(rail,sh) V(bus) V(rail) V(pgnd) I(Lload) I(Vsense) I(Lsh) I(Cin) I(Cfilm)
+.meas tran Vds_peak MAX V(drain,sl)
+.meas tran Vds_HS_peak MAX V(rail,sh)
+.meas tran Vgs_LS_peak MAX V(gl,sl)
+.meas tran Vgs_LS_min MIN V(gl,sl)
+.meas tran Vgs_HS_peak MAX V(gh,sh)
+.meas tran Vgs_HS_min MIN V(gh,sh)
+.meas tran Local_bus_peak MAX V(rail,pgnd)
+.meas tran Local_bus_min MIN V(rail,pgnd)
+.meas tran Iload_avg AVG I(Lload) FROM={Stop-2/Fsw} TO={Stop}
+.meas tran Iload_min MIN I(Lload) FROM={Stop-2/Fsw} TO={Stop}
+.meas tran Iload_max MAX I(Lload) FROM={Stop-2/Fsw} TO={Stop}
+.meas tran Ibulk_rms RMS I(Cin) FROM={Stop-2/Fsw} TO={Stop}
+.meas tran Ifilm_rms RMS I(Cfilm) FROM={Stop-2/Fsw} TO={Stop}
+.meas tran Bus_ripple PP V(rail,pgnd) FROM={Stop-2/Fsw} TO={Stop}
+.save I(Cdecap)
+.meas tran Iceramic_rms RMS I(Cdecap) FROM={Stop-2/Fsw} TO={Stop}
+.lib .\EPCGaNLibrary.lib
+.backanno
+.end
