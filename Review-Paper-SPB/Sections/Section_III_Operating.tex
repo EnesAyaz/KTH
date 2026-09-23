@@ -1,0 +1,244 @@
+% ============================================================================
+\section{Operating Principle and Topological Characteristics}
+\label{sec:operating_principle}
+% ============================================================================
+
+This section formalizes the operating principle underlying SPB's two
+coupled properties -- reduced semiconductor voltage stress and
+converter--machine modularity -- and establishes the notation and
+voltage/power relations used throughout the remainder of the paper.
+
+\subsection{Basic Structure and Voltage Partitioning}
+
+An $N$-cell SPB consists of $N$ conventional three-phase two-level
+voltage-source inverter cells connected in series on the dc side, with
+each bridge supplying one electrically separated three-phase winding
+group of the same machine \cite{Norrga2013SPB,Jin2014Control,
+Jin2017Modulation}. The machine therefore presents $N$ ac ports, while
+the converter cells share a single series dc path. This structure is
+the physical implementation of the voltage-partitioning principle
+introduced in Section~\ref{sec:semiconductor_limitations}.
+
+The dc-link voltage satisfies
+
+\begin{equation}
+V_{\mathrm{dc}}=\sum_{k=1}^{N}V_{\mathrm{dc},k},
+\qquad
+V_{\mathrm{dc},k}\approx\frac{V_{\mathrm{dc}}}{N}
+\label{eq:spb_voltage_sum}
+\end{equation}
+
+under balanced operation. A basic implementation contains $6N$ active
+switches and $N$ local dc-link capacitors. Increasing $N$ therefore
+reduces the nominal cell voltage, and hence the required semiconductor
+voltage class, but simultaneously increases the number of switches,
+gate drivers, sensors, capacitors, and machine-winding terminals that
+must be realized and managed. This tradeoff between semiconductor
+voltage rating and component count is quantified further in
+Section~\ref{sec:semiconductor_scaling} and is revisited from a
+machine-design perspective below. Fig.~\ref{fig:spb_switch_schematic}
+shows this structure at switch level for two representative cells,
+making explicit the $6N$-switch bridge realization, the local
+capacitors $C_k$, and the notation used throughout the remainder of
+this paper.
+
+\begin{figure}[!t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{circuitikz}[font=\scriptsize, x=1mm, y=1mm, >=latex]
+\ctikzset{bipoles/length=5mm}
+
+% ---- dc source (3-cell battery-pack symbol) ----
+\draw (-10,10.5) -- (-10,28) -- (-4.5,28) -- (0,28);
+\draw (-10,-10.5) -- (-10,-28) -- (-4.5,-28) -- (0,-28);
+\draw (-10,10.5) to[battery1] (-10,3.5) to[battery1] (-10,-3.5)
+  to[battery1] (-10,-10.5);
+\node[font=\tiny] at (-5.3,0) {$V_{\mathrm{dc}}$};
+\draw[<->] (-19,-28) -- (-19,28);
+\node[rotate=90] at (-21.3,0) {$V_{\mathrm{dc}}$};
+\node[font=\tiny,anchor=south] at (-4.5,28.3) {$+$};
+\node[font=\tiny,anchor=north] at (-4.5,-28.3) {$-$};
+
+% ---- series dc backbone (elided cells 2..N-1) ----
+\draw (0,16) -- (0,9);
+\node[font=\scriptsize] at (0,0) {$\vdots$};
+\draw (0,-9) -- (0,-16);
+
+% ---- series dc current ----
+\draw[->,thick] (-2.3,25) -- (-2.3,19);
+\node[font=\tiny,anchor=east] at (-2.7,22) {$i_{\mathrm{dc}}$};
+
+% ================= CELL 1 =================
+\node[font=\tiny] at (21,31.8) {Cell 1};
+\draw (0,28) -- (40,28);
+\draw (0,16) -- (40,16);
+\draw (6,28) to[C, l=$C_1$] (6,16);
+\node[font=\tiny,align=center] at (21,12.5) {$V_{\mathrm{dc},1}\approx V_{\mathrm{dc}}/N$};
+
+\draw (13,28) to[nos] (13,22);
+\draw (13,22) to[nos] (13,16);
+\draw (21,28) to[nos] (21,22);
+\draw (21,22) to[nos] (21,16);
+\draw (29,28) to[nos] (29,22);
+\draw (29,22) to[nos] (29,16);
+
+\draw (13,22) -- (15.5,22) node[right=1pt,font=\tiny] {$a_1$};
+\draw (21,22) -- (23.5,22) node[right=1pt,font=\tiny] {$b_1$};
+\draw (29,22) -- (31.5,22) node[right=1pt,font=\tiny] {$c_1$};
+
+% ---- star (wye) winding group 1, local neutral n_1 ----
+% three separate lanes (well-separated in y) carry each phase's
+% winding coil, converging only in a short diagonal stub at the end
+% so the three coils remain visually distinct rather than bunching.
+\draw[orange!70!black] (15.5,22) -- (15.5,26) -- (40,26);
+\draw[orange!70!black] (40,26) to[cute inductor] (46,26);
+\draw[orange!70!black] (46,26) -- (52,22);
+\draw[orange!70!black] (23.5,22) -- (23.5,18) -- (40,18);
+\draw[orange!70!black] (40,18) to[cute inductor] (46,18);
+\draw[orange!70!black] (46,18) -- (52,22);
+\draw[orange!70!black] (31.5,22) -- (40,22);
+\draw[orange!70!black] (40,22) to[cute inductor] (46,22);
+\draw[orange!70!black] (46,22) -- (52,22);
+\node[circle,fill=orange!70!black,inner sep=0.5pt] at (52,22) {};
+\node[font=\tiny,anchor=west,orange!70!black] at (53.3,22) {$n_1$};
+
+\draw[->,blue!55!black] (2,31) -- (2,28.3);
+\node[font=\tiny,anchor=south,blue!55!black] at (2,31.2) {$p_{\mathrm{dc},1}$};
+
+% ================= elided cells =================
+\node[font=\tiny,align=center] at (21,0) {(cells $2,\dots,N\!-\!1$\\elided)};
+\node[font=\scriptsize] at (50,0) {$\vdots$};
+
+% ================= CELL N =================
+\node[font=\tiny] at (21,-31.8) {Cell $N$};
+\draw (0,-16) -- (40,-16);
+\draw (0,-28) -- (40,-28);
+\draw (6,-16) to[C, l=$C_N$] (6,-28);
+\node[font=\tiny,align=center] at (21,-12.5) {$V_{\mathrm{dc},N}\approx V_{\mathrm{dc}}/N$};
+
+\draw (13,-16) to[nos] (13,-22);
+\draw (13,-22) to[nos] (13,-28);
+\draw (21,-16) to[nos] (21,-22);
+\draw (21,-22) to[nos] (21,-28);
+\draw (29,-16) to[nos] (29,-22);
+\draw (29,-22) to[nos] (29,-28);
+
+\draw (13,-22) -- (15.5,-22) node[right=1pt,font=\tiny] {$a_N$};
+\draw (21,-22) -- (23.5,-22) node[right=1pt,font=\tiny] {$b_N$};
+\draw (29,-22) -- (31.5,-22) node[right=1pt,font=\tiny] {$c_N$};
+
+% ---- star (wye) winding group N, local neutral n_N ----
+% mirrored version of the Cell 1 lane layout above.
+\draw[orange!70!black] (15.5,-22) -- (15.5,-26) -- (40,-26);
+\draw[orange!70!black] (40,-26) to[cute inductor] (46,-26);
+\draw[orange!70!black] (46,-26) -- (52,-22);
+\draw[orange!70!black] (23.5,-22) -- (23.5,-18) -- (40,-18);
+\draw[orange!70!black] (40,-18) to[cute inductor] (46,-18);
+\draw[orange!70!black] (46,-18) -- (52,-22);
+\draw[orange!70!black] (31.5,-22) -- (40,-22);
+\draw[orange!70!black] (40,-22) to[cute inductor] (46,-22);
+\draw[orange!70!black] (46,-22) -- (52,-22);
+\node[circle,fill=orange!70!black,inner sep=0.5pt] at (52,-22) {};
+\node[font=\tiny,anchor=west,orange!70!black] at (53.3,-22) {$n_N$};
+
+\draw[->,blue!55!black] (2,-13) -- (2,-16.3);
+\node[font=\tiny,anchor=south,blue!55!black] at (2,-12.8) {$p_{\mathrm{dc},N}$};
+
+\end{circuitikz}}
+\caption{Switch-level realization of the SPB dc--ac stage for two
+representative cells (Cell~1 and Cell~$N$; cells $2,\dots,N-1$
+elided). Each cell is a conventional two-level three-phase bridge
+(six switches per cell, $6N$ total) fed from its own local dc-link
+capacitor $C_k$, with leg midpoints $a_k,b_k,c_k$ feeding a
+star-connected winding group $k$ at its own electrically separate
+neutral point $n_k$ (only $n_1$ and $n_N$ shown; the star points are
+not interconnected). The common series current $i_{\mathrm{dc}}$
+\eqref{eq:series_current} flows through every cell, giving each cell
+the dc-side power $p_{\mathrm{dc},k}=V_{\mathrm{dc},k}i_{\mathrm{dc}}$
+\eqref{eq:cell_dc_power}.}
+\label{fig:spb_switch_schematic}
+\end{figure}
+
+\subsection{Series DC Connection and Power Flow}
+
+The defining structural difference between SPB and parallel modular
+drives is the series dc connection. Neglecting auxiliary and bypass
+paths, the cell dc currents are constrained to be equal,
+
+\begin{equation}
+i_{\mathrm{dc},1}=i_{\mathrm{dc},2}=\cdots=i_{\mathrm{dc},N}
+=i_{\mathrm{dc}},
+\label{eq:series_current}
+\end{equation}
+
+so that the dc-side power entering cell $k$ is
+
+\begin{equation}
+p_{\mathrm{dc},k}=V_{\mathrm{dc},k}i_{\mathrm{dc}}.
+\label{eq:cell_dc_power}
+\end{equation}
+
+The total machine power, by contrast, is the sum of the powers
+delivered to the individual winding groups,
+
+\begin{equation}
+P_{\mathrm{ac}}=\sum_{k=1}^{N}P_k.
+\label{eq:power_sum}
+\end{equation}
+
+Under symmetrical operation $P_k\approx P_{\mathrm{ac}}/N$, but equal
+power sharing is not a fundamental requirement of the topology. The
+multi-three-phase machine provides additional current and power
+degrees of freedom that allow power to be redistributed among winding
+groups while the required total torque is maintained
+\cite{Che2014SeriesConnected,Verkroost2024PowerDistribution}. This
+redistribution capability is the physical basis for both dc-link
+voltage balancing and several of the post-fault operating strategies
+discussed in later sections.
+
+The combination of a common dc current with independently
+controllable ac-side powers also explains why the local capacitor
+voltages must be treated as internal dynamic states rather than fixed
+design parameters. If one winding group processes more power than
+another, the corresponding capacitor energies can diverge even though
+all cells carry the same dc current \cite{Nikouie2015Stability,
+Nikouie2017Stability}. Managing this divergence is precisely the
+dc-link stability and balancing problem identified in
+Section~\ref{sec:evolution} as the topology's first-order control
+challenge.
+
+\subsection{SPB as an Input-Series, Multi-Three-Phase-Output Drive}
+
+These relations place SPB in a distinct category relative to the
+conventional multilevel converters discussed in
+Section~\ref{sec:introduction}, which partition dc-link voltage
+internally while retaining a conventional three-phase machine. In
+SPB, by contrast, each converter cell remains a standard two-level
+bridge, and it is the machine itself that provides the multiple ac
+ports required to transfer power out of the series dc stack. SPB can
+therefore be characterized as an \emph{input-series,
+multi-three-phase-output} drive, a description that makes explicit
+why voltage partitioning in SPB cannot be separated from machine
+design.
+
+\subsection{Cell Count as a Converter--Machine Design Variable}
+
+Cell count is consequently a converter--machine design variable rather
+than a semiconductor variable alone. As established above, increasing
+$N$ also reduces the voltage available to each winding group and
+alters the number of winding sets, terminal count, electromagnetic
+coupling, current-control degrees of freedom, and available
+reconfiguration states. Bringezu and
+Biela demonstrated this interaction directly by comparing SPB systems
+based on 3-, 6-, 9-, and 12-phase PMSMs \cite{Bringezu2020SPB}.
+
+A related and often overlooked point is that machine phase current
+does not generally scale as $1/N$. The required phase current instead
+depends on the number of turns, flux linkage, winding connection,
+torque constant, and machine geometry. A many-cell architecture may
+therefore reduce the semiconductor voltage class while still requiring
+high-current devices or parallel chips at the device level. This
+coupling between cell count, voltage class, and current rating is
+particularly important when the comparison is extended from
+high-voltage SiC implementations toward lower-voltage GaN
+implementations, as considered in Section~\ref{sec:semiconductor_limitations}.

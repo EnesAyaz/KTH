@@ -1,0 +1,79 @@
+\documentclass[journal]{IEEEtran}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{cite}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{circuitikz}
+\usepackage{jabbrv}
+
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+
+% Compiles even when a draft figure file is not yet available.
+\newcommand{\figplaceholder}[3]{%
+\fbox{\parbox[c][#2][c]{#1}{\centering\footnotesize #3}}%
+}
+
+\begin{document}
+
+\title{Stacked Polyphase Bridge Converters for High-Voltage Electric
+Traction Drives: A Review of Topology, Modulation, Control,
+Semiconductor Scaling, and Research Challenges}
+
+\author{Enes~Ayaz,~\IEEEmembership{Student Member,~IEEE},
+Shahriar~Sarmast~Ghahfarokhi,~\IEEEmembership{Student Member,~IEEE},
+Staffan~Norrga,~\IEEEmembership{Member,~IEEE},
+Hans-Peter~Nee,~\IEEEmembership{Fellow,~IEEE}%
+\thanks{(Corresponding author: Enes Ayaz.)}%
+\thanks{E. Ayaz, S. Sarmast Ghahfarokhi, S. Norrga, and H.-P. Nee
+are with the Division of Electric Power and Energy Systems,
+KTH Royal Institute of Technology, SE-100~44 Stockholm, Sweden
+(e-mail: enesa@kth.se).}%
+}
+
+\markboth{}%
+{Ayaz \MakeLowercase{\textit{et al.}}: Stacked Polyphase Bridge Converters}
+
+\maketitle
+
+\begin{abstract}
+Higher dc-link voltage is increasingly attractive in electric traction, but it raises semiconductor blocking-voltage, switching-transient, insulation, and electromagnetic-compatibility demands. The stacked polyphase bridge (SPB) addresses the semiconductor-voltage problem by connecting three-phase two-level bridges in series on the dc side, each supplying an electrically separated winding group — a voltage-partitioning approach that accesses lower-voltage semiconductor classes and supports modular converter–machine integration, at the cost of added winding, dc-link, sensing, gate-drive, and insulation-coordination overhead. Although SPB has been studied for over a decade, the literature remains scattered across topology, modulation, common-mode voltage, dc-link balancing, multiphase-machine design, semiconductor technology, and fault-tolerant control, without a common system-boundary evaluation. This review consolidates SPB's evolution, operating principle, and machine-integration options (aligned, spatially shifted, and physically segmented winding groups); derives the double Fourier series basis for its interleaved-carrier dc-link current ripple; quantifies common-mode-voltage cancellation, switching-delay-induced residual spikes, and the resulting bearing current; analyzes dc-link voltage-balancing stability from the exact nonlinear cell model across centralized, common-duty-ratio, and distributed control; and examines semiconductor scaling and post-fault operation using reported experimental fault data. A cell-count-to-voltage-class mapping with a commercial-device screening approach is developed for a 1200-V dc link, showing that lower device-voltage classes can yield nonlinear semiconductor-level gains while converter and machine hardware scale roughly with cell count, so the preferred cell count is mission-dependent rather than fixed. SPB should therefore be assessed as a modular converter–machine architecture whose competitiveness depends on whether voltage partitioning yields a system-level benefit sufficient to justify its added integration and control complexity.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Electric vehicles, integrated motor drives, modular converters,
+multiphase machines, stacked polyphase bridge (SPB) converters.
+\end{IEEEkeywords}
+
+\input{Sections/Section_I_Intro}
+\input{Sections/Section_II_Evolution_SPB}
+\input{Sections/Section_III_Operating}
+\input{Sections/Section_IV_Machine_Integration}
+\input{Sections/Section_V_Modulation}
+\input{Sections/Section_VI_CommonMode}
+\input{Sections/Section_VI_DCLink}
+\input{Sections/Section_VII_Semiconductor}
+\input{Sections/Section_X_FaultTolerance}
+\input{Sections/Section_XII_Future}
+\input{Sections/Section_XIII_Conclusion}
+
+\section*{Acknowledgment}
+The authors used Claude (Anthropic) for language editing, structural
+organization, and drafting assistance during manuscript preparation.
+All technical claims, calculations, references, interpretations, and
+final editorial decisions were reviewed and approved by the authors.
+
+\bibliographystyle{jabbrv_IEEEtran}
+\bibliography{ref}
+
+\end{document}

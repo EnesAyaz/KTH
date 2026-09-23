@@ -1,0 +1,125 @@
+% ============================================================================
+\section{Research Gaps and Future Directions}
+\label{sec:future_directions}
+% ============================================================================
+
+SPB operation, modulation, balancing, and modular control are
+established, but the evidence needed for automotive architecture
+selection remains incomplete. The key gaps are not additional
+proof-of-concept control schemes but high-power validation and
+system-level comparisons under common boundary conditions.
+
+\subsection{High-Power Validation and Standardized Benchmarking}
+
+Building on the laboratory-scale validation status noted in
+Section~\ref{sec:evolution}, future
+prototypes should target several-hundred-kilowatt scale
+with realistic dc voltage, thermal, switching-overshoot, and EMI
+constraints, among others,
+benchmarked directly against a two- or three-level reference drive under
+the same machine requirements, semiconductor generation, cooling
+boundary, and mission. The scale of benefit that motivates this effort
+is not merely hypothetical: a segmented, interleaved traction-drive
+system operating at 55~kW has reported a 55--89\% reduction in dc-bus
+capacitor ripple current relative to a conventional single-bridge
+drive \cite{Su2012SegmentedTraction}, an order of magnitude above the
+power level of most direct SPB studies and a useful automotive-scale
+reference point for the interleaving benefit discussed in
+Section~\ref{sec:modulation}.
+
+Standardized reporting is also needed: published studies vary in power
+level, cooling, filtering, and semiconductor generation, and
+comparisons can shift materially with the chosen switching-energy
+interpolation, temperature correction, and current-derating
+assumptions. Reference operating points, efficiency maps, measured
+parasitics, and open device/loss-model data would improve
+reproducibility as semiconductor technology evolves.
+
+A practical development path should also separate the questions that
+can be answered at different hardware scales; Table~\ref{tab:validation_ladder}
+proposes a validation ladder so that a low-power proof of one control
+function is not read as evidence of automotive readiness.
+
+\begin{table}[!t]
+\centering
+\caption{Suggested Validation Ladder for Automotive SPB Research}
+\label{tab:validation_ladder}
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{1.55cm}p{2.55cm}p{3.35cm}}
+\hline
+\textbf{Stage} & \textbf{Primary purpose} & \textbf{Minimum evidence}\\
+\hline
+Cell / double-pulse & Device and commutation feasibility & Overshoot, switching energy, thermal impedance, protection\\
+Multi-cell bench & Balancing and modulation & Cell-voltage spread, ripple, timing mismatch, transient stability\\
+Dynamometer & Converter--machine interaction & Torque--speed map, efficiency, harmonics, CM/EMI, thermal limits\\
+Mission / vehicle-relevant & Architecture value & Drive-cycle energy, cooling, fault derating, reliability and packaging\\
+\hline
+\end{tabular}
+\end{table}
+
+A community benchmark defining one passenger-car and one heavy-duty
+traction case -- common dc-voltage range, power, torque--speed
+envelope, coolant temperature, modulation limits, and EMC boundary,
+with a VECTO-derived mission for heavy-duty work -- would let competing
+architectures be compared under comparable electrical and thermal duty
+without forcing a single reference machine. Reporting should extend the
+same way: beyond peak efficiency, prototypes should state cell-voltage
+spread, capacitor ripple current, common-mode current, and post-fault
+capability, among other operating-point metrics, linking the
+modulation, balancing, semiconductor, and reliability literatures into
+transferable evidence.
+
+\subsection{Cell Count, Reliability, and Cost Co-Design}
+
+The optimum cell count $N$ remains the central unresolved design
+question: as established in Section~\ref{sec:operating_principle},
+the voltage-versus-component-count tradeoff shifts the optimum as
+SiC, GaN, packaging, and cooling evolve
+\cite{WBGTractionReview2025,Post800V2026}. A
+common-platform comparison of a few-cell 650-V GaN SPB against a
+many-cell low-voltage GaN SPB, using real commercial devices, would be
+valuable; the GaN comparison in \cite{Rohner2024GaN} is a useful
+starting point but should be extended to automotive power with current
+parallelization, machine voltage/speed constraints, dc-link
+capacitance, cooling, and mission energy.
+
+Converter, machine, and thermal models, among others, should
+be co-optimized rather than designed sequentially. Existing phase-count
+studies show machine design changes with SPB cell number
+\cite{Bringezu2020SPB}; the missing step is a complete automotive
+co-design using vehicle-level energy, volume, mass, cost, and
+reliability as a joint objective.
+
+Reliability is part of that objective: future studies should combine
+semiconductor, capacitor, sensor, gate-driver, communication, and
+winding faults (Section~\ref{sec:fault_reconfiguration};
+\cite{Nikouie2016Fault,Verkroost2024Reconfiguration}) in one
+state-based, Markov-style framework as used for related fault-tolerant
+IMMDs \cite{Swanke2022MarkovReliability}, keeping \emph{component
+failure}, \emph{module isolation}, and \emph{loss of vehicle function}
+distinct.
+An $N$-cell drive may survive with $N-1$ active modules, but its
+torque--speed envelope, module thermal loading, and dc-voltage margin
+all change, so reliability data should pair with a post-fault
+capability model -- not a series reliability block diagram -- to
+compare availability, limp-home power, and mission completion
+probability against efficiency.
+
+Cost and sustainability assessment should use the same $N$-dependent
+framing: increasing $N$ can reduce per-switch die cost but tends to
+increase isolated gate supplies, sensing channels, and assembly
+operations, among others, almost linearly, while a
+repeated converter--winding module can gain from common tooling and
+automated assembly -- a balance likely to differ between high-volume
+passenger vehicles and lower-volume heavy-duty systems. The same
+accounting should separate production, operation, maintenance, and
+end-of-life impact over one vehicle mission and service life, since
+modular repair and longer service life can offset the added production
+impact of extra components.
+
+Overall, SPB research must move from demonstrating that the
+architecture operates toward demonstrating where it is better: whether
+it gives a measurable vehicle-level advantage over mature two- and
+three-level architectures once machine design, thermal management,
+EMC, reliability, manufacturing, and cost are included.
