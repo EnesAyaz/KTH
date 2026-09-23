@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+outputs/*
+!outputs/.gitkeep
+*.raw
+*.log
+reports/*.aux
+reports/*.toc
+reports/*.out
+reports/*.synctex.gz
