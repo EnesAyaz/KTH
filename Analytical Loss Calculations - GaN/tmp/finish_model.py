@@ -1,0 +1,13 @@
+from pathlib import Path
+p=Path('epc2361_loss.py'); s=p.read_text()
+s=s.replace('qg_nc: float = 28.0','qg_nc: float = 28.2  # 28 nC at 50 V plus estimated QGD increment')
+s=s.replace('qgd_nc: float = 3.8','qgd_nc: float = 4.0  # ~3.8 + integral(CRSS, 50..75 V), Figure 5b')
+s=s.replace('    if i.effective_dead_time_ns > i.dead_time_ns:\n        raise ValueError("effective dead time cannot exceed commanded dead time")\n','')
+s=s.replace('if 2*i.dead_time_ns*1e-9*i.fsw >= 1:', 'if 2*max(i.dead_time_ns,i.effective_dead_time_ns)*1e-9*i.fsw >= 1:')
+s=s.replace('    cycle are represented in COSS and dead-time losses.', '    cycle contribute dead-time loss. AN030 V*Qoss accounts for both output\n    capacitors once per hard-switching PWM cycle.')
+p.write_text(s,encoding='utf-8')
+p=Path('waveform_plotter.py'); s=p.read_text()
+s=s.replace('    ("QGS1 (nC)", "qgs1_nc"),\n','')
+s=s.replace('    ("RG on (ohm)",', '    ("Internal RG (ohm)", "rg_internal"),\n    ("Plot current (A, 0=AC peak)", "waveform_current_a"),\n    ("RG on (ohm)",')
+s=s.replace('    secondary_axes = []\n','')
+p.write_text(s,encoding='utf-8')
