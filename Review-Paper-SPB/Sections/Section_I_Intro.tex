@@ -334,15 +334,15 @@ Under balanced operation, each cell's local dc-link voltage
 $V_{\mathrm{dc},k}\approx V_{\mathrm{dc}}/N$, so the semiconductor
 voltage rating can be selected on the local cell voltage rather than
 the complete traction dc-link voltage -- addressing the semiconductor
-bottleneck much as multilevel converters do. Because each cell also
-drives its own separated winding group, however, SPB additionally has
-an inherently modular structure that multilevel converters lack: a
-faulted cell can, in principle, be isolated and bypassed while the
+bottleneck much as multilevel converters do. Thanks to each cell also
+drives its own separated winding group, SPB additionally has
+an inherently modular structure that multilevel converters lack. 
+A faulted cell can, in principle, be isolated and bypassed while the
 remaining cells continue to drive the machine at reduced power. It is
 this combination of semiconductor voltage reduction and
 converter--machine modularity that distinguishes SPB from conventional
 multilevel and cascaded architectures and motivates its consideration
-as a candidate topology for next-generation traction drives.
+as a promisingcandidate topology for next-generation traction drives.
 
 \begin{figure}[!t]
 \centering
@@ -437,30 +437,18 @@ as a candidate topology for next-generation traction drives.
 
 \end{tikzpicture}}
     \caption{Conceptual architecture of an $N$-cell SPB traction
-    drive. The dc source $V_{\mathrm{dc}}$ feeds $N$ series-connected
-    local dc-link capacitors, each nominally $V_{\mathrm{dc}}/N$, that
-    individually supply $N$ series-connected three-phase two-level
-    bridge cells ($6N$ switches total); each cell drives one
-    electrically separated three-phase winding group of the same
-    machine, and the combined winding groups produce the
-    electromagnetic torque $T_e$.}
+    drive: series-connected local dc-link capacitors, series-connected
+    three-phase two-level bridge cells, and their electrically
+    separated machine winding groups.}
     \label{fig:spb_architecture}
 \end{figure}
 
-SPB was introduced by Norrga \textit{et al.} for compact EV and HEV
-drives \cite{Norrga2013SPB}; its subsequent development toward
-higher-fidelity control, balancing, and reconfiguration is traced in
-detail in Section~\ref{sec:evolution}.
 
-Realizing this potential, however, introduces its own design
-challenges: component count, dc-link dynamics, machine design,
-common-mode voltage and insulation coordination, and fault handling
-all become more tightly coupled, as examined in the sections that
-follow, with thermal management identified as an open research
-direction (Section~\ref{sec:future_directions}).
-
-These questions have grown more relevant as neighboring research
-areas have matured: multiphase machines provide additional
+Realizing this potential, however, introduces coupled design
+challenges in component count, dc-link dynamics, machine design,
+common-mode voltage, and fault handling, addressed throughout this
+review. These challenges have grown more tractable as neighboring
+research areas have matured: multiphase machines provide additional
 post-fault degrees of freedom, integrated modular motor drives show
 how repeated power-electronic units can be physically associated with
 individual machine sections, wide-bandgap semiconductors amplify
@@ -468,41 +456,29 @@ performance differences among voltage classes, and distributed
 control coordinates modular converter units
 \cite{Choi2011IMMD,Wang2025GaNIMMD,
 JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,
-Ebrahimian2025GaNIMMD} -- together motivating SPB's assessment as a
-complete converter--machine architecture rather than only a
-series-connected topology.
+Ebrahimian2025GaNIMMD}.
 
-Despite more than a decade of research on SPB, however, no study has
-yet brought these threads together to systematically assess its
-feasibility for electric-vehicle traction applications. The available
-literature remains distributed across converter topology, modulation,
-dc-link stability, multiphase-machine design, integrated motor drives,
+Despite more than a decade of SPB research, beginning with Norrga
+\textit{et al.} \cite{Norrga2013SPB}, no study has yet brought these
+threads together to systematically assess its feasibility for
+electric-vehicle traction applications. The available literature
+remains distributed across converter topology, modulation, dc-link
+stability, multiphase-machine design, integrated motor drives,
 semiconductor technology, thermal management, distributed control, and
 fault-tolerant operation. Although these topics are strongly coupled
 in an SPB traction drive, they are rarely evaluated within a common
-system boundary. Moreover, most reported SPB experimental
-demonstrations remain validated only at laboratory scale
-(Section~\ref{sec:evolution}), even as the enabling
-semiconductor, machine, cooling, and packaging technologies continue
-to advance rapidly. This gap between a well-motivated architectural
-concept and a system-level feasibility assessment is the gap that the
-present paper addresses.
+system boundary, leaving a gap between a well-motivated architectural
+concept and a system-level feasibility assessment. Accordingly, this
+paper provides a system-level review of SPB traction-drive technology
+aimed at closing that gap.
 
-Accordingly, this paper provides a system-level review of SPB
-traction-drive technology aimed at closing that gap. The remainder of
-the paper is organized as follows. First, the historical development,
-operating principle, and modulation of SPB are consolidated. Second,
-the interaction between SPB cell count and the electric machine is
-examined together with relevant multiphase-machine and integrated
-modular motor-drive research, including the physical-integration and
-insulation-coordination overhead introduced by series-connected
-converter cells. Third, the series-stack origin of common-mode voltage
-in SPB, its physical consequences, and mitigation options are
-examined, followed by dc-link dynamics and balancing. Fourth,
-semiconductor voltage scaling, SiC and GaN device selection, loss
-scaling, and fault handling and reconfiguration are considered as
-coupled architecture-level design problems. Finally, the research gaps
-and requirements for high-power automotive validation are identified,
-including high-power EMC validation and the quantitative comparison
-against conventional two-level, multilevel, and cascaded alternatives
-that remain open for future work.
+The remainder of the paper is organized as follows. First, SPB's
+historical development, operating principle, and modulation are
+consolidated. Second, the interaction between cell count and the
+electric machine is examined alongside multiphase-machine and
+integrated-modular-drive research, including the insulation-coordination
+overhead of series-connected cells. Third, common-mode voltage and
+dc-link dynamics and balancing are examined. Fourth, semiconductor
+voltage scaling and fault handling are treated as coupled
+architecture-level design problems. Finally, the remaining research
+gaps and automotive validation requirements are identified.

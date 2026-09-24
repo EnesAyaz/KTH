@@ -3,41 +3,36 @@
 \label{sec:machine_requirements}
 % ============================================================================
 
-SPB is, by construction, an input-series, multi-three-phase-output
-drive (Section~\ref{sec:operating_principle}): an $N$-cell design
-requires $N$ electrically separated three-phase winding groups, each
-connected to one converter cell, coupling semiconductor voltage
-scaling directly to winding segmentation, phase count, terminal count,
-electromagnetic coupling, insulation, and physical machine
-integration.
-
 % ---------------------------------------------------------------------------
 \subsection{Winding Architecture and Electromagnetic Coupling}
 % ---------------------------------------------------------------------------
 
 Although the winding groups are electrically separated at their
 terminals, they share the same magnetic circuit, rotor, air gap, and
-shaft. Their electromagnetic coupling depends on winding distribution,
+shaft. 
+Their electromagnetic coupling depends on winding distribution,
 slot/pole combination, spatial displacement, and machine geometry
 \cite{Che2014SeriesConnected,Bringezu2020SPB,
-Verkroost2024PowerDistribution,Zhang2014SPBMachine}. Therefore, an
-SPB-compatible machine
+Verkroost2024PowerDistribution,Zhang2014SPBMachine}. 
+Therefore, an SPB-compatible machine
 cannot generally be obtained simply by dividing a conventional
 three-phase winding into multiple groups without considering the
 resulting coupling and harmonic behavior.
 
-The three-phase groups may be approximately aligned, deliberately
+The three-phase groups may be aligned, 
 spatially shifted, or implemented as physically segmented stator
-modules. Spatial displacement affects mutual coupling, torque-ripple
+modules. 
+Spatial displacement affects mutual coupling, torque-ripple
 components, and the additional current subspaces available to the
 controller, among other effects
 \cite{Zhang2025MultiphaseReview,Das2025SixPhaseWinding,
-Wang2025DTPHarmonics}. These additional subspaces can introduce
-non-torque-producing currents, but they can also be exploited for
+Wang2025DTPHarmonics}. 
+These additional subspaces can introduce non-torque-producing currents,
+ but they can also be exploited for
 harmonic suppression, differential power sharing, and fault-tolerant
 operation
-\cite{Tang2025SixPhaseFault,Verkroost2024PowerDistribution}. Split
-winding architectures show a similar tradeoff: they can reduce ripple
+\cite{Tang2025SixPhaseFault,Verkroost2024PowerDistribution}. 
+Split winding architectures show a similar tradeoff: they can reduce ripple
 and provide additional current/voltage degrees of freedom, but they do
 so by increasing winding terminals and coupling complexity
 \cite{Han2014SplitWindingModular}. These three winding-group
@@ -160,23 +155,8 @@ Fig.~\ref{fig:winding_options}.
 \node[right,font=\small] at (11.8,-70) {Shaft};
 \end{circuitikz}}
 \caption{Schematic comparison of the winding-group spatial arrangements
-discussed in the text, drawn as star-connected coil groups (each leg a
-winding phase, small dot the group's local neutral point) inside the
-stator bore, with the shaft centerline marked for physical context
-(small grey disk): (a)~approximately aligned groups -- at every one of
-three representative slots around the bore, group~1 (inner layer) and
-group~2 (outer layer) occupy the same angular position at different
-radial depth; (b)~deliberately spatially shifted groups -- both groups
-sit at the same radial layer, but group~2 is displaced from group~1 by
-a fixed angle $\Delta\theta=60^\circ$ at every slot, so the six coil
-clusters interleave evenly around the bore; and (c)~physically
-segmented stator modules -- the same bore split by four
-mechanical/magnetic boundaries (dashed radial lines) into four modules
-that alternate between group~1 and group~2, so each group occupies two
-diametrically opposite, physically separate segments rather than a
-single contiguous arc. The arrangement affects mutual coupling, MMF
-harmonics, and the additional current subspaces available to the
-controller.}
+: (a)~aligned  groups (b)~spatially shifted groups and (c)~physically
+segmented stator modules.}
 \label{fig:winding_options}
 \end{figure*}
 
@@ -202,33 +182,25 @@ k_{\mathrm{mod}}\frac{V_{\mathrm{dc}}}{N}.
 \label{eq:spb_machine_voltage_limit}
 \end{equation}
 
-Increasing the number of cells therefore reduces the voltage available
-to each winding group and requires coordinated selection of winding
-turns, inductance, and field-weakening capability, among other
-parameters. This coupling has been demonstrated in
-optimized multiphase SPB-PMSM systems
+This falling per-cell voltage budget ties winding turns, inductance,
+and field-weakening capability directly to $N$ -- a coupling
+demonstrated in optimized multiphase SPB-PMSM systems
 \cite{Bringezu2020SPB}. Recent multiphase traction-machine studies
 similarly emphasize coordinated design of winding voltage, harmonic
 subspaces, and modulation
 \cite{Chen2026HighModulationDTP,Feng2026TractionMachine}.
 
-Phase current does not generally scale with $1/N$
-(Section~\ref{sec:operating_principle}); this is particularly
-important for low-voltage WBG implementations, where reduced blocking
-voltage may still be accompanied by high converter-cell current.
-
 % ---------------------------------------------------------------------------
 \subsection{From Multiphase Machine to Integrated Modular Drive}
 % ---------------------------------------------------------------------------
 
-Physical integration can convert part of the additional electrical
-complexity introduced by a large number of winding groups into a
-packaging advantage. With a remote inverter, additional winding groups
-increase phase-cable and connector count. In an IMMD, each converter
-bridge can instead be positioned
-close to its corresponding winding group, reducing external cabling,
-shortening high-frequency interconnections, distributing heat sources,
-and aligning converter modules with stator segments.
+Physical integration can convert the added electrical complexity of
+many winding groups into a packaging advantage. With a remote
+inverter, additional winding groups increase phase-cable and connector
+count; positioning each converter bridge close to its corresponding
+winding group instead reduces external cabling, shortens
+high-frequency interconnections, distributes heat sources, and aligns
+converter modules with stator segments.
 
 This design philosophy predates SPB and has been extensively studied
 in integrated and modular motor drives
@@ -252,41 +224,22 @@ MW-class and EV-traction implementations.
 % ---------------------------------------------------------------------------
 
 The electrically separated winding groups required by SPB do not
-impose a unique converter placement on a radial-flux machine.
-Chowdhury \textit{et al.} \cite{Chowdhury2019Integration}, consistent
-with the broader integrated-motor-drive survey of Abebe \textit{et
-al.} \cite{Abebe2016IMDReview}, classify
-motor/inverter physical integration into four categories,
-distinguished by whether the converter mounts radially or axially and
-whether it interfaces with a separate housing/end-cap structure or
-directly with the stator core itself; this taxonomy provides a
-convenient framework for placing SPB converter cells around a
-radial-flux machine, as illustrated in
-Fig.~\ref{fig:machine_integration}. (Axial-flux stator-mounted and
-polygon-housing integration, an alternative to the radial-flux options
-considered here, is discussed above in the context of the Mohamed
-\textit{et al.} developments
+impose a unique converter placement on a radial-flux machine. Chowdhury
+\textit{et al.} \cite{Chowdhury2019Integration}, consistent with the
+broader integrated-motor-drive survey of Abebe \textit{et al.}
+\cite{Abebe2016IMDReview}, classify motor/inverter physical integration
+into four categories: whether the converter mounts radially or
+axially, and whether it interfaces with a separate housing/end-cap
+structure or directly with the stator core. This taxonomy frames how
+SPB converter cells can be placed around a radial-flux machine, as
+illustrated in Fig.~\ref{fig:machine_integration}. The axial-flux
+stator-mounted and polygon-housing alternative is covered by the
+Mohamed \textit{et al.} developments
 \cite{Mohamed2021Electrothermal,Mohamed2021EnhancedIMD,
-Mohamed2022IntegratedDCLink} and Table~\ref{tab:immd_relevance}.)
+Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 
-In a \emph{radial housing mount} [Fig.~\ref{fig:machine_integration}(a)],
-converter modules are mounted on the outer motor housing, physically
-and thermally set back from the stator by the housing structure. In a
-\emph{radial stator mount} [Fig.~\ref{fig:machine_integration}(b)],
-modules are instead mounted flush against the stator's outer surface
-or cooling jacket, removing that separation at the cost of requiring a
-mounting-compatible stator periphery. Along the axial direction, an
-\emph{axial endplate mount} [Fig.~\ref{fig:machine_integration}(c)]
-places modules on a separate end-cap beyond the machine's active
-length, whereas an \emph{axial stator mount}
-[Fig.~\ref{fig:machine_integration}(d)] places them directly against
-the end face of the stator lamination stack, without an intervening
-cap structure. Dedicated finite-element thermal comparisons of these
-mount options support this picture: an FEA study of radial-housing,
-radial-stator, and endplate-mounted converters found the modularized
-endplate arrangement most effective at limiting peak temperature and
-improving temperature distribution across the assembly
-\cite{Abebe2015FEAThermal}.
+
+%\cite{Abebe2015FEAThermal}.
 
 \begin{figure*}[!t]
 \centering
@@ -369,65 +322,54 @@ most clearly conveys its mounting geometry.}
 
 \begin{table}[!t]
 \centering
-\caption{Representative Integrated and Modular Motor-Drive
-Developments Relevant to SPB}
+\caption{Representative Integrated Motor-Drive
+Developments}
 \label{tab:immd_relevance}
 \footnotesize
 \renewcommand{\arraystretch}{1.05}
-\setlength{\tabcolsep}{2.2pt}
-\begin{tabular}{p{1.85cm}p{2.75cm}p{3.15cm}}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{2.3cm}p{5.3cm}}
 \hline
-\textbf{Reference} & \textbf{Integration theme} & \textbf{Relevance to SPB}\\
+\textbf{Reference} & \textbf{Integration theme}\\
 \hline
 
 Shakweh \textit{et al.} \cite{Shakweh2002PlugPlayIMD} &
-Integrated motor/inverter architecture &
-Practical benefits and high-power integration barriers\\
+Integrated motor/inverter architecture\\
 
 Wheeler/Pickering \textit{et al.}
 \cite{Wheeler2005Integrated30kW,Pickering2006ThermalIMD} &
-Converter and thermal design inside motor envelope &
-Importance of coupled packaging and cooling\\
+Converter and thermal design inside motor envelope\\
 
 Brown \textit{et al.} \cite{Brown2007IMMD} &
-Converter mounted at modular stator pole &
-Repeated converter--winding hardware as an architecture\\
+Converter mounted at modular stator pole\\
 
 Wolmarans \textit{et al.} \cite{Wolmarans2008IntegratedFT} &
-Fault-tolerant converter, machine, and thermal design &
-Links modularity with fault tolerance and cooling\\
+Fault-tolerant converter, machine, and thermal design\\
 
 Choi \textit{et al.} \cite{Choi2011IMMD} &
-Modular PM machine and high-temperature electronics &
-Traction-oriented precursor to converter--machine modularization\\
+Modular PM machine and high-temperature electronics\\
 
 Wang \textit{et al.}
 \cite{Wang2013GaNIMMD,Wang2025GaNIMMD} &
-Low-voltage GaN, dc-voltage sharing, and interleaving &
-Precursor to WBG-enabled SPB voltage partitioning\\
+Low-voltage GaN, dc-voltage sharing, and interleaving\\
 
 U\u{g}ur and Keysan
 \cite{Ugur2018GaNIMMD,Ugur2019MultiphysicsIMMD} &
-Multi-physics converter--machine optimization &
-Connects GaN selection, capacitance, cooling, machine design\\
+Multi-physics converter--machine optimization\\
 
 Mohamed \textit{et al.}
 \cite{Mohamed2021Electrothermal,
 Mohamed2021EnhancedIMD,Mohamed2022IntegratedDCLink} &
-Stator-mounted modules, polygon housing, integrated dc link &
-Directly relevant to physical integration of repeated cells\\
+Stator-mounted modules, polygon housing, integrated dc link\\
 
 Wang \textit{et al.} \cite{Wang2025MWIMMD} &
-Repeated machine and converter submodules &
-Scalability of modular integration to high power\\
+Repeated machine and converter submodules\\
 
 Chen \textit{et al.} \cite{Chen2026WBGIMD} &
-WBG converter, machine, passive, and cooling co-design &
-Recent traction-oriented integrated-drive context\\
+WBG converter, machine, passive, and cooling co-design\\
 
 Deng \textit{et al.} \cite{Deng2026IMDReview} &
-Recent IMD technologies and research directions &
-Context for packaging, cooling, reliability, manufacturing\\
+Recent IMD technologies and research directions\\
 \hline
 \end{tabular}
 \end{table}
@@ -459,5 +401,4 @@ therefore preserve the required electrical isolation.
 
 Consequently, practical SPB integration requires coordinated
 electrical, thermal, and mechanical design, complementing the
-semiconductor- and system-level tradeoffs discussed in the following
-sections.
+semiconductor- and system-level tradeoffs.

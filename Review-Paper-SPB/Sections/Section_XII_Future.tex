@@ -3,74 +3,41 @@
 \label{sec:future_directions}
 % ============================================================================
 
-SPB operation, modulation, balancing, and modular control are
-established, but the evidence needed for automotive architecture
-selection remains incomplete. The key gaps are not additional
-proof-of-concept control schemes but high-power validation and
-system-level comparisons under common boundary conditions.
+In theory, SPB is one of the more promising modular architectures for
+high-voltage electric traction: partitioning the dc-link voltage across
+series-connected cells grants access to lower-voltage semiconductor
+classes with a favorable figure of merit, supports modular
+converter--machine integration, and, as this review has shown, gives
+carrier-phase, balancing, and reconfiguration degrees of freedom that a
+conventional two- or three-level drive does not have. Whether these
+advantages translate into a real vehicle-level benefit, however, is not
+decided by any single subsystem but by how the battery/dc-link side,
+the semiconductor/converter side, and the machine side are co-designed
+together: the cell count that opens a favorable device voltage class
+also fixes winding voltage, current rating, and dc-link ripple
+frequency, and each of these choices feeds back into the others. This
+review has assembled the pieces needed for that co-design -- voltage
+partitioning and cell-count scaling
+(Sections~\ref{sec:operating_principle}
+and~\ref{sec:semiconductor_scaling}), machine-integration options
+(Section~\ref{sec:machine_requirements}), modulation and dc-link ripple
+(Section~\ref{sec:modulation}), common-mode behavior
+(Section~\ref{sec:common_mode}), dc-link balancing stability
+(Section~\ref{sec:dclink_balancing}), and fault tolerance
+(Section~\ref{sec:fault_reconfiguration}) -- but, like the literature it
+surveys, has largely treated them as separate design axes rather than
+jointly.
 
-\subsection{High-Power Validation and Standardized Benchmarking}
+\subsection{Toward an Integrated Co-Design Framework}
 
-Building on the laboratory-scale validation status noted in
-Section~\ref{sec:evolution}, future
-prototypes should target several-hundred-kilowatt scale
-with realistic dc voltage, thermal, switching-overshoot, and EMI
-constraints, among others,
-benchmarked directly against a two- or three-level reference drive under
-the same machine requirements, semiconductor generation, cooling
-boundary, and mission. The scale of benefit that motivates this effort
-is not merely hypothetical: a segmented, interleaved traction-drive
-system operating at 55~kW has reported a 55--89\% reduction in dc-bus
-capacitor ripple current relative to a conventional single-bridge
-drive \cite{Su2012SegmentedTraction}, an order of magnitude above the
-power level of most direct SPB studies and a useful automotive-scale
-reference point for the interleaving benefit discussed in
-Section~\ref{sec:modulation}.
-
-Standardized reporting is also needed: published studies vary in power
-level, cooling, filtering, and semiconductor generation, and
-comparisons can shift materially with the chosen switching-energy
-interpolation, temperature correction, and current-derating
-assumptions. Reference operating points, efficiency maps, measured
-parasitics, and open device/loss-model data would improve
-reproducibility as semiconductor technology evolves.
-
-A practical development path should also separate the questions that
-can be answered at different hardware scales; Table~\ref{tab:validation_ladder}
-proposes a validation ladder so that a low-power proof of one control
-function is not read as evidence of automotive readiness.
-
-\begin{table}[!t]
-\centering
-\caption{Suggested Validation Ladder for Automotive SPB Research}
-\label{tab:validation_ladder}
-\renewcommand{\arraystretch}{1.05}
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{p{1.55cm}p{2.55cm}p{3.35cm}}
-\hline
-\textbf{Stage} & \textbf{Primary purpose} & \textbf{Minimum evidence}\\
-\hline
-Cell / double-pulse & Device and commutation feasibility & Overshoot, switching energy, thermal impedance, protection\\
-Multi-cell bench & Balancing and modulation & Cell-voltage spread, ripple, timing mismatch, transient stability\\
-Dynamometer & Converter--machine interaction & Torque--speed map, efficiency, harmonics, CM/EMI, thermal limits\\
-Mission / vehicle-relevant & Architecture value & Drive-cycle energy, cooling, fault derating, reliability and packaging\\
-\hline
-\end{tabular}
-\end{table}
-
-A community benchmark defining one passenger-car and one heavy-duty
-traction case -- common dc-voltage range, power, torque--speed
-envelope, coolant temperature, modulation limits, and EMC boundary,
-with a VECTO-derived mission for heavy-duty work -- would let competing
-architectures be compared under comparable electrical and thermal duty
-without forcing a single reference machine. Reporting should extend the
-same way: beyond peak efficiency, prototypes should state cell-voltage
-spread, capacitor ripple current, common-mode current, and post-fault
-capability, among other operating-point metrics, linking the
-modulation, balancing, semiconductor, and reliability literatures into
-transferable evidence.
-
-\subsection{Cell Count, Reliability, and Cost Co-Design}
+Future work should combine the voltage-partitioning, modulation and
+ripple, dc-link balancing, common-mode, and fault-derating relations
+developed in this review into a single $N$- and technology-dependent
+framework, so that cell count, semiconductor class, and machine design
+can be evaluated jointly against vehicle-level energy, cost, and
+reliability targets rather than compared through separate, narrower
+studies. Several concrete open questions define what such a framework
+must resolve.
 
 The optimum cell count $N$ remains the central unresolved design
 question: as established in Section~\ref{sec:operating_principle},

@@ -3,126 +3,117 @@
 \label{sec:evolution}
 % ============================================================================
 
-This section traces how SPB's converter--machine modularity, together
-with its associated control and modulation methods, has developed over
-more than a decade of research, from an initial concept to an
-increasingly reconfigurable and actively controlled
-converter--machine system.
 
-SPB emerged from a broader development toward modular converter--machine
-systems. Earlier modular and integrated modular motor drives (IMMDs)
-established the building blocks SPB later drew on, repeated
-converter-winding modules, machine segmentation, power sharing, and
-fault-tolerant operation \cite{Cengelci2000MMMI,Choi2011IMMD}, and
-series-connected IMMD modules further showed that the total dc voltage
-could be shared among inverter segments to enable lower-voltage
-devices \cite{Wang2013GaNIMMD,Wang2025GaNIMMD}. A 2015 IEEE TIA study
-by Wang, Li, and Han is especially relevant to SPB's later work,
-combining series-connected GaN IMMD hardware with active cell-voltage
-balancing and interleaved switching \cite{Wang2015GaNIMMD}.
+SPB emerged from a broader development toward modular
+converter--machine systems. Earlier modular and integrated modular
+motor drives (IMMDs) established building blocks that SPB later drew
+on -- repeated converter-winding modules, machine segmentation, power
+sharing, and fault-tolerant operation \cite{Cengelci2000MMMI,
+Choi2011IMMD} -- and series-connected IMMD modules showed that the
+total dc voltage could be shared among inverter segments to access
+lower-voltage devices \cite{Wang2013GaNIMMD,Wang2025GaNIMMD,
+Wang2015GaNIMMD}. Independently, other series-connected modular
+motor-drive topologies were proposed on the same dc-voltage-sharing
+principle \cite{Wang2015SeriesModular,Ruseler2015InputSeries}, and a
+KTH comparative study benchmarked SPB against other modular-converter
+candidates such as the parallel-connected polyphase bridges (PPBs) on
+machine design, losses, capacitor energy, cost, and redundancy
+\cite{Zhang2017ModularDriveComparison}, confirming SPB as one of
+several promising topology candidates.
 
-Independent of this line of work, other series-connected modular
-motor-drive topologies were proposed with the same underlying
-dc-voltage-sharing principle \cite{Wang2015SeriesModular,
-Ruseler2015InputSeries}, indicating that the concept was not unique
-to SPB but part of a broader convergence toward series-connected
-modularity. A related KTH comparative study evaluated SPB alongside
-other integrated modular converter candidates for traction
-drives, the parallel-connected polyphase bridge converter (PPB-I, a
-conventional multiphase converter with phase-leg-level modularity, and
-PPB-II, several interleaved two-level three-phase converters each with
-its own dc capacitor) and the modular high-frequency (MHF) converter,
-against a conventional two-level three-phase drive as a baseline in
-terms of machine design, losses, capacitor energy storage, cost, and
-redundancy, confirming that SPB is one of several modular-converter
-topology candidates studied for this application
-\cite{Zhang2017ModularDriveComparison}.
+The SPB topology itself was introduced in 2013 by Norrga \textit{et al.}  \cite{Norrga2013SPB},
+followed by dedicated control and modulation work
+\cite{Jin2014Control}. 
+Related series-connected drives showed that
+machine-side degrees of freedom could regulate internal dc-link
+sharing \cite{Che2014SeriesConnected}, while Nikouie \textit{et al.}
+formally established the dc-link stability problem and its
+balancing-controller requirements \cite{Nikouie2015Stability,
+Nikouie2017Stability}, which identified dc-link balancing, rather than
+semiconductor voltage rating alone, as SPB's first-order control
+challenge.
 
-Building on this foundation, the SPB topology itself was introduced in
-2013 \cite{Norrga2013SPB}, followed shortly thereafter by dedicated
-control and modulation work \cite{Jin2014Control}. Related series-connected multiphase drives
-demonstrated that machine-side degrees of freedom could be used to
-regulate internal dc-link voltage sharing \cite{Che2014SeriesConnected},
-while Nikouie \textit{et al.} formally established the SPB dc-link
-stability problem and the corresponding balancing-controller
-requirements \cite{Nikouie2015Stability,Nikouie2017Stability}. This
-period established the topology's basic feasibility and identified
-dc-link voltage balancing, rather than semiconductor voltage rating
-alone, as its first-order control challenge.
+Development then shifted toward modulation, scalable control, and
+converter--machine co-design: modulation was shown to shape switching
+loss and dc-link harmonics \cite{Jin2017Modulation}, distributed
+control offered an alternative to centralized balancing
+\cite{Jin2018Distributed}, and interleaving and phase-count studies
+tied converter design to machine architecture
+\cite{Verkroost2019Interleaving,VanDamme2019DCLink,Bringezu2020SPB,
+Verkroost2021Ripple} -- reframing SPB from a converter topology into a
+joint converter--machine design problem.
 
-The next stage of development shifted the focus toward modulation,
-scalable control, and converter--machine co-design: modulation was
-shown to directly influence semiconductor loss and dc-link harmonic
-content \cite{Jin2017Modulation}, distributed control offered an
-alternative to centralized balancing \cite{Jin2018Distributed}, and
-interleaving and phase-count studies tied converter design to machine
-architecture \cite{Verkroost2019Interleaving,VanDamme2019DCLink,
-Bringezu2020SPB,Verkroost2021Ripple}. Collectively, this reframed SPB
-from a series-connected converter topology into a converter--machine
-co-design problem in which modulation, control, and machine parameters
-jointly determine dc-link behavior.
+Most recently, work has moved from statically configured hardware
+toward actively reconfigurable systems: common-duty-ratio operation,
+decentralized balancing, and multi-agent power distribution have
+reduced reliance on centralized control \cite{Mocevic2023CDR,
+Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,
+Mocevic2024GateDelay}, and online module isolation and reintroduction
+have demonstrated dynamic dc-bus reconfiguration that removes a
+faulted cell without interrupting torque production
+\cite{Verkroost2024Reconfiguration}. Modern GaN devices have in
+parallel renewed interest in SPB as a route to lower semiconductor
+voltage classes \cite{Rohner2024GaN}.
 
-More recent work has moved from repeated but statically configured
-hardware toward actively reconfigurable modular systems.
-Common-duty-ratio operation, decentralized voltage balancing, and
-multi-agent power distribution have reduced the dependence on
-centralized control \cite{Mocevic2023CDR,Verkroost2024VoltageBalance,
-Verkroost2024PowerDistribution,Mocevic2024GateDelay}. Online module
-isolation and reintroduction have further demonstrated dynamic dc-bus
-reconfiguration, removing a faulted cell without interrupting torque
-production \cite{Verkroost2024Reconfiguration}.
-In parallel, modern GaN devices have renewed interest in SPB as a
-route to lower semiconductor voltage classes in integrated drives
-\cite{Rohner2024GaN}.
+Fig.~\ref{fig:spb_timeline} places these and other representative
+milestones on a chronological timeline, together with 
+the implication each result carries for the
+system-level review developed in this paper.
 
-Fig.~\ref{fig:spb_timeline} places representative milestones from
-across these stages on a chronological timeline of the topology's
-development, together with the validation level, reported scale, and
-the specific implication each result carries for the system-level
-review developed in this paper.
+
 
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[font=\scriptsize,>=latex]
 \tikzstyle{yr}=[circle,draw=blue!65!black,fill=blue!55!black,inner sep=1.2pt]
-\tikzstyle{txt}=[align=left,text width=48mm,inner sep=0pt]
-\draw[->,thick,blue!55!black] (0,3mm) -- (0,-53mm);
+\tikzstyle{txt}=[align=left,text width=50mm,inner sep=0pt]
+\draw[->,thick,blue!55!black] (0,3mm) -- (0,-89mm);
 \node[yr] (n1) at (0,0mm) {};
 \node[txt,right=2mm of n1]
 {\textbf{2013} -- Norrga \textit{et al.}~\cite{Norrga2013SPB}:
 original SPB topology introduced};
-\node[yr] (n2) at (0,-10mm) {};
+\node[yr] (n2) at (0,-11mm) {};
 \node[txt,right=2mm of n2]
+{\textbf{2014} -- Jin \textit{et al.}~\cite{Jin2014Control}:
+dedicated control and modulation methods established};
+\node[yr] (n3) at (0,-22mm) {};
+\node[txt,right=2mm of n3]
+{\textbf{2015} -- Nikouie \textit{et al.}
+~\cite{Nikouie2015Stability,Nikouie2017Stability}: dc-link stability
+problem formally established};
+\node[yr] (n4) at (0,-33mm) {};
+\node[txt,right=2mm of n4]
 {\textbf{2017} -- Jin \textit{et al.}~\cite{Jin2017Modulation}:
 modulation shown to affect switching loss and dc-link harmonics};
-\node[yr] (n3) at (0,-20mm) {};
-\node[txt,right=2mm of n3]
-{\textbf{2023} -- Mocevic \textit{et al.}~\cite{Mocevic2023CDR}:
-CDR balancing demonstrated for an induction-machine system};
-\node[yr] (n4) at (0,-30mm) {};
-\node[txt,right=2mm of n4]
-{\textbf{2024} -- Verkroost \textit{et al.}
-~\cite{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution}:
-distributed balancing and power sharing, 4~kW axial-flux PMSM};
-\node[yr] (n5) at (0,-40mm) {};
+\node[yr] (n5) at (0,-44mm) {};
 \node[txt,right=2mm of n5]
-{\textbf{2024} -- Verkroost \textit{et al.}
-~\cite{Verkroost2024Reconfiguration}: online module
-isolation/reactivation, $\sim$100~ms reconfiguration};
-\node[yr] (n6) at (0,-50mm) {};
+{\textbf{2017} -- Zhang \textit{et al.}
+~\cite{Zhang2017ModularDriveComparison}: SPB benchmarked against
+PPB-I/II and MHF converter candidates};
+\node[yr] (n6) at (0,-55mm) {};
 \node[txt,right=2mm of n6]
+{\textbf{2019} -- Verkroost \textit{et al.}
+~\cite{Verkroost2019Interleaving,VanDamme2019DCLink,Bringezu2020SPB,
+Verkroost2021Ripple}: interleaving and phase-count tied to machine
+design};
+\node[yr] (n7) at (0,-66mm) {};
+\node[txt,right=2mm of n7]
+{\textbf{2023} -- Mocevic \textit{et al.}~\cite{Mocevic2023CDR}:
+CDR balancing demonstrated};
+\node[yr] (n8) at (0,-77mm) {};
+\node[txt,right=2mm of n8]
+{\textbf{2024} -- Verkroost \textit{et al.}
+~\cite{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,
+Verkroost2024Reconfiguration}: distributed balancing, power sharing,
+and online module reconfiguration};
+\node[yr] (n9) at (0,-88mm) {};
+\node[txt,right=2mm of n9]
 {\textbf{2024} -- Rohner \textit{et al.}~\cite{Rohner2024GaN}:
-650-V GaN SPB vs.\ 3L flying-capacitor comparison, 7.5~kW, 800~V};
+650-V GaN SPB vs.\ 3L flying-capacitor comparison};
 \end{tikzpicture}
 \caption{Chronological milestones in SPB research, from the original
-topology through modulation, distributed balancing, reconfiguration,
-and wide-bandgap integration.}
+topology through dc-link stability, modulation, distributed balancing,
+reconfiguration, and wide-bandgap integration.}
 \label{fig:spb_timeline}
 \end{figure}
 
-As Fig.~\ref{fig:spb_timeline} indicates, this progression has been
-validated primarily at laboratory scale, typically at or below several
-kilowatts, leaving open whether the demonstrated control, balancing,
-and reconfiguration principles extend to the automotive and heavy-duty
-power levels summarized in Table~\ref{tab:intro_voltage_power} -- a
-gap revisited throughout the remainder of this paper.

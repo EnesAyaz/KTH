@@ -28,7 +28,7 @@
 \citation{Millan2014WBGSurvey,SpecificResistance}
 \citation{WideReview2018,WBGTractionReview2025,GaNComparison,Millan2014WBGSurvey}
 \citation{Poorfakhraei2021MultilevelReview,T_type_SiC,FlyingCap_Optimized3D,CascadedHBridge_control}
-\citation{Norrga2013SPB}
+\citation{Choi2011IMMD,Wang2025GaNIMMD,JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,Ebrahimian2025GaNIMMD}
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Representative voltage and power levels in published traction-inverter studies, industrial and reference platforms, and production battery-electric vehicles. }}{2}{}\protected@file@percent }
 \newlabel{tab:intro_voltage_power}{{I}{2}{}{table.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Ideal one-dimensional unipolar specific on-state resistance $R_{\mathrm  {on,sp}}$ (left axis, solid) and the resulting high-frequency figure of merit $\mathrm  {FOM}=1/\sqrt  {R_{\mathrm  {on,sp}}C_{\mathrm  {oss,sp}}}$ (right axis, dashed, arbitrary units) versus blocking voltage for Si, 4H-SiC, and GaN.}}{2}{}\protected@file@percent }
@@ -38,20 +38,15 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-C}}Multilevel Converters and Their Limitations}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-D}}Stacked Polyphase Bridge}{2}{}\protected@file@percent }
 \newlabel{sec:spb_modularity}{{\mbox  {I-D}}{2}{}{subsection.1.4}{}}
-\citation{Choi2011IMMD,Wang2025GaNIMMD,JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,Ebrahimian2025GaNIMMD}
+\citation{Norrga2013SPB}
 \citation{Cengelci2000MMMI,Choi2011IMMD}
-\citation{Wang2013GaNIMMD,Wang2025GaNIMMD}
-\citation{Wang2015GaNIMMD}
+\citation{Wang2013GaNIMMD,Wang2025GaNIMMD,Wang2015GaNIMMD}
 \citation{Wang2015SeriesModular,Ruseler2015InputSeries}
 \citation{Zhang2017ModularDriveComparison}
 \citation{Norrga2013SPB}
 \citation{Jin2014Control}
 \citation{Che2014SeriesConnected}
 \citation{Nikouie2015Stability,Nikouie2017Stability}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Conceptual architecture of an $N$-cell SPB traction drive. The dc source $V_{\mathrm  {dc}}$ feeds $N$ series-connected local dc-link capacitors, each nominally $V_{\mathrm  {dc}}/N$, that individually supply $N$ series-connected three-phase two-level bridge cells ($6N$ switches total); each cell drives one electrically separated three-phase winding group of the same machine, and the combined winding groups produce the electromagnetic torque $T_e$.}}{3}{}\protected@file@percent }
-\newlabel{fig:spb_architecture}{{3}{3}{}{figure.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {II}Evolution of the Stacked Polyphase Bridge Concept}{3}{}\protected@file@percent }
-\newlabel{sec:evolution}{{II}{3}{}{section.2}{}}
 \citation{Jin2017Modulation}
 \citation{Jin2018Distributed}
 \citation{Verkroost2019Interleaving,VanDamme2019DCLink,Bringezu2020SPB,Verkroost2021Ripple}
@@ -59,50 +54,47 @@
 \citation{Verkroost2024Reconfiguration}
 \citation{Rohner2024GaN}
 \citation{Norrga2013SPB}
+\citation{Jin2014Control}
+\citation{Nikouie2015Stability,Nikouie2017Stability}
 \citation{Jin2017Modulation}
+\citation{Zhang2017ModularDriveComparison}
+\citation{Verkroost2019Interleaving,VanDamme2019DCLink,Bringezu2020SPB,Verkroost2021Ripple}
 \citation{Mocevic2023CDR}
-\citation{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution}
-\citation{Verkroost2024Reconfiguration}
+\citation{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,Verkroost2024Reconfiguration}
 \citation{Rohner2024GaN}
 \citation{Norrga2013SPB,Jin2014Control,Jin2017Modulation}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Conceptual architecture of an $N$-cell SPB traction drive: series-connected local dc-link capacitors, series-connected three-phase two-level bridge cells, and their electrically separated machine winding groups.}}{3}{}\protected@file@percent }
+\newlabel{fig:spb_architecture}{{3}{3}{}{figure.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Evolution of the Stacked Polyphase Bridge Concept}{3}{}\protected@file@percent }
+\newlabel{sec:evolution}{{II}{3}{}{section.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Operating Principle and Topological Characteristics}{3}{}\protected@file@percent }
+\newlabel{sec:operating_principle}{{III}{3}{}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Basic Structure and Voltage Partitioning}{3}{}\protected@file@percent }
+\newlabel{eq:spb_voltage_sum}{{1}{3}{}{equation.1}{}}
 \citation{Che2014SeriesConnected,Verkroost2024PowerDistribution}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Chronological milestones in SPB research, from the original topology through modulation, distributed balancing, reconfiguration, and wide-bandgap integration.}}{4}{}\protected@file@percent }
+\citation{Nikouie2015Stability,Nikouie2017Stability}
+\citation{Che2014SeriesConnected,Bringezu2020SPB,Verkroost2024PowerDistribution,Zhang2014SPBMachine}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Chronological milestones in SPB research, from the original topology through dc-link stability, modulation, distributed balancing, reconfiguration, and wide-bandgap integration.}}{4}{}\protected@file@percent }
 \newlabel{fig:spb_timeline}{{4}{4}{}{figure.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Operating Principle and Topological Characteristics}{4}{}\protected@file@percent }
-\newlabel{sec:operating_principle}{{III}{4}{}{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Basic Structure and Voltage Partitioning}{4}{}\protected@file@percent }
-\newlabel{eq:spb_voltage_sum}{{1}{4}{}{equation.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Series DC Connection and Power Flow}{4}{}\protected@file@percent }
 \newlabel{eq:series_current}{{2}{4}{}{equation.2}{}}
 \newlabel{eq:cell_dc_power}{{3}{4}{}{equation.3}{}}
 \newlabel{eq:power_sum}{{4}{4}{}{equation.4}{}}
-\citation{Nikouie2015Stability,Nikouie2017Stability}
-\citation{Bringezu2020SPB}
-\citation{Che2014SeriesConnected,Bringezu2020SPB,Verkroost2024PowerDistribution,Zhang2014SPBMachine}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Switch-level realization of the SPB dc--ac stage for two representative cells (Cell~1 and Cell~$N$; cells $2,\dots  ,N-1$ elided). The common series current $i_{\mathrm  {dc}}$ \eqref  {eq:series_current} flows through every cell, giving each cell the dc-side power $p_{\mathrm  {dc},k}=V_{\mathrm  {dc},k}i_{\mathrm  {dc}}$ \eqref  {eq:cell_dc_power}.}}{4}{}\protected@file@percent }
+\newlabel{fig:spb_switch_schematic}{{5}{4}{}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Cell Count as a Converter--Machine Design Variable}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Electric-Machine Requirements and Integrated Implementation}{4}{}\protected@file@percent }
+\newlabel{sec:machine_requirements}{{IV}{4}{}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Winding Architecture and Electromagnetic Coupling}{4}{}\protected@file@percent }
 \citation{Zhang2025MultiphaseReview,Das2025SixPhaseWinding,Wang2025DTPHarmonics}
 \citation{Tang2025SixPhaseFault,Verkroost2024PowerDistribution}
 \citation{Han2014SplitWindingModular}
 \citation{Bringezu2020SPB}
 \citation{Chen2026HighModulationDTP,Feng2026TractionMachine}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Switch-level realization of the SPB dc--ac stage for two representative cells (Cell~1 and Cell~$N$; cells $2,\dots  ,N-1$ elided). Each cell is a conventional two-level three-phase bridge (six switches per cell, $6N$ total) fed from its own local dc-link capacitor $C_k$, with leg midpoints $a_k,b_k,c_k$ feeding a star-connected winding group $k$ at its own electrically separate neutral point $n_k$ (only $n_1$ and $n_N$ shown; the star points are not interconnected). The common series current $i_{\mathrm  {dc}}$ \eqref  {eq:series_current} flows through every cell, giving each cell the dc-side power $p_{\mathrm  {dc},k}=V_{\mathrm  {dc},k}i_{\mathrm  {dc}}$ \eqref  {eq:cell_dc_power}.}}{5}{}\protected@file@percent }
-\newlabel{fig:spb_switch_schematic}{{5}{5}{}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}SPB as an Input-Series, Multi-Three-Phase-Output Drive}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Cell Count as a Converter--Machine Design Variable}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Electric-Machine Requirements and Integrated Implementation}{5}{}\protected@file@percent }
-\newlabel{sec:machine_requirements}{{IV}{5}{}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Winding Architecture and Electromagnetic Coupling}{5}{}\protected@file@percent }
-\newlabel{eq:spb_machine_dq}{{5}{5}{}{equation.5}{}}
-\newlabel{eq:spb_machine_voltage_limit}{{6}{5}{}{equation.6}{}}
 \citation{Shakweh2002PlugPlayIMD,Wheeler2005Integrated30kW,Pickering2006ThermalIMD,Brown2007IMMD,Wolmarans2008IntegratedFT,Hennen2012DistributedIMMD,Choi2011IMMD,Wang2013GaNIMMD,Wang2015GaNIMMD,Wang2025GaNIMMD,Ugur2018GaNIMMD,Ugur2019MultiphysicsIMMD,Mohamed2021Electrothermal,Mohamed2021EnhancedIMD,Mohamed2022IntegratedDCLink,Wang2025MWIMMD,Chen2026WBGIMD,Deng2026IMDReview}
 \citation{Chowdhury2019Integration}
 \citation{Abebe2016IMDReview}
 \citation{Mohamed2021Electrothermal,Mohamed2021EnhancedIMD,Mohamed2022IntegratedDCLink}
-\citation{Abebe2015FEAThermal}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Schematic comparison of the winding-group spatial arrangements discussed in the text, drawn as star-connected coil groups (each leg a winding phase, small dot the group's local neutral point) inside the stator bore, with the shaft centerline marked for physical context (small grey disk): (a)~approximately aligned groups -- at every one of three representative slots around the bore, group~1 (inner layer) and group~2 (outer layer) occupy the same angular position at different radial depth; (b)~deliberately spatially shifted groups -- both groups sit at the same radial layer, but group~2 is displaced from group~1 by a fixed angle $\Delta \theta =60^\circ $ at every slot, so the six coil clusters interleave evenly around the bore; and (c)~physically segmented stator modules -- the same bore split by four mechanical/magnetic boundaries (dashed radial lines) into four modules that alternate between group~1 and group~2, so each group occupies two diametrically opposite, physically separate segments rather than a single contiguous arc. The arrangement affects mutual coupling, MMF harmonics, and the additional current subspaces available to the controller.}}{6}{}\protected@file@percent }
-\newlabel{fig:winding_options}{{6}{6}{}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}From Multiphase Machine to Integrated Modular Drive}{6}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Physical Integration Options}{6}{}\protected@file@percent }
-\newlabel{subsec:physical_integration}{{\mbox  {IV-C}}{6}{}{subsection.4.3}{}}
 \citation{Chowdhury2019Integration}
 \citation{Chowdhury2019Integration}
 \citation{Shakweh2002PlugPlayIMD}
@@ -116,86 +108,84 @@
 \citation{Wang2025MWIMMD}
 \citation{Chen2026WBGIMD}
 \citation{Deng2026IMDReview}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Schematic comparison of the winding-group spatial arrangements : (a)~aligned groups (b)~spatially shifted groups and (c)~physically segmented stator modules.}}{5}{}\protected@file@percent }
+\newlabel{fig:winding_options}{{6}{5}{}{figure.6}{}}
+\newlabel{eq:spb_machine_dq}{{5}{5}{}{equation.5}{}}
+\newlabel{eq:spb_machine_voltage_limit}{{6}{5}{}{equation.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}From Multiphase Machine to Integrated Modular Drive}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Physical Integration Options}{5}{}\protected@file@percent }
+\newlabel{subsec:physical_integration}{{\mbox  {IV-C}}{5}{}{subsection.4.3}{}}
 \citation{Jin2014Control,Jin2017Modulation}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Physical integration options for SPB-compatible converter modules on a radial-flux machine, following the four-category taxonomy of \cite  {Chowdhury2019Integration}: (a) radial housing mount, (b) radial stator mount, (c) axial endplate mount, and (d) axial stator mount, each shown in whichever radial or axial cross-section most clearly conveys its mounting geometry.}}{7}{}\protected@file@percent }
-\newlabel{fig:machine_integration}{{7}{7}{}{figure.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Representative Integrated and Modular Motor-Drive Developments Relevant to SPB}}{7}{}\protected@file@percent }
-\newlabel{tab:immd_relevance}{{II}{7}{}{table.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Integration Is Not Free of Complexity}{7}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Modulation Strategies}{7}{}\protected@file@percent }
-\newlabel{sec:modulation}{{V}{7}{}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Carrier Coordination and Harmonic Cancellation}{7}{}\protected@file@percent }
-\newlabel{eq:carrier_phase}{{7}{7}{}{equation.7}{}}
-\citation{Jin2017Modulation}
-\citation{Verkroost2021Ripple,DeMarcos2025InterleavedPWM,Wang2025HybridPWM}
-\citation{Jin2014Control}
-\citation{Jin2014Control}
-\citation{Jin2014Control}
-\citation{Jin2018Distributed}
-\citation{Jin2018Distributed}
-\citation{Jin2018Distributed}
-\citation{Wang2015GaNIMMD}
-\citation{Wang2015ThesisDVB}
-\newlabel{eq:harmonic_phasor_sum}{{8}{8}{}{equation.8}{}}
-\newlabel{eq:dfs_switching}{{9}{8}{}{equation.9}{}}
-\newlabel{eq:battery_current_tf}{{10}{8}{}{equation.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Conceptual illustration, for a representative $N=3$ example, of a master cell and two slave cells synchronized by the distributed master/slave mechanism of \cite  {Jin2018Distributed}, each slave offset from the master by its own carrier-phase offset $\theta _{c,k}$ \eqref  {eq:carrier_phase}.}}{8}{}\protected@file@percent }
-\newlabel{fig:carrier_sync_mechanism}{{8}{8}{}{figure.8}{}}
-\citation{Hopkins2019DCLinkRipple,Mohamed2020DCLinkSizing,Alosa2019ModularRipple}
-\citation{Chen2026HighModulationDTP}
-\citation{Yang2026HybridOEW,Lee2026AlternatingDPWM}
-\citation{Verkroost2024PowerDistribution,Wu2020ActiveBalancing}
-\citation{Mocevic2024GateDelay}
-\citation{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}
-\citation{Chen2020EMCIntegrated}
 \citation{Jin2017Modulation,Verkroost2021Ripple,Hopkins2019DCLinkRipple}
 \citation{Wang2025HybridPWM,Wang2025PWMHarmonicLoss}
 \citation{Yang2026HybridOEW,Lee2026AlternatingDPWM}
 \citation{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}
 \citation{Verkroost2024PowerDistribution,Wu2020ActiveBalancing}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Physical integration options for SPB-compatible converter modules on a radial-flux machine, following the four-category taxonomy of \cite  {Chowdhury2019Integration}: (a) radial housing mount, (b) radial stator mount, (c) axial endplate mount, and (d) axial stator mount, each shown in whichever radial or axial cross-section most clearly conveys its mounting geometry.}}{6}{}\protected@file@percent }
+\newlabel{fig:machine_integration}{{7}{6}{}{figure.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Representative Integrated Motor-Drive Developments}}{6}{}\protected@file@percent }
+\newlabel{tab:immd_relevance}{{II}{6}{}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Integration Is Not Free of Complexity}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces SPB modulation degrees of freedom grouped by principal system-level effect.}}{6}{}\protected@file@percent }
+\newlabel{fig:spb_modulation_taxonomy}{{III}{6}{}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Modulation Strategies}{6}{}\protected@file@percent }
+\newlabel{sec:modulation}{{V}{6}{}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Carrier Coordination and Harmonic Cancellation}{6}{}\protected@file@percent }
+\newlabel{eq:dfs_switching}{{7}{6}{}{equation.7}{}}
+\citation{Jin2014Control}
+\citation{Jin2014Control}
+\citation{Wang2015GaNIMMD}
+\citation{Wang2015ThesisDVB}
+\citation{Jin2017Modulation}
+\citation{Verkroost2021Ripple,DeMarcos2025InterleavedPWM,Wang2025HybridPWM}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Master/slave carrier synchronization for a representative $N=3$ example: each slave's carrier is offset from the master by its own phase $\theta _{c,k}$ \eqref  {eq:carrier_phase}.}}{7}{}\protected@file@percent }
+\newlabel{fig:carrier_sync_mechanism}{{8}{7}{}{figure.8}{}}
+\newlabel{eq:carrier_phase}{{8}{7}{}{equation.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}DC-Link Ripple Reduction and Battery-Side Current}{7}{}\protected@file@percent }
+\newlabel{eq:conv_current_spectrum}{{9}{7}{}{equation.9}{}}
+\newlabel{eq:dclink_ode}{{10}{7}{}{equation.10}{}}
+\newlabel{eq:battery_current_tf}{{11}{7}{}{equation.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Coupled circuit simulation of the shared series dc-link current $i_{\mathrm  {dc}}(t)$ for $N=3$ SPB cells ($M=0.85$, $f_1=1$~Hz, $f_{sw}=100$~Hz), without (red) and with (blue) carrier interleaving between submodules \eqref  {eq:carrier_phase}. Both traces share the same dc average; interleaving reduces the peak-to-peak ripple by roughly $4$--$5\times $, consistent with \eqref  {eq:dclink_ripple_estimate}. Computed simulation result, not measured hardware data.}}{7}{}\protected@file@percent }
+\newlabel{fig:dclink_ripple_interleaving}{{9}{7}{}{figure.9}{}}
+\newlabel{eq:dclink_ripple_estimate}{{12}{7}{}{equation.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Machine Harmonics, Voltage Utilization, and Switching Loss}{7}{}\protected@file@percent }
+\citation{Hopkins2019DCLinkRipple,Mohamed2020DCLinkSizing,Alosa2019ModularRipple}
+\citation{Chen2026HighModulationDTP}
+\citation{Yang2026HybridOEW,Lee2026AlternatingDPWM}
+\citation{Verkroost2024PowerDistribution,Wu2020ActiveBalancing,Mocevic2024GateDelay}
+\citation{Sun2025CMVMPC,Zheng2025MultiObjectivePWM,Chen2020EMCIntegrated}
 \citation{Giardine2025FCMLEMI}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Coupled circuit simulation of the shared series dc-link current $i_{\mathrm  {dc}}(t)$ for $N=3$ SPB cells ($M=0.85$, $\cos \varphi \approx 0.94$, $f_1=1$~Hz, $f_{sw}=100$~Hz), without (red) and with (blue) carrier interleaving applied \emph  {between the three submodules} (each cell's own carrier phase-shifted, not the fixed $120^\circ $ a/b/c reference separation within a cell), using the same mechanism as \eqref  {eq:carrier_phase}. Each cell's own naturally-sampled SPWM switching function drives a local converter-side current $i_{\mathrm  {conv},k}(t)$; because the $N$ cells are connected in series, one common current $i_{\mathrm  {dc}}(t)$ flows through the shared bus/wire inductance from the battery, and each cell's local dc-link capacitor $C_k$ (Section~\ref {sec:operating_principle}) supplies exactly the difference $i_{\mathrm  {dc}}-i_{\mathrm  {conv},k}$, per $C_k\,dV_k/dt=i_{\mathrm  {dc}}-i_{\mathrm  {conv},k}$ and $L\,di_{\mathrm  {dc}}/dt=V_{\mathrm  {batt}}-Ri_{\mathrm  {dc}}-\DOTSB \sum@ \slimits@ _kV_k$, solved self-consistently (shown after transients settle). Both traces share the same $\approx 1$~p.u.\ dc average (set by the converters' average power draw, independent of interleaving, consistent with \eqref  {eq:battery_current_tf}); interleaving reduces the peak-to-peak ripple by roughly $4$--$5\times $. The corresponding harmonic content is characterized analytically, not empirically, by the double-Fourier survival condition derived above (\eqref  {eq:dfs_switching}--\eqref  {eq:battery_current_tf}): only carrier harmonics that are themselves multiples of $N$ survive interleaving, each still carrying its own $n=\pm 6p-3$/$\pm 6p$ sideband family. This is a computed circuit-simulation result, not measured hardware data.}}{9}{}\protected@file@percent }
-\newlabel{fig:dclink_ripple_interleaving}{{9}{9}{}{figure.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Machine Harmonics, Voltage Utilization, and Switching Loss}{9}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces SPB modulation degrees of freedom grouped by principal system-level effect.}}{9}{}\protected@file@percent }
-\newlabel{fig:spb_modulation_taxonomy}{{III}{9}{}{table.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Coupling to Balancing and Common-Mode Objectives}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Common-Mode Voltage Effects}{9}{}\protected@file@percent }
-\newlabel{sec:common_mode}{{VI}{9}{}{section.6}{}}
 \citation{Zhong2025CMResonance,Chen2020EMCIntegrated}
-\citation{Giardine2025FCMLEMI}
 \citation{Han2018CMCancellation}
 \citation{Rohner2024GaN}
 \citation{Wang2015GaNIMMD}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}Coupling to Balancing and Common-Mode Objectives}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Common-Mode Voltage Effects}{8}{}\protected@file@percent }
+\newlabel{sec:common_mode}{{VI}{8}{}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Series-Stack Origin of Common-Mode Excitation}{8}{}\protected@file@percent }
+\newlabel{eq:spb_cm_offset}{{13}{8}{}{equation.13}{}}
+\newlabel{eq:spb_cm_local}{{14}{8}{}{equation.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Carrier Synchronization for CMV Cancellation}{8}{}\protected@file@percent }
 \citation{Rohner2024GaN,Han2018CMCancellation}
 \citation{Lee2025BearingCurrent}
 \citation{Li2025BearingMeasurement}
 \citation{Xie2026ShaftCM}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Series-Stack Origin of Common-Mode Excitation}{10}{}\protected@file@percent }
-\newlabel{eq:spb_cm_offset}{{11}{10}{}{equation.11}{}}
-\newlabel{eq:spb_cm_local}{{12}{10}{}{equation.12}{}}
-\newlabel{eq:spb_cm_cancellation}{{13}{10}{}{equation.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Simplified SPB series-stack structure showing the offset absolute potential of each cell/winding group and representative common-mode (CM) current paths (dashed) coupling each winding group to the shared machine frame and chassis ground through parasitic capacitance. Cell $k$'s local dc rails are displaced from the reference of cell 1 by $V_{-,k}=\DOTSB \sum@ \slimits@ _{j=1}^{k-1}V_{\mathrm  {dc},j}$, so each winding group's common-mode excitation combines this stack offset with its own local switching waveform.}}{10}{}\protected@file@percent }
-\newlabel{fig:spb_cm_stack}{{10}{10}{}{figure.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Physical Consequences and Mitigation}{10}{}\protected@file@percent }
 \citation{KholghKhiz2025HairpinWBG,Gulec2025PDImpulse,Seri2025ATFPDIV}
 \citation{Kim2025HairpinFRA}
 \citation{Martinez2025TransportInsulation}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Simplified SPB series-stack structure: absolute potential offset per cell \eqref  {eq:spb_cm_offset} and representative CM current paths (dashed) to the shared frame/chassis ground through parasitic capacitance.}}{9}{}\protected@file@percent }
+\newlabel{fig:spb_cm_stack}{{10}{9}{}{figure.10}{}}
+\newlabel{eq:spb_cm_cancellation}{{15}{9}{}{equation.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Physical Consequences and Mitigation}{9}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Switching-function simulation of $N=2$ SPB common-mode cancellation ($M=0.85$, $\cos \varphi \approx 0.94$), all quantities in per unit, with cell~2 driven by the logically inverted gate commands of cell~1 plus a propagation delay $t_d=0.02\,T_{sw}$. (a)~Each cell's absolute CM voltage $v_{\mathrm  {cm},k}^{\mathrm  {abs}}$, combining the stack offset $V_{-,k}$~\eqref  {eq:spb_cm_offset} with its local switching term. (b)~Total CM voltage $v_{\mathrm  {cm,tot}}(t)$~\eqref  {eq:spb_cm_cancellation}: cancellation removes the switching ripple, leaving only delay-induced residual spikes on the same stack-offset average. (c)~Resulting bearing/ground current $i_{\mathrm  {bear}}=C\,dv_{\mathrm  {cm,tot}}/dt$, normalized to the without-cancellation peak. Computed simulation result, not measured hardware data.}}{9}{}\protected@file@percent }
+\newlabel{fig:spb_cm_cancellation}{{11}{9}{}{figure.11}{}}
 \citation{Ihsan2025ActiveEMI}
 \citation{Xie2026ShaftCM}
 \citation{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}
 \citation{Nikouie2015Stability,Nikouie2017Stability}
 \citation{Wang2015ThesisDVB}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Switching-function simulation of $N=2$ SPB common-mode cancellation ($M=0.85$, $\cos \varphi \approx 0.94$), all quantities in per unit. (a)~Each cell's own \emph  {absolute} common-mode voltage $v_{\mathrm  {cm},k}^{\mathrm  {abs}}=V_{-,k}+\big  [(S_a+S_b+S_c)/3-\tfrac  12\big  ]/N$, combining the stack offset $V_{-,k}$~\eqref  {eq:spb_cm_offset} (dashed line marks $V_{-,2}=V_{\mathrm  {dc}}/N=0.5$) with a six-step local switching term from the three independent phase-leg transitions; cell~2 uses the logically inverted gate commands of cell~1 plus a small inter-cell propagation delay $t_d=0.02\,T_{sw}$. (b)~Total common-mode voltage $v_{\mathrm  {cm,tot}}(t)$~\eqref  {eq:spb_cm_cancellation}: without cancellation the local terms add, swinging fully around the same stack-offset average; with cancellation the local terms cancel, leaving only narrow delay-induced residual spikes on top of that same average -- both settle to $\approx \!0.25=\text  {mean}(V_{-,1},V_{-,2})$, confirming that pairwise cancellation removes the switching ripple but not the structural stack offset itself. (c)~Resulting bearing/ground current through a capacitive coupling path, $i_{\mathrm  {bear}}=C\,dv_{\mathrm  {cm,tot}}/dt$, normalized to the without-cancellation peak: verified numerically that the constant stack offset in (b) contributes zero current (a constant has zero derivative) even though it dominates the voltage, so the current with cancellation is driven entirely by the delay-induced spikes. This is a computed simulation result, not measured hardware data.}}{11}{}\protected@file@percent }
-\newlabel{fig:spb_cm_cancellation}{{11}{11}{}{figure.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}DC-Link Dynamics, Stability, and Voltage Balancing}{11}{}\protected@file@percent }
-\newlabel{sec:dclink_balancing}{{VII}{11}{}{section.7}{}}
-\newlabel{eq:spb_voltage_dynamic}{{14}{11}{}{equation.14}{}}
-\newlabel{eq:cell_voltage_deviation}{{15}{11}{}{equation.15}{}}
 \citation{Nikouie2015Stability,Nikouie2017Stability}
 \citation{Ni2025SeriesDCLinkStability}
-\citation{Nikouie2017Stability}
-\citation{Nikouie2017Stability}
 \citation{Nikouie2017Stability}
 \citation{Nikouie2017Stability}
 \citation{Nikouie2017Stability}
@@ -209,48 +199,33 @@
 \citation{Nikouie2015Stability,Nikouie2017Stability}
 \citation{Mocevic2023CDR,Mocevic2024GateDelay}
 \citation{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,Verkroost2024Reconfiguration}
-\citation{Nikouie2017Stability}
-\citation{Nikouie2017Stability}
-\citation{Nikouie2015Stability,Nikouie2017Stability}
-\citation{Mocevic2023CDR}
-\citation{Verkroost2024VoltageBalance}
-\citation{Nikouie2017Stability}
-\citation{Nikouie2015Stability,Nikouie2017Stability}
-\citation{Mocevic2023CDR}
-\citation{Verkroost2024VoltageBalance}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Nonlinear simulation of SPB dc-link voltage-sharing dynamics for $N=3$ cells, integrating the exact constant-power-load model of \cite  {Nikouie2017Stability} (not its linearization) from the same initial per-cell voltage deviations ($+8\%$, $-5\%$, $+2\%$ of $v^\star $) with and without their proportional balancing controller. Without balancing (left), the open-loop instability proven in \cite  {Nikouie2017Stability} drives Cell~2's voltage toward collapse within about 2~ms while Cells~1 and~3 compensate; with balancing (right, same initial conditions, same time axis), all three cells converge back toward $v^\star $ on a comparable timescale. This is a computed simulation result using real experimental circuit parameters from the cited reference, not measured hardware data.}}{12}{}\protected@file@percent }
-\newlabel{fig:spb_balancing_dynamics}{{12}{12}{}{figure.12}{}}
-\newlabel{eq:linearized_balance_dynamic}{{16}{12}{}{equation.16}{}}
-\newlabel{eq:balancing_power}{{17}{12}{}{equation.17}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Principal SPB dc-link balancing approaches and their main considerations.}}{12}{}\protected@file@percent }
-\newlabel{fig:spb_balancing_taxonomy}{{IV}{12}{}{table.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VIII}Semiconductor Technology and Cell-Count Scaling}{12}{}\protected@file@percent }
-\newlabel{sec:semiconductor_scaling}{{VIII}{12}{}{section.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}DC-Link Dynamics, Stability, and Voltage Balancing}{10}{}\protected@file@percent }
+\newlabel{sec:dclink_balancing}{{VII}{10}{}{section.7}{}}
+\newlabel{eq:spb_voltage_dynamic}{{16}{10}{}{equation.16}{}}
+\newlabel{eq:cell_voltage_deviation}{{17}{10}{}{equation.17}{}}
+\newlabel{eq:linearized_balance_dynamic}{{18}{10}{}{equation.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Nonlinear dc-link voltage-sharing simulation for $N=3$ cells, without (left) and with (right) the balancing controller of \cite  {Nikouie2017Stability}. Computed simulation result, not measured hardware data.}}{10}{}\protected@file@percent }
+\newlabel{fig:spb_balancing_dynamics}{{12}{10}{}{figure.12}{}}
+\newlabel{eq:balancing_power}{{19}{10}{}{equation.19}{}}
 \citation{WBGTractionReview2025,Rohner2024GaN,Ebrahimian2025GaNIMMD}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Control block diagram for a representative cell $k$ under each of the three SPB dc-link balancing approaches of Table~\ref {fig:spb_balancing_taxonomy}. All three share the same forward path -- a common current-control loop sets $v_d^\star ,v_q^\star $ for every cell, and a summing junction ahead of the $dq{\to }\alpha \beta $/PWM stage admits a per-cell correction $\Delta v_{d,k},\Delta v_{q,k}$ -- following the structure used for the ``controller alternative I'' simulation of Fig.~\ref {fig:spb_balancing_dynamics} \cite  {Nikouie2017Stability}. (a)~Centralized: one controller senses every cell's $V_{\mathrm  {dc},k}$ and computes $v_{\mathrm  {ref}}=\tfrac  1N\DOTSB \sum@ \slimits@ _kV_{\mathrm  {dc},k}$ \cite  {Nikouie2015Stability,Nikouie2017Stability}. (b)~CDR: the balancing block is absent entirely ($\Delta v_{d,k}=\Delta v_{q,k}=0$); all cells receive the same open-loop command and balancing relies on the natural coupled converter--machine dynamics \cite  {Mocevic2023CDR}. (c)~Distributed: each cell computes its own local $v_{\mathrm  {ref}}$ from its own voltage and neighbour-only measurements exchanged with Cell~$k{-}1$ and Cell~$k{+}1$, with no central node \cite  {Verkroost2024VoltageBalance}.}}{13}{}\protected@file@percent }
-\newlabel{fig:balancing_control_diagrams}{{13}{13}{}{figure.13}{}}
-\newlabel{eq:semiconductor_rating}{{18}{13}{}{equation.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Cell-count scaling for a 1200-V dc link: nominal cell voltage $V_{\mathrm  {cell,nom}}=V_{\mathrm  {dc}}/N$ (solid markers, left log axis) and active-switch count $6N$ (dashed markers, right linear axis) versus cell count $N$; every marker is labeled directly with its exact value ($N=1$: 1200~V, 6; $N=2$: 600~V, 12; $N=3$: 400~V, 18; $N=4$: 300~V, 24; $N=5$: 240~V, 30; $N=8$: 150~V, 48; $N=10$: 120~V, 60; $N=15$: 80~V, 90). Increasing $N$ opens progressively lower commercial semiconductor voltage classes (e.g., 1700--2000-V SiC at $N=1$, 650-V GaN/SiC at $N=3$, 100-V GaN/MOSFET class at $N=15$) while the active-switch count grows linearly as $6N$.}}{13}{}\protected@file@percent }
-\newlabel{fig:cell_count_scaling}{{14}{13}{}{figure.14}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Commercial-Device Screening}{13}{}\protected@file@percent }
 \citation{Zhu2024GaN150A,Rahman2025GaN300A}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Principal SPB dc-link balancing approaches and their main considerations.}}{11}{}\protected@file@percent }
+\newlabel{fig:spb_balancing_taxonomy}{{IV}{11}{}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Semiconductor Technology and Cell-Count Scaling}{11}{}\protected@file@percent }
+\newlabel{sec:semiconductor_scaling}{{VIII}{11}{}{section.8}{}}
+\newlabel{eq:semiconductor_rating}{{20}{11}{}{equation.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Cell-count scaling for a 1200-V dc link: nominal cell voltage $V_{\mathrm  {cell,nom}}=V_{\mathrm  {dc}}/N$ (solid markers, left log axis) and active-switch count $6N$ (dashed markers, right linear axis) versus cell count $N$; every marker is labeled directly with its exact value ($N=1$: 1200~V, 6; $N=2$: 600~V, 12; $N=3$: 400~V, 18; $N=4$: 300~V, 24; $N=5$: 240~V, 30; $N=8$: 150~V, 48; $N=10$: 120~V, 60; $N=15$: 80~V, 90). Increasing $N$ opens progressively lower commercial semiconductor voltage classes (e.g., 1700--2000-V SiC at $N=1$, 650-V GaN/SiC at $N=3$, 100-V GaN/MOSFET class at $N=15$) while the active-switch count grows linearly as $6N$.}}{11}{}\protected@file@percent }
+\newlabel{fig:cell_count_scaling}{{13}{11}{}{figure.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Commercial-Device Screening}{11}{}\protected@file@percent }
+\newlabel{eq:eoss_integral}{{21}{11}{}{equation.21}{}}
+\newlabel{eq:parallel_device_scaling}{{22}{11}{}{equation.22}{}}
 \citation{Rahman2025GaN300A}
 \citation{Ajayan2025GaNReliability,Ajayan2025GaNFabrication}
 \citation{Nikouie2016Fault,Zhang2014FaultToleranceFSCW,Gjerde2014SeriesFault}
 \citation{Nikouie2016Fault}
 \citation{Zhang2014FaultToleranceFSCW}
 \citation{Gjerde2014SeriesFault}
-\citation{Zhang2014FaultToleranceFSCW}
 \citation{Tang2025SixPhaseFault,Zhang2025FaultTolerantMMD,Du2026ModularPMSMFault}
-\newlabel{eq:eoss_integral}{{19}{14}{}{equation.19}{}}
-\newlabel{eq:parallel_device_scaling}{{20}{14}{}{equation.20}{}}
-\newlabel{eq:semiconductor_overshoot}{{21}{14}{}{equation.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Loss Scaling With Cell Count}{14}{}\protected@file@percent }
-\newlabel{eq:cond_loss_short}{{22}{14}{}{equation.22}{}}
-\newlabel{eq:switching_loss_short}{{23}{14}{}{equation.23}{}}
-\newlabel{eq:complete_semiconductor_loss}{{24}{14}{}{equation.24}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IX}Fault Tolerance and Reconfiguration}{14}{}\protected@file@percent }
-\newlabel{sec:fault_reconfiguration}{{IX}{14}{}{section.9}{}}
 \citation{Verkroost2024Reconfiguration}
 \citation{Nikouie2016Fault}
 \citation{Verkroost2024Reconfiguration}
@@ -258,29 +233,28 @@
 \citation{Ebrahimian2025FaultTolerantIMMD}
 \citation{Swanke2022MarkovReliability}
 \citation{Hennen2012DistributedIMMD,Wolmarans2008IntegratedFT}
-\citation{Su2012SegmentedTraction}
-\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Reported Post-Fault Short-Circuit Characteristics for SPB Machine Designs \cite  {Zhang2014FaultToleranceFSCW}}}{15}{}\protected@file@percent }
-\newlabel{tab:spb_postfault_shortcircuit}{{V}{15}{}{table.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Simplified SPB converter--machine structure with fault locations \textcircled {1}--\textcircled {5} annotated, corresponding in order to the rows of Table~\ref {tab:spb_fault_compact}.}}{15}{}\protected@file@percent }
-\newlabel{fig:spb_fault_locations}{{15}{15}{}{figure.15}{}}
-\newlabel{eq:fault_power_redistribution}{{25}{15}{}{equation.25}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces SPB Fault Locations and Required System Response}}{15}{}\protected@file@percent }
-\newlabel{tab:spb_fault_compact}{{VI}{15}{}{table.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Illustrative, analytically derived example of the post-fault current derating and remaining-cell voltage step-up for a representative $N=3\to 2$ case (one of three cells isolated after a fault); this is not measured or simulated data. (a) Normalized dc-link current, derated post-fault per \eqref  {eq:fault_power_redistribution}. (b) Normalized remaining-cell voltage, stepping from 1~p.u. to $N/(N-1)=1.5$~p.u. \eqref  {eq:spb_voltage_sum} once two cells must share $V_{\mathrm  {dc}}$. Both panels share the same time axis.}}{15}{}\protected@file@percent }
-\newlabel{fig:spb_fault_response}{{16}{15}{}{figure.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {X}Research Gaps and Future Directions}{15}{}\protected@file@percent }
-\newlabel{sec:future_directions}{{X}{15}{}{section.10}{}}
+\newlabel{eq:semiconductor_overshoot}{{23}{12}{}{equation.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Loss Scaling With Cell Count}{12}{}\protected@file@percent }
+\newlabel{eq:cond_loss_short}{{24}{12}{}{equation.24}{}}
+\newlabel{eq:switching_loss_short}{{25}{12}{}{equation.25}{}}
+\newlabel{eq:complete_semiconductor_loss}{{26}{12}{}{equation.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Fault Tolerance and Reconfiguration}{12}{}\protected@file@percent }
+\newlabel{sec:fault_reconfiguration}{{IX}{12}{}{section.9}{}}
+\newlabel{eq:fault_power_redistribution}{{27}{12}{}{equation.27}{}}
 \citation{WBGTractionReview2025,Post800V2026}
 \citation{Rohner2024GaN}
 \citation{Bringezu2020SPB}
 \citation{Nikouie2016Fault,Verkroost2024Reconfiguration}
 \citation{Swanke2022MarkovReliability}
-\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Suggested Validation Ladder for Automotive SPB Research}}{16}{}\protected@file@percent }
-\newlabel{tab:validation_ladder}{{VII}{16}{}{table.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {X-A}}High-Power Validation and Standardized Benchmarking}{16}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {X-B}}Cell Count, Reliability, and Cost Co-Design}{16}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {XI}Conclusion}{16}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{XI}{16}{}{section.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Simplified SPB converter--machine structure with fault locations \textcircled {1}--\textcircled {5} annotated, corresponding in order to the rows of Table~\ref {tab:spb_fault_compact}.}}{13}{}\protected@file@percent }
+\newlabel{fig:spb_fault_locations}{{14}{13}{}{figure.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces SPB Fault Locations and Required System Response}}{13}{}\protected@file@percent }
+\newlabel{tab:spb_fault_compact}{{V}{13}{}{table.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Illustrative, analytically derived example of the post-fault current derating and remaining-cell voltage step-up for a representative $N=3\to 2$ case (one of three cells isolated after a fault); this is not measured or simulated data. (a) Normalized dc-link current, derated post-fault per \eqref  {eq:fault_power_redistribution}. (b) Normalized remaining-cell voltage, stepping from 1~p.u. to $N/(N-1)=1.5$~p.u. \eqref  {eq:spb_voltage_sum} once two cells must share $V_{\mathrm  {dc}}$. Both panels share the same time axis.}}{13}{}\protected@file@percent }
+\newlabel{fig:spb_fault_response}{{15}{13}{}{figure.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {X}Research Gaps and Future Directions}{13}{}\protected@file@percent }
+\newlabel{sec:future_directions}{{X}{13}{}{section.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {X-A}}Toward an Integrated Co-Design Framework}{13}{}\protected@file@percent }
 \bibstyle{jabbrv_IEEEtran}
 \bibdata{ref}
 \bibcite{EVTractionReview2023}{1}
@@ -298,6 +272,9 @@
 \bibcite{InfineonCAV250kW}{13}
 \bibcite{VolvoEX90Specifications2026}{14}
 \bibcite{Wang2021ANPC1200V}{15}
+\@writefile{toc}{\contentsline {section}{\numberline {XI}Conclusion}{14}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{XI}{14}{}{section.11}{}}
+\@writefile{toc}{\contentsline {section}{References}{14}{}\protected@file@percent }
 \bibcite{AVLPI850e}{16}
 \bibcite{PorscheTaycanTurboS2026}{17}
 \bibcite{TwoLevel_Enes}{18}
@@ -312,14 +289,13 @@
 \bibcite{T_type_SiC}{27}
 \bibcite{FlyingCap_Optimized3D}{28}
 \bibcite{CascadedHBridge_control}{29}
-\@writefile{toc}{\contentsline {section}{References}{17}{}\protected@file@percent }
-\bibcite{Norrga2013SPB}{30}
-\bibcite{Choi2011IMMD}{31}
-\bibcite{Wang2025GaNIMMD}{32}
-\bibcite{JahnsDai2017IMDReview}{33}
-\bibcite{Bringezu2020SPB}{34}
-\bibcite{Deng2026IMDReview}{35}
-\bibcite{Ebrahimian2025GaNIMMD}{36}
+\bibcite{Choi2011IMMD}{30}
+\bibcite{Wang2025GaNIMMD}{31}
+\bibcite{JahnsDai2017IMDReview}{32}
+\bibcite{Bringezu2020SPB}{33}
+\bibcite{Deng2026IMDReview}{34}
+\bibcite{Ebrahimian2025GaNIMMD}{35}
+\bibcite{Norrga2013SPB}{36}
 \bibcite{Cengelci2000MMMI}{37}
 \bibcite{Wang2013GaNIMMD}{38}
 \bibcite{Wang2015GaNIMMD}{39}
@@ -364,44 +340,42 @@
 \bibcite{Chen2026WBGIMD}{78}
 \bibcite{Chowdhury2019Integration}{79}
 \bibcite{Abebe2016IMDReview}{80}
-\bibcite{Abebe2015FEAThermal}{81}
-\bibcite{DeMarcos2025InterleavedPWM}{82}
-\bibcite{Wang2025HybridPWM}{83}
-\bibcite{Wang2015ThesisDVB}{84}
-\bibcite{Hopkins2019DCLinkRipple}{85}
-\bibcite{Mohamed2020DCLinkSizing}{86}
-\bibcite{Alosa2019ModularRipple}{87}
-\bibcite{Yang2026HybridOEW}{88}
-\bibcite{Lee2026AlternatingDPWM}{89}
-\bibcite{Wu2020ActiveBalancing}{90}
-\bibcite{Sun2025CMVMPC}{91}
-\bibcite{Zheng2025MultiObjectivePWM}{92}
+\bibcite{Hopkins2019DCLinkRipple}{81}
+\bibcite{Wang2025HybridPWM}{82}
+\bibcite{Wang2025PWMHarmonicLoss}{83}
+\bibcite{Yang2026HybridOEW}{84}
+\bibcite{Lee2026AlternatingDPWM}{85}
+\bibcite{Sun2025CMVMPC}{86}
+\bibcite{Zheng2025MultiObjectivePWM}{87}
+\bibcite{Wu2020ActiveBalancing}{88}
+\bibcite{Wang2015ThesisDVB}{89}
+\bibcite{DeMarcos2025InterleavedPWM}{90}
+\bibcite{Mohamed2020DCLinkSizing}{91}
+\bibcite{Alosa2019ModularRipple}{92}
 \bibcite{Chen2020EMCIntegrated}{93}
-\bibcite{Wang2025PWMHarmonicLoss}{94}
-\bibcite{Giardine2025FCMLEMI}{95}
-\bibcite{Zhong2025CMResonance}{96}
-\bibcite{Han2018CMCancellation}{97}
-\bibcite{Lee2025BearingCurrent}{98}
-\bibcite{Li2025BearingMeasurement}{99}
-\bibcite{Xie2026ShaftCM}{100}
-\bibcite{KholghKhiz2025HairpinWBG}{101}
-\bibcite{Gulec2025PDImpulse}{102}
-\bibcite{Seri2025ATFPDIV}{103}
-\bibcite{Kim2025HairpinFRA}{104}
-\bibcite{Martinez2025TransportInsulation}{105}
-\bibcite{Ihsan2025ActiveEMI}{106}
-\bibcite{Ni2025SeriesDCLinkStability}{107}
-\bibcite{Galassini2016ModularSpeedDroop}{108}
-\bibcite{Zhu2024GaN150A}{109}
-\bibcite{Rahman2025GaN300A}{110}
-\bibcite{Ajayan2025GaNReliability}{111}
-\bibcite{Ajayan2025GaNFabrication}{112}
-\bibcite{Nikouie2016Fault}{113}
-\bibcite{Zhang2014FaultToleranceFSCW}{114}
-\bibcite{Gjerde2014SeriesFault}{115}
-\bibcite{Zhang2025FaultTolerantMMD}{116}
-\bibcite{Du2026ModularPMSMFault}{117}
-\bibcite{Ebrahimian2025FaultTolerantIMMD}{118}
-\bibcite{Swanke2022MarkovReliability}{119}
-\bibcite{Su2012SegmentedTraction}{120}
-\gdef \@abspage@last{20}
+\bibcite{Giardine2025FCMLEMI}{94}
+\bibcite{Zhong2025CMResonance}{95}
+\bibcite{Han2018CMCancellation}{96}
+\bibcite{Lee2025BearingCurrent}{97}
+\bibcite{Li2025BearingMeasurement}{98}
+\bibcite{Xie2026ShaftCM}{99}
+\bibcite{KholghKhiz2025HairpinWBG}{100}
+\bibcite{Gulec2025PDImpulse}{101}
+\bibcite{Seri2025ATFPDIV}{102}
+\bibcite{Kim2025HairpinFRA}{103}
+\bibcite{Martinez2025TransportInsulation}{104}
+\bibcite{Ihsan2025ActiveEMI}{105}
+\bibcite{Ni2025SeriesDCLinkStability}{106}
+\bibcite{Galassini2016ModularSpeedDroop}{107}
+\bibcite{Zhu2024GaN150A}{108}
+\bibcite{Rahman2025GaN300A}{109}
+\bibcite{Ajayan2025GaNReliability}{110}
+\bibcite{Ajayan2025GaNFabrication}{111}
+\bibcite{Nikouie2016Fault}{112}
+\bibcite{Zhang2014FaultToleranceFSCW}{113}
+\bibcite{Gjerde2014SeriesFault}{114}
+\bibcite{Zhang2025FaultTolerantMMD}{115}
+\bibcite{Du2026ModularPMSMFault}{116}
+\bibcite{Ebrahimian2025FaultTolerantIMMD}{117}
+\bibcite{Swanke2022MarkovReliability}{118}
+\gdef \@abspage@last{17}

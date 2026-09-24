@@ -7,11 +7,11 @@ The shared dc current and independently controllable winding-group
 powers (Section~\ref{sec:operating_principle}) make the local
 capacitors coupled energy-storage states whose voltages are not
 guaranteed to remain equal
-\cite{Nikouie2015Stability,Nikouie2017Stability}. An independent study
-of a series-connected multilevel motor drive reached the same
-conclusion, showing that under distributed closed-loop current control
-the series-connected module voltages are inherently unstable without
-dedicated balancing action \cite{Wang2015ThesisDVB}.
+\cite{Nikouie2015Stability,Nikouie2017Stability}, a conclusion also
+reached independently for a series-connected multilevel motor drive,
+where distributed closed-loop current control alone was shown to leave
+the module voltages inherently unstable without dedicated balancing
+action \cite{Wang2015ThesisDVB}.
 
 For cell $k$,
 \begin{equation}
@@ -22,10 +22,10 @@ V_{\mathrm{dc},k}i_{\mathrm{dc}}
 -p_{\mathrm{loss},k}.
 \label{eq:spb_voltage_dynamic}
 \end{equation}
-This equation captures the essential balancing mechanism: the dc input
-power depends directly on local cell voltage because the series current
-is common, whereas the output power depends on the corresponding
-machine winding group and its controller.
+This captures the essential balancing mechanism: dc input power
+depends directly on local cell voltage because the series current is
+common, while output power is set independently by the corresponding
+winding group's controller.
 
 For analysis, define
 \begin{equation}
@@ -41,50 +41,39 @@ CV_0\frac{d\widetilde V_k}{dt}
 I_{\mathrm{dc},0}\widetilde V_k-\Delta P_k.
 \label{eq:linearized_balance_dynamic}
 \end{equation}
-In motoring operation, $I_{\mathrm{dc},0}>0$; a positive cell-voltage
-perturbation increases the dc input power of that cell and can reinforce
-the voltage deviation if the ac-side power remains unchanged. In
-regeneration the sign of this feedback reverses. This simplified
-interpretation is consistent with the detailed SPB stability analyses
-in \cite{Nikouie2015Stability,Nikouie2017Stability} and with recent
-work on related series-connected multiphase drives
+In motoring operation ($I_{\mathrm{dc},0}>0$), a positive cell-voltage
+perturbation increases that cell's dc input power and can reinforce the
+deviation if the ac-side power is unchanged; in regeneration the
+feedback sign reverses. This simplified picture is consistent with the
+detailed SPB stability analyses in
+\cite{Nikouie2015Stability,Nikouie2017Stability} and with recent work
+on related series-connected multiphase drives
 \cite{Ni2025SeriesDCLinkStability}.
 
-Reference~\cite{Nikouie2017Stability} derives this instability from
-the full nonlinear constant-power-load model directly, without the
+Reference~\cite{Nikouie2017Stability} derives this instability directly
+from the full nonlinear constant-power-load model, without the
 small-signal approximation of \eqref{eq:linearized_balance_dynamic}:
 with $L_b\,di_{\mathrm{dc}}/dt=E_b-R_bi_{\mathrm{dc}}-\sum_kV_{\mathrm{dc},k}$
 and $C_k\,dV_{\mathrm{dc},k}/dt=i_{\mathrm{dc}}-P_k/V_{\mathrm{dc},k}$, the
 open-loop characteristic polynomial has $N-1$ real, strictly positive
-eigenvalues in motoring operation ($P_k>0$) for any $N>1$, so the
-series stack is provably unstable without a balancing controller,
-regardless of parameter choice. Fig.~\ref{fig:spb_balancing_dynamics}
-integrates this exact nonlinear model directly (not its linearization),
-using the real experimental parameters of
+eigenvalues in motoring operation ($P_k>0$) for any $N>1$ -- the series
+stack is provably unstable without a balancing controller, regardless
+of parameter choice. Fig.~\ref{fig:spb_balancing_dynamics} integrates
+this exact nonlinear model using the real experimental parameters of
 \cite{Nikouie2017Stability} ($L_b=8\,\mu\text{H}$, $R_b=0.35\,\Omega$,
-$C=100\,\mu\text{F}$ per cell): without a balancing controller, a
-small initial voltage imbalance grows into a full collapse of one
-cell's voltage within milliseconds, while the proportional balancing
-law of \cite{Nikouie2017Stability} ($\Delta P_k=g'(V_{\mathrm{dc},k}
--\overline{V}_{\mathrm{dc}})$, their ``controller alternative I'')
-drives the same initial imbalance back to zero on a comparable
-timescale.
+$C=100\,\mu\text{F}$ per cell): without balancing, a small initial
+imbalance collapses one cell's voltage within milliseconds, while the
+proportional balancing law of \cite{Nikouie2017Stability} (their
+``controller alternative I'') drives the same imbalance back to zero on
+a comparable timescale.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{Figures/fig_dclink_balancing.pdf}
-\caption{Nonlinear simulation of SPB dc-link voltage-sharing dynamics
-for $N=3$ cells, integrating the exact constant-power-load model of
-\cite{Nikouie2017Stability} (not its linearization) from the same
-initial per-cell voltage deviations ($+8\%$, $-5\%$, $+2\%$ of
-$v^\star$) with and without their proportional balancing controller.
-Without balancing (left), the open-loop instability proven in
-\cite{Nikouie2017Stability} drives Cell~2's voltage toward collapse
-within about 2~ms while Cells~1 and~3 compensate; with balancing
-(right, same initial conditions, same time axis), all three cells
-converge back toward $v^\star$ on a comparable timescale. This is a
-computed simulation result using real experimental circuit parameters
-from the cited reference, not measured hardware data.}
+\caption{Nonlinear dc-link voltage-sharing simulation for $N=3$ cells,
+without (left) and with (right) the balancing controller of
+\cite{Nikouie2017Stability}. Computed simulation result, not measured
+hardware data.}
 \label{fig:spb_balancing_dynamics}
 \end{figure}
 
@@ -97,29 +86,29 @@ P_k^\star=\frac{P^\star}{N}+\Delta P_k,
 \sum_{k=1}^{N}\Delta P_k=0,
 \label{eq:balancing_power}
 \end{equation}
-so differential power changes the internal energy distribution without
-changing the requested total machine power. In practice,
-$\Delta P_k$ is limited by available phase-current margin, winding
-voltage, torque-ripple constraints, and thermal state. Balancing
-authority is therefore operating-point dependent.
+so differential power redistributes internal energy without changing
+the requested total machine power. In practice $\Delta P_k$ is limited
+by phase-current margin, winding voltage, torque-ripple constraints,
+and thermal state, so balancing authority is operating-point
+dependent.
 
-Three main SPB approaches can be identified. Centralized active
-balancing uses measured capacitor voltages to generate differential
-current or power commands
-\cite{Nikouie2015Stability,Nikouie2017Stability}.
-Common-duty-ratio (CDR) control instead applies common modulation
-commands and can obtain stable voltage sharing from the natural
-converter--machine dynamics for the investigated induction-machine
-system \cite{Mocevic2023CDR}; practical timing mismatch remains
-important \cite{Mocevic2024GateDelay}. Distributed multi-agent control
-uses local measurements and neighbour communication and has been
-demonstrated for voltage balancing, power sharing, and reconfiguration
+Three main SPB balancing approaches can be identified. Centralized
+active balancing uses measured capacitor voltages to generate
+differential current or power commands
+\cite{Nikouie2015Stability,Nikouie2017Stability}. Common-duty-ratio
+(CDR) control applies common modulation commands and can obtain stable
+voltage sharing from the natural converter--machine dynamics for the
+investigated induction-machine system \cite{Mocevic2023CDR}, though
+practical timing mismatch remains important
+\cite{Mocevic2024GateDelay}. Distributed multi-agent control uses local
+measurements and neighbour communication, and has been demonstrated
+for voltage balancing, power sharing, and reconfiguration
 \cite{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,
-Verkroost2024Reconfiguration}, comparable to how local droop laws
-coordinate power sharing across modules in the modular speed-droop
-framework of Galassini \textit{et al.}
-\cite{Galassini2016ModularSpeedDroop}. Table~\ref{fig:spb_balancing_taxonomy}
-summarizes these three approaches and their principal considerations.
+Verkroost2024Reconfiguration}, comparable to the local droop laws that
+coordinate power sharing across modules in the speed-droop framework of
+Galassini \textit{et al.} \cite{Galassini2016ModularSpeedDroop}.
+Table~\ref{fig:spb_balancing_taxonomy} summarizes these approaches and
+their principal considerations.
 
 \begin{table}[!t]
 \centering
@@ -147,113 +136,12 @@ Scalable; requires communication and synchronization\\
 \end{tabular}
 \end{table}
 
-Fig.~\ref{fig:balancing_control_diagrams} compares the three approaches
-of Table~\ref{fig:spb_balancing_taxonomy} directly, each drawn as the
-control block diagram for a representative cell $k$: a summing junction
-adds a per-cell correction $\Delta v_{d,k},\Delta v_{q,k}$ ahead of the
-$dq{\to}\alpha\beta$ transform and PWM stage, following the structure
-used by \cite{Nikouie2017Stability} for their ``controller alternative
-I''. The three panels differ only in what feeds that correction.
-
-\begin{figure*}[!t]
-\centering
-\begin{tikzpicture}[font=\scriptsize,>=latex,x=1mm,y=1mm]
-\tikzstyle{block}=[draw=blue!65!black,thick,rounded corners=1pt,
-  minimum height=8mm,align=center,fill=blue!7,font=\tiny,inner sep=1pt]
-\tikzstyle{sumjunc}=[draw=black,thick,circle,minimum size=4mm,
-  inner sep=0pt,font=\scriptsize]
-\tikzstyle{balblock}=[draw=orange!70!black,thick,rounded corners=1pt,
-  minimum height=13mm,text width=30mm,align=center,fill=orange!10,
-  font=\tiny,inner sep=2pt]
-\tikzstyle{noteblock}=[draw=gray,thick,dashed,rounded corners=1pt,
-  minimum height=13mm,text width=30mm,align=center,fill=gray!6,
-  font=\tiny,inner sep=2pt]
-
-% =====================================================================
-% Panel (a): Centralized
-% =====================================================================
-\begin{scope}[shift={(0,0)}]
-\node[sumjunc] (s) at (18,74) {$\scriptstyle\Sigma$};
-\node[block,minimum width=18mm] (t) at (18,62) {$dq{\to}\alpha\beta$};
-\node[block,minimum width=12mm] (p) at (18,51) {PWM};
-\node[block,minimum width=24mm] (c) at (18,38) {Converter\\module $k$};
-\draw[->,thick] (s) -- (t); \draw[->,thick] (t) -- (p); \draw[->,thick] (p) -- (c);
-\draw[->,thick,blue!65!black] (18,86) -- (s.north);
-\node[balblock] (bal) at (18,14)
-  {Centralized:\\$v_{\mathrm{ref}}=\tfrac1N\sum_kV_{\mathrm{dc},k}$\\(global sensing, all $N$ cells)};
-\draw[teal!55!black,dashed,->] (c.south) -- (18,29) -- (33,29) -- (33,20) -- (bal.east);
-\node[teal!55!black,font=\tiny] at (33,26) {$V_{\mathrm{dc},1..N}$};
-\draw[->,thick,orange!70!black] (4,14) -- (4,76) -- (s.west);
-\node[orange!70!black,font=\tiny] at (2,45) {$\Delta v_{d,k},\Delta v_{q,k}$};
-\node[font=\tiny,align=center] at (18,2) {(a) Centralized};
-\end{scope}
-
-% =====================================================================
-% Panel (b): CDR
-% =====================================================================
-\begin{scope}[shift={(54,0)}]
-\node[sumjunc] (s) at (18,74) {$\scriptstyle\Sigma$};
-\node[block,minimum width=18mm] (t) at (18,62) {$dq{\to}\alpha\beta$};
-\node[block,minimum width=12mm] (p) at (18,51) {PWM};
-\node[block,minimum width=24mm] (c) at (18,38) {Converter\\module $k$};
-\draw[->,thick] (s) -- (t); \draw[->,thick] (t) -- (p); \draw[->,thick] (p) -- (c);
-\draw[->,thick,blue!65!black] (18,86) -- (s.north)
-  node[near start,above,font=\tiny,align=center]
-  {$v_d^\star,v_q^\star$ (common, from outer current-control loop)};
-\node[noteblock] (note) at (18,14)
-  {CDR: no balancing block;\\same $v_d^\star,v_q^\star$ broadcast\\open-loop to all $N$ cells};
-\node[font=\tiny,align=center] at (18,2) {(b) CDR};
-\end{scope}
-
-% =====================================================================
-% Panel (c): Distributed
-% =====================================================================
-\begin{scope}[shift={(108,0)}]
-\node[sumjunc] (s) at (18,74) {$\scriptstyle\Sigma$};
-\node[block,minimum width=18mm] (t) at (18,62) {$dq{\to}\alpha\beta$};
-\node[block,minimum width=12mm] (p) at (18,51) {PWM};
-\node[block,minimum width=24mm] (c) at (18,38) {Converter\\module $k$};
-\draw[->,thick] (s) -- (t); \draw[->,thick] (t) -- (p); \draw[->,thick] (p) -- (c);
-\draw[->,thick,blue!65!black] (18,86) -- (s.north);
-\node[balblock] (bal) at (18,14)
-  {Distributed: local $v_{\mathrm{ref}}$\\from Cell $k{-}1$, Cell $k{+}1$\\(no central node)};
-\draw[teal!55!black,dashed,->] (c.south) -- (18,29) -- (bal.north);
-\draw[teal!55!black,dashed,<->] (bal.west) -- ++(-6,0)
-  node[left,font=\tiny] {Cell $k{-}1$};
-\draw[teal!55!black,dashed,<->] (bal.east) -- ++(6,0)
-  node[right,font=\tiny] {Cell $k{+}1$};
-\draw[->,thick,orange!70!black] (4,14) -- (4,76) -- (s.west);
-\node[font=\tiny,align=center] at (18,2) {(c) Distributed};
-\end{scope}
-\end{tikzpicture}
-\caption{Control block diagram for a representative cell $k$ under each
-of the three SPB dc-link balancing approaches of
-Table~\ref{fig:spb_balancing_taxonomy}. All three share the same
-forward path -- a common current-control loop sets $v_d^\star,v_q^\star$
-for every cell, and a summing junction ahead of the
-$dq{\to}\alpha\beta$/PWM stage admits a per-cell correction
-$\Delta v_{d,k},\Delta v_{q,k}$ -- following the structure used for the
-``controller alternative I'' simulation of
-Fig.~\ref{fig:spb_balancing_dynamics} \cite{Nikouie2017Stability}.
-(a)~Centralized: one controller senses every cell's $V_{\mathrm{dc},k}$
-and computes $v_{\mathrm{ref}}=\tfrac1N\sum_kV_{\mathrm{dc},k}$
-\cite{Nikouie2015Stability,Nikouie2017Stability}. (b)~CDR: the
-balancing block is absent entirely ($\Delta v_{d,k}=\Delta v_{q,k}=0$);
-all cells receive the same open-loop command and balancing relies on
-the natural coupled converter--machine dynamics \cite{Mocevic2023CDR}.
-(c)~Distributed: each cell computes its own local $v_{\mathrm{ref}}$
-from its own voltage and neighbour-only measurements exchanged with
-Cell~$k{-}1$ and Cell~$k{+}1$, with no central node
-\cite{Verkroost2024VoltageBalance}.}
-\label{fig:balancing_control_diagrams}
-\end{figure*}
-
-For automotive operation, balancing must remain effective through torque
-transients, field weakening, parameter mismatch, and module
-reconfiguration. Voltage-sensor offset, communication latency,
+For automotive operation, balancing must remain effective through
+torque transients, field weakening, parameter mismatch, and module
+reconfiguration: voltage-sensor offset, communication latency,
 propagation delay, and the available differential current/power margin
-can therefore determine the usable cell-voltage margin and,
-consequently, the semiconductor rating.
+can determine the usable cell-voltage margin and, consequently, the
+semiconductor rating.
 
 This underscores the section's central point: dc-link stability
 belongs to the complete converter--machine--control system, not the

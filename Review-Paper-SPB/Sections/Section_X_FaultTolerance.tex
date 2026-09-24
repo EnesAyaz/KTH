@@ -21,54 +21,15 @@ NdFeB rotor magnetization, risking machine overheating; reducing rotor
 magnetization limits this fault current but also narrows the
 constant-power-speed range, a design tradeoff specific to
 fault-tolerant FSCW PM machines \cite{Zhang2014FaultToleranceFSCW}.
-Table~\ref{tab:spb_postfault_shortcircuit} reports the measured
-post-fault short-circuit characteristics for the SPB machine designs
-in that study: with NdFeB magnets the short-circuit current exceeds
-the healthy-phase current, whereas with ferrite magnets it stays
-below it, at the cost of the short-circuit current becoming visibly
-non-sinusoidal due to magnetic coupling between the short-circuited
-winding and the adjacent healthy windings -- a concrete illustration
-that PM material selection is itself a fault-tolerance design
-variable, not only a torque-density one. Fault
-handling in other series-connected modular converters further
-underscores that mitigation requires the control system to be
+In the SPB machine designs of that study, post-fault short-circuit
+current with NdFeB magnets exceeds the healthy-phase current, whereas
+with ferrite magnets it stays below it, at the cost of becoming
+visibly non-sinusoidal from magnetic coupling with the adjacent
+healthy windings -- a concrete illustration that PM material selection
+is itself a fault-tolerance design variable, not only a torque-density
+one. Fault handling in other series-connected modular converters
+further underscores that mitigation requires the control system to be
 explicitly designed for module isolation \cite{Gjerde2014SeriesFault}.
-
-\begin{table}[!t]
-\centering
-\caption{Reported Post-Fault Short-Circuit Characteristics for SPB
-Machine Designs \cite{Zhang2014FaultToleranceFSCW}}
-\label{tab:spb_postfault_shortcircuit}
-\renewcommand{\arraystretch}{1.05}
-\setlength{\tabcolsep}{3pt}
-\footnotesize
-\begin{tabular}{lccccc}
-\hline
-\textbf{Machine} & \textbf{PM} & $i_{a,\mathrm{sc}}$ & $i_{b,\mathrm{sc}}$
-& $i_{c,\mathrm{sc}}$ & $T$\\
-& \textbf{type} & (A$_{\mathrm{rms}}$) & (A$_{\mathrm{rms}}$)
-& (A$_{\mathrm{rms}}$) & (N$\cdot$m)\\
-\hline
-1 & NdFeB & 119.8 & 117.7 & 110.6 & 106\\
-2 & Ferrite & 66.4 & 27.5 & 57.0 & 105\\
-3 & Ferrite & 60.6 & 34.3 & 56.8 & 103\\
-\hline
-\end{tabular}
-
-\vspace{1mm}
-\begin{minipage}{0.95\columnwidth}
-\footnotesize
-$i_{x,\mathrm{sc}}$: rms short-circuit current in phase $x$ of the
-faulted submodule's winding group after a converter submodule
-short-circuit; $T$: resulting steady-state electromagnetic torque.
-Machine~1's healthy-phase current after redistribution was
-$74.2$~A$_{\mathrm{rms}}$, below all three of its short-circuit
-currents; Machines~2--3's healthy-phase currents
-($116.5$/$115.6$~A$_{\mathrm{rms}}$) exceed their short-circuit
-currents, consistent with the NdFeB-vs-ferrite contrast discussed in
-the text.
-\end{minipage}
-\end{table}
 
 The machine provides a second layer of redundancy. Healthy winding
 groups can potentially redistribute current after phase or converter

@@ -221,12 +221,6 @@ F.~Gemma, J.~Riccio, G.~Tresca, A.~Volpini, and P.~Zanchetta,
   applications,'' in \emph{2024 IEEE Energy Conversion Congress and Exposition
   (ECCE)}, 2024, pp. 3941--3947.
 
-\bibitem{Norrga2013SPB}
-S.~Norrga, L.~Jin, O.~Wallmark, A.~Mayer, and K.~Ilves, ``A novel inverter
-  topology for compact ev and hev drive systems,'' in \emph{IECON 2013 - 39th
-  Annual Conference of the IEEE Industrial Electronics Society}, 2013, pp.
-  6590--6595.
-
 \bibitem{Choi2011IMMD}
 G.~Choi, Z.~Xu, M.~Li, S.~Gupta \emph{et~al.}, ``Development of integrated
   modular motor drive for traction applications,'' \emph{\JournalTitle{SAE
@@ -264,6 +258,12 @@ A.~Ebrahimian, S.~Iman Hosseini~Sabzevari, W.~A. Khan, and N.~Weise, ``Design
   for integrated modular motor drives in all-electric aircraft applications,''
   \emph{\JournalTitle{IEEE Journal of Emerging and Selected Topics in Power
   Electronics}}, vol.~13, no.~4, pp. 4504--4520, 2025.
+
+\bibitem{Norrga2013SPB}
+S.~Norrga, L.~Jin, O.~Wallmark, A.~Mayer, and K.~Ilves, ``A novel inverter
+  topology for compact ev and hev drive systems,'' in \emph{IECON 2013 - 39th
+  Annual Conference of the IEEE Industrial Electronics Society}, 2013, pp.
+  6590--6595.
 
 \bibitem{Cengelci2000MMMI}
 E.~Cengelci, P.~Enjeti, and J.~Gray, ``A new modular motor-modular inverter
@@ -543,17 +543,10 @@ R.~Abebe, G.~Vakil, G.~Lo~Calzo, T.~Cox, S.~Lambert, M.~Johnson, C.~Gerada, and
   \url{https://ietresearch.onlinelibrary.wiley.com/doi/abs/10.1049/iet-epa.2015.0506}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Abebe2015FEAThermal}
-R.~Abebe, G.~Vakil, G.~Lo~Calzo, T.~Cox, C.~Gerada, and M.~Johnson, ``{FEA}
-  based thermal analysis of various topologies for integrated motor drives
-  ({IMD}),'' in \emph{IECON 2015 - 41st Annual Conference of the IEEE
-  Industrial Electronics Society}, 2015, pp. 001\,976--001\,981.
-
-\bibitem{DeMarcos2025InterleavedPWM}
-A.~Demarcos, E.~Robles, U.~Ugalde, I.~Elosegui, and J.~Andreu, ``Output current
-  ripple in electric vehicles with asymmetrical dual three-phase arrangement
-  applying interleaved carrier-based pwm techniques,'' \emph{\JournalTitle{IEEE
-  Access}}, vol.~13, pp. 41\,743--41\,767, 2025.
+\bibitem{Hopkins2019DCLinkRipple}
+A.~Hopkins, B.~Hopfensperger, and P.~Mellor, ``Dc-link capacitor reduction in
+  low voltage and high power integrated modular motor drives,'' in \emph{2019
+  IEEE Energy Conversion Congress and Exposition (ECCE)}, 2019, pp. 3208--3214.
 
 \bibitem{Wang2025HybridPWM}
 S.~Wang, M.~Rivera, D.~Golovanov, J.~Blissett, J.~Moran, P.~Davison,
@@ -562,28 +555,12 @@ S.~Wang, M.~Rivera, D.~Golovanov, J.~Blissett, J.~Moran, P.~Davison,
   three-phase pmsms,'' \emph{\JournalTitle{IEEE Transactions on Industrial
   Electronics}}, vol.~72, no.~5, pp. 4577--4587, 2025.
 
-\bibitem{Wang2015ThesisDVB}
-J.~Wang, ``Design of multilevel integrated modular motor drive with gallium
-  nitride power devices,'' Ph.D. dissertation, University of Wisconsin-Madison,
-  2015.
-
-\bibitem{Hopkins2019DCLinkRipple}
-A.~Hopkins, B.~Hopfensperger, and P.~Mellor, ``Dc-link capacitor reduction in
-  low voltage and high power integrated modular motor drives,'' in \emph{2019
-  IEEE Energy Conversion Congress and Exposition (ECCE)}, 2019, pp. 3208--3214.
-
-\bibitem{Mohamed2020DCLinkSizing}
-A.~H. Mohamed, H.~Vansompel, and P.~Sergeant, ``A generic dc link capacitor
-  sizing methodology for multi-phase wide bandgap based integrated modular
-  motor drives,'' in \emph{2020 IEEE International Conference on Environment
-  and Electrical Engineering and 2020 IEEE Industrial and Commercial Power
-  Systems Europe (EEEIC / I\&CPS Europe)}, 2020.
-
-\bibitem{Alosa2019ModularRipple}
-C.~Alosa, F.~Immovilli, and E.~Lorenzani, ``Modular multi-three-phase electric
-  drives for enhanced reliability and current ripple minimization,'' in
-  \emph{IECON 2019 - 45th Annual Conference of the IEEE Industrial Electronics
-  Society}, vol.~1, 2019, pp. 7108--7114.
+\bibitem{Wang2025PWMHarmonicLoss}
+S.~Wang, M.~Rivera, D.~Golovanov, J.~Blissett, J.~Moran, P.~Davison, R.~G.,
+  C.~Gerada, and P.~Wheeler, ``Investigation of pwm techniques for
+  high-frequency harmonics loss performance in dual-three phase asymmetrical
+  machines,'' \emph{\JournalTitle{IEEE Transactions on Industrial
+  Electronics}}, vol.~72, no.~8, pp. 7826--7838, 2025.
 
 \bibitem{Yang2026HybridOEW}
 J.~Yang, G.~C. Lim, and J.-I. Ha, ``Hybrid modulation for zero-sequence current
@@ -596,11 +573,6 @@ G.~Lee, M.~Kim, H.~Kim, M.~Kim, G.~Choi, T.~Chung, H.~Park, S.~Han, M.~Kim, and
   K.~Lee, ``Alternating-sequence discontinuous pwm for open-end winding pmsm
   fed by dual inverter with a common dc bus,'' \emph{\JournalTitle{IEEE
   Transactions on Industrial Electronics}}, pp. 1--12, 2026.
-
-\bibitem{Wu2020ActiveBalancing}
-F.~Wu, A.~M. El-Refaie, and T.~M. Jahns, ``Active voltage balancing of
-  integrated modular drive with series dc-link capacitors,'' in \emph{2020 IEEE
-  Energy Conversion Congress and Exposition (ECCE)}, 2020, pp. 1469--1476.
 
 \bibitem{Sun2025CMVMPC}
 Y.~Sun, Z.~Wang, Y.~Shen, Z.~Xu, H.~Chang, H.~Zhu, and H.~Xiong, ``Mitigation
@@ -615,18 +587,40 @@ J.~Zheng, S.~Yang, Z.~Xie, X.~Zhang, and L.~Chang, ``Multiobjective pwm
   Journal of Emerging and Selected Topics in Power Electronics}}, vol.~13,
   no.~6, pp. 8017--8028, 2025.
 
+\bibitem{Wu2020ActiveBalancing}
+F.~Wu, A.~M. El-Refaie, and T.~M. Jahns, ``Active voltage balancing of
+  integrated modular drive with series dc-link capacitors,'' in \emph{2020 IEEE
+  Energy Conversion Congress and Exposition (ECCE)}, 2020, pp. 1469--1476.
+
+\bibitem{Wang2015ThesisDVB}
+J.~Wang, ``Design of multilevel integrated modular motor drive with gallium
+  nitride power devices,'' Ph.D. dissertation, University of Wisconsin-Madison,
+  2015.
+
+\bibitem{DeMarcos2025InterleavedPWM}
+A.~Demarcos, E.~Robles, U.~Ugalde, I.~Elosegui, and J.~Andreu, ``Output current
+  ripple in electric vehicles with asymmetrical dual three-phase arrangement
+  applying interleaved carrier-based pwm techniques,'' \emph{\JournalTitle{IEEE
+  Access}}, vol.~13, pp. 41\,743--41\,767, 2025.
+
+\bibitem{Mohamed2020DCLinkSizing}
+A.~H. Mohamed, H.~Vansompel, and P.~Sergeant, ``A generic dc link capacitor
+  sizing methodology for multi-phase wide bandgap based integrated modular
+  motor drives,'' in \emph{2020 IEEE International Conference on Environment
+  and Electrical Engineering and 2020 IEEE Industrial and Commercial Power
+  Systems Europe (EEEIC / I\&CPS Europe)}, 2020.
+
+\bibitem{Alosa2019ModularRipple}
+C.~Alosa, F.~Immovilli, and E.~Lorenzani, ``Modular multi-three-phase electric
+  drives for enhanced reliability and current ripple minimization,'' in
+  \emph{IECON 2019 - 45th Annual Conference of the IEEE Industrial Electronics
+  Society}, vol.~1, 2019, pp. 7108--7114.
+
 \bibitem{Chen2020EMCIntegrated}
 T.~Chen, C.~Caicedo-Narvaez, H.~Wang, M.~Moallem, B.~Fahimi, and M.~Kiani,
   ``Electromagnetic compatibility analysis of an induction motor drive with
   integrated power converter,'' \emph{\JournalTitle{IEEE Transactions on
   Magnetics}}, vol.~56, no.~1, 2020.
-
-\bibitem{Wang2025PWMHarmonicLoss}
-S.~Wang, M.~Rivera, D.~Golovanov, J.~Blissett, J.~Moran, P.~Davison, R.~G.,
-  C.~Gerada, and P.~Wheeler, ``Investigation of pwm techniques for
-  high-frequency harmonics loss performance in dual-three phase asymmetrical
-  machines,'' \emph{\JournalTitle{IEEE Transactions on Industrial
-  Electronics}}, vol.~72, no.~8, pp. 7826--7838, 2025.
 
 \bibitem{Giardine2025FCMLEMI}
 F.~Giardine, S.~Krishnan, M.~Nerenberg, and R.~C.~N. Pilawa-Podgurski, ``An
@@ -779,10 +773,5 @@ J.~A. Swanke and T.~M. Jahns, ``Reliability analysis of a fault-tolerant
   integrated modular motor drive for an urban air mobility aircraft using
   markov chains,'' \emph{\JournalTitle{IEEE Transactions on Transportation
   Electrification}}, vol.~8, no.~4, pp. 4523--4533, 2022.
-
-\bibitem{Su2012SegmentedTraction}
-G.-J. Su and L.~Tang, ``A segmented traction drive system with a small dc bus
-  capacitor,'' in \emph{2012 IEEE Energy Conversion Congress and Exposition
-  (ECCE)}, 2012, pp. 2847--2853.
 
 \end{thebibliography}
