@@ -1,0 +1,5 @@
+* Local wrapper around TI model; VSS must be ground.
+.include ../models/ti-lmg1210/LMG1210_LTspice.lib
+.subckt LMG1210_TEST VIN VDD EN_HI PWM_LI VSS HB HS HO LO BST DHL DLH
+XCORE HB HO PWM_LI HS HS HS HS 0 VSS VIN LO DHL DLH VDD VSS VSS EN_HI NC0 NC1 NC2 BST LMG1210
+.ends LMG1210_TEST

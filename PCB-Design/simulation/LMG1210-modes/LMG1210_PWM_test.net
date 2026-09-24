@@ -1,0 +1,28 @@
+* C:\Github\KTH\PCB-Design\simulation\LMG1210-modes\LMG1210_PWM_test.asc
+V12 VIN 0 PWL(0 0 1u 0 2u 12)
+CVDD VDD 0 1µ
+VHB HB HS 5
+VHS HS 0 75
+CHO HO HS 1n
+CLO LO 0 1n
+VEN EN 0 PWL(0 0 290u 0 291u 3.3)
+VPWM PWM 0 PULSE(0 3.3 {TS} 2n 2n {T/2-2n} {T})
+RDHL DHL 0 100k
+RDLH DLH 0 100k
+XU1 VIN VDD EN PWM 0 HB HS HO LO BST DHL DLH LMG1210_TEST
+* LMG1210 PWM MODE - driver-only test
+* PWM high requests HO; PWM low requests LO. EN low disables both. 100k dead-time resistors target about 7.2 ns.
+* Ideal HB-HS = 5 V; HS = 75 V DC. Bootstrap recharge and dv/dt immunity are not tested.
+.include LMG1210_modes.lib
+.param TS=300u FSW=100k T=1/FSW DT=200n
+.step param FSW list 50k 100k
+.tran 0 360u 0 5n
+.options plotwinsize=0 method=gear
+.save V(VIN) V(VDD) V(HO) V(HS) V(LO) V(EN) V(PWM)
+.meas tran VDD_FINAL FIND V(VDD) AT=350u
+.meas tran HO_HIGH FIND V(HO,HS) AT=302u
+.meas tran LO_HIGH FIND V(LO) AT=317u
+.meas tran HO_LOW FIND V(HO,HS) AT=317u
+.meas tran LO_LOW FIND V(LO) AT=302u
+.backanno
+.end

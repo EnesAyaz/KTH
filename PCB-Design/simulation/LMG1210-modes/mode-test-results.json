@@ -1,0 +1,78 @@
+{
+  "IIM": [
+    {
+      "frequency_hz": 50000,
+      "vdd_final_v": 5.003293514251709,
+      "ho_range_v": [
+        -0.01861572265625,
+        5.081825256347656
+      ],
+      "lo_range_v": [
+        -0.07030132412910461,
+        5.080460071563721
+      ],
+      "both_outputs_above_2p5V": false,
+      "dead_time_50percent_crossings_ns": [
+        198.5144518241587,
+        201.337875639434
+      ],
+      "functional_pass": true
+    },
+    {
+      "frequency_hz": 100000,
+      "vdd_final_v": 5.003117084503174,
+      "ho_range_v": [
+        -0.0702972412109375,
+        5.081825256347656
+      ],
+      "lo_range_v": [
+        -0.05974616855382919,
+        5.08585262298584
+      ],
+      "both_outputs_above_2p5V": false,
+      "dead_time_50percent_crossings_ns": [
+        197.94343100498813,
+        201.58813296856232
+      ],
+      "functional_pass": true
+    }
+  ],
+  "PWM": [
+    {
+      "frequency_hz": 50000,
+      "vdd_final_v": 5.003751277923584,
+      "ho_range_v": [
+        -0.0702972412109375,
+        5.081817626953125
+      ],
+      "lo_range_v": [
+        -0.0702524483203888,
+        5.084127902984619
+      ],
+      "both_outputs_above_2p5V": false,
+      "dead_time_50percent_crossings_ns": [
+        2.847897487821306,
+        5.141596593415901
+      ],
+      "functional_pass": true
+    },
+    {
+      "frequency_hz": 100000,
+      "vdd_final_v": 5.003573417663574,
+      "ho_range_v": [
+        -0.0702972412109375,
+        5.081817626953125
+      ],
+      "lo_range_v": [
+        -0.070253387093544,
+        5.086918830871582
+      ],
+      "both_outputs_above_2p5V": false,
+      "dead_time_50percent_crossings_ns": [
+        2.848021753382255,
+        6.801495897577632
+      ],
+      "functional_pass": true
+    }
+  ]
+}

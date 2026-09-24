@@ -2,6 +2,9 @@
 
 PCB work is paused at P8 placement at the user's request. The PCB heartbeat is paused.
 
+## Current working tests
+See [LMG1210 PWM and IIM tests](LMG1210-modes/README.md). Both modes now pass driver-only waveform checks at 50 and 100 kHz using the Alternate solver, approximately 5 V outputs, 1 nF loads and static HS=75 V. Use the Open-PWM.cmd / Open-IIM.cmd launchers there. The historical 0.61 V result below was caused by lost model continuation parameters; that conversion bug is fixed. Full bootstrap and EPC2361 system tests remain outstanding. The community example was subsequently downloaded for comparison; these tests use the reproducible adaptation of TI's original library.
+
 ## Official model
 - TI product page: https://www.ti.com/product/LMG1210
 - Unencrypted PSpice download: https://www.ti.com/lit/zip/snom677
@@ -9,7 +12,7 @@ PCB work is paused at P8 placement at the user's request. The PCB heartbeat is p
 - Library header: model Final 2.2, 2019-03-08; intended simulator PSpice 16.2.
 - Features stated by TI: PWM/independent mode, dead-time programming, LDO, propagation delay and UVLO.
 
-## Actual LTspice check
+## Historical initial LTspice check (superseded above)
 The unchanged library reports behavioral-expression syntax problems. A separate experimental adaptation normalizes nested braces in behavioral VALUE expressions and removes an inline PSpice marker. Original source is preserved. Reproducible adaptation: scripts/adapt_lmg1210.py.
 
 The adapted standalone driver test completes, but HO and LO maxima are only approximately 0.61 V for the current test circuit. This is NOT a passing driver-function test. Supply/startup, pin mapping and model translation must be diagnosed before connecting the power stage. LTspice also limits internal diode emission coefficient N=0.01 to 0.1; this is a simulator behavior difference, not a validated equivalent model. Do not use these preliminary results to assess hardware operation or losses.

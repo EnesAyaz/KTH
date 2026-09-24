@@ -1,0 +1,15 @@
+DRC Rules Export File for PCB: C:\Marco\Dati\Training\Altium\EPC9186 B5453 - 3Ph BLDC drive 4x EPC2302\EPC9186_B5453_R1_0_230215 WiP\EPC9186_B5453_R1_0.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_GND_PLANES_GENERAL|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_50SVPF68M|Scope=Board|Minimum=9.84
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion_VIAS|Scope=Board|Minimum=-10.00
+RuleKind=Clearance|RuleName=Clearance_ROOMS-L1-L2-L3|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance_TSSOP8|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance_D0232|Scope=Board|Minimum=5.12
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance_keepout|Scope=Board|Minimum=28.00
+RuleKind=Clearance|RuleName=Clearance_0402|Scope=Board|Minimum=0.00
+RuleKind=Clearance|RuleName=Clearance_0603_0805|Scope=Board|Minimum=0.00
+RuleKind=Clearance|RuleName=Clearance_1210_1206|Scope=Board|Minimum=0.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=5.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

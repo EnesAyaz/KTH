@@ -1,0 +1,60 @@
+* C:\Github\KTH\PCB-Design\simulation\LMG1210-EPC2361\Parasitics_Check.asc
+VIN VIN 0 PWL(0 0 1u 0 2u 12)
+CVDD VDD 0 1µ
+VHI HI 0 PULSE(0 3.3 {TS+T/2} 2n 2n {T/2-202n} {T})
+VLI LI 0 PULSE(0 3.3 {TS} 2n 2n {T/2-202n} {T})
+XU1 VIN VDD HI LI 0 HB SW HO LO BST VDD VDD LMG1210_TEST
+DBOOT BST HB DBOOT
+CBOOT HB SW 100n
+XQH GH DH SW EPC2361
+XQL GL SW 0 EPC2361
+VBUS SUPPLY PGND 75
+RBUS SUPPLY BUS 10m
+CDC BUS CAPRET 10µ
+LLOAD SW OUT 100µ
+RLOAD OUT 0 2
+RGHON HO ONH {RGON}
+DGHON ONH KGH DGATE
+RGHOFF KGH OFFH {RGOFF}
+DGHOFF OFFH HO DGATE
+LGH KGH GH {LGATE}
+RGSH GH SW 100k
+RGLON LO ONL {RGON}
+DGLON ONL KGL DGATE
+RGLOFF KGL OFFL {RGOFF}
+DGLOFF OFFL LO DGATE
+LGL KGL GL {LGATE}
+RGSL GL 0 100k
+LPPLUS BUS DH {LPOWER/2}
+LPMINUS 0 PGND {LPOWER/2}
+LCESL CAPRET PGND {LCAP}
+.model D D
+.lib C:\Users\enesa\AppData\Local\LTspice\lib\cmp\standard.dio
+.include LMG1210_modes.lib
+.include EPC2361.lib
+.param TS=300u FSW=50k T=1/FSW
+.model DBOOT D(Is=1n N=1.2 Rs=1 Cjo=2p Tt=1n Bv=150 Ibv=10u)
+.tran 0 400u 0 5n
+* H GATE: ON output->gate / OFF gate->output
+* L GATE: ON output->gate / OFF gate->output
+.param RGON=2 RGOFF=0.5 LGATE=2n LPOWER=4n LCAP=0.5n
+.model DGATE D(Is=1u N=1.05 Rs=0.05 Cjo=5p Tt=0 Bv=30)
+.options plotwinsize=0 method=gear
+.meas tran VGH_PK MAX V(GH,SW) FROM=330u TO=400u
+.meas tran VGH_MIN MIN V(GH,SW) FROM=330u TO=400u
+.meas tran VGL_PK MAX V(GL) FROM=330u TO=400u
+.meas tran VGL_MIN MIN V(GL) FROM=330u TO=400u
+.meas tran VDSH_PK MAX V(DH,SW) FROM=330u TO=400u
+.meas tran VDSL_PK MAX V(SW) FROM=330u TO=400u
+.meas tran VBOOT_MIN MIN V(HB,SW) FROM=330u TO=400u
+* LMG1210 + EPC2361: gate/power parasitics and separate ON/OFF paths
+* User HalfBridge.asc preserved: 100 uH load, 2 ohm, 50 kHz, 1 ms run.
+* Illustrative inductances only. LGATE per gate loop; LPOWER total interconnect; LCAP additional capacitor ESL.
+* Ideal Kelvin source returns; common-source inductance and magnetic coupling are not modeled.
+* Power commutation inductance = LPOWER + LCAP = 4.5 nH default.
+* Optional: enable ONE sweep directive at a time below.
+* .step param LGATE list 1n 2n 5n
+* .step param LPOWER list 1n 4n 8n
+* .step param RGOFF list 0.5 1 2
+.backanno
+.end
