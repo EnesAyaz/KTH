@@ -293,16 +293,6 @@ A.~Ruseler, T.~B. Lazzarin, and I.~Barbi, ``A novel modular multilevel inverter
   Power Electronics Conference and 1st Southern Power Electronics Conference
   (COBEP/SPEC)}, 2015, pp. 1--6.
 
-\bibitem{Zhang2017ModularDriveComparison}
-\BIBentryALTinterwordspacing
-H.~Zhang, L.~Jin, O.~Wallmark, and S.~Norrga, ``Evaluation of modular
-  integrated electric drive concepts for automotive traction applications,''
-  \emph{\JournalTitle{IEEE Transactions on Transportation Electrification}},
-  2017, preprint, KTH DiVA \texttt{urn:nbn:se:kth:diva-207762};
-  published-version DOI not located. [Online]. Available:
-  \url{http://kth.diva-portal.org/smash/get/diva2:1098046/FULLTEXT01.pdf}
-\BIBentrySTDinterwordspacing
-
 \bibitem{Jin2014Control}
 L.~Jin, S.~Norrga, O.~Wallmark, and M.~N. Harnefors, ``Control and modulation
   of the stacked polyphase bridges inverter,'' in \emph{2014 IEEE Energy
@@ -336,6 +326,16 @@ L.~Jin, S.~Norrga, O.~Wallmark, and N.~Apostolopoulos, ``Modulation and power
 ------, ``Communication-based distributed control of the stacked polyphase
   bridges converter,'' \emph{\JournalTitle{IEEE Transactions on Industrial
   Electronics}}, vol.~65, no.~2, pp. 1011--1020, 2018.
+
+\bibitem{Zhang2017ModularDriveComparison}
+\BIBentryALTinterwordspacing
+H.~Zhang, L.~Jin, O.~Wallmark, and S.~Norrga, ``Evaluation of modular
+  integrated electric drive concepts for automotive traction applications,''
+  \emph{\JournalTitle{IEEE Transactions on Transportation Electrification}},
+  2017, preprint, KTH DiVA \texttt{urn:nbn:se:kth:diva-207762};
+  published-version DOI not located. [Online]. Available:
+  \url{http://kth.diva-portal.org/smash/get/diva2:1098046/FULLTEXT01.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Verkroost2019Interleaving}
 L.~Verkroost, J.~Van~Damme, H.~Vansompel, F.~De~Belie, and P.~Sergeant,

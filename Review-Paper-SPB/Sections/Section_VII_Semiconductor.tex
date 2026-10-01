@@ -3,15 +3,9 @@
 \label{sec:semiconductor_scaling}
 % ============================================================================
 
-Semiconductor voltage scaling (Section~\ref{sec:semiconductor_limitations})
-and the voltage-versus-component-count tradeoff established in
-Section~\ref{sec:operating_principle} are quantified here at the
-cell-count level. In an $N$-cell SPB, the dc-link voltage is
-distributed among the series-connected converter cells, allowing the
-use of lower-voltage semiconductor classes as $N$ increases.
-
-The device rating must be selected from the maximum expected blocking
-stress, not the nominal voltage division alone:
+Increasing the SPB cell count $N$ enables lower-voltage semiconductor
+devices, but voltage-rating selection must account for maximum blocking
+stress:
 \begin{equation}
 V_{\mathrm{rated}}
 \geq
@@ -23,32 +17,23 @@ k_{\mathrm{rel}}
 \right),
 \label{eq:semiconductor_rating}
 \end{equation}
-where $\Delta V_{\mathrm{imb}}^{\max}$ denotes the maximum cell-voltage
-imbalance, $\Delta V_{\mathrm{sw}}^{\max}$ the commutation overshoot,
-and $k_{\mathrm{rel}}$ the selected reliability margin. Cell count is
-therefore linked to discrete commercial voltage classes rather than to
-a continuous semiconductor-scaling law.
+where $\Delta V_{\mathrm{imb}}^{\max}$ is the maximum cell-voltage
+imbalance, $\Delta V_{\mathrm{sw}}^{\max}$ is the commutation overshoot,
+and $k_{\mathrm{rel}}$ is the selected voltage-rating margin factor.
+Cell-count selection therefore depends on discrete commercial voltage
+classes and their usable operating margins.
 
-As introduced in Section~\ref{sec:semiconductor_limitations}, SiC
-currently provides the most direct route for high-voltage traction,
-whereas GaN becomes increasingly attractive once the architecture
-reduces the per-device voltage enough to access lower-voltage classes
-with favorable conduction and switching characteristics
+SiC is well suited to high-voltage traction, while voltage partitioning
+can make lower-voltage GaN devices attractive through favorable
+conduction and switching characteristics
 \cite{WBGTractionReview2025,Rohner2024GaN,Ebrahimian2025GaNIMMD}.
-
-The resulting discrete design transitions are summarized and
-visualized directly in Fig.~\ref{fig:cell_count_scaling}. For a
-1200-V dc link, $N=2$ gives a nominal cell voltage of 600~V and
-therefore leaves limited transient margin for a 650-V device.
-Increasing the cell count to $N=3$ reduces the nominal cell voltage
-to 400~V and provides a substantially more practical operating region
-for the 650-V class. Further increases in $N$ give access to
-progressively lower-voltage device families, as labeled directly on
-Fig.~\ref{fig:cell_count_scaling}. The potential semiconductor benefit
-is therefore nonlinear because a small change in $N$ can open a new
-commercial voltage class, whereas the active-switch count grows
-approximately linearly, as plotted directly from these design points
-in Fig.~\ref{fig:cell_count_scaling}.
+For the illustrative 1200-V dc link in Fig.~\ref{fig:cell_count_scaling},
+two cells operate at a nominal 600~V each, leaving limited headroom for
+650-V devices. Three cells reduce this voltage to 400~V, providing
+greater allowance for imbalance and switching transients. Further
+increases in $N$ enable lower-voltage device classes but increase the
+number of active switch positions as $6N$. Final device selection must
+satisfy \eqref{eq:semiconductor_rating}.
 
 \begin{figure}[!t]
 \centering
@@ -105,57 +90,34 @@ in Fig.~\ref{fig:cell_count_scaling}.
 \end{axis}
 \end{tikzpicture}
 \caption{Cell-count scaling for a 1200-V dc link: nominal cell voltage
-$V_{\mathrm{cell,nom}}=V_{\mathrm{dc}}/N$ (solid markers, left log
-axis) and active-switch count $6N$ (dashed markers, right linear
-axis) versus cell count $N$; every marker is labeled directly with
-its exact value ($N=1$: 1200~V, 6; $N=2$: 600~V, 12; $N=3$: 400~V,
-18; $N=4$: 300~V, 24; $N=5$: 240~V, 30; $N=8$: 150~V, 48; $N=10$:
-120~V, 60; $N=15$: 80~V, 90). Increasing $N$ opens progressively lower
-commercial semiconductor voltage classes (e.g., 1700--2000-V SiC at
-$N=1$, 650-V GaN/SiC at $N=3$, 100-V GaN/MOSFET class at $N=15$) while
-the active-switch count grows linearly as $6N$.}
+$V_{\mathrm{cell,nom}}=V_{\mathrm{dc}}/N$ (blue circles, left logarithmic
+axis) and active switch positions $6N$ (orange squares, right linear
+axis). Labels give the values at each design point. Illustrative device
+classes include 1700--2000-V SiC for $N=1$, 650-V GaN/SiC for $N=3$,
+and 100-V GaN or silicon MOSFETs for $N=15$, subject to the required
+blocking-voltage margin. Device parallelization is excluded.}
 \label{fig:cell_count_scaling}
 \end{figure}
 
 \subsection{Commercial-Device Screening}
 
-Access to a lower voltage class does not by itself imply a superior
-converter: the comparison must be based on commercial devices and
-their conduction, switching, current, thermal, and packaging
-constraints.
+Lower voltage ratings do not guarantee superior converter performance.
+Candidate devices must be assessed using conduction and switching
+characteristics together with current capability, thermal limits, and
+packaging constraints. Figures of merit such as
+$R_{\mathrm{DS(on)}}C_{\mathrm{oss}}$ and $R_{\mathrm{DS(on)}}Q_g$
+provide initial screening, but detailed comparison requires
+$R_{\mathrm{DS(on)}}(T)$ for conduction loss and die-area requirements;
+$E_{\mathrm{oss}}(V)$ for stored output-capacitance energy and its
+contribution to switching loss; $E_{\mathrm{on/off}}(V,I,T)$ for
+switching-energy characterization; $Q_g$ and $Q_{gd}$ for gate-drive
+requirements and switching behavior; $I_{\mathrm{cont}}$ and $R_\theta$
+for current derating, parallelization, and cooling; and package and
+power-loop inductance $L_\sigma$ for commutation overshoot.
 
-For nonlinear output capacitance, the stored energy
-\begin{equation}
-E_{\mathrm{oss}}(V)
-=
-\int_{0}^{V}
-vC_{\mathrm{oss}}(v)\,dv
-\label{eq:eoss_integral}
-\end{equation}
-is more informative than a single tabulated $C_{\mathrm{oss}}$ value.
-Depending on the commutation process, some or all of this stored energy
-can contribute to switching loss. Similarly, simple screening metrics
-such as $R_{\mathrm{DS(on)}}C_{\mathrm{oss}}$ or
-$R_{\mathrm{DS(on)}}Q_g$ are useful for identifying candidate devices,
-but are insufficient for the final architecture comparison.
-
-The principal device quantities required for SPB cell-count screening,
-and their primary role in the comparison, are: $R_{\mathrm{DS(on)}}(T)$,
-which sets the die-area or parallel-device requirement;
-$E_{\mathrm{oss}}(V)$, which sets the large-signal switching penalty;
-$E_{\mathrm{on/off}}(V,I,T)$, which forms the operating-point
-switching-loss model; gate charge $Q_g$ and $Q_{gd}$, which govern
-driver sizing and auxiliary loss; continuous current capability
-$I_{\mathrm{cont}}$ and thermal resistance $R_\theta$, which govern
-parallelization and cooling requirements; and package or loop
-inductance $L_\sigma$, which sets the usable blocking-voltage margin
-against $di/dt$-induced overshoot.
-
-Current capability is particularly important because machine phase
-current does not generally decrease in proportion to $1/N$
-(Section~\ref{sec:operating_principle}). If the
-derated current capability of one device is $I_{\mathrm{dev,der}}$, the
-required number of parallel devices can be estimated as
+Machine phase current does not generally decrease as $1/N$. For a
+derated device current capability $I_{\mathrm{dev,der}}$, the required
+parallel-device count and total active-device count can be estimated as
 \begin{equation}
 n_p
 =
@@ -169,40 +131,34 @@ N_{\mathrm{sw,tot}}
 6Nn_p .
 \label{eq:parallel_device_scaling}
 \end{equation}
-Thus, a lower-voltage device can offer an attractive device-level FOM
-while still requiring substantial die area, package count, and
-gate-drive/thermal interfaces. Recent high-current 650-V GaN
-modules illustrate the importance of low-inductance packaging and
-integrated gate driving when GaN is scaled toward traction-current
-levels \cite{Zhu2024GaN150A,Rahman2025GaN300A}.
+Consequently, favorable device-level figures of merit may coexist with
+substantial die area, package count, and gate-drive and thermal-interface
+requirements. High-current GaN modules illustrate the importance of
+low-inductance packaging and integrated gate driving at traction-relevant
+currents \cite{Zhu2024GaN150A,Rahman2025GaN300A}.
 
-Fast switching further couples device selection to layout. The
-commutation overshoot can be approximated by
+Device selection and layout are further coupled through commutation
+overshoot:
 \begin{equation}
 \Delta V_{\mathrm{sw}}
 \approx
 L_{\sigma}\frac{di}{dt},
 \label{eq:semiconductor_overshoot}
 \end{equation}
-so the benefit of reduced nominal cell voltage can be lost if package
-and interconnect inductance consume a substantial fraction of the
-available blocking margin. This is particularly relevant for GaN,
-where high $di/dt$ places strong requirements on the commutation loop,
-local decoupling, and gate-drive layout
-\cite{Rahman2025GaN300A}.
-
-GaN device selection also requires consideration of dynamic
-$R_{\mathrm{DS(on)}}$, reverse conduction, gate reliability,
-short-circuit capability, and thermal performance
-\cite{Ajayan2025GaNReliability,Ajayan2025GaNFabrication}. These effects
-do not negate the benefit of lower blocking voltage, but they prevent
-room-temperature static $R_{\mathrm{DS(on)}}$ from being used as the
-sole criterion for cell-count selection.
+Package and interconnection inductance can consume much of the voltage
+margin gained through partitioning. High switching speeds therefore
+require careful commutation-loop design, local decoupling, and
+gate-drive layout, particularly for GaN \cite{Rahman2025GaN300A}.
+Dynamic $R_{\mathrm{DS(on)}}$, reverse conduction, gate reliability,
+short-circuit capability, and thermal performance must also be
+considered \cite{Ajayan2025GaNReliability,Ajayan2025GaNFabrication}.
+Room-temperature static resistance alone is therefore insufficient for
+cell-count selection.
 
 \subsection{Loss Scaling With Cell Count}
 
-For one device, the dominant semiconductor losses can be represented
-approximately as
+For an individual device, conduction and switching losses can be
+approximated as
 \begin{equation}
 P_{\mathrm{cond}}
 \approx
@@ -222,41 +178,29 @@ E_{\mathrm{off}}(V,I,T_j)
 \right].
 \label{eq:switching_loss_short}
 \end{equation}
-
-At converter level,
+Including dead-time-related losses and gate-drive power gives
 \begin{equation}
+\begin{aligned}
 P_{\mathrm{semi}}(N)
-=
-\sum_{k=1}^{N}
-\sum_{j=1}^{6n_p(N)}
-\left(
-P_{\mathrm{cond},k,j}
-+
-P_{\mathrm{sw},k,j}
-+
-P_{\mathrm{dt},k,j}
-\right)
-+
-P_{\mathrm{gate}}(N).
+={}&\sum_{k=1}^{N}\sum_{j=1}^{6n_p(N)}
+\bigl(P_{\mathrm{cond},k,j}+P_{\mathrm{sw},k,j}
++P_{\mathrm{dt},k,j}\bigr)\\
+&+P_{\mathrm{gate}}(N),
+\end{aligned}
 \label{eq:complete_semiconductor_loss}
 \end{equation}
-The dependence on $N$ is therefore not linear. The number of active
-devices increases with cell count, whereas
-$R_{\mathrm{DS(on)}}$, switching energy, thermal impedance, and
-parallel-device requirement can change abruptly when the design enters
-a different semiconductor voltage class.
+where $P_{\mathrm{dt},k,j}$ represents dead-time-related device loss and
+$P_{\mathrm{gate}}$ is the aggregate gate-drive power.
 
-Consequently, SiC and GaN should be regarded as different regions of
-the SPB design space rather than as a fixed technology ranking.
-Low-cell-count architectures can favor high-voltage SiC because of its
-mature voltage and current capability, whereas increasing $N$ can make
-lower-voltage GaN attractive if the improvement in conduction,
-switching, packaging, or passive-component performance compensates for
-the additional converter modules.
+Total loss does not scale linearly with $N$: additional cells increase
+device count, while transitions between voltage classes change on-state
+resistance, switching energy, thermal impedance, and parallelization
+requirements. Low-cell-count designs may favor high-voltage SiC,
+whereas lower-voltage GaN becomes attractive when its device, packaging,
+or passive-component benefits offset the additional modules.
 
-Resolving the cell-count question therefore requires reading
-Fig.~\ref{fig:cell_count_scaling} jointly with the screening
-quantities above and the machine requirements of
-Section~\ref{sec:machine_requirements}, rather than from any single
-figure of merit.
-
+Cell count and semiconductor technology must therefore be selected
+jointly using the voltage and component-count relationships in
+Fig.~\ref{fig:cell_count_scaling}, commercial-device characteristics,
+and the machine requirements of Section~\ref{sec:machine_requirements}.
+No single device figure of merit establishes the preferred SPB architecture.

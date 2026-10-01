@@ -1,0 +1,7 @@
+design,Lloop_nH,self_inductances_nH
+GL_far,7.6669,"G 23.813, KS 18.888"
+GL_near,2.0076,"G 4.885, KS 4.033"
+PL_noshunt,0.3109,"AC 0.080, DCN 0.466, DCP 0.061"
+PL_shunt__h_diel_0p075mm,0.2986,"AC 0.078, DCN 0.464, DCP 0.060, SQL 0.025"
+PL_shunt__h_diel_0p2mm,0.4964,"AC 0.079, DCN 0.647, DCP 0.060, SQL 0.026"
+PL_shunt,0.3407,"AC 0.078, DCN 0.502, DCP 0.060, SQL 0.025"

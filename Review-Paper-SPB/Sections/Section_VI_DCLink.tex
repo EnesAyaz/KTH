@@ -3,17 +3,14 @@
 \label{sec:dclink_balancing}
 % ============================================================================
 
-The shared dc current and independently controllable winding-group
-powers (Section~\ref{sec:operating_principle}) make the local
-capacitors coupled energy-storage states whose voltages are not
-guaranteed to remain equal
-\cite{Nikouie2015Stability,Nikouie2017Stability}, a conclusion also
-reached independently for a series-connected multilevel motor drive,
-where distributed closed-loop current control alone was shown to leave
-the module voltages inherently unstable without dedicated balancing
-action \cite{Wang2015ThesisDVB}.
+The common dc current and independently controlled winding-group
+powers (Section~\ref{sec:operating_principle}) couple the local capacitor
+energies, so equal cell voltages are not inherently maintained
+\cite{Nikouie2015Stability,Nikouie2017Stability}. Related series-connected
+motor-drive research likewise shows that distributed current control
+alone does not ensure stable voltage sharing \cite{Wang2015ThesisDVB}.
 
-For cell $k$,
+For cell $k$, the power balance is
 \begin{equation}
 C_kV_{\mathrm{dc},k}\frac{dV_{\mathrm{dc},k}}{dt}
 =
@@ -22,93 +19,102 @@ V_{\mathrm{dc},k}i_{\mathrm{dc}}
 -p_{\mathrm{loss},k}.
 \label{eq:spb_voltage_dynamic}
 \end{equation}
-This captures the essential balancing mechanism: dc input power
-depends directly on local cell voltage because the series current is
-common, while output power is set independently by the corresponding
-winding group's controller.
-
-For analysis, define
+Because the series current is common, dc input power depends on local
+voltage, whereas the winding-group controller determines ac output
+power. Defining the deviation from the mean cell voltage as
 \begin{equation}
 \widetilde V_k=
 V_{\mathrm{dc},k}
 -\frac{1}{N}\sum_{j=1}^{N}V_{\mathrm{dc},j}.
 \label{eq:cell_voltage_deviation}
 \end{equation}
-A simplified differential-mode model around a balanced point is
+a simplified differential-mode model around a balanced operating point is
 \begin{equation}
 CV_0\frac{d\widetilde V_k}{dt}
 \approx
 I_{\mathrm{dc},0}\widetilde V_k-\Delta P_k.
 \label{eq:linearized_balance_dynamic}
 \end{equation}
-In motoring operation ($I_{\mathrm{dc},0}>0$), a positive cell-voltage
-perturbation increases that cell's dc input power and can reinforce the
-deviation if the ac-side power is unchanged; in regeneration the
-feedback sign reverses. This simplified picture is consistent with the
-detailed SPB stability analyses in
-\cite{Nikouie2015Stability,Nikouie2017Stability} and with recent work
-on related series-connected multiphase drives
-\cite{Ni2025SeriesDCLinkStability}.
+where $C$ and $V_0$ are the common cell capacitance and equilibrium
+voltage, $I_{\mathrm{dc},0}$ is the equilibrium dc current, and
+$\Delta P_k$ is the differential output-power perturbation. During
+motoring, $I_{\mathrm{dc},0}>0$, a positive voltage perturbation increases
+cell input power and reinforces the deviation if output power remains
+unchanged. During regeneration, this feedback reverses. This
+interpretation agrees with SPB stability analyses
+\cite{Nikouie2015Stability,Nikouie2017Stability} and related
+series-connected multiphase-drive studies \cite{Ni2025SeriesDCLinkStability}.
 
-Reference~\cite{Nikouie2017Stability} derives this instability directly
-from the full nonlinear constant-power-load model, without the
-small-signal approximation of \eqref{eq:linearized_balance_dynamic}:
-with $L_b\,di_{\mathrm{dc}}/dt=E_b-R_bi_{\mathrm{dc}}-\sum_kV_{\mathrm{dc},k}$
-and $C_k\,dV_{\mathrm{dc},k}/dt=i_{\mathrm{dc}}-P_k/V_{\mathrm{dc},k}$, the
-open-loop characteristic polynomial has $N-1$ real, strictly positive
-eigenvalues in motoring operation ($P_k>0$) for any $N>1$ -- the series
-stack is provably unstable without a balancing controller, regardless
-of parameter choice. Fig.~\ref{fig:spb_balancing_dynamics} integrates
-this exact nonlinear model using the real experimental parameters of
-\cite{Nikouie2017Stability} ($L_b=8\,\mu\text{H}$, $R_b=0.35\,\Omega$,
-$C=100\,\mu\text{F}$ per cell): without balancing, a small initial
-imbalance collapses one cell's voltage within milliseconds, while the
-proportional balancing law of \cite{Nikouie2017Stability} (their
-``controller alternative I'') drives the same imbalance back to zero on
-a comparable timescale.
+The constant-power-load model considered in \cite{Nikouie2017Stability}
+comprises
+\begin{equation}
+\begin{aligned}
+L_b\frac{di_{\mathrm{dc}}}{dt}
+&=E_b-R_bi_{\mathrm{dc}}-\sum_kV_{\mathrm{dc},k},\\
+C_k\frac{dV_{\mathrm{dc},k}}{dt}
+&=i_{\mathrm{dc}}-\frac{P_k}{V_{\mathrm{dc},k}}.
+\end{aligned}
+\label{eq:spb_constant_power_model}
+\end{equation}
+Here, $E_b$ is the dc-source voltage, and $L_b$ and $R_b$ are the
+lumped series inductance and resistance of the shared source-to-stack
+supply path, including source and interconnection contributions;
+$P_k$ is the cell's constant power demand. Under this model's
+assumptions, linearization about the open-loop motoring equilibrium
+for $N>1$ yields $N-1$ strictly positive real eigenvalues, establishing
+instability irrespective of parameter selection.
+
+Fig.~\ref{fig:spb_balancing_dynamics} illustrates the nonlinear dynamics
+using $L_b=8\,\mu\mathrm{H}$, $R_b=0.35\,\Omega$, and
+$C=100\,\mu\mathrm{F}$ per cell, taken from \cite{Nikouie2017Stability}.
+Without balancing, the initial mismatch grows until one cell approaches
+voltage collapse. A proportional differential-power law,
+$\Delta P_k=K_p\widetilde V_k$, motivated by controller alternative I
+in \cite{Nikouie2017Stability}, suppresses the imbalance on a comparable
+timescale. This simulation assumes ideal power-command tracking;
+it does not reproduce the complete current-control implementation.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{Figures/fig_dclink_balancing.pdf}
-\caption{Nonlinear dc-link voltage-sharing simulation for $N=3$ cells,
-without (left) and with (right) the balancing controller of
-\cite{Nikouie2017Stability}. Computed simulation result, not measured
-hardware data.}
+\caption{Simulated normalized deviation from the instantaneous mean
+cell voltage, $\widetilde V_k/V_{\mathrm{base}}$, for $N=3$:
+(a) without balancing and (b) with proportional power balancing
+motivated by \cite{Nikouie2017Stability}. Both cases use $E_b=300$~V,
+$V_{\mathrm{base}}=100$~V, nominal cell power $1$~kW,
+$V_{\mathrm{dc},k}(0)=\{108,95,102\}$~V, and $i_{\mathrm{dc}}(0)=10$~A;
+$K_p=30$~W/V in (b). Supply-path and capacitance parameters are given
+in the text. The open-loop trace ends when a cell reaches the 1-V
+termination threshold. Results are computed, not measured hardware data.}
 \label{fig:spb_balancing_dynamics}
 \end{figure}
 
-The multiple winding groups provide a natural actuator for controlling
-internal capacitor energy. The cell power reference can be decomposed
-as
+The winding groups provide control authority over internal capacitor
+energy through differential power commands:
 \begin{equation}
 P_k^\star=\frac{P^\star}{N}+\Delta P_k,
 \qquad
 \sum_{k=1}^{N}\Delta P_k=0,
 \label{eq:balancing_power}
 \end{equation}
-so differential power redistributes internal energy without changing
-the requested total machine power. In practice $\Delta P_k$ is limited
-by phase-current margin, winding voltage, torque-ripple constraints,
-and thermal state, so balancing authority is operating-point
-dependent.
+This allocation redistributes cell power without changing the total
+machine-power reference. Available balancing authority depends on
+phase-current margin, winding voltage, torque-ripple limits, and
+thermal state.
 
-Three main SPB balancing approaches can be identified. Centralized
-active balancing uses measured capacitor voltages to generate
-differential current or power commands
-\cite{Nikouie2015Stability,Nikouie2017Stability}. Common-duty-ratio
-(CDR) control applies common modulation commands and can obtain stable
-voltage sharing from the natural converter--machine dynamics for the
-investigated induction-machine system \cite{Mocevic2023CDR}, though
-practical timing mismatch remains important
-\cite{Mocevic2024GateDelay}. Distributed multi-agent control uses local
-measurements and neighbour communication, and has been demonstrated
-for voltage balancing, power sharing, and reconfiguration
+Table~\ref{fig:spb_balancing_taxonomy} summarizes three principal
+approaches. Centralized control explicitly regulates voltage sharing
+through differential commands \cite{Nikouie2015Stability,Nikouie2017Stability}.
+Common-duty-ratio (CDR) control instead exploits the coupled
+converter--machine dynamics; stable sharing has been demonstrated for
+the investigated induction-machine system \cite{Mocevic2023CDR}, with
+practical performance sensitive to timing mismatch \cite{Mocevic2024GateDelay}.
+Distributed multi-agent control extends local coordination to voltage
+balancing, power sharing, and reconfiguration
 \cite{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,
-Verkroost2024Reconfiguration}, comparable to the local droop laws that
-coordinate power sharing across modules in the speed-droop framework of
-Galassini \textit{et al.} \cite{Galassini2016ModularSpeedDroop}.
-Table~\ref{fig:spb_balancing_taxonomy} summarizes these approaches and
-their principal considerations.
+Verkroost2024Reconfiguration}. Related modular-drive work uses local
+speed-droop laws to coordinate module power sharing
+\cite{Galassini2016ModularSpeedDroop}.
 
 \begin{table}[!t]
 \centering
@@ -128,7 +134,7 @@ Direct authority; global sensing and coordination\\
 CDR & Common modulation, natural coupled dynamics
 \cite{Mocevic2023CDR,Mocevic2024GateDelay} &
 Low overhead; symmetry- and timing-sensitive\\
-Distributed & Local agents, neighbour communication
+Distributed & Local agents, neighbor communication
 \cite{Verkroost2024VoltageBalance,Verkroost2024PowerDistribution,
 Verkroost2024Reconfiguration} &
 Scalable; requires communication and synchronization\\
@@ -136,13 +142,10 @@ Scalable; requires communication and synchronization\\
 \end{tabular}
 \end{table}
 
-For automotive operation, balancing must remain effective through
+For automotive applications, balancing must remain effective during
 torque transients, field weakening, parameter mismatch, and module
-reconfiguration: voltage-sensor offset, communication latency,
-propagation delay, and the available differential current/power margin
-can determine the usable cell-voltage margin and, consequently, the
-semiconductor rating.
-
-This underscores the section's central point: dc-link stability
-belongs to the complete converter--machine--control system, not the
-power stage alone.
+reconfiguration. Sensor offsets, communication latency, propagation
+delays, and differential power limits determine the usable cell-voltage
+margin and therefore influence semiconductor voltage-rating selection.
+Dc-link stability must consequently be assessed across the coupled
+converter, machine, and control system.

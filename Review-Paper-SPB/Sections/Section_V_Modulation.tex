@@ -3,24 +3,17 @@
 \label{sec:modulation}
 % ============================================================================
 
-Each SPB cell is electrically simple while the resulting control
-problem is not. Cell dc current is shared, cell dc voltage is a
-dynamic state, and the winding groups are electromagnetically coupled.
-Modulation is the layer at which these converter- and machine-side
-constraints are jointly realized.
-Since each SPB cell is a conventional three-phase two-level bridge,
-standard SPWM, SVM, and DPWM methods can be applied locally without
-modification. 
-The distinctive feature of SPB is that modulation can
-additionally be coordinated between cells through carrier phase,
+Each stacked polyphase bridge (SPB) cell supports conventional sinusoidal
+pulsewidth modulation (SPWM), space-vector modulation (SVM), and
+discontinuous pulsewidth modulation (DPWM). However, the shared dc
+current, dynamic cell voltages, and electromagnetic coupling between
+winding groups require coordination across cells. Carrier phase,
 zero-sequence injection, switching sequence, and clamping intervals
-\cite{Jin2014Control,Jin2017Modulation}. 
-These inter-cell degrees of
-freedom affect dc-link ripple, machine harmonics, semiconductor
-switching loss, common-mode voltage (CMV), and the power exchanged by
-the individual winding groups. 
-Table~\ref{fig:spb_modulation_taxonomy} groups these degrees of
-freedom by their principal system-level effect.
+provide additional degrees of freedom for shaping dc-link ripple,
+machine harmonics, switching loss, common-mode voltage (CMV), and
+winding-group power distribution \cite{Jin2014Control,Jin2017Modulation}.
+Table~\ref{fig:spb_modulation_taxonomy} groups these degrees of freedom
+by their principal system-level effects.
 
 \begin{table}[!t]
 \centering
@@ -34,13 +27,13 @@ system-level effect.}
 \hline
 \textbf{Effect} & \textbf{Degrees of freedom}\\
 \hline
-Ripple / loss shaping &
+Ripple and loss shaping &
 Carrier phase \cite{Jin2017Modulation,Verkroost2021Ripple,
 Hopkins2019DCLinkRipple}; switching sequence
-\cite{Wang2025HybridPWM,Wang2025PWMHarmonicLoss}; clamping/DPWM
+\cite{Wang2025HybridPWM,Wang2025PWMHarmonicLoss}; clamping and DPWM
 \cite{Yang2026HybridOEW,Lee2026AlternatingDPWM}\\
-CMV / balancing authority &
-Zero-sequence \& vector redundancy
+CMV and balancing authority &
+Zero-sequence injection and vector redundancy
 \cite{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}; differential cell
 commands \cite{Verkroost2024PowerDistribution,Wu2020ActiveBalancing}\\
 \hline
@@ -49,8 +42,8 @@ commands \cite{Verkroost2024PowerDistribution,Wu2020ActiveBalancing}\\
 
 \subsection{Carrier Coordination and Harmonic Cancellation}
 
-The switching function of phase leg $x$ in cell $k$ has the usual
-double-Fourier form,
+The switching function of phase leg $x$ in cell $k$ has the
+double-Fourier expansion
 \begin{equation}
 \begin{aligned}
 s_{x,k}(t)={}&\frac{A_{00}}{2}
@@ -65,23 +58,22 @@ s_{x,k}(t)={}&\frac{A_{00}}{2}
 \end{aligned}
 \label{eq:dfs_switching}
 \end{equation}
-with carrier index $m$ (at carrier
-frequency $\omega_{c,k}$, phase $\theta_{c,k}$) and sideband index $n$
-(at fundamental frequency $\omega_{0,k}$, phase $\theta_{0,k}$).
+where $m$ and $n$ denote the carrier and sideband indices,
+respectively; $\omega_{c,k}$ and $\theta_{c,k}$ are the carrier
+frequency and phase; and $\omega_{0,k}$ and $\theta_{0,k}$ are the
+fundamental frequency and phase. Each sine term has the same argument
+as its corresponding cosine term.
 
-Each cell's carrier phase $\theta_{c,k}$ is a free parameter in this
-expansion, giving SPB a degree of freedom for reshaping the aggregate
-harmonic content. Uniform interleaving exploits this freedom by
-assigning each cell's carrier phase as
+The carrier phase is a free parameter for shaping aggregate harmonics.
+Uniform interleaving assigns
 \begin{equation}
-\phi_{c,k}=\phi_{c,1}+(k-1)\Delta\phi_c,
+\theta_{c,k}=\theta_{c,1}+(k-1)\Delta\theta_c,
 \qquad
-\Delta\phi_c=\frac{2\pi}{N}.
+\Delta\theta_c=\frac{2\pi}{N}.
 \label{eq:carrier_phase}
 \end{equation}
-
-Fig.~\ref{fig:carrier_sync_mechanism} illustrates this conceptually
-for a master cell and two slave cells.
+Fig.~\ref{fig:carrier_sync_mechanism} illustrates this arrangement for
+three cells.
 
 \begin{figure}[!t]
 \centering
@@ -115,161 +107,138 @@ for a master cell and two slave cells.
 \draw[<->,black!70] (1,-2.55) -- (1.667,-2.55);
 \node[below,font=\tiny] at (1.33,-2.55) {$\theta_{c,2}$};
 \end{tikzpicture}
-\caption{Master/slave carrier synchronization for a representative
-$N=3$ example: each slave's carrier is offset from the master by its
-own phase $\theta_{c,k}$ \eqref{eq:carrier_phase}.}
+\caption{Master/slave carrier synchronization for $N=3$: each slave
+carrier has a prescribed phase offset $\theta_{c,k}$ relative to the
+master, according to \eqref{eq:carrier_phase}.}
 \label{fig:carrier_sync_mechanism}
 \end{figure}
 
+\subsection{DC-Link Ripple and Battery-Side Current}
 
-\subsection{DC-Link Ripple Reduction and Battery-Side Current}
+DC-link current ripple is a design concern because of its influence
+on battery aging. Lower-voltage switches typically permit higher
+switching frequencies within a given loss budget, reducing per-cell
+capacitance requirements and battery-side ripple relative to a single
+high-voltage bridge. Carrier interleaving provides further ripple
+reduction.
 
-DC-link current ripple accelerates battery aging and is itself a
-design objective. Lower-voltage cell switches typically enable a
-higher switching frequency for a given loss budget, reducing the
-required per-cell capacitance and battery-side ripple relative to a
-single high-voltage bridge; carrier-phase interleaving reduces this
-ripple further still.
-
-The cell's dc-side current follows from convolving each phase's
-switching-function spectrum with its current spectrum and summing over
-the three phases,
+The dc-side current spectrum is obtained by convolving each phase
+switching-function spectrum with its current spectrum,
 \begin{equation}
 I_{\mathrm{conv},x,k}=\tfrac12\left(S_{x,k}\otimes I_{x,k}\right).
 \label{eq:conv_current_spectrum}
 \end{equation}
+and summing the three phase contributions. For a single cell, carrier
+harmonic $m$ produces sidebands at $n=\pm6p-3$ for odd $m$ and
+$n=\pm6p$ for even $m$, where $p$ is an integer. With uniform
+interleaving, $\theta_{c,k}=2\pi k/N$, the summed converter currents
+retain carrier orders $m=pN$ for even $N$ and $m=2pN$ for odd $N$,
+with the corresponding sideband structure \cite{Jin2014Control}.
 
-For a single cell, every carrier harmonic $m$ contributes sidebands at
-$n=\pm6p-3$ ($m$ odd) or $n=\pm6p$ ($m$ even), for integer $p$. With
-uniform interleaving $\theta_{c,k}=2\pi k/N$, summing the $N$ cells'
-converter currents shows that only carrier harmonics that are
-themselves multiples of $N$ survive ($m=pN$ for even $N$, $m=2pN$ for
-odd $N$), each retaining the same sideband structure
-\cite{Jin2014Control}.
-
-
-Translating this converter-current spectrum into the dc-link current
-actually shared by the series stack requires the SPB equivalent
-circuit of Section~\ref{sec:dclink_balancing},
+The shared dc-link current follows from the equivalent circuit
+developed in Section~\ref{sec:dclink_balancing}:
 \begin{equation}
 L\frac{di_{\mathrm{dc}}}{dt}=E-Ri_{\mathrm{dc}}-\sum_kv_{\mathrm{conv},k},
 \qquad
 C_k\frac{dv_{\mathrm{conv},k}}{dt}=i_{\mathrm{dc}}-i_{\mathrm{conv},k},
 \label{eq:dclink_ode}
 \end{equation}
-giving a closed-form transfer function between the summed
-converter-current spectrum and the resulting dc-bus current
-\cite{Jin2014Control},
+For equal cell capacitances, $C_k=C$, the relationship between the
+summed converter-current spectrum and dc-bus current is
+\cite{Jin2014Control}
 \begin{equation}
 I_{\mathrm{dc}}(\omega)=\frac{\sum_{k=1}^{N}I_{\mathrm{conv},k}(\omega)}
 {N-\omega^2LC+j\omega CR}.
 \label{eq:battery_current_tf}
 \end{equation}
-Because the residual dc-link ripple is dominated by the lowest
-surviving harmonic, $m=N$, evaluating
-\eqref{eq:battery_current_tf} there gives an approximate ripple
-estimate,
+% Editorial note: verify the odd-N surviving carrier order against the
+% m=N approximation below before finalizing the technical analysis.
+Approximating the residual ripple by the lowest surviving carrier
+harmonic, $m=N$, gives
 \begin{equation}
 \Delta i_{\mathrm{dc}}\approx\frac{\left|\sum_{k=1}^{N}
 I_{\mathrm{conv},k}(2\pi Nf_{sw})\right|}
 {\left|N-(2\pi Nf_{sw})^2LC+j2\pi Nf_{sw}CR\right|}.
 \label{eq:dclink_ripple_estimate}
 \end{equation}
-
-Because the surviving harmonic sits at $N$ times the per-cell
-switching frequency, both the removal of the uncancelled low-order
-sidebands and the higher-frequency $LC$ attenuation act in the same
-direction. Fig.~\ref{fig:dclink_ripple_interleaving} illustrates this
-by simulation for a representative $N=3$ case.
+Interleaving therefore combines cancellation of lower-order components
+with greater $LC$ attenuation at the retained frequency, $Nf_{sw}$.
+Fig.~\ref{fig:dclink_ripple_interleaving} illustrates the resulting
+reduction for $N=3$.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{Figures/fig_dclink_ripple.pdf}
-\caption{Coupled circuit simulation of the shared series dc-link
-current $i_{\mathrm{dc}}(t)$ for $N=3$ SPB cells ($M=0.85$,
-$f_1=1$~Hz, $f_{sw}=100$~Hz), without (red) and with (blue) carrier
-interleaving between submodules \eqref{eq:carrier_phase}. Both traces
-share the same dc average; interleaving reduces the peak-to-peak
-ripple by roughly $4$--$5\times$, consistent with
-\eqref{eq:dclink_ripple_estimate}. Computed simulation result, not
-measured hardware data.}
+\caption{Simulated shared dc-link current $i_{\mathrm{dc}}(t)$ for
+three series-connected SPB cells, with $M=0.85$, $f_1=1$~Hz, and
+$f_{sw}=100$~Hz. Without interleaving (red) and with uniform carrier
+interleaving (blue), the currents have the same dc average;
+interleaving reduces peak-to-peak ripple by approximately
+$4$--$5\times$, consistent with \eqref{eq:dclink_ripple_estimate}.
+Results are from a coupled circuit simulation, not hardware measurements.}
 \label{fig:dclink_ripple_interleaving}
 \end{figure}
 
-This simulation lumps the battery-to-stack bus inductance but treats
-each cell's own connection to that bus as ideal. In a physically
-distributed implementation, each cell instead reaches the shared dc
-path through its own bus-bar and connector loop, whose parasitic
-inductance couples back into the cancellation mechanism itself: Wang
-\textit{et al.} \cite{Wang2015GaNIMMD} found that a series-connected
-GaN IMMD required careful capacitor selection and tight layout to
-preserve the benefit of interleaving, and an earlier characterization
-of an interleaved series-connected drive found that parasitic loop
-inductance could make the interleaved ripple larger than the
-non-interleaved case \cite{Wang2015ThesisDVB}. The reduction in
-Fig.~\ref{fig:dclink_ripple_interleaving} should therefore be read as
-an upper bound, with the achievable benefit set by layout, capacitor
-selection, and switching frequency rather than by carrier phasing
-alone.
+The simulation includes lumped battery-to-stack inductance but assumes
+ideal cell connections. In distributed implementations, bus-bar and
+connector-loop inductances alter harmonic cancellation. A
+series-connected gallium nitride integrated modular motor drive
+required careful capacitor selection and compact layout to preserve
+interleaving benefits \cite{Wang2015GaNIMMD}; an earlier
+characterization found that parasitic loop inductance could make
+interleaved ripple exceed the noninterleaved value
+\cite{Wang2015ThesisDVB}. The illustrated reduction should therefore
+be treated as an upper bound: achievable performance also depends on
+layout, capacitor selection, and switching frequency.
 
 \subsection{Machine Harmonics, Voltage Utilization, and Switching Loss}
 
-The optimum carrier displacement is nonetheless
-not universal: it depends on cell count, modulation index, power
-factor, winding displacement, and the specific quantity being
-minimized, so carrier coordination should be viewed as one design
-variable within a larger converter--machine modulation problem.
-
-SPB-specific studies show that inter-cell modulation affects both semiconductor losses and
-dc-link-current harmonics \cite{Jin2017Modulation}, and related
-modular and multiphase drives demonstrate simultaneous reduction of
-dc-link and machine current ripple
+The preferred carrier displacement depends on cell count, modulation
+index, power factor, winding displacement, and the optimization
+objective. SPB studies demonstrate its influence on semiconductor
+losses and dc-link current harmonics \cite{Jin2017Modulation}, while
+related modular and multiphase drives demonstrate simultaneous
+reductions in dc-link and machine current ripple
 \cite{Verkroost2021Ripple,DeMarcos2025InterleavedPWM,Wang2025HybridPWM}.
 
-The multiphase machine makes the harmonic problem substantially more
-involved than in a conventional three-phase drive: nonfundamental
-voltage components can excite additional harmonic subspaces with low
-impedance, producing copper loss and torque ripple even when
-fundamental current control is fully satisfactory. Recent
-integrated-modular-drive studies accordingly move toward interleaved
-and discontinuous PWM techniques tailored to this multiphase
-current-ripple problem
+In multiphase machines, nonfundamental voltages can excite low-impedance
+harmonic subspaces, increasing copper loss and torque ripple despite
+satisfactory fundamental current control. Interleaved and discontinuous
+modulation strategies therefore require adaptation to the multiphase
+current-ripple characteristics
 \cite{Hopkins2019DCLinkRipple,Mohamed2020DCLinkSizing,Alosa2019ModularRipple}.
 
-At high speed, modulation must also maximize voltage utilization,
-because each winding group is supplied only from its local cell
-voltage $V_{\mathrm{dc},k}$, as constrained by
-\eqref{eq:spb_machine_voltage_limit} -- an objective that grows more
-important as $N$ increases and $V_{\mathrm{dc},k}$ falls accordingly.
-Optimized vector selection for dual-three-phase traction machines has
-demonstrated the possibility of extending the high-modulation region
-while simultaneously suppressing unwanted subspace currents
-\cite{Chen2026HighModulationDTP}.
+At high speed, voltage utilization becomes critical because each
+winding group is supplied by its local cell voltage $V_{\mathrm{dc},k}$,
+subject to the machine voltage limit in
+\eqref{eq:spb_machine_voltage_limit}. This constraint becomes more
+restrictive as cell count increases and local voltage decreases.
+Optimized vector selection in dual-three-phase traction machines can
+extend operation in the high-modulation region while suppressing
+unwanted subspace currents \cite{Chen2026HighModulationDTP}.
 
-Switching loss introduces an opposing objective. DPWM and hybrid
-strategies reduce the number of transitions by clamping selected
-phases or by redistributing high-frequency switching among converter
-modules. Related open-end-winding (OEW) work demonstrates that
-coordinated modulation can reduce switching loss and unwanted
-zero-sequence current simultaneously \cite{Yang2026HybridOEW,
-Lee2026AlternatingDPWM}; although its dc architecture differs, the
-underlying principle of distributing switching activity among several
-inverter modules is directly transferable to SPB.
+Switching-loss reduction introduces a competing objective. DPWM and
+hybrid strategies reduce transitions by clamping selected phases or
+redistributing high-frequency switching among modules. Related
+open-end-winding studies demonstrate simultaneous reductions in
+switching loss and zero-sequence current
+\cite{Yang2026HybridOEW,Lee2026AlternatingDPWM}. Although their dc
+architecture differs, the principle of coordinating switching activity
+among inverter modules is applicable to SPB.
 
-\subsection{Coupling to Balancing and Common-Mode Objectives}
+\subsection{Coupling to Voltage Balancing and Common-Mode Control}
 
-Modulation also sets the achievable authority for two further
-objectives that are developed as dedicated topics later in this paper:
-dc-link voltage balancing (Section~\ref{sec:dclink_balancing}), where
-differential winding-group power must be realizable through modulation
-without violating local voltage and current limits
-\cite{Verkroost2024PowerDistribution,Wu2020ActiveBalancing,
-Mocevic2024GateDelay}; and common-mode voltage (Section~\ref{sec:common_mode}),
-where redundant voltage vectors or coordinated zero-sequence terms can
-reduce frame excitation \cite{Sun2025CMVMPC,Zheng2025MultiObjectivePWM,
-Chen2020EMCIntegrated}. 
-The key SPB modulation question is therefore
-not which conventional PWM method performs best in isolation, but how
-switching decisions should be coordinated across cells to jointly
-manage ripple, loss, balancing, and common-mode objectives over the
-full operating map.
+Modulation also determines the control authority available for dc-link
+voltage balancing and CMV reduction. Voltage balancing requires
+differential winding-group power commands that remain feasible within
+local voltage and current limits
+\cite{Verkroost2024PowerDistribution,Wu2020ActiveBalancing,Mocevic2024GateDelay}.
+Redundant voltage vectors and coordinated zero-sequence injection can
+reduce common-mode excitation of the machine frame
+\cite{Sun2025CMVMPC,Zheng2025MultiObjectivePWM,Chen2020EMCIntegrated}.
+These objectives are examined in
+Sections~\ref{sec:dclink_balancing} and~\ref{sec:common_mode}, respectively.
+
+SPB modulation consequently requires coordinated switching decisions
+that account for ripple, losses, voltage utilization, balancing, and
+common-mode behavior across the operating map.

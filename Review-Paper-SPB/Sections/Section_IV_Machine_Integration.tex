@@ -39,126 +39,16 @@ so by increasing winding terminals and coupling complexity
 arrangements are compared schematically in
 Fig.~\ref{fig:winding_options}.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{circuitikz}[font=\scriptsize,>=latex,x=1mm,y=1mm]
-\ctikzset{bipoles/length=4mm}
-
-% =====================================================================
-% Panel (a): Aligned -- every slot hosts both groups, inner/outer layer.
-% Long coil legs reaching close to the bore boundary and a shaft-only
-% center marker (not a large rotor disk) so the content, not empty
-% space, dominates the circle -- matching the reference proportions.
-% =====================================================================
-\begin{scope}[shift={(0,0)}]
-\draw[fill=black!25] (0,0) circle (2.2);
-\draw[black!40,thin] (0,0) circle (52);
-\foreach \a in {90,210,330}{
-\draw[black!20,thin] (\a:3) -- (\a:50.5);
-\begin{scope}[shift={(\a:22)}]
-\foreach \la/\lb in {90/A,210/B,330/C}{
-  \draw[blue!55!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,blue!55!black] at (\la:11) {$\lb$1};
-}
-\node[circle,fill=blue!55!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\begin{scope}[shift={(\a:38)}]
-\foreach \la/\lb in {90/A,210/B,330/C}{
-  \draw[orange!70!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,orange!70!black] at (\la:11) {$\lb$2};
-}
-\node[circle,fill=orange!70!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-}
-\node[align=center] at (0,-60) {(a) Aligned};
-\end{scope}
-
-% =====================================================================
-% Panel (b): Shifted -- both groups at the same radius, offset by
-% Delta-theta so the six coil clusters interleave with long legs
-% reaching close to the boundary
-% =====================================================================
-\begin{scope}[shift={(102,0)}]
-\draw[fill=black!25] (0,0) circle (2.2);
-\draw[black!40,thin] (0,0) circle (39);
-\foreach \a in {90,210,330}{
-\begin{scope}[shift={(\a:26)}]
-\foreach \la/\lb in {90/A,210/B,330/C}{
-  \draw[blue!55!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,blue!55!black] at (\la:11) {$\lb$1};
-}
-\node[circle,fill=blue!55!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\pgfmathsetmacro{\ashift}{\a+60}
-\begin{scope}[shift={(\ashift:26)}]
-\foreach \la/\lb in {90/A,210/B,330/C}{
-  \draw[orange!70!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,orange!70!black] at (\la:11) {$\lb$2};
-}
-\node[circle,fill=orange!70!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-}
-\draw[->,thin,black!60] (120:36) arc[start angle=120,end angle=150,radius=36];
-\node[font=\small] at (135:39) {$\Delta\theta$};
-\node[align=center] at (0,-47) {(b) Shifted};
-\end{scope}
-
-% =====================================================================
-% Panel (c): Segmented -- one shared bore, split into four physically
-% separate modules (dashed radial boundaries) alternating group 1 and
-% group 2, with the same long-leg coil size as (a)/(b)
-% =====================================================================
-\begin{scope}[shift={(204,0)}]
-\draw[fill=black!25] (0,0) circle (2.2);
-\draw[black!40,thin] (0,0) circle (39);
-\foreach \b in {45,135,225,315}{
-  \draw[black!40,thin,dashed] (\b:3) -- (\b:37.5);
-}
-\begin{scope}[shift={(0:26)}]
-\foreach \la/\lb in {90/A1,210/B1,330/C1}{
-  \draw[blue!55!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,blue!55!black] at (\la:11) {$\lb$};
-}
-\node[circle,fill=blue!55!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\begin{scope}[shift={(180:26)}]
-\foreach \la/\lb in {90/A1,210/B1,330/C1}{
-  \draw[blue!55!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,blue!55!black] at (\la:11) {$\lb$};
-}
-\node[circle,fill=blue!55!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\begin{scope}[shift={(90:26)}]
-\foreach \la/\lb in {90/A2,210/B2,330/C2}{
-  \draw[orange!70!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,orange!70!black] at (\la:11) {$\lb$};
-}
-\node[circle,fill=orange!70!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\begin{scope}[shift={(270:26)}]
-\foreach \la/\lb in {90/A2,210/B2,330/C2}{
-  \draw[orange!70!black,ultra thick] (\la:1.2) to[cute inductor] (\la:9);
-  \node[font=\small,orange!70!black] at (\la:11) {$\lb$};
-}
-\node[circle,fill=orange!70!black,inner sep=0.8pt] at (0,0) {};
-\end{scope}
-\node[align=center] at (0,-47) {(c) Segmented};
-\end{scope}
-
-% ---- Legend ----
-\node[circle,fill=blue!55!black,inner sep=1.4pt] at (72,-70) {};
-\node[right,font=\small] at (73.8,-70) {Winding group 1};
-\node[circle,fill=orange!70!black,inner sep=1.4pt] at (127,-70) {};
-\node[right,font=\small] at (128.8,-70) {Winding group 2};
-\node[fill=black!25,minimum size=2mm,inner sep=0] at (10,-70) {};
-\node[right,font=\small] at (11.8,-70) {Shaft};
-\end{circuitikz}}
-\caption{Schematic comparison of the winding-group spatial arrangements
-: (a)~aligned  groups (b)~spatially shifted groups and (c)~physically
-segmented stator modules.}
+\includegraphics[width=\columnwidth]{Figures/Section_Machines/fig_winding_options.pdf}
+\caption{Schematic comparison of winding-group spatial arrangements,
+each coil marking one phase axis of winding group 1 (blue) or group 2
+(red): (a)~aligned groups (parallel phase axes), (b)~spatially shifted
+groups (offset by $\Delta\theta$), and (c)~physically segmented stator
+modules.}
 \label{fig:winding_options}
-\end{figure*}
+\end{figure}
 
 For the $k$th PMSM winding group,
 

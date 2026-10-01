@@ -1,27 +1,8 @@
-"""
-Genuine nonlinear simulation of SPB dc-link (voltage-sharing)
-stability, built directly from the state-space model of Nikouie,
-Wallmark, Jin, Harnefors, Nee, "DC-Link Stability Analysis and
-Controller Design for the Stacked Polyphase Bridges Converter," IEEE
-Trans. Power Electronics, 2017 (already cited as Nikouie2017Stability):
-
-    L_b di_b/dt = E_b - R_b*i_b - sum_k(v_k)          (1)
-    C dv_k/dt   = i_b - P_k/v_k                        (2)-(3)
-
-with constant-power submodule loads P_k. That paper proves this
-open-loop system is UNSTABLE for msm>1 submodules in motoring mode
-(msm-1 real positive eigenvalues, plus a resonant-mode oscillation) --
-this script reproduces that instability directly by integrating the
-exact nonlinear ODEs (not just quoting the linearized eigenvalues),
-then shows the same system stabilized by their "controller
-alternative I" balancing law:
-
-    i_ref_d,k = id0 + g*id0*(v_k - vbar),  i_ref_q,k = iq0 + g*iq0*(v_k - vbar)
-
-which (per their eq. 24) is equivalent, once linearized, to a
-proportional correction on each cell's power command,
-DeltaP_k = g'*(v_k - vbar), vbar = mean(v_k). Implemented here directly
-on the nonlinear P_k for a concrete, non-linearized demonstration.
+"""Illustrative nonlinear SPB voltage-sharing simulation.
+Model based on Nikouie et al., IEEE TPEL, 2017.
+The balancing law DeltaP_k = Kp*(v_k-mean(v)) is motivated by
+controller alternative I, with ideal instantaneous power tracking.
+It does not reproduce the complete current-control implementation.
 """
 import matplotlib
 matplotlib.use("Agg")
@@ -49,13 +30,7 @@ v_star = 100.0      # nominal per-cell voltage (V)
 Eb = msm * v_star   # battery voltage (V)
 P_star = 1000.0     # nominal per-cell power (W)
 
-# Stability check per eq. (33) of the reference: C_min = P*Lb/(v*^2 Rb)
-C_min = P_star * Lb / (v_star ** 2 * Rb)
-print(f"C = {C*1e6:.1f} uF, C_min for stability (eq. 33) = {C_min*1e6:.3f} uF "
-      f"-> controller-alt-I stability condition {'holds' if C > C_min else 'FAILS'}")
-
-# Balancing-controller gain (alternative I): g' > P*/v* required (eq. 36);
-# use a gain comfortably above threshold for a clean, fast response.
+# Illustrative proportional power gain (W/V).
 g_prime = 3.0 * P_star / v_star
 
 # Initial per-cell voltage imbalance (p.u. of v_star), matching the
@@ -102,38 +77,41 @@ t_ol, v_ol, _ = simulate(t_end=3e-3, n_pts=6000, balancing_on=False)
 # Closed loop: same window, to show settling on a comparable timescale.
 t_cl, v_cl, _ = simulate(t_end=3e-3, n_pts=6000, balancing_on=True)
 
-fig, axes = plt.subplots(1, 2, figsize=(3.45, 2.3), sharey=True)
+from pathlib import Path
 
-colors = ["#1f4e99", "#c0392b", "#1a7a4c"]
+# Plot differential imbalance, not deviation from nominal voltage:
+# the common steady voltage includes the resistive supply-path drop.
+fig, axes = plt.subplots(1, 2, figsize=(3.5, 2.35), sharex=True, sharey=True)
+colors = ["#1f4e99", "#b23a33", "#23764a"]
+styles = ["-", "--", "-."]
 labels = [f"Cell {k+1}" for k in range(msm)]
-
-ax = axes[0]
-for k in range(msm):
-    ax.plot(t_ol * 1e3, (v_ol[:, k] - v_star) / v_star, color=colors[k],
-             linewidth=1.0, label=labels[k])
-ax.axhline(0, color="gray", linewidth=0.5, alpha=0.6)
-ax.set_title("Without balancing", fontsize=7.5)
-ax.set_xlabel(r"$t$ (ms)")
-ax.set_ylabel(r"$(v_k-v^\star)/v^\star$ (p.u.)")
-ax.grid(True, linewidth=0.4, alpha=0.3)
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-ax = axes[1]
-for k in range(msm):
-    ax.plot(t_cl * 1e3, (v_cl[:, k] - v_star) / v_star, color=colors[k],
-             linewidth=1.0, label=labels[k])
-ax.axhline(0, color="gray", linewidth=0.5, alpha=0.6)
-ax.set_title("With balancing (controller I)", fontsize=7.5)
-ax.set_xlabel(r"$t$ (ms)")
-ax.grid(True, linewidth=0.4, alpha=0.3)
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-ax.legend(loc="upper right", fontsize=6)
-
-plt.tight_layout()
-plt.savefig("fig_dclink_balancing.pdf", bbox_inches="tight")
-print("saved")
-print(f"open-loop final finite sample -> v = "
-      f"{v_ol[~np.isnan(v_ol[:,0])][-1] if np.any(~np.isnan(v_ol[:,0])) else 'n/a'}")
-print(f"closed-loop final v (V) = {v_cl[-1]}")
+for ax, t, v, title in zip(
+    axes, [t_ol, t_cl], [v_ol, v_cl],
+    ["(a) Without balancing", "(b) With proportional\npower balancing"]
+):
+    imbalance = (v - v.mean(axis=1, keepdims=True)) / v_star
+    for k in range(msm):
+        ax.plot(t*1e3, imbalance[:, k], color=colors[k],
+                linestyle=styles[k], linewidth=1.05, label=labels[k])
+    ax.axhline(0, color="0.5", linewidth=0.5, zorder=0)
+    ax.set_title(title, fontsize=7.2, pad=6)
+    ax.set_xlabel(r"$t$ (ms)")
+    ax.set_xlim(0, 3)
+    ax.set_xticks([0, 1, 2, 3])
+    ax.grid(True, linewidth=0.35, alpha=0.3)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+axes[0].set_ylabel(r"$\widetilde{V}_k/V_{\mathrm{base}}$ (p.u.)")
+fig.legend(*axes[0].get_legend_handles_labels(), loc="lower center",
+           bbox_to_anchor=(0.55, 0.005), ncol=3, fontsize=7,
+           handlelength=2.1, columnspacing=1.0)
+fig.subplots_adjust(left=0.18, right=0.985, bottom=0.30, top=0.80, wspace=0.12)
+output_dir = Path(__file__).resolve().parent
+fig.savefig(output_dir / "fig_dclink_balancing.pdf", bbox_inches="tight")
+fig.savefig(output_dir / "fig_dclink_balancing_preview.png", dpi=220, bbox_inches="tight")
+print(f"Closed-loop final voltages (V): {v_cl[-1]}")
+print(f"Final voltage spread (V): {np.ptp(v_cl[-1]):.6f}")
+# Verify the illustrated balancing property and zero-sum power correction.
+assert np.ptp(v_cl[-1]) < 0.1
+assert abs(np.sum(g_prime*(v_cl[-1]-v_cl[-1].mean()))) < 1e-8
+print("Figure regenerated; balancing and zero-sum power checks passed.")
