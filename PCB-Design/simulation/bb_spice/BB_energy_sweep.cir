@@ -1,0 +1,6 @@
+* Switching energy vs current with the selected gate resistors.
+* TON1 is fixed (LTspice evaluates .meas windows once); the load inductance sets the current.
+.param VBUS=75 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.step param IPK list 10 30 60 90 120 141 160
+.include BB_circuit.inc
+.end

@@ -1,0 +1,17 @@
+.subckt BB_GL DrvGnd DrvOut Gate_L Gate_R Kelvin_L Kelvin_R
+* BB_GL: Q3D copper partial R/L at 100 MHz; branches from each source terminal to its net sink
+R1 Gate_L m1 0.0518952
+L1 m1 DrvOut 3.76024n
+R2 Gate_R m2 0.0536205
+L2 m2 DrvOut 3.5538n
+R3 Kelvin_L m3 0.0262184
+L3 m3 DrvGnd 3.09552n
+R4 Kelvin_R m4 0.0227401
+L4 m4 DrvGnd 2.66316n
+K1_2 L1 L2 0.10899
+K1_3 L1 L3 0.75493
+K1_4 L1 L4 0.03219
+K2_3 L2 L3 0.00349
+K2_4 L2 L4 0.73549
+K3_4 L3 L4 0.07518
+.ends BB_GL

@@ -1,0 +1,114 @@
+* Double-pulse test, low-side DUT: 2 x EPC2361 per switch, power loop = Q3D PL_A copper matrix
+*
+* Open in LTspice and Run (Alternate solver), or batch:  run_dpt.cmd
+* Cells:  cell k (k = 1, 2) = PL_A copper subcircuit + QHk + QLk + local MLCC bank.
+* Low-side DPT: load inductor between switch node SW and DC+ (BUSP); QH held off; QL1/QL2 pulsed.
+* Plot e.g.  V(qld1,qls1)  I(Vidl1)  I(Vidl2)  V(gl1,qls1)  V(gh1,qhs1)  I(Lload)
+*
+* Assumptions (edit the .param lines):
+*  - PL_A matrix is the 100 MHz copper-only partial R/L of one cell (simulation/q3d/results/PL_A.lib)
+*  - no mutual coupling between the two cells; DC/AC distribution between cells lumped (LDIST, LAC)
+*  - MLCC bank: 6 x 1 uF 0805 per cell, CMLCC = effective capacitance at 75 V (assumed 50 %)
+*  - driver: LT8418-like split output, 0.6 ohm pull-up / 0.2 ohm pull-down, 5 V, 1 ns source edges
+*  - gate loop per FET from Q3D: 2.0 nH (8 mm) near / 7.7 nH (25 mm) far; star routing ~2.1 nH each
+
+.param VBUS=75 IPK=120 LLOAD=20u
+.param TSTART=1u TON1={LLOAD*IPK/VBUS} TOFF=2u TON2=1u TTAIL=1u
+.param T1={TSTART+TON1} T2={T1+TOFF} T3={T2+TON2} TEND={T3+TTAIL}
+.param VDRV=5 RPU=0.6 RPD=0.2 RGON=2 RGOFF=0.01 LTRUNK=0.5n RKS=0.1
+.param CMLCC=3u RMLCC=1m LMLCC=0.08n
+.param LDIST=1n LAC=0.5n CBULK=1.54m RBULK=15m LBULK=3n
+* gate routing: GATEMODE 0 = star (equal branches), 1 = direct from a left driver (near/far)
+.param LG1={if(GATEMODE,2.0n,2.1n)} LG2={if(GATEMODE,7.7n,2.1n)}
+.step param GATEMODE list 0 1
+
+.include ../q3d/results/PL_A.lib
+.include ../LMG1210-EPC2361/EPC2361.lib
+.model DIDEAL D(Ron=1m Roff=1G Vfwd=0)
+
+* ---------------- supply, bulk bank, load ----------------
+V1 VSUP 0 {VBUS}
+Lsup VSUP BUSP 1u Rser=50m
+Cbulk BUSP NB {CBULK} Rser={RBULK}
+Lbulk NB 0 {LBULK}
+Lload SW BUSP {LLOAD} Rser=5m Cpar=20p
+
+* ---------------- cell 1 ----------------
+XPL1 CapN1 CapP1 QHD1 QHS1 QLD1 QLS1 PL_A
+Cm1 CapP1 cm1 {CMLCC} Rser={RMLCC}
+Lm1 cm1 CapN1 {LMLCC}
+Ld1p BUSP CapP1 {LDIST}
+Ld1n CapN1 0 {LDIST}
+Lac1 QLD1 SW {LAC}
+VIDH1 QHD1 qhd1x 0
+XQH1 gh1x qhd1x QHS1 EPC2361
+VIDL1 QLD1 qld1x 0
+XQL1 gl1x qld1x QLS1 EPC2361
+
+* ---------------- cell 2 ----------------
+XPL2 CapN2 CapP2 QHD2 QHS2 QLD2 QLS2 PL_A
+Cm2 CapP2 cm2 {CMLCC} Rser={RMLCC}
+Lm2 cm2 CapN2 {LMLCC}
+Ld2p BUSP CapP2 {LDIST}
+Ld2n CapN2 0 {LDIST}
+Lac2 QLD2 SW {LAC}
+VIDH2 QHD2 qhd2x 0
+XQH2 gh2x qhd2x QHS2 EPC2361
+VIDL2 QLD2 qld2x 0
+XQL2 gl2x qld2x QLS2 EPC2361
+
+* ---------------- low-side driver (pulsed): Kelvin star from both QL sources ----------------
+Rksl1 QLS1 KSL {RKS}
+Rksl2 QLS2 KSL {RKS}
+VLO lo_src KSL PWL(0 0 {TSTART} 0 {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} 0 {T2} 0 {T2+1n} {VDRV} {T3} {VDRV} {T3+1n} 0)
+Ltl lo_src lo_t {LTRUNK}
+Rpul lo_t lo_a {RPU}
+Dpul lo_a LOUP DIDEAL
+Rpdl lo_b lo_t {RPD}
+Dpdl LODN lo_b DIDEAL
+Ron1 LOUP gl1 {RGON}
+Roff1 gl1 LODN {RGOFF}
+Lg1 gl1 gl1x {LG1}
+Ron2 LOUP gl2 {RGON}
+Roff2 gl2 LODN {RGOFF}
+Lg2 gl2 gl2x {LG2}
+Rgs1 gl1x QLS1 100k
+Rgs2 gl2x QLS2 100k
+
+* ---------------- high-side driver (held off at 0 V through the pull-down) ----------------
+Rksh1 QHS1 KSH {RKS}
+Rksh2 QHS2 KSH {RKS}
+VHO ho_src KSH 0
+Rpdh ho_src HODN {RPD}
+Rofh1 gh1 HODN {RGOFF}
+Lgh1 gh1 gh1x {LG1}
+Rofh2 gh2 HODN {RGOFF}
+Lgh2 gh2 gh2x {LG2}
+Rgsh1 gh1x QHS1 100k
+Rgsh2 gh2x QHS2 100k
+
+* ---------------- analysis ----------------
+.options plotwinsize=0 method=gear
+.tran 0 {TEND} 0 0.2n
+
+* switched current and sharing at the end of the first pulse (QL turn-off)
+.meas TRAN IL_off FIND I(Lload) AT {T1}
+.meas TRAN ID1_off FIND I(VIDL1) AT {T1}
+.meas TRAN ID2_off FIND I(VIDL2) AT {T1}
+* QL turn-off: VDS overshoot and turn-off energy (both FETs), 300 ns window
+.meas TRAN VDSL_pk MAX V(QLD1,QLS1) FROM {T1} TO {T1+300n}
+.meas TRAN VDSL2_pk MAX V(QLD2,QLS2) FROM {T1} TO {T1+300n}
+.meas TRAN Eoff1 INTEG V(QLD1,QLS1)*I(VIDL1) FROM {T1} TO {T1+300n}
+.meas TRAN Eoff2 INTEG V(QLD2,QLS2)*I(VIDL2) FROM {T1} TO {T1+300n}
+* QL turn-on (second pulse): QH VDS overshoot, QL peak currents and energy, false turn-on of QH
+.meas TRAN VDSH_pk MAX V(QHD1,QHS1) FROM {T2} TO {T2+300n}
+.meas TRAN ID1_pk MAX I(VIDL1) FROM {T2} TO {T2+300n}
+.meas TRAN ID2_pk MAX I(VIDL2) FROM {T2} TO {T2+300n}
+.meas TRAN Eon1 INTEG V(QLD1,QLS1)*I(VIDL1) FROM {T2} TO {T2+300n}
+.meas TRAN Eon2 INTEG V(QLD2,QLS2)*I(VIDL2) FROM {T2} TO {T2+300n}
+.meas TRAN VGSH_pk MAX V(gh1x,QHS1) FROM {T2} TO {T2+300n}
+.meas TRAN VGSL_min MIN V(gl1x,QLS1) FROM {T1} TO {T1+300n}
+* switching speed: low-side VDS fall at turn-on (90 % -> 10 % of the bus)
+.meas TRAN tfall TRIG V(QLD1,QLS1) VAL={0.9*VBUS} FALL=1 TD={T2} TARG V(QLD1,QLS1) VAL={0.1*VBUS} FALL=1 TD={T2}
+.meas TRAN trise TRIG V(QLD1,QLS1) VAL={0.1*VBUS} RISE=1 TD={T1} TARG V(QLD1,QLS1) VAL={0.9*VBUS} RISE=1 TD={T1}
+.end

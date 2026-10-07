@@ -1,0 +1,5 @@
+* Building block double-pulse test at the rated peak current (141 A), selected gate resistors.
+* Open in LTspice and Run. Plot e.g. V(QL_D_L,QL_S_L) V(QH_D_L,QH_S_L) I(VILL) I(VILR) V(gtLL,QL_S_L) V(gtHL,QH_S_L)
+.param VBUS=75 IPK=141 LLOAD=5u TON1={LLOAD*IPK/VBUS} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.include BB_circuit.inc
+.end

@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Building block layout</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;margin:24px;max-width:1300px;color:#222}
+img{max-width:100%;border:1px solid #ddd;margin:8px 0} td{border:1px solid #ccc;padding:4px 8px;font-size:13px}
+table{border-collapse:collapse}</style></head><body>
+<h1>Symmetric building block: 2 x EPC2361 per switch, driver in the middle</h1>
+<p>Generated from <code>simulation/bb_q3d/bb_geometry.py</code>, the same geometry used by the Q3D model
+(<code>simulation/bb_q3d/bb_q3d.py</code>). Colours: red DC+, blue DC-, orange AC, green gate, dark pads = Q3D terminals,
+dashed = component bodies (gaps in copper).</p>
+<table><tr><td>Board</td><td>30 x 28.2 mm, 4 layers, 1.6 mm; mirror-symmetric about x = 0</td></tr><tr><td>Cells</td><td>2 x PL_A vertical loops at x = +/-7.5 mm, island width 9.0 mm</td></tr><tr><td>Driver</td><td>LT8418 in the 6 mm centre corridor at the AC-island height; HO and LO stars to both FETs</td></tr><tr><td>Local caps</td><td>6 x 1 uF 0805 per cell next to QH (commutation loop over L2)</td></tr><tr><td>Bank</td><td>24 x 10 uF 1210 in three rows between alternating DC+/DC- strips (P1, N1, P2, N2)</td></tr><tr><td>L2</td><td>solid DC- under everything, anti-pads for DC+ and AC vias</td></tr><tr><td>L3</td><td>DC+ plane: bank strips P1/P2 and both cell DC+ islands</td></tr><tr><td>L4</td><td>AC plane joining both switch nodes; AC terminal pad bottom centre</td></tr><tr><td>Terminals</td><td>T_DC+ (P1 centre), T_DC- (N1 centre), T_AC (bottom side, centre)</td></tr></table>
+<h2>Top layer</h2><img src="../reports/building-block/figures/layout_top.png">
+<h2>Inner and bottom layers</h2><img src="../reports/building-block/figures/layout_inner.png">
+<h2>Stack-up</h2><img src="../reports/building-block/figures/layout_stackup.png">
+</body></html>

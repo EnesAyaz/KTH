@@ -1,0 +1,12 @@
+* PL_C__h_23_0p5mm: LTspice check of the effective loop inductance (copper only)
+.include PL_C__h_23_0p5mm.lib
+X1 CapAN CapAP CapBN CapBP QH_D QH_S QL_D QL_S PL_C__h_23_0p5mm
+Vqh QH_D QH_S 0
+VCapAP CapAP CapAN 0
+VCapBP CapBP CapBN 0
+I1 QL_S QL_D AC 1
+Rref QL_S 0 1G
+.options meascplxfmt=cartesian
+.ac lin 1 100Meg 100Meg
+.meas AC Lloop_nH FIND im(V(QL_D,QL_S))/(2*pi*frequency)*1e9 AT 100Meg
+.end

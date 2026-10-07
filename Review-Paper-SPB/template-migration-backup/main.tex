@@ -1,0 +1,82 @@
+\documentclass[journal]{IEEEtran}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{cite}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{circuitikz}
+\input{Figures/Style/pes_figure_style}
+\usepackage{jabbrv}
+
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+
+% Compiles even when a draft figure file is not yet available.
+\newcommand{\figplaceholder}[3]{%
+\fbox{\parbox[c][#2][c]{#1}{\centering\footnotesize #3}}%
+}
+
+\begin{document}
+
+\title{Stacked Polyphase Bridge Converters for High-Voltage Electric
+Traction Drives: A Review of Topology, Modulation, Control,
+Semiconductor Scaling, and Future Directions}
+
+\author{Enes~Ayaz,~\IEEEmembership{Student Member,~IEEE},
+Shahriar~Sarmast~Ghahfarokhi,~\IEEEmembership{Student Member,~IEEE},
+Staffan~Norrga,~\IEEEmembership{Member,~IEEE},
+Hans-Peter~Nee,~\IEEEmembership{Fellow,~IEEE}%
+\thanks{(Corresponding author: Enes Ayaz.)}%
+\thanks{E. Ayaz, S. Sarmast Ghahfarokhi, S. Norrga, and H.-P. Nee
+are with the Division of Electric Power and Energy Systems,
+KTH Royal Institute of Technology, SE-100~44 Stockholm, Sweden
+(e-mail: enesa@kth.se).}%
+}
+
+\markboth{}%
+{Ayaz \MakeLowercase{\textit{et al.}}: Stacked Polyphase Bridge Converters}
+
+\maketitle
+
+\begin{abstract}
+Increasing dc-link voltages in electric traction drives intensify semiconductor voltage stress and insulation requirements. Stacked polyphase bridge converters partition the dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. This architecture enables lower-voltage semiconductor devices and modular converter--machine integration, but introduces coupled challenges in modulation, voltage balancing, insulation, and fault management. This paper reviews stacked polyphase bridge converters for high-voltage electric traction, bringing together literature on topology evolution, operating principles, machine integration, control, semiconductor scaling, and fault-tolerant reconfiguration. The review examines carrier-interleaving effects on dc-link ripple, conditions for switching-induced common-mode voltage cancellation, and dc-link balancing stability under centralized, common-duty-ratio, and distributed control. It also relates cell count to semiconductor voltage class and the associated converter and machine requirements. A mapping for a 1200-V dc link illustrates how increasing cell count provides access to lower-voltage device classes, while adding sensing, gate-drive, winding, and insulation requirements. The synthesis indicates that semiconductor-level gains alone are insufficient to establish a system-level advantage, and that the preferred cell count depends on the application and operating mission. Key research priorities are joint battery, converter, and machine design, together with validation against vehicle-level energy, cost, and reliability targets. These findings provide a basis for assessing where stacked polyphase bridge architectures can offer practical benefits in future traction drives.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Electric vehicles, integrated motor drives, modular converters,
+multiphase machines, stacked polyphase bridge (SPB) converters.
+\end{IEEEkeywords}
+
+\input{Sections/Section_I_Intro}
+\input{Sections/Section_II_Evolution_SPB}
+\input{Sections/Section_III_Operating}
+\input{Sections/Section_IV_Machine_Integration}
+\input{Sections/Section_V_Modulation}
+\input{Sections/Section_VI_CommonMode}
+\input{Sections/Section_VI_DCLink}
+\input{Sections/Section_VII_Semiconductor}
+\input{Sections/Section_X_FaultTolerance}
+\input{Sections/Section_XII_Future}
+\input{Sections/Section_XIII_Conclusion}
+
+\section*{Acknowledgment}
+The authors used Claude (Anthropic) and Codex (OpenAI) for language
+editing, structural organization, and drafting assistance. Codex also
+assisted with analytical exposition and figure code in the modulation,
+common-mode, fault-tolerance, and design-framework discussions. The
+authors are responsible for validating all technical content, references,
+and final editorial decisions.
+
+\bibliographystyle{jabbrv_IEEEtran}
+\bibliography{ref}
+
+\end{document}

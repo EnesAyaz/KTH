@@ -1,0 +1,6 @@
+* Gate-resistor selection at 160 A (13 % above the 141 A peak of 100 A RMS), 75 V
+.param VBUS=75 IPK=160 LLOAD=5u TON1={LLOAD*IPK/VBUS} RPU=0.6 RPD=0.2
+.step param RGOFF list 0 0.5 1
+.step param RGON list 0.5 1 1.5 2 3 4
+.include BB_circuit.inc
+.end

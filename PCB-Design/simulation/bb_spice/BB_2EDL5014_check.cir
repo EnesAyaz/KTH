@@ -1,0 +1,6 @@
+* 2EDL5014AA-U2D check: 0.7 ohm pull-up, pull-down 0.47 ohm (normal) / 0.37 ohm (high side, Miller clamp active)
+.param VBUS=75 IPK=160 LLOAD=5u TON1={LLOAD*IPK/VBUS} RGOFF=0 RPU=0.7
+.step param RPD list 0.37 0.47
+.step param RGON list 1.5 2 2.5
+.include BB_circuit.inc
+.end

@@ -1,0 +1,4 @@
+AC T_AC QH_S_L QL_D_L QH_S_R QL_D_R
+DCN T_DCN CapB1N CapB2N CapB3N CapNL QL_S_L CapNR QL_S_R
+DCP T_DCP CapB1P CapB2P CapB3P CapPL QH_D_L CapPR QH_D_R
+# stack: h_23=1.2, h_34=0.1, h_diel=0.1, r_anti=0.35, t_L1=0.07, t_L2=0.035, t_L3=0.035, t_L4=0.07, t_pad=0.035, via_r=0.15, z_L1=0.135, z_L3b=-1.235, z_L3t=-1.2, z_L4b=-1.405, z_L4t=-1.335, z_top=0.205

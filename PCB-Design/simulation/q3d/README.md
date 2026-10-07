@@ -1,55 +1,57 @@
-# Q3D model: EPC2361 DPT cell loop inductance
+# Q3D model: EPC2361 DPT power loop, three MLCC arrangements
 
-Parametric pre-layout model of one vertical cell (MLCC → QH → QL → 1 mΩ shunt → In1 return) and the low-side gate loop. Same method as the SiC busbar model (`DC-Bus Current Modelling/Ansys/Busbarfinal.aedt`): **only copper is modelled; every component is a gap with a source/sink terminal on each of its pads.** Each copper region between two components is its own net, so Q3D gives the partial self/mutual inductance matrix, which converts to an LTspice subcircuit. Rerun with the real geometry once the KiCad layout exists.
+Parametric pre-layout model of one vertical cell (no shunt, no gate loop). Same method as the SiC busbar model (`DC-Bus Current Modelling/Ansys/Busbarfinal.aedt`): **only copper is modelled; every component (MLCC bank, QH, QL) is a gap with a source/sink terminal on each of its pads.** Each copper region is one Q3D net (one sink, one or more sources), so the result is the partial R/L matrix of the copper. `q3d_to_spice.py` turns that into an LTspice subcircuit. Sketches with every variable: `docs/q3d-geometry-sketches.html`.
 
-## Run it
+| Design | MLCC placement | Inner layers |
+| --- | --- | --- |
+| PL_A | one bank next to QH (EPC "optimal" loop) | L2 = DC− |
+| PL_B | one bank between QH and QL | L2 = AC (switch node) |
+| PL_C | bank A next to QH + bank B next to QL | L2 = DC−, L3 = DC+, spacing `h_23` |
 
-Needs AEDT 2024 R2 and the KTH licence server (`ANSYS-STUD-LIC.UG.KTH.SE:1055`): campus network or KTH VPN.
+## Run
+
+Needs AEDT 2024 R2 and the KTH licence server (`ANSYS-STUD-LIC.UG.KTH.SE:1055`), i.e. campus network or KTH VPN.
 
 ```
-simulation\q3d\run_q3d.cmd          # build + solve + h_diel sweep + export + SPICE (~25 min)
-simulation\q3d\run_q3d.cmd export   # only re-export from results\dpt_cell_q3d.aedt, then SPICE
-python simulation\q3d\q3d_to_spice.py   # only rebuild .lib files and summary.csv
+simulation\q3d\run_q3d.cmd              # all designs + h_23 sweep + LTspice files (~15 min)
+simulation\q3d\run_q3d.cmd only PL_C    # rebuild/solve one design in the existing project
+simulation\q3d\run_q3d.cmd spice        # only rebuild LTspice files from results\*_matrix.txt
 ```
 
-To change geometry, open `results\dpt_cell_q3d.aedt` in AEDT, select a design, open Design Properties (Local Variables tab), edit, then Analyze All and `run_q3d.cmd export`. To sweep, use Optimetrics → Parametric on any variable, or edit `SWEEP` near the end of `q3d_dpt_cell.py`. Defaults live in `POWER_VARS` / `GATE_VARS` at the top of that file.
+Change geometry in `results\dpt_cell_q3d.aedt` (Design Properties → Local Variables) or in the `VARS_*` lists at the top of `q3d_dpt_cell.py`. Sweeps: the `SWEEP` dict near the end of the script (each point is one extra solve).
 
-## Nets and terminals
+## Results (100 MHz, all converged, 1 Oct 2026, h_diel = 0.1 mm)
 
-| Design | Net | Source → Sink | What it is |
-| --- | --- | --- | --- |
-| PL_* | DCP | CapP (6 MLCC + pads) → QH_D | DC+ copper, caps to high-side drain |
-| PL_* | AC | QH_S → QL_D | Switch node copper |
-| PL_shunt | SQL | QL_S → SH_in (5 pads) | QL source island to shunt input |
-| PL_shunt | DCN | SH_out (5 pads) → CapN (6 MLCC − pads) | DC− landing, vias, In1 return, cap vias |
-| PL_noshunt | DCN | QL_S → CapN | Same without shunt |
-| GL_* | G | DrvOut → Gate | Gate trace on L1 |
-| GL_* | KS | Kelvin → DrvGnd | Kelvin via, return on In1 under the trace |
+Effective loop inductance at the QL switch, with QH shorted and each MLCC bank shorted (ideal, or with 0.48 nH / 6 = 0.08 nH ESL per bank). The EPC2361 package is not included.
 
-All sources point along the loop, so **Lloop = sum of all ACL(i,j)** (output variable `Lloop` in each design). The components themselves are not in Lloop. Add them in SPICE: MLCC ESL 0.48 nH / 6, EPC2361 package, shunt R + ESL.
+| Design | Banks | L copper | L with MLCC ESL | R (100 MHz) |
+| --- | --- | --- | --- | --- |
+| PL_A | 1 | 0.310 nH | 0.390 nH | 7.8 mΩ |
+| PL_B | 1 | 0.303 nH | 0.383 nH | 7.6 mΩ |
+| **PL_C, h_23 = 0.1 mm** | 2 | **0.288 nH** | **0.333 nH** | 7.3 mΩ |
+| PL_C, h_23 = 0.5 mm | 2 | 0.303 nH | 0.362 nH | 7.5 mΩ |
+| PL_C, h_23 = 1.2 mm (standard 4-layer core) | 2 | 0.306 nH | 0.372 nH | 7.7 mΩ |
 
-## Main variables (power loop)
+LTspice (`*_test.cir`) reproduces every "L copper" value to 4 digits.
 
-| Variable | Default | Meaning |
-| --- | --- | --- |
-| h_diel | 0.1 mm | L1–In1 dielectric: vertical spacing of + (L1) and − (In1) copper, the PCB equivalent of the busbar insulation |
-| gap | 0.6 mm | Lateral gap between L1 islands (DC−/DC+/AC/source), i.e. component pad spacing |
-| w_cell / w_sh | 9 / 17 mm | Island widths (cell / shunt region) |
-| l_dcp, l_ac, l_s, l_dcn | 3.1 / 3.7 / 2.4 / 1.4 mm | Copper lengths along the loop |
-| t_L1, t_L2 | 70 / 35 µm | Copper thickness |
-| fet_w, fet_pad, cap_p, sh_p | 5 / 1 / 1.4 / 3.4 mm | Pad geometry and pitches |
+## Using the matrix in LTspice
 
-## Results (100 MHz AC, all designs converged, 1 Oct 2026)
+`results/<design>.lib` contains `.subckt <design> <terminals>`: one R–L branch per Q3D source (source terminal → its net's sink terminal) plus a `K` line for every mutual inductance. `results/<design>_L.csv` is the same inductance matrix as a table.
 
-| Design | Lloop (copper) | Main self terms |
-| --- | --- | --- |
-| PL_shunt, h_diel 0.075 mm | 0.299 nH | DCN 0.464, AC 0.078, DCP 0.060, SQL 0.025 |
-| **PL_shunt, h_diel 0.1 mm** | **0.341 nH** | DCN 0.502, AC 0.078, DCP 0.060, SQL 0.025 |
-| PL_shunt, h_diel 0.2 mm | 0.496 nH | DCN 0.647 |
-| PL_noshunt, h_diel 0.1 mm | 0.311 nH | DCN 0.466, AC 0.080, DCP 0.061 |
-| GL_near (8 mm) | 2.01 nH | G 4.89, KS 4.03 |
-| GL_far (25 mm) | 7.67 nH | G 23.8, KS 18.9 |
+```
+.include PL_A.lib
+X1 CapN CapP QH_D QH_S QL_D QL_S PL_A
+```
 
-Outputs in `results/`: `<design>.csv` (Lloop + full ACL matrix + ACR), `<design>_matrix.txt` (full Q3D export), `<design>.lib` (LTspice subcircuit: R–L per net + K couplings), `summary.csv`.
+Connect the real parts between the terminals, for example for PL_A:
 
-v1 of this model (before 1 Oct 12:00) merged everything into one net with caps/QH as copper blocks; its numbers (0.248 / 0.223 nH) are superseded.
+* MLCC bank (6 × 1 µF, ESR, 0.08 nH) between `CapP` and `CapN`
+* QH (EPC2361 model): drain `QH_D`, source `QH_S`; QL: drain `QL_D`, source `QL_S`
+* DC supply / bulk to `CapP`/`CapN`, load inductor between `QH_S` (= switch node) and DC+ (`CapP`) for the low-side DPT
+* PL_C: bank A between `CapAP`/`CapAN`, bank B between `CapBP`/`CapBN`
+
+Pin order is the `.subckt` line (alphabetical). The values are AC (100 MHz) partial inductances, which are right for switching edges. The DC/low-frequency inductance is higher (current spreads), so do not use this model for the slow inductor ramp.
+
+## Files
+
+`q3d_dpt_cell.py` (Q3D model), `q3d_to_spice.py` (matrix → `.lib`, `_L.csv`, `_test.cir`, `summary.csv`), `run_q3d.cmd`. `results/<design>_terminals.txt` lists net, sink, sources and the variable values used.

@@ -1,0 +1,169 @@
+﻿% =====================================================================================
+% Conference paper DRAFT PLAN (structure + planned arguments; no prose yet)
+% Building Block Design for Stacked Polyphase Bridge Converters for High-Voltage Traction Drives
+%
+% Format: IEEE conference, 6 pages (budget per section in the headings' comments).
+% Type: design-methodology paper (simulation + extraction); hardware validation = future work.
+% Colour code:  blue = planned argument | green = evidence we already have | red = open item
+% =====================================================================================
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx,amsmath,amssymb,booktabs,xcolor,hyperref}
+\newcommand{\uF}{\ensuremath{\mu}F}
+\newcommand{\plan}[1]{\textcolor{blue!60!black}{\textit{#1}}}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{TODO:} #1}}
+\newcommand{\have}[1]{\textcolor{green!40!black}{\small[have: #1]}}
+\newcommand{\pages}[1]{\hfill\textcolor{gray}{\small(#1 page)}}
+
+\begin{document}
+\title{Building Block Design for Stacked Polyphase Bridge Converters for High-Voltage Traction Drives}
+\author{\IEEEauthorblockN{Author(s)}\IEEEauthorblockA{KTH Royal Institute of Technology, Stockholm, Sweden}}
+\maketitle
+
+% -------------------------------------------------------------------------------------
+\begin{abstract}
+\plan{Write last, 150--200 words, 4 numbers. (1) 800\,V traction relies on 1.2\,kV SiC; stacked polyphase bridges (SPB) split the bus into series low-voltage modules so that 100\,V GaN HEMTs can be used. (2) The difficulty moves to the module: high current with paralleled devices, tight voltage margin. (3) We present a design methodology for a symmetric 75\,V / 100\,A$_\mathrm{rms}$ phase-leg building block with 2\,$\times$\,EPC2361 per switch and a centre gate driver, linking Q3D parasitic extraction to SPICE loss and gate-resistor design. (4) Results: 0.37\,nH commutation loop, $<$0.1\,\% left/right asymmetry, R$_\mathrm{g,on}$/R$_\mathrm{g,off}$ = 2/0\,$\Omega$ for $\leq$90\,V stress, 99.58\,\% estimated efficiency at 50\,kHz; PCB copper is the second-largest loss.}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Stacked polyphase bridge, GaN HEMT, paralleling, current sharing, PCB layout, parasitic extraction, DC-link capacitor, traction inverter.
+\end{IEEEkeywords}
+
+% -------------------------------------------------------------------------------------
+\section{Introduction}\pages{0.75}
+\plan{Problem, then idea, then why GaN, then the module challenge, then contributions.}
+\begin{itemize}
+\item 800\,V traction trend: faster charging, lower current. State of the art: two-level 1.2\,kV SiC. Limits: device FOM at high voltage, full-bus dv/dt on the winding insulation, one large module.
+\item SPB: the DC bus is split into $N$ series-stacked modules; each module drives its own phase group of a multiphase machine and sees only $V_\mathrm{dc}/N$.
+\item Why promising: 100\,V GaN has a much better $R_\mathrm{DS(on)}\cdot Q_\mathrm{G}$ and no reverse recovery, so higher $f_\mathrm{sw}$ and efficiency; smaller voltage step per module; one repeated building block, modularity, fault tolerance, distributed cooling; multiphase machines.
+\item The challenge moves into the module: 100\,A-class currents at 75\,V need paralleled devices, and a 100\,V device at 75\,V leaves only about 15\,V for overshoot. Layout, gate drive and current sharing decide whether the concept works.
+\item Contributions:
+ \begin{enumerate}
+ \item Module requirements for an SPB derived from bus voltage, module count and device rating (75\,V on 100\,V GaN, 0.4\,nH-class loop).
+ \item A Q3D-to-SPICE design flow for paralleled GaN: copper-only partial-inductance extraction with component terminals, used directly for loss and gate-resistor design.
+ \item A current-sharing sensitivity study with its mechanism (gate-loop mismatch acts as a delay comparable to the transition time; common-source inductance imbalance is worst), which motivates the centre-driver symmetric layout.
+ \item Findings specific to low-voltage high-current modules: PCB copper as the second-largest loss, and DC-link sizing per floating module.
+ \end{enumerate}
+\item Paper organisation sentence.
+\end{itemize}
+\todo{References: original SPB papers (Oxford, Rogers group); multiphase machines; 800\,V SiC inverters; GaN traction inverters \cite{cooke2026,gan_module_traction,gan_3level,gan_100kw,gan_scooter,gan_lev}.}
+
+% -------------------------------------------------------------------------------------
+\section{Stacked Polyphase Bridge and Module Requirements}\pages{0.5}
+\plan{From system to module specification.}
+\begin{itemize}
+\item Fig.~1: SPB system: $N$ stacked module DC links, each module drives a phase group of the machine.
+\item Module voltage: 75\,V for 100\,V devices, giving $N\approx11$ for 800\,V; voltage budget $75+15\leq90$\,V, and $\Delta V=L_\mathrm{loop}\,di/dt$ gives $L_\mathrm{loop}\lesssim0.4$\,nH at about 20\,A/ns.
+\item Current: 100\,A$_\mathrm{rms}$ per phase (141\,A peak); 2.65\,kW per leg at $M=1$; target 99.5\,\% (13.3\,W per leg).
+\item Table~I: module specification.
+\item Note: legs per module (1 or 3) determines the DC-link ripple cancellation (Section~\ref{sec:dclink}).
+\end{itemize}
+\have{reports/building-block/bb\_report.tex (Sec.~1); scripts/bb\_sizing.py}
+\todo{decide phases per module, $N$, machine data (phase count, winding sets).}
+
+% -------------------------------------------------------------------------------------
+\section{Building-Block Design}\label{sec:design}\pages{1.25}
+\subsection{Device choice and paralleling}
+\begin{itemize}
+\item EPC2361: 100\,V, 0.75/1.0\,m$\Omega$, $Q_\mathrm{rr}=0$, 120\,V transient rating; utilisation 75/100 vs 800/1200 for SiC.
+\item Two in parallel: conduction loss $I^2R_\mathrm{DS}/2$ = 5.6\,W per leg at 100\,$^\circ$C, 35\,A$_\mathrm{rms}$ per device; reference: EPC9186 uses the same 2\,$\times$\,EPC2361 for 130\,A$_\mathrm{rms}$.
+\end{itemize}
+\subsection{Layout principles}
+\begin{itemize}
+\item Vertical (inner-layer) commutation loop: L1 over L2 at 0.1\,mm for flux cancellation.
+\item Two mirrored cells with the driver on the symmetry line; equal HO/LO stars; Kelvin returns; all terminals on the centre line.
+\item Stack-up: 4 layers, 2\,oz; L2 DC$-$, L3 DC+, L4 AC. Fig.~2: top view and stack-up.
+\end{itemize}
+\subsection{Parasitic extraction}
+\begin{itemize}
+\item Method: copper only; MLCCs and FETs as gaps with source/sink terminals; partial $R$/$L$ matrix exported as a SPICE subcircuit with coupling coefficients.
+\item Table~II: commutation loop 0.312\,nH (copper) / 0.374\,nH (with ESL) per cell; gate loop 1.70\,nH per FET; left/right difference $<$0.1\,\%.
+\item Sensitivity (one sentence or inset): prepreg 0.075/0.1/0.2\,mm gives 0.30/0.34/0.50\,nH.
+\end{itemize}
+\have{figures/layout\_top.pdf, layout\_stackup.pdf; simulation/bb\_q3d; simulation/q3d (h\_diel sweep)}
+\plan{Ends with: the layout meets the 0.4\,nH requirement of Section II with symmetric branches.}
+
+% -------------------------------------------------------------------------------------
+\section{Current Sharing and Symmetric Gate Drive}\label{sec:sharing}\pages{1.25}
+\subsection{Mechanisms}
+\plan{Power-loop imbalance, gate-loop imbalance, common-source inductance (CSI), threshold spread \cite{an020,parallel_gan_exp,paralleling_ehemt,cooke2026}.}
+\subsection{Sensitivity study}
+\begin{itemize}
+\item Two EPC2361 in a double-pulse circuit, one parameter changed at a time (Fig.~3, three cases):
+ gate loop 2$\to$8\,nH: 19\,\% dynamic imbalance, 4:1 $E_\mathrm{on}$ split;
+ CSI imbalance (no Kelvin): 29\,\%;
+ $\Delta V_\mathrm{th}$ = 0.3\,V: 7\,\%, 2:1 $E_\mathrm{off}$ split.
+\item Mechanism: $L_\mathrm{g}/R_\mathrm{g}$ delays the slower gate by about 2\,ns, comparable to the 4\,ns voltage transition, so one device takes most of the switching event; turn-off is load-driven and much less sensitive.
+\item Consequence: a side driver gives 2.0 vs 7.7\,nH gate loops (Q3D) and is unacceptable; hence the centre driver with equal stars and Kelvin returns.
+\end{itemize}
+\subsection{Result on the building block and gate-resistor selection}
+\begin{itemize}
+\item LTspice with the Q3D subcircuits: 78.53 / 78.63\,A at turn-off, overlapping waveforms (Fig.~4b).
+\item R$_\mathrm{g}$ selection at 160\,A: $V_\mathrm{DS}\leq90$\,V needs R$_\mathrm{g,on}\geq1.5\,\Omega$, a gate bump $\leq1$\,V needs 2\,$\Omega$; R$_\mathrm{g,off}$ = 0 (lowest $E_\mathrm{off}$, least bump). Fig.~4a.
+\end{itemize}
+\have{simulation/sharing; simulation/dpt; simulation/bb\_spice; figures rg\_study, waveforms\_141A}
+\plan{Ends with: symmetric gate drive is a requirement, not a refinement.}
+
+% -------------------------------------------------------------------------------------
+\section{DC-Link Capacitor Design for Stacked Modules}\label{sec:dclink}\pages{0.75}
+\begin{itemize}
+\item Ripple current: single leg $\hat I/(2\sqrt2)$ = 50\,A worst, 28.8\,A rated; three legs sharing a link (Kolar \& Round \cite{kolar}): 65\,A worst, 50.3\,A rated; checked with time-domain PWM.
+\item Capacitance: $\Delta V_\mathrm{pp}\approx\hat I/(4f_\mathrm{sw}C)$; Fig.~5: $C$ vs ripple for 20--200\,kHz; $\pm$2\,\% at 50\,kHz: 78\,\uF{} per leg if three legs share a module link, 236\,\uF{} for a single-leg module.
+\item SPB point: each module has its own floating link, so only the legs inside one module cancel ripple; interleaving between stacked modules does not relieve the module capacitors.
+\item Selection: 24\,$\times$\,10\,\uF{} 1210 + 12\,$\times$\,1\,\uF{} 0805; per-capacitor current 0.9--2.1\,A$_\mathrm{rms}$ from the Q3D-based current division.
+\end{itemize}
+\have{reports/dc-link; scripts/dclink\_report.py; figures irms, creq}
+
+% -------------------------------------------------------------------------------------
+\section{Losses and Efficiency}\pages{0.5}
+\begin{itemize}
+\item Method: $E_\mathrm{on}(i)$, $E_\mathrm{off}(i)$ from LTspice with Q3D parasitics, averaged over the fundamental; conduction at 100\,$^\circ$C; copper from the Q3D DC resistance matrix.
+\item Fig.~6: breakdown vs $f_\mathrm{sw}$. At 50\,kHz: conduction 5.55, copper 3.30, switching 1.91, dead time 0.20, other 0.16\,W, total 11.1\,W, 99.58\,\% (99.51\,\% with max $R_\mathrm{DS(on)}$); the budget is reached at 100\,kHz.
+\item Insight: conduction + copper are about 80\,\% of the loss; with 1\,oz inner layers copper alone would be 4.7\,W, so DC-feed placement and copper weight are first-order design parameters in low-voltage high-current modules.
+\end{itemize}
+\have{figures/losses.pdf; reports/building-block/data/results.json}
+
+% -------------------------------------------------------------------------------------
+\section{Conclusion and Future Work}\pages{0.5}
+\begin{itemize}
+\item Conclusion: mirror the four contributions with their numbers.
+\item Model credibility, without hardware: cross-check the extraction and models against known references:
+ single-cell loop vs EPC's published optimal-layout range (0.35--0.4\,nH at 4\,mil);
+ double-pulse model vs EPC2361 datasheet switching conditions;
+ DC-link formulas vs Kolar \& Round;
+ component choice vs EPC9186.
+ \todo{decide which cross-checks to include (one short paragraph or a table).}
+\item Future work: double-pulse board at 75\,V up to 160\,A with per-device current shunts and Kelvin-referenced $V_\mathrm{GS}$ probing (overshoot vs R$_\mathrm{g}$, $E_\mathrm{on}$/$E_\mathrm{off}$, dynamic sharing, high-side gate bump); routed-board re-extraction; two-module stacked demonstrator with DC-link voltage balancing; thermal validation.
+\end{itemize}
+
+% -------------------------------------------------------------------------------------
+\section*{Figure and table plan}
+\begin{tabular}{@{}lll@{}}\toprule
+Item & Content & Source \\\midrule
+Fig.~1 & SPB system: stacked modules + multiphase machine & \todo{draw} \\
+Fig.~2 & Building-block top view + stack-up & layout\_top, layout\_stackup \\
+Fig.~3 & Sharing sensitivity, 3 cases & Sharing\_2xEPC2361 (reduce) \\
+Fig.~4 & (a) R$_\mathrm{g}$ study (b) waveforms at 141\,A & rg\_study, waveforms\_141A \\
+Fig.~5 & Ripple current vs $M$; $C$ vs ripple & irms, creq \\
+Fig.~6 & Loss breakdown vs $f_\mathrm{sw}$ & losses \\
+Table~I & Module specification & bb\_report \\
+Table~II & Extracted parasitics & bb\_q3d summary \\
+Table~III & Component selection (optional) & bb\_report \\
+\bottomrule\end{tabular}
+
+\section*{Moved to a later journal version}
+\plan{Full Rg grid; 1\,oz/2\,oz and DC-terminal placement study; capacitor placement variants (PL\_A/B/C); local-bank/bulk resonance at 1.8/3.3\,MHz; full 6-case sharing study; measured results.}
+
+\begin{thebibliography}{99}
+\bibitem{cooke2026} M. W. J. Cooke and D. J. Rogers, ``120\,V, 155\,A traction inverter using eight parallel GaN HEMTs,'' 2026. \todo{venue}
+\bibitem{gan_module_traction} ``A high-performance GaN power module with parallel packaging for high-current and low-voltage traction inverter applications.'' \todo{authors/venue}
+\bibitem{gan_3level} ``Design considerations of a GaN-based three-level traction inverter for electric vehicles.'' \todo{authors/venue}
+\bibitem{gan_100kw} ``Systematic efficiency-density co-optimization of 100\,kW GaN traction inverter: methodology and integration.'' \todo{authors/venue}
+\bibitem{gan_scooter} ``GaN-based low-voltage inverter for electric scooter drive system.'' \todo{authors/venue}
+\bibitem{gan_lev} ``A multi-kilowatt low-profile GaN inverter for light electric vehicles and high-power tools.'' \todo{authors/venue}
+\bibitem{parallel_gan_exp} ``Parallel connection of GaN FETs: an experimental investigation approach.'' \todo{authors/venue}
+\bibitem{paralleling_ehemt} ``Paralleling GaN E-HEMTs in 10\,kW--100\,kW systems.'' \todo{authors/venue}
+\bibitem{an020} D. Reusch, ``Effectively paralleling gallium nitride transistors for high current and high frequency applications,'' EPC AN020.
+\bibitem{epc2361} EPC, ``EPC2361 datasheet,'' rev.~2.4, 2026.
+\bibitem{kolar} J. W. Kolar and S. D. Round, ``Analytical calculation of the RMS current stress on the DC-link capacitor of voltage-PWM converter systems,'' \textit{IEE Proc. Electr. Power Appl.}, 2006.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,13 @@
+.subckt PL_B CapN CapP QH_D QH_S QL_D QL_S
+* PL_B: Q3D AC partial R/L of the copper at 100 MHz (components are not included)
+* branches run from each Q3D source terminal to its net's sink terminal
+R1 QH_S m1 0.00891275
+L1_AC_QH_S m1 QL_D 0.440198n
+R2 QL_S m2 0.000534388
+L2_DCN_QL_S m2 CapN 0.0608399n
+R3 CapP m3 0.000538046
+L3_DCP_CapP m3 QH_D 0.0608333n
+K1_2 L1_AC_QH_S L2_DCN_QL_S -0.401457
+K1_3 L1_AC_QH_S L3_DCP_CapP -0.401695
+K2_3 L2_DCN_QL_S L3_DCP_CapP 0.029154
+.ends PL_B
