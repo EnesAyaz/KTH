@@ -41,7 +41,7 @@ Fig.~\ref{fig:winding_options}.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{Figures/Section_Machines/fig_winding_options.pdf}
+\input{Figures/Style/fig_winding_options}
 \caption{Schematic comparison of winding-group spatial arrangements,
 each coil marking one phase axis of winding group 1 (blue) or group 2
 (red): (a)~aligned groups (parallel phase axes), (b)~spatially shifted
@@ -50,7 +50,8 @@ modules.}
 \label{fig:winding_options}
 \end{figure}
 
-For the $k$th PMSM winding group,
+For the $k$th PMSM winding group, a steady-state approximation
+neglecting mutual coupling between groups gives
 
 \begin{equation}
 \begin{aligned}
@@ -61,7 +62,9 @@ v_{q,k}&=R_{s,k}i_{q,k}
 \label{eq:spb_machine_dq}
 \end{equation}
 
-and the required voltage must satisfy
+For coupled or transient operation, the flux-linkage model must retain
+$\dot\psi_{d,k}$ and $\dot\psi_{q,k}$ and the dependence of flux on
+all winding-group currents. The required voltage must satisfy
 
 \begin{equation}
 \sqrt{v_{d,k}^{2}+v_{q,k}^{2}}
@@ -133,7 +136,7 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 
 \begin{figure*}[!t]
 \centering
-\begin{tikzpicture}[font=\scriptsize,>=latex,x=1mm,y=1mm]
+\begin{tikzpicture}[font=\footnotesize,>=latex,x=1mm,y=1mm]
 % ================= Panel (a): Radial housing mount (radial cross-section) =================
 \begin{scope}[shift={(0,0)}]
 \draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
@@ -142,12 +145,12 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \draw[black!60,thin] (0,0) circle (5.7);
 \foreach \a in {0,45,90,135,180,225,270,315}{
   \begin{scope}[rotate=\a]
-    \draw[fill=blue!55!black,draw=blue!70!black,thin] (5.7,-1.2) rectangle (7.9,1.2);
+    \draw[fill=pesblue,draw=pesblue,thin] (5.7,-1.2) rectangle (7.9,1.2);
   \end{scope}
 }
 \end{scope}
-\node[font=\scriptsize\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
-\node[font=\tiny,align=center,text width=24mm] at (0,-10)
+\node[font=\footnotesize\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
+\node[font=\footnotesize,align=center,text width=24mm] at (0,-10)
   {Modules on outer housing, set back from stator};
 
 % ================= Panel (b): Radial stator mount (radial cross-section) =================
@@ -158,12 +161,12 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \draw[fill=gray!55,draw=gray!70!black,thin] (0,0) circle (2.2);
 \foreach \a in {0,45,90,135,180,225,270,315}{
   \begin{scope}[rotate=\a]
-    \draw[fill=blue!55!black,draw=blue!70!black,thin] (5.4,-1.2) rectangle (7.6,1.2);
+    \draw[fill=pesblue,draw=pesblue,thin] (5.4,-1.2) rectangle (7.6,1.2);
   \end{scope}
 }
 \end{scope}
-\node[font=\scriptsize\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
-\node[font=\tiny,align=center,text width=24mm] at (32,-10)
+\node[font=\footnotesize\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
+\node[font=\footnotesize,align=center,text width=24mm] at (32,-10)
   {Modules flush on stator/cooling jacket};
 
 % ================= Panel (c): Axial endplate mount (axial cross-section) =================
@@ -173,10 +176,10 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
 \draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
 \draw[fill=gray!25,draw=gray!60!black,thin] (2.5,-4.5) rectangle (3.7,4.5);
-\draw[fill=blue!55!black,draw=blue!70!black,thin] (3.7,-3.3) rectangle (6.7,3.3);
+\draw[fill=pesblue,draw=pesblue,thin] (3.7,-3.3) rectangle (6.7,3.3);
 \end{scope}
-\node[font=\scriptsize\bfseries,align=center] at (64,12) {(c) Axial\\endplate mount};
-\node[font=\tiny,align=center,text width=24mm] at (64,-10)
+\node[font=\footnotesize\bfseries,align=center] at (64,12) {(c) Axial\\endplate mount};
+\node[font=\footnotesize,align=center,text width=24mm] at (64,-10)
   {Modules on separate end-cap beyond stator};
 
 % ================= Panel (d): Axial stator mount (axial cross-section) =================
@@ -185,14 +188,14 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \foreach \x in {-2.5,-1,0.5,2}{\draw[black!40,thin] (\x,-4.5) -- (\x,4.5);}
 \draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
 \draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
-\draw[fill=blue!55!black,draw=blue!70!black,thin] (2.5,-3.3) rectangle (5.5,3.3);
+\draw[fill=pesblue,draw=pesblue,thin] (2.5,-3.3) rectangle (5.5,3.3);
 \end{scope}
-\node[font=\scriptsize\bfseries,align=center] at (96,12) {(d) Axial\\stator mount};
-\node[font=\tiny,align=center,text width=24mm] at (96,-10)
+\node[font=\footnotesize\bfseries,align=center] at (96,12) {(d) Axial\\stator mount};
+\node[font=\footnotesize,align=center,text width=24mm] at (96,-10)
   {Modules flush on stator end face, no end-cap};
 
 % ================= Legend =================
-\draw[fill=blue!55!black,draw=blue!70!black,thin] (6,-20) rectangle (8.5,-17.5);
+\draw[fill=pesblue,draw=pesblue,thin] (6,-20) rectangle (8.5,-17.5);
 \node[right] at (8.8,-18.75) {Converter module};
 \draw[fill=orange!25,draw=orange!70!black,thin] (34,-20) rectangle (36.5,-17.5);
 \node[right] at (36.8,-18.75) {Stator / winding};
@@ -240,7 +243,7 @@ Choi \textit{et al.} \cite{Choi2011IMMD} &
 Modular PM machine and high-temperature electronics\\
 
 Wang \textit{et al.}
-\cite{Wang2013GaNIMMD,Wang2025GaNIMMD} &
+\cite{Wang2013GaNIMMD,Wang2015GaNIMMD} &
 Low-voltage GaN, dc-voltage sharing, and interleaving\\
 
 U\u{g}ur and Keysan

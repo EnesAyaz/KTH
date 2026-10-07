@@ -8,7 +8,7 @@ power toward several hundred kilowatts, while system-level performance
 requirements continue to rise \cite{EVTractionReview2023}. Increasing
 the dc-link voltage has emerged as a primary design lever for meeting
 both demands. On the propulsion side, a higher dc-link voltage
-improves efficiency and power density \cite{DriveCodesign800V2023}. On
+can improve efficiency and power density \cite{DriveCodesign800V2023}. On
 the battery and charging side, it reduces the current required for a
 given power level, lowering cable conduction loss and conductor
 cross-section while enabling higher charging power under a given
@@ -19,20 +19,20 @@ level. A higher dc-link voltage also brings more severe
 insulation-coordination and electromagnetic-compatibility (EMC)
 demands, together with added thermal and reliability stress on the
 power stage \cite{DriveCodesign800V2023,Post800V2026}.
-Fig.~\ref{fig:intro_hv_motivation} summarizes this qualitative
-tradeoff between a conventional low-voltage and a higher-voltage
-traction architecture. Raising the dc-link voltage therefore does not
-amount to a simple rescaling of an existing inverter design; it
-reshapes the architecture-level design space of the complete electric
-drive.
+Raising the dc-link voltage therefore requires coordinated converter,
+machine, insulation, and thermal design.
 
+Figure~\ref{fig:intro_hv_motivation} summarizes these qualitative
+tradeoffs between conventional low-voltage and higher-voltage traction
+architectures.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=0.8\columnwidth]{Figures/Section-Intro/fig_intro_hv_motivation.pdf}
-\caption{Conceptual illustration of the qualitative system-level
-tradeoffs between a low-voltage and a high-voltage traction
-architecture.}
+\includegraphics[width=\columnwidth]{Figures/Section-Intro/fig_intro_hv_motivation.pdf}
+\caption{Conceptual illustration of qualitative system-level tradeoffs
+between low-voltage and high-voltage traction architectures. Radar
+scores indicate schematic relative tendencies, not measured values or
+a quantitative performance ranking.}
 \label{fig:intro_hv_motivation}
 \end{figure}
 
@@ -56,12 +56,14 @@ translate directly into a semiconductor-level bottleneck.
 \begin{table*}[!t]
 \caption{Representative voltage and power levels in published
 traction-inverter studies, industrial and reference platforms, and
-production battery-electric vehicles. }
+production battery-electric vehicles. Voltage classes and reported
+power ratings indicate application scale; vehicle totals, inverter
+ratings, and peak/continuous ratings are not directly comparable.}
 \label{tab:intro_voltage_power}
 \centering
 \footnotesize
 \renewcommand{\arraystretch}{1.18}
-\setlength{\tabcolsep}{6pt}
+\setlength{\tabcolsep}{5.8pt}
 
 \begin{tabular}{
 p{0.25\textwidth}
@@ -153,20 +155,20 @@ voltage. In unipolar power devices, a higher blocking-voltage rating
 imposes a fundamental tradeoff against both specific on-state
 resistance and switching performance, commonly captured by the figure
 of merit, as shown in Fig.~\ref{fig:intro_ronsp_trend}
-\cite{Millan2014WBGSurvey,SpecificResistance}. Therefore, a lower-voltage device
-consistently achieves a higher FOM than a higher-voltage device of the
-same material.
+\cite{Millan2014WBGSurvey,SpecificResistance}. This ideal scaling favors lower blocking voltage within a given
+material model; commercial-device comparisons must also account for
+structure, temperature, packaging, and switching conditions.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{Figures/Section-Intro/fig_intro_ronsp_trend.pdf}
     \caption{Ideal one-dimensional unipolar specific on-state
-    resistance $R_{\mathrm{on,sp}}$ (left axis, solid) and the
+    resistance $R_{\mathrm{on,sp}}$ (solid, left axis) and the
     resulting high-frequency figure of merit
     $\mathrm{FOM}=1/\sqrt{R_{\mathrm{on,sp}}C_{\mathrm{oss,sp}}}$
-    (right axis, dashed, in $\sqrt{\mathrm{MHz}}$ -- the product
+    (dashed, right axis), in $\sqrt{\mathrm{MHz}}$ -- the product
     $R_{\mathrm{on,sp}}C_{\mathrm{oss,sp}}$ is an area-independent $RC$
-    time constant) versus blocking voltage for Si, 4H-SiC, and GaN.}
+    time constant, versus blocking voltage for Si, 4H-SiC, and GaN.}
     \label{fig:intro_ronsp_trend}
 \end{figure}
 
@@ -178,8 +180,9 @@ superior FOM \cite{WideReview2018,WBGTractionReview2025,GaNComparison,
 Millan2014WBGSurvey}. 
 Yet switching material does not remove the
 underlying coupling between dc-link voltage and device voltage class:
-irrespective of technology, a higher dc-link voltage still forces a
-higher-voltage, higher-$R_{\mathrm{on,sp}}$ device and higher swithcing losses. 
+a higher dc-link voltage can require a higher device voltage class,
+with conduction and switching losses determined by the selected
+technology and operating conditions. 
 Converter architectures that partition the dc-link voltage among multiple
 switching units, so each device blocks only a fraction of the total
 voltage, therefore become increasingly relevant as system voltage
@@ -196,28 +199,18 @@ reducing individual device voltage stress
 \cite{Poorfakhraei2021MultilevelReview,T_type_SiC,
 FlyingCap_Optimized3D,CascadedHBridge_control}.
 
-This voltage partitioning, however, comes at the cost of additional
-semiconductor devices, passive components, and gate drivers -- each an
-additional potential failure point -- without, by itself, yielding a
-modular converter--machine system: because the added semiconductor
-positions continue to feed a single, electrically common three-phase
-winding set, a fault at one position cannot generally be isolated and
-bypassed without disabling the drive.
- Fault tolerance, power
-redistribution, and post-fault reconfiguration can be implemented in
-conventional multilevel drives, but typically require additional
-redundancy, dedicated isolation paths, and specialized control layered
-on top of the base topology rather than following from it. A larger
-semiconductor count therefore does not yield a commensurate increase
-in fault tolerance, motivating an alternative form of voltage
-partitioning.
+Voltage partitioning requires additional semiconductor positions,
+passive components, and gate drivers. Classical three-phase multilevel
+bridges still supply a common winding set, whereas cascaded and other
+modular architectures can provide module-level redundancy. In either
+case, fault tolerance depends on available isolation paths, spare
+voltage capability, and control; component count alone establishes
+neither fault tolerance nor system reliability.
 
 \subsection{Stacked Polyphase Bridge}
 \label{sec:spb_modularity}
 
-Unlike other multilevel converters, which distribute the dc-link
-voltage among additional semiconductor positions within a single
-converter, the stacked polyphase bridge (SPB) distributes the
+The stacked polyphase bridge (SPB) distributes the
 high-voltage conversion function among $N$ repeated converter units.
 Each unit is a conventional three-phase two-level bridge connected in
 series on the dc side, supplying its own electrically separated
@@ -228,19 +221,18 @@ Under balanced operation, each cell's local dc-link voltage
 $V_{\mathrm{dc},k}\approx V_{\mathrm{dc}}/N$, so the semiconductor
 voltage rating can be selected on the local cell voltage rather than
 the complete traction dc-link voltage -- addressing the semiconductor
-bottleneck much as multilevel converters do. Thanks to each cell also
-drives its own separated winding group, SPB additionally has
-an inherently modular structure that multilevel converters lack. 
+bottleneck much as multilevel converters do. Each cell also drives a separated winding group, providing
+modularity at the converter--machine interface. 
 A faulted cell can, in principle, be isolated and bypassed while the
 remaining cells continue to drive the machine at reduced power. It is
 this combination of semiconductor voltage reduction and
 converter--machine modularity that distinguishes SPB from conventional
 multilevel and cascaded architectures and motivates its consideration
-as a promisingcandidate topology for next-generation traction drives.
+as a candidate topology for next-generation traction drives.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=0.92\columnwidth]{Figures/Section-Intro/fig_spb_architecture.pdf}
+\input{Figures/Style/fig_architecture}
     \caption{Conceptual architecture of an $N$-cell SPB traction
     drive: series-connected local dc-link capacitors, series-connected
     three-phase two-level bridge cells, and their electrically
@@ -264,9 +256,8 @@ JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,
 Ebrahimian2025GaNIMMD}.
 
 Despite more than a decade of SPB research, beginning with Norrga
-\textit{et al.} \cite{Norrga2013SPB}, no study has yet brought these
-threads together to systematically assess its feasibility for
-electric-vehicle traction applications. The available literature
+\textit{et al.} \cite{Norrga2013SPB}, the feasibility of electric-vehicle traction applications requires
+these developments to be assessed together. The available literature
 remains distributed across converter topology, modulation, dc-link
 stability, multiphase-machine design, integrated motor drives,
 semiconductor technology, thermal management, distributed control, and
@@ -276,6 +267,19 @@ system boundary, leaving a gap between a well-motivated architectural
 concept and a system-level feasibility assessment. Accordingly, this
 paper provides a system-level review of SPB traction-drive technology
 aimed at closing that gap.
+
+\subsection{Review Scope and Contribution}
+This is a focused narrative review rather than an exhaustive systematic
+survey or a meta-analysis. Direct SPB evidence concerns series-connected
+dc ports supplying electrically separated winding groups; related
+multiphase and integrated-drive studies provide enabling methods but
+are not treated as demonstrations of SPB traction performance. The
+review distinguishes reported results, analytical illustrations, and
+application-level inferences. Its contribution is to connect device
+voltage partitioning to winding feasibility, modulation, balancing,
+common-mode excitation, and post-fault operation within one EV design
+boundary. Numerical examples illustrate these dependencies and do not
+constitute automotive validation.
 
 The remainder of the paper is organized as follows. First, SPB's
 historical development, operating principle, and modulation are

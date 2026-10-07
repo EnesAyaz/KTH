@@ -1,8 +1,7 @@
-\documentclass[journal]{IEEEtran}
+\documentclass{ieeeojpel}
 
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{array}
-\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
 \usepackage{textcomp}
 \usepackage{stfloats}
 \usepackage{url}
@@ -15,6 +14,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{circuitikz}
+\input{Figures/Style/pes_figure_style}
 \usepackage{jabbrv}
 
 \hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
@@ -24,27 +24,32 @@
 \fbox{\parbox[c][#2][c]{#1}{\centering\footnotesize #3}}%
 }
 
+% OJPEL branding from the supplied IEEE template.
+\AtBeginDocument{\definecolor{ojcolor}{cmyk}{0,1,0.63,0.12}}
+\def\OJlogo{\vspace{-10pt}\includegraphics[height=22pt]{ojpel-logo.png}}
+% Suppress the template's empty publication-history row in this draft.
+% The supplied class tests an undefined internal revision field and prints
+% '; revised .' when no editorial dates are assigned. Class file is unmodified.
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@maketitle}{{\receivedfont \ifx\@receiveddate\@empty\else Received\ \@receiveddate\fi\ifx\@revised\@empty\else;\ revised\ \@reviseddate\fi\ifx\@accepteddate\@empty\else;\ accepted\ \@accepteddate\fi\ifx\@publisheddate\@empty\else; Date of publication\nobreakspace\@publisheddate\fi\ifx\@currentdate\@empty\else;\space date of current version\nobreakspace\@currentdate\fi.\space\ifx\@editor\@empty\else\@editor\fi\par}}{}{}{\PackageError{ojpel-draft}{Publication-history patch failed}{Check the supplied class.}}
+\makeatother
+% Publication dates, DOI, volume, and issue are assigned by IEEE.
 \begin{document}
 
 \title{Stacked Polyphase Bridge Converters for High-Voltage Electric
 Traction Drives: A Review of Topology, Modulation, Control,
 Semiconductor Scaling, and Future Directions}
 
-\author{Enes~Ayaz,~\IEEEmembership{Student Member,~IEEE},
-Shahriar~Sarmast~Ghahfarokhi,~\IEEEmembership{Student Member,~IEEE},
-Staffan~Norrga,~\IEEEmembership{Member,~IEEE},
-Hans-Peter~Nee,~\IEEEmembership{Fellow,~IEEE}%
-\thanks{(Corresponding author: Enes Ayaz.)}%
-\thanks{E. Ayaz, S. Sarmast Ghahfarokhi, S. Norrga, and H.-P. Nee
-are with the Division of Electric Power and Energy Systems,
-KTH Royal Institute of Technology, SE-100~44 Stockholm, Sweden
-(e-mail: enesa@kth.se).}%
-}
-
-\markboth{}%
-{Ayaz \MakeLowercase{\textit{et al.}}: Stacked Polyphase Bridge Converters}
-
-\maketitle
+\author{ENES AYAZ\affilmark{1}, STUDENT MEMBER, IEEE,
+SHAHRIAR SARMAST GHAHFAROKHI\affilmark{1}, STUDENT MEMBER, IEEE,
+KEVIN KLARIN \affilmark{1}, STUDENT MEMBER, IEEE,
+STAFFAN NORRGA\affilmark{1}, MEMBER, IEEE, AND HANS-PETER NEE\affilmark{1}, FELLOW, IEEE}
+\affil{Division of Electric Power and Energy Systems,
+KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden}
+\corresp{CORRESPONDING AUTHOR: Enes Ayaz (e-mail: enesa@kth.se).}
+\markboth{Stacked Polyphase Bridge Converters for High-Voltage Electric Traction Drives}
+{Ayaz \textit{et al.}}
 
 \begin{abstract}
 Increasing dc-link voltages in electric traction drives intensify semiconductor voltage stress and insulation requirements. Stacked polyphase bridge converters partition the dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. This architecture enables lower-voltage semiconductor devices and modular converter--machine integration, but introduces coupled challenges in modulation, voltage balancing, insulation, and fault management. This paper reviews stacked polyphase bridge converters for high-voltage electric traction, bringing together literature on topology evolution, operating principles, machine integration, control, semiconductor scaling, and fault-tolerant reconfiguration. The review examines carrier-interleaving effects on dc-link ripple, conditions for switching-induced common-mode voltage cancellation, and dc-link balancing stability under centralized, common-duty-ratio, and distributed control. It also relates cell count to semiconductor voltage class and the associated converter and machine requirements. A mapping for a 1200-V dc link illustrates how increasing cell count provides access to lower-voltage device classes, while adding sensing, gate-drive, winding, and insulation requirements. The synthesis indicates that semiconductor-level gains alone are insufficient to establish a system-level advantage, and that the preferred cell count depends on the application and operating mission. Key research priorities are joint battery, converter, and machine design, together with validation against vehicle-level energy, cost, and reliability targets. These findings provide a basis for assessing where stacked polyphase bridge architectures can offer practical benefits in future traction drives.
@@ -54,6 +59,8 @@ Increasing dc-link voltages in electric traction drives intensify semiconductor 
 Electric vehicles, integrated motor drives, modular converters,
 multiphase machines, stacked polyphase bridge (SPB) converters.
 \end{IEEEkeywords}
+
+\maketitle
 
 \input{Sections/Section_I_Intro}
 \input{Sections/Section_II_Evolution_SPB}
@@ -68,10 +75,12 @@ multiphase machines, stacked polyphase bridge (SPB) converters.
 \input{Sections/Section_XIII_Conclusion}
 
 \section*{Acknowledgment}
-The authors used Claude (Anthropic) for language editing, structural
-organization, and drafting assistance during manuscript preparation.
-All technical claims, calculations, references, interpretations, and
-final editorial decisions were reviewed and approved by the authors.
+The authors used Claude (Anthropic) and Codex (OpenAI) for language
+editing, structural organization, and drafting assistance. Codex also
+assisted with analytical exposition and figure code in the modulation,
+common-mode, fault-tolerance, and design-framework discussions. The
+authors are responsible for validating all technical content, references,
+and final editorial decisions.
 
 \bibliographystyle{jabbrv_IEEEtran}
 \bibliography{ref}

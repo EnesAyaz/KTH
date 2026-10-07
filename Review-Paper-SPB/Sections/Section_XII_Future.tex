@@ -3,41 +3,89 @@
 \label{sec:future_directions}
 % ============================================================================
 
-In theory, SPB is one of the more promising modular architectures for
-high-voltage electric traction: partitioning the dc-link voltage across
-series-connected cells grants access to lower-voltage semiconductor
-classes with a favorable figure of merit, supports modular
-converter--machine integration, and, as this review has shown, gives
-carrier-phase, balancing, and reconfiguration degrees of freedom that a
-conventional two- or three-level drive does not have. Whether these
-advantages translate into a real vehicle-level benefit, however, is not
-decided by any single subsystem but by how the battery/dc-link side,
-the semiconductor/converter side, and the machine side are co-designed
-together: the cell count that opens a favorable device voltage class
-also fixes winding voltage, current rating, and dc-link ripple
-frequency, and each of these choices feeds back into the others. This
-review has assembled the pieces needed for that co-design -- voltage
-partitioning and cell-count scaling
-(Sections~\ref{sec:operating_principle}
-and~\ref{sec:semiconductor_scaling}), machine-integration options
-(Section~\ref{sec:machine_requirements}), modulation and dc-link ripple
-(Section~\ref{sec:modulation}), common-mode behavior
-(Section~\ref{sec:common_mode}), dc-link balancing stability
-(Section~\ref{sec:dclink_balancing}), and fault tolerance
-(Section~\ref{sec:fault_reconfiguration}) -- but, like the literature it
-surveys, has largely treated them as separate design axes rather than
-jointly.
+SPB competitiveness depends on joint battery, converter, and machine
+design. Voltage partitioning, winding constraints, modulation, balancing,
+common-mode excitation, and fault recovery must be evaluated together;
+improving one subsystem can increase losses or complexity elsewhere.
+The following framework translates these dependencies into application
+requirements, followed by priorities for validation.
 
-\subsection{Toward an Integrated Co-Design Framework}
+\subsection{Application-Based Design and Validation Boundary}
+A useful co-design starts from the battery voltage range, required
+shaft torque--speed trajectory, cooling boundary, and permitted
+post-fault operation. Let the candidate design be
+\begin{equation}
+\boldsymbol{x}=\{N,\mathcal D,n_{\parallel},\mathcal W,C_k,f_{sw},
+\mathcal M,\mathcal H\},
+\end{equation}
+where $\mathcal D$, $\mathcal W$, $\mathcal M$, and $\mathcal H$
+denote the device, winding, modulation/control, and cooling choices,
+and $n_{\parallel}$ is the number of parallel devices per switch.
+The proposed comparison minimizes the objective vector
+\begin{equation}
+\boldsymbol{J}(\boldsymbol{x})=
+[E_{\mathrm{mission}},\;\mathcal V_{\mathrm{drive}},\;
+ m_{\mathrm{drive}},\;C_{\mathrm{life}}],
+\end{equation}
+subject to healthy and specified degraded-state constraints on device
+voltage, winding voltage/current, junction and winding temperature,
+capacitor ripple, insulation, and common-mode excitation. Mission energy
+is the signed battery-terminal energy $\int V_b i_b\,dt$ for the same
+shaft duty, including regeneration and drive/cooling auxiliaries within
+the declared boundary. Reliability is a service requirement or an
+additional objective when comparable failure data are available.
+These equations define a proposed evaluation framework, not a completed
+optimization or a universal optimum cell count.
 
-Future work should combine the voltage-partitioning, modulation and
-ripple, dc-link balancing, common-mode, and fault-derating relations
-developed in this review into a single $N$- and technology-dependent
-framework, so that cell count, semiconductor class, and machine design
-can be evaluated jointly against vehicle-level energy, cost, and
-reliability targets rather than compared through separate, narrower
-studies. Several concrete open questions define what such a framework
-must resolve.
+A fair benchmark compares SPB with two-level and appropriate three-level
+drives at the same battery envelope, shaft duty, coolant conditions,
+EMC limits, and fault requirements. Each architecture should be optimized
+within those constraints. Report inverter-only and complete-drive
+volume separately, including capacitors, filters, isolation supplies,
+connectors, protection, and cooling. Use temperature-dependent device
+loss data and identify uncertainty in parasitics, mission weighting,
+and lifetime assumptions. A nominal-point efficiency gain is insufficient
+if it disappears after auxiliary loss, field weakening, or added
+machine losses are included.
+
+Table~\ref{tab:spb_evidence_boundary} connects representative direct
+SPB results to the remaining EV validation. The review does not imply
+that related IMMD results close these gaps. SPB may be unattractive
+when a suitable multiphase machine is unavailable, device savings are
+small, interconnection/insulation overhead dominates, or the required
+post-fault voltage margin forces the same device class as a simpler
+architecture. Reporting these boundaries is as important as identifying
+favorable designs.
+
+\begin{table*}[!t]
+\centering\footnotesize
+\caption{Direct SPB evidence and remaining EV validation: synthesis of representative studies}
+\label{tab:spb_evidence_boundary}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{p{0.23\textwidth}p{0.33\textwidth}p{0.36\textwidth}}
+\toprule
+\textbf{Direct SPB literature} & \textbf{Established focus} & \textbf{Additional EV validation needed}\\
+\midrule
+Control and modulation \cite{Jin2014Control,Jin2017Modulation} &
+Coordinated switching and dc-current harmonic shaping &
+Mission-wide loss/ripple tradeoff with measured interconnect parasitics\\
+Machine design \cite{Bringezu2020SPB} &
+Cell/phase count coupled to converter--machine design &
+Common battery, cooling, insulation, and packaging boundary\\
+Balancing \cite{Mocevic2023CDR,Verkroost2024VoltageBalance,Verkroost2024PowerDistribution} &
+Common-duty-ratio, distributed balancing, and power-sharing methods &
+Control authority during field weakening, regeneration, saturation, and faults\\
+GaN comparison \cite{Rohner2024GaN} &
+Series-stacked two-level versus flying-capacitor implementation &
+Traction-scale comparison including filters, winding insulation, and cooling\\
+Fault operation \cite{Nikouie2016Fault,Verkroost2024Reconfiguration} &
+Post-fault operation and module reconfiguration &
+Verified isolation, surviving-cell voltage margins, and degraded torque--speed envelope\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Research Priorities}
 
 The optimum cell count $N$ remains the central unresolved design
 question: as established in Section~\ref{sec:operating_principle},
@@ -90,3 +138,4 @@ architecture operates toward demonstrating where it is better: whether
 it gives a measurable vehicle-level advantage over mature two- and
 three-level architectures once machine design, thermal management,
 EMC, reliability, manufacturing, and cost are included.
+

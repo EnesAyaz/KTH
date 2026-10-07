@@ -64,28 +64,33 @@ assumptions, linearization about the open-loop motoring equilibrium
 for $N>1$ yields $N-1$ strictly positive real eigenvalues, establishing
 instability irrespective of parameter selection.
 
-Fig.~\ref{fig:spb_balancing_dynamics} illustrates the nonlinear dynamics
-using $L_b=8\,\mu\mathrm{H}$, $R_b=0.35\,\Omega$, and
-$C=100\,\mu\mathrm{F}$ per cell, taken from \cite{Nikouie2017Stability}.
-Without balancing, the initial mismatch grows until one cell approaches
-voltage collapse. A proportional differential-power law,
+Fig.~\ref{fig:spb_balancing_dynamics} illustrates the balancing
+principle using the small-signal model in
+\eqref{eq:linearized_balance_dynamic}, consistent with
+\cite{Nikouie2017Stability}. At equal constant output power, a
+lower-voltage cell draws more converter input current ($P_k/V_{\mathrm{dc},k}$)
+and its capacitor discharges further; a higher-voltage cell exhibits
+the opposite response. Thus, a small mismatch grows during motoring
+unless differential power is adjusted. The law
 $\Delta P_k=K_p\widetilde V_k$, motivated by controller alternative I
-in \cite{Nikouie2017Stability}, suppresses the imbalance on a comparable
-timescale. This simulation assumes ideal power-command tracking;
-it does not reproduce the complete current-control implementation.
+in \cite{Nikouie2017Stability}, increases output power in higher-voltage
+cells and decreases it in lower-voltage cells. For
+$K_p>I_{\mathrm{dc},0}$, \eqref{eq:linearized_balance_dynamic} predicts
+exponential decay of the deviations. This local result assumes
+identical capacitances and ideal power-command tracking; it does not
+imply instability under every converter--machine control strategy.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{Figures/fig_dclink_balancing.pdf}
-\caption{Simulated normalized deviation from the instantaneous mean
-cell voltage, $\widetilde V_k/V_{\mathrm{base}}$, for $N=3$:
-(a) without balancing and (b) with proportional power balancing
-motivated by \cite{Nikouie2017Stability}. Both cases use $E_b=300$~V,
-$V_{\mathrm{base}}=100$~V, nominal cell power $1$~kW,
-$V_{\mathrm{dc},k}(0)=\{108,95,102\}$~V, and $i_{\mathrm{dc}}(0)=10$~A;
-$K_p=30$~W/V in (b). Supply-path and capacitance parameters are given
-in the text. The open-loop trace ends when a cell reaches the 1-V
-termination threshold. Results are computed, not measured hardware data.}
+\includegraphics[width=\columnwidth]{Figures/Section-DCLinkBalancing/fig_dclink_balancing.pdf}
+\caption{Conceptual analytical illustration of voltage balancing for
+three cells during motoring, based on
+\eqref{eq:linearized_balance_dynamic} and \cite{Nikouie2017Stability}.
+Small deviations from the mean grow under equal constant cell powers.
+Enabling differential power balancing at $t_b$ makes them decay toward
+zero while $\sum_k\Delta P_k=0$. Time is normalized by
+$\tau_0=CV_0/I_{\mathrm{dc},0}$; amplitudes and gain are illustrative,
+not a hardware transient or a prediction of settling time.}
 \label{fig:spb_balancing_dynamics}
 \end{figure}
 

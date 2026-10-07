@@ -1,0 +1,28 @@
+\begin{circuitikz}[font=\footnotesize,>=latex,american inductors]
+\ctikzset{bipoles/length=7mm}
+\foreach \k/\y in {1/0,N/3.7}{
+ \fill[pesblue!7] (1.95,\y-.1) rectangle (4.85,\y+2.85);
+ \fill[pesgreen!7] (5.15,\y+.75) rectangle (7.05,\y+1.95);
+ \draw (1.4,\y) to[C,l_={$C_{\k}$}] (1.4,\y+2.7);
+ \draw (1.4,\y+2.7)--(4.65,\y+2.7);
+ \draw (1.4,\y)--(4.65,\y);
+ \foreach \x/\name/\dy in {2.45/a/1.65,3.55/b/1.35,4.65/c/1.05}{
+  \node[nmos,bodydiode,scale=.85] (hi\name\k) at (\x,\y+2.16) {};
+  \node[nmos,bodydiode,scale=.85] (lo\name\k) at (\x,\y+.54) {};
+  \draw (\x,\y+2.7)--(hi\name\k.D);
+  \draw (hi\name\k.S)--(lo\name\k.D);
+  \draw (lo\name\k.S)--(\x,\y);
+  \draw (\x,\y+\dy) node[circ] {} --(5.25,\y+\dy) to[L] (6.45,\y+\dy)--(6.85,\y+\dy);
+  \node[anchor=south east] at (\x-.03,\y+\dy) {$\name_{\k}$};
+ }
+ \draw (6.85,\y+1.05)--(6.85,\y+1.65);
+ \node[anchor=west] at (6.9,\y+1.35) {$n_{\k}$};
+ \node[anchor=south] at (3.35,\y+2.85) {Cell $\k$};
+ \node[anchor=north] at (3.5,\y-.1) {$V_{\mathrm{dc},\k}\approx V_{\mathrm{dc}}/N$};
+}
+\draw (1.4,2.7)--(1.4,2.92);\draw[densely dotted] (1.4,2.92)--(1.4,3.5);\draw (1.4,3.5)--(1.4,3.7);
+\node at (5.4,3.2) {$\vdots$};
+\draw (1.4,6.4)--(0,6.4) to[battery1,l_={$V_{\mathrm{dc}}$}] (0,0)--(1.4,0);
+\draw[->,pesblue,thick] (.3,6.4)--(1.0,6.4);
+\node[anchor=south] at (.65,6.45) {$i_{\mathrm{dc}}$};
+\end{circuitikz}

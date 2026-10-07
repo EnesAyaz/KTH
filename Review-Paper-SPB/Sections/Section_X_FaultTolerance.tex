@@ -3,7 +3,7 @@
 \label{sec:fault_reconfiguration}
 % ============================================================================
 
-SPB modularity provides structural redundancy because the converter and
+SPB modularity offers potential graceful degradation because the converter and
 machine are divided into repeated converter--winding modules. However,
 fault tolerance is not automatic: because the dc ports are connected
 in series, a failed cell can disturb or interrupt the complete dc
@@ -51,51 +51,61 @@ with torque derating if current, voltage, or thermal limits prevent full
 redistribution. Reconfiguration can therefore provide both fault
 isolation and an operating-range degree of freedom because the number
 of active cells changes the voltage available to the remaining winding
-groups. Isolating a cell also raises the voltage that each surviving
-cell must share of the fixed dc-link voltage $V_{\mathrm{dc}}$
-(\eqref{eq:spb_voltage_sum}, now divided among $|\mathcal{A}|<N$
-active cells), which is an additional reason current or power
-derating in \eqref{eq:fault_power_redistribution} may be needed after
-a fault, as illustrated in Fig.~\ref{fig:spb_fault_response}.
+groups. Bypassing a cell raises the steady voltage of each surviving cell
+when the total bus voltage remains fixed. With $M=|\mathcal A|$ active
+cells, a necessary blocking-voltage condition is
+\begin{equation}
+\frac{V_{\mathrm{dc,max}}}{M}+\Delta V_{\mathrm{imb}}+
+\Delta V_{\mathrm{sw}}\leq V_{\mathrm{allow}},
+\label{eq:fault_voltage_feasibility}
+\end{equation}
+where $V_{\mathrm{allow}}$ is the allowable device voltage after the
+chosen design margin, and the two increments cover cell imbalance and
+switching overshoot. Capacitor and insulation limits must also hold.
+Current or torque derating cannot by itself correct excessive steady
+blocking voltage. If this condition fails, operation requires a lower
+bus voltage, a suitable spare-cell arrangement, or shutdown.
+Fig.~\ref{fig:spb_fault_response} separates voltage feasibility from
+post-fault torque capability.
 Fig.~\ref{fig:spb_fault_locations} maps these fault locations
 onto the SPB structure.
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}[font=\scriptsize,>=latex,node distance=5mm]
-\tikzstyle{cell}=[draw=blue!65!black,rounded corners,minimum width=18mm,
-  minimum height=9mm,align=center,fill=blue!8]
-\tikzstyle{wind}=[draw=orange!75!black,rounded corners,minimum width=17mm,
-  minimum height=7mm,align=center,fill=orange!12,font=\tiny]
+\begin{tikzpicture}[font=\footnotesize,>=latex,node distance=5mm]
+\tikzstyle{cell}=[draw=pesblue,rounded corners=0pt,minimum width=18mm,
+  minimum height=9mm,align=center,fill=pesblue!8]
+\tikzstyle{wind}=[draw=pesred,rounded corners=0pt,minimum width=17mm,
+  minimum height=7mm,align=center,fill=pesred!8,font=\footnotesize]
 
 \node[cell] (c1) {\textbf{Cell 1}\\[1pt]
-  {\tiny SW\textcolor{teal!55!black}{\textcircled{1}} \;\;
-  $C_1$\textcolor{teal!55!black}{\textcircled{4}}}};
+  {\footnotesize SW\textcolor{pesgreen}{\textcircled{1}} \;\;
+  $C_1$\textcolor{pesgreen}{\textcircled{4}}}};
 \node[cell,below=6mm of c1] (c2) {\textbf{Cell 2}\\[1pt]
-  {\tiny SW \;\; $C_2$}};
-\node[font=\scriptsize,below=2mm of c2] (dots) {$\vdots$};
+  {\footnotesize SW \;\; $C_2$}};
+\node[font=\footnotesize,below=2mm of c2] (dots) {$\vdots$};
 
 \node[wind,right=10mm of c1] (w1) {Winding\\group 1};
 \node[wind,right=10mm of c2] (w2) {Winding\\group 2};
 
 \draw[->] (c1.east) -- (w1.west)
-  node[midway,above,font=\tiny]{\textcolor{teal!55!black}{\textcircled{3}}};
+  node[midway,above,font=\footnotesize]{\textcolor{pesgreen}{\textcircled{3}}};
 \draw[->] (c2.east) -- (w2.west);
 
 \coordinate (topdc) at ([yshift=4mm]c1.north);
 \draw[thick] (topdc) -- (c1.north);
-\node[font=\tiny,left] at (topdc) {$+$};
+\node[font=\footnotesize,left] at (topdc) {$+$};
 \draw[thick] (c1.south) -- (c2.north)
-  node[midway,right,font=\tiny,align=left]{bypass /\\isolation%
-  \textcolor{teal!55!black}{\textcircled{2}}};
+  node[midway,right,font=\footnotesize,align=left]{bypass /\\isolation%
+  \textcolor{pesgreen}{\textcircled{2}}};
 \draw[thick] (c2.south) -- (dots.north);
 \coordinate (botdc) at ([yshift=-4mm]dots.south);
 \draw[thick] (dots.south) -- (botdc);
-\node[font=\tiny,left] at (botdc) {$-$};
+\node[font=\footnotesize,left] at (botdc) {$-$};
 
 \draw[<->,dashed] ([xshift=-3mm]c1.west) -- ([xshift=-3mm]c2.west)
-  node[midway,left,font=\tiny,align=right]{comms\\%
-  \textcolor{teal!55!black}{\textcircled{5}}};
+  node[midway,left,font=\footnotesize,align=right]{comms\\%
+  \textcolor{pesgreen}{\textcircled{5}}};
 \end{tikzpicture}
 \caption{Simplified SPB converter--machine structure with fault
 locations \textcircled{1}--\textcircled{5} annotated, corresponding in
@@ -109,7 +119,7 @@ order to the rows of Table~\ref{tab:spb_fault_compact}.}
 \label{tab:spb_fault_compact}
 \renewcommand{\arraystretch}{1.06}
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{p{2.25cm}p{2.7cm}p{2.7cm}}
+\begin{tabular}{p{1.8cm}p{2.8cm}p{2.8cm}}
 \hline
 \textbf{Fault} & \textbf{SPB consequence} & \textbf{Required response}\\
 \hline
@@ -124,8 +134,8 @@ Communication / controller & Loss of distributed coordination & Local fallback a
 \vspace{1mm}
 \begin{minipage}{0.95\columnwidth}
 \footnotesize
-$^{*}$No SPB-specific study directly reports capacitor or sensor fault
-handling; this row reflects the authors' system-level inference from
+$^{*}$The SPB studies surveyed here do not establish capacitor or sensor
+fault coverage; this row reflects the authors' system-level inference from
 the general modular-converter requirement to detect loss of
 cell-voltage sensing or local dc-link capacitance and to derate or
 isolate the affected cell accordingly.
@@ -135,64 +145,63 @@ isolate the affected cell accordingly.
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}
-\begin{axis}[
-  name=axtop,
-  width=0.92\linewidth, height=3.0cm,
-  xmin=0,xmax=4, ymin=0,ymax=1.7,
-  ylabel={$i_{\mathrm{dc}}/I_{\mathrm{dc},0}$ (p.u.)},
-  title={(a) Normalized dc-link current},
-  title style={font=\scriptsize}, label style={font=\scriptsize},
-  tick label style={font=\scriptsize},
-  ymajorgrids, grid style={gray!25},
-  xticklabels=\empty,
-  ytick={0,0.85},
-  extra y ticks={1},
-  extra y tick labels={1},
-  extra y tick style={tick label style={yshift=1.3mm}},
-  axis line style={black!70}, tick style={black!70},
-]
-\addplot[blue!65!black,thick] coordinates
-  {(0,1)(1,1)(1,0.15)(1.4,0.15)(1.4,0.85)(4,0.85)};
-\node[font=\tiny,anchor=north west,fill=white,fill opacity=0.85,
-  text opacity=1,inner sep=1pt] at (axis cs:1.5,1.6)
-  {derated to 0.85~p.u. post-fault};
-\draw[dashed,black!40,thin] (axis cs:1,0) -- (axis cs:1,1.7);
-\draw[dashed,black!40,thin] (axis cs:1.4,0) -- (axis cs:1.4,1.7);
-\node[font=\tiny,align=center,fill=white,fill opacity=0.85,
-  text opacity=1,inner sep=1pt] at (axis cs:1.2,0.55)
-  {fault\\detect./\\isolate};
-\end{axis}
-\begin{axis}[
-  at={(axtop.south west)}, anchor=north west, yshift=-9mm,
-  width=0.92\linewidth, height=3.0cm,
-  xmin=0,xmax=4, ymin=0,ymax=1.7,
-  xlabel={$t/\tau$}, ylabel={$V_{\mathrm{dc},k}/(V_{\mathrm{dc}}/N)$ (p.u.)},
-  title={(b) Normalized surviving-cell voltage},
-  title style={font=\scriptsize}, label style={font=\scriptsize},
-  tick label style={font=\scriptsize},
-  ymajorgrids, grid style={gray!25},
-  ytick={0,1,1.5},
-  axis line style={black!70}, tick style={black!70},
-]
-\addplot[orange!75!black,thick] coordinates
-  {(0,1)(1.4,1)(1.4,1.5)(4,1.5)};
-\node[font=\tiny,anchor=north west,fill=white,fill opacity=0.85,
-  text opacity=1,inner sep=1pt] at (axis cs:1.5,1.66)
-  {2 of $N{=}3$ cells share $V_{\mathrm{dc}}$: $1.5$~p.u.};
-\draw[dashed,black!40,thin] (axis cs:1,0) -- (axis cs:1,1.7);
-\draw[dashed,black!40,thin] (axis cs:1.4,0) -- (axis cs:1.4,1.7);
-\end{axis}
+\begin{tikzpicture}[font=\footnotesize,>=latex,
+ box/.style={draw,align=center,text width=2.85cm,inner sep=4pt}]
+\node[box,fill=pesblue!6] (a) at (1.5,0)
+ {Detect fault; establish safe state\\Isolate winding; preserve dc path};
+\node[box] (b) at (1.5,-1.65)
+ {Check surviving-cell voltage margins\\Equation~\eqref{eq:fault_voltage_feasibility}};
+\node[box,draw=pesgreen,fill=pesgreen!5] (c) at (1.5,-3.4)
+ {Enforce current, thermal, and winding-voltage limits\\Determine torque--speed envelope};
+\node[box,draw=pesred,fill=pesred!5] (d) at (1.5,-5.2)
+ {Reduce bus voltage, use spare capacity, or remain shut down};
+\draw[->] (a)--(b);
+\draw[->] (b)--(c) node[midway,left] {Yes};
+\draw[->] (b.east)--(3.65,-1.65) node[midway,above] {No}
+ --(3.65,-5.2)--(d.east);
+% Right-hand waveforms: illustrative command, not physical transient data.
+\node at (6.15,.52) {Feasible reconfiguration};
+\node[anchor=west,pesblue] at (4.6,.10) {$i_{\mathrm{dc}}^\star/I_0$};
+\fill[black!5] (5.45,-1.6) rectangle (5.95,-.3);
+\draw[->,black!65] (4.6,-1.6)--(7.85,-1.6);
+\draw[->,black!65] (4.6,-1.6)--(4.6,-.23);
+\foreach \y/\lab in {-1.5/0,-.85/\gamma,-.5/1}{
+ \draw (4.6,\y)--(4.66,\y);
+ \node[anchor=east] at (4.54,\y) {$\lab$};}
+\draw[pesblue,line width=.8pt] (4.68,-.5)--(5.45,-.5)--(5.45,-1.5)
+ --(5.95,-1.5)--(5.95,-.85)--(7.65,-.85);
+\draw[densely dashed,black!40] (5.45,-1.6)--(5.45,-.3);
+\draw[densely dashed,black!40] (5.95,-1.6)--(5.95,-.3);
+\node[anchor=north] at (5.45,-1.64) {$t_f$};
+\node[anchor=north] at (5.95,-1.64) {$t_r$};
+\node[anchor=north] at (7.75,-1.64) {$t$};
+\node[anchor=west,pesred] at (4.6,-2.35) {$V_{\mathrm{dc},k}/(V_{\mathrm{dc}}/3)$};
+\fill[black!5] (5.45,-3.95) rectangle (5.95,-2.62);
+\draw[->,black!65] (4.6,-3.95)--(7.85,-3.95);
+\draw[->,black!65] (4.6,-3.95)--(4.6,-2.60);
+\foreach \y/\lab in {-3.85/0,-3.18/1,-2.85/1.5}{
+ \draw (4.6,\y)--(4.66,\y);
+ \node[anchor=east] at (4.54,\y) {$\lab$};}
+\draw[pesred,line width=.8pt] (4.68,-3.18)--(5.45,-3.18);
+\draw[pesred,densely dashed,line width=.8pt] (5.45,-3.18)--(5.95,-2.85);
+\draw[pesred,line width=.8pt] (5.95,-2.85)--(7.65,-2.85);
+\draw[densely dashed,black!40] (5.45,-3.95)--(5.45,-2.62);
+\draw[densely dashed,black!40] (5.95,-3.95)--(5.95,-2.62);
+\node[anchor=north] at (5.45,-3.99) {$t_f$};
+\node[anchor=north] at (5.95,-3.99) {$t_r$};
+\node[anchor=north] at (7.75,-3.99) {$t$};
+\node[align=center,text width=3.2cm] at (6.2,-4.85)
+ {$t_f$: fault; $t_r$: resume\\$0<\gamma\leq1$: feasible current limit};
 \end{tikzpicture}
-\caption{Illustrative, analytically derived example of the post-fault
-current derating and remaining-cell voltage step-up for a
-representative $N=3\to2$ case (one of three cells isolated after a
-fault); this is not measured or simulated data. (a) Normalized
-dc-link current, derated post-fault per
-\eqref{eq:fault_power_redistribution}. (b) Normalized remaining-cell
-voltage, stepping from 1~p.u. to $N/(N-1)=1.5$~p.u.
-\eqref{eq:spb_voltage_sum} once two cells must share $V_{\mathrm{dc}}$.
-Both panels share the same time axis.}
+\caption{Post-fault feasibility assessment with illustrative waveforms
+for the feasible branch. The dc-current command is temporarily set to
+zero and restored to $\gamma I_0$, subject to operating limits.
+For a fixed bus, changing from three to two active cells raises the
+balanced surviving-cell voltage from 1 to 1.5~p.u. (400 to 600~V for
+a 1200-V bus). Shading marks the protection/reconfiguration interval;
+the dashed voltage connection indicates a change of steady-state level,
+not a predicted capacitor-voltage trajectory. Current derating does not
+remove the increased blocking-voltage requirement.}
 \label{fig:spb_fault_response}
 \end{figure}
 

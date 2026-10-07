@@ -1,0 +1,30 @@
+\begin{circuitikz}[font=\footnotesize,>=latex,american inductors]
+\ctikzset{bipoles/length=5mm}
+\foreach \x/\title in {0/{(a) Aligned},2.7/{(b) Shifted},5.4/{(c) Segmented}}{
+ \filldraw[fill=black!2,draw=black!45] (\x,0) circle (1.05);
+ \node at (\x,-1.28) {\title};
+}
+\foreach \angle in {90,210,330}{
+ \begin{scope}[shift={(-.06,0)},rotate=\angle]
+  \draw[pesblue,thick] (0,0)--(.25,0) arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08]--(.87,0);
+ \end{scope}
+ \begin{scope}[shift={(.06,0)},rotate=\angle]
+  \draw[pesred,thick] (0,0)--(.25,0) arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08]--(.87,0);
+ \end{scope}
+ \begin{scope}[shift={(2.65,0)},rotate=\angle]
+  \draw[pesblue,thick] (0,0)--(.25,0) arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08]--(.87,0);
+ \end{scope}
+ \begin{scope}[shift={(2.75,0)},rotate=\angle-30]
+  \draw[pesred,thick] (0,0)--(.25,0) arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08] arc[start angle=180,end angle=0,radius=.08]--(.87,0);
+ \end{scope}
+ \foreach \offset/\col in {-.44/pesblue,.44/pesred}{
+  \begin{scope}[shift={(5.4+\offset,0)},rotate=\angle]
+   \draw[\col,thick] (0,0)--(.13,0) arc[start angle=180,end angle=0,radius=.045] arc[start angle=180,end angle=0,radius=.045] arc[start angle=180,end angle=0,radius=.045]--(.49,0);
+  \end{scope}
+ }
+}
+\draw[->] (2.7,.89) arc[start angle=90,end angle=60,radius=.89];
+\node at (3.08,1.03) {$\Delta\theta$};
+\draw[pesblue,thick] (.15,-1.8)--(.6,-1.8);\node[anchor=west] at (.65,-1.8) {Group 1};
+\draw[pesred,thick] (3.65,-1.8)--(4.1,-1.8);\node[anchor=west] at (4.15,-1.8) {Group 2};
+\end{circuitikz}

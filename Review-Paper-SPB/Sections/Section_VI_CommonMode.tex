@@ -64,56 +64,15 @@ is, to the authors' knowledge, not yet available for SPB specifically.
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}[font=\scriptsize,>=latex,node distance=5mm]
-\tikzstyle{cell}=[draw=blue!65!black,rounded corners,minimum width=17mm,
-  minimum height=9mm,align=center,fill=blue!8,font=\tiny]
-\tikzstyle{wind}=[draw=orange!75!black,rounded corners,minimum width=19mm,
-  minimum height=8mm,align=center,fill=orange!12,font=\tiny]
-\tikzstyle{gndbox}=[draw=teal!60!black,rounded corners,minimum width=24mm,
-  minimum height=7mm,align=center,fill=teal!8,font=\tiny]
-
-\node[cell] (cN) {\textbf{Cell $N$}\\ offset $V_{-,N}$};
-\node[font=\scriptsize,below=3mm of cN] (dots) {$\vdots$};
-\node[cell,below=3mm of dots] (c2) {\textbf{Cell 2}\\ offset $V_{-,2}$};
-\node[cell,below=5mm of c2] (c1) {\textbf{Cell 1}\\ offset $V_{-,1}{=}0$};
-
-\node[wind,right=13mm of cN] (wN) {Winding group $N$};
-\node[wind,right=13mm of c2] (w2) {Winding group 2};
-\node[wind,right=13mm of c1] (w1) {Winding group 1};
-
-\draw[->] (cN.east) -- (wN.west);
-\draw[->] (c2.east) -- (w2.west);
-\draw[->] (c1.east) -- (w1.west);
-
-\coordinate (topdc) at ([yshift=4mm]cN.north);
-\draw[thick] (topdc) -- (cN.north);
-\node[font=\tiny,left] at (topdc) {$+$};
-\draw[thick] (cN.south) -- (dots.north);
-\draw[thick] (dots.south) -- (c2.north);
-\draw[thick] (c2.south) -- (c1.north);
-\coordinate (botdc) at ([yshift=-4mm]c1.south);
-\draw[thick] (c1.south) -- (botdc);
-\node[font=\tiny,left] at (botdc) {$-$};
-
-\node[gndbox,below=11mm of w1,xshift=10mm] (gnd)
-  {Frame / chassis\\ ground reference};
-
-\coordinate (busN) at ([xshift=10mm]wN.east);
-\coordinate (bus2) at ([xshift=10mm]w2.east);
-\coordinate (bus1) at ([xshift=10mm]w1.east);
-
-\draw[teal!60!black,dashed] (wN.east) -- (busN);
-\draw[teal!60!black,dashed] (w2.east) -- (bus2);
-\draw[teal!60!black,dashed] (w1.east) -- (bus1);
-\draw[teal!60!black,dashed] (busN) -- (bus1);
-\draw[teal!60!black,dashed,->] (bus1) -- (gnd.north);
-\node[font=\tiny,teal!60!black,align=center,rotate=90] at ([xshift=4mm]bus2)
-  {CM current paths\\(parasitic coupling)};
-\end{tikzpicture}
-\caption{Simplified SPB series-stack structure: absolute potential
-offset per cell \eqref{eq:spb_cm_offset} and representative CM current
-paths (dashed) to the shared frame/chassis ground through parasitic
-capacitance.}
+\input{Figures/Section-CommonMode/fig_spb_cm_equivalent}
+\caption{Lumped common-mode equivalent of the SPB stack. Series dc-link
+capacitors $C_k$ establish the rail offsets $V_{-,k}$; each voltage source
+represents $v_{\mathrm{cm},k}^{\mathrm{loc}}=(v_{aN_k}+v_{bN_k}+v_{cN_k})/3$.
+The group-to-frame capacitance $C_{kg}$ couples this local source and its
+rail offset to the chassis. $Z_{\mathrm{ret}}(\omega)$ represents the
+installation-dependent return path to the dc reference, not an assumed
+galvanic bond. Differential-mode winding circuits and the rotor/bearing
+network are omitted.}
 \label{fig:spb_cm_stack}
 \end{figure}
 
@@ -124,20 +83,22 @@ waveform relative to the others is a way to actively cancel the
 switching-induced component of CMV. We illustrate the principle for
 the $N=2$ case, where the cancellation condition has a simple closed
 form; the same synchronization idea extends to larger stacks built
-from matched cell pairs, though a general $N$-cell synchronization law
-has not yet been derived for SPB.
+from matched cell pairs, subject to matching and the required winding arrangement.
 
-If cell 2 is driven with the logical inverse of cell 1's gate
-commands, and cell 2's winding set is wired with reversed winding
-sense so that both cells still generate torque in the same direction,
-the two cells' individually switched CMVs become approximately equal
-and opposite, $v_{\mathrm{cm},1}(t)\approx-v_{\mathrm{cm},2}(t)$, and
-the total CMV seen by the machine,
+For equal cell voltages $V_c$, define the midpoint-referenced term
+$u_{\mathrm{cm},k}=V_c(\sum_xs_{x,k}/3-1/2)$. Complementary commands
+$s_{x,2}=1-s_{x,1}$ give $u_{\mathrm{cm},2}=-u_{\mathrm{cm},1}$;
+reversing the second winding group's sense preserves the intended
+torque direction. The absolute voltages remain offset:
 \begin{equation}
-v_{\mathrm{cm,tot}}(t)=\frac{v_{\mathrm{cm},1}(t)+v_{\mathrm{cm},2}(t)}{2},
+\frac{v_{\mathrm{cm},1}^{\mathrm{abs}}+
+ v_{\mathrm{cm},2}^{\mathrm{abs}}}{2}
+=V_c=\frac{V_{\mathrm{dc}}}{2}.
 \label{eq:spb_cm_cancellation}
 \end{equation}
-cancels toward zero instead of adding constructively. This
+Thus switching ripple cancels in the arithmetic mean, not the dc
+potential relative to the bottom rail. This
+This
 balanced-cancellation principle was first demonstrated for a
 dual-winding-set machine driven by a balanced inverter pair on a
 single, non-series-stacked machine \cite{Han2018CMCancellation}, and
@@ -155,27 +116,36 @@ the cancellation, both shown quantitatively in
 \cite{Rohner2024GaN,Han2018CMCancellation}. The mechanism is specific
 to $N=2$, or to a stack of matched cell pairs, so it should be read as
 a valuable special-case mitigation rather than a general solution to
-the stack-offset problem above. Fig.~\ref{fig:spb_cm_cancellation}
-simulates this cancellation directly from switching-function
-waveforms, including its effect on the resulting bearing/ground
-current.
+the stack-offset problem above. Fig.~\ref{fig:spb_cm_cancellation} illustrates the reference levels.
+For fixed lumped winding-to-frame capacitances $C_{kg}$, the frame
+excitation is approximately
+\begin{equation}
+i_{\mathrm{frame}}=\sum_k C_{kg}\frac{d}{dt}
+(v_{\mathrm{cm},k}^{\mathrm{abs}}-v_{\mathrm{frame}}).
+\end{equation}
+Cancellation of the arithmetic mean suppresses this current only for
+matched coupling paths. Unequal capacitances, switching delays, and
+resonances leave residual excitation. A constant stack offset contributes
+insulation stress but no steady capacitive current. Bearing current
+requires the additional winding--rotor--shaft--bearing network and
+cannot be inferred directly from this lumped frame-current relation.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{Figures/fig_cm_cancellation.pdf}
-\caption{Switching-function simulation of $N=2$ SPB common-mode
-cancellation ($M=0.85$, $\cos\varphi\approx0.94$), all quantities in
-per unit, with cell~2 driven by the logically inverted gate commands of
-cell~1 plus a propagation delay $t_d=0.02\,T_{sw}$. (a)~Each cell's
-absolute CM voltage $v_{\mathrm{cm},k}^{\mathrm{abs}}$, combining the
-stack offset $V_{-,k}$~\eqref{eq:spb_cm_offset} with its local
-switching term. (b)~Total CM voltage
-$v_{\mathrm{cm,tot}}(t)$~\eqref{eq:spb_cm_cancellation}: cancellation
-removes the switching ripple, leaving only delay-induced residual
-spikes on the same stack-offset average. (c)~Resulting bearing/ground
-current $i_{\mathrm{bear}}=C\,dv_{\mathrm{cm,tot}}/dt$, normalized to
-the without-cancellation peak. Computed simulation result, not
-measured hardware data.}
+\input{Figures/Section-CommonMode/fig_cm_cancellation_waveforms}
+\caption{Nonideal two-cell common-mode cancellation over two switching
+periods. Small transition misalignment produces narrow residuals in
+$v_{\Sigma}$ ($t_d/T_{sw}=0.003$, $t_r/T_{sw}=0.004$). Their polarities
+follow the three rising and three falling cell-voltage transitions;
+unequal $dv/dt$ can also produce residuals. The lower plot shows damped
+frame current with cancellation, normalized to its own peak $I_{\mathrm{pk}}$.
+For equal winding-to-frame capacitances $C_g$ and a shared frame-to-ground
+return impedance $R_g+sL_g$,
+$I_{\mathrm{frame}}(s)/V_{\Sigma}(s)=sC_g/(1+2R_gC_gs+2L_gC_gs^2)$.
+The illustrative resonance has $f_0/f_{sw}=65$ and damping ratio
+$\zeta=0.22$. Each residual excites alternating-polarity current ringing.
+This lumped-model illustration excludes shaft charging and bearing-film
+breakdown; it is not a bearing-discharge prediction.}
 \label{fig:spb_cm_cancellation}
 \end{figure}
 

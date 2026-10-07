@@ -39,9 +39,9 @@ satisfy \eqref{eq:semiconductor_rating}.
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=8.5cm,
-    height=52mm,
-    font=\scriptsize,
+    width=7.65cm,
+    height=47mm,
+    font=\footnotesize,
     xlabel={Cell count $N$},
     ylabel={$V_{\mathrm{cell,nom}}$ (V)},
     ymode=log,
@@ -50,49 +50,54 @@ satisfy \eqref{eq:semiconductor_rating}.
     ymin=55,ymax=1900,
     xtick={1,2,3,4,5,8,10,15},
     axis y line*=left,
-    y axis line style={draw=blue!60!black},
-    tick label style={font=\scriptsize},
-    yticklabel style={blue!60!black},
-    xlabel style={font=\scriptsize},
-    ylabel style={font=\scriptsize,blue!60!black},
+    y axis line style={draw=pesblue},
+    tick label style={font=\footnotesize},
+    yticklabel style={pesblue},
+    xlabel style={font=\footnotesize},
+    ylabel style={font=\footnotesize,pesblue},
     grid=major,
     grid style={gray!15},
 ]
-\addplot[mark=*,thick,blue!60!black,
+\addplot[mark=*,thick,pesblue,
     point meta=explicit,
-    nodes near coords={\pgfmathprintnumber{\pgfplotspointmeta}~V},
-    every node near coord/.append style={font=\tiny,blue!60!black,anchor=south,yshift=1pt}]
+]
     coordinates {
 (1,1200)[1200](2,600)[600](3,400)[400](4,300)[300](5,240)[240]
 (8,150)[150](10,120)[120](15,80)[80]};
 \end{axis}
 \begin{axis}[
-    width=8.5cm,
-    height=52mm,
-    font=\scriptsize,
+    width=7.65cm,
+    height=47mm,
+    font=\footnotesize,
     xmin=0,xmax=16,
     ymin=0,ymax=100,
     xtick={1,2,3,4,5,8,10,15},
     axis x line=none,
     axis y line*=right,
-    y axis line style={draw=orange!75!black},
+    y axis line style={draw=pesred},
     ylabel={Active switches $6N$},
-    tick label style={font=\scriptsize},
-    yticklabel style={orange!75!black},
-    ylabel style={font=\scriptsize,orange!75!black},
+    tick label style={font=\footnotesize},
+    yticklabel style={pesred},
+    ylabel style={font=\footnotesize,pesred},
 ]
-\addplot[mark=square*,thick,dashed,orange!75!black,
+\addplot[mark=square*,thick,dashed,pesred,
     point meta=y,
-    nodes near coords={\pgfmathprintnumber{\pgfplotspointmeta}},
-    every node near coord/.append style={font=\tiny,orange!75!black,anchor=north,yshift=-1pt}]
+]
     coordinates {
 (1,6)(2,12)(3,18)(4,24)(5,30)(8,48)(10,60)(15,90)};
 \end{axis}
 \end{tikzpicture}
+\par\smallskip
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+$N$ & 1 & 2 & 3 & 4 & 5 & 8 & 10 & 15\\
+$V_{\mathrm{cell}}$ (V) & 1200 & 600 & 400 & 300 & 240 & 150 & 120 & 80\\
+$6N$ & 6 & 12 & 18 & 24 & 30 & 48 & 60 & 90
+\end{tabular}}
 \caption{Cell-count scaling for a 1200-V dc link: nominal cell voltage
 $V_{\mathrm{cell,nom}}=V_{\mathrm{dc}}/N$ (blue circles, left logarithmic
-axis) and active switch positions $6N$ (orange squares, right linear
-axis). Labels give the values at each design point. Illustrative device
+axis) and active switch positions $6N$ (red squares, right linear
+axis). The table gives the values at each design point. Illustrative device
 classes include 1700--2000-V SiC for $N=1$, 650-V GaN/SiC for $N=3$,
 and 100-V GaN or silicon MOSFETs for $N=15$, subject to the required
 blocking-voltage margin. Device parallelization is excluded.}

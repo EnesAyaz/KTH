@@ -149,85 +149,46 @@ end
 allFOM = [mat.FOMplot];
 fomYlim = [10^floor(log10(min(allFOM))) 10^ceil(log10(max(allFOM)))];
 
-%% ===================== Figure ============================================
-fig = figure('Color','w','Units','centimeters','Position',[2 2 figWcm figHcm]);
-set(fig,'PaperPositionMode','auto');   % reliable, uncropped GUI print/export
-ax = axes(fig); hold(ax,'on'); box(ax,'on');
-set(ax,'XScale','log','FontSize',fontTick,'FontName','Times New Roman');
-xlim(ax,Vaxis);
-grid(ax,'on'); ax.GridColor = [0.85 0.85 0.85]; ax.GridAlpha = 0.5;
 
-axColor = 'k';   % black, matching the x-axis, for both y-axes/labels
-
-hLeft = gobjects(1,nMat);
+%% Compact dual-axis graph; computed arrays above are unchanged.
+addpath(fullfile(fileparts(mfilename('fullpath')),'..','Style'));st=pes_style();
+colors=[st.blue;st.red;st.green];
+fig=figure('Visible','off','Color','w','Units','centimeters', ...
+    'Position',[2 2 8.8 5.2],'Renderer','painters');
+ax=axes(fig,'Position',[.20 .22 .60 .52]);hold(ax,'on');
 yyaxis(ax,'left');
-set(ax,'YScale','log','YColor',axColor);
-for m = 1:nMat
-    hLeft(m) = plot(ax, mat(m).V, mat(m).RonSp_mOhmcm2, '-', ...
-        'Color', mat(m).color, 'LineWidth', lwCurve);
+for m=1:nMat
+    plot(ax,mat(m).V,mat(m).RonSp_mOhmcm2,'Color',colors(m,:), ...
+        'LineWidth',1,'HandleVisibility','off');
 end
-ylabel(ax,'$R_{\mathrm{on,sp}}$ (m$\Omega\cdot$cm$^2$)','Interpreter','latex', ...
-    'FontSize',fontAxisLatex,'FontName','Times New Roman','Color',axColor);
-ylim(ax,[1e-4 1e4]);
-% Force a readable set of tick labels -- with a low-profile (short)
-% figure MATLAB's automatic log-axis ticking can collapse to a single
-% label, so space them explicitly every 2 decades instead.
-set(ax,'YTick',10.^(-4:2:4));
-
-hRight = gobjects(1,nMat);
+set(ax,'YScale','log');ylim(ax,[1e-4 1e4]);yticks(ax,10.^(-4:2:4));
+ylabel(ax,'$R_{\mathrm{on,sp}}$ (m$\Omega$ cm$^2$)','Interpreter','latex','FontSize',8.5);
 yyaxis(ax,'right');
-set(ax,'YScale','log','YColor',axColor);
-for m = 1:nMat
-    hRight(m) = plot(ax, mat(m).V, mat(m).FOMplot, '--', ...
-        'Color', mat(m).color, 'LineWidth', lwCurve);
+for m=1:nMat
+    plot(ax,mat(m).V,mat(m).FOMplot,'--','Color',colors(m,:), ...
+        'LineWidth',1,'HandleVisibility','off');
 end
-ylabel(ax,fomLabel,'Interpreter','latex','FontSize',fontAxisLatex, ...
-    'FontName','Times New Roman','Color',axColor);
-ylim(ax,fomYlim);
-set(ax,'YTick',10.^(log10(fomYlim(1)):log10(fomYlim(2))));
-
-xlabel(ax,'Blocking voltage (V)','FontSize',fontAxis,'FontName','Times New Roman');
-
-% Two small legends, one per curve family, each placed where that
-% family leaves the most empty room -- Ron,sp curves are lowest at low
-% V (top-left is clear), FOM curves are lowest at high V (top-right is
-% clear) -- so nothing overlaps, and the figure stays low-profile since
-% no external legend column is needed. MATLAB only supports one legend
-% per axes, so the second legend lives on a transparent overlay axes
-% (dummy lines, same colors/styles, just for the legend entries).
-leftLabels  = arrayfun(@(m) [m.name ' $R_{\mathrm{on,sp}}$'], mat, 'UniformOutput', false);
-rightLabels = arrayfun(@(m) [m.name ' FOM'], mat, 'UniformOutput', false);
-
-% Wider icon lines than MATLAB's default (30 pt) so a dashed entry
-% actually shows multiple dash segments instead of reading as solid.
-itemTok = [16*figScale 18];
-
-yyaxis(ax,'left');
-lgLeft = legend(ax, hLeft, leftLabels, 'Interpreter','latex', ...
-    'FontSize',fontLeg, 'FontName','Times New Roman', ...
-    'Location','northwest', 'Box','on', 'Color','white', ...
-    'EdgeColor',[0.5 0.5 0.5]);
-lgLeft.ItemTokenSize = itemTok;
-drawnow;   % make sure ax.Position is final before copying it below
-
-ax2 = axes('Position',ax.Position,'Color','none','XLim',[0 1],'YLim',[0 1], ...
-    'XTick',[],'YTick',[],'Box','off','HitTest','off');
-hold(ax2,'on');
-hDummy = gobjects(1,nMat);
-for m = 1:nMat
-    % Thinner than the actual data lines purely for the legend icon --
-    % a thick dashed line at this scale reads as solid.
-    hDummy(m) = plot(ax2, NaN, NaN, '--', 'Color', mat(m).color, 'LineWidth', lwCurve*0.6);
+set(ax,'YScale','log');ylim(ax,fomYlim);
+ylabel(ax,fomLabel,'Interpreter','latex','FontSize',8.5);
+set(ax,'XScale','log','FontName',st.font,'FontSize',8.5,'LineWidth',.5, ...
+    'TickDir','in','Box','on','XLim',Vaxis,'XTick',[10 100 1000], ...
+    'XMinorGrid','off','YMinorGrid','off','GridAlpha',.15);grid(ax,'on');
+ax.YAxis(1).Color=[0 0 0];ax.YAxis(2).Color=[0 0 0];
+xlabel(ax,'Blocking voltage (V)','FontName',st.font,'FontSize',8.5);
+% Separate keys for material color and quantity line style.
+legax=axes(fig,'Position',[.20 .22 .60 .52],'Visible','off');hold(legax,'on');
+for m=1:nMat
+    plot(legax,nan,nan,'Color',colors(m,:),'LineWidth',1.5,'DisplayName',mat(m).name);
 end
-lgRight = legend(ax2, hDummy, rightLabels, 'Interpreter','latex', ...
-    'FontSize',fontLeg, 'FontName','Times New Roman', ...
-    'Location','northeast', 'Box','on', 'Color','white', ...
-    'EdgeColor',[0.5 0.5 0.5]);
-lgRight.ItemTokenSize = itemTok;
-
-%% ===================== Export ============================================
-outFile = fullfile(fileparts(mfilename('fullpath')), ...
-    'fig_intro_ronsp_trend.pdf');
-exportgraphics(fig, outFile, 'ContentType', 'vector', ...
-    'BackgroundColor','white');
-fprintf('Saved %s\n', outFile);
+lg=legend(legax,'Orientation','horizontal','Box','off','FontSize',8.5);
+lg.Units='normalized';lg.Position=[.19 .91 .64 .07];
+styleax=axes(fig,'Position',[.20 .22 .60 .52],'Visible','off');hold(styleax,'on');
+plot(styleax,nan,nan,'k-','DisplayName','$R_{\mathrm{on,sp}}$ (left)');
+plot(styleax,nan,nan,'k--','DisplayName','FOM (right)');
+lg2=legend(styleax,'Orientation','horizontal','Box','off','FontSize',8.5,'Interpreter','latex');
+lg2.Units='normalized';lg2.Position=[.17 .81 .68 .07];
+ax.Position=[.20 .22 .60 .52];
+out=fullfile(fileparts(mfilename('fullpath')),'fig_intro_ronsp_trend');
+set(fig,'PaperUnits','centimeters','PaperPosition',[0 0 8.8 5.2],'PaperSize',[8.8 5.2]);
+savefig(fig,[out '.fig']);print(fig,[out '.pdf'],'-dpdf','-painters');
+if usejava('desktop'),set(fig,'Visible','on');end

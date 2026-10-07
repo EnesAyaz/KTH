@@ -1,0 +1,26 @@
+\begin{circuitikz}[font=\footnotesize,>=latex,american inductors]
+\ctikzset{bipoles/length=7mm}
+\fill[pesgreen!6] (4.9,-.3) rectangle (7.8,5.6);
+\node[anchor=south] at (6.35,5.65) {Common machine};
+\foreach \k/\y in {1/0,2/1.85,N/3.9}{
+ \fill[pesblue!8] (2.5,\y+.1) rectangle (4.45,\y+1.45);
+ \draw (1.45,\y) to[C,l_={$C_{\k}$}] (1.45,\y+1.55);
+ \draw (1.45,\y+1.55)--(2.5,\y+1.55)--(2.5,\y+1.25);
+ \draw (1.45,\y)--(2.5,\y)--(2.5,\y+.35);
+ \draw (2.5,\y+.1) rectangle (4.45,\y+1.45);
+ \draw (2.5,\y+.1)--(4.45,\y+1.45);
+ \node at (2.95,\y+1.07) {$=$};\node at (4.02,\y+.47) {$3\sim$};
+ \node[anchor=south] at (3.45,\y+1.5) {Cell $\k$};
+ \foreach \dy in {.35,.75,1.15}{
+  \draw (4.45,\y+\dy)--(5.25,\y+\dy) to[L] (6.45,\y+\dy)--(6.9,\y+\dy);
+ }
+ \draw (6.9,\y+.35)--(6.9,\y+1.15);
+ \node[anchor=west] at (7.0,\y+.75) {$n_{\k}$};
+}
+\draw (1.45,1.55)--(1.45,1.85);
+\draw[densely dotted] (1.45,3.4)--(1.45,3.9);
+\draw (1.45,5.45)--(.1,5.45) to[battery1,l_={$V_{\mathrm{dc}}$}] (.1,0)--(1.45,0);
+\node at (4.7,3.68) {$\vdots$};\node at (6.0,3.68) {$\vdots$};
+\draw[->,pesblue,thick] (.45,5.45)--(1.0,5.45);
+\node[anchor=south] at (.73,5.5) {$i_{\mathrm{dc}}$};
+\end{circuitikz}

@@ -1,0 +1,28 @@
+{
+  "method": "Analytical switching-interval Fourier integrals; periodic frequency-domain response",
+  "N": 3,
+  "M": 0.85,
+  "f1_Hz": 1.0,
+  "fsw_Hz": 100.0,
+  "power_factor_angle_deg": 20,
+  "L_normalized": 0.0085,
+  "C_normalized": 0.01,
+  "R_normalized": 2.5,
+  "harmonics": 8000,
+  "dc_mean": [
+    0.9999999999999996,
+    0.9999999999999999
+  ],
+  "ripple_rms": [
+    0.028116617173367393,
+    0.0012572680237957323
+  ],
+  "ripple_peak_to_peak": [
+    0.11395362670030273,
+    0.005128487132659121
+  ],
+  "max_change_4000_to_8000_harmonics": [
+    1.2244431817576285e-05,
+    6.498865313009361e-06
+  ]
+}
