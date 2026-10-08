@@ -1,0 +1,6 @@
+* Slow-switching study: switching energy vs current with Rg_on = 2 ohm, Rg_off = 0 ohm per FET.
+* Same circuit as BB_energy_sweep.cir; energies are evaluated from the raw file by scripts/slow_switching.py.
+.param VBUS=75 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.step param IPK list 10 30 60 90 120 141 160
+.include BB_circuit.inc
+.end

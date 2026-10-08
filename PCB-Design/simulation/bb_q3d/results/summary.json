@@ -25,23 +25,19 @@
  "BB_PL_loop": {
   "local_only_copper": {
    "L_cell_L_nH": 0.318731050116633,
-   "L_cell_R_nH": 0.31879357682223064,
-   "L_switch_position_nH": 0.1593811567347159
+   "L_cell_R_nH": 0.31879357682223064
   },
   "local_only_esl": {
    "L_cell_L_nH": 0.3987374996358727,
-   "L_cell_R_nH": 0.39878712910627634,
-   "L_switch_position_nH": 0.19938115718553726
+   "L_cell_R_nH": 0.39878712910627634
   },
   "local_and_bank_copper": {
    "L_cell_L_nH": 0.312080895126545,
-   "L_cell_R_nH": 0.3121399991968511,
-   "L_switch_position_nH": 0.15605522358084903
+   "L_cell_R_nH": 0.3121399991968511
   },
   "local_and_bank_esl": {
    "L_cell_L_nH": 0.3740524538349261,
-   "L_cell_R_nH": 0.37409994714745104,
-   "L_switch_position_nH": 0.18703810024559428
+   "L_cell_R_nH": 0.37409994714745104
   }
  },
  "BB_PL_Rdc": {
@@ -496,23 +492,19 @@
  "BB_PL_2oz_loop": {
   "local_only_copper": {
    "L_cell_L_nH": 0.32059844908379936,
-   "L_cell_R_nH": 0.3208918793984522,
-   "L_switch_position_nH": 0.1603725821205629
+   "L_cell_R_nH": 0.3208918793984522
   },
   "local_only_esl": {
    "L_cell_L_nH": 0.4006000332170169,
-   "L_cell_R_nH": 0.40089029537330134,
-   "L_switch_position_nH": 0.20037258214757958
+   "L_cell_R_nH": 0.40089029537330134
   },
   "local_and_bank_copper": {
    "L_cell_L_nH": 0.31386579958062233,
-   "L_cell_R_nH": 0.3141559802603373,
-   "L_switch_position_nH": 0.1570054449602399
+   "L_cell_R_nH": 0.3141559802603373
   },
   "local_and_bank_esl": {
    "L_cell_L_nH": 0.3758151634272837,
-   "L_cell_R_nH": 0.37610242558608986,
-   "L_switch_position_nH": 0.1879793972533434
+   "L_cell_R_nH": 0.37610242558608986
   }
  },
  "BB_PL_2oz_Rdc": {

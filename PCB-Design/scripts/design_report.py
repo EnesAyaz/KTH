@@ -40,8 +40,8 @@ def e_avg(n):
     return float(np.mean(e2 - e0_2 + e0_2 * n / 2))
 
 
-P_CU = rs["P_cu"]
-P_OTHER = sz["P_cap_rated"]
+P_CU = rs["P_cu"] + rs.get("P_cu_hf", 0.0)        # load-current + switching-harmonic copper (Q3D sweep)
+P_OTHER = rs.get("P_cap_net", sz["P_cap_rated"])
 mac = {}
 
 # ------------------------------------------------------------- 1. number of parallel devices

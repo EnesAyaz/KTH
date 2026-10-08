@@ -76,6 +76,7 @@
 \newlabel{fig:spb_timeline}{{4}{4}{}{figure.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Series DC Connection and Power Flow}{4}{}\protected@file@percent }
 \newlabel{eq:series_current}{{2}{4}{}{equation.2}{}}
+\newlabel{eq:cell_dc_power}{{3}{4}{}{equation.3}{}}
 \citation{Che2014SeriesConnected,Verkroost2024PowerDistribution}
 \citation{Nikouie2015Stability,Nikouie2017Stability}
 \citation{Che2014SeriesConnected,Bringezu2020SPB,Verkroost2024PowerDistribution,Zhang2014SPBMachine}
@@ -84,7 +85,6 @@
 \citation{Han2014SplitWindingModular}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Switch-level realization of the SPB dc--ac stage for two representative cells (Cell~1 and Cell~$N$; cells $2,\dots  ,N-1$ elided). The common series current $i_{\mathrm  {dc}}$ \eqref  {eq:series_current} flows through every cell, giving each cell the dc-side power $p_{\mathrm  {dc},k}=V_{\mathrm  {dc},k}i_{\mathrm  {dc}}$ \eqref  {eq:cell_dc_power}.}}{5}{}\protected@file@percent }
 \newlabel{fig:spb_switch_schematic}{{5}{5}{}{figure.5}{}}
-\newlabel{eq:cell_dc_power}{{3}{5}{}{equation.3}{}}
 \newlabel{eq:power_sum}{{4}{5}{}{equation.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}Cell Count as a Converter--Machine Design Variable}{5}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Schematic comparison of winding-group spatial arrangements, each coil marking one phase axis of winding group 1 (blue) or group 2 (red): (a)~aligned groups (parallel phase axes), (b)~spatially shifted groups (offset by $\Delta \theta $), and (c)~physically segmented stator modules.}}{5}{}\protected@file@percent }
@@ -92,6 +92,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Electric-Machine Requirements and Integrated Implementation}{5}{}\protected@file@percent }
 \newlabel{sec:machine_requirements}{{IV}{5}{}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Winding Architecture and Electromagnetic Coupling}{5}{}\protected@file@percent }
+\newlabel{eq:spb_machine_dq}{{5}{5}{}{equation.5}{}}
 \citation{Bringezu2020SPB}
 \citation{Chen2026HighModulationDTP,Feng2026TractionMachine}
 \citation{Shakweh2002PlugPlayIMD,Wheeler2005Integrated30kW,Pickering2006ThermalIMD,Brown2007IMMD,Wolmarans2008IntegratedFT,Hennen2012DistributedIMMD,Choi2011IMMD,Wang2013GaNIMMD,Wang2015GaNIMMD,Wang2025GaNIMMD,Ugur2018GaNIMMD,Ugur2019MultiphysicsIMMD,Mohamed2021Electrothermal,Mohamed2021EnhancedIMD,Mohamed2022IntegratedDCLink,Wang2025MWIMMD,Chen2026WBGIMD,Deng2026IMDReview}
@@ -117,20 +118,17 @@
 \citation{Yang2026HybridOEW,Lee2026AlternatingDPWM}
 \citation{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}
 \citation{Verkroost2024PowerDistribution,Wu2020ActiveBalancing}
-\newlabel{eq:spb_machine_dq}{{5}{6}{}{equation.5}{}}
 \newlabel{eq:spb_machine_voltage_limit}{{6}{6}{}{equation.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}From Multiphase Machine to Integrated Modular Drive}{6}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}Physical Integration Options}{6}{}\protected@file@percent }
 \newlabel{subsec:physical_integration}{{C}{6}{}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Integration Is Not Free of Complexity}{6}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Representative Integrated Motor-Drive Developments}}{6}{}\protected@file@percent }
 \newlabel{tab:immd_relevance}{{2}{6}{}{table.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D}Integration Is Not Free of Complexity}{6}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {V}Modulation Strategies}{6}{}\protected@file@percent }
 \newlabel{sec:modulation}{{V}{6}{}{section.5}{}}
 \citation{Jin2014Control}
 \citation{Jin2014Control}
-\citation{Wang2015GaNIMMD}
-\citation{Wang2015ThesisDVB}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Physical integration options for SPB-compatible converter modules on a radial-flux machine, following the four-category taxonomy of \cite  {Chowdhury2019Integration}: (a) radial housing mount, (b) radial stator mount, (c) axial endplate mount, and (d) axial stator mount, each shown in whichever radial or axial cross-section most clearly conveys its mounting geometry.}}{7}{}\protected@file@percent }
 \newlabel{fig:machine_integration}{{7}{7}{}{figure.7}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces SPB modulation degrees of freedom grouped by principal system-level effect.}}{7}{}\protected@file@percent }
@@ -145,6 +143,8 @@
 \newlabel{eq:dclink_ode}{{11}{7}{}{equation.11}{}}
 \newlabel{eq:battery_current_tf}{{12}{7}{}{equation.12}{}}
 \newlabel{eq:dclink_ripple_estimate}{{13}{7}{}{equation.13}{}}
+\citation{Wang2015GaNIMMD}
+\citation{Wang2015ThesisDVB}
 \citation{Jin2017Modulation}
 \citation{Verkroost2021Ripple,DeMarcos2025InterleavedPWM,Wang2025HybridPWM}
 \citation{Hopkins2019DCLinkRipple,Mohamed2020DCLinkSizing,Alosa2019ModularRipple}
@@ -276,13 +276,13 @@
 \bibcite{Taha2024SixPhase100kW}{9}
 \bibcite{TIWolfspeed300kW}{10}
 \bibcite{HyundaiIoniq5N2026}{11}
-\bibcite{AlHmoud2023Traction}{12}
-\bibcite{InfineonCAV250kW}{13}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Direct SPB evidence and remaining EV validation: synthesis of representative studies}}{15}{}\protected@file@percent }
 \newlabel{tab:spb_evidence_boundary}{{6}{15}{}{table.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {XI}Conclusion}{15}{}\protected@file@percent }
 \newlabel{sec:conclusion}{{XI}{15}{}{section.11}{}}
 \@writefile{toc}{\contentsline {section}{REFERENCES}{15}{}\protected@file@percent }
+\bibcite{AlHmoud2023Traction}{12}
+\bibcite{InfineonCAV250kW}{13}
 \bibcite{VolvoEX90Specifications2026}{14}
 \bibcite{Wang2021ANPC1200V}{15}
 \bibcite{AVLPI850e}{16}

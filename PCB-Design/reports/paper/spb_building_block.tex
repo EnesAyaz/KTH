@@ -116,9 +116,9 @@ Stacked polyphase bridge, GaN HEMT, paralleling, current sharing, PCB layout, pa
 % -------------------------------------------------------------------------------------
 \section{Losses and Efficiency}\pages{0.5}
 \begin{itemize}
-\item Method: $E_\mathrm{on}(i)$, $E_\mathrm{off}(i)$ from LTspice with Q3D parasitics, averaged over the fundamental; conduction at 100\,$^\circ$C; copper from the Q3D DC resistance matrix.
-\item Fig.~6: breakdown vs $f_\mathrm{sw}$. At 50\,kHz: conduction 5.55, copper 3.30, switching 1.91, dead time 0.20, other 0.16\,W, total 11.1\,W, 99.58\,\% (99.51\,\% with max $R_\mathrm{DS(on)}$); the budget is reached at 100\,kHz.
-\item Insight: conduction + copper are about 80\,\% of the loss; with 1\,oz inner layers copper alone would be 4.7\,W, so DC-feed placement and copper weight are first-order design parameters in low-voltage high-current modules.
+\item Method: $E_\mathrm{on}(i)$, $E_\mathrm{off}(i)$ from LTspice with Q3D parasitics, averaged over the fundamental; conduction at 100\,$^\circ$C; copper from the Q3D DC matrix (load current) and a Q3D frequency sweep with a network solve at every switching harmonic.
+\item Fig.~6: breakdown vs $f_\mathrm{sw}$. At 50\,kHz: conduction 5.55, copper 3.30 (load current) + 1.07 (switching harmonics), switching 1.91, dead time 0.20, MLCC ESR 0.39, gate 0.08\,W; total 12.5\,W, 99.53\,\% (99.46\,\% with max $R_\mathrm{DS(on)}$); the budget is reached at about 60\,kHz.
+\item Insight: conduction + copper are about 80\,\% of the loss, and one fifth of the copper loss is at the switching harmonics (a point usually missed by DC-resistance estimates); with 1\,oz inner layers copper alone would be 4.7\,W, so DC-feed placement and copper weight are first-order design parameters in low-voltage high-current modules.
 \end{itemize}
 \have{figures/losses.pdf; reports/building-block/data/results.json}
 

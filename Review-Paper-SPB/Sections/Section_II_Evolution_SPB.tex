@@ -57,7 +57,7 @@ against common energy, power-density, cost, and reliability targets.
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[
-  font=\footnotesize,>=latex,
+  font=\pesfigfont,>=latex,
   stage/.style={draw=black!60,fill=blue!3,line width=0.45pt,
     rounded corners=0pt,align=left,text width=\dimexpr\columnwidth-8mm\relax,
     inner xsep=3mm,inner ysep=2mm},
@@ -97,7 +97,7 @@ against common energy, power-density, cost, and reliability targets.
   constraints and vehicle operating profiles. Multi-objective
   evaluation of energy consumption, power density, cost, and reliability.};
 \draw[link,dashed,draw=pesred] (s5.south) -- (s6.north)
-  node[midway,fill=white,inner sep=1mm,font=\footnotesize]
+  node[midway,fill=white,inner sep=1mm,font=\pesfigfont]
   {Remaining integration gap for EVs};
 \draw[link] (s1.south) -- (s2.north);
 \draw[link] (s2.south) -- (s3.north);

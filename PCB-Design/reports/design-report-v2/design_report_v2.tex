@@ -1,4 +1,4 @@
-﻿\documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[margin=18mm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,graphicx,booktabs,array,amsmath,amssymb,float,caption,subcaption,multirow}
@@ -18,6 +18,8 @@
 \input{../building-block/numbers.tex}
 \input{../design-report/numbers.tex}
 \input{numbers.tex}
+\input{lc_numbers.tex}
+\input{slow_numbers.tex}
 
 \tikzset{
   blk/.style={draw,rounded corners=2pt,fill=blue!6,align=center,minimum height=0.9cm,font=\small},
@@ -38,7 +40,7 @@
 \noindent This report presents the design of a GaN phase-leg building block for stacked polyphase bridge (SPB) traction drives, structured after the design methodologies of recent paralleled-GaN inverter and power-module publications~\cite{tran2025,zou2025,cooke2026,wattenberg2023,lu2017,brothers2019}.
 The design is formulated as a multi-objective problem (efficiency, power density, switching frequency, voltage stress, current sharing, gate robustness) and solved in a model-based framework: analytical sizing, a parametric layout that drives Ansys Q3D extraction, LTspice switching simulation with the extracted $RLK$ matrix, and loss, thermal and DC-link models that close the loop to the switching-frequency choice.
 The result is a 30\,$\times$\,28\,mm four-layer block with two mirrored commutation cells and a centre gate driver: 0.37\,nH commutation loop per cell (Q3D, copper + MLCC ESL; package inductance not included), \LgateOne\,nH matched gate loops, $<$\,0.1\,\% predicted current imbalance, peak $V_\mathrm{DS}$ of \VdsL\,V at 160\,A with R$_\mathrm{g,on}$/R$_\mathrm{g,off}$\,=\,\RgOn/\RgOff\,$\Omega$, and \Eta\,\% efficiency at 50\,kHz (\EtaHundred\,\% at 100\,kHz) for \Prated\,kW per leg.
-The report also identifies where the design is close to its limits: the DC-link ripple, the high-side gate bump, and the loss with worst-case on-resistance.
+The report also identifies where the design is close to its limits: the DC-link ripple, the high-side gate bump, and the loss. A Q3D frequency sweep shows \PcuHf\,W of copper loss at the switching harmonics, which leaves little margin at 50\,kHz and puts the worst-case on-resistance case and 100\,kHz above the budget.
 \end{abstract}
 
 \vspace{-2mm}
@@ -47,7 +49,7 @@ The report also identifies where the design is close to its limits: the DC-link 
 \begin{tabular}{@{}L{6.6cm}L{3.9cm}L{6.0cm}@{}}\toprule
 Quantity & Value & Basis \\\midrule
 DC link / phase current / rated power per leg & 75\,V / 100\,A$_\mathrm{rms}$ (\Ipk\,A$_\mathrm{pk}$) / \Prated\,kW & specification; $M=1$, $\cos\varphi=1$ \\
-Switching frequency & 50\,kHz nominal, 100\,kHz capable & Sections~\ref{sec:loss}, \ref{sec:coopt} \\
+Switching frequency & 50\,kHz nominal (target met up to \Fmax\,kHz) & Sections~\ref{sec:loss}, \ref{sec:coopt} \\
 Devices & 2\,$\times$\,EPC2361 (100\,V, 0.75/1.0\,m$\Omega$) per switch & Section~\ref{sec:device} \\
 Commutation loop per cell & \LloopEsl\,nH (incl.\ MLCC ESL, excl.\ package) & Q3D, Section~\ref{sec:loop} \\
 Gate loop per FET & \LgateOne\,nH, symmetric & Q3D, Section~\ref{sec:gate} \\
@@ -304,16 +306,106 @@ Adapting~\cite{zou2025} to a GaN leg with $n$ devices per switch, sinusoidal cur
 P_\mathrm{cond}&=\frac{I_\mathrm{rms}^2\,R_\mathrm{DS(on)}(T_j)}{n}, &
 P_\mathrm{sw}&=f_\mathrm{sw}\,\frac1\pi\int_0^\pi\!\big[E_\mathrm{on}(i)+E_\mathrm{off}(i)\big]\,d\theta,\quad i=\hat I\sin\theta,\\
 P_\mathrm{dt}&=2f_\mathrm{sw}t_\mathrm{dt}\,\overline{\big(V_{SD}(i)\,|i|\big)}, &
-P_\mathrm{Cu}&=\sum_k I_{k,\mathrm{rms}}^2R_{k}\quad(\text{Q3D DC matrix}),
+P_\mathrm{Cu}&=\sum_h \tfrac12\,\mathbf{I}_h^\mathsf{H}\,\mathbf{R}(f_h)\,\mathbf{I}_h\quad(\text{Q3D sweep}),
 \end{align}
-plus the gate-drive and DC-link ESR losses.
+plus the gate-drive and MLCC ESR losses. $\mathbf{I}_h$ are the copper branch currents at harmonic $f_h$ of the switched FET currents, obtained from a nodal solve of the board network with the Q3D matrices $\mathbf{R}(f)$, $\mathbf{L}(f)$, the MLCC groups and the DC-supply impedance.
 $E_\mathrm{on}(i)$ and $E_\mathrm{off}(i)$ are quadratic fits of LTspice DPT runs with the extracted parasitics and the selected gate resistors, so the layout is inside the loss model.
 The $V_\mathrm{SD}$ of the GaN reverse conduction ($\approx$\,2\,V) makes the dead-time term non-negligible. A negative off-voltage would increase it further~\cite{tran2025,wattenberg2023}, which is one reason for the 0\,V off-state used here.
 
+\textbf{Switching-harmonic copper loss.} A Q3D frequency sweep (1\,kHz--100\,MHz) shows that the copper resistance is already about 1.5$\times$ its DC value at 50\,kHz and 3$\times$ at 500\,kHz, because the current crowds onto the facing surfaces and the lowest-inductance paths of the planes. Solving the board network (Q3D $R(f)$, $L(f)$, MLCC groups, DC-supply impedance, switched FET currents for SVM) at every harmonic gives \PcuHf\,W of copper loss at the switching harmonics on top of the \Pcu\,W from the load current, up to \PcuHfLowM\,W at low modulation index where the ripple current is largest. Most of the ripple current comes from the 1210 bank above the cells and crosses the planes; the same network gives \Pcap\,W of MLCC ESR loss.
+\begin{figure}[H]\centering
+\includegraphics[width=0.95\textwidth]{copper_hf.pdf}
+\caption{Left: Q3D copper resistance of the main branches versus frequency. Right: copper loss per leg split into the load-current part and the switching-harmonic part (SVM, $M=1$, $\cos\varphi=1$, 50\,kHz).}\label{fig:cuhf}
+\end{figure}
+Conduction, switching and dead-time losses are identical for SPWM and SVM at the same current; only the switching-harmonic copper loss differs slightly (0.88\,W for SPWM vs.\ \PcuHf\,W for SVM at $M=1$), and SVM additionally reaches $M=1.15$. The high- and low-side switches share the loss equally: with synchronous GaN conduction $\overline{d\,i^2}=\overline{i^2}/2$ for any $M$ and $\cos\varphi$.
+
 \begin{figure}[H]\centering
 \includegraphics[width=0.62\textwidth]{loss_stack.pdf}
-\caption{Loss breakdown per leg. Conduction and PCB copper are about 80\,\% of the loss at 50\,kHz; switching is linear in $f_\mathrm{sw}$ and reaches the 99.5\,\% budget at 100\,kHz.}\label{fig:loss}
+\caption{Loss breakdown per leg. Conduction and PCB copper are about 80\,\% of the loss at 50\,kHz; switching is linear in $f_\mathrm{sw}$, and the 99.5\,\% budget is reached at about 60\,kHz.}\label{fig:loss}
 \end{figure}
+
+\subsection{Loss characterisation}
+The graphs below follow the datasheet-driven loss study used for the 2\,kV SiC inverter, but with the switching energies taken from LTspice with the Q3D layout parasitics instead of datasheet double-pulse data, so they include the actual loop and gate resistors of this board.
+
+\begin{figure}[H]\centering
+\begin{minipage}{0.5\textwidth}\centering\includegraphics[width=\textwidth]{lc_energy.pdf}\end{minipage}\hfill
+\begin{minipage}{0.48\textwidth}\centering\includegraphics[width=\textwidth]{lc_events.pdf}\end{minipage}
+\caption{Left: switching energies of one switch position (2\,$\times$\,EPC2361) versus current: \LcEonPk\,\textmu J ($E_\mathrm{on}$) and \LcEoffPk\,\textmu J ($E_\mathrm{off}$) at the rated peak of \Ipk\,A. Right: energy of each switching event over one fundamental period for a sinusoidal 100\,A$_\mathrm{rms}$ current at 50\,kHz (fundamental 1\,kHz for display); the averages give $P_\mathrm{sw,on}$\,=\,\LcPon\,W and $P_\mathrm{sw,off}$\,=\,\LcPoff\,W. The same result holds for SPWM and SVM, since every leg switches once per period at the instantaneous current.}\label{fig:lcenergy}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.95\textwidth]{lc_decomp.pdf}
+\caption{Decomposition of the switching energy. Turn-on: a current-independent output-capacitance part ($E_\mathrm{on}(0)$\,=\,\LcEonZeroFit\,\textmu J, of the order of $Q_\mathrm{oss}V$\,=\,\LcQossV\,\textmu J for two FETs) plus an overlap part that follows $V^2I/(2\,dv/dt)$ closely (\LcOvOnPk\ vs.\ \LcEonMinusZeroPk\,\textmu J at \LcIpkMeas\,A, $dv/dt_\mathrm{on}$\,=\,\LcDvOnPk\,V/ns). Turn-off: the classical overlap formula overestimates by about 2$\times$ (\LcOvOffPk\ vs.\ \LcEoffMeasPk\,\textmu J) because the GaN channel closes before $V_\mathrm{DS}$ rises and the load current charges $C_\mathrm{oss}$; $dv/dt_\mathrm{off}$ (dotted) rises with current up to \LcDvOffPk\,V/ns.}\label{fig:lcdecomp}
+\end{figure}
+Unlike the 2\,kV SiC case, where the output-capacitance energy grows with the number of dies and the overlap loss is limited by the slow datasheet $dv/dt$, here the zero-current part is about one third of $E_\mathrm{on}$ at the rated current and the turn-on overlap is set by the selected $R_\mathrm{g,on}$ (Section~\ref{sec:gate}).
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.95\textwidth]{lc_rds_cond.pdf}
+\caption{Left: $R_\mathrm{DS(on)}$ of EPC2361 versus junction temperature (datasheet Fig.~9, linear from 0.84 to 1.81$\times$ the 25\,$^\circ$C value between 0 and 150\,$^\circ$C). Right: conduction loss per leg at 100\,A$_\mathrm{rms}$; identical for SPWM and SVM.}\label{fig:lcrds}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{minipage}{0.55\textwidth}\centering\includegraphics[width=\textwidth]{lc_tj.pdf}\end{minipage}\hfill
+\begin{minipage}{0.42\textwidth}\small\centering
+\begin{tabular}{@{}lcccc@{}}\toprule
+$T_j$ [$^\circ$C] & 75 & 100 & 125 & 150 \\\midrule
+$P_\mathrm{cond}$ [W] & \LcCondSeventyFive & \LcCondHundred & \LcCondOneTwentyFive & \LcCondOneFifty \\
+Loss [W] & \LcTotSeventyFive & \LcTotHundred & \LcTotOneTwentyFive & \LcTotOneFifty \\
+$\eta$ [\%] & \LcEtaSeventyFive & \LcEtaHundred & \LcEtaOneTwentyFive & \LcEtaOneFifty \\
+$\eta$, max $R_\mathrm{DS(on)}$ & \LcEtaMaxSeventyFive & \LcEtaMaxHundred & \LcEtaMaxOneTwentyFive & \LcEtaMaxOneFifty \\
+\bottomrule\end{tabular}\\[2mm]
+\footnotesize As in the 2\,kV study, only the conduction loss is varied with $T_j$; no thermal model is used. In reality $E_\mathrm{on}$ also rises with $T_j$~\cite{zou2025} and the copper resistance rises by about 0.4\,\%/K with the board temperature, so the values at high $T_j$ are optimistic.
+\end{minipage}
+\caption{Loss and efficiency per leg versus junction temperature at 50\,kHz. With typical devices the 99.5\,\% target holds up to about 130\,$^\circ$C; with maximum $R_\mathrm{DS(on)}$ it is missed above about 67\,$^\circ$C.}\label{fig:lctj}
+\end{figure}
+
+\subsection{Slow switching: larger gate resistances}\label{sec:slow}
+A motor-friendly design may slow the switching with larger gate resistors, as EPC does on its four-parallel motor-drive board (10\,$\Omega$ on, 2\,$\Omega$ off). Six resistor pairs were simulated with the full building-block model over 10--160\,A (Fig.~\ref{fig:slowE}); energies are integrated from the waveforms over 400\,ns while $V_\mathrm{DS}>1$\,V, so the conduction tail is excluded.
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.92\textwidth]{slow_energy.pdf}
+\caption{Switching energies for $R_\mathrm{g,on}/R_\mathrm{g,off}$ pairs. $E_\mathrm{on}$ depends only on $R_\mathrm{g,on}$ and $E_\mathrm{off}$ only on $R_\mathrm{g,off}$, so curves with equal resistor overlap (2/2 and 10/2; 2/10 and 10/10).}\label{fig:slowE}
+\end{figure}
+
+\textbf{When is the turn-off channel-controlled?} The voltage rise takes either the time the load current needs to move the output charge, $t_\mathrm{load}=Q_\mathrm{oss,tot}/I$, or the time the gate needs to remove the Miller charge, $t_\mathrm{gate}\approx Q_\mathrm{GD}R_\mathrm{g,off,tot}/V_\mathrm{pl}$. The slower one sets $dv/dt$. Only when the gate is slower does the channel carry current while $V_\mathrm{DS}$ rises, i.e.\ when
+\begin{equation}
+R_\mathrm{g,off,tot}>R_\mathrm{crit}=\frac{V_\mathrm{pl}\,Q_\mathrm{oss,tot}}{I\,Q_\mathrm{GD}} .
+\end{equation}
+With $Q_\mathrm{oss,tot}\approx$\,\SlowCoss\,nF\,$\times$\,75\,V (from the load-driven slope in Fig.~\ref{fig:slowF}, right), $Q_\mathrm{GD}$\,=\,3.8\,nC and a plateau of about 2\,V, $R_\mathrm{crit}\approx$\,1.5\,$\Omega$ at 139\,A and 7\,$\Omega$ at 30\,A. This matches the simulations: the selected 0.8\,$\Omega$ total stays load-driven at every current; 2.8\,$\Omega$ (2\,$\Omega$ external) becomes gate-driven above about 50\,A; 10.8\,$\Omega$ is gate-driven almost everywhere.
+
+\begin{figure}[H]\centering
+\includegraphics[width=\textwidth]{slow_formula.pdf}
+\caption{Left: $E_\mathrm{off}$ (solid) against $V^2I/(2\,dv/dt)$ with the simulated $dv/dt$ (dashed); the dotted curve adds the $I^2V/(2\,di/dt)$ term for 2/10\,$\Omega$. Centre: $E_\mathrm{on}$ against $E_\mathrm{on}(0)$ plus the overlap terms. Right: turn-off $dv/dt$; the dotted line is the load-driven limit $I/C_\mathrm{oss,tot}$.}\label{fig:slowF}
+\end{figure}
+
+\textbf{Is the overlap formula valid?}
+\begin{itemize}\itemsep1pt
+\item \emph{Turn-off, gate-driven} ($R_\mathrm{g,off,tot}>R_\mathrm{crit}$): yes, with the $dv/dt$ term only, $E_\mathrm{off}\approx V^2I/(2\,dv/dt)$, within about 10\,\% (2/10\,$\Omega$: 50/63/72\,\textmu J against 45/64/79\,\textmu J at 89/118/139\,A). Adding the $I^2V/(2\,di/dt)$ term overestimates by about 1.8$\times$: the simulation shows no separate loss in the current-fall phase.
+\item \emph{Turn-off, load-driven} ($R_\mathrm{g,off,tot}<R_\mathrm{crit}$, the selected design): no. The formula gives about 15\,\textmu J at any current, the simulation 7--8\,\textmu J, of which 5.8\,\textmu J is $E_\mathrm{oss}$ stored in the two FETs.
+\item \emph{Turn-on, fast} (2\,$\Omega$): $E_\mathrm{on}\approx E_\mathrm{on}(0)+V^2I/(2\,dv/dt)$; the $di/dt$ term is not needed.
+\item \emph{Turn-on, slow} (10\,$\Omega$): both terms are needed, $E_\mathrm{on}\approx E_\mathrm{on}(0)+V^2I/(2\,dv/dt)+I^2V/(2\,di/dt)$, within about 10\,\%, because the current rise becomes a separate slow phase ($di/dt$ 65$\to$19\,A/ns at 139\,A).
+\end{itemize}
+
+\begin{table}[H]\centering\footnotesize
+\caption{Slow-switching cases at 139\,A (LTspice) and loss at the rated point, 50\,kHz (all other losses unchanged).}\label{tab:slow}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccccccc@{}}\toprule
+$R_\mathrm{g,on}/R_\mathrm{g,off}$ [$\Omega$] & $E_\mathrm{on}$ [\textmu J] & $E_\mathrm{off}$ [\textmu J] & $dv/dt_\mathrm{on}$ & $dv/dt_\mathrm{off}$ [V/ns] & peak $V_\mathrm{DS}$ [V] & HS bump [V] & $P_\mathrm{sw}$ [W] & $\eta$ [\%] \\\midrule
+2/0 (selected) & \SlEonBase & \SlEoffBase & \SlDvOnBase & \SlDvOffBase & \SlVdsBase & \SlBumpBase & \SlPswBase & \SlEtaBase \\
+2/2 & \SlEonOffTwo & \SlEoffOffTwo & \SlDvOnOffTwo & \SlDvOffOffTwo & \SlVdsOffTwo & \SlBumpOffTwo & \SlPswOffTwo & \SlEtaOffTwo \\
+2/5 & \SlEonOffFive & \SlEoffOffFive & \SlDvOnOffFive & \SlDvOffOffFive & \SlVdsOffFive & \SlBumpOffFive & \SlPswOffFive & \SlEtaOffFive \\
+2/10 & \SlEonOffTen & \SlEoffOffTen & \SlDvOnOffTen & \SlDvOffOffTen & \SlVdsOffTen & \SlBumpOffTen & \SlPswOffTen & \SlEtaOffTen \\
+10/2 (EPC motor board) & \SlEonOnTen & \SlEoffOnTen & \SlDvOnOnTen & \SlDvOffOnTen & \SlVdsOnTen & \SlBumpOnTen & \SlPswOnTen & \SlEtaOnTen \\
+10/10 & \SlEonBoth & \SlEoffBoth & \SlDvOnBoth & \SlDvOffBoth & \SlVdsBoth & \SlBumpBoth & \SlPswBoth & \SlEtaBoth \\
+\bottomrule\end{tabular}\end{table}
+Observations:
+\begin{itemize}\itemsep1pt
+\item $R_\mathrm{g,off}$ is the effective knob for the turn-off $dv/dt$ only above $R_\mathrm{crit}$; 10\,$\Omega$ brings it from 27 to 5\,V/ns at 139\,A, at a cost of about 70\,\textmu J per event.
+\item $R_\mathrm{g,on}$\,=\,10\,$\Omega$ mainly slows $di/dt$; the turn-on $dv/dt$ only falls from about 13 to 11\,V/ns, while $E_\mathrm{on}$ rises 2.5$\times$. It does reduce the high-side overshoot (peak $V_\mathrm{DS}$ of QH 83.5$\to$74.7\,V).
+\item The same $R_\mathrm{g,off}$ also holds the complementary FET off: its gate bump rises from 0.99 to 1.29\,V with $R_\mathrm{g,off}$, above $V_\mathrm{th,typ}$. Slowing the turn-off therefore needs a separate low-impedance hold-off path (Miller clamp) or a negative off-voltage.
+\item The fully slow 10/10\,$\Omega$ design costs about 4\,W of switching loss per leg at 50\,kHz and misses the 99.5\,\% target (\SlEtaBoth\,\%). The selected 2/0\,$\Omega$ is the efficient choice; if the machine requires a lower $dv/dt$, a moderate $R_\mathrm{g,off}$ with a Miller clamp is the cheaper lever.
+\end{itemize}
+($P_\mathrm{sw}$ of the 2/0 case here is \SlPswBase\,W instead of \Psw\,W because the conduction tail inside the original 150\,ns window is excluded.)
 
 \subsection{Why a high switching frequency}
 Cooke and Rogers show a visible reduction of the phase-current ripple from 20 to 50\,kHz with a GaN inverter~\cite{cooke2026}, and Wattenberg et al.\ use the higher frequency to replace electrolytic capacitors with MLCCs~\cite{wattenberg2023}.
@@ -321,7 +413,7 @@ Here the DC-link capacitance halves from 50 to 100\,kHz (Section~\ref{sec:dclink
 
 \textbf{Winding ripple requirement.} The machine is not yet defined, so machine-side PWM losses are not evaluated here. The inverter side can, however, state what it requires: the peak-to-peak ripple of a phase is at most $\Delta i_\mathrm{pp}\approx V_\mathrm{dc}/(4L f_\mathrm{sw})$, where $L$ is the inductance seen by the ripple. For $\Delta i_\mathrm{pp}\leq10$\,\% of the 141\,A peak this means $L\geq$\,\LreqTwentyFive, \LreqFifty{} and \LreqHundred\,\textmu H at 25, 50 and 100\,kHz, a requirement to be handed to the machine design.
 
-50\,kHz is chosen as the nominal point; the block stays within the efficiency target up to 100\,kHz, and the final value is fixed once the machine is selected.
+50\,kHz is chosen as the nominal point; the block stays within the efficiency target up to about \Fmax\,kHz, and the final value is fixed once the machine is selected.
 
 %=====================================================================
 \section{Power-loop design}\label{sec:loop}
@@ -524,7 +616,7 @@ The on-board \CeffBlock\,\uF{} is therefore not enough for the DPT, and an exter
 Using the constraint of~\cite{zou2025}, $R_\mathrm{hs}\leq\big(T_{j,\max}-T_a-P_\mathrm{dev}(R_\mathrm{\theta JC}+R_\mathrm{TIM})\big)/\sum P_\mathrm{dev}$, the leg needs $R_\mathrm{hs\text{-}a}\leq$\,\RthHsFifty\,K/W with 65\,$^\circ$C coolant at 50\,kHz (\RthHsFiftyCool\,K/W at 45\,$^\circ$C).
 This is a mild requirement: with 0.5--1.9\,W per device, a shared cold plate or a small forced-air heat sink suffices.
 The TIM, not the heat sink, dominates the per-device rise. For comparison, Cooke and Rogers measured a mean 16.9\,K/W junction-to-ambient per HEMT on a 0.9\,K/W heat sink with 8 devices per switch~\cite{cooke2026}.
-The PCB copper loss (\Pcu\,W) is dissipated mainly in the board and must be included in the board temperature budget.
+The PCB copper loss (\PcuTot\,W) is dissipated mainly in the board and must be included in the board temperature budget.
 
 %=====================================================================
 \section{Efficiency--density--frequency co-optimisation}\label{sec:coopt}
@@ -533,7 +625,7 @@ Zou et al.\ map efficiency and power density over $(f_\mathrm{sw},P_o)$ and sele
 The same is done here at board level, with the area model of Section~\ref{sec:dclink} and the loss model of Section~\ref{sec:loss} (Fig.~\ref{fig:etarho}).
 \begin{itemize}\itemsep1pt
 \item Raising $f_\mathrm{sw}$ trades efficiency for density until about \Fcross\,kHz (\RhoHundred\,kW/cm$^2$, \EtaHundred\,\% at 100\,kHz). Beyond that the DC link is current-limited, so density no longer improves and only efficiency falls. The frontier therefore ends at about 100\,kHz.
-\item 50\,kHz keeps 0.08\,\% efficiency margin at \RhoFifty\,kW/cm$^2$; machine-side losses, which favour higher $f_\mathrm{sw}$, are not included because the machine is not yet defined.
+\item 50\,kHz keeps 0.03\,\% efficiency margin at \RhoFifty\,kW/cm$^2$; machine-side losses, which favour higher $f_\mathrm{sw}$, are not included because the machine is not yet defined.
 \end{itemize}
 \begin{figure}[H]\centering
 \includegraphics[width=0.62\textwidth]{eta_rho.pdf}
@@ -550,7 +642,7 @@ The same is done here at board level, with the area model of Section~\ref{sec:dc
 The radar (Fig.~\ref{fig:margins}) shows where the design is tight:
 \begin{itemize}\itemsep1pt
 \item DC-link ripple at \UtilRipple\,\% of the $\pm$2\,\% target (shared three-leg bus);
-\item loss with maximum $R_\mathrm{DS(on)}$ at \UtilWorst\,\% of the budget;
+\item loss with maximum $R_\mathrm{DS(on)}$ at \UtilWorst\,\% of the budget, i.e.\ above it;
 \item high-side gate bump at \UtilBump\,\% of $V_\mathrm{th,typ}$.
 \end{itemize}
 The voltage overshoot (\UtilVds\,\% of the 15\,V allowance), the negative gate excursion and the device current have comfortable margins.
@@ -564,12 +656,12 @@ Comfortable margins are where the next iteration can trade for speed (lower $R_\
 Decision & Choice & Reason / evidence \\\midrule
 Module voltage & 75\,V & 100\,V GaN with a 15\,V design overshoot allowance (Fig.~\ref{fig:ovs}) \\
 Devices per switch & 2\,$\times$\,EPC2361 & knee of the loss curve; meets 99.5\,\% (Fig.~\ref{fig:npar}) \\
-$f_\mathrm{sw}$ & 50\,kHz (100\,kHz capable) & efficiency margin at 50\,kHz; density knee near 100\,kHz; final value after machine selection (Figs.~\ref{fig:loss}, \ref{fig:etarho}) \\
+$f_\mathrm{sw}$ & 50\,kHz (target met up to \Fmax\,kHz) & efficiency margin at 50\,kHz; density knee near 100\,kHz; final value after machine selection (Figs.~\ref{fig:loss}, \ref{fig:etarho}) \\
 Power loop & vertical, 0.1\,mm, caps at QH, 2 mirrored cells & 0.37\,nH per cell, each cell carrying half the current (Fig.~\ref{fig:benchmark}) \\
 Gate drive & centre driver, Kelvin returns, LT8418 & equal 1.7\,nH stars; sharing $<$\,0.1\,\% (Fig.~\ref{fig:tornado}) \\
 Gate resistors & 2\,$\Omega$ on / 0\,$\Omega$ off & inside the design window; $\leq$\,90\,V at 160\,A (Figs.~\ref{fig:rgw}, \ref{fig:rgstudy}) \\
 DC link & 24\,$\times$\,10\,\uF{} + 12\,$\times$\,1\,\uF{} & $C_v$-limited at 50\,kHz; $\pm$2\,\% on a shared bus (Fig.~\ref{fig:dcl}) \\
-Copper & 2\,oz on all layers & PCB copper 4.7\,$\to$\,3.3\,W \\
+Copper & 2\,oz on all layers & load-current copper 4.7\,$\to$\,3.3\,W; +\PcuHf\,W at the switching harmonics \\
 \bottomrule\end{tabular}\end{table}
 
 %=====================================================================
@@ -600,12 +692,12 @@ As noted in~\cite{brothers2019}, terminal measurements under-read the die $V_\ma
 %=====================================================================
 \section{Conclusions and next iteration}
 %=====================================================================
-The building block reaches the efficiency target with margin at 50\,kHz, remains at the target at 100\,kHz, and achieves a power-loop inductance below the reviewed designs, with equal loops and gate stars for the paralleled FETs.
+The building block meets the efficiency target at 50\,kHz with a small margin once the switching-harmonic copper loss is included (\Eta\,\%), needs copper and capacitor-placement improvements for 100\,kHz (\EtaHundred\,\% today), and achieves a power-loop inductance below the reviewed designs, with equal loops and gate stars for the paralleled FETs.
 The model-based flow makes the design reproducible and lets each change be traced to its effect on losses, overshoot and sharing.
 Planned improvements, ranked by benefit:
 \begin{enumerate}\itemsep1pt
 \item Gate-bump mitigation (external $C_\mathrm{GS}$ or small negative bias; driver with Miller clamp), verified in the DPT.
-\item Copper-loss reduction: DC busbar contacts next to each cell and heavier L3/L4 copper (about $-2$\,W). This makes 100\,kHz possible at the efficiency of today's 50\,kHz design.
+\item Copper-loss reduction: DC busbar contacts next to each cell and heavier L3/L4 copper (about $-2$\,W), and more capacitance next to each cell to shorten the ripple path. This restores margin at 50\,kHz and brings 100\,kHz back to about 99.52\,\%.
 \item A larger or film DC link if the shared-bus ripple must be held at $\pm$2\,\% across all operating points, and a separate 0.5--0.6\,mF bank for the DPT.
 \item When the machine is selected, evaluate machine-side PWM losses in a separate study and confirm the switching frequency against the winding-ripple requirement.
 \end{enumerate}

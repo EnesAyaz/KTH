@@ -23,7 +23,7 @@
 This report documents the step-by-step design of a phase-leg building block for a stacked polyphase bridge (SPB) traction drive.
 Each step states its objective, the options considered, the decision, and the evidence from analysis, Ansys Q3D extraction and LTspice simulation.
 The design aims at high efficiency (low switching and conduction loss), high power density, and a high switching frequency (smaller DC link and lower current ripple delivered to the machine), while keeping the parasitics small and symmetric so that two paralleled GaN devices share current.
-Result: \Prated\,kW per leg on a 30\,$\times$\,28\,mm four-layer board (\PdArea\,kW/cm$^2$), 0.37\,nH commutation-loop inductance per cell (Q3D, copper + MLCC ESL), $<$0.1\,\% left/right asymmetry, R$_\mathrm{g,on}$/R$_\mathrm{g,off}$\,=\,\RgOn/\RgOff\,$\Omega$, and \Eta\,\% estimated efficiency at 50\,kHz (99.50\,\% at 100\,kHz).
+Result: \Prated\,kW per leg on a 30\,$\times$\,28\,mm four-layer board (\PdArea\,kW/cm$^2$), 0.37\,nH commutation-loop inductance per cell (Q3D, copper + MLCC ESL), $<$0.1\,\% left/right asymmetry, R$_\mathrm{g,on}$/R$_\mathrm{g,off}$\,=\,\RgOn/\RgOff\,$\Omega$, and \Eta\,\% estimated efficiency at 50\,kHz (\EtaHundred\,\% at 100\,kHz).
 \end{abstract}
 
 \begin{table}[H]\centering\small
@@ -32,7 +32,7 @@ Key result & Value \\\midrule
 Power per leg (M = 1, $\cos\varphi$ = 1) / maximum (M = 1.15) & \Prated\,/\,\Pmax\,kW \\
 Board area, power density (board level, without cooling) & \Area\,cm$^2$, \PdArea\,kW/cm$^2$ \\
 Loss at 50\,kHz / efficiency (typ.\ R$_\mathrm{DS(on)}$, 100\,$^\circ$C) & \Ptot\,W / \Eta\,\% \\
-Efficiency at 100\,kHz & 99.50\,\% \\
+Efficiency at 100\,kHz & \EtaHundred\,\% (below target) \\
 Commutation-loop inductance per cell (Q3D, incl.\ MLCC ESL) & \LloopEsl\,nH \\
 Peak V$_\mathrm{DS}$ at 160\,A (13\,\% overload) & \VdsH\,V (QH), \VdsL\,V (QL) \\
 Gate loop per FET; current imbalance between paralleled FETs & \LgateOne\,nH; $<$0.1\,\% \\
@@ -44,7 +44,7 @@ DC-link (effective) per leg & \CeffBlock\,\uF{} (24\,$\times$\,10\,\uF{} + 12\,$
 \begin{tabular}{@{}L{4.2cm}L{5.8cm}L{5.6cm}@{}}\toprule
 Objective & Metric & Target \\\midrule
 Efficiency & loss per leg at the rated point & $\geq$\,99.5\,\% ($\leq$\,\Pbudget\,W) \\
-High switching frequency & $f_\mathrm{sw}$ at which the target is still met & 50\,kHz nominal, 100\,kHz capable \\
+High switching frequency & $f_\mathrm{sw}$ at which the target is still met & 50\,kHz nominal (target met up to \Fmax\,kHz) \\
 Winding current ripple & $\Delta i_\mathrm{pp}\approx V_\mathrm{dc}/(4Lf_\mathrm{sw})$ & requirement handed to the machine design \\
 Device safety & peak $V_\mathrm{DS}$, $V_\mathrm{GS}$ & $\leq$\,90\,V; $-4\dots+6$\,V \\
 Paralleling & dynamic and static current imbalance & as small as the layout allows \\
@@ -97,7 +97,7 @@ A higher $f_\mathrm{sw}$ shrinks the DC-link capacitance (Step 8) and the curren
 
 \textbf{Winding ripple requirement.} The machine is not yet defined, so machine-side PWM losses are not evaluated here. The inverter side can, however, state what it requires: the peak-to-peak ripple of a phase is at most $\Delta i_\mathrm{pp}\approx V_\mathrm{dc}/(4L f_\mathrm{sw})$, where $L$ is the inductance seen by the ripple. For $\Delta i_\mathrm{pp}\leq10$\,\% of the 141\,A peak this means $L\geq$\,\LreqTwentyFive, \LreqFifty{} and \LreqHundred\,\textmu H at 25, 50 and 100\,kHz, a requirement to be handed to the machine design.
 
-\textbf{Decision: 50\,kHz nominal, 100\,kHz capable.} 50\,kHz halves the DC-link capacitance and the ripple compared with 25\,kHz and still leaves margin to the efficiency target; the block reaches 99.50\,\% at 100\,kHz. The final value is fixed once the machine is selected.
+\textbf{Decision: 50\,kHz nominal.} 50\,kHz halves the DC-link capacitance and the ripple compared with 25\,kHz and still meets the efficiency target (\Eta\,\%). With typical devices the target is met up to \Fmax\,kHz; 100\,kHz (\EtaHundred\,\%) needs the copper improvements of Step 10. The final value is fixed once the machine is selected.
 
 \section{Step 4 --- Power loop and layout: minimising the parasitics}
 \textbf{Constraint.} $\Delta V=L_\mathrm{loop}\,di_\mathrm{cell}/dt\leq15$\,V. With about 40\,A/ns through one cell (FET pair) this gives $L_\mathrm{loop}\lesssim0.37$\,nH.
@@ -129,7 +129,9 @@ DC resistance terminal-to-FETs, DC+ / DC$-$ / AC (2\,oz) & \RdcpPath\,/\,\RdcnPa
 \bottomrule\end{tabular}\end{table}
 \textbf{Loop inductance and paralleling.} Each FET sees its own cell loop of 0.374\,nH; paralleling does not reduce it. Q3D excites both cells simultaneously (1\,A each), so this value already contains the mutual coupling through the shared bank and planes. Paralleling reduces the current each loop commutates: each cell carries half the load current, so its $di/dt$ and therefore its overshoot are lower. The value excludes the EPC2361 package inductance and post-routing details, so the real loop will be somewhat higher; the DPT ringing frequency will give the measured value.
 
-The extraction also revealed a non-obvious loss: the DC planes carry about 65\,A$_\mathrm{rms}$ of switching-averaged current over 15--20\,mm, so the PCB copper costs \PcuOneOz\,W with 1\,oz inner layers and \Pcu\,W with 2\,oz (adopted).
+The extraction also revealed a non-obvious loss: the DC planes carry about 65\,A$_\mathrm{rms}$ of switching-averaged current over 15--20\,mm, so the PCB copper costs \PcuOneOz\,W with 1\,oz inner layers and \Pcu\,W with 2\,oz (adopted) at the load-current frequency.
+
+\textbf{Switching-harmonic copper loss.} A Q3D frequency sweep (1\,kHz--100\,MHz) shows that the copper resistance is already about 1.5$\times$ its DC value at 50\,kHz and 3$\times$ at 500\,kHz, because the current crowds onto the facing surfaces and the lowest-inductance paths of the planes. Solving the board network (Q3D $R(f)$, $L(f)$, MLCC groups, DC-supply impedance, switched FET currents for SVM) at every harmonic gives \PcuHf\,W of copper loss at the switching harmonics on top of the \Pcu\,W from the load current, up to \PcuHfLowM\,W at low modulation index where the ripple current is largest. Most of the ripple current comes from the 1210 bank above the cells and crosses the planes; the same network gives \Pcap\,W of MLCC ESR loss.
 
 \section{Step 6 --- Gate drive and gate resistors}
 \textbf{Driver requirements} (from the design): rating $\geq$\,95\,V (prefer $\geq$\,110\,V); bootstrap clamp (the switch node goes 2--3\,V negative in dead time, which would overcharge the bootstrap above the 6\,V GaN limit); source $\geq$\,2--4\,A, sink $\geq$\,4\,A with split outputs; dv/dt immunity $\geq$\,100\,V/ns; delay matching of a few ns.
@@ -177,7 +179,7 @@ Selected: 24\,$\times$\,10\,\uF{} 1210 + 12\,$\times$\,1\,\uF{} 0805 (\CeffBlock
 \includegraphics[width=\textwidth]{losses.pdf}
 \caption{Loss per leg versus $f_\mathrm{sw}$ and switching energy versus current (LTspice with Q3D parasitics).}
 \end{figure}
-At 50\,kHz: conduction \PcondTyp\,W, PCB copper \Pcu\,W, switching \Psw\,W, dead time \Pdead\,W, other 0.16\,W, total \Ptot\,W, efficiency \Eta\,\% (\EtaWorst\,\% with maximum R$_\mathrm{DS(on)}$). Conduction and copper are about 80\,\% of the loss, so at 50\,kHz cooling and copper matter more than switching speed. This is why the gate resistors could be chosen for safety (2\,$\Omega$) rather than minimum $E_\mathrm{on}$.
+At 50\,kHz: conduction \PcondTyp\,W, PCB copper \Pcu\,+\,\PcuHf\,W (load current + switching harmonics), switching \Psw\,W, dead time \Pdead\,W, MLCC ESR \Pcap\,W, gate drive \Pgate\,W, total \Ptot\,W, efficiency \Eta\,\%. With maximum R$_\mathrm{DS(on)}$ the target is missed (\PtotWorst\,W, \EtaWorst\,\%). Conduction and copper are about 80\,\% of the loss, so at 50\,kHz cooling and copper matter more than switching speed. This is why the gate resistors could be chosen for safety (2\,$\Omega$) rather than minimum $E_\mathrm{on}$.
 
 Thermal: about \Pdev\,W per device; with 0.2\,K/W junction-to-case, about 1.9\,K/W TIM and a 60\,$^\circ$C heat sink, $T_\mathrm{j}\approx$\,\Tj\,$^\circ$C.
 Power density (board level): \Prated\,kW on \Area\,cm$^2$, i.e.\ \PdArea\,kW/cm$^2$ (\PdAreaMax\,kW/cm$^2$ at M\,=\,1.15), about \PdVol\,kW/L including the tallest components but excluding cooling and busbars.
@@ -192,9 +194,10 @@ AC contact directly on the L1 AC islands & AC copper loss about $-0.7$\,W & busb
 L1--L2 prepreg 0.075\,mm & loop $-12$\,\%, allows lower R$_\mathrm{g,on}$ and $E_\mathrm{on}$ & fabrication capability, insulation \\
 2EDL5014AA driver & +20\,V margin, Miller clamp, easier assembly & bootstrap recharge at high M \\
 Three devices per switch & $-1.3$\,W at 50\,kHz & area, loop length, sharing \\
-Raise $f_\mathrm{sw}$ to 100\,kHz & winding ripple and DC link halved & loss at the 99.5\,\% limit unless the copper measures above are taken \\
+More capacitance next to each cell & shorter ripple path, lower switching-harmonic copper loss (\PcuHf\,W today) & board area around the cells \\
+Raise $f_\mathrm{sw}$ to 100\,kHz & winding ripple and DC link halved & \EtaHundred\,\%, below target unless the copper measures above are taken \\
 \bottomrule\end{tabular}\end{table}
-Combining the copper measures (about $-2$\,W) would allow 100\,kHz at about 99.57\,\%, i.e.\ the same efficiency as today's 50\,kHz design with half the winding ripple and half the DC-link capacitance.
+Combining the copper measures (about $-2$\,W) would bring 100\,kHz back to about 99.52\,\%, just inside the target, with half the winding ripple and half the DC-link capacitance; they also restore margin for worst-case R$_\mathrm{DS(on)}$ at 50\,kHz.
 
 \section{Verification status and next steps}
 All results are from analysis, Q3D extraction and LTspice; none are measured. The models were cross-checked against published references where possible: the loop inductance against EPC's 0.35--0.4\,nH optimal-layout range, the DC-link formulas against Kolar \& Round, and the component choices against EPC9186 and EPC90156. Next steps:
@@ -212,7 +215,7 @@ All results are from analysis, Q3D extraction and LTspice; none are measured. Th
 Decision & Choice & Main reason \\\midrule
 Module voltage & 75\,V & 100\,V GaN with 15\,V overshoot margin \\
 Devices per switch & 2\,$\times$\,EPC2361 & meets 99.5\,\% with margin; knee of the loss curve \\
-Switching frequency & 50\,kHz (100\,kHz capable) & efficiency margin; smaller DC link and ripple; final value after machine selection \\
+Switching frequency & 50\,kHz (target met up to \Fmax\,kHz) & efficiency margin; smaller DC link and ripple; final value after machine selection \\
 Loop & vertical, 0.1\,mm L1--L2, caps at QH & 0.37\,nH per cell (Q3D) \\
 Layout & mirrored cells, centre driver & equal gate stars and loops, $<$0.1\,\% mismatch \\
 Driver & LT8418 (2EDL5014AA alternative) & 4\,A class, bootstrap protection \\

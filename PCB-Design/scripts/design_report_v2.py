@@ -1,4 +1,4 @@
-﻿"""
+"""
 Figures and numbers for the methodology-style design report (reports/design-report-v2), structured after the
 reviewed literature (Tran 2025 JESTPE, Zou 2025 TPEL, Cooke 2026, Wattenberg 2023, Lu 2017, Brothers 2019, ...):
   benchmark       power-loop inductance of published paralleled-GaN half bridges vs switched current
@@ -196,8 +196,8 @@ save(fig, "sharing_tornado")
 # ------------------------------------------------------------------ 6. loss breakdown vs f
 lf = rs["loss_vs_f"]
 f = np.array([x["f"] for x in lf]) / 1e3
-parts = [("cond", "conduction ($R_{DS(on)}$, 100 $^\\circ$C)"), ("cu", "PCB copper"), ("sw", "switching"),
-         ("dead", "dead time"), ("gate", "gate drive"), ("cap", "DC-link ESR")]
+parts = [("cond", "conduction ($R_{DS(on)}$, 100 $^\\circ$C)"), ("cu", "PCB copper, load current"), ("cu_hf", "PCB copper, switching harmonics"), ("sw", "switching"),
+         ("dead", "dead time"), ("gate", "gate drive"), ("cap", "MLCC ESR")]
 fig, ax = plt.subplots(figsize=(5.2, 3.3))
 ax.stackplot(f, *[np.array([x[k] for x in lf]) for k, _ in parts], labels=[l for _, l in parts], alpha=0.85)
 ax.axhline(sz["P_loss_budget"], color="k", ls=":", lw=1)

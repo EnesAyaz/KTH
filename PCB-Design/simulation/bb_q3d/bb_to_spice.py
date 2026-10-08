@@ -1,4 +1,4 @@
-"""
+﻿"""
 Building-block Q3D exports -> LTspice subcircuits + summary.
 
     python simulation/bb_q3d/bb_to_spice.py
@@ -115,8 +115,7 @@ def main():
                 vl = v["QL_D_L"] - v["QL_S_L"]
                 vr = v["QL_D_R"] - v["QL_S_R"]
                 key = "%s_%s" % (label, "esl" if esl_on else "copper")
-                res[key] = dict(L_cell_L_nH=(vl / w).imag * 1e9, L_cell_R_nH=(vr / w).imag * 1e9,
-                                L_switch_position_nH=((vl + vr) / 2 / w).imag * 1e9 / 2)
+                res[key] = dict(L_cell_L_nH=(vl / w).imag * 1e9, L_cell_R_nH=(vr / w).imag * 1e9)
         summary[tag + "_loop"] = res
         # DC resistances of the load-current paths (two cells in parallel)
         rd = {n: Rdc[i, i] for i, n in enumerate(names)}

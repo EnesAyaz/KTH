@@ -138,14 +138,15 @@ Loss component at 50\,kHz, rated point & W \\\midrule
 Conduction, R$_\mathrm{DS(on)}$ typ at 100\,$^\circ$C ($I^2 R_\mathrm{DS}/2$) & \PcondTyp \\
 Switching (LTspice E(i), selected R$_\mathrm{g}$) & \Psw \\
 Dead time (2\,$\times$\,10\,ns per period, reverse conduction) & \Pdead \\
-PCB copper (Q3D DC resistance) & \Pcu \\
-DC-link ESR & \Pcap \\
+PCB copper, load current (Q3D DC resistance) & \Pcu \\
+PCB copper, switching harmonics (Q3D frequency sweep) & \PcuHf \\
+MLCC ESR (network solve) & \Pcap \\
 Gate drive + LDO & \Pgate \\\midrule
 \textbf{Total} & \textbf{\Ptot} \\
 \textbf{Efficiency} (budget \Pbudget\,W) & \textbf{\Eta\,\%} \\
 With R$_\mathrm{DS(on)}$ max at 100\,$^\circ$C & \PtotWorst\,W, \EtaWorst\,\% \\
 \bottomrule\end{tabular}\end{table}
-The 99.5\,\% target is met over 20--100\,kHz with typical devices; at 100\,kHz the loss (13.3\,W) equals the budget, so 50\,kHz leaves margin for device spread (\PtotWorst\,W with maximum R$_\mathrm{DS(on)}$). E$_\mathrm{on}$ does not go to zero at zero current: charging the high-side output capacitance through the low-side channel costs about Q$_\mathrm{oss}$V\,$\approx$\,2\,$\times$\,113\,nC\,$\times$\,75\,V. Conduction dominates; at 25\,$^\circ$C it would be \PcondCold\,W, so cooling directly reduces loss. Per device the loss is about \Pdev\,W at 50\,kHz; with 0.2\,K/W junction-to-case, an insulating TIM of about 1.9\,K/W per device and a 60\,$^\circ$C heat sink, T$_\mathrm{j}\approx$\,\Tj\,$^\circ$C. The conduction loss above assumes 100\,$^\circ$C, so this is conservative.
+The 99.5\,\% target is met up to \Fmax\,kHz with typical devices. With maximum R$_\mathrm{DS(on)}$ it is missed at 50\,kHz (\PtotWorst\,W, \EtaWorst\,\%). The switching-harmonic copper loss comes from a Q3D frequency sweep (1\,kHz--100\,MHz): the ripple current between the MLCC bank and the cells sees about 1.5$\times$ the DC resistance at 50\,kHz; a nodal solve of the board network at every harmonic of the SVM switching currents gives \PcuHf\,W at the rated point and up to \PcuHfLowM\,W at low modulation index (\texttt{scripts/bb\_copper\_hf.py}). E$_\mathrm{on}$ does not go to zero at zero current: charging the high-side output capacitance through the low-side channel costs about Q$_\mathrm{oss}$V\,$\approx$\,2\,$\times$\,113\,nC\,$\times$\,75\,V. Conduction dominates; at 25\,$^\circ$C it would be \PcondCold\,W, so cooling directly reduces loss. Per device the loss is about \Pdev\,W at 50\,kHz; with 0.2\,K/W junction-to-case, an insulating TIM of about 1.9\,K/W per device and a 60\,$^\circ$C heat sink, T$_\mathrm{j}\approx$\,\Tj\,$^\circ$C. The conduction loss above assumes 100\,$^\circ$C, so this is conservative.
 
 \section{Limitations and next steps}
 \begin{itemize}\itemsep0pt

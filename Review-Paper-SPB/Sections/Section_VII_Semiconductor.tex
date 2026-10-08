@@ -41,7 +41,7 @@ satisfy \eqref{eq:semiconductor_rating}.
 \begin{axis}[
     width=7.65cm,
     height=47mm,
-    font=\footnotesize,
+    font=\pesfigfont,
     xlabel={Cell count $N$},
     ylabel={$V_{\mathrm{cell,nom}}$ (V)},
     ymode=log,
@@ -51,10 +51,10 @@ satisfy \eqref{eq:semiconductor_rating}.
     xtick={1,2,3,4,5,8,10,15},
     axis y line*=left,
     y axis line style={draw=pesblue},
-    tick label style={font=\footnotesize},
+    tick label style={font=\pesfigfont},
     yticklabel style={pesblue},
-    xlabel style={font=\footnotesize},
-    ylabel style={font=\footnotesize,pesblue},
+    xlabel style={font=\pesfigfont},
+    ylabel style={font=\pesfigfont,pesblue},
     grid=major,
     grid style={gray!15},
 ]
@@ -68,7 +68,7 @@ satisfy \eqref{eq:semiconductor_rating}.
 \begin{axis}[
     width=7.65cm,
     height=47mm,
-    font=\footnotesize,
+    font=\pesfigfont,
     xmin=0,xmax=16,
     ymin=0,ymax=100,
     xtick={1,2,3,4,5,8,10,15},
@@ -76,9 +76,9 @@ satisfy \eqref{eq:semiconductor_rating}.
     axis y line*=right,
     y axis line style={draw=pesred},
     ylabel={Active switches $6N$},
-    tick label style={font=\footnotesize},
+    tick label style={font=\pesfigfont},
     yticklabel style={pesred},
-    ylabel style={font=\footnotesize,pesred},
+    ylabel style={font=\pesfigfont,pesred},
 ]
 \addplot[mark=square*,thick,dashed,pesred,
     point meta=y,

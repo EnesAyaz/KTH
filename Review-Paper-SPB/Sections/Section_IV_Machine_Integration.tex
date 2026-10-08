@@ -136,7 +136,7 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 
 \begin{figure*}[!t]
 \centering
-\begin{tikzpicture}[font=\footnotesize,>=latex,x=1mm,y=1mm]
+\begin{tikzpicture}[font=\pesfigfont,>=latex,x=1mm,y=1mm]
 % ================= Panel (a): Radial housing mount (radial cross-section) =================
 \begin{scope}[shift={(0,0)}]
 \draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
@@ -149,8 +149,8 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
   \end{scope}
 }
 \end{scope}
-\node[font=\footnotesize\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
-\node[font=\footnotesize,align=center,text width=24mm] at (0,-10)
+\node[font=\pesfigfont\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
+\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (0,-10)
   {Modules on outer housing, set back from stator};
 
 % ================= Panel (b): Radial stator mount (radial cross-section) =================
@@ -165,8 +165,8 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
   \end{scope}
 }
 \end{scope}
-\node[font=\footnotesize\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
-\node[font=\footnotesize,align=center,text width=24mm] at (32,-10)
+\node[font=\pesfigfont\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
+\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (32,-10)
   {Modules flush on stator/cooling jacket};
 
 % ================= Panel (c): Axial endplate mount (axial cross-section) =================
@@ -178,8 +178,8 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \draw[fill=gray!25,draw=gray!60!black,thin] (2.5,-4.5) rectangle (3.7,4.5);
 \draw[fill=pesblue,draw=pesblue,thin] (3.7,-3.3) rectangle (6.7,3.3);
 \end{scope}
-\node[font=\footnotesize\bfseries,align=center] at (64,12) {(c) Axial\\endplate mount};
-\node[font=\footnotesize,align=center,text width=24mm] at (64,-10)
+\node[font=\pesfigfont\bfseries,align=center] at (64,12) {(c) Axial\\endplate mount};
+\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (64,-10)
   {Modules on separate end-cap beyond stator};
 
 % ================= Panel (d): Axial stator mount (axial cross-section) =================
@@ -190,19 +190,19 @@ Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 \draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
 \draw[fill=pesblue,draw=pesblue,thin] (2.5,-3.3) rectangle (5.5,3.3);
 \end{scope}
-\node[font=\footnotesize\bfseries,align=center] at (96,12) {(d) Axial\\stator mount};
-\node[font=\footnotesize,align=center,text width=24mm] at (96,-10)
+\node[font=\pesfigfont\bfseries,align=center] at (96,12) {(d) Axial\\stator mount};
+\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (96,-10)
   {Modules flush on stator end face, no end-cap};
 
 % ================= Legend =================
-\draw[fill=pesblue,draw=pesblue,thin] (6,-20) rectangle (8.5,-17.5);
-\node[right] at (8.8,-18.75) {Converter module};
-\draw[fill=orange!25,draw=orange!70!black,thin] (34,-20) rectangle (36.5,-17.5);
-\node[right] at (36.8,-18.75) {Stator / winding};
-\draw[fill=gray!55,draw=gray!70!black,thin] (62,-20) rectangle (64.5,-17.5);
-\node[right] at (64.8,-18.75) {Rotor};
-\draw[fill=gray!25,draw=gray!60!black,thin] (86,-20) rectangle (88.5,-17.5);
-\node[right] at (88.8,-18.75) {Housing / endplate / jacket};
+\draw[fill=pesblue,draw=pesblue,thin] (6,-26) rectangle (8.5,-23.5);
+\node[right] at (8.8,-24.75) {Converter module};
+\draw[fill=orange!25,draw=orange!70!black,thin] (34,-26) rectangle (36.5,-23.5);
+\node[right] at (36.8,-24.75) {Stator / winding};
+\draw[fill=gray!55,draw=gray!70!black,thin] (62,-26) rectangle (64.5,-23.5);
+\node[right] at (64.8,-24.75) {Rotor};
+\draw[fill=gray!25,draw=gray!60!black,thin] (86,-26) rectangle (88.5,-23.5);
+\node[right] at (88.8,-24.75) {Housing / endplate / jacket};
 \end{tikzpicture}
 \caption{Physical integration options for SPB-compatible converter
 modules on a radial-flux machine, following the four-category

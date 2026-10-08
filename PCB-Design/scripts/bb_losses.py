@@ -134,11 +134,24 @@ def main():
     P_cu, cu_parts = copper_loss(q3d["BB_PL_2oz_Rdc"], S) if "BB_PL_2oz_Rdc" in q3d else (P_cu_1oz, cu_1oz)
     out["copper"], out["copper_1oz"] = cu_parts, cu_1oz
     out["loop_2oz"] = q3d.get("BB_PL_2oz_loop")
+    # switching-harmonic copper loss and MLCC ESR loss from the frequency-domain network with the Q3D sweep
+    # (scripts/bb_copper_hf.py, SVM, M = 1, cos phi = 1); falls back to the ESR-only estimate without it
+    hf_path = os.path.join(REP, "data", "copper_hf.json")
+    hf = json.load(open(hf_path)) if os.path.exists(hf_path) else None
+    if hf:
+        fv = np.array([r["f"] for r in hf["vs_f"]])
+        cu_hf_f = lambda f: float(np.interp(f, fv, [r["cu_hf"] for r in hf["vs_f"]]))  # noqa: E731
+        cap_f = lambda f: float(np.interp(f, fv, [r["caps"] for r in hf["vs_f"]]))  # noqa: E731
+        out["cu_hf_source"] = hf["source"]
+        out["cu_hf_vs_M"] = hf["vs_M"]
+    else:
+        cu_hf_f = lambda f: 0.0  # noqa: E731
+        cap_f = lambda f: sz["P_cap_rated"]  # noqa: E731
     fs = np.array([20e3, 30e3, 40e3, 50e3, 60e3, 80e3, 100e3])
     rows = []
     for f in fs:
         d = dict(f=f, cond=sz["P_cond_typ_100C"], sw=E_avg * f, dead=sz["P_dead_50k"] * f / 50e3,
-                 gate=(sz["P_gate_50k"] + sz["P_ldo_50k"]) * f / 50e3, cap=sz["P_cap_rated"], cu=P_cu)
+                 gate=(sz["P_gate_50k"] + sz["P_ldo_50k"]) * f / 50e3, cap=cap_f(f), cu=P_cu, cu_hf=cu_hf_f(f))
         d["total"] = sum(v for k, v in d.items() if k != "f")
         d["eta"] = sz["P_rated"] / (sz["P_rated"] + d["total"])
         rows.append(d)
@@ -146,6 +159,8 @@ def main():
     r50 = [r for r in rows if r["f"] == 50e3][0]
     out["E_avg_uJ"] = E_avg * 1e6
     out["P_cu"] = P_cu
+    out["P_cu_hf"] = r50["cu_hf"]
+    out["P_cap_net"] = r50["cap"]
     worst = dict(r50)
     worst["cond"] = sz["P_cond_max_100C"]
     worst["total"] = sum(v for k, v in worst.items() if k not in ("f", "eta", "total"))
@@ -160,7 +175,8 @@ def main():
 
     fig, ax = plt.subplots(1, 2, figsize=(11, 3.8))
     keys = [("cond", "conduction (typ, 100 C)"), ("sw", "switching (LTspice E(i))"), ("dead", "dead time"),
-            ("cu", "PCB copper (Q3D DC R)"), ("cap", "DC-link ESR"), ("gate", "gate drive + LDO")]
+            ("cu", "PCB copper, load current (Q3D DC R)"), ("cu_hf", "PCB copper, switching harmonics (Q3D sweep)"),
+            ("cap", "MLCC ESR"), ("gate", "gate drive + LDO")]
     bottom = np.zeros(len(rows))
     for k, lab in keys:
         v = np.array([r[k] for r in rows])
@@ -199,7 +215,10 @@ def main():
         "IlegHFrated": "%.0f" % sz["I_leg_hf_rated"], "IthreeHF": "%.0f" % sz["I_3ph_hf_worst"]["I_3ph_hf"],
         "PcondTyp": "%.2f" % sz["P_cond_typ_100C"], "PcondMax": "%.2f" % sz["P_cond_max_100C"],
         "PcondCold": "%.2f" % sz["P_cond_typ_25C"], "Pdead": "%.2f" % sz["P_dead_50k"],
-        "Pgate": "%.3f" % (sz["P_gate_50k"] + sz["P_ldo_50k"]), "Pcap": "%.2f" % sz["P_cap_rated"],
+        "Pgate": "%.3f" % (sz["P_gate_50k"] + sz["P_ldo_50k"]), "Pcap": "%.2f" % r50["cap"],
+        "PcuHf": "%.2f" % r50["cu_hf"], "PcuTot": "%.2f" % (P_cu + r50["cu_hf"]),
+        "PcuHfLowM": "%.1f" % max([r["cu_hf"] for r in out.get("cu_hf_vs_M", [])] or [0.0]),
+        "PcapOld": "%.2f" % sz["P_cap_rated"],
         "Pcu": "%.2f" % P_cu, "Psw": "%.2f" % r50["sw"], "Ptot": "%.2f" % r50["total"],
         "PcuOneOz": "%.2f" % P_cu_1oz, "PcuAC": "%.2f" % cu_parts["ac"], "PcuDCP": "%.2f" % cu_parts["dcp"],
         "PcuDCN": "%.2f" % cu_parts["dcn"], "RacPath": "%.3f" % cu_parts["r_ac_mohm"],
@@ -213,7 +232,6 @@ def main():
         "LloopCu": "%.3f" % loop["local_and_bank_copper"]["L_cell_L_nH"],
         "LloopEsl": "%.3f" % loop["local_and_bank_esl"]["L_cell_L_nH"],
         "LloopLocalEsl": "%.3f" % loop["local_only_esl"]["L_cell_L_nH"],
-        "LswEsl": "%.3f" % loop["local_and_bank_esl"]["L_switch_position_nH"],
         "LgateOne": "%.2f" % gl["L_gate_L_nH"], "LgateBoth": "%.2f" % gl["L_gate_both_driven_nH"],
         "RhiPath": "%.3f" % (rdc["R_high_path"] * 1e3), "RloPath": "%.3f" % (rdc["R_low_path"] * 1e3),
         "CbootSel": "1", "CbootMin": "%.0f" % (sz["boot"]["C_boot_min_100mV"] * 1e9),
