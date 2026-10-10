@@ -16,8 +16,8 @@
 \graphicspath{{figs/}{../paper/figures/}{../gate-bump/figures/}{../gate-driver/figures/}{../pcb-fab/figures/}{../design-report-v2/figures/}}
 \newcommand{\src}[1]{\vfill{\tiny\color{gray}#1}}
 
-\title{GaN Building Block for a 1200\,V, 150\,kW Stacked Polyphase Bridge Inverter}
-\subtitle{Design procedure, gate drive, layout and the Rev A fabrication board}
+\title{GaN Building Block for a 1200\,V, 300\,kW Stacked Polyphase Bridge Inverter}
+\subtitle{Design procedure, gate drive, layout and the Rev A board}
 \author{Enes Ayaz}
 \institute{KTH Royal Institute of Technology}
 \date{October 2026}
@@ -31,7 +31,7 @@
 \item System and specification
 \item Voltage class and transistor
 \item Layout and gate-drive concept
-\item Number of devices in parallel
+\item Number of devices in parallel; two blocks for 300\,kW
 \item DC link
 \item Parasitics, switching, losses, thermal
 \item Gate bump and negative bias
@@ -51,12 +51,13 @@
 \column{0.58\textwidth}
 \includegraphics[width=\linewidth]{fig_spb_standalone.pdf}
 \column{0.40\textwidth}
-\begin{itemize}\small
-\item 1200\,V bus, 150\,kW traction inverter
+\begin{itemize}\footnotesize
+\item 1200\,V bus, \textbf{300\,kW} traction inverter
 \item $N$ three-phase submodules in series on the DC side, each feeding one winding set of a multiphase machine
 \item $V_m = V_\mathrm{bus}/N$: the transistor voltage class becomes a \alert{design variable}
-\item Phase current set by power and bus voltage: $\approx$\,100\,A$_\mathrm{rms}$ (M\,=\,1.15)
-\item Chosen: $N=16$, $V_m=75$\,V, 3\,kW per leg, 9\,kW per submodule
+\item Phase current set by power and bus voltage: $\approx$\,200\,A$_\mathrm{rms}$ (M\,=\,1.15)
+\item Chosen: $N=16$, $V_m=75$\,V, 6\,kW per leg, 18\,kW per submodule
+\item Each leg = \textbf{two building blocks in parallel}, 100\,A$_\mathrm{rms}$ each (one block = 150\,kW design point)
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -211,10 +212,72 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{fig_npar.pdf}
 \small
 \begin{itemize}
-\item 1 $\rightarrow$ 2 devices: large drop in conduction loss and per-device loss
-\item 3 or 4 devices: only $-1.3$ / $-1.7$\,W more, while output-charge loss grows and the drivers double (48 $\rightarrow$ 96)
-\item \textbf{Two per switch}: two cells with one centre driver
+\item Per 100\,A$_\mathrm{rms}$: 1 $\rightarrow$ 2 devices gives a large drop in conduction and per-device loss
+\item 3 or 4 devices on one driver: only $-1.3$ / $-1.7$\,W more, while output-charge loss grows and one channel can no longer drive them symmetrically
+\item \textbf{Two per switch per 100\,A$_\mathrm{rms}$}: one building block (two cells, one centre driver)
+\item 300\,kW (200\,A$_\mathrm{rms}$): \textbf{4 per switch = two blocks}, 2 drivers per leg
 \end{itemize}
+\end{frame}
+
+\begin{frame}{300\,kW: two building blocks in parallel per leg}
+\begin{columns}[T]
+\column{0.54\textwidth}
+\centering
+\begin{tikzpicture}[font=\scriptsize,
+  blk/.style={draw,rounded corners=2pt,fill=kth!10,minimum width=24mm,minimum height=17mm,align=center}]
+\node[blk] (a) at (0,0) {Building block 1\\2+2 EPC2361\\2EDF7275K\\own DC-link MLCCs};
+\node[blk] (b) at (3.6,0) {Building block 2\\2+2 EPC2361\\2EDF7275K\\own DC-link MLCCs};
+\draw[hs,line width=1.6pt] (-1.6,1.55) -- (5.2,1.55) node[right]{DC$+$};
+\draw[ls,line width=1.6pt] (-1.6,1.25) -- (5.2,1.25) node[right]{DC$-$};
+\foreach \x in {-0.4,3.2} {\draw[hs,thick] (\x,1.55) -- (\x,0.85); \fill[hs] (\x,1.55) circle (0.05);}
+\foreach \x in {0.4,4.0} {\draw[ls,thick] (\x,1.25) -- (\x,0.85); \fill[ls] (\x,1.25) circle (0.05);}
+\draw[line width=1.6pt] (0,-0.85) -- (0,-1.6) -- (3.6,-1.6) -- (3.6,-0.85);
+\draw[line width=1.6pt,-{Latex}] (1.8,-1.6) -- (1.8,-2.3);
+\node[below,align=center] at (1.8,-2.3) {phase lead to winding set\\200\,A$_\mathrm{rms}$};
+\node[above] at (1.8,-1.6) {$L_x$};
+\node[draw,fill=pri!15,rounded corners=2pt] (f) at (-1.0,-3.2) {PWM (fibre)};
+\draw[pri,-{Latex}] (f.north) -- (-1.0,-0.3) -- (a.west|- 0,-0.3);
+\draw[pri,-{Latex}] (f.east) -- (5.0,-3.2) -- (5.0,-0.3) -- (b.east|- 0,-0.3);
+\end{tikzpicture}
+\column{0.44\textwidth}
+\small
+\begin{itemize}
+\item The Rev A block is unchanged; two blocks share the submodule DC link and are joined at the AC side
+\item Per switch 4\,$\times$ EPC2361 in two pairs, \textbf{one driver per pair}: the scaling rule of the driver study
+\item Each block keeps its commutation loop (0.374\,nH per cell), gate stars and supplies
+\item Per block 100\,A$_\mathrm{rms}$, 12.5\,W: losses, $T_j$ and efficiency as for one block
+\item System: 96 blocks, 96 drivers, 384 EPC2361; series DC chain carries 250\,A
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Current sharing between the two blocks}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\small
+\begin{itemize}
+\item \textbf{Static}: $R_\mathrm{DS(on)}$ (positive TC) plus the AC connection resistance; keep both AC paths identical
+\item \textbf{Dynamic}: a delay skew $\Delta t$ between the two drivers lets the leading block take extra current through the AC interconnection inductance $L_x$:
+\[ \Delta I \approx \frac{V_m\,\Delta t}{L_x}\;\leq\;\frac{I_L}{2} \]
+\item The leading block switches more current $\Rightarrow$ higher $E_\mathrm{on}$/$E_\mathrm{off}$ in that block
+\end{itemize}
+\column{0.48\textwidth}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+$\Delta I$ at 75\,V & $L_x$ = 5\,nH & 20\,nH \\
+\midrule
+$\Delta t$ = 2\,ns & 30\,A & 7.5\,A \\
+$\Delta t$ = 5\,ns & 75\,A & 19\,A \\
+\bottomrule
+\end{tabular}\\
+{\scriptsize illustrative values; $I_L/2 \approx 140$\,A peak}
+\begin{itemize}
+\item One PWM receiver, fan-out to both drivers with matched traces
+\item Do not make $L_x$ too small: some AC inductance between the switch nodes helps the sharing
+\item Measure: Rogowski on each block's AC lead (outside the commutation loop, so possible here)
+\end{itemize}
+\end{columns}
 \end{frame}
 
 %==================================================================== 5
@@ -231,7 +294,7 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \midrule
 Part & TDK 0805 & Murata 1210 \\
  & 1\,\textmu F 100\,V X7S & 10\,\textmu F 100\,V X7S \\
-Number per leg & 2\,$\times$\,6 & 24 \\
+Number per block & 2\,$\times$\,6 & 24 \\
 $C_\mathrm{eff}$ at 75\,V & 0.45\,\textmu F & 3.0\,\textmu F \\
 ESR / ESL & 6\,m$\Omega$ / 0.48\,nH & 3\,m$\Omega$ / 0.5\,nH \\
 Ripple per part & 1.1\,A$_\mathrm{rms}$ & 2.0--2.1\,A$_\mathrm{rms}$ \\
@@ -242,7 +305,7 @@ Loss per part & 7.5\,mW & 11.5--13.3\,mW \\
 \small
 \begin{itemize}
 \item Bank sized by voltage ripple below $\approx$\,50\,kHz, by ripple current above
-\item Total capacitor loss $\approx$\,0.39\,W per leg
+\item Total capacitor loss $\approx$\,0.39\,W per block (0.78\,W per leg at 300\,kW)
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -284,7 +347,8 @@ Busbar, series tab to leg & 41\,nH \\
 \column{0.38\textwidth}
 \small
 \begin{itemize}
-\item Rated point (75\,V, 100\,A$_\mathrm{rms}$, 50\,kHz): \textbf{12.5\,W per leg}, $\eta$ = 99.53\,\%
+\item Rated point (75\,V, 100\,A$_\mathrm{rms}$, 50\,kHz): \textbf{12.5\,W per block}, $\eta$ = 99.53\,\%
+\item 300\,kW: two blocks per leg, 25\,W per leg, same efficiency
 \item Worst case 14.3\,W (99.46\,\%)
 \item 1.91\,W per transistor
 \item Copper and switching harmonics add $\approx$\,1/3 to the DC copper loss
@@ -372,6 +436,7 @@ Busbar, series tab to leg & 41\,nH \\
 \item Peak sink current 12--14\,A, above the rating
 \item Longer gate tree brings the bump back
 \item $\Rightarrow$ scale in \textbf{pairs}, one channel per pair
+\item 300\,kW: 4 per switch = 2 pairs = two building blocks
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -385,7 +450,7 @@ Busbar, series tab to leg & 41\,nH \\
 \column{0.43\textwidth}
 \small
 \begin{itemize}
-\item One submodule = one cell assembly on a liquid cold plate (AlN insulation)
+\item One submodule = one cell assembly on a liquid cold plate (AlN insulation); at 300\,kW six blocks (3 legs $\times$ 2)
 \item Laminated busbar along the cells, phase leads to the winding sets
 \item Machine side feeds back into $N$ (winding sets) and $f_\mathrm{sw}$ (ripple, iron loss)
 \end{itemize}
@@ -639,9 +704,9 @@ J7 & +12\,V & fan \\
 \small
 \begin{tabularx}{\linewidth}{@{}lX@{}}
 \toprule
-Done & DRC 0 violations / 0 unconnected; wired schematic = PCB netlist (37 nets); 3D models for all parts, STEP export; Gerber, drill, pick-and-place, BOM (35 lines, 107 parts + mechanics); datasheet checks: TPS7A4901 pins/stability, TLV431 pinout and stability, PMEG3020EJ \\
+Done & DRC 0 violations / 0 unconnected; wired schematic = PCB netlist (37 nets); 3D models for all parts, STEP export; Gerber, drill, pick-and-place, BOM (35 lines, 109 parts + mechanics); datasheet checks: TPS7A4901 pins/stability, TLV431 pinout and stability, PMEG3020EJ; spreader drawing; gap pad proposed (Bergquist TGP\,5000, 0.5\,mm) \\
 Prepared & Q3D re-extraction of the routed copper (\texttt{run\_bb\_q3d\_fab.cmd}); needs the KTH licence (campus / VPN) \\
-Open & Q3D result vs 0.374\,nH design value; gap-pad part and spreader drawing; fab-house review of 0.2\,mm gaps; isolation concept for the 1200\,V stack \\
+Open & Q3D result vs 0.374\,nH design value; gap-pad breakdown rating; fab-house review of 0.2\,mm gaps; isolation concept for the 1200\,V stack; two-block parallel connection (AC/DC interconnect, PWM fan-out) \\
 \bottomrule
 \end{tabularx}
 \end{frame}
@@ -652,6 +717,7 @@ Open & Q3D result vs 0.374\,nH design value; gap-pad part and spreader drawing; 
 \item Order Rev A, assemble, bring-up (12\,V, PWM, then DC link)
 \item Double-pulse test at 12--75\,V: $E_\mathrm{on}$, $E_\mathrm{off}$, gate bump, sharing (D, G, K, H landings)
 \item Continuous operation with the fan heatsink; thermal camera
+\item Two blocks in parallel (300\,kW leg): double-pulse and continuous test, block-to-block sharing with a Rogowski on each AC lead
 \item Compare with LTspice / Q3D; decide 75\,V vs 60\,V submodules
 \item Rev B: cell interconnect with laminated tabs, AlN interface, integration form factor (36\,mm pitch)
 \end{enumerate}
