@@ -20,8 +20,8 @@ N = json.load(open(os.path.join(SL, "data", "flow_numbers.json")))
 
 # frames reused from the building-block deck, with the 300 kW remarks adapted to the new operating point
 PATCH = {
-    r"\item 300\,kW: two blocks per leg, 25\,W per leg, same efficiency": r"\item At 300\,kW ($\cos\varphi$ = 0.9) the block carries 114\,A$_\mathrm{rms}$: see the previous slide",
-    r"\item Total capacitor loss $\approx$\,0.39\,W per block (0.78\,W per leg at 300\,kW)": r"\item Total capacitor loss $\approx$\,0.39\,W per block at 100\,A$_\mathrm{rms}$",
+    r"\item 300\,kW (114\,A$_\mathrm{rms}$ per block, $\cos\varphi$ = 0.9): 15.1\,W per block, 99.52\,\%, 30\,W per leg":
+        r"\item At 300\,kW ($\cos\varphi$ = 0.9) the block carries 114\,A$_\mathrm{rms}$: see the block summary slide",
 }
 
 

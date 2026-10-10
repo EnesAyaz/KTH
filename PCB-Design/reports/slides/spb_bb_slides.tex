@@ -55,9 +55,9 @@
 \item 1200\,V bus, \textbf{300\,kW} traction inverter
 \item $N$ three-phase submodules in series on the DC side, each feeding one winding set of a multiphase machine
 \item $V_m = V_\mathrm{bus}/N$: the transistor voltage class becomes a \alert{design variable}
-\item Phase current set by power and bus voltage: $\approx$\,200\,A$_\mathrm{rms}$ (M\,=\,1.15)
-\item Chosen: $N=16$, $V_m=75$\,V, 6\,kW per leg, 18\,kW per submodule
-\item Each leg = \textbf{two building blocks in parallel}, 100\,A$_\mathrm{rms}$ each (one block = 150\,kW design point)
+\item Phase current \textbf{228\,A$_\mathrm{rms}$} ($M$\,=\,1.15, PMSM $\cos\varphi$ = 0.9 assumed; 205--241\,A for $\cos\varphi$ = 1.0--0.85), independent of $N$
+\item Chosen: $N=16$, $V_m=75$\,V, 6.25\,kW per leg, 18.75\,kW per submodule
+\item Each leg = \textbf{two building blocks in parallel}, 114\,A$_\mathrm{rms}$ each (block designed at 100\,A$_\mathrm{rms}$)
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -215,7 +215,7 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \item Per 100\,A$_\mathrm{rms}$: 1 $\rightarrow$ 2 devices gives a large drop in conduction and per-device loss
 \item 3 or 4 devices on one driver: only $-1.3$ / $-1.7$\,W more, while output-charge loss grows and one channel can no longer drive them symmetrically
 \item \textbf{Two per switch per 100\,A$_\mathrm{rms}$}: one building block (two cells, one centre driver)
-\item 300\,kW (200\,A$_\mathrm{rms}$): \textbf{4 per switch = two blocks}, 2 drivers per leg
+\item 300\,kW (228\,A$_\mathrm{rms}$): \textbf{4 per switch = two blocks}, 2 drivers per leg
 \end{itemize}
 \end{frame}
 
@@ -233,7 +233,7 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \foreach \x in {0.4,4.0} {\draw[ls,thick] (\x,1.25) -- (\x,0.85); \fill[ls] (\x,1.25) circle (0.05);}
 \draw[line width=1.6pt] (0,-0.85) -- (0,-1.6) -- (3.6,-1.6) -- (3.6,-0.85);
 \draw[line width=1.6pt,-{Latex}] (1.8,-1.6) -- (1.8,-2.3);
-\node[below,align=center] at (1.8,-2.3) {phase lead to winding set\\200\,A$_\mathrm{rms}$};
+\node[below,align=center] at (1.8,-2.3) {phase lead to winding set\\228\,A$_\mathrm{rms}$};
 \node[above] at (1.8,-1.6) {$L_x$};
 \node[draw,fill=pri!15,rounded corners=2pt] (f) at (-1.0,-3.2) {PWM (fibre)};
 \draw[pri,-{Latex}] (f.north) -- (-1.0,-0.3) -- (a.west|- 0,-0.3);
@@ -245,7 +245,7 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \item The Rev A block is unchanged; two blocks share the submodule DC link and are joined at the AC side
 \item Per switch 4\,$\times$ EPC2361 in two pairs, \textbf{one driver per pair}: the scaling rule of the driver study
 \item Each block keeps its commutation loop (0.374\,nH per cell), gate stars and supplies
-\item Per block 100\,A$_\mathrm{rms}$, 12.5\,W: losses, $T_j$ and efficiency as for one block
+\item Per block 114\,A$_\mathrm{rms}$: 15.1\,W, 99.52\,\%, $T_j \approx$ 67\,$^\circ$C (3.4\,K/W to 60\,$^\circ$C coolant)
 \item System: 96 blocks, 96 drivers, 384 EPC2361; series DC chain carries 250\,A
 \end{itemize}
 \end{columns}
@@ -265,13 +265,13 @@ $R_{\theta\mathrm{JC}}$ top / $R_{\theta\mathrm{JB}}$ & 0.2 / 1.5\,K/W \\
 \small
 \begin{tabular}{@{}lcc@{}}
 \toprule
-$\Delta I$ at 75\,V & $L_x$ = 5\,nH & 20\,nH \\
+$\Delta I$ at 75\,V, 322\,A & $L_x$ = 5\,nH & 20\,nH \\
 \midrule
-$\Delta t$ = 2\,ns & 30\,A & 7.5\,A \\
-$\Delta t$ = 5\,ns & 75\,A & 19\,A \\
+$\Delta t$ = 2\,ns & 24\,A & 9\,A \\
+$\Delta t$ = 5\,ns & 60\,A & 22\,A \\
 \bottomrule
 \end{tabular}\\
-{\scriptsize illustrative values; $I_L/2 \approx 140$\,A peak}
+{\scriptsize LTspice, two complete blocks; $I_L/2 \approx 161$\,A peak; sign reverses at every edge}
 \begin{itemize}
 \item One PWM receiver, fan-out to both drivers with matched traces
 \item Do not make $L_x$ too small: some AC inductance between the switch nodes helps the sharing
@@ -305,7 +305,8 @@ Loss per part & 7.5\,mW & 11.5--13.3\,mW \\
 \small
 \begin{itemize}
 \item Bank sized by voltage ripple below $\approx$\,50\,kHz, by ripple current above
-\item Total capacitor loss $\approx$\,0.39\,W per block (0.78\,W per leg at 300\,kW)
+\item Total capacitor loss $\approx$\,0.39\,W per block at 100\,A$_\mathrm{rms}$ ($\approx$\,0.5\,W at 114\,A)
+\item At 114\,A and 50\,kHz the 24 MLCCs give $\approx$\,4.6\,\% ripple instead of 4\,\% (4\,\% from 57\,kHz, or more MLCCs in Rev B)
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -348,7 +349,7 @@ Busbar, series tab to leg & 41\,nH \\
 \small
 \begin{itemize}
 \item Rated point (75\,V, 100\,A$_\mathrm{rms}$, 50\,kHz): \textbf{12.5\,W per block}, $\eta$ = 99.53\,\%
-\item 300\,kW: two blocks per leg, 25\,W per leg, same efficiency
+\item 300\,kW (114\,A$_\mathrm{rms}$ per block, $\cos\varphi$ = 0.9): 15.1\,W per block, 99.52\,\%, 30\,W per leg
 \item Worst case 14.3\,W (99.46\,\%)
 \item 1.91\,W per transistor
 \item Copper and switching harmonics add $\approx$\,1/3 to the DC copper loss
