@@ -1,0 +1,5 @@
+* One EPC2361 per switch with its own driver (left cell of the building block), Eon/Eoff vs current.
+.param VBUS=75 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.step param IPK list 10 30 60 100 140 200 250 300
+.include FLOW_single.inc
+.end

@@ -1,0 +1,8 @@
+* Two building blocks in parallel, driver skew DLY on block 2, AC interconnect LX (RX), DC interconnect LXDC.
+* IPK=330 gives ~322 A at T1 (300 kW, M = 1.15, cos phi = 0.9: 228 A_rms per leg)
+.param VBUS=75 IPK=330 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.param LXDC=5n RX=0.2m
+.step param LX list 5n 20n
+.step param DLY list 0 2n 5n
+.include FLOW_two.inc
+.end
