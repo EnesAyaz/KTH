@@ -1,0 +1,60 @@
+\begin{tikzpicture}[font=\pesfigfont,>=latex,x=1mm,y=1mm]
+% ================= Panel (a): Radial housing mount (radial cross-section) =================
+\begin{scope}[shift={(0,0)}]
+\draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
+\foreach \a in {0,22.5,...,337.5}{\draw[black!75,semithick] (\a:2.6) -- (\a:5);}
+\draw[fill=gray!55,draw=gray!70!black,thin] (0,0) circle (2.2);
+\draw[black!60,thin] (0,0) circle (5.7);
+\foreach \a in {0,45,90,135,180,225,270,315}{
+  \begin{scope}[rotate=\a]
+    \draw[fill=pesblue,draw=pesblue,thin] (5.7,-1.2) rectangle (7.9,1.2);
+  \end{scope}
+}
+\end{scope}
+\node[font=\pesfigfont\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
+
+% ================= Panel (b): Radial stator mount (radial cross-section) =================
+\begin{scope}[shift={(32,0)}]
+\draw[fill=gray!30,draw=gray!55!black,thin] (0,0) circle (5.4);
+\draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
+\foreach \a in {0,22.5,...,337.5}{\draw[black!75,semithick] (\a:2.6) -- (\a:5);}
+\draw[fill=gray!55,draw=gray!70!black,thin] (0,0) circle (2.2);
+\foreach \a in {0,45,90,135,180,225,270,315}{
+  \begin{scope}[rotate=\a]
+    \draw[fill=pesblue,draw=pesblue,thin] (5.4,-1.2) rectangle (7.6,1.2);
+  \end{scope}
+}
+\end{scope}
+\node[font=\pesfigfont\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
+
+% ================= Panel (c): Axial endplate mount (axial cross-section) =================
+\begin{scope}[shift={(0,-29)}]
+\draw[fill=orange!25,draw=orange!70!black,thin] (-3.5,-4.5) rectangle (2.5,4.5);
+\foreach \x in {-2.5,-1,0.5,2}{\draw[black!40,thin] (\x,-4.5) -- (\x,4.5);}
+\draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
+\draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
+\draw[fill=gray!25,draw=gray!60!black,thin] (2.5,-4.5) rectangle (3.7,4.5);
+\draw[fill=pesblue,draw=pesblue,thin] (3.7,-3.3) rectangle (6.7,3.3);
+\end{scope}
+\node[font=\pesfigfont\bfseries,align=center] at (0,-17) {(c) Axial\\endplate mount};
+
+% ================= Panel (d): Axial stator mount (axial cross-section) =================
+\begin{scope}[shift={(32,-29)}]
+\draw[fill=orange!25,draw=orange!70!black,thin] (-3.5,-4.5) rectangle (2.5,4.5);
+\foreach \x in {-2.5,-1,0.5,2}{\draw[black!40,thin] (\x,-4.5) -- (\x,4.5);}
+\draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
+\draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
+\draw[fill=pesblue,draw=pesblue,thin] (2.5,-3.3) rectangle (5.5,3.3);
+\end{scope}
+\node[font=\pesfigfont\bfseries,align=center] at (32,-17) {(d) Axial\\stator mount};
+
+% Compact two-row legend.
+\draw[fill=pesblue,draw=pesblue,thin] (-10,-42) rectangle (-8,-40);
+\node[right] at (-7.5,-41) {Converter};
+\draw[fill=orange!25,draw=orange!70!black,thin] (19,-42) rectangle (21,-40);
+\node[right] at (21.5,-41) {Stator / winding};
+\draw[fill=gray!55,draw=gray!70!black,thin] (-10,-47) rectangle (-8,-45);
+\node[right] at (-7.5,-46) {Rotor};
+\draw[fill=gray!25,draw=gray!60!black,thin] (19,-47) rectangle (21,-45);
+\node[right] at (21.5,-46) {Housing / jacket};
+\end{tikzpicture}

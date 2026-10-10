@@ -1,0 +1,30 @@
+{
+  "P_output_W": 300000.0,
+  "V_bus_V": 1200.0,
+  "N": 16,
+  "n_parallel": 4,
+  "drivers_per_leg": 2,
+  "phase_current_Arms": 204.95848730044858,
+  "device_count": 384,
+  "driver_count": 96,
+  "losses_per_leg_W": {
+    "Conduction": 11.65721487082546,
+    "Switching": 3.8730135588221293,
+    "PCB copper (load)": 7.435563749016635,
+    "PCB copper (harmonics)": 0.994281884290284,
+    "Capacitor ESR": 0.44534277293462804,
+    "Dead time": 0.41233854388598234,
+    "Gate drive and LDO": 0.15539999999999998
+  },
+  "loss_per_leg_W": 24.97315537977512,
+  "loss_stack_W": 1198.7114582292056,
+  "efficiency_percent": 99.60201972564033,
+  "PCB_area_per_leg_cm2": 16.92,
+  "PCB_area_density_kW_cm2": 0.36938534278959806,
+  "C_nominal_per_leg_uF": 504,
+  "C_effective_per_leg_uF": 154.8,
+  "C_nominal_per_cell_uF": 1512,
+  "C_effective_per_cell_uF": 464.4,
+  "worst_grid_ripple_percent": 4.118791079524349,
+  "boundary": "Repeated independent blocks, equal sharing, 75 V, M=1.15, unity PF, 50 kHz, Rds at 100 C; excludes external auxiliaries, inter-block busbars, cooling and machine losses. Switching uses v4 terminal-energy fits pending dissipative-energy reconciliation."
+}

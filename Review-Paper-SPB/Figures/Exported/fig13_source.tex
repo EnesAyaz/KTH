@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+\begin{axis}[
+    width=7.65cm,
+    height=47mm,
+    font=\pesfigfont,
+    xlabel={Cell count $N$},
+    ylabel={$V_{\mathrm{cell,nom}}$ (V)},
+    ymode=log,
+    log ticks with fixed point,
+    xmin=0,xmax=16,
+    ymin=55,ymax=1900,
+    xtick={1,2,3,4,5,8,10,15},
+    axis y line*=left,
+    y axis line style={draw=pesblue},
+    tick label style={font=\pesfigfont},
+    yticklabel style={pesblue},
+    xlabel style={font=\pesfigfont},
+    ylabel style={font=\pesfigfont,pesblue},
+    grid=major,
+    grid style={gray!15},
+]
+\addplot[mark=*,thick,pesblue,
+    point meta=explicit,
+]
+    coordinates {
+(1,1200)[1200](2,600)[600](3,400)[400](4,300)[300](5,240)[240]
+(8,150)[150](10,120)[120](15,80)[80]};
+\end{axis}
+\begin{axis}[
+    width=7.65cm,
+    height=47mm,
+    font=\pesfigfont,
+    xmin=0,xmax=16,
+    ymin=0,ymax=100,
+    xtick={1,2,3,4,5,8,10,15},
+    axis x line=none,
+    axis y line*=right,
+    y axis line style={draw=pesred},
+    ylabel={Active switches $6N$},
+    tick label style={font=\pesfigfont},
+    yticklabel style={pesred},
+    ylabel style={font=\pesfigfont,pesred},
+]
+\addplot[mark=square*,thick,dashed,pesred,
+    point meta=y,
+]
+    coordinates {
+(1,6)(2,12)(3,18)(4,24)(5,30)(8,48)(10,60)(15,90)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+$N$ & 1 & 2 & 3 & 4 & 5 & 8 & 10 & 15\\
+$V_{\mathrm{cell}}$ (V) & 1200 & 600 & 400 & 300 & 240 & 150 & 120 & 80\\
+$6N$ & 6 & 12 & 18 & 24 & 30 & 48 & 60 & 90
+\end{tabular}}

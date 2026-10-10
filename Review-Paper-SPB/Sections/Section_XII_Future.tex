@@ -37,58 +37,10 @@ additional objective when comparable failure data are available.
 These equations define a proposed evaluation framework, not a completed
 optimization or a universal optimum cell count.
 
-A fair benchmark compares SPB with two-level and appropriate three-level
-drives at the same battery envelope, shaft duty, coolant conditions,
-EMC limits, and fault requirements. Each architecture should be optimized
-within those constraints. Report inverter-only and complete-drive
-volume separately, including capacitors, filters, isolation supplies,
-connectors, protection, and cooling. Use temperature-dependent device
-loss data and identify uncertainty in parasitics, mission weighting,
-and lifetime assumptions. A nominal-point efficiency gain is insufficient
-if it disappears after auxiliary loss, field weakening, or added
-machine losses are included.
-
-Table~\ref{tab:spb_evidence_boundary} connects representative direct
-SPB results to the remaining EV validation. The review does not imply
-that related IMMD results close these gaps. SPB may be unattractive
-when a suitable multiphase machine is unavailable, device savings are
-small, interconnection/insulation overhead dominates, or the required
-post-fault voltage margin forces the same device class as a simpler
-architecture. Reporting these boundaries is as important as identifying
-favorable designs.
-
-\begin{table*}[!t]
-\centering\footnotesize
-\caption{Direct SPB evidence and remaining EV validation: synthesis of representative studies}
-\label{tab:spb_evidence_boundary}
-\renewcommand{\arraystretch}{1.12}
-\begin{tabular}{p{0.23\textwidth}p{0.33\textwidth}p{0.36\textwidth}}
-\toprule
-\textbf{Direct SPB literature} & \textbf{Established focus} & \textbf{Additional EV validation needed}\\
-\midrule
-Control and modulation \cite{Jin2014Control,Jin2017Modulation} &
-Coordinated switching and dc-current harmonic shaping &
-Mission-wide loss/ripple tradeoff with measured interconnect parasitics\\
-Machine design \cite{Bringezu2020SPB} &
-Cell/phase count coupled to converter--machine design &
-Common battery, cooling, insulation, and packaging boundary\\
-Balancing \cite{Mocevic2023CDR,Verkroost2024VoltageBalance,Verkroost2024PowerDistribution} &
-Common-duty-ratio, distributed balancing, and power-sharing methods &
-Control authority during field weakening, regeneration, saturation, and faults\\
-GaN comparison \cite{Rohner2024GaN} &
-Series-stacked two-level versus flying-capacitor implementation &
-Traction-scale comparison including filters, winding insulation, and cooling\\
-Fault operation \cite{Nikouie2016Fault,Verkroost2024Reconfiguration} &
-Post-fault operation and module reconfiguration &
-Verified isolation, surviving-cell voltage margins, and degraded torque--speed envelope\\
-\bottomrule
-\end{tabular}
-\end{table*}
-
 \subsection{Research Priorities}
 
 The optimum cell count $N$ remains the central unresolved design
-question: as established in Section~\ref{sec:operating_principle},
+question:
 the voltage-versus-component-count tradeoff shifts the optimum as
 SiC, GaN, packaging, and cooling evolve
 \cite{WBGTractionReview2025,Post800V2026}. A
@@ -108,8 +60,7 @@ reliability as a joint objective.
 
 Reliability is part of that objective: future studies should combine
 semiconductor, capacitor, sensor, gate-driver, communication, and
-winding faults (Section~\ref{sec:fault_reconfiguration};
-\cite{Nikouie2016Fault,Verkroost2024Reconfiguration}) in one
+winding faults \cite{Nikouie2016Fault,Verkroost2024Reconfiguration} in one
 state-based, Markov-style framework as used for related fault-tolerant
 IMMDs \cite{Swanke2022MarkovReliability}, keeping \emph{component
 failure}, \emph{module isolation}, and \emph{loss of vehicle function}

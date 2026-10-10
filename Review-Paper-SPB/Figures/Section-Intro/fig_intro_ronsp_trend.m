@@ -139,12 +139,12 @@ if normalizeFOM
     for m = 1:nMat
         mat(m).FOMplot = mat(m).FOM / FOMref;
     end
-    fomLabel = 'FOM (a.u.)';
+    fomLabel = 'D-FOM (a.u.)';
 else
     for m = 1:nMat
         mat(m).FOMplot = mat(m).FOM / sqrt(FOMunitScale);
     end
-    fomLabel = ['FOM ($' FOMunitLabel '$)'];
+    fomLabel = ['D-FOM ($' FOMunitLabel '$)'];
 end
 allFOM = [mat.FOMplot];
 fomYlim = [10^floor(log10(min(allFOM))) 10^ceil(log10(max(allFOM)))];
@@ -184,7 +184,7 @@ lg=legend(legax,'Orientation','horizontal','Box','off','FontSize',8.5);
 lg.Units='normalized';lg.Position=[.19 .91 .64 .07];
 styleax=axes(fig,'Position',[.20 .22 .60 .52],'Visible','off');hold(styleax,'on');
 plot(styleax,nan,nan,'k-','DisplayName','$R_{\mathrm{on,sp}}$ (left)');
-plot(styleax,nan,nan,'k--','DisplayName','FOM (right)');
+plot(styleax,nan,nan,'k--','DisplayName','D-FOM (right)');
 lg2=legend(styleax,'Orientation','horizontal','Box','off','FontSize',8.5,'Interpreter','latex');
 lg2.Units='normalized';lg2.Position=[.17 .81 .68 .07];
 ax.Position=[.20 .22 .60 .52];

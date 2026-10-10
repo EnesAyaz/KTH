@@ -60,6 +60,7 @@ h2=plot(ax,lowV([1:end 1]).*cos([ang ang(1)]),lowV([1:end 1]).*sin([ang ang(1)])
  '--s','Color',st.red,'MarkerFaceColor','w','MarkerSize',3,'LineWidth',1.0);
 for k=1:nAx
  x=1.45*cos(ang(k));y=1.45*sin(ang(k));
+ if k==10,x=x-.18;end
  ha='center';
  va='middle';
  text(ax,x,y,categories{k},'FontName',st.font,'FontSize',8.5, ...

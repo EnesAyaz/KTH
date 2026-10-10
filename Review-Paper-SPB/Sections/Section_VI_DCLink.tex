@@ -4,10 +4,9 @@
 % ============================================================================
 
 The common dc current and independently controlled winding-group
-powers (Section~\ref{sec:operating_principle}) couple the local capacitor
+powers couple the local capacitor
 energies, so equal cell voltages are not inherently maintained
-\cite{Nikouie2015Stability,Nikouie2017Stability}. Related series-connected
-motor-drive research likewise shows that distributed current control
+\cite{Nikouie2015Stability,Nikouie2017Stability}. Related research likewise shows that distributed current control
 alone does not ensure stable voltage sharing \cite{Wang2015ThesisDVB}.
 
 For cell $k$, the power balance is
@@ -82,15 +81,14 @@ imply instability under every converter--machine control strategy.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{Figures/Section-DCLinkBalancing/fig_dclink_balancing.pdf}
+\includegraphics[width=222.267bp]{Figures/Exported/fig12.pdf}
 \caption{Conceptual analytical illustration of voltage balancing for
 three cells during motoring, based on
 \eqref{eq:linearized_balance_dynamic} and \cite{Nikouie2017Stability}.
 Small deviations from the mean grow under equal constant cell powers.
 Enabling differential power balancing at $t_b$ makes them decay toward
 zero while $\sum_k\Delta P_k=0$. Time is normalized by
-$\tau_0=CV_0/I_{\mathrm{dc},0}$; amplitudes and gain are illustrative,
-not a hardware transient or a prediction of settling time.}
+$\tau_0=CV_0/I_{\mathrm{dc},0}$.}
 \label{fig:spb_balancing_dynamics}
 \end{figure}
 

@@ -1,0 +1,35 @@
+\begin{tikzpicture}[font=\pesfigfont,>=latex,node distance=5mm]
+\tikzstyle{cell}=[draw=pesblue,rounded corners=0pt,minimum width=18mm,
+  minimum height=9mm,align=center,fill=pesblue!8]
+\tikzstyle{wind}=[draw=pesred,rounded corners=0pt,minimum width=17mm,
+  minimum height=7mm,align=center,fill=pesred!8,font=\pesfigfont]
+
+\node[cell] (c1) {\textbf{Cell 1}\\[1pt]
+  {\pesfigfont SW\textcolor{pesgreen}{\textcircled{1}} \;\;
+  $C_1$\textcolor{pesgreen}{\textcircled{4}}}};
+\node[cell,below=6mm of c1] (c2) {\textbf{Cell 2}\\[1pt]
+  {\pesfigfont SW \;\; $C_2$}};
+\node[font=\pesfigfont,below=2mm of c2] (dots) {$\vdots$};
+
+\node[wind,right=10mm of c1] (w1) {Winding\\group 1};
+\node[wind,right=10mm of c2] (w2) {Winding\\group 2};
+
+\draw[->] (c1.east) -- (w1.west)
+  node[midway,above,font=\pesfigfont]{\textcolor{pesgreen}{\textcircled{3}}};
+\draw[->] (c2.east) -- (w2.west);
+
+\coordinate (topdc) at ([yshift=4mm]c1.north);
+\draw[thick] (topdc) -- (c1.north);
+\node[font=\pesfigfont,left] at (topdc) {$+$};
+\draw[thick] (c1.south) -- (c2.north)
+  node[midway,right,font=\pesfigfont,align=left]{bypass /\\isolation%
+  \textcolor{pesgreen}{\textcircled{2}}};
+\draw[thick] (c2.south) -- (dots.north);
+\coordinate (botdc) at ([yshift=-4mm]dots.south);
+\draw[thick] (dots.south) -- (botdc);
+\node[font=\pesfigfont,left] at (botdc) {$-$};
+
+\draw[<->,dashed] ([xshift=-3mm]c1.west) -- ([xshift=-3mm]c2.west)
+  node[midway,left,font=\pesfigfont,align=right]{comms\\%
+  \textcolor{pesgreen}{\textcircled{5}}};
+\end{tikzpicture}

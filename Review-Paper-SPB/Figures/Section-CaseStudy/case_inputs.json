@@ -1,0 +1,65 @@
+{
+  "source_report": "spb_bb_ieee_v4.pdf; simulation-based two-parallel building block",
+  "spec": {
+    "Vdc": 75.0,
+    "I_rms": 100.0,
+    "f_sw": 50000.0,
+    "f_sw_max": 100000.0,
+    "M_rated": 1.0,
+    "pf_rated": 1.0,
+    "eta": 0.995,
+    "n_par": 2,
+    "Rds_25_typ": 0.00075,
+    "Rds_25_max": 0.001,
+    "Rds_factor_100C": 1.48,
+    "Rds_factor_125C": 1.64,
+    "Qg_typ": 2.8e-08,
+    "Qg_max": 3.4e-08,
+    "Vdrv": 5.0,
+    "Qoss_75": 1.13e-07,
+    "Eoss_75": 2.9e-06,
+    "Vsd0": 1.95,
+    "Rsd": 0.005,
+    "t_dead": 1e-08,
+    "ripple_target": 0.04
+  },
+  "energy_fit_on": [
+    3.8523982461818434e-10,
+    1.6406650897553105e-07,
+    1.1998711432696668e-05
+  ],
+  "energy_fit_off": [
+    6.99033742110754e-11,
+    -1.7541280492500092e-09,
+    6.975965863170882e-06
+  ],
+  "network_at_M115": {
+    "M": 1.15,
+    "pf": 1.0,
+    "cu_lf": 3.540071900906819,
+    "cu_hf": 0.4733776051106041,
+    "caps": 0.21202769419417636
+  },
+  "gate_ldo_W": 0.07769999999999999,
+  "bank": {
+    "bulk_part": "Murata GRM32EC72A106KE05L, 10 uF 100 V X7S 1210",
+    "bulk_n": 24,
+    "bulk_C_eff_each": 3e-06,
+    "bulk_note": "C at 75 V assumed 30 % of nominal; verify with Murata SimSurfing",
+    "hf_part": "TDK C2012X7S2A105K125AB, 1 uF 100 V X7S 0805",
+    "hf_n": 12,
+    "hf_C_eff_each": 4.5e-07,
+    "hf_note": "6 per cell, next to QH; C at 75 V assumed 45 %",
+    "esr_bulk_each": 0.003,
+    "esr_hf_each": 0.006,
+    "C_eff_block": 7.74e-05,
+    "esr_bank": 0.0001,
+    "dVpp_shared_3ph": 3.0143599812141084,
+    "dVpp_leg_alone": 9.134052806365316
+  },
+  "source_files": {
+    "C:\\Github\\KTH\\PCB-Design\\reports\\building-block\\data\\sizing.json": "1065e261d15ad47041c5acfc1cdfc5ac6474f1bcebbca7e318603dad0b965861",
+    "C:\\Github\\KTH\\PCB-Design\\reports\\building-block\\data\\results.json": "32332d5eabf62644db8e60988c282d04bbc773e0e0479daeb879572b322c370a",
+    "C:\\Github\\KTH\\PCB-Design\\reports\\building-block\\data\\copper_hf.json": "bf8124d3a167391ea06f5115f78051c9b01f011d0b5ab1fc45f03b86b4aa3e09"
+  }
+}

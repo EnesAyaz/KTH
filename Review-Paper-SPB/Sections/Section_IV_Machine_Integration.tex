@@ -9,29 +9,29 @@
 
 Although the winding groups are electrically separated at their
 terminals, they share the same magnetic circuit, rotor, air gap, and
-shaft. 
+shaft.
 Their electromagnetic coupling depends on winding distribution,
 slot/pole combination, spatial displacement, and machine geometry
 \cite{Che2014SeriesConnected,Bringezu2020SPB,
-Verkroost2024PowerDistribution,Zhang2014SPBMachine}. 
+Verkroost2024PowerDistribution,Zhang2014SPBMachine}.
 Therefore, an SPB-compatible machine
 cannot generally be obtained simply by dividing a conventional
 three-phase winding into multiple groups without considering the
 resulting coupling and harmonic behavior.
 
-The three-phase groups may be aligned, 
+The three-phase groups may be aligned,
 spatially shifted, or implemented as physically segmented stator
-modules. 
+modules.
 Spatial displacement affects mutual coupling, torque-ripple
 components, and the additional current subspaces available to the
 controller, among other effects
 \cite{Zhang2025MultiphaseReview,Das2025SixPhaseWinding,
-Wang2025DTPHarmonics}. 
+Wang2025DTPHarmonics}.
 These additional subspaces can introduce non-torque-producing currents,
  but they can also be exploited for
 harmonic suppression, differential power sharing, and fault-tolerant
 operation
-\cite{Tang2025SixPhaseFault,Verkroost2024PowerDistribution}. 
+\cite{Tang2025SixPhaseFault,Verkroost2024PowerDistribution}.
 Split winding architectures show a similar tradeoff: they can reduce ripple
 and provide additional current/voltage degrees of freedom, but they do
 so by increasing winding terminals and coupling complexity
@@ -41,10 +41,8 @@ Fig.~\ref{fig:winding_options}.
 
 \begin{figure}[!t]
 \centering
-\input{Figures/Style/fig_winding_options}
-\caption{Schematic comparison of winding-group spatial arrangements,
-each coil marking one phase axis of winding group 1 (blue) or group 2
-(red): (a)~aligned groups (parallel phase axes), (b)~spatially shifted
+\includegraphics[width=214.933bp]{Figures/Exported/fig06.pdf}
+\caption{Schematic comparison of winding-group spatial arrangements: (a)~aligned groups (parallel phase axes), (b)~spatially shifted
 groups (offset by $\Delta\theta$), and (c)~physically segmented stator
 modules.}
 \label{fig:winding_options}
@@ -104,12 +102,7 @@ Wang2015GaNIMMD,Wang2025GaNIMMD,Ugur2018GaNIMMD,
 Ugur2019MultiphysicsIMMD,Mohamed2021Electrothermal,
 Mohamed2021EnhancedIMD,Mohamed2022IntegratedDCLink,Wang2025MWIMMD,
 Chen2026WBGIMD,Deng2026IMDReview}, summarized in
-Table~\ref{tab:immd_relevance}. The overall trend runs from early
-cable-reduction and compact-packaging concepts through jointly
-designed fault-tolerant converter/winding/thermal architectures and
-series-connected GaN IMMDs to recent WBG-based axial-flux IMMDs
-demonstrating stator-mounted converter modules and scalability to
-MW-class and EV-traction implementations.
+Table~\ref{tab:immd_relevance}.
 
 % ---------------------------------------------------------------------------
 \subsection{Physical Integration Options}
@@ -131,87 +124,14 @@ Mohamed \textit{et al.} developments
 \cite{Mohamed2021Electrothermal,Mohamed2021EnhancedIMD,
 Mohamed2022IntegratedDCLink} in Table~\ref{tab:immd_relevance}.
 
-
 %\cite{Abebe2015FEAThermal}.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 \centering
-\begin{tikzpicture}[font=\pesfigfont,>=latex,x=1mm,y=1mm]
-% ================= Panel (a): Radial housing mount (radial cross-section) =================
-\begin{scope}[shift={(0,0)}]
-\draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
-\foreach \a in {0,22.5,...,337.5}{\draw[black!75,semithick] (\a:2.6) -- (\a:5);}
-\draw[fill=gray!55,draw=gray!70!black,thin] (0,0) circle (2.2);
-\draw[black!60,thin] (0,0) circle (5.7);
-\foreach \a in {0,45,90,135,180,225,270,315}{
-  \begin{scope}[rotate=\a]
-    \draw[fill=pesblue,draw=pesblue,thin] (5.7,-1.2) rectangle (7.9,1.2);
-  \end{scope}
-}
-\end{scope}
-\node[font=\pesfigfont\bfseries,align=center] at (0,12) {(a) Radial\\housing mount};
-\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (0,-10)
-  {Modules on outer housing, set back from stator};
-
-% ================= Panel (b): Radial stator mount (radial cross-section) =================
-\begin{scope}[shift={(32,0)}]
-\draw[fill=gray!30,draw=gray!55!black,thin] (0,0) circle (5.4);
-\draw[fill=orange!25,draw=orange!70!black,thin] (0,0) circle (5);
-\foreach \a in {0,22.5,...,337.5}{\draw[black!75,semithick] (\a:2.6) -- (\a:5);}
-\draw[fill=gray!55,draw=gray!70!black,thin] (0,0) circle (2.2);
-\foreach \a in {0,45,90,135,180,225,270,315}{
-  \begin{scope}[rotate=\a]
-    \draw[fill=pesblue,draw=pesblue,thin] (5.4,-1.2) rectangle (7.6,1.2);
-  \end{scope}
-}
-\end{scope}
-\node[font=\pesfigfont\bfseries,align=center] at (32,12) {(b) Radial\\stator mount};
-\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (32,-10)
-  {Modules flush on stator/cooling jacket};
-
-% ================= Panel (c): Axial endplate mount (axial cross-section) =================
-\begin{scope}[shift={(64,0)}]
-\draw[fill=orange!25,draw=orange!70!black,thin] (-3.5,-4.5) rectangle (2.5,4.5);
-\foreach \x in {-2.5,-1,0.5,2}{\draw[black!40,thin] (\x,-4.5) -- (\x,4.5);}
-\draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
-\draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
-\draw[fill=gray!25,draw=gray!60!black,thin] (2.5,-4.5) rectangle (3.7,4.5);
-\draw[fill=pesblue,draw=pesblue,thin] (3.7,-3.3) rectangle (6.7,3.3);
-\end{scope}
-\node[font=\pesfigfont\bfseries,align=center] at (64,12) {(c) Axial\\endplate mount};
-\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (64,-10)
-  {Modules on separate end-cap beyond stator};
-
-% ================= Panel (d): Axial stator mount (axial cross-section) =================
-\begin{scope}[shift={(96,0)}]
-\draw[fill=orange!25,draw=orange!70!black,thin] (-3.5,-4.5) rectangle (2.5,4.5);
-\foreach \x in {-2.5,-1,0.5,2}{\draw[black!40,thin] (\x,-4.5) -- (\x,4.5);}
-\draw[fill=gray!55,draw=gray!70!black,thin] (-3.5,-1.8) rectangle (2.5,1.8);
-\draw[fill=gray!55,draw=gray!70!black,thin] (-9,-0.6) rectangle (-3.5,0.6);
-\draw[fill=pesblue,draw=pesblue,thin] (2.5,-3.3) rectangle (5.5,3.3);
-\end{scope}
-\node[font=\pesfigfont\bfseries,align=center] at (96,12) {(d) Axial\\stator mount};
-\node[font=\pesfigfont,align=center,anchor=north,text width=24mm] at (96,-10)
-  {Modules flush on stator end face, no end-cap};
-
-% ================= Legend =================
-\draw[fill=pesblue,draw=pesblue,thin] (6,-26) rectangle (8.5,-23.5);
-\node[right] at (8.8,-24.75) {Converter module};
-\draw[fill=orange!25,draw=orange!70!black,thin] (34,-26) rectangle (36.5,-23.5);
-\node[right] at (36.8,-24.75) {Stator / winding};
-\draw[fill=gray!55,draw=gray!70!black,thin] (62,-26) rectangle (64.5,-23.5);
-\node[right] at (64.8,-24.75) {Rotor};
-\draw[fill=gray!25,draw=gray!60!black,thin] (86,-26) rectangle (88.5,-23.5);
-\node[right] at (88.8,-24.75) {Housing / endplate / jacket};
-\end{tikzpicture}
-\caption{Physical integration options for SPB-compatible converter
-modules on a radial-flux machine, following the four-category
-taxonomy of \cite{Chowdhury2019Integration}: (a) radial housing mount,
-(b) radial stator mount, (c) axial endplate mount, and (d) axial
-stator mount, each shown in whichever radial or axial cross-section
-most clearly conveys its mounting geometry.}
+\includegraphics[width=146.267bp]{Figures/Exported/fig07.pdf}
+\caption{Physical integration options for a radial-flux machine, following \cite{Chowdhury2019Integration}.}
 \label{fig:machine_integration}
-\end{figure*}
+\end{figure}
 
 \begin{table}[!t]
 \centering
@@ -220,8 +140,8 @@ Developments}
 \label{tab:immd_relevance}
 \footnotesize
 \renewcommand{\arraystretch}{1.05}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{p{2.3cm}p{5.3cm}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.40\columnwidth}>{\raggedright\arraybackslash}p{\dimexpr0.60\columnwidth-6pt\relax}@{}}
 \hline
 \textbf{Reference} & \textbf{Integration theme}\\
 \hline
@@ -267,13 +187,6 @@ Recent IMD technologies and research directions\\
 \end{tabular}
 \end{table}
 
-Modern WBG drives therefore provide several machine and packaging
-concepts that are compatible with SPB, including segmented windings,
-distributed converter cells, shared cooling, and integrated dc-link
-structures. These developments do not establish an intrinsic SPB
-advantage, but they demonstrate the availability of enabling
-technologies required for practical implementation.
-
 % ---------------------------------------------------------------------------
 \subsection{Integration Is Not Free of Complexity}
 % ---------------------------------------------------------------------------
@@ -284,14 +197,14 @@ temperature, vibration, and sealing/coolant requirements, among other
 stresses, and to electromagnetic coupling between gate-drive, power,
 and machine conductors. Shared machine--converter cooling can
 also increase thermal interaction between the stator and power
-electronics.
+electronics \cite{Mohamed2021Electrothermal}.
 
 SPB introduces an additional insulation challenge because its
 converter cells and associated winding groups occupy different
-absolute potentials along the series dc stack. Gate-driver supplies,
-sensors, and mechanical mounting, among other subsystems, must
-therefore preserve the required electrical isolation.
+absolute potentials along the series dc stack. Gate-driver supplies and sensing interfaces must preserve electrical
+isolation between the local power stage and the control system, as
+illustrated by isolated traction-inverter implementations
+\cite{TI2019TractionIsolation}. Mechanical mounting and thermal
+interfaces must likewise preserve the required insulation distances
+and solid-insulation barriers \cite{IEC60664Part1}.
 
-Consequently, practical SPB integration requires coordinated
-electrical, thermal, and mechanical design, complementing the
-semiconductor- and system-level tradeoffs.

@@ -28,8 +28,10 @@ can make lower-voltage GaN devices attractive through favorable
 conduction and switching characteristics
 \cite{WBGTractionReview2025,Rohner2024GaN,Ebrahimian2025GaNIMMD}.
 For the illustrative 1200-V dc link in Fig.~\ref{fig:cell_count_scaling},
-two cells operate at a nominal 600~V each, leaving limited headroom for
-650-V devices. Three cells reduce this voltage to 400~V, providing
+two cells operate at a nominal 600~V each, leaving only 50~V of
+headroom for 650-V devices. This allocation is infeasible if bus
+variation, imbalance, switching overshoot, and the selected design
+margin require more than this headroom. Three cells reduce this voltage to 400~V, providing
 greater allowance for imbalance and switching transients. Further
 increases in $N$ enable lower-voltage device classes but increase the
 number of active switch positions as $6N$. Final device selection must
@@ -37,70 +39,9 @@ satisfy \eqref{eq:semiconductor_rating}.
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=7.65cm,
-    height=47mm,
-    font=\pesfigfont,
-    xlabel={Cell count $N$},
-    ylabel={$V_{\mathrm{cell,nom}}$ (V)},
-    ymode=log,
-    log ticks with fixed point,
-    xmin=0,xmax=16,
-    ymin=55,ymax=1900,
-    xtick={1,2,3,4,5,8,10,15},
-    axis y line*=left,
-    y axis line style={draw=pesblue},
-    tick label style={font=\pesfigfont},
-    yticklabel style={pesblue},
-    xlabel style={font=\pesfigfont},
-    ylabel style={font=\pesfigfont,pesblue},
-    grid=major,
-    grid style={gray!15},
-]
-\addplot[mark=*,thick,pesblue,
-    point meta=explicit,
-]
-    coordinates {
-(1,1200)[1200](2,600)[600](3,400)[400](4,300)[300](5,240)[240]
-(8,150)[150](10,120)[120](15,80)[80]};
-\end{axis}
-\begin{axis}[
-    width=7.65cm,
-    height=47mm,
-    font=\pesfigfont,
-    xmin=0,xmax=16,
-    ymin=0,ymax=100,
-    xtick={1,2,3,4,5,8,10,15},
-    axis x line=none,
-    axis y line*=right,
-    y axis line style={draw=pesred},
-    ylabel={Active switches $6N$},
-    tick label style={font=\pesfigfont},
-    yticklabel style={pesred},
-    ylabel style={font=\pesfigfont,pesred},
-]
-\addplot[mark=square*,thick,dashed,pesred,
-    point meta=y,
-]
-    coordinates {
-(1,6)(2,12)(3,18)(4,24)(5,30)(8,48)(10,60)(15,90)};
-\end{axis}
-\end{tikzpicture}
-\par\smallskip
-{\footnotesize\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrrrrrrrr@{}}
-$N$ & 1 & 2 & 3 & 4 & 5 & 8 & 10 & 15\\
-$V_{\mathrm{cell}}$ (V) & 1200 & 600 & 400 & 300 & 240 & 150 & 120 & 80\\
-$6N$ & 6 & 12 & 18 & 24 & 30 & 48 & 60 & 90
-\end{tabular}}
+\includegraphics[width=236.600bp]{Figures/Exported/fig13.pdf}
 \caption{Cell-count scaling for a 1200-V dc link: nominal cell voltage
-$V_{\mathrm{cell,nom}}=V_{\mathrm{dc}}/N$ (blue circles, left logarithmic
-axis) and active switch positions $6N$ (red squares, right linear
-axis). The table gives the values at each design point. Illustrative device
-classes include 1700--2000-V SiC for $N=1$, 650-V GaN/SiC for $N=3$,
-and 100-V GaN or silicon MOSFETs for $N=15$, subject to the required
-blocking-voltage margin. Device parallelization is excluded.}
+$V_{\mathrm{cell,nom}}=V_{\mathrm{dc}}/N$  and active switch positions $6N$.}
 \label{fig:cell_count_scaling}
 \end{figure}
 
@@ -133,14 +74,12 @@ n_p
 \qquad
 N_{\mathrm{sw,tot}}
 =
-6Nn_p .
+6Nn_p.
 \label{eq:parallel_device_scaling}
 \end{equation}
 Consequently, favorable device-level figures of merit may coexist with
 substantial die area, package count, and gate-drive and thermal-interface
-requirements. High-current GaN modules illustrate the importance of
-low-inductance packaging and integrated gate driving at traction-relevant
-currents \cite{Zhu2024GaN150A,Rahman2025GaN300A}.
+requirements.
 
 Device selection and layout are further coupled through commutation
 overshoot:
@@ -151,7 +90,8 @@ L_{\sigma}\frac{di}{dt},
 \label{eq:semiconductor_overshoot}
 \end{equation}
 Package and interconnection inductance can consume much of the voltage
-margin gained through partitioning. High switching speeds therefore
+margin gained through partitioning.
+High-current GaN modules illustrate the importance of low-inductance packaging and integrated gate driving at traction-relevant currents \cite{Zhu2024GaN150A,Rahman2025GaN300A}. High switching speeds therefore
 require careful commutation-loop design, local decoupling, and
 gate-drive layout, particularly for GaN \cite{Rahman2025GaN300A}.
 Dynamic $R_{\mathrm{DS(on)}}$, reverse conduction, gate reliability,
@@ -204,8 +144,3 @@ requirements. Low-cell-count designs may favor high-voltage SiC,
 whereas lower-voltage GaN becomes attractive when its device, packaging,
 or passive-component benefits offset the additional modules.
 
-Cell count and semiconductor technology must therefore be selected
-jointly using the voltage and component-count relationships in
-Fig.~\ref{fig:cell_count_scaling}, commercial-device characteristics,
-and the machine requirements of Section~\ref{sec:machine_requirements}.
-No single device figure of merit establishes the preferred SPB architecture.

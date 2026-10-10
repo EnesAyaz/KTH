@@ -39,8 +39,7 @@ Du2026ModularPMSMFault}. In SPB, however, this machine-side redundancy
 is useful only if the failed converter cell can be isolated or bypassed
 without breaking the series dc path.
 
-Building on the online reconfiguration capability introduced in
-Section~\ref{sec:evolution} \cite{Verkroost2024Reconfiguration}, after
+Building on the reported online reconfiguration capability \cite{Verkroost2024Reconfiguration}, after
 a faulted module is isolated the remaining active set $\mathcal{A}$
 must satisfy
 \begin{equation}
@@ -72,41 +71,7 @@ onto the SPB structure.
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}[font=\pesfigfont,>=latex,node distance=5mm]
-\tikzstyle{cell}=[draw=pesblue,rounded corners=0pt,minimum width=18mm,
-  minimum height=9mm,align=center,fill=pesblue!8]
-\tikzstyle{wind}=[draw=pesred,rounded corners=0pt,minimum width=17mm,
-  minimum height=7mm,align=center,fill=pesred!8,font=\pesfigfont]
-
-\node[cell] (c1) {\textbf{Cell 1}\\[1pt]
-  {\pesfigfont SW\textcolor{pesgreen}{\textcircled{1}} \;\;
-  $C_1$\textcolor{pesgreen}{\textcircled{4}}}};
-\node[cell,below=6mm of c1] (c2) {\textbf{Cell 2}\\[1pt]
-  {\pesfigfont SW \;\; $C_2$}};
-\node[font=\pesfigfont,below=2mm of c2] (dots) {$\vdots$};
-
-\node[wind,right=10mm of c1] (w1) {Winding\\group 1};
-\node[wind,right=10mm of c2] (w2) {Winding\\group 2};
-
-\draw[->] (c1.east) -- (w1.west)
-  node[midway,above,font=\pesfigfont]{\textcolor{pesgreen}{\textcircled{3}}};
-\draw[->] (c2.east) -- (w2.west);
-
-\coordinate (topdc) at ([yshift=4mm]c1.north);
-\draw[thick] (topdc) -- (c1.north);
-\node[font=\pesfigfont,left] at (topdc) {$+$};
-\draw[thick] (c1.south) -- (c2.north)
-  node[midway,right,font=\pesfigfont,align=left]{bypass /\\isolation%
-  \textcolor{pesgreen}{\textcircled{2}}};
-\draw[thick] (c2.south) -- (dots.north);
-\coordinate (botdc) at ([yshift=-4mm]dots.south);
-\draw[thick] (dots.south) -- (botdc);
-\node[font=\pesfigfont,left] at (botdc) {$-$};
-
-\draw[<->,dashed] ([xshift=-3mm]c1.west) -- ([xshift=-3mm]c2.west)
-  node[midway,left,font=\pesfigfont,align=right]{comms\\%
-  \textcolor{pesgreen}{\textcircled{5}}};
-\end{tikzpicture}
+\includegraphics[width=165.933bp]{Figures/Exported/fig14.pdf}
 \caption{Simplified SPB converter--machine structure with fault
 locations \textcircled{1}--\textcircled{5} annotated, corresponding in
 order to the rows of Table~\ref{tab:spb_fault_compact}.}
@@ -135,73 +100,20 @@ Communication / controller & Loss of distributed coordination & Local fallback a
 \begin{minipage}{0.95\columnwidth}
 \footnotesize
 $^{*}$The SPB studies surveyed here do not establish capacitor or sensor
-fault coverage; this row reflects the authors' system-level inference from
-the general modular-converter requirement to detect loss of
-cell-voltage sensing or local dc-link capacitance and to derate or
-isolate the affected cell accordingly.
+fault coverage; this row reflects the authors' system-level inference.
 \end{minipage}
 
 \end{table}
 
 \begin{figure}[!t]
 \centering
-\begin{tikzpicture}[font=\pesfigfont,>=latex,
- box/.style={draw,align=center,text width=2.85cm,inner sep=4pt}]
-\node[box,fill=pesblue!6] (a) at (1.5,0)
- {Detect fault; establish safe state\\Isolate winding; preserve dc path};
-\node[box,below=5mm of a] (b)
- {Check surviving-cell voltage margins\\Equation~\eqref{eq:fault_voltage_feasibility}};
-\node[box,draw=pesgreen,fill=pesgreen!5,below=6mm of b] (c)
- {Enforce current, thermal, and winding-voltage limits\\Determine torque--speed envelope};
-\node[box,draw=pesred,fill=pesred!5,below=5mm of c] (d)
- {Reduce bus voltage, use spare capacity, or remain shut down};
-\draw[->] (a)--(b);
-\draw[->] (b)--(c) node[midway,left] {Yes};
-\draw[->] (b.east)--++(.5,0) node[midway,above] {No}
- |-(d.east);
-% Right-hand waveforms: illustrative command, not physical transient data.
-\node at (6.15,.52) {Feasible reconfiguration};
-\node[anchor=west,pesblue] at (4.6,.10) {$i_{\mathrm{dc}}^\star/I_0$};
-\fill[black!5] (5.45,-1.6) rectangle (5.95,-.3);
-\draw[->,black!65] (4.6,-1.6)--(7.85,-1.6);
-\draw[->,black!65] (4.6,-1.6)--(4.6,-.23);
-\foreach \y/\lab in {-1.5/0,-.85/\gamma,-.5/1}{
- \draw (4.6,\y)--(4.66,\y);
- \node[anchor=east] at (4.54,\y) {$\lab$};}
-\draw[pesblue,line width=.8pt] (4.68,-.5)--(5.45,-.5)--(5.45,-1.5)
- --(5.95,-1.5)--(5.95,-.85)--(7.65,-.85);
-\draw[densely dashed,black!40] (5.45,-1.6)--(5.45,-.3);
-\draw[densely dashed,black!40] (5.95,-1.6)--(5.95,-.3);
-\node[anchor=north] at (5.45,-1.64) {$t_f$};
-\node[anchor=north] at (5.95,-1.64) {$t_r$};
-\node[anchor=north] at (7.75,-1.64) {$t$};
-\node[anchor=west,pesred] at (4.6,-2.35) {$V_{\mathrm{dc},k}/(V_{\mathrm{dc}}/3)$};
-\fill[black!5] (5.45,-3.95) rectangle (5.95,-2.62);
-\draw[->,black!65] (4.6,-3.95)--(7.85,-3.95);
-\draw[->,black!65] (4.6,-3.95)--(4.6,-2.60);
-\foreach \y/\lab in {-3.85/0,-3.18/1,-2.85/1.5}{
- \draw (4.6,\y)--(4.66,\y);
- \node[anchor=east] at (4.54,\y) {$\lab$};}
-\draw[pesred,line width=.8pt] (4.68,-3.18)--(5.45,-3.18);
-\draw[pesred,densely dashed,line width=.8pt] (5.45,-3.18)--(5.95,-2.85);
-\draw[pesred,line width=.8pt] (5.95,-2.85)--(7.65,-2.85);
-\draw[densely dashed,black!40] (5.45,-3.95)--(5.45,-2.62);
-\draw[densely dashed,black!40] (5.95,-3.95)--(5.95,-2.62);
-\node[anchor=north] at (5.45,-3.99) {$t_f$};
-\node[anchor=north] at (5.95,-3.99) {$t_r$};
-\node[anchor=north] at (7.75,-3.99) {$t$};
-\node[align=center,text width=3.2cm] at (6.2,-4.85)
- {$t_f$: fault; $t_r$: resume\\$0<\gamma\leq1$: feasible current limit};
-\end{tikzpicture}
+\includegraphics[width=226.600bp]{Figures/Exported/fig15.pdf}
 \caption{Post-fault feasibility assessment with illustrative waveforms
 for the feasible branch. The dc-current command is temporarily set to
 zero and restored to $\gamma I_0$, subject to operating limits.
 For a fixed bus, changing from three to two active cells raises the
 balanced surviving-cell voltage from 1 to 1.5~p.u. (400 to 600~V for
-a 1200-V bus). Shading marks the protection/reconfiguration interval;
-the dashed voltage connection indicates a change of steady-state level,
-not a predicted capacitor-voltage trajectory. Current derating does not
-remove the increased blocking-voltage requirement.}
+a 1200-V bus).}
 \label{fig:spb_fault_response}
 \end{figure}
 
@@ -215,7 +127,7 @@ integrated distributed traction drives provide additional evidence that
 fault tolerance must include both the machine and the local converter
 architecture \cite{Hennen2012DistributedIMMD,Wolmarans2008IntegratedFT}.
 
-The direct SPB literature therefore demonstrates the feasibility of
+The SPB literature therefore demonstrates the feasibility of
 post-fault operation and online reconfiguration, but not yet
 automotive-level fault coverage. Detection and isolation time,
 short-circuit energy, capacitor and sensor faults, communication loss,

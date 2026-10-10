@@ -1,0 +1,41 @@
+\begin{tikzpicture}[
+  font=\pesfigfont,>=latex,
+  stage/.style={draw=black!60,fill=blue!3,line width=0.45pt,
+    rounded corners=0pt,align=left,text width=\dimexpr\columnwidth-8mm\relax,
+    inner xsep=3mm,inner ysep=2mm},
+  link/.style={->,draw=pesblue,line width=0.65pt}]
+\node[stage] (s1) {
+  \textbf{2013--2014\quad Topology and control}\\[1mm]
+  SPB introduction and dedicated control and modulation
+  \cite{Norrga2013SPB,Jin2014Control}.};
+\node[stage,below=3mm of s1] (s2) {
+  \textbf{2015--2017\quad Stability and architectural assessment}\\[1mm]
+  Dc-link stability and balancing requirements
+  \cite{Nikouie2015Stability,Nikouie2017Stability}; comparison with
+  PPB-I/II and MHF candidates \cite{Zhang2017ModularDriveComparison}.};
+\node[stage,below=3mm of s2] (s3) {
+  \textbf{2017--2018\quad Modulation and distributed control}\\[1mm]
+  Switching-loss and dc-link harmonic shaping \cite{Jin2017Modulation};
+  distributed balancing \cite{Jin2018Distributed}.};
+\node[stage,below=3mm of s3] (s4) {
+  \textbf{2019--2021\quad Converter--machine coordination}\\[1mm]
+  Interleaving, dc-link ripple, and machine phase-count selection
+  \cite{Verkroost2019Interleaving,VanDamme2019DCLink,
+  Bringezu2020SPB,Verkroost2021Ripple}.};
+\node[stage,below=3mm of s4] (s5) {
+  \textbf{2023--2024\quad Reconfiguration and device integration}\\[1mm]
+  Common-duty-ratio and decentralized balancing, power sharing,
+  and gate-delay effects \cite{Mocevic2023CDR,Verkroost2024VoltageBalance,
+  Verkroost2024PowerDistribution,Mocevic2024GateDelay}; online module
+  reconfiguration \cite{Verkroost2024Reconfiguration}; 650-V GaN SPB
+  comparison with a three-level flying-capacitor converter
+  \cite{Rohner2024GaN}.};
+\node[below=7mm of s5,align=center,text=pesred,font=\pesfigfont] (s6) {
+  \textbf{Open research direction}\\[0.6mm]
+  Unified SPB design for EV applications};
+\draw[link,dashed,draw=pesred] (s5.south) -- (s6.north);
+\draw[link] (s1.south) -- (s2.north);
+\draw[link] (s2.south) -- (s3.north);
+\draw[link] (s3.south) -- (s4.north);
+\draw[link] (s4.south) -- (s5.north);
+\end{tikzpicture}

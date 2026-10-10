@@ -31,15 +31,17 @@
 % The supplied class tests an undefined internal revision field and prints
 % '; revised .' when no editorial dates are assigned. Class file is unmodified.
 \usepackage{etoolbox}
+% Consistent compact figure-caption spacing; table spacing remains class-defined.
+\AtBeginEnvironment{figure}{\setlength{\abovecaptionskip}{2pt}}
+\AtBeginEnvironment{figure*}{\setlength{\abovecaptionskip}{2pt}}
 \makeatletter
 \patchcmd{\@maketitle}{{\receivedfont \ifx\@receiveddate\@empty\else Received\ \@receiveddate\fi\ifx\@revised\@empty\else;\ revised\ \@reviseddate\fi\ifx\@accepteddate\@empty\else;\ accepted\ \@accepteddate\fi\ifx\@publisheddate\@empty\else; Date of publication\nobreakspace\@publisheddate\fi\ifx\@currentdate\@empty\else;\space date of current version\nobreakspace\@currentdate\fi.\space\ifx\@editor\@empty\else\@editor\fi\par}}{}{}{\PackageError{ojpel-draft}{Publication-history patch failed}{Check the supplied class.}}
 \makeatother
 % Publication dates, DOI, volume, and issue are assigned by IEEE.
 \begin{document}
 
-\title{Stacked Polyphase Bridge Converters for High-Voltage Electric
-Traction Drives: A Review of Topology, Modulation, Control,
-Semiconductor Scaling, and Future Directions}
+\title{Stacked Polyphase Bridge Converters for High-Voltage Traction Drives:
+A Review and System-Level Design Perspectives}
 
 \author{ENES AYAZ\affilmark{1}, STUDENT MEMBER, IEEE,
 SHAHRIAR SARMAST GHAHFAROKHI\affilmark{1}, STUDENT MEMBER, IEEE,
@@ -52,7 +54,7 @@ KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden}
 {Ayaz \textit{et al.}}
 
 \begin{abstract}
-Increasing dc-link voltages in electric traction drives intensify semiconductor voltage stress and insulation requirements. Stacked polyphase bridge converters partition the dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. This architecture enables lower-voltage semiconductor devices and modular converter--machine integration, but introduces coupled challenges in modulation, voltage balancing, insulation, and fault management. This paper reviews stacked polyphase bridge converters for high-voltage electric traction, bringing together literature on topology evolution, operating principles, machine integration, control, semiconductor scaling, and fault-tolerant reconfiguration. The review examines carrier-interleaving effects on dc-link ripple, conditions for switching-induced common-mode voltage cancellation, and dc-link balancing stability under centralized, common-duty-ratio, and distributed control. It also relates cell count to semiconductor voltage class and the associated converter and machine requirements. A mapping for a 1200-V dc link illustrates how increasing cell count provides access to lower-voltage device classes, while adding sensing, gate-drive, winding, and insulation requirements. The synthesis indicates that semiconductor-level gains alone are insufficient to establish a system-level advantage, and that the preferred cell count depends on the application and operating mission. Key research priorities are joint battery, converter, and machine design, together with validation against vehicle-level energy, cost, and reliability targets. These findings provide a basis for assessing where stacked polyphase bridge architectures can offer practical benefits in future traction drives.
+Increasing dc-link voltages in electric traction drives intensify semiconductor voltage stress and insulation requirements. Stacked polyphase bridge (SPB) converters partition the dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. This architecture enables lower-voltage devices and modular converter--machine integration while introducing coupled control and design challenges. This paper reviews SPB topology evolution, operating principles, machine integration, modulation, dc-link balancing, semiconductor scaling, and fault-tolerant reconfiguration. The review synthesizes carrier-interleaving effects on capacitor ripple, conditions and limitations of common-mode cancellation, and balancing requirements under different control structures. It relates cell count and device voltage class to winding, insulation, gate-drive, cooling, and fault-management requirements. These relationships are consolidated into an iterative device-to-system design framework, supported by an illustrative high-voltage traction example. The synthesis indicates that semiconductor-level gains alone do not establish a system-level advantage and that the preferred cell count depends on application requirements and operating conditions. Remaining research priorities include joint battery--converter--machine design and validation against mission energy, volume, cost, and reliability. The review provides a basis for assessing the practical suitability of SPB architectures for high-voltage traction drives.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -71,6 +73,7 @@ multiphase machines, stacked polyphase bridge (SPB) converters.
 \input{Sections/Section_VI_DCLink}
 \input{Sections/Section_VII_Semiconductor}
 \input{Sections/Section_X_FaultTolerance}
+\input{Sections/Section_XI_CaseStudy}
 \input{Sections/Section_XII_Future}
 \input{Sections/Section_XIII_Conclusion}
 

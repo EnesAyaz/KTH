@@ -1,0 +1,48 @@
+\begin{tikzpicture}[font=\pesfigfont,>=latex,
+ box/.style={draw,align=center,text width=2.85cm,inner sep=4pt}]
+\node[box,fill=pesblue!6] (a) at (1.5,0)
+ {Detect fault; establish safe state\\Isolate winding; preserve dc path};
+\node[box,below=5mm of a] (b)
+ {Check surviving-cell voltage margins\\Equation~\eqref{eq:fault_voltage_feasibility}};
+\node[box,draw=pesgreen,fill=pesgreen!5,below=6mm of b] (c)
+ {Enforce current, thermal, and winding-voltage limits\\Determine torque--speed envelope};
+\node[box,draw=pesred,fill=pesred!5,below=5mm of c] (d)
+ {Reduce bus voltage, use spare capacity, or remain shut down};
+\draw[->] (a)--(b);
+\draw[->] (b)--(c) node[midway,left] {Yes};
+\draw[->] (b.east)--++(.5,0) node[midway,above] {No}
+ |-(d.east);
+% Right-hand waveforms: illustrative command, not physical transient data.
+\node at (6.15,.52) {Feasible reconfiguration};
+\node[anchor=west,pesblue] at (4.6,.10) {$i_{\mathrm{dc}}^\star/I_0$};
+\fill[black!5] (5.45,-1.6) rectangle (5.95,-.3);
+\draw[->,black!65] (4.6,-1.6)--(7.85,-1.6);
+\draw[->,black!65] (4.6,-1.6)--(4.6,-.23);
+\foreach \y/\lab in {-1.5/0,-.85/\gamma,-.5/1}{
+ \draw (4.6,\y)--(4.66,\y);
+ \node[anchor=east] at (4.54,\y) {$\lab$};}
+\draw[pesblue,line width=.8pt] (4.68,-.5)--(5.45,-.5)--(5.45,-1.5)
+ --(5.95,-1.5)--(5.95,-.85)--(7.65,-.85);
+\draw[densely dashed,black!40] (5.45,-1.6)--(5.45,-.3);
+\draw[densely dashed,black!40] (5.95,-1.6)--(5.95,-.3);
+\node[anchor=north] at (5.45,-1.64) {$t_f$};
+\node[anchor=north] at (5.95,-1.64) {$t_r$};
+\node[anchor=north] at (7.75,-1.64) {$t$};
+\node[anchor=west,pesred] at (4.6,-2.35) {$V_{\mathrm{dc},k}/(V_{\mathrm{dc}}/3)$};
+\fill[black!5] (5.45,-3.95) rectangle (5.95,-2.62);
+\draw[->,black!65] (4.6,-3.95)--(7.85,-3.95);
+\draw[->,black!65] (4.6,-3.95)--(4.6,-2.60);
+\foreach \y/\lab in {-3.85/0,-3.18/1,-2.85/1.5}{
+ \draw (4.6,\y)--(4.66,\y);
+ \node[anchor=east] at (4.54,\y) {$\lab$};}
+\draw[pesred,line width=.8pt] (4.68,-3.18)--(5.45,-3.18);
+\draw[pesred,densely dashed,line width=.8pt] (5.45,-3.18)--(5.95,-2.85);
+\draw[pesred,line width=.8pt] (5.95,-2.85)--(7.65,-2.85);
+\draw[densely dashed,black!40] (5.45,-3.95)--(5.45,-2.62);
+\draw[densely dashed,black!40] (5.95,-3.95)--(5.95,-2.62);
+\node[anchor=north] at (5.45,-3.99) {$t_f$};
+\node[anchor=north] at (5.95,-3.99) {$t_r$};
+\node[anchor=north] at (7.75,-3.99) {$t$};
+\node[align=center,text width=3.2cm] at (6.2,-4.85)
+ {$t_f$: fault; $t_r$: resume\\$0<\gamma\leq1$: feasible current limit};
+\end{tikzpicture}

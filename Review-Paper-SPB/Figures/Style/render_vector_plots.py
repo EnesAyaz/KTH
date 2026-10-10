@@ -27,6 +27,7 @@ for v,col,mark,sty,label in [(h,BLUE,'o','-','HV'),(l,RED,'s','--','LV')]:
  ax.plot(np.r_[v,v[0]]*np.cos(aa),np.r_[v,v[0]]*np.sin(aa),color=col,marker=mark,ms=3,lw=1,ls=sty,label=label)
 for k,angle in enumerate(a):
  x,y=1.45*np.cos(angle),1.45*np.sin(angle)
+ if k==9:x-=.18
  ax.text(x,y,labels[k],ha='center',va='center',fontsize=8.5)
 ax.set_xlim(-2.15,2.15);ax.set_ylim(-1.95,1.95)
 ax.legend(loc='upper right',bbox_to_anchor=(1,1.06),fontsize=8.5,handlelength=1.8)

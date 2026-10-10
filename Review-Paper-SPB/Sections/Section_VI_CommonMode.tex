@@ -12,7 +12,7 @@ scaling is produced internally, such as the flying-capacitor
 multilevel converter, for which an analytical CM-EMI model referenced
 to one dc-link potential exists \cite{Giardine2025FCMLEMI}. SPB does
 not fit this picture: because its $N$ cells are connected in series on
-the dc side (Section~\ref{sec:operating_principle}) while each feeds
+the dc side while each feeds
 an electrically separate winding group, cell $k$'s local dc rails are
 displaced from the overall dc-bus reference by an amount that depends
 on its position in the stack.
@@ -41,10 +41,9 @@ V_{-,k}+\frac{1}{3}\left(v_{aN_k}+v_{bN_k}+v_{cN_k}\right),
 where $v_{aN_k},v_{bN_k},v_{cN_k}$ are cell $k$'s pole voltages
 referenced to its own negative rail $N_k$. The second term is the
 conventional switching-induced CMV already addressed by zero-sequence
-injection and vector-redundancy modulation
-(Section~\ref{sec:modulation}); the first term, $V_{-,k}$, is specific
+injection and vector-redundancy modulation; the first term, $V_{-,k}$, is specific
 to SPB, set by the cell's stack position and by the instantaneous
-voltage-sharing state (Section~\ref{sec:dclink_balancing}), not by
+voltage-sharing state, not by
 modulation alone.
 
 Fig.~\ref{fig:spb_cm_stack} illustrates the resulting structure:
@@ -52,27 +51,17 @@ increasing absolute potential offset with stack position, together
 with representative CM current paths coupling each winding group to
 the shared frame and chassis ground through parasitic capacitance.
 Because the cells and their winding groups are physically close
-together in the integrated implementations of
-Section~\ref{sec:machine_requirements}, these paths are short and the
+together in the integrated implementations, these paths are short and the
 coupling between cells is direct rather than mediated by long cabling.
 Physically integrated motor-drive assemblies show that common-mode
 current can resonate through exactly this kind of parasitic loop, and
 that the resonance is not adequately predicted by a single-source CM
-model \cite{Zhong2025CMResonance,Chen2020EMCIntegrated} -- extending
-such modeling to a multi-port structure with $N$ distinct dc offsets
-is, to the authors' knowledge, not yet available for SPB specifically.
+model \cite{Zhong2025CMResonance,Chen2020EMCIntegrated}. Applying these models to SPB requires accounting for multiple machine ports, distinct dc offsets, and their coupled return paths.
 
 \begin{figure}[!t]
 \centering
-\input{Figures/Section-CommonMode/fig_spb_cm_equivalent}
-\caption{Lumped common-mode equivalent of the SPB stack. Series dc-link
-capacitors $C_k$ establish the rail offsets $V_{-,k}$; each voltage source
-represents $v_{\mathrm{cm},k}^{\mathrm{loc}}=(v_{aN_k}+v_{bN_k}+v_{cN_k})/3$.
-The group-to-frame capacitance $C_{kg}$ couples this local source and its
-rail offset to the chassis. $Z_{\mathrm{ret}}(\omega)$ represents the
-installation-dependent return path to the dc reference, not an assumed
-galvanic bond. Differential-mode winding circuits and the rotor/bearing
-network are omitted.}
+\includegraphics[width=181.267bp]{Figures/Exported/fig10.pdf}
+\caption{Lumped common-mode equivalent of the SPB stack.}
 \label{fig:spb_cm_stack}
 \end{figure}
 
@@ -97,9 +86,7 @@ torque direction. The absolute voltages remain offset:
 \label{eq:spb_cm_cancellation}
 \end{equation}
 Thus switching ripple cancels in the arithmetic mean, not the dc
-potential relative to the bottom rail. This
-This
-balanced-cancellation principle was first demonstrated for a
+potential relative to the bottom rail. This balanced-cancellation principle was first demonstrated for a
 dual-winding-set machine driven by a balanced inverter pair on a
 single, non-series-stacked machine \cite{Han2018CMCancellation}, and
 was later applied to a genuine two-cell series-stacked (2L-SSC) SPB
@@ -113,94 +100,49 @@ from PCB layout or driver differences) reintroduces a residual CM
 spike, of duration equal to the delay, at every misaligned transition,
 and unequal power sharing during dc-link balancing similarly degrades
 the cancellation, both shown quantitatively in
-\cite{Rohner2024GaN,Han2018CMCancellation}. The mechanism is specific
-to $N=2$, or to a stack of matched cell pairs, so it should be read as
-a valuable special-case mitigation rather than a general solution to
-the stack-offset problem above. Fig.~\ref{fig:spb_cm_cancellation} illustrates the reference levels.
+\cite{Rohner2024GaN,Han2018CMCancellation}.  Fig.~\ref{fig:spb_cm_cancellation} illustrates the reference levels as an example specific to $N=2$.
 For fixed lumped winding-to-frame capacitances $C_{kg}$, the frame
 excitation is approximately
 \begin{equation}
 i_{\mathrm{frame}}=\sum_k C_{kg}\frac{d}{dt}
 (v_{\mathrm{cm},k}^{\mathrm{abs}}-v_{\mathrm{frame}}).
 \end{equation}
-Cancellation of the arithmetic mean suppresses this current only for
-matched coupling paths. Unequal capacitances, switching delays, and
-resonances leave residual excitation. A constant stack offset contributes
-insulation stress but no steady capacitive current. Bearing current
-requires the additional winding--rotor--shaft--bearing network and
-cannot be inferred directly from this lumped frame-current relation.
+ A constant stack offset contributes
+insulation stress but no steady capacitive current.
 
 \begin{figure}[!t]
 \centering
-\input{Figures/Section-CommonMode/fig_cm_cancellation_waveforms}
+\includegraphics[width=222.600bp]{Figures/Exported/fig11.pdf}
 \caption{Nonideal two-cell common-mode cancellation over two switching
-periods. Small transition misalignment produces narrow residuals in
-$v_{\Sigma}$ ($t_d/T_{sw}=0.003$, $t_r/T_{sw}=0.004$). Their polarities
-follow the three rising and three falling cell-voltage transitions;
-unequal $dv/dt$ can also produce residuals. The lower plot shows damped
-frame current with cancellation, normalized to its own peak $I_{\mathrm{pk}}$.
-For equal winding-to-frame capacitances $C_g$ and a shared frame-to-ground
-return impedance $R_g+sL_g$,
-$I_{\mathrm{frame}}(s)/V_{\Sigma}(s)=sC_g/(1+2R_gC_gs+2L_gC_gs^2)$.
-The illustrative resonance has $f_0/f_{sw}=65$ and damping ratio
-$\zeta=0.22$. Each residual excites alternating-polarity current ringing.
-This lumped-model illustration excludes shaft charging and bearing-film
-breakdown; it is not a bearing-discharge prediction.}
+periods. Small transition misalignment produces narrow residuals in $v_{\Sigma}$.}
 \label{fig:spb_cm_cancellation}
 \end{figure}
 
 \subsection{Physical Consequences and Mitigation}
 
-CMV-driven bearing current is a documented failure mechanism in
-inverter-fed machines generally, arising from capacitive coupling
-through the air gap and discharge events once the bearing lubricant
-film breaks down \cite{Lee2025BearingCurrent}, and can be identified
-with dedicated non-intrusive current-measurement techniques
-\cite{Li2025BearingMeasurement}. In SPB, this mechanism acts at each of
-the $N$ winding groups individually; because
-\eqref{eq:spb_cm_offset}--\eqref{eq:spb_cm_local} gives each group a
-different absolute CM reference, the resulting bearing- and
-shaft-voltage stress is not necessarily uniform across the stack, and
-whether it is dominated by the highest-offset cell, by all cells
-combined, or by resonant interaction between cells remains open.
-Shaft-voltage cancellation circuits developed for conventional drives
-\cite{Xie2026ShaftCM} are a plausible mitigation candidate but have not
-been demonstrated for a series-stacked, multi-port machine.
+CMV couples capacitively to the rotor and can cause bearing discharges
+when the lubricant film breaks down \cite{Lee2025BearingCurrent};
+non-intrusive current measurements support diagnosis
+\cite{Li2025BearingMeasurement}. In SPB, the winding groups have
+different absolute CM references
+\eqref{eq:spb_cm_offset}--\eqref{eq:spb_cm_local}.
+Their combined contribution to shaft voltage and bearing current,
+including possible resonances, requires stack-level assessment.
 
-The same switching events also produce fast $dv/dt$ transitions at the
-winding terminals, stressing turn-to-turn and phase-to-frame
-insulation independently of the CM current path. WBG devices, already
-motivated for SPB by their favorable scaling at reduced blocking
-voltage (Section~\ref{sec:semiconductor_scaling}), shorten rise time
-and increase overshoot, and have been shown to accelerate insulation
-aging and partial-discharge activity in hairpin and other
-traction-machine windings \cite{KholghKhiz2025HairpinWBG,
-Gulec2025PDImpulse,Seri2025ATFPDIV}; diagnostic methods exist to assess
-the resulting insulation condition \cite{Kim2025HairpinFRA}, within the
-broader set of insulation technologies for transport-electrification
-machines \cite{Martinez2025TransportInsulation}. In SPB, this stress is
-superimposed on the stack-position-dependent offset of
-\eqref{eq:spb_cm_offset}, so insulation coordination must account for
-both the local switching transition and the cell's absolute stack
-position, consistent with the challenge identified qualitatively in
-Section~\ref{sec:machine_requirements}.
+Fast winding-terminal transitions also stress turn-to-turn and
+phase-to-frame insulation. Short rise times and overshoot associated
+with WBG switching can accelerate insulation aging and partial discharge
+\cite{KholghKhiz2025HairpinWBG,Gulec2025PDImpulse,Seri2025ATFPDIV}.
+Insulation diagnostics \cite{Kim2025HairpinFRA} and suitable material
+systems \cite{Martinez2025TransportInsulation} complement coordination
+of the local switching stress and the stack-position-dependent offset.
 
-Mitigation therefore has to act at more than one level. Active EMI
-filtering can attenuate common-mode current at the converter terminals
-without relying on machine or bearing hardware
-\cite{Ihsan2025ActiveEMI}, and cancellation circuits can target shaft
-voltage directly \cite{Xie2026ShaftCM}. At the modulation level,
-Section~\ref{sec:modulation} showed that zero-sequence injection and
-redundant-vector selection reduce CMV excitation
-\cite{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}, but the carrier-phase
-displacement used there to interleave switching harmonics for ripple
-reduction, \eqref{eq:carrier_phase}, is chosen to cancel a selected
-ripple harmonic and is not simultaneously optimized for common-mode
-excitation. Because SPB's CM problem additionally depends on the fixed
-stack offset $V_{-,k}$, which carrier phasing cannot change, an
-interleaving choice that minimizes dc-link or stator ripple need not
-minimize aggregate common-mode excitation, and vice versa -- a genuine
-SPB-specific design tension that future studies should address by
-extending the multi-objective modulation problem of
-Section~\ref{sec:modulation} to common-mode and insulation-stress
-metrics evaluated across the full stack.
+Candidate mitigation measures include active EMI filtering
+\cite{Ihsan2025ActiveEMI}, shaft-voltage cancellation
+\cite{Xie2026ShaftCM}, and CMV-aware zero-sequence injection or
+redundant-vector selection \cite{Sun2025CMVMPC,Zheng2025MultiObjectivePWM}.
+However, carrier phasing selected for ripple reduction
+\eqref{eq:carrier_phase} does not necessarily minimize aggregate CM
+excitation and cannot alter the fixed stack offset $V_{-,k}$.
+SPB modulation and insulation design should therefore evaluate ripple,
+CM excitation, and insulation stress jointly across the full stack.

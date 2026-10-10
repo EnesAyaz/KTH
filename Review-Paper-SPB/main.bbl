@@ -543,6 +543,22 @@ R.~Abebe, G.~Vakil, G.~Lo~Calzo, T.~Cox, S.~Lambert, M.~Johnson, C.~Gerada, and
   \url{https://ietresearch.onlinelibrary.wiley.com/doi/abs/10.1049/iet-epa.2015.0506}
 \BIBentrySTDinterwordspacing
 
+\bibitem{TI2019TractionIsolation}
+\BIBentryALTinterwordspacing
+{Texas Instruments}, ``{SiC/IGBT} isolated gate driver reference design with
+  thermal diode and sensing {FET},'' Texas Instruments, Tech. Rep. TIDUEV9,
+  Dec. 2019. [Online]. Available:
+  \url{https://www.ti.com/lit/ug/tiduev9/tiduev9.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{IEC60664Part1}
+\BIBentryALTinterwordspacing
+\emph{Insulation Coordination for Equipment Within Low-Voltage Supply
+  Systems---Part 1: Principles, Requirements and Tests}, International
+  Electrotechnical Commission, 2020, with Amendment 1, 2025. [Online].
+  Available: \url{https://webstore.iec.ch/en/publication/59671}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Hopkins2019DCLinkRipple}
 A.~Hopkins, B.~Hopfensperger, and P.~Mellor, ``Dc-link capacitor reduction in
   low voltage and high power integrated modular motor drives,'' in \emph{2019
@@ -651,12 +667,6 @@ Z.~Li, R.~Liu, Y.~Hao, D.~Zheng, and J.~Gui, ``A novel nonintrusive measurement
   method of bearing currents in inverter-fed motors,'' \emph{\JournalTitle{IEEE
   Sensors Journal}}, vol.~25, no.~19, pp. 36\,580--36\,593, 2025.
 
-\bibitem{Xie2026ShaftCM}
-L.~Xie, Y.~Wu, Y.~Li, W.~Zhou, X.~Yuan, and X.~Ruan, ``A cancellation-based
-  circuit for reducing both the shaft voltage and cm noise in motor drive
-  systems,'' \emph{\JournalTitle{IEEE Transactions on Industrial Electronics}},
-  vol.~73, no.~4, pp. 5223--5233, 2026.
-
 \bibitem{KholghKhiz2025HairpinWBG}
 A.~K. Khiz and S.~H. Jayaram, ``Effects of rise time and overshoot of wbg-based
   power converters on hairpin winding with corona-resistant and
@@ -694,6 +704,12 @@ I.~Martinez, I.~Iannarelli, P.~Seri, and A.~Cavallini, ``Insulation
 A.~Ihsan, M.~Z. Youssef, and S.~S. Williamson, ``Active emi filter in gan-based
   inverter application,'' in \emph{2025 IEEE Energy Conversion Conference
   Congress and Exposition (ECCE)}, 2025, pp. 1--6.
+
+\bibitem{Xie2026ShaftCM}
+L.~Xie, Y.~Wu, Y.~Li, W.~Zhou, X.~Yuan, and X.~Ruan, ``A cancellation-based
+  circuit for reducing both the shaft voltage and cm noise in motor drive
+  systems,'' \emph{\JournalTitle{IEEE Transactions on Industrial Electronics}},
+  vol.~73, no.~4, pp. 5223--5233, 2026.
 
 \bibitem{Ni2025SeriesDCLinkStability}
 S.~Ni, Z.~Zheng, K.~Liu, and L.~Xu, ``Stability analysis and voltage controller
@@ -773,5 +789,9 @@ J.~A. Swanke and T.~M. Jahns, ``Reliability analysis of a fault-tolerant
   integrated modular motor drive for an urban air mobility aircraft using
   markov chains,'' \emph{\JournalTitle{IEEE Transactions on Transportation
   Electrification}}, vol.~8, no.~4, pp. 4523--4533, 2022.
+
+\bibitem{EPC2361Datasheet2026}
+{Efficient Power Conversion}, \emph{{EPC2361} Enhancement Mode Power
+  Transistor}, Efficient Power Conversion, 2026, datasheet, rev. July 20, 2026.
 
 \end{thebibliography}

@@ -1,8 +1,8 @@
-% Fig. 9: lumped common-mode equivalent; vector circuit, 8-pt labels.
+% Fig. 10: lumped common-mode equivalent; vector circuit, 8-pt labels.
 % Local sources represent the average pole voltage relative to each negative rail.
-\begin{circuitikz}[font=\footnotesize,american voltages,>=latex]
+\begin{circuitikz}[font=\pesfigfont,american voltages,>=latex]
 \ctikzset{bipoles/length=9mm}
-\foreach \k/\y in {1/0,2/2.0,N/4.7}{
+\foreach \k/\y in {1/0,N/2.7}{
   \fill[pesblue!7] (1.85,\y-.04) rectangle (4.25,\y+1.52);
   \draw (0.7,\y) to[C,l_={$C_{\k}$}] (0.7,\y+1.6);
   \draw (0.7,\y) node[circ] {} -- (2.3,\y)
@@ -12,13 +12,14 @@
   \node[anchor=south] at (3.65,\y+1.10) {Group $\k$};
   \node[anchor=north] at (1.15,\y-0.05) {$V_{-,\k}$};
 }
-\draw (0.7,1.6)--(0.7,2.0);
-\draw (0.7,3.6)--(0.7,3.8);
-\draw[densely dotted] (0.7,3.8)--(0.7,4.5);
-\draw (0.7,4.5)--(0.7,4.7);
-\draw (0.7,6.3)--(0.7,6.6) node[ocirc] {};
-\node[anchor=west] at (0.85,6.6) {$+V_{\mathrm{dc}}$};
-\draw (6.5,5.75)--(6.5,-1.0);
+% Intermediate cells and winding groups are elided.
+\draw (0.7,1.6)--(0.7,1.8);
+\draw[densely dotted] (0.7,1.8)--(0.7,2.5);
+\draw (0.7,2.5)--(0.7,2.7);
+\node at (3.4,2.08) {$\vdots$};
+\draw (0.7,4.3)--(0.7,4.6) node[ocirc] {};
+\node[anchor=west] at (0.85,4.6) {$+V_{\mathrm{dc}}$};
+\draw (6.5,3.75)--(6.5,-1.0);
 \draw[->,thick,pespurple] (6.5,0.7)--(6.5,0.1);
 \node[anchor=east] at (6.35,0.3) {$i_{\mathrm{frame}}$};
 \draw (0.7,0)--(0.7,-1.0) node[ocirc] {}

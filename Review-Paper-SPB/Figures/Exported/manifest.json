@@ -1,0 +1,148 @@
+[
+  {
+    "number": 1,
+    "name": "fig01",
+    "label": "fig:intro_hv_motivation",
+    "section": "Sections/Section_I_Intro.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 2,
+    "name": "fig02",
+    "label": "fig:intro_ronsp_trend",
+    "section": "Sections/Section_I_Intro.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 3,
+    "name": "fig03",
+    "label": "fig:spb_architecture",
+    "section": "Sections/Section_I_Intro.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 4,
+    "name": "fig04",
+    "label": "fig:spb_timeline",
+    "section": "Sections/Section_II_Evolution_SPB.tex",
+    "wide": false,
+    "citation_keys": [
+      "Norrga2013SPB",
+      "Jin2014Control",
+      "Nikouie2015Stability",
+      "Nikouie2017Stability",
+      "Zhang2017ModularDriveComparison",
+      "Jin2017Modulation",
+      "Jin2018Distributed",
+      "Verkroost2019Interleaving",
+      "VanDamme2019DCLink",
+      "Bringezu2020SPB",
+      "Verkroost2021Ripple",
+      "Mocevic2023CDR",
+      "Verkroost2024VoltageBalance",
+      "Verkroost2024PowerDistribution",
+      "Mocevic2024GateDelay",
+      "Verkroost2024Reconfiguration",
+      "Rohner2024GaN"
+    ]
+  },
+  {
+    "number": 5,
+    "name": "fig05",
+    "label": "fig:spb_switch_schematic",
+    "section": "Sections/Section_III_Operating.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 6,
+    "name": "fig06",
+    "label": "fig:winding_options",
+    "section": "Sections/Section_IV_Machine_Integration.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 7,
+    "name": "fig07",
+    "label": "fig:machine_integration",
+    "section": "Sections/Section_IV_Machine_Integration.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 8,
+    "name": "fig08",
+    "label": "fig:carrier_sync_mechanism",
+    "section": "Sections/Section_V_Modulation.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 9,
+    "name": "fig09",
+    "label": "fig:dclink_ripple_interleaving",
+    "section": "Sections/Section_V_Modulation.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 10,
+    "name": "fig10",
+    "label": "fig:spb_cm_stack",
+    "section": "Sections/Section_VI_CommonMode.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 11,
+    "name": "fig11",
+    "label": "fig:spb_cm_cancellation",
+    "section": "Sections/Section_VI_CommonMode.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 12,
+    "name": "fig12",
+    "label": "fig:spb_balancing_dynamics",
+    "section": "Sections/Section_VI_DCLink.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 13,
+    "name": "fig13",
+    "label": "fig:cell_count_scaling",
+    "section": "Sections/Section_VII_Semiconductor.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 14,
+    "name": "fig14",
+    "label": "fig:spb_fault_locations",
+    "section": "Sections/Section_X_FaultTolerance.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 15,
+    "name": "fig15",
+    "label": "fig:spb_fault_response",
+    "section": "Sections/Section_X_FaultTolerance.tex",
+    "wide": false,
+    "citation_keys": []
+  },
+  {
+    "number": 16,
+    "name": "fig16",
+    "label": "fig:epc2361_method",
+    "section": "Sections/Section_XI_CaseStudy.tex",
+    "wide": true,
+    "citation_keys": []
+  }
+]
