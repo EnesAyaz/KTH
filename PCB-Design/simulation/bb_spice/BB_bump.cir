@@ -1,0 +1,8 @@
+* Gate-bump study: bus voltage x off-state bias x external C_GS at the rated peak current (141 A), Rg 2/0 ohm.
+* TON1 fixed (.meas windows are evaluated once); LLOAD sets the current for each VBUS.
+.param IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2
+.step param VBUS list 48 60 75
+.step param VNEG list 0 1 2
+.step param CGSX list 0 1n 2n
+.include BB_bump.inc
+.end

@@ -20,6 +20,7 @@
 \input{numbers.tex}
 \input{lc_numbers.tex}
 \input{slow_numbers.tex}
+\input{device_numbers.tex}
 
 \tikzset{
   blk/.style={draw,rounded corners=2pt,fill=blue!6,align=center,minimum height=0.9cm,font=\small},
@@ -279,6 +280,18 @@ Unlike a layout-first flow, the geometry is a parametric Python description (\te
 %=====================================================================
 \section{Device selection and paralleling}\label{sec:device}
 %=====================================================================
+\subsection{Voltage class of the building block}
+In an SPB with bus voltage $V_\mathrm{bus}$ and $N=V_\mathrm{bus}/V_m$ submodules, every submodule carries the same phase current $I$. With $n$ devices per switch, the conduction loss of all submodules scales with $NI^2R_\mathrm{DS(on)}/n$ and the output-charge loss with $Nnf_\mathrm{sw}Q_\mathrm{oss}V_m$. With $Q_\mathrm{oss}\approx C_\mathrm{oss,tr}V_m$ and the optimum $n^\ast=I\sqrt{R_\mathrm{DS(on)}/(f_\mathrm{sw}Q_\mathrm{oss}V_m)}$,
+\begin{equation}
+P_\mathrm{min}=6\,I\,V_\mathrm{bus}\sqrt{f_\mathrm{sw}R_\mathrm{DS(on)}C_\mathrm{oss,tr}},
+\end{equation}
+so the voltage class cancels to first order and the device time constant $\tau=R_\mathrm{DS(on)}C_\mathrm{oss,tr}$ ranks the candidates (Fig.~\ref{fig:devfom}).
+EPC2361 has the lowest $\tau$ (\TauEPC\,ps) of ten EPC and Infineon devices; the best 200, 350 and 650\,V devices reach \TauBestTwo, \TauBestThree{} and \TauBestSix\,ps, i.e.\ \PminTwo--\PminThree{} times higher minimum loss for the same SPB. At 100\,A per submodule the high-voltage parts would also need impractical device counts per switch (\NoptIGT{} for IGT65R025D2 versus about \NoptEPC{} for EPC2361 from this criterion alone), and the 3\,$\times$\,5\,mm packages of the 100\,V class allow sub-nH loops. The price is more submodules (11 instead of 2 for 650\,V), hence more drivers and auxiliary supplies.
+\begin{figure}[H]\centering
+\includegraphics[width=0.98\textwidth]{device_fom.pdf}
+\caption{(a) Typical $R_\mathrm{DS(on)}$ against $C_\mathrm{oss,tr}=Q_\mathrm{oss}/V_\mathrm{test}$ of off-the-shelf GaN transistors (datasheets in \texttt{Datasheet/}), with lines of constant $\tau$. (b) Minimum conduction plus output-charge loss of an 800\,V SPB at 100\,A$_\mathrm{rms}$ and 50\,kHz relative to EPC2361.}\label{fig:devfom}
+\end{figure}
+
 \subsection{Device properties relevant to paralleling}
 \begin{itemize}\itemsep1pt
 \item \textbf{$R_\mathrm{DS(on)}$} has a positive temperature coefficient ($\times$1.48 at 100\,$^\circ$C). This makes static sharing self-balancing~\cite{wattenberg2023,lu2017}.

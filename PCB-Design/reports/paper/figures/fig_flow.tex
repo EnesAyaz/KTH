@@ -1,0 +1,103 @@
+% Fig. 2: design procedure of the SPB building block (\input from spb_bb_ieee.tex; standalone: fig_flow_standalone.tex)
+\begin{tikzpicture}[font=\footnotesize, >=Latex, line width=0.5pt,
+  stp/.style={draw, fill=white, align=center, minimum width=3.6cm, minimum height=0.5cm, inner sep=1.5pt, font=\scriptsize},
+  res/.style={stp, fill=gray!20},
+  inp/.style={draw, fill=white, trapezium, trapezium left angle=75, trapezium right angle=105, align=center,
+              minimum height=0.45cm, inner sep=1pt, font=\scriptsize},
+  dec/.style={draw, fill=white, diamond, aspect=2.6, align=center, inner sep=0.5pt, font=\scriptsize},
+  sub/.style={draw, rounded corners=1.5pt, fill=white},
+  ttl/.style={font=\small\bfseries, anchor=north west, inner sep=2pt},
+  sec/.style={font=\scriptsize, text=red!75!black}]
+\definecolor{cA}{rgb}{0.0,0.40,0.75}\definecolor{cB}{rgb}{0.15,0.55,0.15}
+\definecolor{cC}{rgb}{0.85,0.30,0.10}\definecolor{cD}{rgb}{0.45,0.20,0.60}\definecolor{cV}{rgb}{0.80,0.50,0.0}
+% ---------------- specification
+\definecolor{cM}{rgb}{0.55,0.35,0.10}
+\node[draw, thick, minimum width=8.6cm, minimum height=1.25cm, align=center, fill=gray!6] (spec) at (4.3,13.8)
+ {\normalsize SPB traction inverter specification\\[1pt]
+  $P$\,=\,150\,kW, $V_\mathrm{bus}$\,=\,1200\,V, $M\leq1.15$, $\eta\geq99.5$\,\%, $T_{j,\max}$\\[1pt]
+  $\Rightarrow$ $I_\mathrm{ph}$\,=\,100\,A$_\mathrm{rms}$ for any number of submodules $N$};
+\node[draw, thick, cM, minimum width=8.6cm, minimum height=1.25cm, align=center, fill=cM!8, text=black] (mach) at (13.5,13.8)
+ {\normalsize\color{cM}$\square$ Machine side (multiphase, $N$ winding sets)\\[1pt]
+  ripple $\Delta i\propto V_m/(L_\sigma f_\mathrm{sw})$, winding step $V_m$, $dv/dt$, $R_\mathrm{ac}(f)$\\[1pt]
+  $\Rightarrow$ $N$, $V_m$, $f_\mathrm{sw}$; integration: space, coolant, end winding};
+\draw[<->, thick, cM] (spec.east) -- (mach.west);
+% ---------------- four selection modules
+\foreach \x/\c/\n in {0/cA/A, 4.6/cB/B, 9.2/cC/C, 13.8/cD/D}{
+  \draw[\c, thick, rounded corners=3pt, fill=\c!4] (\x,5.4) rectangle ++(4.0,6.6);
+}
+\draw[->, thick] (2.0,13.17) -- (2.0,12.0); \draw[->, thick] (6.0,13.17) -- (6.0,12.0);
+\draw[->, thick, cM] (10.6,13.17) -- node[right, font=\tiny, pos=0.12]{$f_\mathrm{sw}$} (10.6,12.0);
+\draw[->, thick, cM] (15.8,13.17) -- node[right, font=\tiny, pos=0.12]{$f_\mathrm{sw}$, ripple} (15.8,12.0);
+\draw[->, thick, cM] (9.4,13.17) |- (3.0,12.9) -- (3.0,12.0);
+\node[font=\tiny, text=cM, anchor=south] at (4.5,12.9) {$N$, $V_m$};
+% A: voltage class and device
+\node[ttl, text=cA] at (0,12.0) {$\square$ Voltage class \& device};
+\node[inp] (a1) at (2.0,11.1) {GaN datasheets\\[-1pt]$R_\mathrm{DS(on)}$, $Q_\mathrm{oss}$, $V_\mathrm{DS}$};
+\node[stp] (a2) at (2.0,10.35) {classes 100, 200, 350, 650\,V\\[-1pt]$V_m$, $N=V_\mathrm{bus}/V_m$};
+\node[stp] (a3) at (2.0,9.5) {$P_\mathrm{min}=6IV_\mathrm{bus}\sqrt{f_\mathrm{sw}\tau}$\\[-1pt]$\tau=R_\mathrm{DS(on)}C_\mathrm{oss,tr}$};
+\node[res] (a4) at (2.0,8.55) {EPC2361, $V_m$\,=\,75\,V, $N$\,=\,16};
+\draw[->] (a1) -- (a2); \draw[->] (a2) -- (a3); \draw[->] (a3) -- (a4);
+\node at (2.0,6.85) {\includegraphics[width=2.6cm]{devices.png}};
+\node[sec] at (2.0,5.62) {Section III};
+% B: layout and gate-drive concept
+\node[ttl, text=cB] at (4.6,12.0) {$\square$ Layout \& gate drive};
+\node[stp] (b1) at (6.6,11.05) {sharing sensitivity, 2 FETs\\[-1pt]$L_G$, $L_{CS}$, $L_D$, $V_\mathrm{th}$ (LTspice)};
+\node[stp] (b2) at (6.6,10.2) {equal $L_G$ and $L_{CS}$:\\[-1pt]star driver per FET pair, Kelvin};
+\node[stp] (b3) at (6.6,9.35) {two mirrored cells,\\[-1pt]vertical loops on L1/L2};
+\node[res] (b4) at (6.6,8.55) {cell + driver concept, scaling};
+\draw[->] (b1) -- (b2); \draw[->] (b2) -- (b3); \draw[->] (b3) -- (b4);
+\node at (6.6,6.85) {\includegraphics[width=2.6cm]{sharing.png}};
+\node[sec] at (6.6,5.62) {Section IV};
+% C: number of devices in parallel
+\node[ttl, text=cC] at (9.2,12.0) {$\square$ Devices in parallel};
+\node[stp] (c1) at (11.0,11.05) {$n$\,=\,1, 2, 3, 4 per switch};
+\node[stp] (c2) at (11.0,10.4) {$P_\mathrm{cond}\propto1/n$, $P_\mathrm{sw}(n)$, $P_\mathrm{Cu}$};
+\node[dec] (c3) at (11.0,9.45) {loss gain vs.\\[-1pt]drivers $n_\mathrm{drv}$?};
+\node[res] (c4) at (11.0,8.55) {$n$\,=\,2 (one driver)};
+\draw[->] (c1) -- (c2); \draw[->] (c2) -- (c3); \draw[->] (c3) -- node[right, font=\tiny]{} (c4);
+\draw[->] (c3.east) -- ++(0.25,0) |- node[pos=0.25, right, font=\tiny]{$n{+}1$} (c1.east);
+\node at (11.0,6.85) {\includegraphics[width=2.6cm]{npar.png}};
+\node[sec] at (11.2,5.62) {Section V};
+% D: dc link
+\node[ttl, text=cD] at (13.8,12.0) {$\square$ DC-link capacitors};
+\node[stp, minimum width=1.7cm] (d1) at (14.85,11.05) {$\Delta v_\mathrm{pp}\rightarrow C_v$};
+\node[stp, minimum width=1.7cm] (d2) at (16.75,11.05) {$I_{C,\mathrm{rms}}\rightarrow C_i$};
+\node[stp] (d3) at (15.8,10.35) {$C_\mathrm{dc}=\max\{C_v,\,C_i\}$};
+\node[stp] (d4) at (15.8,9.55) {MLCC: $C(V_\mathrm{dc})$, ESR, ESL,\\[-1pt]local + bank hierarchy};
+\node[res] (d5) at (15.8,8.55) {24$\times$1210 + 12$\times$0805};
+\draw[->] (d1) -- (d1 |- d3.north); \draw[->] (d2) -- (d2 |- d3.north); \draw[->] (d3) -- (d4); \draw[->] (d4) -- (d5);
+\node at (15.8,6.85) {\includegraphics[width=2.6cm]{dclink.png}};
+\node[sec] at (15.8,5.62) {Section VI};
+% module chain
+\draw[->, thick] (4.0,8.55) -- (4.6,8.55); \draw[->, thick] (8.6,8.55) -- (9.2,8.55); \draw[->, thick] (13.2,8.55) -- (13.8,8.55);
+% ---------------- verification
+\draw[cV, thick, rounded corners=3pt, fill=cV!5] (0,0.1) rectangle (13.4,4.95);
+\node[ttl, text=cV!90!black] at (0,4.95) {$\square$ Verification with one parametric geometry};
+\node[sec, anchor=north east] at (13.4,4.95) {Sections VII--XI};
+\foreach \x/\t/\img/\o [count=\k] in {
+  0.15/PCB placement/kicad_3d.png/{KiCad, 3D models},
+  2.37/Q3D extraction/q3d_model.png/{$R(f)$, $L(f)$, $L_\mathrm{loop}$, $L_G$, $L_{CS}$},
+  4.59/LTspice/switching.png/{$E_\mathrm{on}$, $E_\mathrm{off}$, $R_G$, $\hat V_\mathrm{DS}$, gate bump},
+  6.81/Loss model/losses.png/{cond., sw., Cu($f$), MLCC},
+  9.03/Icepak/icepak_model.png/{$T_j$, $T_\mathrm{PCB}$, cooling},
+  11.25/Cell assembly/cell_iso.png/{cold plate, busbar, insulation, leads}}{
+  \node[sub, minimum width=2.0cm, minimum height=3.75cm, anchor=south west] (v\k) at (\x,0.45) {};
+  \node[font=\scriptsize\bfseries, anchor=north] at (\x+1.0,4.15) {\t};
+  \node at (\x+1.0,2.6) {\includegraphics[width=1.85cm, height=1.75cm, keepaspectratio]{\img}};
+  \node[font=\tiny, align=center, text width=1.95cm] at (\x+1.0,0.95) {\o};
+}
+\foreach \a/\b in {1/2, 2/3, 3/4, 4/5, 5/6} \draw[->, thick] (v\a.east) -- (v\b.west);
+
+% inputs from the modules
+\draw[->, cA] (2.0,5.4) -- node[right, font=\tiny]{EPC2361 model, $V_m$} (2.0,4.95);
+\draw[->, cB] (6.6,5.4) -- node[right, font=\tiny]{geometry, driver} (6.6,4.95);
+\draw[->, cC] (11.2,5.4) -- node[right, font=\tiny]{$n$} (11.2,4.95);
+\draw[->, cD] (15.8,5.4) -- (15.8,5.15) -- node[above, font=\tiny, pos=0.6]{$C$, ESR, ESL} (12.6,5.15) -- (12.6,4.95);
+% ---------------- decision and outcome
+\node[dec, minimum width=3.6cm] (q) at (15.8,3.05) {$\hat V_\mathrm{DS}$, $\eta$, $T_j$, sharing,\\[-1pt]machine loss met?};
+\draw[->, thick] (13.4,3.05) -- (q.west);
+\node[draw, dashed, fill=gray!10, align=center, minimum width=3.6cm, minimum height=0.85cm, font=\scriptsize] (hw) at (15.8,0.6)
+  {prototype: double pulse,\\[-1pt]continuous, motor (future work)};
+\draw[->, thick] (q.south) -- node[right, font=\scriptsize]{yes} (hw.north);
+\draw[->, thick, red!70!black] (q.east) -- (18.15,3.05) -- node[pos=0.55, above, sloped, font=\scriptsize]{no: modify layout, $R_G$, $n$, $C_\mathrm{dc}$, $f_\mathrm{sw}$} (18.15,12.45) -- (7.0,12.45) -- (7.0,12.0);
+\end{tikzpicture}

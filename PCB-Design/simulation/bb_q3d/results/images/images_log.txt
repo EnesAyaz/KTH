@@ -1,0 +1,14 @@
+BB_PL solids: ['P1', 'N1', 'AC_L']
+net lookup: AttributeError("'ADispatchWrapper' object has no attribute 'GetExcitationsOfType'",)
+net lookup: AttributeError("'ADispatchWrapper' object has no attribute 'GetExcitationsOfType'",)
+net lookup: AttributeError("'ADispatchWrapper' object has no attribute 'GetExcitationsOfType'",)
+nets {'N1': 'DCN', 'P1': 'DCP', 'AC_L': 'AC'}
+image q3d_power_loop_iso ok
+image q3d_power_loop_top ok
+image q3d_power_loop_xray ok
+BB_GL solids: ['G_trunk', 'KSpad_L']
+net lookup: AttributeError("'ADispatchWrapper' object has no attribute 'GetExcitationsOfType'",)
+net lookup: AttributeError("'ADispatchWrapper' object has no attribute 'GetExcitationsOfType'",)
+nets {'KSpad_L': 'KS', 'G_trunk': 'G'}
+image q3d_gate_star_iso ok
+image q3d_gate_star_top ok

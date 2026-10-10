@@ -1,0 +1,46 @@
+Qty,References,Value,Footprint,Manufacturer part / note
+4,Q1 Q3 Q2 Q4,EPC2361,EPC2361,EPC2361
+12,C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12,1uF 100V X7S,C_0805_2012Metric_TightCrtYd,TDK C2012X7S2A105K125AB
+24,C13 C14 C15 C16 C17 C18 C19 C20 C21 C22 C23 C24 C25 C26 C27 C28 C29 C30 C31 C32 C33 C34 C35 C36,10uF 100V X7S,C_1210_3225Metric_TightCrtYd,Murata GRM32EC72A106KE05L
+4,R1 R2 R3 R4,0R5 1% (gate HL),R_0402_1005Metric,0.5R 0402 1% (Panasonic ERJ-2BQFR50X)
+4,R41 R42 R35 R36,10k 1% (HS gate pull-down),R_0402_1005Metric,10k 0402 1%
+1,U1,2EDF7275K,2EDF7275K_PG-TFLGA-13-4,Infineon 2EDF7275KXUMA1
+2,R5 R7,"0R75 1% (R_ON,A)",R_0603_1608Metric,0.75R 0603 1% (Panasonic ERJ-3RQFR75V)
+2,R6 R8,"0R (R_OFF,A)",R_0402_1005Metric,0R 0402 jumper (set R_OFF here)
+2,D1 D2,PMEG3020EJ,D_SOD-323F,"Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)"
+4,C100 C101 C102 C103,1uF 16V X7R 0402,C_0402_1005Metric,Murata GRM155R71C105KA12
+2,C104 C105,100pF C0G 0402,C_0402_1005Metric,Murata GRM1555C1H101JA01
+1,C106,22nF 25V X7R 0402,C_0402_1005Metric,Murata GRM155R71E223KA61
+2,R9 R10,47R 1% (INA),R_0402_1005Metric,47R 0402 1%
+1,R11,3k 1% (RVDDI),R_0402_1005Metric,3.0k 0402 1%
+2,PS1 PS2,MGN1S1208MC,Murata_MGN1_SMD,Murata MGN1S1208MC-R7
+2,U2 U3,TPS7A4901 6.29 V,HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm,TI TPS7A4901DGNR
+4,C107 C111 C112 C116,4.7uF 25V X7R 0805,C_0805_2012Metric,Murata GRM21BR71E475KA73
+2,C108 C113,10uF 16V X7R 0805,C_0805_2012Metric,Murata GRM21BR71C106KE51
+2,R12 R15,102k 1%,R_0603_1608Metric,102k 0603 1%
+2,R13 R16,23.7k 1%,R_0603_1608Metric,23.7k 0603 1%
+4,C109 C110 C114 C115,4.7uF 16V X7R 0805,C_0805_2012Metric,Murata GRM21BR71C475KA73
+2,U4 U5,TLV431A (1.24 V),SOT-23,TI TLV431AIDBZR
+2,R14 R17,2.2k 1% (shunt bias),R_0603_1608Metric,2.2k 0603 1%
+4,J1 J2 J3 J4,DC+,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)"
+1,J5,1:+12V 2:GND 3:PWM_H 4:GND 5:PWM_L 6:DIS,PinHeader_2x03_P2.54mm_Vertical,2.54 mm header 2x3
+1,J6,1:NTC 2:DC- (LS domain!),PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2
+1,RT1,NTC 10k B3380,R_0402_1005Metric,Murata NCP15XH103F03RC
+5,D3 D4 D5 D6 D7,green 0603 (ISO A),LED_0603_1608Metric,Wurth 150060GS75000
+2,R30 R32,2.7k (LED),R_0603_1608Metric,2.7k 0603 1%
+2,R31 R33,1.8k (LED),R_0603_1608Metric,1.8k 0603 1%
+1,R34,4.7k (LED),R_0603_1608Metric,4.7k 0603 1%
+1,J7,"FAN 12V: 1 +12V, 2 GND",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2 (fan)
+2,R37 R38,68k 1206 (HV LED),R_1206_3216Metric,68k 1206 1% 200 V
+1,D8,red 0603 (DC link present),LED_0603_1608Metric,Wurth 150060RS75000
+1,R39,100k 1206 (bleeder),R_1206_3216Metric,100k 1206 1% 200 V
+
+Mechanical / thermal (not placed by the assembler)
+1,HS1,"Fan heatsink 40x40x50 mm, 12 V fan",-,"Fischer Elektronik LAM 4 K 50 12 (0.65 K/W), Farnell 4708974"
+1,HS1,"Heat spreader, Al 6061-T6, 42 x 14 x 3 mm, 2 pedestals 0.6 mm, 4 ears M2.5",-,"machined, drawing spb-bb-fab-spreader-drawing.pdf"
+2,HS1,"Insulating gap pad over each cell, 8 x 10 mm, 0.5 mm, >= 5 W/mK",-,"Bergquist TGP 5000 (Gap Pad 5000S35) 0.020 in, cut to size, or equivalent"
+1,HS1,Thermal compound spreader to heatsink,-,non-conductive silicone paste
+4,H5-H8,M2.5 x 10 screw + insulating shoulder washer (heatsink),-,nylon or steel with insulating washer
+4,H1-H4,M2.5 standoff + screw (board mounting),-,insulated
+2,J1-J2,M4 screw for REDCUBE DC terminals,-,Wuerth WP-THRBU M4
+2,J3-J4,M4 screw for REDCUBE AC terminals,-,Wuerth WP-THRBU M4

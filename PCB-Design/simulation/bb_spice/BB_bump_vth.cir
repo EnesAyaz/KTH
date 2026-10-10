@@ -1,0 +1,6 @@
+* Gate bump: does the high side conduct? High-side threshold lowered by DVTH (0.3 V = datasheet minimum 0.8 V).
+.param VBUS=75 IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 RPD=0.2 CGSX=0
+.step param DVTH list 0 0.3 0.5
+.step param VNEG list 0 1
+.include BB_bump.inc
+.end

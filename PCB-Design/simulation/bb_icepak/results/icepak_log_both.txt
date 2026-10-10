@@ -1,0 +1,49 @@
+P_dev 1.914 W, P_cu 4.370 W, caps {'row2': 0.09992885525204187, 'local_L': 0.045284055807550044, 'row1': 0.092097124267622857, 'local_R': 0.045285889299913458, 'row3': 0.10603108440379526}
+material PCB_eff ok
+material PCB_cell ok
+material GaN_die ok
+material Bumps ok
+material TIM_pad ok
+material MLCC ok
+subtract ok
+material GapPad_bottom ok
+unite heatsink ok
+region ok
+block P_QH_L 1.914 W ok
+block P_QL_L 1.914 W ok
+block P_QH_R 1.914 W ok
+block P_QL_R 1.914 W ok
+block P_cells 2.000 W ok
+block P_pcb 2.370 W ok
+block P_row2 0.100 W ok
+block P_row3 0.106 W ok
+block P_local_R 0.045 W ok
+block P_local_L 0.045 W ok
+block P_row1 0.092 W ok
+block P_driver 0.078 W ok
+cold-plate top face 562
+cold plate(s) via AssignStationaryWallBoundary ok
+design settings ok (ambient 60 C)
+setup ok
+analyzed
+Tmax QH_L = 66.70
+Tmax QL_L = 66.38
+Tmax QH_R = 66.67
+Tmax QL_R = 66.18
+Tmax PCB = 83.33
+Tmax Cell_L = 76.00
+Tmax Cell_R = 75.61
+Tmax ColdPlate = 63.45
+Tmax TIM_L = 66.14
+Tmax TIM_R = 66.05
+Tmax Driver = 75.43
+Tmax C0805_R0 = 78.67
+Tmax C1210_3_R0 = 82.29
+Tmax C1210_1_R0 = 83.06
+field plot failed: Exception('CreateFieldPlot(Structured Array data, [Structured Array plotType /*optional*/])(IronPython.Runtime.List,Field) - call failed. Logs or message window might have more details',)
+   AEDT: Project: *Global - Messages, [error]  Error in command execution
+   AEDT: Project: bb_icepak_both, Design: BB_thermal (SteadyState), [error]  Script macro error: Plot definition data is not valid for this defintion type. (11:32:28 AM  Oct 08, 2026)
+grid board ok (variant 0)
+grid devices ok (variant 0)
+image icepak_temperature_iso ok
+image icepak_temperature_top ok

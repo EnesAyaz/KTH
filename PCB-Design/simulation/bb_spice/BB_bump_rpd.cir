@@ -1,0 +1,5 @@
+* Gate bump vs driver pull-down resistance (75 V, 141 A, 2/0 ohm external, 0 V off-state)
+.param VBUS=75 IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.6 VNEG=0 CGSX=0
+.step param RPD list 0.05 0.2 0.5
+.include BB_bump.inc
+.end

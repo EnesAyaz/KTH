@@ -1,0 +1,4 @@
+validate: 0
+Project: bb_q3d_busbar, Design: BB_BUS, [error]  Multilump bodies found unconnected, please separate them before assigning nets. Possible error bodies are 'DCP'. (01:55:29 PM  Oct 09, 2026)
+Project: bb_q3d_busbar, Design: BB_BUS, [error]  Net 'DCP': Incorrect net. Net should contain a completely connected conductor (01:55:29 PM  Oct 09, 2026)
+excitations: ['DCP', 'SignalNet', 'DCN', 'SignalNet', 'J1_A', 'Source', 'J2_A', 'Source', 'J1_B', 'Source', 'J2_B', 'Source', 'J1_C', 'Source', 'J2_C', 'Source', 'TAB_P', 'Sink', 'TAB_N', 'Sink']

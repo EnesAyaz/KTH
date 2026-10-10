@@ -1,0 +1,7 @@
+* One driver channel shared by NSH transistors: output resistances seen per transistor scale with NSH/2
+* (2EDF7275K typical 0.85 / 0.35 ohm, -1 V off), same current per transistor (2-FET model at 141 A).
+.param VBUS=75 IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 CGSX=0 VNEG=1
+.param RPU={0.85*NSH/2} RPD={0.35*NSH/2}
+.step param NSH list 2 3 4 6
+.include BB_bump.inc
+.end

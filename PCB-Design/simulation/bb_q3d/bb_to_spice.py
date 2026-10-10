@@ -1,4 +1,4 @@
-﻿"""
+"""
 Building-block Q3D exports -> LTspice subcircuits + summary.
 
     python simulation/bb_q3d/bb_to_spice.py
@@ -97,7 +97,7 @@ def write_lib(tag, names, L, R, branches):
 def main():
     summary = {}
     w = 2 * math.pi * F
-    for tag in ("BB_PL", "BB_PL_2oz"):
+    for tag in ("BB_PL", "BB_PL_2oz", "BB_PL_FAB"):
         if not os.path.exists(os.path.join(RES, tag + "_matrix.txt")):
             continue
         names, L, R, Rdc, br = load(tag)

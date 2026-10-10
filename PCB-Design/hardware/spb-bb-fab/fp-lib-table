@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "spb_fab")(type "KiCad")(uri "${KIPRJMOD}/spb_fab.pretty")(options "")(descr "SPB fab board footprints"))
+  (lib (name "epc2361-cell")(type "KiCad")(uri "${KIPRJMOD}/../epc2361-cell/epc2361-cell.pretty")(options "")(descr "EPC2361 land pattern"))
+)

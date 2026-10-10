@@ -1,0 +1,10 @@
+{
+	"autodeskProduct": "Fusion360",
+	"type": "script",
+	"author": "Enes Ayaz (KTH)",
+	"description": {
+		"": "SPB cell assembly: three leg boards (KiCad STEP), liquid cold plate with AlN insulation, laminated DC busbar, phase leads, aux board"
+	},
+	"supportedOS": "windows|mac",
+	"editEnabled": true
+}

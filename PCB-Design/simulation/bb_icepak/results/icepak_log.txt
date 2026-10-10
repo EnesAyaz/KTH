@@ -1,0 +1,24 @@
+P_dev 1.914 W, P_cu 4.370 W, caps {'row2': 0.09992885525204187, 'local_L': 0.045284055807550044, 'row1': 0.092097124267622857, 'local_R': 0.045285889299913458, 'row3': 0.10603108440379526}
+Tmax QH_L = 71.49
+Tmax QL_L = 70.88
+Tmax QH_R = 71.78
+Tmax QL_R = 70.59
+Tmax PCB = 103.87
+Tmax Cell_L = 94.24
+Tmax Cell_R = 93.33
+Tmax ColdPlate = 65.67
+Tmax TIM_L = 70.00
+Tmax TIM_R = 69.97
+Tmax Driver = 91.46
+Tmax C0805_R0 = 96.29
+Tmax C1210_3_R0 = 100.52
+Tmax C1210_1_R0 = 103.10
+field plot failed: Exception('CreateFieldPlot(Structured Array data, [Structured Array plotType /*optional*/])(IronPython.Runtime.List,Field) - call failed. Logs or message window might have more details',)
+   AEDT: Project: *Global - Messages, [error]  Error in command execution
+   AEDT: Project: bb_icepak, Design: BB_thermal (SteadyState), [error]  Script macro error: Plot definition data is not valid for this defintion type. (11:29:58 AM  Oct 08, 2026)
+grid board ok (variant 0)
+grid devices ok (variant 0)
+transparency BottomPlate: Exception('ChangeProperty(Structured Array args)(IronPython.Runtime.List) - call failed. Logs or message window might have more details',)
+transparency BottomPad: Exception('ChangeProperty(Structured Array args)(IronPython.Runtime.List) - call failed. Logs or message window might have more details',)
+image icepak_temperature_iso ok
+image icepak_temperature_top ok

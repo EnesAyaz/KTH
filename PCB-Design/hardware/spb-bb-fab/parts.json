@@ -1,0 +1,1342 @@
+[
+ {
+  "ref": "Q1",
+  "value": "EPC2361",
+  "footprint": "EPC2361",
+  "mpn": "EPC2361",
+  "x": -9.5,
+  "y": 4.9,
+  "rot": 180.0,
+  "side": "top"
+ },
+ {
+  "ref": "Q3",
+  "value": "EPC2361",
+  "footprint": "EPC2361",
+  "mpn": "EPC2361",
+  "x": -9.5,
+  "y": 9.2,
+  "rot": 180.0,
+  "side": "top"
+ },
+ {
+  "ref": "Q2",
+  "value": "EPC2361",
+  "footprint": "EPC2361",
+  "mpn": "EPC2361",
+  "x": 9.5,
+  "y": 4.9,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "Q4",
+  "value": "EPC2361",
+  "footprint": "EPC2361",
+  "mpn": "EPC2361",
+  "x": 9.5,
+  "y": 9.2,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "C1",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -13.5,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C2",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -11.9,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C3",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -10.3,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C4",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -8.7,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C5",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -7.1,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C6",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": -5.5,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C7",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 5.5,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C8",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 7.1,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C9",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 8.7,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C10",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 10.3,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C11",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 11.9,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C12",
+  "value": "1uF 100V X7S",
+  "footprint": "C_0805_2012Metric_TightCrtYd",
+  "mpn": "TDK C2012X7S2A105K125AB",
+  "x": 13.5,
+  "y": 1.2000000000000002,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C13",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -5.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C14",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -8.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C15",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -11.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C16",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -14.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C17",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 5.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C18",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 8.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C19",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 11.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C20",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 14.75,
+  "y": -10.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C21",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -5.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C22",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -8.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C23",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -11.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C24",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -14.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C25",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 5.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C26",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 8.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C27",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 11.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C28",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 14.75,
+  "y": -6.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C29",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -5.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C30",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -8.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C31",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -11.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C32",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": -14.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C33",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 5.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C34",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 8.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C35",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 11.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C36",
+  "value": "10uF 100V X7S",
+  "footprint": "C_1210_3225Metric_TightCrtYd",
+  "mpn": "Murata GRM32EC72A106KE05L",
+  "x": 14.75,
+  "y": -2.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R1",
+  "value": "0R5 1% (gate HL)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
+  "x": -3.0,
+  "y": 4.9,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R2",
+  "value": "0R5 1% (gate HR)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
+  "x": 3.0,
+  "y": 4.9,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R3",
+  "value": "0R5 1% (gate LL)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
+  "x": -3.0,
+  "y": 9.2,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R4",
+  "value": "0R5 1% (gate LR)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
+  "x": 3.0,
+  "y": 9.2,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R41",
+  "value": "10k 1% (HS gate pull-down)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "10k 0402 1%",
+  "x": 1.0,
+  "y": 5.33,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R42",
+  "value": "10k 1% (LS gate pull-down)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "10k 0402 1%",
+  "x": 1.0,
+  "y": 8.75,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "U1",
+  "value": "2EDF7275K",
+  "footprint": "2EDF7275K_PG-TFLGA-13-4",
+  "mpn": "Infineon 2EDF7275KXUMA1",
+  "x": 0.0,
+  "y": 19.1,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "R5",
+  "value": "0R75 1% (R_ON,A)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
+  "x": -1.0,
+  "y": 12.2,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R6",
+  "value": "0R (R_OFF,A)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0R 0402 jumper (set R_OFF here)",
+  "x": -2.7,
+  "y": 11.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "D1",
+  "value": "PMEG3020EJ",
+  "footprint": "D_SOD-323F",
+  "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
+  "x": -2.7,
+  "y": 14.25,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R7",
+  "value": "0R75 1% (R_ON,B)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
+  "x": 1.0,
+  "y": 12.2,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R8",
+  "value": "0R (R_OFF,B)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "0R 0402 jumper (set R_OFF here)",
+  "x": 2.7,
+  "y": 11.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "D2",
+  "value": "PMEG3020EJ",
+  "footprint": "D_SOD-323F",
+  "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
+  "x": 2.7,
+  "y": 14.25,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C100",
+  "value": "1uF 16V X7R 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM155R71C105KA12",
+  "x": -3.75,
+  "y": 16.95,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C101",
+  "value": "1uF 16V X7R 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM155R71C105KA12",
+  "x": -3.75,
+  "y": 17.95,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C102",
+  "value": "1uF 16V X7R 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM155R71C105KA12",
+  "x": 3.75,
+  "y": 16.95,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C103",
+  "value": "1uF 16V X7R 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM155R71C105KA12",
+  "x": 3.75,
+  "y": 17.95,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C104",
+  "value": "100pF C0G 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM1555C1H101JA01",
+  "x": -2.0,
+  "y": 22.25,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C105",
+  "value": "100pF C0G 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM1555C1H101JA01",
+  "x": -0.17,
+  "y": 23.35,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C106",
+  "value": "22nF 25V X7R 0402",
+  "footprint": "C_0402_1005Metric",
+  "mpn": "Murata GRM155R71E223KA61",
+  "x": 2.2,
+  "y": 22.25,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R9",
+  "value": "47R 1% (INA)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "47R 0402 1%",
+  "x": -1.9,
+  "y": 24.8,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R10",
+  "value": "47R 1% (INB)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "47R 0402 1%",
+  "x": -0.65,
+  "y": 24.8,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R11",
+  "value": "3k 1% (RVDDI)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "3.0k 0402 1%",
+  "x": 1.9,
+  "y": 23.8,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "PS1",
+  "value": "MGN1S1208MC",
+  "footprint": "Murata_MGN1_SMD",
+  "mpn": "Murata MGN1S1208MC-R7",
+  "x": -8.2,
+  "y": 45.9,
+  "rot": 270.0,
+  "side": "top"
+ },
+ {
+  "ref": "U2",
+  "value": "TPS7A4901 6.29 V",
+  "footprint": "HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm",
+  "mpn": "TI TPS7A4901DGNR",
+  "x": -11.4,
+  "y": 28.9,
+  "rot": 180,
+  "side": "top"
+ },
+ {
+  "ref": "C107",
+  "value": "4.7uF 25V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71E475KA73",
+  "x": -15.6,
+  "y": 29.1,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C108",
+  "value": "10uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C106KE51",
+  "x": -7.0,
+  "y": 28.9,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R12",
+  "value": "102k 1%",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "102k 0603 1%",
+  "x": -14.4,
+  "y": 32.1,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R13",
+  "value": "23.7k 1%",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "23.7k 0603 1%",
+  "x": -14.4,
+  "y": 33.9,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C109",
+  "value": "4.7uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C475KA73",
+  "x": -10.8,
+  "y": 32.3,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C110",
+  "value": "4.7uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C475KA73",
+  "x": -10.8,
+  "y": 34.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "U4",
+  "value": "TLV431A (1.24 V)",
+  "footprint": "SOT-23",
+  "mpn": "TI TLV431AIDBZR",
+  "x": -6.8,
+  "y": 33.3,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R14",
+  "value": "2.2k 1% (shunt bias)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "2.2k 0603 1%",
+  "x": -3.6,
+  "y": 29.9,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C111",
+  "value": "4.7uF 25V X7R 0805 (12 V in)",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71E475KA73",
+  "x": -8.2,
+  "y": 54.8,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "PS2",
+  "value": "MGN1S1208MC",
+  "footprint": "Murata_MGN1_SMD",
+  "mpn": "Murata MGN1S1208MC-R7",
+  "x": 8.2,
+  "y": 45.9,
+  "rot": 270.0,
+  "side": "top"
+ },
+ {
+  "ref": "U3",
+  "value": "TPS7A4901 6.29 V",
+  "footprint": "HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm",
+  "mpn": "TI TPS7A4901DGNR",
+  "x": 11.0,
+  "y": 28.9,
+  "rot": 180,
+  "side": "top"
+ },
+ {
+  "ref": "C112",
+  "value": "4.7uF 25V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71E475KA73",
+  "x": 6.6,
+  "y": 28.9,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C113",
+  "value": "10uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C106KE51",
+  "x": 15.2,
+  "y": 29.1,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R15",
+  "value": "102k 1%",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "102k 0603 1%",
+  "x": 14.4,
+  "y": 32.1,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R16",
+  "value": "23.7k 1%",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "23.7k 0603 1%",
+  "x": 14.4,
+  "y": 33.9,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C114",
+  "value": "4.7uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C475KA73",
+  "x": 10.8,
+  "y": 32.3,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "C115",
+  "value": "4.7uF 16V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71C475KA73",
+  "x": 10.8,
+  "y": 34.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "U5",
+  "value": "TLV431A (1.24 V)",
+  "footprint": "SOT-23",
+  "mpn": "TI TLV431AIDBZR",
+  "x": 6.8,
+  "y": 33.3,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R17",
+  "value": "2.2k 1% (shunt bias)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "2.2k 0603 1%",
+  "x": 3.6,
+  "y": 29.9,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "C116",
+  "value": "4.7uF 25V X7R 0805 (12 V in)",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71E475KA73",
+  "x": 8.2,
+  "y": 54.8,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "J1",
+  "value": "DC+",
+  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
+  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
+  "x": -6.0,
+  "y": -18.799999999999997,
+  "rot": 0,
+  "side": "bottom"
+ },
+ {
+  "ref": "J2",
+  "value": "DC-",
+  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
+  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
+  "x": 6.0,
+  "y": -18.799999999999997,
+  "rot": 0,
+  "side": "bottom"
+ },
+ {
+  "ref": "J3",
+  "value": "AC",
+  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
+  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
+  "x": -10.5,
+  "y": 17.6,
+  "rot": 0,
+  "side": "bottom"
+ },
+ {
+  "ref": "J4",
+  "value": "AC",
+  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
+  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
+  "x": 10.5,
+  "y": 17.6,
+  "rot": 0,
+  "side": "bottom"
+ },
+ {
+  "ref": "J5",
+  "value": "1:+12V 2:GND 3:PWM_H 4:GND 5:PWM_L 6:DIS",
+  "footprint": "PinHeader_2x03_P2.54mm_Vertical",
+  "mpn": "2.54 mm header 2x3",
+  "x": -2.54,
+  "y": 58.04,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "J6",
+  "value": "1:NTC 2:DC- (LS domain!)",
+  "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+  "mpn": "2.54 mm header 1x2",
+  "x": 3.0,
+  "y": 33.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP1",
+  "value": "D: Vds Q3",
+  "footprint": "Probe_2Sig1Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -13.4,
+  "y": 10.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP2",
+  "value": "K: vKS Q3 (tip K)",
+  "footprint": "Probe_2Sig1Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -15.5,
+  "y": 10.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP3",
+  "value": "G: Vgs Q3",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -17.3,
+  "y": 6.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP4",
+  "value": "H: Vgs Q1 (iso)",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -19.6,
+  "y": 7.2,
+  "rot": 180,
+  "side": "top"
+ },
+ {
+  "ref": "TP5",
+  "value": "D: Vds Q4",
+  "footprint": "Probe_2Sig1Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 13.4,
+  "y": 10.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP6",
+  "value": "K: vKS Q4 (tip K)",
+  "footprint": "Probe_2Sig1Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 15.5,
+  "y": 10.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP7",
+  "value": "G: Vgs Q4",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 17.3,
+  "y": 6.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP8",
+  "value": "H: Vgs Q2 (iso)",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 19.6,
+  "y": 7.2,
+  "rot": 180,
+  "side": "top"
+ },
+ {
+  "ref": "RT1",
+  "value": "NTC 10k B3380",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "Murata NCP15XH103F03RC",
+  "x": 15.4,
+  "y": 2.4,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "TP9",
+  "value": "ISO A",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -19.6,
+  "y": 28.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP10",
+  "value": "VDD A",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -19.6,
+  "y": 35.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP11",
+  "value": "S A",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -19.6,
+  "y": 42.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "D3",
+  "value": "green 0603 (ISO A)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060GS75000",
+  "x": -17.6,
+  "y": 28.5,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R30",
+  "value": "2.7k (LED)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "2.7k 0603 1%",
+  "x": -17.6,
+  "y": 31.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "D4",
+  "value": "green 0603 (VDD A)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060GS75000",
+  "x": -17.6,
+  "y": 35.1,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R31",
+  "value": "1.8k (LED)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "1.8k 0603 1%",
+  "x": -17.6,
+  "y": 38.3,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "TP12",
+  "value": "ISO B",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 19.6,
+  "y": 28.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP13",
+  "value": "VDD B",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 19.6,
+  "y": 35.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP14",
+  "value": "S B",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 19.6,
+  "y": 42.0,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "D5",
+  "value": "green 0603 (ISO B)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060GS75000",
+  "x": 17.6,
+  "y": 28.5,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R32",
+  "value": "2.7k (LED)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "2.7k 0603 1%",
+  "x": 17.6,
+  "y": 31.7,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "D6",
+  "value": "green 0603 (VDD B)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060GS75000",
+  "x": 17.6,
+  "y": 35.1,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R33",
+  "value": "1.8k (LED)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "1.8k 0603 1%",
+  "x": 17.6,
+  "y": 38.3,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "TP15",
+  "value": "12V",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": -13.0,
+  "y": 54.5,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "D7",
+  "value": "green 0603 (12 V)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060GS75000",
+  "x": -10.0,
+  "y": 59.6,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R34",
+  "value": "4.7k (LED)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "4.7k 0603 1%",
+  "x": -6.6,
+  "y": 59.6,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R35",
+  "value": "10k (PWM_H pull-down)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "10k 0402 1%",
+  "x": 5.4,
+  "y": 57.0,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R36",
+  "value": "10k (PWM_L pull-down)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "10k 0402 1%",
+  "x": 6.6,
+  "y": 57.0,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "J7",
+  "value": "FAN 12V: 1 +12V, 2 GND",
+  "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+  "mpn": "2.54 mm header 1x2 (fan)",
+  "x": 13.0,
+  "y": 55.6,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "TP16",
+  "value": "DC link",
+  "footprint": "Probe_1Sig2Gnd_2.5_5.0",
+  "mpn": "probe landing (no part)",
+  "x": 13.8,
+  "y": -15.0,
+  "rot": 180,
+  "side": "top"
+ },
+ {
+  "ref": "R37",
+  "value": "68k 1206 (HV LED)",
+  "footprint": "R_1206_3216Metric",
+  "mpn": "68k 1206 1% 200 V",
+  "x": 16.1,
+  "y": -16.5,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "R38",
+  "value": "68k 1206 (HV LED)",
+  "footprint": "R_1206_3216Metric",
+  "mpn": "68k 1206 1% 200 V",
+  "x": 18.6,
+  "y": -16.5,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "D8",
+  "value": "red 0603 (DC link present)",
+  "footprint": "LED_0603_1608Metric",
+  "mpn": "Wurth 150060RS75000",
+  "x": 18.4,
+  "y": -12.6,
+  "rot": 0,
+  "side": "top"
+ },
+ {
+  "ref": "R39",
+  "value": "100k 1206 (bleeder)",
+  "footprint": "R_1206_3216Metric",
+  "mpn": "100k 1206 1% 200 V",
+  "x": 19.2,
+  "y": -8.5,
+  "rot": 90,
+  "side": "top"
+ },
+ {
+  "ref": "H1",
+  "value": "M2.5 insulated",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -18.6,
+  "y": 58.6,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H2",
+  "value": "M2.5 insulated",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 18.6,
+  "y": 58.6,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H3",
+  "value": "M2.5 insulated",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -18.6,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H4",
+  "value": "M2.5 insulated",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 18.6,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H5",
+  "value": "M2.5 heatsink",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -19.2,
+  "y": -1.6,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H6",
+  "value": "M2.5 heatsink",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 19.2,
+  "y": -1.6,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H7",
+  "value": "M2.5 heatsink",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -19.2,
+  "y": 14.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H8",
+  "value": "M2.5 heatsink",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 19.2,
+  "y": 14.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "HS1",
+  "value": "Fischer LAM 4 K 50 12 + spreader",
+  "footprint": "HS_LAM4K5012_assembly",
+  "mpn": "Fischer LAM 4 K 50 12; Al spreader 42x14x3 mm (machined); insulating gap pad 1 mm",
+  "x": 0.0,
+  "y": 6.05,
+  "rot": 0,
+  "side": "top"
+ }
+]

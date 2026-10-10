@@ -1,0 +1,9 @@
+* 2EDF7275K (EiceDRIVER 2EDi, 4 A / 8 A) with a +5 V / -1 V split isolated rail per channel, one channel per gate star.
+* DRV = 0: LT8418-like reference (0.6 / 0.2 ohm), 1: 2EDF7275K typical (0.85 / 0.35 ohm), 2: 2EDF7275K maximum (1.6 / 0.75 ohm)
+.param IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 CGSX=0
+.param RPU={if(DRV==0,0.6,if(DRV==1,0.85,1.6))} RPD={if(DRV==0,0.2,if(DRV==1,0.35,0.75))}
+.step param DRV list 0 1 2
+.step param VNEG list 0 1
+.step param VBUS list 60 75
+.include BB_bump.inc
+.end

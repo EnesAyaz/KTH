@@ -1,0 +1,5 @@
+* Longer gate loop per transistor (extra LGX in every branch), 2EDF7275K typical, -1 V off, 75 V, 141 A
+.param VBUS=75 IPK=141 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 CGSX=0 VNEG=1 RPU=0.85 RPD=0.35
+.step param LGX list 0 2n 4n 8n
+.include BB_bump.inc
+.end

@@ -47,4 +47,6 @@
 (fp_poly (pts (xy 2.790000 1.140000) (xy 2.788847 1.151705) (xy 2.785433 1.162961) (xy 2.779888 1.173334) (xy 2.772426 1.182426) (xy 2.763334 1.189888) (xy 2.752961 1.195433) (xy 2.741705 1.198847) (xy 2.730000 1.200000) (xy 2.600000 1.200000) (xy 2.588295 1.198847) (xy 2.577039 1.195433) (xy 2.566666 1.189888) (xy 2.557574 1.182426) (xy 2.550112 1.173334) (xy 2.544567 1.162961) (xy 2.541153 1.151705) (xy 2.540000 1.140000) (xy 2.540000 0.810000) (xy 2.541153 0.798295) (xy 2.544567 0.787039) (xy 2.550112 0.776666) (xy 2.557574 0.767574) (xy 2.566666 0.760112) (xy 2.577039 0.754567) (xy 2.588295 0.751153) (xy 2.600000 0.750000) (xy 2.730000 0.750000) (xy 2.741705 0.751153) (xy 2.752961 0.754567) (xy 2.763334 0.760112) (xy 2.772426 0.767574) (xy 2.779888 0.776666) (xy 2.785433 0.787039) (xy 2.788847 0.798295) (xy 2.790000 0.810000)) (stroke (width 0) (type solid)) (fill solid) (layer "F.Paste"))
 (fp_rect (start -2.5 -1.5) (end 2.5 1.5) (stroke (width .1) (type solid)) (fill none) (layer "F.Fab"))
 (fp_rect (start -3.1 -2) (end 3.1 2) (stroke (width .05) (type solid)) (fill none) (layer "F.CrtYd"))
-(fp_circle (center -3.2 -1.2) (end -3.05 -1.2) (stroke (width .1) (type solid)) (fill none) (layer "F.SilkS")))
+(fp_circle (center -3.2 -1.2) (end -3.05 -1.2) (stroke (width .1) (type solid)) (fill none) (layer "F.SilkS"))  (model "${KIPRJMOD}/../epc2361-cell/epc2361-cell.3dshapes/EPC2361.wrl"
+    (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))
+)

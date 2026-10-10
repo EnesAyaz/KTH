@@ -1,0 +1,19 @@
+{
+ "board": {
+  "design_settings": {
+   "rule_severities": {
+    "lib_footprint_issues": "ignore",
+    "lib_footprint_mismatch": "ignore",
+    "silk_over_copper": "warning",
+    "silk_overlap": "warning",
+    "silk_edge_clearance": "warning",
+    "text_height": "warning",
+    "text_thickness": "warning"
+   }
+  }
+ },
+ "meta": {
+  "filename": "spb-bb-fab.kicad_pro",
+  "version": 1
+ }
+}
