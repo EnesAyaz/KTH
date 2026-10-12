@@ -1,0 +1,165 @@
+% Rev B overall circuit (4 x EPC2361 per switch, 2 drivers), for review before layout.
+% pdflatex revb_circuit.tex
+\documentclass[border=4mm]{standalone}
+\usepackage[siunitx,american]{circuitikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds}
+\definecolor{hs}{RGB}{200,40,40}
+\definecolor{ls}{RGB}{40,90,190}
+\definecolor{pri}{RGB}{225,130,30}
+\definecolor{meas}{RGB}{20,140,60}
+\definecolor{gr}{RGB}{110,110,110}
+\tikzset{
+  lbl/.style={font=\scriptsize},
+  blk/.style={draw,thick,minimum width=26mm,minimum height=30mm,align=center,font=\small},
+  sens/.style={draw,thick,fill=white,minimum width=9mm,minimum height=6mm,font=\tiny,align=center},
+  ufl/.style={draw=meas,fill=meas!15,circle,inner sep=1.2pt,font=\tiny},
+  pnl/.style={font=\normalsize\bfseries,anchor=north west}
+}
+\ctikzset{resistors/scale=0.6, capacitors/scale=0.6, diodes/scale=0.6, inductors/scale=0.6, tripoles/mos style/arrows}
+\begin{document}
+\begin{circuitikz}[line width=0.6pt]
+
+%======================================================================= (a) power stage
+\node[pnl] at (-0.5,16.2) {(a) Power stage: one leg, $4\times$ EPC2361 per switch, one cell per transistor pair};
+\draw[very thick] (0,14) -- (25.5,14) node[ocirc]{} node[right]{DC$+$ (J1, J2)};
+\draw[very thick] (0,0.5) -- (25.5,0.5) node[ocirc]{} node[right]{DC$-$ (J3, J4)};
+% bypass: local + bank
+\draw (24.3,14) to[C,l_={\scriptsize $C_\mathrm{loc}$ 4$\times$6$\times$1\,\textmu F}] (24.3,0.5);
+\draw (25.3,14) to[C,l={\scriptsize $C_\mathrm{bank}$ $\approx$63$\times$10\,\textmu F}] (25.3,0.5);
+
+\foreach \c/\x/\blk/\qh/\ql/\side in {1/2.5/1/Q1/Q3/L, 2/8.0/1/Q2/Q4/R, 3/13.5/2/Q5/Q7/L, 4/19.0/2/Q6/Q8/R}{
+  % high-side and low-side transistor
+  \draw (\x,12.2) node[nigfete,anchor=D](H\c){};
+  \draw (H\c.D) -- (\x,14);
+  \draw (H\c.S) -- (\x,9.4) coordinate(SW\c);
+  \node[right,font=\scriptsize,hs] at ($(H\c.D)+(0.25,-0.5)$) {\qh};
+  \draw (\x,8.6) node[nigfete,anchor=D](L\c){};
+  \draw (L\c.D) -- (SW\c);
+  \node[right,font=\scriptsize,ls] at ($(L\c.D)+(0.25,-0.5)$) {\ql};
+  % gates and Kelvin sources (to the driver of the block)
+  \draw[hs] (H\c.G) -- ++(-0.55,0) node[left,font=\tiny]{GH\blk};
+  \draw[hs,dashed] ($(H\c.S)+(0,0.25)$) -- ++(-0.9,0) node[left,font=\tiny]{K$_\mathrm{H}$\blk};
+  \draw[ls] (L\c.G) -- ++(-0.55,0) node[left,font=\tiny]{GL\blk};
+  \draw[ls,dashed] ($(L\c.S)+(0,0.25)$) -- ++(-0.9,0) node[left,font=\tiny]{K$_\mathrm{L}$\blk};
+  % low-side source -> shunt -> DC-
+  \draw (L\c.S) -- (\x,5.2) coordinate(S\c) to[R,l_={\scriptsize RS\c}] (\x,2.6) -- (\x,0.5);
+  \node[font=\tiny,align=left,anchor=west] at (\x+0.55,3.9) {UFCS-R001\\1\,m$\Omega$, SMA};
+  \draw[meas,-{Latex[length=1.5mm]}] (\x+0.45,4.6) -- ++(0.9,0) node[right,font=\tiny]{$i_{\mathrm{LS}\c}$};
+  % switch node -> current sensor -> AC terminal
+  \draw (SW\c) -- ++(1.2,0) node[sens,anchor=west](TS\c){TMCS\\1123};
+  \draw (TS\c.east) -- ++(0.5,0) node[ocirc]{} node[above,font=\tiny]{AC\c};
+  \draw[meas,-{Latex[length=1.5mm]}] (TS\c.south) -- ++(0,-0.6) node[below,font=\tiny]{I\c};
+  % measurement points (U.FL, bottom side under the cell)
+  \node[ufl] at ($(H\c.G)+(-0.3,0.45)$) {};
+  \node[ufl] at ($(L\c.G)+(-0.3,0.45)$) {};
+  \node[ufl] at ($(L\c.D)+(-0.35,-0.3)$) {};
+}
+% DC- side of the LS sources: LSS1 (cells 1, 2), LSS2 (cells 3, 4)
+\node[font=\scriptsize,ls] at (5.25,5.6) {LSS1};
+\node[font=\scriptsize,ls] at (16.25,5.6) {LSS2};
+\node[font=\scriptsize,hs] at (5.25,10.4) {SW1};
+\node[font=\scriptsize,hs] at (16.25,10.4) {SW2};
+% blocks
+\begin{scope}[on background layer]
+\node[draw=gr,dashed,rounded corners,fit={(0.9,1.0) (10.6,13.6)},label={[gr,font=\scriptsize]below:block 1 = driver U1, cells 1 and 2}] {};
+\node[draw=gr,dashed,rounded corners,fit={(11.9,1.0) (21.6,13.6)},label={[gr,font=\scriptsize]below:block 2 = driver U2, cells 3 and 4}] {};
+\end{scope}
+% legend
+\node[ufl] at (0.6,-0.6) {}; \node[right,font=\scriptsize] at (0.75,-0.6) {U.FL (bottom side, at the device): $V_{GS}$ of every HS and LS FET, $V_{DS}$ of every LS FET, with series-R footprint (0\,$\Omega$ or 953\,$\Omega$ = 20:1 into 50\,$\Omega$)};
+\node[right,font=\scriptsize] at (0.75,-1.15) {Two cells of a block share one driver channel per switch (star + per-FET $R_G$); the LS sources of a block meet only through Kelvin traces, so each shunt measures its own cell.};
+\node[right,font=\scriptsize] at (0.75,-1.7) {AC1--AC4 are joined off the board (busbar to the load); I1--I4 summed in the controller give the leg current.};
+
+%======================================================================= (b) gate drive and supplies
+\begin{scope}[shift={(0,-13.5)}]
+\node[pnl] at (-0.5,10.4) {(b) Gate drive of block 1 (block 2 identical with U2, Q5--Q8) and the two external isolated supplies};
+
+% --- HS external supply -> two branches
+\draw[pri,thick] (0,8.6) to[V,l_={\scriptsize ext.\ iso}] (0,6.6);
+\node[pri,font=\scriptsize,align=center] at (0,9.4) {HS supply\\$V_\mathrm{ISO,H}\approx$\,6.3\,V};
+\draw[pri] (0,8.6) -- (1.3,8.6) node[ocirc]{} node[above,font=\tiny]{J$_\mathrm{HS}$};
+\draw[pri] (0,6.6) -- (1.3,6.6) node[ocirc]{};
+% branch to U1 (branch to U2 identical)
+\draw[hs] (1.3,8.6) -- (2.0,8.6) (1.3,6.6) -- (2.0,6.6);
+\draw[hs] (2.0,8.6) to[L,l={\tiny CMC}] (3.6,8.6);
+\draw[hs] (2.0,6.6) to[L] (3.6,6.6);
+\draw[hs,dashed] (2.8,8.9) -- (2.8,6.3);
+\node[font=\tiny,hs] at (2.8,6.0) {WE-CNSW};
+\draw[hs] (3.6,8.6) -- (6.0,8.6) node[right,font=\scriptsize]{VDD$_\mathrm{A1}$};
+\draw[hs] (3.6,6.6) -- (6.0,6.6) node[right,font=\scriptsize]{VEE$_\mathrm{A1}$};
+\draw[hs] (4.2,8.6) to[C,l_={\tiny 4.7\,\textmu}] (4.2,6.6);
+\draw[hs] (5.0,6.6) to[R,l_={\tiny $R_b$ 150\,$\Omega$}] (5.0,7.6) to[zDo,l_={\tiny 5.1\,V}] (5.0,8.6);
+\draw[hs] (5.0,7.6) -- (6.0,7.6) node[right,font=\scriptsize]{S = K$_\mathrm{H1}$ (SW1)};
+\draw[hs,dashed] (1.6,8.6) -- (1.6,9.8) -- (3.6,9.8) node[right,font=\tiny]{2nd branch: CMC + Zener split $\rightarrow$ U2 ch.\ A (K$_\mathrm{H2}$)};
+
+% --- LS external supply -> two branches
+\draw[pri,thick] (0,3.6) to[V,l_={\scriptsize ext.\ iso}] (0,1.6);
+\node[pri,font=\scriptsize,align=center] at (0,0.8) {LS supply\\$V_\mathrm{ISO,L}\approx$\,6.3\,V};
+\draw[pri] (0,3.6) -- (1.3,3.6) node[ocirc]{} node[above,font=\tiny]{J$_\mathrm{LS}$};
+\draw[pri] (0,1.6) -- (1.3,1.6) node[ocirc]{};
+\draw[ls] (1.3,3.6) -- (2.0,3.6) (1.3,1.6) -- (2.0,1.6);
+\draw[ls] (2.0,3.6) to[L,l={\tiny CMC}] (3.6,3.6);
+\draw[ls] (2.0,1.6) to[L] (3.6,1.6);
+\draw[ls,dashed] (2.8,3.9) -- (2.8,1.3);
+\draw[ls] (3.6,3.6) -- (6.0,3.6) node[right,font=\scriptsize]{VDD$_\mathrm{B1}$};
+\draw[ls] (3.6,1.6) -- (6.0,1.6) node[right,font=\scriptsize]{VEE$_\mathrm{B1}$};
+\draw[ls] (4.2,3.6) to[C,l_={\tiny 4.7\,\textmu}] (4.2,1.6);
+\draw[ls] (5.0,1.6) to[R,l_={\tiny $R_b$}] (5.0,2.6) to[zDo,l_={\tiny 5.1\,V}] (5.0,3.6);
+\draw[ls] (5.0,2.6) -- (6.0,2.6) node[right,font=\scriptsize]{S = K$_\mathrm{L1}$ (LSS1)};
+\draw[ls,dashed] (1.6,1.6) -- (1.6,0.4) -- (3.6,0.4) node[right,font=\tiny]{2nd branch $\rightarrow$ U2 ch.\ B (K$_\mathrm{L2}$)};
+
+% --- driver U1
+\node[blk,minimum height=88mm,minimum width=30mm] (U1) at (11.0,5.1) {};
+\node[font=\small,align=center] at (11.0,5.1) {2EDF7275K\\U1\\(isolated\\dual channel)};
+\draw[pri,dashed] (9.5,0.7) -- (9.5,9.5);
+\node[font=\tiny,anchor=west] at (11.6,8.9) {VDDA}; \node[font=\tiny,anchor=west] at (11.6,7.9) {OUTA};
+\node[font=\tiny,anchor=west] at (11.6,7.1) {GNDA}; \node[font=\tiny,anchor=west] at (11.6,6.3) {VEEA*};
+\node[font=\tiny,anchor=west] at (11.6,3.9) {VDDB}; \node[font=\tiny,anchor=west] at (11.6,2.9) {OUTB};
+\node[font=\tiny,anchor=west] at (11.6,2.1) {GNDB}; \node[font=\tiny,anchor=west] at (11.6,1.3) {VEEB*};
+\node[font=\tiny,anchor=east] at (10.3,8.4) {INA}; \node[font=\tiny,anchor=east] at (10.3,7.4) {INB};
+\node[font=\tiny,anchor=east] at (10.3,6.4) {DIS}; \node[font=\tiny,anchor=east] at (10.3,5.4) {VDDI};
+\node[font=\tiny,anchor=east] at (10.3,4.4) {GNDI};
+% primary inputs
+\foreach \y/\n in {8.4/PWM\_H, 7.4/PWM\_L, 6.4/DIS, 5.4/{+12\,V via 3\,k (SLDO)}, 4.4/GNDI}{
+  \draw[pri] (9.5,\y) -- (8.6,\y) node[left,font=\tiny]{\n};}
+% decoupling on the output side
+\draw[hs] (12.5,8.9) -- (14.0,8.9) node[right,font=\tiny]{VDD$_\mathrm{A1}$ (1\,\textmu F to S)};
+\draw[hs] (12.5,6.3) -- (14.0,6.3) node[right,font=\tiny]{VEE$_\mathrm{A1}$ (1\,\textmu F to S)};
+\draw[ls] (12.5,3.9) -- (14.0,3.9) node[right,font=\tiny]{VDD$_\mathrm{B1}$};
+\draw[ls] (12.5,1.3) -- (14.0,1.3) node[right,font=\tiny]{VEE$_\mathrm{B1}$};
+% HS gate network: OUTA -> R_ON || (D + R_OFF) -> star -> R_G -> Q1, Q2 ; Kelvin return to GNDA
+\draw[hs] (12.5,7.9) -- (13.2,7.9) coordinate(oa);
+\draw[hs] (oa) to[R,l={\tiny $R_\mathrm{ON}$ 0.75}] (15.6,7.9) coordinate(sa);
+\draw[hs] (oa) -- (13.2,7.4) to[D,l_={\tiny D},invert] (14.4,7.4) to[R,l_={\tiny $R_\mathrm{OFF}$ 0}] (15.6,7.4) -- (sa);
+\draw[hs] (sa) -- (16.2,7.9) node[circ]{} node[above,font=\tiny]{star GH1};
+\draw[hs] (16.2,7.9) -- (16.2,8.6) to[R,l={\tiny $R_G$ 0.5}] (18.2,8.6) node[right,font=\tiny]{G(Q1)};
+\draw[hs] (16.2,7.9) -- (16.2,7.2) to[R,l_={\tiny $R_G$ 0.5}] (18.2,7.2) node[right,font=\tiny]{G(Q2)};
+\draw[hs] (16.2,7.9) -- (17.0,7.9) to[R,l={\tiny 10\,k}] (17.0,6.0);
+\draw[hs,dashed] (12.5,7.1) -- (13.6,7.1) |- (17.0,6.0) -- (18.2,6.0) node[right,font=\tiny]{K(Q1), K(Q2): Kelvin star};
+% LS gate network
+\draw[ls] (12.5,2.9) -- (13.2,2.9) coordinate(ob);
+\draw[ls] (ob) to[R,l={\tiny $R_\mathrm{ON}$ 0.75}] (15.6,2.9) coordinate(sb);
+\draw[ls] (ob) -- (13.2,2.4) to[D,l_={\tiny D},invert] (14.4,2.4) to[R,l_={\tiny $R_\mathrm{OFF}$ 0}] (15.6,2.4) -- (sb);
+\draw[ls] (sb) -- (16.2,2.9) node[circ]{} node[above,font=\tiny]{star GL1};
+\draw[ls] (16.2,2.9) -- (16.2,3.6) to[R,l={\tiny $R_G$ 0.5}] (18.2,3.6) node[right,font=\tiny]{G(Q3)};
+\draw[ls] (16.2,2.9) -- (16.2,2.2) to[R,l_={\tiny $R_G$ 0.5}] (18.2,2.2) node[right,font=\tiny]{G(Q4)};
+\draw[ls] (16.2,2.9) -- (17.0,2.9) to[R,l={\tiny 10\,k}] (17.0,1.0);
+\draw[ls,dashed] (12.5,2.1) -- (13.6,2.1) |- (17.0,1.0) -- (18.2,1.0) node[right,font=\tiny]{K(Q3), K(Q4) = LSS1};
+\node[font=\tiny,align=left,anchor=west] at (11.0,-0.3) {* driver VEE pin = negative rail; GND pin = Kelvin source of the pair};
+\end{scope}
+
+%======================================================================= (c) control interface
+\begin{scope}[shift={(0,-21.5)}]
+\node[pnl] at (-0.5,6.2) {(c) Control interface: one cable connector with common-mode chokes to the C2000 (TMS320F28379D)};
+\node[blk,minimum width=34mm,minimum height=40mm,fill=pri!8] (MCU) at (1.5,2.3) {C2000\\LAUNCHXL-\\F28379D\\(control board)};
+\node[draw,thick,minimum width=8mm,minimum height=40mm] (JC) at (6.2,2.3) {};
+\node[font=\tiny,rotate=90] at (6.2,2.3) {J$_\mathrm{C}$ 2$\times$7 header};
+\draw[pri] (3.2,2.3) -- (5.8,2.3) node[midway,above,font=\tiny]{cable};
+\foreach \y/\a/\b/\n in {5.0/+12\,V/GNDI/1, 4.0/PWM\_H/PWM\_L/2, 3.0/+5\,V/DIS/3, 2.0/I1/I2/4, 1.0/I3/I4/5}{
+  \draw[pri] (6.6,\y+0.15) to[L] (8.4,\y+0.15) -- (9.2,\y+0.15) node[right,font=\tiny]{\hspace{9mm}\a};
+  \draw[pri] (6.6,\y-0.15) to[L] (8.4,\y-0.15) -- (9.2,\y-0.15) node[right,font=\tiny]{\hspace{9mm}\b};
+  \node[font=\tiny] at (9.9,\y) {CMC\n};}
+\draw[pri] (6.6,0.0) to[L] (8.4,0.0) -- (9.2,0.0) node[right,font=\tiny]{CMC6\hspace{4mm}OCn (open drain, wired OR of the 4 sensors)};
+\node[font=\scriptsize,align=left,anchor=west] at (12.3,3.3) {+12\,V: driver input side (VDDI via SLDO) and the 12\,V fan\\+5\,V: TMCS1123 supply (4$\times$14\,mA)\\PWM\_H / PWM\_L: fanned out to U1 and U2 (47\,$\Omega$ + 100\,pF each, 10\,k pull-downs)\\DIS: both drivers\\I1--I4: 2.5\,V $\pm$ 25\,mV/A ($\pm$96\,A) $\rightarrow$ scale to the 3.3\,V ADC on the control board\\Gate supplies: two external isolated supplies (HS, LS), not on this cable};
+\end{scope}
+\end{circuitikz}
+\end{document}

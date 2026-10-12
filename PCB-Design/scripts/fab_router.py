@@ -22,8 +22,9 @@ def mm(v):
 
 
 class Router:
-    def __init__(self, board, box, layers, clearance=0.15, edge=0.5):
+    def __init__(self, board, box, layers, clearance=0.15, edge=0.5, hard_zones=("DCP", "DCN", "SW")):
         self.b = board
+        self.hard = set(hard_zones)              # pours of these nets are obstacles; other pours yield to tracks
         self.x0, self.y0, x1, y1 = box
         self.nx = int(round((x1 - self.x0) / RES)) + 1
         self.ny = int(round((y1 - self.y0) / RES)) + 1
@@ -147,7 +148,7 @@ class Router:
                         continue
                     self._mark(own[li], o, 1e-6 + (0.0 if o["kind"] != "rect" else 0.0))
                 continue
-            if o.get("zone") and o["net"] not in ("DCP", "DCN", "SW"):
+            if o.get("zone") and o["net"] not in self.hard:
                 continue                        # domain pours yield to tracks/vias of other nets
             for li in o["lays"]:
                 self._mark(blk_t[li], o, it + o["extra"])

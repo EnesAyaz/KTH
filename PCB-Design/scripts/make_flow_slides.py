@@ -82,7 +82,10 @@ R4 = R[3]
 # Rev A bank (24 x 10 uF at 3 uF + 12 x 0.45 uF) at the block current: ripple at 50 kHz and frequency for 4 %
 c_bank = 24 * 3.0 + 12 * 0.45
 c_req50 = fw["n_v50"] * 3.0 + 12 * 0.45
-mac = dict(IRMS="%.0f" % N["I_rms_leg"], IPK="%.0f" % N["I_pk"], IBLK="%.0f" % (N["I_rms_leg"] / 2),
+bp = N["bypass"]
+mac = dict(IDEV="%.0f" % bp["I_dev"], TRI="%.1f" % bp["t_ri"], TVF="%.0f" % bp["t_vf"], DQ="%.2f" % (bp["dQ"] * 1e6),
+           CEDGE="%.1f" % (bp["C_edge_15"] * 1e6), CHO="%.1f" % (bp["C_ho_1n_15"] * 1e6), FR="%.0f" % (bp["f_r"] / 1e6),
+           IOSS="%.0f" % bp["I_oss"], IRMS="%.0f" % N["I_rms_leg"], IPK="%.0f" % N["I_pk"], IBLK="%.0f" % (N["I_rms_leg"] / 2),
            IPFa="%.0f" % N["I_vs_pf"]["1.0"], IPFb="%.0f" % N["I_vs_pf"]["0.95"], IPFc="%.0f" % N["I_vs_pf"]["0.9"],
            IPFd="%.0f" % N["I_vs_pf"]["0.85"], RTH="%.1f" % N["Rth"],
            LCU="%.2f" % (lp["L_cu"] * 1e9), LONE="%.2f" % (lp["L1"] * 1e9), LTWO="%.2f" % (lp["L2"] * 1e9),

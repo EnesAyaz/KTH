@@ -35,6 +35,14 @@
 \date{October 2026}
 
 %% numbers from scripts/design_flow_figures.py
+\newcommand{\IDEV}{81}
+\newcommand{\TRI}{1.8}
+\newcommand{\TVF}{5}
+\newcommand{\DQ}{0.59}
+\newcommand{\CEDGE}{0.4}
+\newcommand{\CHO}{2.9}
+\newcommand{\FR}{3}
+\newcommand{\IOSS}{23}
 \newcommand{\IRMS}{228}
 \newcommand{\IPK}{322}
 \newcommand{\IBLK}{114}
@@ -363,6 +371,24 @@ Driver channels per leg & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 \\
 \end{itemize}
 \vspace{-1ex}
 \decision{$f_\mathrm{sw}$ = 50\,kHz for the block design (efficiency and capacitor count balanced); final value with the machine ($L_\sigma$, iron loss)}
+\end{frame}
+
+\begin{frame}{Bypass capacitors: how many and how large}
+\flowstrip{6}
+\begin{columns}[T]
+\column{0.44\textwidth}
+\vspace{2mm}\includegraphics[width=\linewidth]{flow_bypass.pdf}
+\column{0.54\textwidth}
+\scriptsize
+\textbf{Bypass} (1\,\textmu F 0805) supplies the edge, \textbf{bank} (10\,\textmu F 1210) the $f_\mathrm{sw}$ ripple. Per cell, \IDEV\,A:
+\begin{enumerate}\setlength\itemsep{0pt}
+\item \textbf{$di/dt$ $\rightarrow$ number}: $L_\mathrm{loop} = L_\mathrm{Cu} + \mathrm{ESL}/n \le 0.5$\,nH $\Rightarrow n \ge 4$
+\item \textbf{Edge charge}: $\Delta Q = I(t_{ri}/2 + t_{vf}) + Q_\mathrm{oss}$, $t_{ri} = I/(di/dt)$ = \TRI\,ns, $t_{vf} = V/(dv/dt)$ = \TVF\,ns: \DQ\,\textmu C $\Rightarrow$ \CEDGE\,\textmu F for 1.5\,V ($C_\mathrm{oss}\,dv/dt$ = \IOSS\,A is included in $Q_\mathrm{oss}$)
+\item \textbf{Hand-over to the bank} through $L_b$: $\Delta V \approx \Delta I\sqrt{L_b/C_\mathrm{bp}}$ $\Rightarrow$ $C_\mathrm{bp} \ge L_b(\Delta I/\Delta V)^2$ = \CHO\,\textmu F (1\,nH, 1.5\,V): \alert{sets the capacitance}
+\item \textbf{Checks}: $C_\mathrm{bp} \gg C_\mathrm{oss}$ ($\ge$\,20$\times$); bypass--bank resonance $f_r$ = \FR\,MHz is excited every edge, damped only by ESR $\Rightarrow$ no more bypass than needed, $C_\mathrm{bank} \ge 10\,C_\mathrm{bp}$; X7S at 75\,V keeps 45\,\%
+\end{enumerate}
+\decision{6 $\times$ 1\,\textmu F 0805 per cell (2.7\,\textmu F eff.); $L_b$ to be extracted with Q3D on the routed board}
+\end{columns}
 \end{frame}
 
 \begin{frame}{DC-link capacitor selection}

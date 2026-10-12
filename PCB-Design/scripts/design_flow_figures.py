@@ -429,6 +429,45 @@ NUM["fsw"] = dict(n_v50=float(np.interp(50e3, fs, n_v)), n_i=float(n_i), f_cross
                   ripple={"%g" % (L * 1e6): VM / (4 * L * 50e3) for L in L_SIG})
 print("DC link per block: n_v(50k) %.1f, n_i %.1f, crossing %.0f kHz" % (NUM["fsw"]["n_v50"], n_i, f_cross / 1e3))
 
+# ---------------------------------------------------------------------------------------------------- 6b. bypass capacitors
+# per cell: edge charge and hand-over of the load-current step to the bank through L_b
+I_DEV = I_PK / 4                                   # peak current per device (n = 4)
+DIDT_ON, DVDT = 45.0, 15.0                         # A/ns (LTspice turn-on, driver limited), V/ns
+QOSS = S["Qoss_75"]
+t_ri, t_vf = I_DEV / DIDT_ON, VM / DVDT            # ns
+dQ = I_DEV * (t_ri / 2 + t_vf) * 1e-9 + QOSS
+C_EFF_PART = 0.45e-6                               # 1 uF 100 V X7S 0805 at 75 V
+dv = np.linspace(0.5, 5.0, 100)
+fig, axs = plt.subplots(1, 2, figsize=(6.3, 2.1), gridspec_kw=dict(wspace=0.38))
+ax = axs[0]
+for Lb, c in ((0.5e-9, C["green"]), (1e-9, C["red"]), (2e-9, C["blue"])):
+    ax.plot(dv, Lb * (I_DEV / dv) ** 2 * 1e6, color=c, label="hand-over, $L_b$ = %g nH" % (Lb * 1e9))
+ax.plot(dv, dQ / dv * 1e6, color="k", ls="--", label="edge charge")
+ax.axhline(6 * C_EFF_PART * 1e6, color=C["purple"], lw=0.8)
+es.tag(ax, 4.9, 6 * C_EFF_PART * 1e6 + 0.15, "6 $\\times$ 1 $\\mu$F 0805 (2.7 $\\mu$F eff.)", C["purple"], ha="right",
+       va="bottom", fontsize=6)
+ax.set_xlabel(r"allowed dip $\Delta V$ (V)")
+ax.set_ylabel(r"$C_\mathrm{bp,min}$ per cell ($\mu$F eff.)")
+ax.set_ylim(0, 8)
+ax.set_xlim(0.5, 5)
+ax.legend(loc="upper right", fontsize=5.6)
+es.panel(ax, "(a)", dx=-0.2, dy=-0.2)
+ax = axs[1]
+cb = np.linspace(0.5e-6, 15e-6, 100)
+for Lb, c in ((0.5e-9, C["green"]), (1e-9, C["red"]), (2e-9, C["blue"])):
+    ax.plot(cb * 1e6, 1 / (2 * np.pi * np.sqrt(Lb * cb)) / 1e6, color=c, label="$L_b$ = %g nH" % (Lb * 1e9))
+ax.axvline(6 * C_EFF_PART * 1e6, color=C["purple"], lw=0.8)
+ax.set_yscale("log")
+ax.set_xlabel(r"$C_\mathrm{bp}$ per cell ($\mu$F eff.)")
+ax.set_ylabel(r"bypass--bank resonance $f_r$ (MHz)")
+ax.legend(loc="upper right", fontsize=5.6)
+es.panel(ax, "(b)", dx=-0.2, dy=-0.2)
+save(fig, "flow_bypass")
+NUM["bypass"] = dict(I_dev=I_DEV, t_ri=t_ri, t_vf=t_vf, dQ=dQ, C_edge_15=dQ / 1.5, C_ho_1n_15=1e-9 * (I_DEV / 1.5) ** 2,
+                     C_6=6 * C_EFF_PART, f_r=1 / (2 * np.pi * np.sqrt(1e-9 * 6 * C_EFF_PART)), n_esl=4,
+                     I_oss=QOSS / VM * DVDT * 1e9)
+print("bypass:", {k: (round(v * 1e6, 3) if k.startswith("C") or k == "dQ" else round(v, 3)) for k, v in NUM["bypass"].items()})
+
 # ---------------------------------------------------------------------------------------------------- 7. one block
 rs = json.load(open(os.path.join(ROOT, "reports", "building-block", "data", "results.json")))
 pon2, poff2 = np.array(rs["energy"]["fit_on"]), np.array(rs["energy"]["fit_off"])
