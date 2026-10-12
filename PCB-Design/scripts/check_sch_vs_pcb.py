@@ -4,7 +4,7 @@ The comparison is by connectivity: every schematic net must contain exactly the 
 way round). Where the schematic net carries a label, its name must also equal the PCB net name.
 
     kicad-cli sch export netlist --format kicadsexpr -o <tmp>/sch.net hardware/spb-bb-fab/spb-bb-fab.kicad_sch
-    python scripts/check_sch_vs_pcb.py <tmp>/sch.net
+    python scripts/check_sch_vs_pcb.py <tmp>/sch.net [spb-bb-fab | spb-bb-revb]
 """
 import collections
 import json
@@ -13,7 +13,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-pcb = {r: p for r, v, p in json.load(open(os.path.join(ROOT, "hardware", "spb-bb-fab", "pad_nets.json")))}
+BOARD = sys.argv[2] if len(sys.argv) > 2 else "spb-bb-fab"
+pcb = {r: p for r, v, p in json.load(open(os.path.join(ROOT, "hardware", BOARD, "pad_nets.json")))}
 txt = open(sys.argv[1], encoding="utf-8").read()
 sch_groups = {}
 for m in re.finditer(r'\(net \(code "?\d+"?\) \(name "([^"]*)"\)(.*?)\)\s*(?=\(net |\)\s*\)\s*$)', txt, re.S):
