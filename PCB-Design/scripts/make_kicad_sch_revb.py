@@ -275,11 +275,11 @@ half = (len(caps) + 1) // 2
 for row, (yp, yn) in enumerate(((40.64, 76.2), (96.52, 132.08))):
     lst = caps[row * half:(row + 1) * half]
     for k, ref in enumerate(lst):
-        x = 35.56 + 7.62 * k
+        x = 35.56 + 6.35 * k
         t, b = vert(ref, x, (yp + yn) / 2, "DCP")
         W((x, yp), t)
         W(b, (x, yn))
-    xe = 35.56 + 7.62 * (len(lst) - 1)
+    xe = 35.56 + 6.35 * (len(lst) - 1)
     W((30.48, yp), (xe, yp))
     W((30.48, yn), (xe, yn))
     LBL("DCP", 30.48, yp, (-1, 0))

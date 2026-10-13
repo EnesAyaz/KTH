@@ -440,11 +440,7 @@ def build_block(bi, xoff):
         for i in range(6):
             power_cap("C_0805_2012Metric", "1uF 100V X7S", sgn * XC + (i - 2.5) * P["cap_p"],
                       (Y["capn"][0] + Y["capp"][1]) / 2, "DCN", "DCP", "TDK C2012X7S2A105K125AB")
-    for g0, up, lo in ((Y["p1"][1], "DCP", "DCN"), (Y["n1"][1], "DCN", "DCP"), (Y["p2"][1], "DCP", "DCN")):
-        gc = g0 + P["gap"] / 2
-        for s in (-1, 1):
-            for xb in P["bank_x"]:
-                power_cap("C_1210_3225Metric", "10uF 100V X7S", s * xb, gc, up, lo, "Murata GRM32EC72A106KE05L")
+    # bank MLCCs: placed once for the whole leg on a uniform 3 mm grid (see "bank" below)
 
     # ---- gate stars (L1) and Kelvin collectors (L2), as Rev A
     XB = XC - 5.2
@@ -810,10 +806,10 @@ for yv, n in ((Y["p1_via"], "DCP"), (Y["n1_via"], "DCN"), (Y["p2_via"], "DCP"), 
     while x <= XM - 0.6 + 1e-6:
         POWER_VIAS.append(via(x, yv, n))
         x += 1.2
-# extra bank MLCCs between the blocks (3 rows x 5)
+# bank: one continuous MLCC bank for the whole leg, 3 rows x 25 on a uniform 3 mm grid (x = -36 ... +36), no gaps
 for g0, up, lo in ((Y["p1"][1], "DCP", "DCN"), (Y["n1"][1], "DCN", "DCP"), (Y["p2"][1], "DCP", "DCN")):
-    for xb in (-6.0, -3.0, 0.0, 3.0, 6.0):
-        power_cap("C_1210_3225Metric", "10uF 100V X7S", xb, g0 + P["gap"] / 2, up, lo, "Murata GRM32EC72A106KE05L")
+    for k in range(-12, 13):
+        power_cap("C_1210_3225Metric", "10uF 100V X7S", 3.0 * k, g0 + P["gap"] / 2, up, lo, "Murata GRM32EC72A106KE05L")
 
 # ==================================================================== AC bus, output terminals, bar and sensor
 print("STEP AC bus", flush=True)
