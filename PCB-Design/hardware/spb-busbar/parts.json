@@ -4,7 +4,7 @@
   "value": "LEG1 DC+",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -124.25,
+  "x": -100.5,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
@@ -14,27 +14,7 @@
   "value": "LEG1 DC-",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -112.25,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J3",
-  "value": "LEG1 DC+",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -76.75,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J4",
-  "value": "LEG1 DC-",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -64.75,
+  "x": -88.5,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
@@ -60,41 +40,21 @@
   "side": "top"
  },
  {
-  "ref": "J5",
+  "ref": "J3",
   "value": "LEG2 DC+",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -29.75,
+  "x": -6.0,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
  },
  {
-  "ref": "J6",
+  "ref": "J4",
   "value": "LEG2 DC-",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": -17.75,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J7",
-  "value": "LEG2 DC+",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 17.75,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J8",
-  "value": "LEG2 DC-",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 29.75,
+  "x": 6.0,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
@@ -120,41 +80,21 @@
   "side": "top"
  },
  {
-  "ref": "J9",
+  "ref": "J5",
   "value": "LEG3 DC+",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 64.75,
+  "x": 88.5,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
  },
  {
-  "ref": "J10",
+  "ref": "J6",
   "value": "LEG3 DC-",
   "footprint": "BUS_M4_REDCUBE",
   "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 76.75,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J11",
-  "value": "LEG3 DC+",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 112.25,
-  "y": -18.8,
-  "rot": 0.0,
-  "side": "top"
- },
- {
-  "ref": "J12",
-  "value": "LEG3 DC-",
-  "footprint": "BUS_M4_REDCUBE",
-  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
-  "x": 124.25,
+  "x": 100.5,
   "y": -18.8,
   "rot": 0.0,
   "side": "top"
@@ -180,7 +120,7 @@
   "side": "top"
  },
  {
-  "ref": "J13",
+  "ref": "J7",
   "value": "STACK DC+ (to level above: its DC-)",
   "footprint": "BUS_LUG_M6",
   "mpn": "M6 ring lug / Cu braid, both faces clamped",
@@ -190,7 +130,7 @@
   "side": "top"
  },
  {
-  "ref": "J14",
+  "ref": "J8",
   "value": "STACK DC- (to level below: its DC+)",
   "footprint": "BUS_LUG_M6",
   "mpn": "M6 ring lug / Cu braid, both faces clamped",
@@ -200,7 +140,7 @@
   "side": "top"
  },
  {
-  "ref": "J15",
+  "ref": "J9",
   "value": "LEVEL V: 1 DC+, 2 DC- (HV referenced)",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",

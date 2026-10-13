@@ -80,7 +80,7 @@
       [
        "8",
        "Four on one board",
-       "two blocks side by side, DC link and AC joined in copper → Rev B leg board"
+       "two pairs, one driver each (star); one DC pair, one bank, one AC output → Rev B leg"
       ],
       [
        "9",
@@ -1288,12 +1288,12 @@
       900,
       42
      ],
-     "text": "Building block = 2 × EPC2361 per switch, one driver; **4 per switch = two blocks**"
+     "text": "2 × EPC2361 per driver channel (star per pair); **4 per switch = two pairs, two drivers, one leg board**"
     }
    ]
   },
   {
-   "title": "Rev B: two blocks on one leg board",
+   "title": "Rev B: four cells per switch, two drivers, one leg",
    "step": 8,
    "section": "8  Four per switch on one board",
    "items": [
@@ -1301,9 +1301,9 @@
      "type": "rect",
      "box": [
       40,
-      122,
+      112,
       470,
-      300
+      330
      ],
      "text": "",
      "fill": "white",
@@ -1317,7 +1317,7 @@
      "type": "label",
      "box": [
       45,
-      125,
+      115,
       300,
       18
      ],
@@ -1328,12 +1328,44 @@
      "align": "left"
     },
     {
+     "type": "rect",
+     "box": [
+      225,
+      134,
+      45,
+      22
+     ],
+     "text": "DC+",
+     "fill": "hs10",
+     "line": "hs",
+     "size": 10,
+     "bold": true,
+     "color": "black",
+     "round": true
+    },
+    {
+     "type": "rect",
+     "box": [
+      280,
+      134,
+      45,
+      22
+     ],
+     "text": "DC−",
+     "fill": "kth10",
+     "line": "ls",
+     "size": 10,
+     "bold": true,
+     "color": "black",
+     "round": true
+    },
+    {
      "type": "line",
      "pts": [
       60,
-      162,
+      164,
       490,
-      162
+      164
      ],
      "color": "hs",
      "w": 4,
@@ -1343,12 +1375,36 @@
      "type": "line",
      "pts": [
       60,
-      177,
+      176,
       490,
-      177
+      176
      ],
      "color": "ls",
      "w": 4,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      247,
+      156,
+      247,
+      164
+     ],
+     "color": "hs",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      302,
+      156,
+      302,
+      176
+     ],
+     "color": "ls",
+     "w": 3,
      "arrow": false
     },
     {
@@ -1356,36 +1412,22 @@
      "box": [
       60,
       142,
-      120,
+      160,
       16
      ],
-     "text": "DC+ (DCP)",
-     "size": 10,
-     "color": "hs",
-     "bold": true,
-     "align": "left"
-    },
-    {
-     "type": "label",
-     "box": [
-      180,
-      142,
-      120,
-      16
-     ],
-     "text": "DC− (DCN)",
-     "size": 10,
-     "color": "ls",
-     "bold": true,
+     "text": "laminated terminal row + one bank",
+     "size": 9,
+     "color": "gray",
+     "bold": false,
      "align": "left"
     },
     {
      "type": "rect",
      "box": [
       70,
-      202,
+      197,
       90,
-      70
+      65
      ],
      "text": "cell 1\nHS + LS\nEPC2361",
      "fill": "hs10",
@@ -1399,9 +1441,9 @@
      "type": "rect",
      "box": [
       85,
-      282,
+      272,
       60,
-      28
+      26
      ],
      "text": "UFCS 1",
      "fill": "meas10",
@@ -1415,9 +1457,9 @@
      "type": "line",
      "pts": [
       100,
-      162,
+      164,
       100,
-      202
+      197
      ],
      "color": "hs",
      "w": 2,
@@ -1427,9 +1469,9 @@
      "type": "line",
      "pts": [
       130,
-      177,
+      176,
       130,
-      202
+      197
      ],
      "color": "ls",
      "w": 2,
@@ -1439,9 +1481,9 @@
      "type": "line",
      "pts": [
       115,
-      272,
+      262,
       115,
-      282
+      272
      ],
      "color": "black",
      "w": 1.5,
@@ -1451,7 +1493,7 @@
      "type": "line",
      "pts": [
       115,
-      342,
+      337,
       115,
       357
      ],
@@ -1463,9 +1505,9 @@
      "type": "rect",
      "box": [
       180,
-      202,
+      197,
       90,
-      70
+      65
      ],
      "text": "cell 2\nHS + LS\nEPC2361",
      "fill": "hs10",
@@ -1479,9 +1521,9 @@
      "type": "rect",
      "box": [
       195,
-      282,
+      272,
       60,
-      28
+      26
      ],
      "text": "UFCS 2",
      "fill": "meas10",
@@ -1495,9 +1537,9 @@
      "type": "line",
      "pts": [
       210,
-      162,
+      164,
       210,
-      202
+      197
      ],
      "color": "hs",
      "w": 2,
@@ -1507,9 +1549,9 @@
      "type": "line",
      "pts": [
       240,
-      177,
+      176,
       240,
-      202
+      197
      ],
      "color": "ls",
      "w": 2,
@@ -1519,9 +1561,9 @@
      "type": "line",
      "pts": [
       225,
-      272,
+      262,
       225,
-      282
+      272
      ],
      "color": "black",
      "w": 1.5,
@@ -1531,7 +1573,7 @@
      "type": "line",
      "pts": [
       225,
-      342,
+      337,
       225,
       357
      ],
@@ -1543,9 +1585,9 @@
      "type": "rect",
      "box": [
       290,
-      202,
+      197,
       90,
-      70
+      65
      ],
      "text": "cell 3\nHS + LS\nEPC2361",
      "fill": "hs10",
@@ -1559,9 +1601,9 @@
      "type": "rect",
      "box": [
       305,
-      282,
+      272,
       60,
-      28
+      26
      ],
      "text": "UFCS 3",
      "fill": "meas10",
@@ -1575,9 +1617,9 @@
      "type": "line",
      "pts": [
       320,
-      162,
+      164,
       320,
-      202
+      197
      ],
      "color": "hs",
      "w": 2,
@@ -1587,9 +1629,9 @@
      "type": "line",
      "pts": [
       350,
-      177,
+      176,
       350,
-      202
+      197
      ],
      "color": "ls",
      "w": 2,
@@ -1599,9 +1641,9 @@
      "type": "line",
      "pts": [
       335,
-      272,
+      262,
       335,
-      282
+      272
      ],
      "color": "black",
      "w": 1.5,
@@ -1611,7 +1653,7 @@
      "type": "line",
      "pts": [
       335,
-      342,
+      337,
       335,
       357
      ],
@@ -1623,9 +1665,9 @@
      "type": "rect",
      "box": [
       400,
-      202,
+      197,
       90,
-      70
+      65
      ],
      "text": "cell 4\nHS + LS\nEPC2361",
      "fill": "hs10",
@@ -1639,9 +1681,9 @@
      "type": "rect",
      "box": [
       415,
-      282,
+      272,
       60,
-      28
+      26
      ],
      "text": "UFCS 4",
      "fill": "meas10",
@@ -1655,9 +1697,9 @@
      "type": "line",
      "pts": [
       430,
-      162,
+      164,
       430,
-      202
+      197
      ],
      "color": "hs",
      "w": 2,
@@ -1667,9 +1709,9 @@
      "type": "line",
      "pts": [
       460,
-      177,
+      176,
       460,
-      202
+      197
      ],
      "color": "ls",
      "w": 2,
@@ -1679,9 +1721,9 @@
      "type": "line",
      "pts": [
       445,
-      272,
+      262,
       445,
-      282
+      272
      ],
      "color": "black",
      "w": 1.5,
@@ -1691,7 +1733,7 @@
      "type": "line",
      "pts": [
       445,
-      342,
+      337,
       445,
       357
      ],
@@ -1702,15 +1744,15 @@
     {
      "type": "rect",
      "box": [
-      115,
-      314,
-      100,
-      26
+      110,
+      305,
+      110,
+      28
      ],
-     "text": "2EDF7275K #1",
+     "text": "2EDF7275K #1\nHS + LS, star",
      "fill": "pri10",
      "line": "pri",
-     "size": 10,
+     "size": 9,
      "bold": false,
      "color": "black",
      "round": true
@@ -1718,15 +1760,15 @@
     {
      "type": "rect",
      "box": [
-      335,
-      314,
-      100,
-      26
+      330,
+      305,
+      110,
+      28
      ],
-     "text": "2EDF7275K #2",
+     "text": "2EDF7275K #2\nHS + LS, star",
      "fill": "pri10",
      "line": "pri",
-     "size": 10,
+     "size": 9,
      "bold": false,
      "color": "black",
      "round": true
@@ -1748,7 +1790,7 @@
      "box": [
       80,
       362,
-      190,
+      180,
       18
      ],
      "text": "AC joined in copper (all layers)",
@@ -1763,7 +1805,7 @@
       275,
       357,
       275,
-      392
+      402
      ],
      "color": "black",
      "w": 5,
@@ -1773,11 +1815,11 @@
      "type": "label",
      "box": [
       285,
-      377,
+      382,
       220,
-      30
+      40
      ],
-     "text": "4 × M4 → Cu bar → LEM HO 250-S → load",
+     "text": "ONE M6 AC bolt pad → Cu bar\n→ LEM HO 250-S → load",
      "size": 10,
      "color": "black",
      "bold": false,
@@ -1789,31 +1831,31 @@
       530,
       92,
       400,
-      370
+      380
      ],
      "paras": [
       [
        0,
-       "Two Rev A blocks side by side: 4 cells, 2 drivers, star per pair unchanged"
+       "One leg: 4 EPC2361 per switch, **two 2EDF7275K**, each drives one pair (HS + LS channel) through a star"
       ],
       [
        0,
-       "!!One DC link!! (87 MLCCs) and !!one switch node!!: AC of all four cells joined in a full-width 4-layer copper bus"
+       "Why one driver per pair (option B): the driver sits between its two cells ⇒ short, identical gate loops (1.7 nH); one HS + one LS isolated supply, split per driver"
       ],
       [
        0,
-       "Single output stub through one aperture Hall sensor: the controller sees one phase current"
+       "**One DC+ / DC− pair** at the centre: laminated terminal row (L1/L3 +, L2/L4 −) feeds one continuous bank"
       ],
       [
        0,
-       "UFCS shunt in every LS source: same board for double-pulse and back-to-back load test"
+       "**One AC output**: all four switch nodes joined, one M6 bolt pad, Cu bar through the HO 250-S"
       ],
       [
        0,
-       "No short-circuit protection (lab board)"
+       "UFCS shunt in every LS source: same board for DPT and back-to-back load test; no short-circuit protection"
       ]
      ],
-     "size": 14
+     "size": 13
     }
    ]
   },
@@ -1824,50 +1866,60 @@
    "items": [
     {
      "type": "image",
-     "file": "img/revb_overview.png",
+     "file": "img/revb_top.png",
      "box": [
       30,
       92,
-      600,
-      400
+      440,
+      390
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/revb_bottom.png",
+     "box": [
+      480,
+      92,
+      230,
+      390
      ]
     },
     {
      "type": "text",
      "box": [
-      645,
+      720,
       92,
-      285,
+      210,
       400
      ],
      "paras": [
       [
        0,
-       "89.5 × 80 mm, 4 layers, 236 parts"
+       "89.5 × 80 mm, 4 layers, 231 parts"
       ],
       [
        0,
-       "Cells at x = ±14.25 / ±33.25 mm, drivers at the block centres"
+       "Top edge: one DC+ / DC− pair (REDCUBE M4), bank across the full width"
       ],
       [
        0,
-       "Fischer LAM 4 heatsink rotated 90° (tube across the board) to clear the 27 mm shunts"
+       "Bottom edge: one M6 AC bolt pad"
       ],
       [
        0,
-       "DC terminals on the bottom edge, AC bus and terminals at the other edge"
+       "Heatsink LAM 4 rotated 90° over cells and bank"
       ],
       [
        0,
-       "DRC 0 / 0 / 0; schematic generated from the PCB, netlist identical (0 problems)"
+       "DRC 0 / 0 / 0; schematic = PCB (0 problems)"
       ]
      ],
-     "size": 13
+     "size": 12
     }
    ]
   },
   {
-   "title": "Two blocks on one switch node: driver skew",
+   "title": "Two driver pairs on one switch node: driver skew",
    "step": 8,
    "section": null,
    "items": [
@@ -1882,11 +1934,11 @@
      "paras": [
       [
        0,
-       "Joining the AC in copper makes the inductance between the switch nodes of the two blocks (L_{x}) small"
+       "Joining the AC in copper makes the inductance between the switch nodes of the two driver pairs (L_{x}) small"
       ],
       [
        0,
-       "If block 2 switches Δt later, block 1 takes ΔI ≈ V_{m}·Δt / L_{x} until block 2 follows"
+       "If driver 2 switches Δt later, pair 1 takes ΔI ≈ V_{m}·Δt / L_{x} until pair 2 follows"
       ],
       [
        0,
@@ -2053,7 +2105,7 @@
       [
        "Phase current (control)",
        "LEM HO 250-S, ±625 A, 3.2 mV/A",
-       "Cu bar stub, JST to C2000"
+       "Cu bar on the M6 AC pad"
       ],
       [
        "V_{GS} HS / LS",
@@ -2397,7 +2449,7 @@
       ],
       [
        "Leg contact",
-       "12 × M4 onto the REDCUBE faces (6.5 mm)"
+       "6 × M4: one DC pair per leg (REDCUBE, 6.5 mm)"
       ],
       [
        "Stack contact",

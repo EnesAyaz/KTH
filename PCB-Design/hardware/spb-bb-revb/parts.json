@@ -4,22 +4,22 @@
   "value": "DC+",
   "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
   "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": -29.75,
+  "x": -6.0,
   "y": -18.799999999999997,
   "rot": 0,
   "side": "bottom",
-  "block": 1
+  "block": 0
  },
  {
   "ref": "J2",
   "value": "DC-",
   "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
   "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": -17.75,
+  "x": 6.0,
   "y": -18.799999999999997,
   "rot": 0,
   "side": "bottom",
-  "block": 1
+  "block": 0
  },
  {
   "ref": "Q1",
@@ -1122,28 +1122,6 @@
   "block": 1
  },
  {
-  "ref": "J12",
-  "value": "DC+",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": 17.75,
-  "y": -18.799999999999997,
-  "rot": 0,
-  "side": "bottom",
-  "block": 2
- },
- {
-  "ref": "J13",
-  "value": "DC-",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": 29.75,
-  "y": -18.799999999999997,
-  "rot": 0,
-  "side": "bottom",
-  "block": 2
- },
- {
   "ref": "Q5",
   "value": "EPC2361",
   "footprint": "EPC2361",
@@ -1859,7 +1837,7 @@
   "block": 2
  },
  {
-  "ref": "J14",
+  "ref": "J12",
   "value": "V_ISO,HS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
@@ -1936,7 +1914,7 @@
   "block": 2
  },
  {
-  "ref": "J15",
+  "ref": "J13",
   "value": "V_ISO,LS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
@@ -2013,7 +1991,7 @@
   "block": 2
  },
  {
-  "ref": "J16",
+  "ref": "J14",
   "value": "CTRL2: 1 12V 2 GND 3 PWM_H 4 PWM_L 5 DIS 6 GND",
   "footprint": "PinHeader_2x03_P2.54mm_Vertical",
   "mpn": "2.54 mm header 2x3",
@@ -2090,7 +2068,7 @@
   "block": 2
  },
  {
-  "ref": "J17",
+  "ref": "J15",
   "value": "FAN 12V: 1 +12V, 2 GND",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2 (fan)",
@@ -2101,7 +2079,7 @@
   "block": 2
  },
  {
-  "ref": "J18",
+  "ref": "J16",
   "value": "U.FL H3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2123,7 +2101,7 @@
   "block": 2
  },
  {
-  "ref": "J19",
+  "ref": "J17",
   "value": "U.FL L3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2145,7 +2123,7 @@
   "block": 2
  },
  {
-  "ref": "J20",
+  "ref": "J18",
   "value": "U.FL D3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2167,7 +2145,7 @@
   "block": 2
  },
  {
-  "ref": "J21",
+  "ref": "J19",
   "value": "U.FL H4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2189,7 +2167,7 @@
   "block": 2
  },
  {
-  "ref": "J22",
+  "ref": "J20",
   "value": "U.FL L4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2211,7 +2189,7 @@
   "block": 2
  },
  {
-  "ref": "J23",
+  "ref": "J21",
   "value": "U.FL D4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -2398,47 +2376,14 @@
   "block": 0
  },
  {
-  "ref": "J24",
+  "ref": "J22",
   "value": "AC",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": -30.0,
-  "y": 49.4,
-  "rot": 0,
-  "side": "bottom",
-  "block": 0
- },
- {
-  "ref": "J25",
-  "value": "AC",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": -10.0,
-  "y": 49.4,
-  "rot": 0,
-  "side": "bottom",
-  "block": 0
- },
- {
-  "ref": "J26",
-  "value": "AC",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": 10.0,
-  "y": 49.4,
-  "rot": 0,
-  "side": "bottom",
-  "block": 0
- },
- {
-  "ref": "J27",
-  "value": "AC",
-  "footprint": "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR",
-  "mpn": "Wuerth 74650174 (REDCUBE THR, M4)",
-  "x": 30.0,
-  "y": 49.4,
-  "rot": 0,
-  "side": "bottom",
+  "footprint": "AC_BOLT_M6",
+  "mpn": "M6 bolt + nut, 12 x 5 mm Cu bar",
+  "x": 0.0,
+  "y": 47.2,
+  "rot": 0.0,
+  "side": "top",
   "block": 0
  },
  {
@@ -2453,7 +2398,7 @@
   "block": 0
  },
  {
-  "ref": "J28",
+  "ref": "J23",
   "value": "1:NTC 2:DC- (LS domain!)",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",

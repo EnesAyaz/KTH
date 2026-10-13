@@ -20,7 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 BRD = os.path.join(ROOT, "hardware", "spb-busbar", "spb-busbar.kicad_pcb")
 OX, OY = 160.0, 80.0
-LEG_TERM = {-29.75: "J1", -17.75: "J2", 17.75: "J12", 29.75: "J13"}      # leg-board refs of the DC terminals
+LEG_TERM = {-6.0: "J1", 6.0: "J2"}      # leg-board refs of the DC terminals (J1 DC+, J2 DC-)
 PITCH = 94.5
 
 

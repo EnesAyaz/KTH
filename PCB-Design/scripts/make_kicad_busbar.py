@@ -3,8 +3,8 @@ Laminated PCB busbar: the common DC bus of one 75 V level, joining the three pha
 
 The leg boards stand side by side (pitch 94.5 mm = 89.5 mm board + 5 mm gap). Their DC terminals (Wuerth REDCUBE
 74650174, M4 through-thread, 7 x 7 mm, 6.5 mm high) are on the leg-board bottom side in one row at y = -18.8 mm:
-DC+ at x = -29.75 / +17.75, DC- at x = -17.75 / +29.75 (leg-local). This strip lies under the three legs, its top face
-on the twelve terminal faces, held by M4 x 8 screws from below (1.6 mm PCB + washer, ~5.5 mm thread engagement).
+DC+ at x = -6, DC- at x = +6 (leg-local, one pair per leg). This strip lies under the three legs, its top face
+on the six terminal faces, held by M4 x 8 screws from below (1.6 mm PCB + washer, ~5.5 mm thread engagement).
 
 Stack-up (standard 4-layer 1.6 mm FR4, 2 oz on all layers; 3 oz optional), interleaved for low inductance:
     L1 DC+   | prepreg <= 0.2 mm |   L2 DC-   | core |   L3 DC+   | prepreg <= 0.2 mm |   L4 DC-
@@ -39,7 +39,7 @@ MM = pcbnew.FromMM
 LEG_W, GAP = 89.5, 5.0
 PITCH = LEG_W + GAP
 LEGS = (-PITCH, 0.0, PITCH)                       # leg centres
-TERM = ((-29.75, "DCP"), (-17.75, "DCN"), (17.75, "DCP"), (29.75, "DCN"))
+TERM = ((-6.0, "DCP"), (6.0, "DCN"))       # one DC pair per leg board (centre, 12 mm pitch)
 YTERM = -18.8                                     # terminal row (leg-local)
 LEG_Y0, LEG_Y1 = -24.4, 55.6                      # leg-board outline in y
 LEG_HOLES = ((-42.35, -22.0), (42.35, -22.0))     # leg H3/H4 (nylon standoffs, 6.5 mm)

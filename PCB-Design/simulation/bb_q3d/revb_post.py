@@ -179,7 +179,7 @@ if leg:
                 for c in cells:
                     inj["QL_D_%d" % c] = inj.get("QL_D_%d" % c, 0) + 1.0
                     inj["QL_S_%d" % c] = inj.get("QL_S_%d" % c, 0) - 1.0
-                V, _, _ = net.solve(w, inj, "J2")
+                V, _, _ = net.solve(w, inj, "J_DCN")
                 key = "%s_%s_%s" % (label, "shunt" if shunt_l else "noshunt", which)
                 res[key] = {"L_cell%d_nH" % c: float(((V["QL_D_%d" % c] - V["QL_S_%d" % c]) / w).imag * 1e9)
                             for c in cells}
@@ -199,19 +199,15 @@ if leg:
             else:
                 net.add("QL_D_%d" % c, "QL_S_%d" % c, R_FET)
                 net.add("RSI_%d" % c, "RSN_%d" % c, R_SHUNT)
-        # DC terminals joined (bus), AC terminals joined (bar)
-        net.add("J1", "J12", 0.0)
-        net.add("J2", "J13", 0.0)
-        for j in ("J24", "J26", "J27"):
-            net.add("J25", j, 0.0)
+        # one DC pair (J_DCP, J_DCN) and one AC bolt pad (J_AC)
         if path == "HS":
-            V, Ig, Is = net.solve(0.0, {"J1": 1.0, "J25": -1.0}, "J25")
-            R = float((V["J1"] - V["J25"]).real)
+            V, Ig, Is = net.solve(0.0, {"J_DCP": 1.0, "J_AC": -1.0}, "J_AC")
+            R = float((V["J_DCP"] - V["J_AC"]).real)
             fet = [float(abs(Is[c])) for c in range(4)]
             r_fets = R_FET / 4
         else:
-            V, Ig, Is = net.solve(0.0, {"J25": 1.0, "J2": -1.0}, "J2")
-            R = float((V["J25"] - V["J2"]).real)
+            V, Ig, Is = net.solve(0.0, {"J_AC": 1.0, "J_DCN": -1.0}, "J_DCN")
+            R = float((V["J_AC"] - V["J_DCN"]).real)
             fet = [float(abs(Is[2 * c])) for c in range(4)]
             r_fets = (R_FET + R_SHUNT) / 4
         dc[path] = dict(R_total_mOhm=R * 1e3, R_copper_mOhm=(R - r_fets) * 1e3,
@@ -258,11 +254,8 @@ if leg and bus:
                 for c in range(1, 5):
                     net.add(pre + "RSI_%d" % c, pre + "RSN_%d" % c, lambda w: R_SHUNT + 1j * w * L_SHUNT)
                 if with_bus:
-                    for j in ("J1", "J2", "J12", "J13"):
-                        net.add(pre + j, "L%d_%s" % (k, j), 0.0)
-                else:
-                    net.add(pre + "J1", pre + "J12", 0.0)
-                    net.add(pre + "J2", pre + "J13", 0.0)
+                    net.add(pre + "J_DCP", "L%d_J1" % k, 0.0)
+                    net.add(pre + "J_DCN", "L%d_J2" % k, 0.0)
             if with_bus:
                 net.group(bus["branches"], bus["Rac" if ac else "Rdc"], bus["Lac" if ac else "Ldc"])
             return net
@@ -292,9 +285,9 @@ if leg and bus:
         for c in range(1, 5):
             inj["L1.QH_D_%d" % c] = -0.25
             inj["L1.RSN_%d" % c] = 0.25
-        V, Ig, Is = net.solve(w, inj, "L1.J2")
+        V, Ig, Is = net.solve(w, inj, "L1.J_DCN")
         # simple branches are added leg by leg: caps first (10 per leg), shunts (4), connections (4)
-        per_leg = len(cap_groups(leg["names"])) + 4 + 4
+        per_leg = len(cap_groups(leg["names"])) + 4 + 2
         share = []
         for k in range(len(LEGS)):
             icap = Is[k * per_leg:k * per_leg + len(cap_groups(leg["names"]))]
@@ -310,7 +303,7 @@ if leg and bus:
             net = system(wb)(w)
             inj = {"L1.QH_D_%d" % c: -0.25 for c in range(1, 5)}
             inj.update({"L1.RSN_%d" % c: 0.25 for c in range(1, 5)})
-            V, _, _ = net.solve(w, inj, "L1.J2")
+            V, _, _ = net.solve(w, inj, "L1.J_DCN")
             row.append(abs(V["L1.QH_D_1"] - V["L1.RSN_1"]))
         rows.append(row)
     rows = np.array(rows)
@@ -325,12 +318,10 @@ if leg and bus:
         r = {}
         for a, b in ((1, 2), (2, 3), (1, 3)):
             v = np.zeros(len(idx))
-            for j, s in (("J1", 0.5), ("J12", 0.5)):
-                v[idx["L%d_%s" % (a, j)]] += s
-                v[idx["L%d_%s" % (b, j)]] -= s
-            for j, s in (("J2", 0.5), ("J13", 0.5)):
-                v[idx["L%d_%s" % (a, j)]] -= s
-                v[idx["L%d_%s" % (b, j)]] += s
+            v[idx["L%d_J1" % a]] += 1.0
+            v[idx["L%d_J1" % b]] -= 1.0
+            v[idx["L%d_J2" % a]] -= 1.0
+            v[idx["L%d_J2" % b]] += 1.0
             r["L_leg%d%d_nH" % (a, b)] = float(v @ bus[Lk] @ v) * 1e9
             r["R_leg%d%d_mOhm" % (a, b)] = float(v @ bus[Rk] @ v) * 1e3
         out["bus_" + tag] = r

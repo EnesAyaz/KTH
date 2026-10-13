@@ -11,6 +11,9 @@ Changes against Rev A (make_kicad_bb_fab.py):
   - TMCS1123A1A Hall sensor in series with each cell's AC terminal (I1..I4, summed by the controller)
   - one control connector to the C2000 with WE-CNSW chokes (12 V, 5 V, PWM_H/L, DIS, I1..I4, OCn)
   - bank MLCCs also between the blocks; fan heatsink rotated (tube along x) so that it clears the 27 mm shunts
+  - ONE leg, not two blocks on a board (2026-10-13): one DC+ / DC- terminal pair at the centre feeding a laminated
+    terminal row (L1/L3 DC+, L2/L4 DC-) over the full width, one continuous bank, the AC of all four cells joined
+    and taken out at ONE M6 bolt pad (Cu bar bolted on, LEM HO 250-S on the bar); two drivers, one star per pair
 
     "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\make_kicad_bb_revb.py
 
@@ -414,17 +417,7 @@ def build_block(bi, xoff):
         if n == "DCN" and abs(y - Y["src_via"]) < 1e-6:
             continue                                    # the shunt closes the loop, not a via to L2
         POWER_VIAS.append(via(x, VIA_SHIFT.get(round(y, 2), y), sw if n == "AC" else NETMAP[n]))
-    # DC terminal zone of the block: DC+ left, DC- right
-    for lay in ("L1", "L2", "L3", "L4"):
-        rect_zone(LAYER[lay], "DCP", -12.0, -1.0, YT, Y["p1"][0] - (0 if lay in ("L1", "L3") else 0.6), 1)
-        rect_zone(LAYER[lay], "DCN", 1.0, 12.0, YT, Y["p1"][0] - 0.6 if lay != "L2" else Y["l2"][0], 1)
-    TB = FP + "TerminalBlock_Wuerth.pretty"
-    for x, n, lab in ((-6.0, "DCP", "DC+"), (6.0, "DCN", "DC-")):
-        fp = place(TB, "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR", ref("J"), lab, x, YT + 4.6, 0, True,
-                   mpn="Wuerth 74650174 (REDCUBE THR, M4)")
-        for pad in fp.Pads():
-            pad.SetNet(net(n))
-        text(lab, x, YT + 0.9, 0.8)
+    # (DC terminals: one pair for the whole leg at the board centre, see dc_terminals())
 
     # ---- transistors
     gate = {}
@@ -784,6 +777,24 @@ def build_block(bi, xoff):
     return dict(gate=gate, ufl=ufl)
 
 
+def dc_terminals():
+    """ONE DC+ / DC- terminal pair for the whole leg at the board centre (x = -6 / +6). The terminal row is a
+    laminated stack across both blocks: L1 and L3 DC+, L2 and L4 DC-, so both polarities reach every bank strip
+    over the full width (the left and right cells see the same DC path)."""
+    xt = BX + 12.0
+    rect_zone(F, "DCP", -xt, xt, YT, Y["p1"][0], 1)
+    rect_zone(L2l, "DCN", -xt, xt, YT, Y["l2"][0], 1)
+    rect_zone(L3l, "DCP", -xt, xt, YT, max(Y["p1"][0], Y["l3"][0]), 1)
+    rect_zone(Bl, "DCN", -xt, xt, YT, Y["p1"][0] - 0.6, 1)
+    for x, n, lab in ((-6.0, "DCP", "DC+"), (6.0, "DCN", "DC-")):
+        fp = place(FP + "TerminalBlock_Wuerth.pretty", "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR", ref("J"), lab,
+                   x, YT + 4.6, 0, True, mpn="Wuerth 74650174 (REDCUBE THR, M4)")
+        for pad in fp.Pads():
+            pad.SetNet(net(n))
+        text(lab, x, YT + 0.9, 0.8)
+
+
+dc_terminals()
 BLK = {1: build_block(1, -BX), 2: build_block(2, BX)}
 
 # ==================================================================== shared copper between the blocks
@@ -815,12 +826,54 @@ while yv <= Y1 - 1.4:
         POWER_VIAS.append(via(x, yv, "SW"))
         x += 1.6
     yv += 1.6
-for xj in (-30.0, -10.0, 10.0, 30.0):
-    J = place(FP + "TerminalBlock_Wuerth.pretty", "Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR", ref("J"), "AC",
-              xj, YJ, 0, True, mpn="Wuerth 74650174 (REDCUBE THR, M4)")
-    for pad in J.Pads():
-        pad.SetNet(net("SW"))
-text("AC OUT: 12 x 5 mm Cu bar across the four terminals, stub through LEM HO 250-S to the load", 0, 42.2, 0.8, pcbnew.F_Fab)
+def ac_bolt_pad():
+    """ONE AC output: M6 bolt pad (6.4 mm plated hole, 14 mm pad on both outer layers, 16 x 0.4 mm vias on two rings
+    into all layers). The 12 x 5 mm Cu bar is bolted directly onto it; the LEM HO 250-S sits on the bar."""
+    fp = pcbnew.FOOTPRINT(board)
+    fp.SetFPID(pcbnew.LIB_ID("spb_fab", "AC_BOLT_M6"))
+    fp.SetDescription("AC output bolt pad, M6, 14 mm pad, via rings")
+    pads = [(0.0, 0.0, 14.0, 6.4)]
+    for k in range(10):
+        a = 2 * math.pi * (k + 0.5) / 10
+        pads.append((5.6 * math.cos(a), 5.6 * math.sin(a), 0.8, 0.4))
+    for k in range(6):
+        a = 2 * math.pi * k / 6
+        pads.append((4.4 * math.cos(a), 4.4 * math.sin(a), 0.8, 0.4))
+    for x, y, d, dr in pads:
+        p = pcbnew.PAD(fp)
+        p.SetNumber("1")
+        p.SetAttribute(pcbnew.PAD_ATTRIB_PTH)
+        p.SetLayerSet(p.PTHMask())
+        p.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+        p.SetSize(vloc(d, d))
+        p.SetDrillSize(vloc(dr, dr))
+        p.SetPos0(vloc(x, y))
+        p.SetPosition(vloc(x, y))
+        fp.Add(p)
+    for k in range(36):
+        a0, a1 = 2 * math.pi * k / 36, 2 * math.pi * (k + 1) / 36
+        for lay, r in ((pcbnew.F_CrtYd, 7.25), (pcbnew.F_Fab, 7.0)):
+            sh = pcbnew.FP_SHAPE(fp)
+            sh.SetShape(pcbnew.SHAPE_T_SEGMENT)
+            sh.SetStart0(vloc(r * math.cos(a0), r * math.sin(a0)))
+            sh.SetEnd0(vloc(r * math.cos(a1), r * math.sin(a1)))
+            sh.SetLayer(lay)
+            sh.SetWidth(MM(0.05 if lay == pcbnew.F_CrtYd else 0.1))
+            sh.SetDrawCoord()
+            fp.Add(sh)
+    finish(fp, ref("J"), "AC", 0.0, YAC, 0.0, False, {"1": "SW"}, "M6 bolt + nut, 12 x 5 mm Cu bar", "AC_BOLT_M6")
+    if "AC_BOLT_M6" not in SAVED:
+        SAVED.add("AC_BOLT_M6")
+        cp = pcbnew.FOOTPRINT(fp)
+        cp.SetReference("REF**")
+        cp.SetPosition(vloc(0, 0))
+        pcbnew.FootprintSave(_lib, cp)
+    return fp
+
+
+YAC = 47.2
+ac_bolt_pad()
+text("AC OUT: M6 bolt pad, 12 x 5 mm Cu bar bolted on, through the LEM HO 250-S to the load", 0, 39.9, 0.8, pcbnew.F_Fab)
 
 
 def fab_rect(x0, y0, x1, y1, layer=pcbnew.Cmts_User):
@@ -834,8 +887,7 @@ def fab_rect(x0, y0, x1, y1, layer=pcbnew.Cmts_User):
         board.Add(sh)
 
 
-fab_rect(-36.0, YJ - 6.0, 36.0, YJ + 6.0)            # output bar on the terminals
-fab_rect(-6.0, YJ + 6.0, 6.0, Y1 + 30.0)             # stub off the board edge
+fab_rect(-6.0, YAC - 7.0, 6.0, Y1 + 30.0)            # 12 x 5 mm bar from the bolt pad off the board edge
 fab_rect(-18.9, Y1 + 8.0, 18.9, Y1 + 23.0)           # LEM HO 250-S (37.8 mm) on the stub
 t = pcbnew.PCB_TEXT(board)
 t.SetText("LEM HO 250-S on the bar stub; JST PHR-5 lead to the C2000 (1 Uc 2 GND 3 Uout 4 Uref 5 OCD)")

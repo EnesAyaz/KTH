@@ -332,8 +332,8 @@ for k, ref in enumerate(ac):
     place(ref, XA + 10.16, y)
     W((XA, y), pin_xy(ref, "1"))
 W((XA, YSW), (XA, YSW + 5.08 * (len(ac) - 1)))
-T("%s-%s: M4 REDCUBE AC terminals, bolted 12 x 5 mm Cu bar" % (ac[0], ac[-1]), XA - 5.08, YSW + 25.4, 1.5, False)
-T("one output stub through a LEM HO 250-S (off board,", XA - 5.08, YSW + 29.21, 1.5, False)
+T("%s: AC output, M6 bolt pad, 12 x 5 mm Cu bar bolted on" % ac[0], XA - 5.08, YSW + 25.4, 1.5, False)
+T("the bar passes through a LEM HO 250-S (off board,", XA - 5.08, YSW + 29.21, 1.5, False)
 T("3.2 mV/A, JST PHR-5 straight to the C2000)", XA - 5.08, YSW + 33.02, 1.5, False)
 # DC terminals
 for net, y0, dy in (("DCP", YDP, 5.08), ("DCN", YDN, -5.08)):

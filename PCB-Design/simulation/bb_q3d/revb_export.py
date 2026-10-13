@@ -9,8 +9,8 @@ Same format as fab_export.py (mm, board centre at x = 0, y down, leg-board coord
 Nets: DCP, DCN, AC (= SW), LSRC1..4 (low-side source of cell 1..4, ends at the shunt IN pad).
 Cells: 1 = block 1 left (Q1/Q3, RS1), 2 = block 1 right (Q2/Q4, RS2), 3 = block 2 left (Q5/Q7), 4 = block 2 right.
 Terminals (one sink per net, every other group a source):
-  DCP: QH_D_c, CapP_c, BankP_g, J12 -> sink J1        DCN: RSN_c (shunt SHLD pad), CapN_c, BankN_g, J13 -> sink J2
-  AC:  QH_S_c, QL_D_c, J24/J26/J27 -> sink J25        LSRCc: QL_S_c -> sink RSI_c (shunt IN pad)
+  DCP: QH_D_c, CapP_c, BankP_g -> sink J_DCP         DCN: RSN_c (shunt SHLD pad), CapN_c, BankN_g -> sink J_DCN
+  AC:  QH_S_c, QL_D_c -> sink J_AC (M6 bolt pad)      LSRCc: QL_S_c -> sink RSI_c (shunt IN pad)
 """
 import json
 import math
@@ -157,16 +157,19 @@ for ref, f in fps.items():
         for p in f.Pads():
             net = NETS[p.GetNetname()]
             add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), ("RSI_%d" if net.startswith("LSRC") else "RSN_%d") % c)
-    elif ref in ("J1", "J2", "J12", "J13", "J24", "J25", "J26", "J27"):
-        # REDCUBE body: solid 7 x 7 mm block on the bottom shorting the four press-in pins (pins as vias)
+    elif ref.startswith("J") and f.GetValue() in ("DC+", "DC-", "AC"):
+        # DC: REDCUBE body = solid 7 x 7 mm block on the bottom shorting the four press-in pins (pins as vias);
+        # AC: M6 bolt pad, contact face 12 x 12 mm (bar + washer) on the bottom, hole barrel and via rings as vias
         x, y = mm(f.GetPosition().x) - OX, mm(f.GetPosition().y) - OY
         net = NETS[[p for p in f.Pads() if p.GetNumber()][0].GetNetname()]
         for p in f.Pads():
             if p.GetNumber():
                 vias.append([net, round(mm(p.GetPosition().x) - OX, 4), round(mm(p.GetPosition().y) - OY, 4),
                              round(mm(p.GetDrillSize().x) / 2, 4)])
-        add_pad(net, ref, (x - 3.5, x + 3.5, y - 3.5, y + 3.5), ref, "bottom")
-SINK = {"DCP": "J1", "DCN": "J2", "AC": "J25"}
+        h = 6.0 if f.GetValue() == "AC" else 3.5
+        tname = {"DC+": "J_DCP", "DC-": "J_DCN", "AC": "J_AC"}[f.GetValue()]
+        add_pad(net, tname, (x - h, x + h, y - h, y + h), tname, "bottom")
+SINK = {"DCP": "J_DCP", "DCN": "J_DCN", "AC": "J_AC"}
 for c in range(1, 5):
     SINK["LSRC%d" % c] = "RSI_%d" % c
 terms = []

@@ -29,6 +29,7 @@ def log(m):
 
 import traceback
 G = json.load(open(os.path.join(OUT, "revb_geometry.json")))
+ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
 EVERY = int(os.environ.get("REVB_AC_VIA_EVERY", "1"))
 _bus = [v for v in G["vias"] if v[0] == "AC" and v[2] > 30.0]
@@ -159,13 +160,13 @@ for kind, name, net, pts, side in sorted(G["terminals"], key=lambda t: t[0] != "
 log("terminals assigned")
 oDesign.GetModule("AnalysisSetup").InsertSetup("Matrix", [
     "NAME:Setup1", "AdaptiveFreq:=", "100MHz", "SaveFields:=", False, "Enabled:=", True,
-    ["NAME:Cap", "MaxPass:=", 2, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 10, "PerRefine:=", 30,
+    ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
      "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "High", "Solver Type:=", "Iterative"],
     ["NAME:DC", "SolveResOnly:=", False,
-     ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
+     ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
      ["NAME:Mult", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
      "Solution Order:=", "Normal"],
-    ["NAME:AC", "MaxPass:=", 12, "MinPass:=", 2, "MinConvPass:=", 2, "PerError:=", 1, "PerRefine:=", 30,
+    ["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
      "Solution Order:=", "High"]])
 try:
     log("validate: %r" % oDesign.ValidateDesign())

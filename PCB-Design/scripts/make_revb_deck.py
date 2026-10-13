@@ -66,7 +66,15 @@ def pdf_crop(pdf, name, box_mm=None, dpi=150):
     return "img/%s.png" % name
 
 
-SCH = os.path.join(ROOT, "hardware", "spb-bb-revb", "spb-bb-revb_schematic.pdf")
+KCLI = r"C:\Program Files\KiCad\7.0\bin\kicad-cli.exe"
+HWB = os.path.join(ROOT, "hardware", "spb-bb-revb")
+SCH = os.path.join(HWB, "spb-bb-revb_schematic.pdf")
+subprocess.run([KCLI, "sch", "export", "pdf", "-o", SCH, os.path.join(HWB, "spb-bb-revb.kicad_sch")], check=True)
+for side, lays, extra in (("top", "F.Cu,F.SilkS,Edge.Cuts", []), ("bottom", "B.Cu,B.SilkS,Edge.Cuts", ["--mirror"])):
+    pdf = os.path.join(HWB, "plots", "revb_%s.pdf" % side)
+    subprocess.run([KCLI, "pcb", "export", "pdf", "--layers", lays, "-o", pdf] + extra +
+                   [os.path.join(HWB, "spb-bb-revb.kicad_pcb")], check=True)
+    pdf_crop(pdf, "revb_%s" % side, None, 200)
 pdf_crop(SCH, "sch_power", (380, 25, 745, 160))
 pdf_crop(SCH, "sch_driver", (25, 180, 262, 258))
 pdf_crop(SCH, "sch_islands", (25, 262, 228, 322))
@@ -162,7 +170,7 @@ table(s, [X0, Y0, W, 410], [
     ["5", "n in parallel", "loss, T_{j}, V_{DS} vs n → 4 EPC2361 per switch"],
     ["6", "f_{sw}, DC link", "loss vs MLCC count → ≥ 50 kHz; bypass 6 × 1 µF per cell + bank"],
     ["7", "Gate drive → block", "one driver per pair (star, Kelvin) → building block of two cells"],
-    ["8", "Four on one board", "two blocks side by side, DC link and AC joined in copper → Rev B leg board"],
+    ["8", "Four on one board", "two pairs, one driver each (star); one DC pair, one bank, one AC output → Rev B leg"],
     ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS shunt per cell, U.FL, HO 250-S"],
     ["10", "Three-phase DC bus", "legs share the 75 V bus → laminated PCB busbar under the legs"],
     ["11–12", "Verification, board", "Q3D of leg + busbar, KiCad schematic = PCB, Rev B fab files"],
@@ -375,57 +383,61 @@ text(s, R2, [
     "Each cell keeps its own commutation loop (0.374 nH per cell, Rev A Q3D)",
     "Driver: 4 A / 8 A, separate turn-on (0.75 Ω) and turn-off (diode + 0 Ω) paths",
 ], 14)
-decision(s, "Building block = 2 × EPC2361 per switch, one driver; **4 per switch = two blocks**")
+decision(s, "2 × EPC2361 per driver channel (star per pair); **4 per switch = two pairs, two drivers, one leg board**")
 
 # ================================================================== 8 four on one board
-s = slide("Rev B: two blocks on one leg board", 8, "8  Four per switch on one board")
-# native diagram: one leg board with two blocks, four cells, shared DC link, joined AC
-bx, by = X0 + 10, Y0 + 30
-rect(s, [bx, by, 470, 300], "", fill="white", line="gray", round_=False)
+s = slide("Rev B: four cells per switch, two drivers, one leg", 8, "8  Four per switch on one board")
+# native diagram: one leg, four cells, two drivers (one per pair), one DC pair, one AC output
+bx, by = X0 + 10, Y0 + 20
+rect(s, [bx, by, 470, 330], "", fill="white", line="gray", round_=False)
 label(s, [bx + 5, by + 3, 300, 18], "Rev B leg board, 89.5 × 80 mm, 4 layers", 11, "gray", True)
-line(s, [bx + 20, by + 40, bx + 450, by + 40], "hs", 4)
-line(s, [bx + 20, by + 55, bx + 450, by + 55], "ls", 4)
-label(s, [bx + 20, by + 20, 120, 16], "DC+ (DCP)", 10, "hs", True)
-label(s, [bx + 140, by + 20, 120, 16], "DC− (DCN)", 10, "ls", True)
+rect(s, [bx + 185, by + 22, 45, 22], "DC+", "hs10", "hs", 10, True)
+rect(s, [bx + 240, by + 22, 45, 22], "DC−", "kth10", "ls", 10, True)
+line(s, [bx + 20, by + 52, bx + 450, by + 52], "hs", 4)
+line(s, [bx + 20, by + 64, bx + 450, by + 64], "ls", 4)
+line(s, [bx + 207, by + 44, bx + 207, by + 52], "hs", 3)
+line(s, [bx + 262, by + 44, bx + 262, by + 64], "ls", 3)
+label(s, [bx + 20, by + 30, 160, 16], "laminated terminal row + one bank", 9, "gray")
 for k in range(4):
     cx = bx + 30 + k * 110
-    rect(s, [cx, by + 80, 90, 70], "cell %d\nHS + LS\nEPC2361" % (k + 1), "hs10", "hs", 10)
-    rect(s, [cx + 15, by + 160, 60, 28], "UFCS %d" % (k + 1), "meas10", "meas", 9)
-    line(s, [cx + 30, by + 40, cx + 30, by + 80], "hs", 2)
-    line(s, [cx + 60, by + 55, cx + 60, by + 80], "ls", 2)
+    rect(s, [cx, by + 85, 90, 65], "cell %d\nHS + LS\nEPC2361" % (k + 1), "hs10", "hs", 10)
+    rect(s, [cx + 15, by + 160, 60, 26], "UFCS %d" % (k + 1), "meas10", "meas", 9)
+    line(s, [cx + 30, by + 52, cx + 30, by + 85], "hs", 2)
+    line(s, [cx + 60, by + 64, cx + 60, by + 85], "ls", 2)
     line(s, [cx + 45, by + 150, cx + 45, by + 160], "black", 1.5)
-    line(s, [cx + 45, by + 220, cx + 45, by + 235], "black", 3)
+    line(s, [cx + 45, by + 225, cx + 45, by + 245], "black", 3)
 for b in range(2):
-    rect(s, [bx + 75 + b * 220, by + 192, 100, 26], "2EDF7275K #%d" % (b + 1), "pri10", "pri", 10)
-line(s, [bx + 50, by + 235, bx + 405, by + 235], "black", 5)
-label(s, [bx + 40, by + 240, 190, 18], "AC joined in copper (all layers)", 10, "black", True)
-line(s, [bx + 235, by + 235, bx + 235, by + 270], "black", 5, True)
-label(s, [bx + 245, by + 255, 220, 30], "4 × M4 → Cu bar → LEM HO 250-S → load", 10)
-text(s, [X0 + 500, Y0, 400, 370], [
-    "Two Rev A blocks side by side: 4 cells, 2 drivers, star per pair unchanged",
-    "!!One DC link!! (87 MLCCs) and !!one switch node!!: AC of all four cells joined in a full-width 4-layer copper bus",
-    "Single output stub through one aperture Hall sensor: the controller sees one phase current",
-    "UFCS shunt in every LS source: same board for double-pulse and back-to-back load test",
-    "No short-circuit protection (lab board)",
-], 14)
-
-s = slide("Rev B leg board layout", 8)
-image(s, "img/revb_overview.png", [X0, Y0, 600, 400])
-text(s, [X0 + 615, Y0, 285, 400], [
-    "89.5 × 80 mm, 4 layers, 236 parts",
-    "Cells at x = ±14.25 / ±33.25 mm, drivers at the block centres",
-    "Fischer LAM 4 heatsink rotated 90° (tube across the board) to clear the 27 mm shunts",
-    "DC terminals on the bottom edge, AC bus and terminals at the other edge",
-    "DRC 0 / 0 / 0; schematic generated from the PCB, netlist identical (0 problems)",
+    rect(s, [bx + 70 + b * 220, by + 193, 110, 28], "2EDF7275K #%d\nHS + LS, star" % (b + 1), "pri10", "pri", 9)
+line(s, [bx + 50, by + 245, bx + 405, by + 245], "black", 5)
+label(s, [bx + 40, by + 250, 180, 18], "AC joined in copper (all layers)", 10, "black", True)
+line(s, [bx + 235, by + 245, bx + 235, by + 290], "black", 5, True)
+label(s, [bx + 245, by + 270, 220, 40], "ONE M6 AC bolt pad → Cu bar\n→ LEM HO 250-S → load", 10)
+text(s, [X0 + 500, Y0, 400, 380], [
+    "One leg: 4 EPC2361 per switch, **two 2EDF7275K**, each drives one pair (HS + LS channel) through a star",
+    "Why one driver per pair (option B): the driver sits between its two cells ⇒ short, identical gate loops (1.7 nH); "
+    "one HS + one LS isolated supply, split per driver",
+    "**One DC+ / DC− pair** at the centre: laminated terminal row (L1/L3 +, L2/L4 −) feeds one continuous bank",
+    "**One AC output**: all four switch nodes joined, one M6 bolt pad, Cu bar through the HO 250-S",
+    "UFCS shunt in every LS source: same board for DPT and back-to-back load test; no short-circuit protection",
 ], 13)
 
-s = slide("Two blocks on one switch node: driver skew", 8)
+s = slide("Rev B leg board layout", 8)
+image(s, "img/revb_top.png", [X0, Y0, 440, 390])
+image(s, "img/revb_bottom.png", [X0 + 450, Y0, 230, 390])
+text(s, [X0 + 690, Y0, 210, 400], [
+    "89.5 × 80 mm, 4 layers, 231 parts",
+    "Top edge: one DC+ / DC− pair (REDCUBE M4), bank across the full width",
+    "Bottom edge: one M6 AC bolt pad",
+    "Heatsink LAM 4 rotated 90° over cells and bank",
+    "DRC 0 / 0 / 0; schematic = PCB (0 problems)",
+], 12)
+s = slide("Two driver pairs on one switch node: driver skew", 8)
 lx_hs = get(RB, "block_to_block", "HS", fmt="%.2f")
 lx_ls = get(RB, "block_to_block", "LS", fmt="%.2f")
 di = get(RB, "block_to_block", "dI_per_ns_A", fmt="%.0f")
 text(s, [X0, Y0, 520, 370], [
-    "Joining the AC in copper makes the inductance between the switch nodes of the two blocks (L_{x}) small",
-    "If block 2 switches Δt later, block 1 takes ΔI ≈ V_{m}·Δt / L_{x} until block 2 follows",
+    "Joining the AC in copper makes the inductance between the switch nodes of the two driver pairs (L_{x}) small",
+    "If driver 2 switches Δt later, pair 1 takes ΔI ≈ V_{m}·Δt / L_{x} until pair 2 follows",
     "Q3D (Rev B copper, step 11): L_{x} = %s nH (HS on) / %s nH (LS on) ⇒ **≈ %s A per ns of skew**" % (lx_hs, lx_ls, di),
     "Rev A deck required L_{x} ≳ 20 nH for two separate blocks; on one board the skew must be small instead",
 ], 14)
@@ -457,7 +469,7 @@ s = slide("Measurement and control", 9)
 table(s, [X0, Y0, 520, 270], [
     ["Quantity", "How", "Where"],
     ["Cell current (DPT + load)", "PMK UFCS-R001, 1 mΩ, 120 pH", "LS source of each cell"],
-    ["Phase current (control)", "LEM HO 250-S, ±625 A, 3.2 mV/A", "Cu bar stub, JST to C2000"],
+    ["Phase current (control)", "LEM HO 250-S, ±625 A, 3.2 mV/A", "Cu bar on the M6 AC pad"],
     ["V_{GS} HS / LS", "U.FL, 0 Ω, shield = Kelvin", "bottom, at each cell"],
     ["V_{DS} LS", "U.FL, 953 Ω (20:1 into 50 Ω)", "bottom, at each cell"],
     ["Heatsink temperature", "NTC 10 k", "DC− domain"]], size=12, colw=[150, 210, 160])
@@ -498,7 +510,7 @@ table(s, [X0, Y0 + 155, 430, 220], [
     ["Size", "298.5 × 45 mm, 1.6 mm, 4 layers"],
     ["Copper", "2 oz all layers (JLCPCB JLC3313); 3–4 oz option"],
     ["Stack-up", "L1 DC+ / ≤ 0.2 mm / L2 DC− / core / L3 DC+ / ≤ 0.2 mm / L4 DC−"],
-    ["Leg contact", "12 × M4 onto the REDCUBE faces (6.5 mm)"],
+    ["Leg contact", "6 × M4: one DC pair per leg (REDCUBE, 6.5 mm)"],
     ["Stack contact", "2 × M6 lug pads at the centre leg (92 vias each)"],
     ["Insulation", "frame holes with 8 mm Cu keep-out (1200 V)"]], size=11, colw=[110, 320])
 text(s, [X0 + 455, Y0 + 155, 445, 220], [
