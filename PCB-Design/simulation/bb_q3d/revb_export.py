@@ -150,8 +150,9 @@ for ref, f in fps.items():
         for p in f.Pads():
             net = NETS[p.GetNetname()]
             pol = "P" if net == "DCP" else "N"
-            tname = ("Cap%s_%s" if local else "Bank%s_%s") % (pol, g)
-            add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), tname)
+            bot = f.IsFlipped()                    # second bypass row on the bottom side: own terminal group
+            tname = ("Cap%s%s_%s" % (pol, "b" if bot else "", g)) if local else ("Bank%s_%s" % (pol, g))
+            add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), tname, "bottom" if bot else "top")
     elif ref.startswith("RS"):
         c = int(ref[2:])
         for p in f.Pads():

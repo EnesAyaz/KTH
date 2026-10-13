@@ -28,10 +28,12 @@ RES = os.path.join(HERE, "results")
 ROOT = os.path.dirname(os.path.dirname(HERE))
 
 # ------------------------------------------------------------------ component data (assumptions, see slides)
-ESL_0805, ESL_1210 = 0.48e-9, 0.5e-9          # per MLCC (same values as Rev A, bb_to_spice.py)
-ESR_0805, ESR_1210 = 10e-3, 3e-3              # per MLCC at f_sw (datasheet curves, approximate)
-C_0805, C_1210 = 1e-6, 10e-6
-DERATE = float(os.environ.get("REVB_DERATE", "0.35"))   # X7S 100 V at 75 V DC bias (30 - 45 %)
+# bypass TDK C2012X7S2A105K125AB (0805 1 uF), bank TDK C5750X7S2A226M280KB (2220 22 uF); effective C at 75 V and
+# ESR at 50 kHz from the TDK characteristic data (scripts/capacitor_compare.py)
+ESL_0805, ESL_1210 = 0.48e-9, 1.0e-9          # per MLCC; "1210" = bank part (2220: ~1 nH, conservative)
+ESR_0805, ESR_1210 = 45e-3, 2.8e-3            # per MLCC at 50 kHz
+C_0805, C_1210 = 0.178e-6, 6.35e-6            # effective at 75 V
+DERATE = 1.0                                  # (already in C_0805 / C_1210)
 L_SHUNT, R_SHUNT = 0.12e-9, 1.0e-3            # PMK UFCS-R001
 R_FET = 0.75e-3 * 1.49                        # EPC2361 R_DS(on) 0.75 mOhm typ x 1.49 (100 C)
 I_LEG = 300e3 / 16 / 3 / 75.0                 # DC current per leg (83.3 A)
@@ -139,8 +141,8 @@ def cap_groups(names):
     out = []
     for n in names:
         src = n.split(":")[1]
-        if src.startswith("CapP_"):
-            out.append((src, "CapN_" + src[5:], NCAP.get(src, 6), "0805"))
+        if src.startswith("CapP"):                            # CapP_c (top row) and CapPb_c (bottom row)
+            out.append((src, "CapN" + src[4:], NCAP.get(src, 6), "0805"))
         elif src.startswith("BankP_"):
             out.append((src, "BankN_" + src[6:], NCAP.get(src, 12), "1210"))
     return out

@@ -168,7 +168,7 @@ table(s, [X0, Y0, W, 410], [
     ["3", "Submodule voltage", "V_{m} + L·di/dt ≤ 90 V, even integer N → 75 V, N = 16"],
     ["4", "One device, one driver", "first-cut loop + LTspice → ≤ 80 A per device"],
     ["5", "n in parallel", "loss, T_{j}, V_{DS} vs n → 4 EPC2361 per switch"],
-    ["6", "f_{sw}, DC link", "loss vs MLCC count → ≥ 50 kHz; bypass 6 × 1 µF per cell + bank"],
+    ["6", "f_{sw}, DC link", "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 bank + 10 × 1 µF bypass per cell (DC bias at 75 V)"],
     ["7", "Gate drive → block", "one driver per pair (star, Kelvin) → building block of two cells"],
     ["8", "Four on one board", "two pairs, one driver each (star); one DC pair, one bank, one AC output → Rev B leg"],
     ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS shunt per cell, U.FL, HO 250-S"],
@@ -321,31 +321,60 @@ text(s, [X0, Y0 + 225, W, 150], [
 ], 13)
 decision(s, "f_{sw} ≥ 50 kHz (higher allowed by the machine); the DC link below is sized for 50 kHz")
 
+CC = json.load(open(os.path.join(SL, "data", "capacitor_compare.json")))
+s = slide("DC-link sizing for a three-phase level", 6)
+image(s, "img/dclink_sizing.png", [X0, Y0, 520, 200])
+text(s, [X0, Y0 + 210, 520, 170], [
+    "One 75 V level = three legs on one bus; SVPWM M = 1.15, cos φ = 0.9, 322 A peak, switching function per period",
+    "Balanced three-phase: no 2f ripple; capacitor RMS current **85 A per level** (≈ 28 A per leg)",
+    "Worst charge excursion per period **860 µC at 50 kHz** (≈ Î/(8 f_{sw})) ⇒ ripple, not current, sets C",
+], 13)
+table(s, [X0 + 545, Y0, 355, 200], [
+    ["f_{sw}", "ΔV_{pp}", "C_{eff} per level", "per leg"],
+    ["50 kHz", "2 %", "573 µF", "191 µF"], ["50 kHz", "**3 %**", "**382 µF**", "**127 µF**"],
+    ["100 kHz", "2 %", "287 µF", "96 µF"], ["100 kHz", "3 %", "191 µF", "64 µF"]], size=12, colw=[80, 70, 115, 90])
+decision(s, "ΔV_{pp} ≤ 3 % (2.25 V) at 50 kHz ⇒ 127 µF **effective** per leg board (three legs share the level)")
+
+s = slide("Capacitor selection: effective capacitance at 75 V", 6)
+rows = [["Part (100 V X7S)", "Size", "C_{nom} → C at 75 V", "Kept", "ESR 50 kHz", "Parts / leg (3 %)"]]
+for p_ in CC["parts"]:
+    rows.append([("**%s**" % p_["part"]) if "226" in p_["part"] else p_["part"], p_["size"],
+                 "%.1f → %.2f µF" % (p_["C_nom_uF"], p_["C_eff_uF"]), "%.0f %%" % (100 * p_["retention"]),
+                 ("%.1f mΩ" % p_["ESR50k_mOhm"]) if p_["ESR50k_mOhm"] else "–", str(p_["n_50kHz_3pct"])])
+table(s, [X0, Y0, W, 170], rows, size=12, colw=[260, 60, 170, 70, 120, 220])
+text(s, [X0, Y0 + 185, W, 190], [
+    "DC bias at 75 V from the manufacturers' characteristic data (TDK product centre, Murata): 100 V class-II MLCCs keep "
+    "only 15–29 %; the current Murata 1210 keeps !!15 %!!, not the 30 % assumed before",
+    "TDK C5750X7S2A226M280KB (2220, 22 µF): highest C per part and per area (0.22 µF/mm²), 2.8 mΩ, 4.5 A for +10 K",
+    "Checks: 2.8 mm height under the heatsink spreader; 2220 flex cracking ⇒ away from board edge and mounting holes",
+], 13)
+decision(s, "Bank: **20 × TDK C5750X7S2A226M280KB** per leg (2 rows), 127 µF effective, 1.4 A ripple per part")
+
 s = slide("Bypass capacitors: how many and how large", 6)
 image(s, "img/flow_bypass.png", [X0, Y0 + 10, 400, 350])
 text(s, [X0 + 420, Y0, 480, 370], [
-    "**Bypass** (1 µF 0805) supplies the edge, **bank** (10 µF 1210) the f_{sw} ripple; per cell 81 A:",
+    "**Bypass** (1 µF 0805 at the drains) supplies the edge, **bank** the f_{sw} ripple; per cell 81 A:",
     (1, "di/dt → number: L_{Cu} + ESL/n ≤ 0.5 nH ⇒ n ≥ 4"),
-    (1, "Edge charge ΔQ = I(t_{ri}/2 + t_{vf}) + Q_{oss} = 0.59 µC ⇒ 0.4 µF for 1.5 V"),
-    (1, "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)² = 2.9 µF (1 nH, 1.5 V): !!sets the value!!"),
-    (1, "Checks: C_{bp} ≫ C_{oss}; bypass–bank resonance ≈ 3 MHz ⇒ C_{bank} ≥ 10 C_{bp}"),
+    (1, "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)²: !!sets the value!!"),
+    (1, "L_{b} from Q3D (Rev B copper): **0.65–0.77 nH** (1 nH assumed before)"),
+    (1, "0805 1 µF 100 V X7S keeps only **18 %** at 75 V (TDK data): 0.18 µF per part"),
+    (1, "6 per cell = 1.1 µF ⇒ 2.2 V dip; 10 per cell = 1.8 µF ⇒ **1.7 V** dip"),
 ], 13)
-decision(s, "6 × 1 µF 0805 per cell (2.7 µF eff.), unchanged on Rev B")
+decision(s, "10 × 1 µF 0805 per cell: 6 on top at the drains (loop unchanged) + 4 on the bottom, identical in all cells")
 
-s = slide("DC link of the Rev B leg and of one 75 V level", 6)
-table(s, [X0, Y0, 470, 230], [
-    ["Per leg board", "Parts", "Nominal"],
-    ["Bypass, 6 per cell × 4 cells", "24 × 1 µF 0805", "24 µF"],
-    ["Bank", "75 × 10 µF 1210 (3 × 25, one bank)", "750 µF"],
-    ["Total", "99", "774 µF"],
-    ["Effective at 75 V (X7S, 30–45 %)", "", "≈ 230–350 µF"]], size=13, colw=[220, 140, 110], bold_last=False)
+s = slide("DC link of the Rev B leg", 6)
+table(s, [X0, Y0, 470, 200], [
+    ["Per leg board", "Parts", "Nominal", "At 75 V"],
+    ["Bypass, 10 per cell × 4", "40 × 1 µF 0805", "40 µF", "7 µF"],
+    ["Bank, rows A (8) + B (12)", "20 × 22 µF 2220", "440 µF", "127 µF"],
+    ["Total", "60", "480 µF", "134 µF"]], size=13, colw=[170, 120, 80, 100], bold_last=True)
 text(s, [X0 + 495, Y0, 405, 370], [
-    "Three-phase: no 2f power ripple, only f_{sw} ripple ⇒ hundreds of µF, not mF",
-    "Cap RMS current per level (Kolar, M = 1.15, cos φ = 0.9): ≈ 0.37 × 228 ≈ **85 A**, < 1 A per 1210 part",
-    "ΔV_{pp} ≈ Î/(8 f_{sw} C): one leg alone 3.2 V (4.3 %), !!three legs sharing ≈ 1.1 V (1.4 %)!! at 50 kHz",
-    "Bank ≥ 10 × bypass (240 µF): fulfilled",
+    "Ripple at 50 kHz with the three legs of a level sharing: **2.1 V (2.9 %)**",
+    "Leg alone (DPT / back-to-back test without the busbar): ≈ 2× higher, acceptable for the lab tests",
+    "60 instead of 99 MLCCs, bank ≥ 10 × bypass (127 vs 7 µF eff.): fulfilled",
+    "Row A leaves the board centre free: the DC terminal pins are there",
 ], 13)
-decision(s, "Keep all footprints; three legs share one bus per level (step 10); depopulate after the ripple measurement")
+decision(s, "Bank and bypass as above; the Rev B layout is updated to these parts (DRC clean, schematic = PCB)")
 
 # ================================================================== 7 gate drive
 s = slide("Can one driver drive all four?", 7, "7  Gate drive: from 4 devices to a building block")

@@ -46,11 +46,17 @@ MM = pcbnew.FromMM
 
 # ------------------------------------------------------------------ geometry (block-local, as Rev A)
 FAB = dict(xc=9.5, x_edge=16.0, bank_x=(5.75, 8.75, 11.75, 14.75), cap_p=1.6)
-G = geo.build(FAB)
+# bank strips for TWO rows of 2220 MLCCs (TDK C5750X7S2A226M280KB, pads +-2.55 mm, 1.8 mm tall): row A on the
+# P1/N1 boundary (gap centre -11.7), row B on the P2/N2 boundary (gap centre -4.5) just above the bypass row
+ROWS_2220 = dict(p1=(-16.0, -12.0), n1=(-11.4, -8.2), p2=(-8.0, -4.8), n2=(-4.2, 0.9),
+                 p1_via=-12.65, n1_via=-10.75, p2_via=-5.5, l2=(-11.3, 11.9))
+G = geo.build(FAB, ROWS_2220)
 P, Y = G["params"], G["rows"]
 XE, XC = P["x_edge"], P["xc"]
 EDGE, TZ = 1.0, 10.0
-YT = Y["p1"][0] - TZ                         # DC terminal zone top
+YT = -13.4 - TZ                              # DC terminal zone top (fixed: terminals at y = -18.8)
+BANK = ("C_2220_5750Metric", "22uF 100V X7S 2220", "TDK C5750X7S2A226M280KB")
+BANK_ROWS = {"A": [15.0, 21.0, 27.0, 33.0], "B": [3.0, 9.0, 15.0, 21.0, 27.0, 33.0]}   # |x|, both signs
 YQH = sum(Y["qhd"]) / 2 + 1.0
 YQL = sum(Y["qld"]) / 2 + 1.0
 DY = 3.5
@@ -348,7 +354,7 @@ def tight_courtyard(fp, body_half, m=0.05):
     for (a, b), (c, d) in (((-hx, -hy), (hx, -hy)), ((hx, -hy), (hx, hy)), ((hx, hy), (-hx, hy)), ((-hx, hy), (-hx, -hy))):
         sh = pcbnew.FP_SHAPE(fp)
         sh.SetShape(pcbnew.SHAPE_T_SEGMENT)
-        sh.SetLayer(pcbnew.F_CrtYd)
+        sh.SetLayer(pcbnew.B_CrtYd if fp.IsFlipped() else pcbnew.F_CrtYd)
         sh.SetWidth(MM(0.05))
         sh.SetStart0(vloc(a, b))
         sh.SetEnd0(vloc(c, d))
@@ -359,15 +365,18 @@ def tight_courtyard(fp, body_half, m=0.05):
 SAVED = set()
 
 
-def power_cap(name, value, x, y, n_up, n_lo, mpn):
+def power_cap(name, value, x, y, n_up, n_lo, mpn, bottom=False):
     """bank/local MLCC across a strip gap (rot 90): pad with the lower y gets n_up."""
     fp = place(FP + "Capacitor_SMD.pretty", name, ref("C"), value, x, y, 90, mpn=mpn)
-    tight_courtyard(fp, 1.6 if "1210" in name else 1.0)
+    tight_courtyard(fp, {"1210": 1.6, "2220": 3.45}.get(name.split("_")[1], 1.0))
     fp.SetFPID(pcbnew.LIB_ID("spb_fab", name + "_TightCrtYd"))
     PARTS[-1]["footprint"] = name + "_TightCrtYd"
     if name not in SAVED:
         SAVED.add(name)
         pcbnew.FootprintSave(_lib, fp)
+    if bottom:                                   # flip after the courtyard is drawn: same as the library part
+        fp.Flip(fp.GetPosition(), False)
+        PARTS[-1]["side"] = "bottom"
     pads = sorted(fp.Pads(), key=lambda q: q.GetPosition().y)
     pads[0].SetNet(net(n_up))
     pads[1].SetNet(net(n_lo))
@@ -769,6 +778,40 @@ def build_block(bi, xoff):
                 via(gx_, gy_ - 1.2, gnd, 0.6, 0.3)
                 seg(Bl, [(gx_, gy_ - 1.2), (gx_, gy_)], 0.4, gnd)
             ufl.append((sn, src_net, gnd, c, tag))
+
+    # ---- second bypass row (bottom side, under the top row): 6 more 1 uF 0805 per cell -> 12 per cell
+    # (2.1 uF at 75 V; hand-over dip 81 A x sqrt(0.75 nH / 2.1 uF) = 1.5 V). L4 islands DC- (top pad row) and
+    # DC+ (bottom pad row) are tied to L2 / L3 by the existing N2 and cell DC+ through-via rows.
+    def bottom_free(x, y, hx, hy, m=0.25):
+        for fp_ in board.GetFootprints():
+            if not fp_.IsFlipped() or fp_.GetValue().startswith("1uF 100V"):
+                continue                                 # own row: spaced by the cap pitch
+            for q in fp_.Pads():
+                bb = q.GetBoundingBox()
+                if (rx(bb.GetLeft()) - m < x + hx and rx(bb.GetRight()) + m > x - hx and
+                        pcbnew.ToMM(bb.GetTop()) - m < y + hy and pcbnew.ToMM(bb.GetBottom()) + m > y - hy):
+                    return False
+        for t_ in board.GetTracks():
+            if t_.GetClass() == "PCB_TRACK" and t_.GetLayer() == Bl:
+                a = (rx(t_.GetStart().x), pcbnew.ToMM(t_.GetStart().y))
+                b = (rx(t_.GetEnd().x), pcbnew.ToMM(t_.GetEnd().y))
+                for k in range(11):
+                    px, py = a[0] + (b[0] - a[0]) * k / 10, a[1] + (b[1] - a[1]) * k / 10
+                    if abs(px - x) < hx + m + 0.2 and abs(py - y) < hy + m + 0.2:
+                        return False
+        return True
+
+    yb = (Y["capn"][0] + Y["capp"][1]) / 2
+    xs = lambda sgn, i: sgn * XC + (i - 2.5) * P["cap_p"]                       # noqa: E731
+    # mirrored positions only (left index i <-> right index 5 - i): both cells of the pair stay identical
+    keep = [i for i in range(6) if bottom_free(xs(-1, i), yb, 0.75, 1.25) and bottom_free(xs(1, 5 - i), yb, 0.75, 1.25)]
+    for side, sgn in (("L", -1), ("R", 1)):
+        xc_ = sgn * XC
+        rect_zone(Bl, "DCN", xc_ - 4.8, xc_ + 4.8, -1.2, 0.95, 1)
+        rect_zone(Bl, "DCP", xc_ - 4.8, xc_ + 4.8, 1.45, 3.3, 1)
+        for i in keep:
+            power_cap("C_0805_2012Metric", "1uF 100V X7S", xs(sgn, i if sgn < 0 else 5 - i), yb, "DCN", "DCP",
+                      "TDK C2012X7S2A105K125AB", bottom=True)
     OFFX[0], BI[0] = 0.0, 0
     return dict(gate=gate, ufl=ufl)
 
@@ -806,10 +849,12 @@ for yv, n in ((Y["p1_via"], "DCP"), (Y["n1_via"], "DCN"), (Y["p2_via"], "DCP"), 
     while x <= XM - 0.6 + 1e-6:
         POWER_VIAS.append(via(x, yv, n))
         x += 1.2
-# bank: one continuous MLCC bank for the whole leg, 3 rows x 25 on a uniform 3 mm grid (x = -36 ... +36), no gaps
-for g0, up, lo in ((Y["p1"][1], "DCP", "DCN"), (Y["n1"][1], "DCN", "DCP"), (Y["p2"][1], "DCP", "DCN")):
-    for k in range(-12, 13):
-        power_cap("C_1210_3225Metric", "10uF 100V X7S", 3.0 * k, g0 + P["gap"] / 2, up, lo, "Murata GRM32EC72A106KE05L")
+# bank: 20 x TDK 22 uF 100 V X7S 2220 (3 % ripple at 50 kHz with the three legs of a level sharing the bus):
+# row B (12) on the P2/N2 boundary next to the cells, row A (8) on the P1/N1 boundary, clear of the DC terminal pins
+for row, g0 in (("A", Y["p1"][1]), ("B", Y["p2"][1])):
+    for ax in BANK_ROWS[row]:
+        for sx in (-1, 1):
+            power_cap(BANK[0], BANK[1], sx * ax, g0 + P["gap"] / 2, "DCP", "DCN", BANK[2])
 
 # ==================================================================== AC bus, output terminals, bar and sensor
 print("STEP AC bus", flush=True)

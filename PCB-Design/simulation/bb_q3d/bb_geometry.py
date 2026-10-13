@@ -49,7 +49,18 @@ def _row_pads(g0):
     return (gc - 1.7, gc - 0.9), (gc + 0.9, gc + 1.7)
 
 
-def build(p=None):
+def build(p=None, rows=None):
+    """p: parameter overrides; rows: row (y) overrides (Rev B bank for 2220 MLCCs); Rev A uses the defaults."""
+    global Y
+    Y0_ = Y
+    Y = dict(Y0_, **(rows or {}))
+    try:
+        return _build(p)
+    finally:
+        Y = Y0_
+
+
+def _build(p=None):
     p = dict(P, **(p or {}))
     boxes, vias, holes, terms = [], [], [], []
     xe = p["x_edge"]
