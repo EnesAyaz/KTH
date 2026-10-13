@@ -38,6 +38,10 @@ import bb_geometry as geo  # noqa: E402
 import fab_router  # noqa: E402
 
 OUT = os.path.join(ROOT, "hardware", "spb-bb-revb")
+# shunt-path study (SHUNT_VARIANT = base | vip | compact | noshunt): variants go to hardware/variants/<variant>
+VARIANT = os.environ.get("SHUNT_VARIANT", "base")
+if VARIANT != "base":
+    OUT = os.path.join(ROOT, "hardware", "variants", "spb-bb-revb-" + VARIANT)
 os.makedirs(OUT, exist_ok=True)
 NAME = "spb-bb-revb"
 FP = KI + "/footprints/"
@@ -78,6 +82,7 @@ ds.m_MinClearance = MM(0.15)
 ds.m_TrackMinWidth = MM(0.15)
 ds.m_ViasMinSize = MM(0.45)
 ds.m_MinThroughDrill = MM(0.25)
+ds.m_BlindBuriedViaAllowed = True                  # only the noshunt study variant uses blind vias
 ncl = ds.m_NetSettings.m_DefaultNetClass
 ncl.SetClearance(MM(0.15))
 ncl.SetTrackWidth(MM(0.25))
@@ -293,7 +298,13 @@ def lga13():
 
 def ufcs():
     """PMK UFCS shunt, recommended footprint (datasheet rev 02A p.3): two 15 x 3 mm pads, 0.5 mm gap; pad 1 = IN,
-    pad 2 = SHLD (reference). Courtyard = 15 mm blade x 7.5 mm body; the 22 mm body (above 4.1 mm) on F.Fab."""
+    pad 2 = SHLD (reference). Courtyard = 15 mm blade x 7.5 mm body; the 22 mm body (above 4.1 mm) on F.Fab.
+    Variant "notch": the origin is the blade, IN land shortened to 1.2 mm (solder fillet only, manual p.12), so the
+    blade sits 1.45 mm from the source copper; the body overhangs the LS FET at 4.1 mm height (stepped spreader)."""
+    if VARIANT == "notch":
+        return custom_fp("PMK_UFCS_R001_short_IN", [("1", 0.0, -0.85, 15.0, 1.2, "r"), ("2", 0.0, 1.75, 15.0, 3.0, "r")],
+                         (-7.6, -1.6, 7.6, 3.4), "PMK UFCS-R001, IN land shortened to 1.2 mm (blade at the origin)",
+                         model="PMK_UFCS.wrl", fab=(-11.0, -3.75, 11.0, 3.75))
     return custom_fp("PMK_UFCS_R001", [("1", 0.0, -1.75, 15.0, 3.0, "r"), ("2", 0.0, 1.75, 15.0, 3.0, "r")],
                      (-7.6, -3.55, 7.6, 3.55), "PMK UFCS-R001 ultra-fast current shunt, 1 mOhm, 120 pH, SMA output",
                      model="PMK_UFCS.wrl", fab=(-11.0, -3.75, 11.0, 3.75))
@@ -311,7 +322,7 @@ def tmcs_dvg():
 
 
 def heatsink_fp():
-    return custom_fp("HS_LAM4K10012_revb", [], (-60.0, -28.7, 50.0, 11.3),
+    return custom_fp("HS_LAM4K10012_revb", [], (-60.0, -28.7, 50.0, 8.8 if VARIANT == "notch" else 11.3),
                      "Fischer LAM 4 (100 mm, 12 V fan) across the board on an aluminium spreader, ends at y = 11.3",
                      model="HS_LAM4K10012_revb.wrl")
 
@@ -414,6 +425,8 @@ def build_block(bi, xoff):
     kh, kl = bn("KH"), bn("KL")                     # Kelvin networks: meet the source only inside the EPC2361
     # ---- power copper (block-local copy of the Q3D geometry)
     lsrc = {"L": "LSRC%d" % (2 * bi - 1), "R": "LSRC%d" % (2 * bi)}   # low-side source copper of each cell
+    if VARIANT == "noshunt":
+        lsrc = {"L": "DCN", "R": "DCN"}
     for n, nm, lay, x0, x1, y0, y1 in G["boxes"]:
         if lay in LAYER and n:
             prio = 2 if lay == "L1" else 1
@@ -423,7 +436,7 @@ def build_block(bi, xoff):
                 nn = lsrc[nm[-1]]
             rect_zone(LAYER[lay], nn, max(x0, -XE), min(x1, XE), y0, y1, prio)
     for n, x, y, to in G["vias"]:
-        if n == "DCN" and abs(y - Y["src_via"]) < 1e-6:
+        if n == "DCN" and abs(y - Y["src_via"]) < 1e-6 and VARIANT != "noshunt":
             continue                                    # the shunt closes the loop, not a via to L2
         POWER_VIAS.append(via(x, VIA_SHIFT.get(round(y, 2), y), sw if n == "AC" else NETMAP[n]))
     # (DC terminals: one pair for the whole leg at the board centre, see dc_terminals())
@@ -438,6 +451,21 @@ def build_block(bi, xoff):
                    nets=epc(bn("GH_" + side), kh, sw, "DCP"), mpn="EPC2361")
         ql = place(EPC_LIB, "EPC2361", "Q%d" % (qn + (3 if side == "L" else 4)), "EPC2361", xq, YQL, rot,
                    nets=epc(bn("GL_" + side), kl, lsrc[side], sw), mpn="EPC2361")
+        if VARIANT == "noshunt":
+            # via-in-pad in the LS source stripes (pads 4, 6) straight into L2 DC-: the via row below the FET
+            # cannot be used (it cuts the interleaved drain stripes), so the vias go inside the source stripes
+            for q in ql.Pads():
+                if q.GetNumber() in ("4", "6"):
+                    bb = q.GetBoundingBox()
+                    x0_, x1_ = rx(bb.GetLeft()), rx(bb.GetRight())
+                    y0_, y1_ = pcbnew.ToMM(bb.GetTop()), pcbnew.ToMM(bb.GetBottom())
+                    for f_ in (0.2, 0.5, 0.8):
+                        if (x1_ - x0_) < (y1_ - y0_):
+                            bv = via((x0_ + x1_) / 2, y0_ + f_ * (y1_ - y0_), "DCN", 0.45, 0.25)
+                        else:
+                            bv = via(x0_ + f_ * (x1_ - x0_), (y0_ + y1_) / 2, "DCN", 0.45, 0.25)
+                        bv.SetViaType(pcbnew.VIATYPE_BLIND_BURIED)       # L1 -> L2 only (bottom sense traces)
+                        bv.SetLayerPair(F, L2l)
         for tag, fp in (("H", qh), ("L", ql)):
             g = [p for p in fp.Pads() if p.GetNumber() == "1"][0]
             k = [p for p in fp.Pads() if p.GetNumber() == "2"][0]
@@ -569,16 +597,26 @@ def build_block(bi, xoff):
     seg(F, [padxy(drv, 7), (1.95, 18.2 + DY), (1.72, 18.75 + DY), (1.9, 19.82 + DY)], 0.25, bn("VDDI"))
 
     # ---- shunts: IN pad continues the LS source strip, SHLD pad drops into the L2 DC- plane
+    # variants (SHUNT_VARIANT): vip = DC- return vias inside the SHLD pad; compact = vip + shunt 1 mm closer to the
+    # LS source; noshunt = no shunt, source copper is DC- with its vias to L2 (Rev A loop)
+    dys = -1.0 if VARIANT == "compact" else 0.0
+    ysv = YS + dys
+    if VARIANT == "notch":                           # blade at y = 12.65: IN land 11.2 .. 12.4, SHLD 12.9 .. 15.9
+        ysv, dys = 12.65, 12.4 - 15.0
     for side, sgn in (("L", -1), ("R", 1)):
         xs = sgn * XS_OFF
         c = 2 * (bi - 1) + (1 if side == "L" else 2)
-        fp = ufcs()
-        finish(fp, "RS%d" % c, "UFCS-R001", xs, YS, 0.0, False, {"1": lsrc[side], "2": "DCN"},
-               "PMK UFCS-R001 (1 mOhm, 50 A cont.)", "PMK_UFCS_R001")
+        if VARIANT != "noshunt":
+            fp = ufcs()
+            finish(fp, "RS%d" % c, "UFCS-R001", xs, ysv, 0.0, False, {"1": lsrc[side], "2": "DCN"},
+                   "PMK UFCS-R001 (1 mOhm, 50 A cont.)", "PMK_UFCS_R001")
         xa, xb = sorted((sgn * 4.9, sgn * 19.9))
-        rect_zone(F, lsrc[side], xa, xb, 11.2, 15.0, 2)          # IN side, joined to the source strip
-        rect_zone(F, "DCN", xa, xb, 15.5, 20.2, 2)               # SHLD side
-        for yv in (19.0, 19.75):
+        rect_zone(F, lsrc[side], xa, xb, 11.2, 15.0 + dys, 2)    # IN side, joined to the source strip
+        rect_zone(F, "DCN", xa, xb, (ysv + 0.25) if VARIANT == "notch" else 15.5 + dys, 20.2, 2)   # SHLD side
+        rows = (19.0, 19.75)
+        if VARIANT in ("vip", "compact", "notch"):
+            rows = (ysv + 0.75, ysv + 1.45, ysv + 2.15, ysv + 2.85) + rows     # via-in-pad (filled, capped)
+        for yv in rows:
             k = 0
             while True:
                 xv = xa + 0.5 + k * 1.0
@@ -588,7 +626,8 @@ def build_block(bi, xoff):
                 k += 1
         xa2, xb2 = sorted((sgn * 4.9, sgn * 20.3))
         rect_zone(L2l, "DCN", xa2, xb2, 11.9, 20.6, 1)          # L2 DC- return under the shunt
-        text("RS%d" % c, xs, 21.2, 0.8, pcbnew.F_Fab)
+        if VARIANT != "noshunt":
+            text("RS%d" % c, xs, 21.2, 0.8, pcbnew.F_Fab)
 
     # ---- AC columns per cell: L3/L4 from the cell down, L1/L2 below the shunts, into the AC bus (y > 36.3)
     for side, sgn in (("L", -1), ("R", 1)):
@@ -775,8 +814,9 @@ def build_block(bi, xoff):
             if tag == "D":                              # LSS via from the shunt IN copper (L1) above
                 gp = min(gpads, key=lambda q: pcbnew.ToMM(q.GetPosition().y))
                 gx_, gy_ = rx(gp.GetPosition().x), pcbnew.ToMM(gp.GetPosition().y)
-                via(gx_, gy_ - 1.2, gnd, 0.6, 0.3)
-                seg(Bl, [(gx_, gy_ - 1.2), (gx_, gy_)], 0.4, gnd)
+                vy_ = min(gy_ - 1.2, 11.8) if VARIANT == "notch" else gy_ - 1.2   # inside the (short) IN land
+                via(gx_, vy_, gnd, 0.6, 0.3)
+                seg(Bl, [(gx_, vy_), (gx_, gy_)], 0.4, gnd)
             ufl.append((sn, src_net, gnd, c, tag))
 
     # ---- second bypass row (bottom side, under the top row): 6 more 1 uF 0805 per cell -> 12 per cell

@@ -20,7 +20,8 @@ import pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-BRD = os.path.join(ROOT, "hardware", "spb-bb-revb", "spb-bb-revb.kicad_pcb")
+BRD = os.environ.get("REVB_BOARD") or os.path.join(ROOT, "hardware", "spb-bb-revb", "spb-bb-revb.kicad_pcb")
+TAGS = os.environ.get("REVB_LOOP_TAG", "")             # variant tag of the loop model (file names)
 OX, OY = 150.0, 100.0
 NETS = {"DCP": "DCP", "DCN": "DCN", "SW": "AC", "LSRC1": "LSRC1", "LSRC2": "LSRC2", "LSRC3": "LSRC3", "LSRC4": "LSRC4"}
 LAYERS = {pcbnew.F_Cu: "L1", pcbnew.In1_Cu: "L2", pcbnew.In2_Cu: "L3", pcbnew.B_Cu: "L4"}
@@ -133,7 +134,8 @@ for t in b.GetTracks():
         nn = NETS[t.GetNetname()]
         if LOOP and nn == "AC":
             nn = "AC%d" % cell_of(vx)
-        vias.append([nn, vx, vy, round(mm(t.GetDrill()) / 2, 4)])
+        lt, lb = LAYERS.get(t.TopLayer(), "L1"), LAYERS.get(t.BottomLayer(), "L4")
+        vias.append([nn, vx, vy, round(mm(t.GetDrill()) / 2, 4), lt, lb])     # layer span (blind vias)
 
 pads, groups = [], {}
 fps = {f.GetReference(): f for f in b.GetFootprints()}
@@ -217,7 +219,7 @@ assert all(any(t[0] == "Sink" and t[2] == n for t in terms) for n in set(t_[2] f
 out = dict(polys=polys, vias=vias, pads=pads, terminals=terms,
            note="routed board %s, simplification %.2f mm" % (os.path.basename(BRD), TOL))
 os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-json.dump(out, open(os.path.join(HERE, "results", "revb_loop_geometry.json" if LOOP else "revb_geometry.json"), "w"))
+json.dump(out, open(os.path.join(HERE, "results", ("revb_loop_geometry%s.json" % ("_" + TAGS if TAGS else "")) if LOOP else "revb_geometry.json"), "w"))
 npts = sum(len(p[2]) + sum(len(h) for h in p[3]) for p in polys)
 print("polys %d (holes %d, points %d), vias %d, pads %d, terminals %d" % (
     len(polys), sum(len(p[3]) for p in polys), npts, len(vias), len(pads), len(terms)))

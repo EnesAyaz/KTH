@@ -20,8 +20,10 @@ oDesktop.RestoreWindow()
 HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in dir() else os.getcwd()
 OUT = os.path.join(HERE, "results")
 LOOP = os.environ.get("REVB_REGION", "") == "loop"     # fast loop-only model (cell band, bypass, shunts)
-TAG = "BB_PL_LOOP" if LOOP else "BB_PL_REVB"
-LOG = open(os.path.join(OUT, "loop_log.txt" if LOOP else "revb_log.txt"), "w")
+VT = os.environ.get("REVB_LOOP_TAG", "")              # variant tag (shunt study)
+SFX = ("_" + VT) if (LOOP and VT) else ""
+TAG = ("BB_PL_LOOP" + SFX) if LOOP else "BB_PL_REVB"
+LOG = open(os.path.join(OUT, ("loop_log%s.txt" % SFX) if LOOP else "revb_log.txt"), "w")
 
 
 def log(m):
@@ -30,7 +32,7 @@ def log(m):
 
 
 import traceback
-G = json.load(open(os.path.join(OUT, "revb_loop_geometry.json" if LOOP else "revb_geometry.json")))
+G = json.load(open(os.path.join(OUT, ("revb_loop_geometry%s.json" % SFX) if LOOP else "revb_geometry.json")))
 ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
 EVERY = int(os.environ.get("REVB_AC_VIA_EVERY", "1"))
@@ -52,7 +54,7 @@ ZR = {"L1": (Z["z_L1"], Z["z_top"]), "L2": (0.0, Z["t_L2"]), "L3": (Z["z_L3b"], 
 try:
     oProject = oDesktop.NewProject()
     log("project new")
-    oProject.Rename(os.path.join(OUT, "bb_q3d_loop.aedt" if LOOP else "bb_q3d_revb.aedt"), True)
+    oProject.Rename(os.path.join(OUT, ("bb_q3d_loop%s.aedt" % SFX) if LOOP else "bb_q3d_revb.aedt"), True)
     log("project renamed")
     oProject.InsertDesign("Q3D Extractor", TAG, "", "")
     oDesign = oProject.SetActiveDesign(TAG)
@@ -126,10 +128,12 @@ except Exception:
     log(traceback.format_exc())
     raise
 log("polys done")
-for k, (net, x, y, r) in enumerate(G["vias"]):
+for k, v_ in enumerate(G["vias"]):
+    net, x, y, r = v_[:4]
+    za, zb = (ZR[v_[5]][0], ZR[v_[4]][1]) if len(v_) > 5 else (Z["z_L4b"], Z["z_top"])     # blind vias: own span
     name = "V%d_%s" % (k, net)
-    ed.CreateCylinder(["NAME:CylinderParameters", "XCenter:=", mm(x), "YCenter:=", mm(y), "ZCenter:=", mm(Z["z_L4b"]),
-                       "Radius:=", mm(max(r, 0.15)), "Height:=", mm(Z["z_top"] - Z["z_L4b"]), "WhichAxis:=", "Z",
+    ed.CreateCylinder(["NAME:CylinderParameters", "XCenter:=", mm(x), "YCenter:=", mm(y), "ZCenter:=", mm(za),
+                       "Radius:=", mm(max(r, 0.15)), "Height:=", mm(zb - za), "WhichAxis:=", "Z",
                        "NumSides:=", "0"], attrs(name))
     add(net, name)
 log("vias done")
