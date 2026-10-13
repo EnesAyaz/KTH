@@ -336,9 +336,9 @@ s = slide("DC link of the Rev B leg and of one 75 V level", 6)
 table(s, [X0, Y0, 470, 230], [
     ["Per leg board", "Parts", "Nominal"],
     ["Bypass, 6 per cell × 4 cells", "24 × 1 µF 0805", "24 µF"],
-    ["Bank", "63 × 10 µF 1210", "630 µF"],
-    ["Total", "87", "654 µF"],
-    ["Effective at 75 V (X7S, 30–45 %)", "", "≈ 200–300 µF"]], size=13, colw=[220, 140, 110], bold_last=False)
+    ["Bank", "75 × 10 µF 1210 (3 × 25, one bank)", "750 µF"],
+    ["Total", "99", "774 µF"],
+    ["Effective at 75 V (X7S, 30–45 %)", "", "≈ 230–350 µF"]], size=13, colw=[220, 140, 110], bold_last=False)
 text(s, [X0 + 495, Y0, 405, 370], [
     "Three-phase: no 2f power ripple, only f_{sw} ripple ⇒ hundreds of µF, not mF",
     "Cap RMS current per level (Kolar, M = 1.15, cos φ = 0.9): ≈ 0.37 × 228 ≈ **85 A**, < 1 A per 1210 part",

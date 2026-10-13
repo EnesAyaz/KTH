@@ -130,16 +130,19 @@ class Net:
         return V, I_groups, I_simple
 
 
+_GEO = json.load(open(os.path.join(RES, "revb_geometry.json")))
+NCAP = {t[1]: len(t[3]) for t in _GEO["terminals"]}          # pads per terminal group = parts per MLCC group
+
+
 def cap_groups(names):
-    """MLCC groups of a leg: (P terminal, N terminal, n parts, kind)."""
+    """MLCC groups of a leg: (P terminal, N terminal, n parts, kind); part count from the exported geometry."""
     out = []
     for n in names:
         src = n.split(":")[1]
         if src.startswith("CapP_"):
-            out.append((src, "CapN_" + src[5:], 6, "0805"))
+            out.append((src, "CapN_" + src[5:], NCAP.get(src, 6), "0805"))
         elif src.startswith("BankP_"):
-            g = src[6:]
-            out.append((src, "BankN_" + g, 15 if g == "C" else 12, "1210"))
+            out.append((src, "BankN_" + src[6:], NCAP.get(src, 12), "1210"))
     return out
 
 
