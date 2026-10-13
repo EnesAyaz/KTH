@@ -21,6 +21,7 @@ Coordinates: mm, y down, leg-local y (same as the leg board); x = 0 at the centr
 import json
 import math
 import os
+import sys
 
 KI = "C:/Program Files/KiCad/7.0/share/kicad"
 os.environ.setdefault("KICAD7_3DMODEL_DIR", KI + "/3dmodels")
@@ -46,7 +47,8 @@ XB = PITCH + LEG_W / 2 + 10.0                     # strip half length (10 mm bey
 YB0, YB1 = -49.0, -4.0                            # strip y range: outer edge .. inner edge (clears H5/H6 heads at y 0.2)
 YLUG = -37.0
 XLUG = 12.0
-CU_UM, PP_MM = 70.0, 0.2                          # copper per layer (2 oz), prepreg L1-L2 / L3-L4
+OZ = float(sys.argv[1]) if len(sys.argv) > 1 else 2.0    # copper per layer in oz (JLCPCB: 2 oz in+out, JLC3313)
+CU_UM, PP_MM = 35.0 * OZ, 0.2                     # prepreg L1-L2 / L3-L4 (upper bound; JLC3313 is thinner)
 PULLBACK = 1.0
 FRAME_KEEP = 8.0                                  # copper keep-out radius around frame holes (1200 V to frame)
 
@@ -322,7 +324,7 @@ for i, x in enumerate([-XB + 4.0 + 4.0 * k for k in range(int((2 * XB - 8.0) / 4
         nst += 1
 
 # ------------------------------------------------------------------ notes on the fab layer
-notes = ["4 layers, 1.6 mm FR4, 70 um (2 oz) Cu on ALL layers (3 oz optional), ENIG",
+notes = ["4 layers, 1.6 mm FR4, %g oz Cu on ALL layers (JLCPCB: 2 oz outer + 2 oz inner, JLC3313 stack-up), ENIG" % OZ,
          "L1 DC+ / prepreg <= 0.2 mm / L2 DC- / core / L3 DC+ / prepreg <= 0.2 mm / L4 DC-",
          "top face (L1) faces the leg boards; M4 x 8 screws from the bottom; bolt pads bare (no mask)",
          "frame holes: insulating standoffs, 8 mm Cu keep-out; nylon M2.5 x 6.5 mm at the leg H3/H4 holes"]
@@ -340,6 +342,10 @@ P_bus = 4 * I_leg ** 2 * R_seg
 EST = dict(L_leg_to_leg_nH=L_seg * 1e9, R_seg_per_polarity_mOhm=R_seg * 1e3, I_leg_dc_A=I_leg,
            P_bus_W=P_bus, width_mm=w * 1e3, length_mm=2 * XB, lug_vias=nlugv, stitch_vias=nst)
 print("estimates:", {k: round(v, 3) for k, v in EST.items()}, flush=True)
+for oz in (2, 3, 4):
+    r = 1.72e-8 * seg / (w * 2 * 35e-6 * oz)
+    print("  %d oz: R_seg %.3f mOhm per polarity, P_bus %.1f W" % (oz, r * 1e3, 4 * I_leg ** 2 * r))
+    EST["P_bus_W_%doz" % oz] = 4 * I_leg ** 2 * r
 
 # ------------------------------------------------------------------ save, fill, DRC
 OX, OY = 160.0, 80.0
