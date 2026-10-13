@@ -19,7 +19,9 @@ ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
 oDesktop.RestoreWindow()
 HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in dir() else os.getcwd()
 OUT = os.path.join(HERE, "results")
-LOG = open(os.path.join(OUT, "revb_log.txt"), "w")
+LOOP = os.environ.get("REVB_REGION", "") == "loop"     # fast loop-only model (cell band, bypass, shunts)
+TAG = "BB_PL_LOOP" if LOOP else "BB_PL_REVB"
+LOG = open(os.path.join(OUT, "loop_log.txt" if LOOP else "revb_log.txt"), "w")
 
 
 def log(m):
@@ -28,7 +30,7 @@ def log(m):
 
 
 import traceback
-G = json.load(open(os.path.join(OUT, "revb_geometry.json")))
+G = json.load(open(os.path.join(OUT, "revb_loop_geometry.json" if LOOP else "revb_geometry.json")))
 ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
 EVERY = int(os.environ.get("REVB_AC_VIA_EVERY", "1"))
@@ -50,10 +52,10 @@ ZR = {"L1": (Z["z_L1"], Z["z_top"]), "L2": (0.0, Z["t_L2"]), "L3": (Z["z_L3b"], 
 try:
     oProject = oDesktop.NewProject()
     log("project new")
-    oProject.Rename(os.path.join(OUT, "bb_q3d_revb.aedt"), True)
+    oProject.Rename(os.path.join(OUT, "bb_q3d_loop.aedt" if LOOP else "bb_q3d_revb.aedt"), True)
     log("project renamed")
-    oProject.InsertDesign("Q3D Extractor", "BB_PL_REVB", "", "")
-    oDesign = oProject.SetActiveDesign("BB_PL_REVB")
+    oProject.InsertDesign("Q3D Extractor", TAG, "", "")
+    oDesign = oProject.SetActiveDesign(TAG)
     ed = oDesign.SetActiveEditor("3D Modeler")
     bnd = oDesign.GetModule("BoundarySetup")
     log("design ready")
@@ -141,10 +143,32 @@ for net, name, x0, x1, y0, y1, side in G["pads"]:
     add(net, name)
 log("pads done")
 BODY = {}
+
+
+def _diag(obj):
+    pts = [[float(v) for v in ed.GetVertexPosition(vid)] for vid in ed.GetVertexIDsFromObject(obj)]
+    if not pts:
+        return 0.0
+    return ((max(p[0] for p in pts) - min(p[0] for p in pts)) ** 2 + (max(p[1] for p in pts) - min(p[1] for p in pts)) ** 2) ** 0.5
+
+
 for net, objs in NETOBJ.items():
     ed.Unite(["NAME:Selections", "Selections:=", ",".join(objs)], ["NAME:UniteParameters", "KeepOriginals:=", False])
-    BODY[net] = objs[0]
-    bnd.AssignSignalNet(["NAME:" + net, "Objects:=", [objs[0]]])
+    # separate lumps; floating pieces (cropped copper, lone vias) are deleted, the main conductor is kept
+    before = set(ed.GetObjectsInGroup("Solids"))
+    ed.SeparateBody(["NAME:Selections", "Selections:=", objs[0], "NewPartsModelFlag:=", "Model"],
+                    ["CreateGroupsForNewObjects:=", False])
+    lumps = sorted(([objs[0]] + sorted(set(ed.GetObjectsInGroup("Solids")) - before)), key=_diag, reverse=True)
+    small = [o for o in lumps[1:] if _diag(o) <= 3.0]
+    big = [o for o in lumps if o not in small]
+    if small:
+        ed.Delete(["NAME:Selections", "Selections:=", ",".join(small)])
+    if len(big) > 1:
+        log("WARNING net %s has %d large lumps: %r" % (net, len(big), [(o, round(_diag(o), 1)) for o in big]))
+        ed.Unite(["NAME:Selections", "Selections:=", ",".join(big)], ["NAME:UniteParameters", "KeepOriginals:=", False])
+    log("net %s: %d lumps, %d deleted" % (net, len(lumps), len(small)))
+    BODY[net] = big[0]
+    bnd.AssignSignalNet(["NAME:" + net, "Objects:=", [big[0]]])
 log("united: %r" % BODY)
 sinks, sources = {}, {}
 for kind, name, net, pts, side in sorted(G["terminals"], key=lambda t: t[0] != "Source"):
@@ -163,7 +187,8 @@ oDesign.GetModule("AnalysisSetup").InsertSetup("Matrix", [
     ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
      "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "High", "Solver Type:=", "Iterative"],
     ["NAME:DC", "SolveResOnly:=", False,
-     ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
+     ["NAME:Cond", "MaxPass:=", 3 if LOOP else 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 5 if LOOP else ERR,
+      "PerRefine:=", 30],
      ["NAME:Mult", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
      "Solution Order:=", "Normal"],
     ["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
@@ -172,19 +197,19 @@ try:
     log("validate: %r" % oDesign.ValidateDesign())
     oProject.Save()
     oDesign.Analyze("Setup1")
-    oDesign.ExportMatrixData(os.path.join(OUT, "BB_PL_REVB_matrix.txt"), "C, DC RL, AC RL", "", "Setup1:LastAdaptive",
+    oDesign.ExportMatrixData(os.path.join(OUT, TAG + "_matrix.txt"), "C, DC RL, AC RL", "", "Setup1:LastAdaptive",
                              "Original", "ohm", "nH", "pF", "mSie", 100000000, "Maxwell,Spice,Couple", 0, False, 15,
                              20, 1)
-    f = open(os.path.join(OUT, "BB_PL_REVB_terminals.txt"), "w")
+    f = open(os.path.join(OUT, TAG + "_terminals.txt"), "w")
     for net in sorted(sinks):
         f.write("%s %s %s\n" % (net, sinks[net], " ".join(sources.get(net, []))))
     f.write("# stack: %s\n" % ", ".join("%s=%g" % kv for kv in sorted(Z.items())))
     f.close()
-    log("BB_PL_REVB: exported")
+    log(TAG + ": exported")
 except Exception as e:
     log("FAILED %r" % e)
     try:
-        for m in oDesktop.GetMessages(oProject.GetName(), "BB_PL_REVB", 0):
+        for m in oDesktop.GetMessages(oProject.GetName(), TAG, 0):
             log("MSG " + str(m))
     except Exception:
         pass
