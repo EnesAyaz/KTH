@@ -1,0 +1,292 @@
+[
+ {
+  "ref": "J1",
+  "value": "LEG1 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -124.25,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J2",
+  "value": "LEG1 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -112.25,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J3",
+  "value": "LEG1 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -76.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J4",
+  "value": "LEG1 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -64.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H1",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -136.85,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H2",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -52.15,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J5",
+  "value": "LEG2 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -29.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J6",
+  "value": "LEG2 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": -17.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J7",
+  "value": "LEG2 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 17.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J8",
+  "value": "LEG2 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 29.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H3",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": -42.35,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H4",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 42.35,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J9",
+  "value": "LEG3 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 64.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J10",
+  "value": "LEG3 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 76.75,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J11",
+  "value": "LEG3 DC+",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 112.25,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J12",
+  "value": "LEG3 DC-",
+  "footprint": "BUS_M4_REDCUBE",
+  "mpn": "M4 x 8 screw + washer into REDCUBE 74650174",
+  "x": 124.25,
+  "y": -18.8,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H5",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 52.15,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H6",
+  "value": "nylon M2.5 standoff 6.5 mm (leg H3/H4)",
+  "footprint": "MountingHole_2.7mm_M2.5",
+  "mpn": "",
+  "x": 136.85,
+  "y": -22.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J13",
+  "value": "STACK DC+ (to level above: its DC-)",
+  "footprint": "BUS_LUG_M6",
+  "mpn": "M6 ring lug / Cu braid, both faces clamped",
+  "x": -12.0,
+  "y": -37.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J14",
+  "value": "STACK DC- (to level below: its DC+)",
+  "footprint": "BUS_LUG_M6",
+  "mpn": "M6 ring lug / Cu braid, both faces clamped",
+  "x": 12.0,
+  "y": -37.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "J15",
+  "value": "LEVEL V: 1 DC+, 2 DC- (HV referenced)",
+  "footprint": "PinHeader_1x02_P2.54mm_Vertical",
+  "mpn": "2.54 mm header 1x2",
+  "x": 0.0,
+  "y": -39.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "C1",
+  "value": "DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)",
+  "footprint": "CP_Elec_10x10.5",
+  "mpn": "select: 100 V hybrid polymer, 10 x 10.5 mm SMD",
+  "x": -46.0,
+  "y": -37.0,
+  "rot": 90.0,
+  "side": "top"
+ },
+ {
+  "ref": "C2",
+  "value": "DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)",
+  "footprint": "CP_Elec_10x10.5",
+  "mpn": "select: 100 V hybrid polymer, 10 x 10.5 mm SMD",
+  "x": -32.0,
+  "y": -37.0,
+  "rot": 90.0,
+  "side": "top"
+ },
+ {
+  "ref": "C3",
+  "value": "DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)",
+  "footprint": "CP_Elec_10x10.5",
+  "mpn": "select: 100 V hybrid polymer, 10 x 10.5 mm SMD",
+  "x": 32.0,
+  "y": -37.0,
+  "rot": 90.0,
+  "side": "top"
+ },
+ {
+  "ref": "C4",
+  "value": "DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)",
+  "footprint": "CP_Elec_10x10.5",
+  "mpn": "select: 100 V hybrid polymer, 10 x 10.5 mm SMD",
+  "x": 46.0,
+  "y": -37.0,
+  "rot": 90.0,
+  "side": "top"
+ },
+ {
+  "ref": "H7",
+  "value": "M3 insulating standoff to frame (8 mm Cu keep-out)",
+  "footprint": "MountingHole_3.2mm_M3",
+  "mpn": "",
+  "x": -144.25,
+  "y": -12.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H8",
+  "value": "M3 insulating standoff to frame (8 mm Cu keep-out)",
+  "footprint": "MountingHole_3.2mm_M3",
+  "mpn": "",
+  "x": -144.25,
+  "y": -41.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H9",
+  "value": "M3 insulating standoff to frame (8 mm Cu keep-out)",
+  "footprint": "MountingHole_3.2mm_M3",
+  "mpn": "",
+  "x": 144.25,
+  "y": -12.0,
+  "rot": 0.0,
+  "side": "top"
+ },
+ {
+  "ref": "H10",
+  "value": "M3 insulating standoff to frame (8 mm Cu keep-out)",
+  "footprint": "MountingHole_3.2mm_M3",
+  "mpn": "",
+  "x": 144.25,
+  "y": -41.0,
+  "rot": 0.0,
+  "side": "top"
+ }
+]
