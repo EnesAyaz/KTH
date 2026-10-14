@@ -80,7 +80,7 @@ pdf_crop(SCH, "sch_driver", (25, 180, 262, 258))
 pdf_crop(SCH, "sch_islands", (25, 262, 228, 322))
 pdf_crop(SCH, "sch_ufl", (25, 322, 245, 352))
 pdf_crop(os.path.join(ROOT, "hardware", "spb-busbar", "plots", "spb-busbar-busbar_view.pdf"), "busbar_top", None, 200)
-for n in ("top", "bottom", "revb_overview"):
+for n in ("top", "bottom", "revb_overview", "revb_3d_noheatsink", "revb_3d_iso", "revb_3d_bottom"):
     p = os.path.join(IMG, n + ".png")
     if os.path.exists(p):
         autocrop(p)
@@ -101,6 +101,83 @@ if HAVE_SWEEP:
     fig.tight_layout()
     fig.savefig(os.path.join(IMG, "revb_sweep.png"))
     plt.close(fig)
+
+# fast loop-only Q3D (run_bb_q3d_loop.cmd): per-cell loop of the study variants and of the final layout
+RES = os.path.join(ROOT, "simulation", "bb_q3d", "results")
+LS = {}
+for tag in ("", "_vip", "_notch", "_noshunt", "_symv", "_noshunt_symv"):
+    p_ = os.path.join(RES, "loop_summary%s.json" % tag)
+    if os.path.exists(p_):
+        LS[tag.strip("_") or "base"] = json.load(open(p_))
+
+
+def cells(tag, key="all_switching"):
+    return [LS[tag][key]["cell%d" % c] for c in range(1, 5)]
+
+
+fig, ax = plt.subplots(figsize=(7.0, 3.7), dpi=200)
+xs = np.arange(4)
+for k, (tag, lab, col, hatch) in enumerate((("base", "with shunt, before the fix", "#E6A0A0", "//"),
+                                            ("symv", "with shunt, final", "#C84632", ""),
+                                            ("noshunt", "no shunt, before the fix", "#9DB8E0", "//"),
+                                            ("noshunt_symv", "no shunt, final", "#1954A6", ""))):
+    v = cells(tag)
+    ax.bar(xs + (k - 1.5) * 0.2, v, 0.19, color=col, hatch=hatch, edgecolor="white", label=lab)
+    if not hatch:
+        for x_, y_ in zip(xs + (k - 1.5) * 0.2, v):
+            ax.text(x_, y_ + 0.01, "%.2f" % y_, ha="center", va="bottom", fontsize=7)
+ax.axhline(0.374, color="gray", ls="--", lw=1, label="Rev A model, 0.374 nH")
+ax.set_xticks(xs)
+ax.set_xticklabels(["cell 1\n(left, block 1)", "cell 2\n(right, block 1)", "cell 3\n(left, block 2)",
+                    "cell 4\n(right, block 2)"])
+ax.set_ylabel("commutation loop per cell (nH)")
+ax.set_ylim(0, 1.2)
+ax.legend(fontsize=8, ncol=3, loc="upper center")
+fig.tight_layout()
+fig.savefig(os.path.join(IMG, "revb_loop_cells.png"))
+plt.close(fig)
+
+fig, ax = plt.subplots(figsize=(7.0, 3.7), dpi=200)
+bars = [("as routed\n(shunt)", LS["base"]["mean_nH"], "#E6A0A0"),
+        ("vias in\nshunt pad", LS["vip"]["mean_nH"], "#E6A0A0"),
+        ("notched\nheatsink", LS["notch"]["mean_nH"], "#E6A0A0"),
+        ("final\n(shunt)", LS["symv"]["mean_nH"], "#C84632"),
+        ("final, shunt\nas 0 pH", float(np.mean(cells("symv", "all_switching_shunt_0pH"))), "#D9A441"),
+        ("final\nno shunt", LS["noshunt_symv"]["mean_nH"], "#1954A6")]
+for k, (lab, v, col) in enumerate(bars):
+    ax.bar(k, v, 0.6, color=col)
+    ax.text(k, v + 0.01, "%.2f nH\n%.0f V" % (v, 75 + 30 * v), ha="center", va="bottom", fontsize=8)
+ax.axhline(0.5, color="#2CA02C", ls="--", lw=1, label="0.5 nH design value (90 V at 30 A/ns)")
+ax.legend(fontsize=8, loc="upper right")
+ax.set_xticks(range(len(bars)))
+ax.set_xticklabels([b[0] for b in bars], fontsize=8.5)
+ax.set_ylabel("mean loop per cell (nH)")
+ax.set_ylim(0, 1.05)
+fig.tight_layout()
+fig.savefig(os.path.join(IMG, "revb_shunt_study.png"))
+plt.close(fig)
+
+# bypass hand-over with the Rev B numbers: TDK 0805 1 uF keeps 18 % at 75 V, L_b from Q3D
+I_DEV, C_PART = FN["bypass"]["I_dev"], 0.178e-6
+dv = np.linspace(0.5, 5.0, 200)
+fig, ax = plt.subplots(figsize=(6.0, 4.6), dpi=200)
+ax.fill_between(dv, 0.65e-9 * (I_DEV / dv) ** 2 * 1e6, 0.77e-9 * (I_DEV / dv) ** 2 * 1e6, color="#1954A6", alpha=0.35,
+                label="hand-over, $L_b$ = 0.65–0.77 nH (Q3D)")
+ax.plot(dv, 1e-9 * (I_DEV / dv) ** 2 * 1e6, color="#C84632", lw=1.2, ls=":", label="hand-over, $L_b$ = 1 nH (assumed before)")
+ax.plot(dv, FN["bypass"]["dQ"] / dv * 1e6, color="k", ls="--", lw=1.2, label="edge charge")
+for n, col in ((6, "#9467BD"), (10, "#2CA02C")):
+    ax.axhline(n * C_PART * 1e6, color=col, lw=1.2)
+    ax.text(4.95, n * C_PART * 1e6 + 0.05, "%d × 1 µF 0805 = %.2f µF eff." % (n, n * C_PART * 1e6), color=col,
+            fontsize=8, ha="right", va="bottom")
+ax.set_xlabel("allowed dip ΔV at the hand-over (V)")
+ax.set_ylabel(r"$C_\mathrm{bp,min}$ per cell (µF effective at 75 V)")
+ax.set_xlim(0.5, 5)
+ax.set_ylim(0, 5)
+ax.legend(fontsize=8, loc="upper right")
+fig.tight_layout()
+fig.savefig(os.path.join(IMG, "revb_bypass.png"))
+plt.close(fig)
+pdf_crop(os.path.join(ROOT, "reports", "shunt-loop", "figs", "loop_paths.pdf"), "loop_paths", None, 200)
 
 # ------------------------------------------------------------------ slide helpers
 STEPS = ["Inputs", "Device", "Submodule\nvoltage", "One device,\none driver", "n in\nparallel", "f_sw,\nDC link",
@@ -351,7 +428,7 @@ text(s, [X0, Y0 + 185, W, 190], [
 decision(s, "Bank: **20 × TDK C5750X7S2A226M280KB** per leg (2 rows), 127 µF effective, 1.4 A ripple per part")
 
 s = slide("Bypass capacitors: how many and how large", 6)
-image(s, "img/flow_bypass.png", [X0, Y0 + 10, 400, 350])
+image(s, "img/revb_bypass.png", [X0, Y0, 400, 370])
 text(s, [X0 + 420, Y0, 480, 370], [
     "**Bypass** (1 µF 0805 at the drains) supplies the edge, **bank** the f_{sw} ripple; per cell 81 A:",
     (1, "di/dt → number: L_{Cu} + ESL/n ≤ 0.5 nH ⇒ n ≥ 4"),
@@ -454,12 +531,32 @@ s = slide("Rev B leg board layout", 8)
 image(s, "img/revb_top.png", [X0, Y0, 440, 390])
 image(s, "img/revb_bottom.png", [X0 + 450, Y0, 230, 390])
 text(s, [X0 + 690, Y0, 210, 400], [
-    "89.5 × 80 mm, 4 layers, 231 parts",
-    "Top edge: one DC+ / DC− pair (REDCUBE M4), bank across the full width",
+    "89.5 × 80 mm, 4 layers, 204 parts",
+    "Top edge: one DC+ / DC− pair (REDCUBE M4, bottom side), 20 × 2220 bank in two rows",
     "Bottom edge: one M6 AC bolt pad",
     "Heatsink LAM 4 rotated 90° over cells and bank",
     "DRC 0 / 0 / 0; schematic = PCB (0 problems)",
 ], 12)
+
+s = slide("Rev B leg board in 3D (KiCad models)", 8)
+image(s, "img/revb_3d_noheatsink.png", [X0, Y0, 445, 300])
+image(s, "img/revb_3d_iso.png", [X0 + 455, Y0, 445, 300])
+text(s, [X0, Y0 + 305, W, 90], [
+    "Every footprint has a 3D model: KiCad library parts, plus box models for EPC2361, 2EDF7275K, PMK UFCS, TDK 2220 "
+    "(2.8 mm), WE-CNSW, M6 bolt + 12 × 5 mm Cu bar, LAM 4 + Al spreader (scripts/make_3d_models_revb.py)",
+    "Board STEP for the mechanics: hardware/spb-bb-revb/fab/spb-bb-revb.step. Spreader underside 1.68 mm, top 4.68 mm: "
+    "clears the 2.8 mm bank; the shunts stay in front of the heatsink",
+], 12)
+note(s, "Box models are dimensioned envelopes, not manufacturer CAD (UFCS SMA jack position approximate).")
+
+s = slide("Rev B leg board in 3D: bottom side", 8)
+image(s, "img/revb_3d_bottom.png", [X0, Y0, 560, 380])
+text(s, [X0 + 580, Y0, 320, 380], [
+    "REDCUBE M4 DC terminals on the bottom: the leg stands on the PCB busbar",
+    "4 bypass 0805 per cell under the drains, mirrored in all cells",
+    "U.FL probes per cell: V_{GS} HS / LS, V_{DS} LS",
+    "M6 nut of the AC bolt under the 14 mm pad",
+], 13)
 s = slide("Two driver pairs on one switch node: driver skew", 8)
 lx_hs = get(RB, "block_to_block", "HS", fmt="%.2f")
 lx_ls = get(RB, "block_to_block", "LS", fmt="%.2f")
@@ -467,7 +564,7 @@ di = get(RB, "block_to_block", "dI_per_ns_A", fmt="%.0f")
 text(s, [X0, Y0, 520, 370], [
     "Joining the AC in copper makes the inductance between the switch nodes of the two driver pairs (L_{x}) small",
     "If driver 2 switches Δt later, pair 1 takes ΔI ≈ V_{m}·Δt / L_{x} until pair 2 follows",
-    "Q3D (Rev B copper, step 11): L_{x} = %s nH (HS on) / %s nH (LS on) ⇒ **≈ %s A per ns of skew**" % (lx_hs, lx_ls, di),
+    "Q3D (previous Rev B layout, rerun pending): L_{x} = %s nH (HS on) / %s nH (LS on) ⇒ **≈ %s A per ns of skew**" % (lx_hs, lx_ls, di),
     "Rev A deck required L_{x} ≳ 20 nH for two separate blocks; on one board the skew must be small instead",
 ], 14)
 table(s, [X0 + 545, Y0 + 10, 355, 190], [
@@ -557,30 +654,65 @@ AC_SRC = open(_mx).readline().strip() if os.path.exists(_mx) else ""
 _m = __import__("re").search(r"MACL(\d+)", AC_SRC)
 AC_PASS = ("AC adaptive pass %s (solve still converging)" % _m.group(1)) if _m and "from Q3D solution" in AC_SRC else \
     "converged AC solve"
-s = slide("Q3D: Rev B commutation loop per cell, with the shunt", 11, "11  Verification (Q3D)")
-lp = RB.get("loop", {})
-rows = [["Configuration (all four LS switching)", "cell 1", "cell 2", "cell 3", "cell 4"]]
-for key, lab in (("local_only_noshunt_all", "local MLCCs, shunt 0 pH"), ("local_only_shunt_all", "local MLCCs + shunt"),
-                 ("local_and_bank_noshunt_all", "local + bank, shunt 0 pH"),
-                 ("local_and_bank_shunt_all", "**local + bank + shunt (120 pH)**")):
-    r = lp.get(key, {})
-    rows.append([lab] + [("%.2f" % r["L_cell%d_nH" % c]) if r else "–" for c in range(1, 5)])
-table(s, [X0, Y0, 560, 140], rows, size=12, colw=[240, 80, 80, 80, 80])
-Lm = RB.get("L_cell_mean_nH")
-text(s, [X0, Y0 + 150, 560, 230], [
-    "Rev A: **0.374 nH per cell** (same definition); Rev B mean: **%s nH per cell**" % get(RB, "L_cell_mean_nH", fmt="%.2f"),
-    "Increase = UFCS 120 pH + the LS source copper detour to the shunt pads; cells 1/3 (outer side of each block) are higher",
-    "Overshoot at 30 A/ns: v̂_{DS} ≈ 75 V + L·di/dt = !!%s V!! (target ≤ 90 V)" % (
-        ("%.0f" % (75 + Lm * 30)) if Lm else "–"),
-], 13)
-text(s, [X0 + 580, Y0, 320, 380], [
-    "Routed Rev B copper: DCP, DCN, AC, LSRC1–4, ≈ 900 vias; 100 MHz; MLCC ESL 0.48 / 0.5 nH",
-    "Result from %s" % AC_PASS,
-    "Options: slower turn-on (R_{ON}, ≈ 20 A/ns ⇒ ≤ 90 V), shorten the LS source → shunt path, or accept the shunt for the DPT only (0 Ω link in the load test)",
-], 13)
-note(s, "simulation/bb_q3d: revb_export.py, bb_q3d_revb.py, sd2matrix.py, revb_post.py (values in nH)")
+FS, FN_ = LS["symv"], LS["noshunt_symv"]
+s = slide("Q3D: commutation loop per cell, final layout", 11, "11  Verification (Q3D)")
+image(s, "img/revb_loop_cells.png", [X0, Y0, 540, 285])
+table(s, [X0 + 555, Y0, 345, 150], [
+    ["Final layout (nH)", "with shunt", "no shunt"],
+    ["cell 1 / 2", "%.2f / %.2f" % tuple(cells("symv")[:2]), "%.2f / %.2f" % tuple(cells("noshunt_symv")[:2])],
+    ["cell 3 / 4", "%.2f / %.2f" % tuple(cells("symv")[2:]), "%.2f / %.2f" % tuple(cells("noshunt_symv")[2:])],
+    ["**mean**", "**%.2f**" % FS["mean_nH"], "**%.2f**" % FN_["mean_nH"]],
+    ["v̂_{DS} at 30 A/ns", "!!%.0f V!!" % FS["overshoot_30Apns_V"], "%.0f V" % FN_["overshoot_30Apns_V"]]],
+      size=12, colw=[135, 105, 105])
+text(s, [X0 + 555, Y0 + 160, 345, 220], [
+    "Four cells within **2 %** (shunt) and **1 %** (no shunt); before the fix the left cells were 0.13–0.14 nH higher",
+    "Shunt costs ≈ 0.29 nH: 120 pH part + the LS source detour to the 15 × 3 mm pads",
+    "≤ 90 V with the shunt: turn-on ≤ %.0f A/ns" % (15 / FS["mean_nH"]),
+], 12)
+text(s, [X0, Y0 + 295, 540, 90], [
+    "Fast loop-only model: routed copper of the FET band (y −4.6 … 20.6 mm), all 8 FETs, per-cell AC and source nets, "
+    "bypass groups as sinks; 2 % convergence, ≈ 45 min per run (run_bb_q3d_loop.cmd)",
+], 11)
+note(s, "Loop per cell with all four LS FETs switching together (cell coupling included); simulation/bb_q3d/results/loop_summary_*.json")
 
-s = slide("Q3D: static current sharing and copper loss of the leg board", 11)
+s = slide("Where the loop current flows (exploded side view)", 11)
+image(s, "img/loop_paths.png", [X0, Y0, W, 330])
+text(s, [X0, Y0 + 340, W, 50], [
+    "Bypass → L1 drain stripes → HS FET → switch node → LS FET → source → (shunt) → L2 DC− plane under the cell → bypass. "
+    "The return on L2 directly below L1 makes the loop vertical and small (Karakaya, METU 2020, Design 3)",
+], 12)
+
+s = slide("Shunt in the loop: study of the options", 11)
+image(s, "img/revb_shunt_study.png", [X0, Y0, 540, 290])
+text(s, [X0 + 555, Y0, 345, 380], [
+    "UFCS = 0.7 mm blade on two 15 × 3 mm pads: current crosses only at the blade ⇒ fixed geometry",
+    "Vias in the shunt DC− pad and a notched heatsink (IN pad shortened, blade 1.45 mm from the source) gain only 0.05–0.08 nH",
+    "Largest gain on the routed board: **source via-in-pad** and **symmetric via pruning** (final, 0.69 nH)",
+    "Without the shunt, LS source vias straight to L2 (blind L1–L2): **0.41 nH**, close to the 0.374 nH model",
+    "Bypass on both sides: the bottom row lowers the loop by only ≈ 0.02 nH; it is there for capacitance",
+], 12)
+decision(s, "Proposal: two assemblies of the same design: **DPT board with UFCS** (di/dt ≤ 22 A/ns) and **load-test board "
+            "without shunt** (source via-in-pad, 30 A/ns)")
+
+s = slide("Left/right symmetry: cause and fix", 11)
+table(s, [X0, Y0, 520, 220], [
+    ["Test (no-shunt board, nH)", "cell 1", "cell 2", "cell 3", "cell 4"],
+    ["as routed", "0.56", "0.42", "0.55", "0.42"],
+    ["left FETs not rotated (rot 0)", "0.55", "0.41", "0.54", "0.41"],
+    ["Kelvin collectors moved L2 → L4", "0.57", "0.41", "0.55", "0.41"],
+    ["mirrored model (solver check)", "0.57", "0.41", "0.56", "0.41"],
+    ["**power vias pruned in mirror pairs**", "**0.41**", "**0.41**", "**0.41**", "**0.41**"]],
+      size=12, colw=[240, 70, 70, 70, 70])
+text(s, [X0 + 545, Y0, 355, 380], [
+    "Cause: the clearance clean-up removed power vias near pads one by one; a few vias from the source copper to the L2 "
+    "DC− plane survived only in the right cells ⇒ shorter return path there",
+    "Not the cause: FET rotation (180° vs 0°), Kelvin routing, solver (mirrored model shows the same)",
+    "Fix: a via that fails clearance takes its mirror twin with it (make_kicad_bb_revb.py) ⇒ identical via sets in every "
+    "cell; Kelvin collectors stay on L4 (L2 plane uncut)",
+], 12)
+decision(s, "Symmetric cells ⇒ equal dynamic current sharing by layout; verify with the UFCS per cell in the DPT")
+
+s = slide("Q3D: static current sharing and copper loss (previous layout)", 11)
 dcl = RB.get("dc_leg", {})
 rows = [["Path (DC)", "R total (mΩ)", "R copper (mΩ)", "current share cell 1 / 2 / 3 / 4", "max/min"]]
 for p, lab in (("HS", "DC+ → HS FETs → AC"), ("LS", "AC → LS FETs → shunts → DC−")):
@@ -590,6 +722,7 @@ for p, lab in (("HS", "DC+ → HS FETs → AC"), ("LS", "AC → LS FETs → shun
                          if d else ["–"] * 4))
 table(s, [X0, Y0, W, 80], rows, size=12, colw=[230, 110, 120, 330, 110])
 text(s, [X0, Y0 + 100, W, 270], [
+    "!!Previous layout (13 Oct: two DC pairs, four AC terminals, 1210 bank)!!: full-board rerun on the final layout pending",
     "Converged DC solve; FET 0.75 mΩ × 1.49 (100 °C), shunt 1 mΩ; DC terminals joined (bus), AC terminals joined (bar)",
     "Board copper loss at 228 A_{rms}: !!%s W per leg!! (semiconductors ≈ 18 W); shunts ≈ %s W" % (
         get(dcl, "P_copper_W", fmt="%.0f"), get(dcl, "P_shunts_W", fmt="%.1f")),
@@ -602,20 +735,23 @@ s = slide("Main PCB: findings from the Q3D extraction", 11)
 bb = RB.get("block_to_block", {})
 table(s, [X0, Y0, W, 170], [
     ["Quantity", "Rev B (Q3D)", "Target / Rev A", "Consequence"],
-    ["Commutation loop per cell", "%s nH" % get(RB, "L_cell_mean_nH", fmt="%.2f"), "0.5 nH design, 0.374 nH Rev A",
-     "slower turn-on or shorter shunt path"],
-    ["Static sharing, max/min", get(dcl, "HS", "imbalance_pct", fmt="%.0f") + " % above", "< 10 %",
-     "layout iteration of the AC/DC copper"],
-    ["Board copper loss", "%s W per leg" % get(dcl, "P_copper_W", fmt="%.0f"), "≈ 11 W (2 × Rev A block)",
-     "more copper, shorter paths"],
-    ["Block-to-block L_{x}", "%s nH" % get(bb, "HS", fmt="%.1f"), "≳ 20 nH (Rev A deck)",
+    ["Loop per cell, with shunt", "%.2f nH (4 cells within 2 %%)" % FS["mean_nH"], "0.5 nH design, 0.374 nH Rev A",
+     "DPT at ≤ 22 A/ns"],
+    ["Loop per cell, no shunt", "%.2f nH (4 cells within 1 %%)" % FN_["mean_nH"], "0.5 nH design",
+     "load test at 30 A/ns: 87 V"],
+    ["Static sharing, max/min *", get(dcl, "HS", "imbalance_pct", fmt="%.0f") + " % above", "< 10 %",
+     "rerun on the final layout"],
+    ["Board copper loss *", "%s W per leg" % get(dcl, "P_copper_W", fmt="%.0f"), "≈ 11 W (2 × Rev A block)",
+     "rerun on the final layout"],
+    ["Block-to-block L_{x} *", "%s nH" % get(bb, "HS", fmt="%.1f"), "≳ 20 nH (Rev A deck)",
      "%s A per ns driver skew" % get(bb, "dI_per_ns_A", fmt="%.0f")],
-], size=12, colw=[200, 150, 230, 320])
-text(s, [X0, Y0 + 185, W, 200], [
-    "The Rev B board works electrically (DRC clean, schematic = PCB) and is a good !!measurement!! board (UFCS per cell, U.FL)",
-    "Before a production-oriented layout: fix the sharing and loss (AC bus copper), and the driver skew (common PWM, delay trim, or a few nH between the blocks)",
-    "The double-pulse test on Rev B measures exactly these: per-cell current (UFCS), V_{DS} overshoot (U.FL), V_{GS} of both blocks",
+], size=12, colw=[200, 170, 230, 300])
+text(s, [X0, Y0 + 210, W, 180], [
+    "Loop: symmetric and within the design value without the shunt; with the shunt the turn-on must be slowed for the DPT",
+    "The Rev B board is a good !!measurement!! board: UFCS per cell, U.FL V_{GS} / V_{DS}, both drivers from one C2000",
+    "Next Q3D: full board on the final layout (DC sharing, copper loss, L_{x}) and the busbar with one DC pair per leg",
 ], 13)
+note(s, "* previous layout (13 Oct); values in nH unless noted")
 
 s = slide("Q3D: three legs on the PCB busbar", 11)
 sysr = RB.get("system", {})
@@ -631,6 +767,7 @@ if HAVE_SWEEP:
     image(s, "img/revb_sweep.png", [X0 + 485, Y0, 415, 240])
 text(s, [X0, Y0 + 255, W, 120], [
     "Target ≤ 5 nH leg to leg met at 1 MHz; DC values are the low-frequency limit (current spread through all layers)",
+    "!!Busbar version with two DC pairs per leg!!; the busbar is regenerated with one pair per leg, rerun pending",
     "Network: Q3D matrices of three Rev B legs + busbar, MLCC banks with ESR/ESL and 35 % of C at 75 V; peaks in |Z| = inter-leg resonance",
 ], 13)
 
@@ -640,24 +777,28 @@ image(s, "img/top.png", [X0, Y0, 440, 300])
 image(s, "img/bottom.png", [X0 + 460, Y0, 440, 300])
 text(s, [X0, Y0 + 310, W, 80], [
     "Generated: make_kicad_bb_revb.py (board), make_kicad_sch_revb.py (schematic), make_kicad_busbar.py (busbar)",
-    "Next: fab outputs and BOM for Rev B, 3D models (UFCS, rotated heatsink), LAM 4 100 mm order code",
+    "3D models for all parts and the board STEP (fab/spb-bb-revb.step); next: Gerbers, drill, BOM and placement for Rev B "
+    "and the busbar, LAM 4 100 mm order code",
 ], 13)
 
 s = slide("Status and next steps", 12, "Status")
-table(s, [X0, Y0, 520, 330], [
+table(s, [X0, Y0, 520, 360], [
     ["Item", "Status"],
-    ["Rev B leg board", "routed, DRC clean"],
-    ["Rev B schematic", "generated, = PCB"],
-    ["PCB busbar", "routed, DRC clean, 2 oz"],
-    ["Q3D leg + busbar", "done (this deck)" if RB.get("system") else "running"],
+    ["DC link: 20 × 22 µF 2220 + 10 × 1 µF per cell", "decided, in the layout"],
+    ["Rev B leg board (one leg, 4 per switch)", "routed, DRC 0 / 0 / 0"],
+    ["Rev B schematic", "generated, = PCB (0 problems)"],
+    ["Loop per cell (fast Q3D)", "0.69 nH shunt / 0.41 nH no shunt, symmetric"],
+    ["3D models + board STEP", "done"],
+    ["PCB busbar (one DC pair per leg)", "routed, DRC clean, 2 oz"],
+    ["Q3D full board + busbar, final layout", "next"],
     ["Fab outputs, BOM (Rev B, busbar)", "next"],
-    ["3D models, heatsink order code", "next"],
-    ["Double-pulse + back-to-back test", "after assembly"]], size=13, colw=[300, 220])
+    ["DPT (shunt) + load test (no shunt)", "after assembly"]], size=12, colw=[300, 220])
 text(s, [X0 + 545, Y0, 355, 370], [
-    "Measure: per-cell current sharing (UFCS), V_{GS} of both blocks (skew), bus ripple and ringing",
+    "Decide: two assemblies (DPT with UFCS, load test without shunt and with source via-in-pad)",
+    "Measure: per-cell current sharing (UFCS), V_{GS} of both drivers (skew), V_{DS} overshoot, bus ripple and ringing",
     "Decide after measurement: bank depopulation, damping caps, copper weight of the busbar",
     "Machine: L_{σ}, cos φ and the final f_{sw}",
-], 14)
+], 13)
 
 s = slide("Thank you")
 s["kind"] = "end"

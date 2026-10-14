@@ -214,11 +214,36 @@ FPNICK = [("R_", "Resistor_SMD"), ("C_", "Capacitor_SMD"), ("D_SOD", "Diode_SMD"
           ("PMK_UFCS", "spb_fab"), ("TI_DVG", "spb_fab"), ("U.FL", "Connector_Coaxial"), ("L_CommonMode", "Inductor_SMD")]
 
 
+# parts whose KiCad library model is missing or wrong (scripts/make_3d_models_revb.py -> hardware/spb-bb-revb/3d)
+LOCAL_MODEL = {"C_2220_5750Metric": "C_2220_5750Metric_TDK.wrl",
+               "L_CommonMode_Wurth_WE-CNSW-1206": "L_CommonMode_Wurth_WE-CNSW-1206.wrl",
+               "AC_BOLT_M6": "AC_BOLT_M6.wrl"}
+
+
+def set_model(fp, local=None):
+    """library parts keep their model (KiCad 7 resolves the library's own ${KICAD6_3DMODEL_DIR}); a part with a
+    project model gets it instead and moves to the project library spb_fab (same pads, so no library mismatch)."""
+    if not local:
+        return
+    fp.Models().clear()                          # the SWIG list holds copies: rebuild it
+    m = pcbnew.FP_3DMODEL()
+    m.m_Filename = "${KIPRJMOD}/3d/" + local
+    fp.Models().push_back(m)
+    name = fp.GetFPID().GetLibItemName().wx_str()
+    fp.SetFPID(pcbnew.LIB_ID("spb_fab", name))
+    if name not in SAVED and not name.startswith(("C_2220", "AC_BOLT")):   # those two are saved by their builders
+        SAVED.add(name)
+        cp = pcbnew.FOOTPRINT(fp)
+        cp.SetReference("REF**")
+        pcbnew.FootprintSave(_lib, cp)
+
+
 def finish(fp, rf, value, x, y, rot, bottom, nets, mpn, fpname):
     for pre, nick in FPNICK:
         if fpname.startswith(pre):
             fp.SetFPID(pcbnew.LIB_ID(nick, fpname))
             break
+    set_model(fp, LOCAL_MODEL.get(fpname))       # before placement: the library copy is saved at the origin
     fp.SetReference(rf)
     fp.SetValue(value)
     board.Add(fp)
@@ -226,8 +251,6 @@ def finish(fp, rf, value, x, y, rot, bottom, nets, mpn, fpname):
     fp.SetOrientationDegrees(rot)
     if bottom:
         fp.Flip(fp.GetPosition(), False)
-    for m in fp.Models():
-        m.m_Filename = m.m_Filename.replace("${KICAD6_3DMODEL_DIR}", "${KICAD7_3DMODEL_DIR}")
     fp.Reference().SetVisible(False)
     fp.Value().SetVisible(False)
     if nets:
@@ -331,7 +354,7 @@ def heatsink_fp():
 
 _lib = os.path.join(OUT, "spb_fab.pretty")
 os.makedirs(_lib, exist_ok=True)
-for _f in (lga13(), ufcs(), tmcs_dvg(), heatsink_fp()):
+for _f in (lga13(), ufcs(), heatsink_fp()):          # TMCS1123 dropped (LEM HO 250-S on the AC bar)
     _f.SetReference("REF**")
     pcbnew.FootprintSave(_lib, _f)
 
