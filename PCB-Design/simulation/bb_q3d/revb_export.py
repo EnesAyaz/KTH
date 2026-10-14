@@ -20,7 +20,7 @@ import pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-BRD = os.environ.get("REVB_BOARD") or os.path.join(ROOT, "hardware", "spb-bb-revb", "spb-bb-revb.kicad_pcb")
+BRD = os.environ.get("REVB_BOARD") or os.path.join(ROOT, "hardware", "spb-bb-revb-dpt", "spb-bb-revb-dpt.kicad_pcb")
 TAGS = os.environ.get("REVB_LOOP_TAG", "")             # variant tag of the loop model (file names)
 OX, OY = 150.0, 100.0
 NETS = {"DCP": "DCP", "DCN": "DCN", "SW": "AC", "LSRC1": "LSRC1", "LSRC2": "LSRC2", "LSRC3": "LSRC3", "LSRC4": "LSRC4"}
@@ -92,8 +92,12 @@ for t in b.GetTracks():
             ps.Append(int(ex - sy * h * uy), int(ey + sy * h * ux))
 # LOOP model (REVB_REGION=loop): only the cell band from the bypass row to the shunts (y = -4.6 .. 20.6), the bank and
 # the terminals are left out; the switch node is split per cell (AC1..AC4: the cells meet only at the AC bus).
-LOOP = os.environ.get("REVB_REGION", "") == "loop"
-REG = (-46.0, -4.6, 46.0, 20.6)        # below 20.6 the AC columns (L1/L2 from 20.8) would leave slivers
+# LX model (REVB_REGION=lx): cell band + AC columns + AC bus (y = -4.6 .. 56), no bank, no terminals, AC joined:
+# inductance between the switch nodes of the two driver pairs (driver skew).
+REGION = os.environ.get("REVB_REGION", "")
+LOOP = REGION == "loop"
+CROP = REGION in ("loop", "lx")
+REG = (-46.0, -4.6, 46.0, 20.6) if LOOP else (-46.0, -4.6, 46.0, 56.0)   # loop: below 20.6 (AC columns from 20.8)
 CELLX = (-33.25, -14.25, 14.25, 33.25)
 
 
@@ -105,7 +109,7 @@ def cell_of(x):
     return 1 + min(range(4), key=lambda k: abs(x - CELLX[k]))
 
 
-if LOOP:
+if CROP:
     rp = pcbnew.SHAPE_POLY_SET()
     rp.NewOutline()
     for x, y in ((REG[0], REG[1]), (REG[2], REG[1]), (REG[2], REG[3]), (REG[0], REG[3])):
@@ -113,7 +117,7 @@ if LOOP:
 polys = []
 for (n, lay), ps in sorted(acc.items(), key=lambda kv: (kv[0][0], kv[0][1])):
     ps.Simplify(pcbnew.SHAPE_POLY_SET.PM_FAST)
-    if LOOP:
+    if CROP:
         ps.BooleanIntersection(rp, pcbnew.SHAPE_POLY_SET.PM_FAST)
     for i in range(ps.OutlineCount()):
         outl = ring(ps.Outline(i))
@@ -129,7 +133,7 @@ vias = []
 for t in b.GetTracks():
     if t.GetClass() == "PCB_VIA" and t.GetNetname() in NETS:
         vx, vy = round(mm(t.GetPosition().x) - OX, 4), round(mm(t.GetPosition().y) - OY, 4)
-        if LOOP and not in_reg(vx, vy):
+        if CROP and not in_reg(vx, vy):
             continue
         nn = NETS[t.GetNetname()]
         if LOOP and nn == "AC":
@@ -179,8 +183,8 @@ for ref, f in fps.items():
             continue
         x = mm(f.GetPosition().x) - OX
         local = f.GetValue().startswith("1uF")
-        if LOOP and not local:
-            continue                               # loop model: bypass only
+        if CROP and not local:
+            continue                               # loop / lx model: bypass only
         c = min(cell_x, key=lambda k: abs(cell_x[k] - x))
         g = str(c) if (local or abs(x) > 6.0) else "C"
         for p in f.Pads():
@@ -194,7 +198,7 @@ for ref, f in fps.items():
         for p in f.Pads():
             net = NETS[p.GetNetname()]
             add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), ("RSI_%d" if net.startswith("LSRC") else "RSN_%d") % c)
-    elif ref.startswith("J") and f.GetValue() in ("DC+", "DC-", "AC") and not LOOP:
+    elif ref.startswith("J") and f.GetValue() in ("DC+", "DC-", "AC") and not CROP:
         # DC: REDCUBE body = solid 7 x 7 mm block on the bottom shorting the four press-in pins (pins as vias);
         # AC: M6 bolt pad, contact face 12 x 12 mm (bar + washer) on the bottom, hole barrel and via rings as vias
         x, y = mm(f.GetPosition().x) - OX, mm(f.GetPosition().y) - OY
@@ -211,6 +215,8 @@ if LOOP:                                           # sinks inside the cell band
     SC = os.environ.get("REVB_LOOP_SINKCELL", "1")      # cell that holds the DC sinks (model check)
     SINK = {"DCP": "CapP_" + SC, "DCN": "CapN_" + SC}
     SINK.update({"AC%d" % c: "QH_S_%d" % c for c in range(1, 5)})
+elif REGION == "lx":
+    SINK = {"DCP": "CapP_1", "DCN": "CapN_1", "AC": "QH_S_1"}
 for c in range(1, 5):
     SINK["LSRC%d" % c] = "RSI_%d" % c
 terms = []
@@ -226,7 +232,8 @@ if os.environ.get("REVB_MIRROR"):                  # model check: mirror the who
 out = dict(polys=polys, vias=vias, pads=pads, terminals=terms,
            note="routed board %s, simplification %.2f mm" % (os.path.basename(BRD), TOL))
 os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-json.dump(out, open(os.path.join(HERE, "results", ("revb_loop_geometry%s.json" % ("_" + TAGS if TAGS else "")) if LOOP else "revb_geometry.json"), "w"))
+GEO = {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry"}.get(REGION, "revb_geometry") + ("_" + TAGS if TAGS else "")
+json.dump(out, open(os.path.join(HERE, "results", GEO + ".json"), "w"))
 npts = sum(len(p[2]) + sum(len(h) for h in p[3]) for p in polys)
 print("polys %d (holes %d, points %d), vias %d, pads %d, terminals %d" % (
     len(polys), sum(len(p[3]) for p in polys), npts, len(vias), len(pads), len(terms)))

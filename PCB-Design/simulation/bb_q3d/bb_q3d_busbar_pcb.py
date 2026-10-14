@@ -33,6 +33,7 @@ G = json.load(open(os.path.join(OUT, "busbar_pcb_geometry.json")))
 EVERY = int(os.environ.get("BUS_STITCH_EVERY", "1"))
 G["vias"] = G["vias"][::EVERY]
 CU = float(os.environ.get("BUS_CU_UM", "70")) / 1000.0
+ERR = float(os.environ.get("BUS_PERERROR", "2"))     # % convergence (fast run: 2 %, AC max. 8 passes)
 PP = 0.2
 T = 1.6
 CORE = T - 4 * CU - 2 * PP
@@ -192,10 +193,10 @@ try:
         ["NAME:Cap", "MaxPass:=", 2, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 10, "PerRefine:=", 30,
          "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "Normal", "Solver Type:=", "Iterative"],
         ["NAME:DC", "SolveResOnly:=", False,
-         ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
-         ["NAME:Mult", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
+         ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
+         ["NAME:Mult", "MaxPass:=", 6, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
          "Solution Order:=", "Normal"],
-        ["NAME:AC", "MaxPass:=", 12, "MinPass:=", 2, "MinConvPass:=", 2, "PerError:=", 1, "PerRefine:=", 30,
+        ["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
          "Solution Order:=", "High"]])
     log("validate: %r" % oDesign.ValidateDesign())
     oProject.Save()

@@ -15,9 +15,10 @@ Changes against Rev A (make_kicad_bb_fab.py):
     terminal row (L1/L3 DC+, L2/L4 DC-) over the full width, one continuous bank, the AC of all four cells joined
     and taken out at ONE M6 bolt pad (Cu bar bolted on, LEM HO 250-S on the bar); two drivers, one star per pair
 
-    "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\make_kicad_bb_revb.py
+    set BOARD=dpt  (or load);  "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\make_kicad_bb_revb.py
 
-Writes hardware/spb-bb-revb/spb-bb-revb.kicad_pcb (+ .kicad_pro, parts.json), runs zone fill and DRC.
+Writes hardware/spb-bb-revb-<BOARD>/spb-bb-revb-<BOARD>.kicad_pcb (+ .kicad_pro, parts.json, fp-lib-table), runs
+zone fill and DRC. 3D models: scripts/make_3d_models_revb.py -> hardware/spb-bb-revb-<BOARD>/3d.
 Coordinates: mm, x across the board, y down; block-local x (x_r) is relative to the block centre.
 """
 import json
@@ -37,15 +38,30 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bb_geometry as geo  # noqa: E402
 import fab_router  # noqa: E402
 
-OUT = os.path.join(ROOT, "hardware", "spb-bb-revb")
-# shunt-path study (SHUNT_VARIANT = base | vip | compact | noshunt): variants go to hardware/variants/<variant>
-VARIANT = os.environ.get("SHUNT_VARIANT", "base")
-NOSHUNT = VARIANT in ("noshunt", "noshunt_rot0")
-ROT0 = VARIANT.endswith("rot0")            # symmetry study: left FETs NOT rotated (gate routing of the left cells omitted)
-if VARIANT != "base":
+# Two final boards (2026-10-14), BOARD = dpt | load:
+#   dpt  : double-pulse board, PMK UFCS shunt per cell with the short IN land (blade 1.45 mm from the source), NO
+#          heatsink (pulsed test) -> hardware/spb-bb-revb-dpt
+#   load : back-to-back load-test board, no shunt, LS source via-in-pad (blind L1-L2), LAM 4 heatsink
+#          -> hardware/spb-bb-revb-load
+# SHUNT_VARIANT (vip | compact | notch | noshunt | noshunt_rot0) is kept for the shunt-path study boards in
+# hardware/variants/spb-bb-revb-<variant>.
+BOARD = os.environ.get("BOARD", "dpt")
+VARIANT = os.environ.get("SHUNT_VARIANT", "")
+if VARIANT:
+    NAME = "spb-bb-revb"
     OUT = os.path.join(ROOT, "hardware", "variants", "spb-bb-revb-" + VARIANT)
+    NOSHUNT = VARIANT in ("noshunt", "noshunt_rot0")
+    SHORT_IN = VARIANT == "notch"
+    HEATSINK = True
+else:
+    assert BOARD in ("dpt", "load"), BOARD
+    NAME = "spb-bb-revb-" + BOARD
+    OUT = os.path.join(ROOT, "hardware", NAME)
+    NOSHUNT = BOARD == "load"
+    SHORT_IN = BOARD == "dpt"
+    HEATSINK = BOARD == "load"
+ROT0 = VARIANT.endswith("rot0")            # symmetry study: left FETs NOT rotated (gate routing of the left cells omitted)
 os.makedirs(OUT, exist_ok=True)
-NAME = "spb-bb-revb"
 FP = KI + "/footprints/"
 EPC_LIB = os.path.join(ROOT, "hardware", "epc2361-cell", "epc2361-cell.pretty")
 MM = pcbnew.FromMM
@@ -214,7 +230,7 @@ FPNICK = [("R_", "Resistor_SMD"), ("C_", "Capacitor_SMD"), ("D_SOD", "Diode_SMD"
           ("PMK_UFCS", "spb_fab"), ("TI_DVG", "spb_fab"), ("U.FL", "Connector_Coaxial"), ("L_CommonMode", "Inductor_SMD")]
 
 
-# parts whose KiCad library model is missing or wrong (scripts/make_3d_models_revb.py -> hardware/spb-bb-revb/3d)
+# parts whose KiCad library model is missing or wrong (scripts/make_3d_models_revb.py -> hardware/spb-bb-revb-<BOARD>/3d)
 LOCAL_MODEL = {"C_2220_5750Metric": "C_2220_5750Metric_TDK.wrl",
                "L_CommonMode_Wurth_WE-CNSW-1206": "L_CommonMode_Wurth_WE-CNSW-1206.wrl",
                "AC_BOLT_M6": "AC_BOLT_M6.wrl"}
@@ -326,9 +342,9 @@ def ufcs():
     pad 2 = SHLD (reference). Courtyard = 15 mm blade x 7.5 mm body; the 22 mm body (above 4.1 mm) on F.Fab.
     Variant "notch": the origin is the blade, IN land shortened to 1.2 mm (solder fillet only, manual p.12), so the
     blade sits 1.45 mm from the source copper; the body overhangs the LS FET at 4.1 mm height (stepped spreader)."""
-    if VARIANT == "notch":
+    if SHORT_IN:
         return custom_fp("PMK_UFCS_R001_short_IN", [("1", 0.0, -0.85, 15.0, 1.2, "r"), ("2", 0.0, 1.75, 15.0, 3.0, "r")],
-                         (-7.6, -1.6, 7.6, 3.4), "PMK UFCS-R001, IN land shortened to 1.2 mm (blade at the origin)",
+                         (-7.6, -1.4, 7.6, 3.4), "PMK UFCS-R001, IN land shortened to 1.2 mm (blade at the origin); courtyard ends at the LS FET courtyard (the body overhangs it at 4.1 mm)",
                          model="PMK_UFCS.wrl", fab=(-11.0, -3.75, 11.0, 3.75))
     return custom_fp("PMK_UFCS_R001", [("1", 0.0, -1.75, 15.0, 3.0, "r"), ("2", 0.0, 1.75, 15.0, 3.0, "r")],
                      (-7.6, -3.55, 7.6, 3.55), "PMK UFCS-R001 ultra-fast current shunt, 1 mOhm, 120 pH, SMA output",
@@ -347,9 +363,12 @@ def tmcs_dvg():
 
 
 def heatsink_fp():
-    return custom_fp("HS_LAM4K10012_revb", [], (-60.0, -28.7, 50.0, 8.8 if VARIANT == "notch" else 11.3),
-                     "Fischer LAM 4 (100 mm, 12 V fan) across the board on an aluminium spreader, ends at y = 11.3",
-                     model="HS_LAM4K10012_revb.wrl")
+    """Fischer LAM 4 K 50 12 (40 x 40 mm profile, 50 mm long, 12 V fan; Farnell 4708974, 0.65 K/W), tube along x and
+    centred (fan x -35 .. -25, tube -25 .. 25): stays inside the 89.5 mm board, so three legs fit side by side on the
+    busbar with 5 mm gaps (a 100 mm LAM 4 + fan = 110 mm would collide with the neighbouring leg)."""
+    return custom_fp("HS_LAM4K5012_revb", [], (-35.0, -28.7, 25.0, 8.8 if SHORT_IN else 11.3),
+                     "Fischer LAM 4 K 50 12 (50 mm, 12 V fan) across the board on an Al spreader, ends at y = 11.3",
+                     model="HS_LAM4K5012_revb.wrl")
 
 
 _lib = os.path.join(OUT, "spb_fab.pretty")
@@ -635,7 +654,7 @@ def build_block(bi, xoff):
     # LS source; noshunt = no shunt, source copper is DC- with its vias to L2 (Rev A loop)
     dys = -1.0 if VARIANT == "compact" else 0.0
     ysv = YS + dys
-    if VARIANT == "notch":                           # blade at y = 12.65: IN land 11.2 .. 12.4, SHLD 12.9 .. 15.9
+    if SHORT_IN:                           # blade at y = 12.65: IN land 11.2 .. 12.4, SHLD 12.9 .. 15.9
         ysv, dys = 12.65, 12.4 - 15.0
     for side, sgn in (("L", -1), ("R", 1)):
         xs = sgn * XS_OFF
@@ -643,10 +662,10 @@ def build_block(bi, xoff):
         if not NOSHUNT:
             fp = ufcs()
             finish(fp, "RS%d" % c, "UFCS-R001", xs, ysv, 0.0, False, {"1": lsrc[side], "2": "DCN"},
-                   "PMK UFCS-R001 (1 mOhm, 50 A cont.)", "PMK_UFCS_R001")
+                   "PMK UFCS-R001 (1 mOhm, 50 A cont.)", "PMK_UFCS_R001_short_IN" if SHORT_IN else "PMK_UFCS_R001")
         xa, xb = sorted((sgn * 4.9, sgn * 19.9))
         rect_zone(F, lsrc[side], xa, xb, 11.2, 15.0 + dys, 2)    # IN side, joined to the source strip
-        rect_zone(F, "DCN", xa, xb, (ysv + 0.25) if VARIANT == "notch" else 15.5 + dys, 20.2, 2)   # SHLD side
+        rect_zone(F, "DCN", xa, xb, (ysv + 0.25) if SHORT_IN else 15.5 + dys, 20.2, 2)   # SHLD side
         rows = (19.0, 19.75)
         if not NOSHUNT:                # return vias inside the SHLD pad (shunt study: -0.05 nH)
             rows = (ysv + 0.75, ysv + 1.45, ysv + 2.15, ysv + 2.85) + rows     # via-in-pad (filled, capped)
@@ -850,7 +869,7 @@ def build_block(bi, xoff):
             if tag == "D":                              # LSS via from the shunt IN copper (L1) above
                 gp = min(gpads, key=lambda q: pcbnew.ToMM(q.GetPosition().y))
                 gx_, gy_ = rx(gp.GetPosition().x), pcbnew.ToMM(gp.GetPosition().y)
-                vy_ = min(gy_ - 1.2, 11.8) if VARIANT == "notch" else gy_ - 1.2   # inside the (short) IN land
+                vy_ = min(gy_ - 1.2, 11.8) if SHORT_IN else gy_ - 1.2   # inside the (short) IN land
                 via(gx_, vy_, gnd, 0.6, 0.3)
                 seg(Bl, [(gx_, vy_), (gx_, gy_)], 0.4, gnd)
             ufl.append((sn, src_net, gnd, c, tag))
@@ -1041,14 +1060,15 @@ OFFX[0] = 0.0
 # mounting: board corners, spreader holes (outer edges + centre)
 for hx, hy in ((-(XO - 2.4), Y1 - 2.4), ((XO - 2.4), Y1 - 2.4), (-(XO - 2.4), Y0 + 2.4), ((XO - 2.4), Y0 + 2.4)):
     place(FP + "MountingHole.pretty", "MountingHole_2.7mm_M2.5", ref("H"), "M2.5 insulated", hx, hy)
-for hx, hy in ((-(XO - 1.75), 0.2), ((XO - 1.75), 0.2), (0.0, 6.0)):
-    place(FP + "MountingHole.pretty", "MountingHole_2.7mm_M2.5", ref("H"), "M2.5 heatsink spreader", hx, hy)
-hs = heatsink_fp()
-finish(hs, "HS1", "Fischer LAM 4 (100 mm) + spreader", 0.0, 0.0, 0, False, None,
-       "Fischer LAM 4 100 mm 12 V (verify length/order code); Al spreader (machined); insulating gap pads",
-       "HS_LAM4K10012_revb")
-hs.SetAttributes(hs.GetAttributes() | pcbnew.FP_EXCLUDE_FROM_POS_FILES | pcbnew.FP_BOARD_ONLY)
-text("SPB leg Rev B: 4 x EPC2361 per switch", 0, 36.0, 0.8, pcbnew.F_Fab)
+if HEATSINK:                                      # load-test board: spreader holes + LAM 4 heatsink
+    for hx, hy in ((-(XO - 1.75), 0.2), ((XO - 1.75), 0.2), (0.0, 6.0)):
+        place(FP + "MountingHole.pretty", "MountingHole_2.7mm_M2.5", ref("H"), "M2.5 heatsink spreader", hx, hy)
+    hs = heatsink_fp()
+    finish(hs, "HS1", "Fischer LAM 4 K 50 12 + spreader", 0.0, 0.0, 0, False, None,
+           "Fischer LAM 4 K 50 12 (Farnell 4708974); Al spreader 89.5 x 12.8 x 3 mm (machined); insulating gap pads",
+           "HS_LAM4K5012_revb")
+    hs.SetAttributes(hs.GetAttributes() | pcbnew.FP_EXCLUDE_FROM_POS_FILES | pcbnew.FP_BOARD_ONLY)
+text("SPB leg Rev B %s: 4 x EPC2361 per switch" % ({"dpt": "DPT (UFCS shunts, no heatsink)", "load": "LOAD TEST (no shunt, heatsink)"}.get(BOARD, "") if not VARIANT else VARIANT), 0, 36.0, 0.8, pcbnew.F_Fab)
 
 # ==================================================================== auxiliary routing
 print("STEP route", flush=True)
@@ -1182,6 +1202,12 @@ json.dump({"board": {"design_settings": {"rule_severities": {
     "text_thickness": "warning"}}},
     "meta": {"filename": NAME + ".kicad_pro", "version": 1}}, open(os.path.join(OUT, NAME + ".kicad_pro"), "w"), indent=1)
 json.dump(PARTS, open(os.path.join(OUT, "parts.json"), "w"), indent=1)
+_epc = "${KIPRJMOD}/.." if not VARIANT else "${KIPRJMOD}/../.."
+open(os.path.join(OUT, "fp-lib-table"), "w").write(
+    '(fp_lib_table\n'
+    '  (lib (name "spb_fab")(type "KiCad")(uri "${KIPRJMOD}/spb_fab.pretty")(options "")(descr "SPB footprints"))\n'
+    '  (lib (name "epc2361-cell")(type "KiCad")(uri "%s/epc2361-cell/epc2361-cell.pretty")(options "")'
+    '(descr "EPC2361 land pattern"))\n)\n' % _epc)
 board2 = pcbnew.LoadBoard(path)
 board2.BuildConnectivity()
 print("filling", flush=True)

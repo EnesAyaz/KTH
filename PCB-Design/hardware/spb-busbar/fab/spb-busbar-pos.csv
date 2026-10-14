@@ -1,0 +1,14 @@
+Ref,Val,Package,PosX,PosY,Rot,Side
+"C1","DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)","CP_Elec_10x10.5",103.250000,33.000000,90.000000,top
+"C2","DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)","CP_Elec_10x10.5",117.250000,33.000000,90.000000,top
+"C3","DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)","CP_Elec_10x10.5",181.250000,33.000000,90.000000,top
+"C4","DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)","CP_Elec_10x10.5",195.250000,33.000000,90.000000,top
+"J1","LEG1 DC+","BUS_M4_REDCUBE",48.750000,14.800000,0.000000,top
+"J2","LEG1 DC-","BUS_M4_REDCUBE",60.750000,14.800000,0.000000,top
+"J3","LEG2 DC+","BUS_M4_REDCUBE",143.250000,14.800000,0.000000,top
+"J4","LEG2 DC-","BUS_M4_REDCUBE",155.250000,14.800000,0.000000,top
+"J5","LEG3 DC+","BUS_M4_REDCUBE",237.750000,14.800000,0.000000,top
+"J6","LEG3 DC-","BUS_M4_REDCUBE",249.750000,14.800000,0.000000,top
+"J7","STACK DC+ (to level above: its DC-)","BUS_LUG_M6",137.250000,33.000000,0.000000,top
+"J8","STACK DC- (to level below: its DC+)","BUS_LUG_M6",161.250000,33.000000,0.000000,top
+"J9","LEVEL V: 1 DC+, 2 DC- (HV referenced)","PinHeader_1x02_P2.54mm_Vertical",149.250000,35.000000,0.000000,top

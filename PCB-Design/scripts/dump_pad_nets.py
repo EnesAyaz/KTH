@@ -1,7 +1,7 @@
 """
 Pad nets of a board for the schematic generators and check_sch_vs_pcb.py.
 
-    "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\dump_pad_nets.py [spb-bb-fab | spb-bb-revb]
+    "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\dump_pad_nets.py [spb-bb-fab | spb-bb-revb-dpt | spb-bb-revb-load]
       -> hardware/<board>/pad_nets.json
 """
 import json

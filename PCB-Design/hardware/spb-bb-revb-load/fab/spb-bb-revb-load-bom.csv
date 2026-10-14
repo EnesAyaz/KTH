@@ -1,0 +1,44 @@
+"# 4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; BLIND vias L1-L2 (0.25 mm drill) filled + capped in the LS source pads; load-test board"
+Qty,References,Value,Footprint,Manufacturer part / note,Fit
+2,J1 J2,DC+,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit
+8,Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8,EPC2361,EPC2361,EPC2361,fit
+40,C1 C10 C11 C12 C2 C27 C28 C29 C3 C30 C31 C32 C33 C34 C35 C36 C37 C38 C39 C4 C40 C41 C42 C43 C44 C45 C46 C5 C6 C61 C62 C63 C64 C65 C66 C67 C68 C7 C8 C9,1uF 100V X7S,C_0805_2012Metric_TightCrtYd,TDK C2012X7S2A105K125AB,fit
+8,R1 R2 R25 R26 R27 R28 R3 R4,0R5 1% (R_G HL),R_0402_1005Metric,0.5R 0402 1% (Panasonic ERJ-2BQFR50X),fit
+8,R16 R17 R29 R30 R40 R41 R5 R6,10k 1% (HS gate pull-down),R_0402_1005Metric,10k 0402 1%,fit
+2,U1 U2,2EDF7275K,2EDF7275K_PG-TFLGA-13-4,Infineon 2EDF7275KXUMA1,fit
+4,R31 R33 R7 R9,"0R75 1% (R_ON,A)",R_0603_1608Metric,0.75R 0603 1% (Panasonic ERJ-3RQFR75V),fit
+4,R10 R32 R34 R8,"0R (R_OFF,A)",R_0402_1005Metric,0R 0402 jumper (set R_OFF here),fit
+4,D1 D2 D6 D7,PMEG3020EJ,D_SOD-323F,"Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",fit
+8,C13 C14 C15 C16 C47 C48 C49 C50,1uF 16V X7R 0402,C_0402_1005Metric,Murata GRM155R71C105KA12,fit
+4,C17 C18 C51 C52,100pF C0G 0402,C_0402_1005Metric,Murata GRM1555C1H101JA01,fit
+2,C19 C53,22nF 25V X7R 0402,C_0402_1005Metric,Murata GRM155R71E223KA61,fit
+4,R11 R12 R35 R36,47R 1% (INA),R_0402_1005Metric,47R 0402 1%,fit
+2,R13 R37,3k 1% (RVDDI),R_0402_1005Metric,3.0k 0402 1%,fit
+5,J12 J13 J23 J3 J4,"V_ISO,HS in: 1 +, 2 -",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
+10,L1 L10 L2 L3 L4 L5 L6 L7 L8 L9,WE-CNSW 744232601,L_CommonMode_Wurth_WE-CNSW-1206,"Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",fit
+6,C20 C23 C26 C54 C57 C60,4.7uF 25V X7R 0805,C_0805_2012Metric,Murata GRM21BR71E475KA73,fit
+4,D3 D4 D8 D9,BZX384-C5V1,D_SOD-323,"Nexperia BZX384-C5V1 (5.1 V, 300 mW)",fit
+8,C21 C22 C24 C25 C55 C56 C58 C59,4.7uF 16V X5R 0603,C_0603_1608Metric,Murata GRM188R61C475KAAJ,fit
+4,R14 R15 R38 R39,"150R 1% 0603 (bias, <= 82 mW)",R_0603_1608Metric,150R 0603 1% 0.1 W,fit
+2,J14 J5,CTRL1: 1 12V 2 GND 3 PWM_H 4 PWM_L 5 DIS 6 GND,PinHeader_2x03_P2.54mm_Vertical,2.54 mm header 2x3,fit
+1,D5,green 0603 (12 V),LED_0603_1608Metric,Wurth 150060GS75000,fit
+1,R18,4.7k (LED),R_0603_1608Metric,4.7k 0603 1%,fit
+12,J10 J11 J16 J17 J18 J19 J20 J21 J6 J7 J8 J9,U.FL H1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+8,R19 R20 R22 R23 R42 R43 R45 R46,0R (V_GS HS),R_0402_1005Metric,0R 0402,fit
+4,R21 R24 R44 R47,"953R 1% (V_DS LS, 20:1 into 50 R)",R_0402_1005Metric,953R 0402 1% 100 V,fit
+1,J15,"FAN 12V: 1 +12V, 2 GND",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2 (fan),fit
+20,C69 C70 C71 C72 C73 C74 C75 C76 C77 C78 C79 C80 C81 C82 C83 C84 C85 C86 C87 C88,22uF 100V X7S 2220,C_2220_5750Metric_TightCrtYd,TDK C5750X7S2A226M280KB,fit
+1,RT1,NTC 10k B3380,R_0402_1005Metric,Murata NCP15XH103F03RC,fit
+2,R48 R49,68k 1206 (HV LED),R_1206_3216Metric,68k 1206 1% 200 V,fit
+1,D10,red 0603 (DC link present),LED_0603_1608Metric,Wurth 150060RS75000,fit
+1,R50,100k 1206 (bleeder),R_1206_3216Metric,100k 1206 1% 200 V,fit
+
+Mechanical (not placed by the assembler)
+1,HS1,"Fan heatsink 40 x 40 x 50 mm, 12 V fan",-,"Fischer Elektronik LAM 4 K 50 12 (0.65 K/W), Farnell 4708974"
+1,HS1,"Heat spreader Al 6061, 89.5 x 12.8 x 3 mm, 4 pedestals 5.6 x 7.7 x 0.6 mm over the cells, 3 x M2.5 (H5-H7)",-,machined
+4,HS1,"Insulating gap pad over each cell, 5.6 x 7.7 mm, 0.5 mm, >= 5 W/mK",-,"Bergquist TGP 5000 0.020 in, cut to size, or equivalent"
+3,H5-H7,M2.5 x 10 screw + insulating shoulder washer (spreader),-,nylon or steel + washer
+4,H1-H4,M2.5 standoff + screw (H3/H4: nylon M2.5 x 6.5 mm onto the busbar),-,nylon
+2,J1-J2,M4 x 8 screw + washer from below through the busbar into the REDCUBE,-,"steel, A2"
+1,J22,"M6 x 16 bolt + nut + 2 washers, AC bolt pad",-,"steel, A2"
+1,J22,AC bar 12 x 5 mm Cu through a LEM HO 250-S,-,Cu-ETP + LEM HO 250-S

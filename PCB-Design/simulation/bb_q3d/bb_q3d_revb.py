@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Q3D power model of the ROUTED Rev B leg board (BB_PL_REVB: 4 x EPC2361 per switch, UFCS shunt per cell), built
-from results/revb_geometry.json (revb_export.py <- hardware/spb-bb-revb/spb-bb-revb.kicad_pcb).
+from results/revb_geometry.json (revb_export.py <- hardware/spb-bb-revb-dpt | -load, REVB_BOARD).
 
     simulation\\bb_q3d\\run_bb_q3d_revb.cmd     (KTH licence)  -> results/BB_PL_REVB_matrix.txt, _terminals.txt
     post: revb_post.py (commutation loop per cell incl. the shunt; three legs + PCB busbar network)
@@ -19,11 +19,14 @@ ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
 oDesktop.RestoreWindow()
 HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in dir() else os.getcwd()
 OUT = os.path.join(HERE, "results")
-LOOP = os.environ.get("REVB_REGION", "") == "loop"     # fast loop-only model (cell band, bypass, shunts)
-VT = os.environ.get("REVB_LOOP_TAG", "")              # variant tag (shunt study)
-SFX = ("_" + VT) if (LOOP and VT) else ""
-TAG = ("BB_PL_LOOP" + SFX) if LOOP else "BB_PL_REVB"
-LOG = open(os.path.join(OUT, ("loop_log%s.txt" % SFX) if LOOP else "revb_log.txt"), "w")
+REGION = os.environ.get("REVB_REGION", "")          # "" full board | loop (cell band) | lx (cells + AC bus)
+LOOP = REGION == "loop"                                # fast loop-only model (cell band, bypass, shunts)
+VT = os.environ.get("REVB_LOOP_TAG", "")              # board / variant tag (file names)
+SFX = ("_" + VT) if VT else ""
+KIND = {"loop": "LOOP", "lx": "LX"}.get(REGION, "REVB")
+TAG = "BB_PL_" + KIND + SFX
+DCONLY = os.environ.get("REVB_SOLVE", "") == "dc"     # full board: DC R/L only (sharing, loss, low-f port matrix)
+LOG = open(os.path.join(OUT, "%s_log%s.txt" % (KIND.lower(), SFX)), "w")
 
 
 def log(m):
@@ -32,7 +35,8 @@ def log(m):
 
 
 import traceback
-G = json.load(open(os.path.join(OUT, ("revb_loop_geometry%s.json" % SFX) if LOOP else "revb_geometry.json")))
+G = json.load(open(os.path.join(OUT, {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry"}.get(REGION, "revb_geometry")
+                                + SFX + ".json")))
 ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
 EVERY = int(os.environ.get("REVB_AC_VIA_EVERY", "1"))
@@ -54,7 +58,7 @@ ZR = {"L1": (Z["z_L1"], Z["z_top"]), "L2": (0.0, Z["t_L2"]), "L3": (Z["z_L3b"], 
 try:
     oProject = oDesktop.NewProject()
     log("project new")
-    oProject.Rename(os.path.join(OUT, ("bb_q3d_loop%s.aedt" % SFX) if LOOP else "bb_q3d_revb.aedt"), True)
+    oProject.Rename(os.path.join(OUT, "bb_q3d_%s%s.aedt" % (KIND.lower(), SFX)), True)
     log("project renamed")
     oProject.InsertDesign("Q3D Extractor", TAG, "", "")
     oDesign = oProject.SetActiveDesign(TAG)
@@ -186,22 +190,26 @@ for kind, name, net, pts, side in sorted(G["terminals"], key=lambda t: t[0] != "
     else:
         sources.setdefault(net, []).append(name)
 log("terminals assigned")
-oDesign.GetModule("AnalysisSetup").InsertSetup("Matrix", [
-    "NAME:Setup1", "AdaptiveFreq:=", "100MHz", "SaveFields:=", False, "Enabled:=", True,
-    ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
-     "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "High", "Solver Type:=", "Iterative"],
-    ["NAME:DC", "SolveResOnly:=", False,
-     ["NAME:Cond", "MaxPass:=", 3 if LOOP else 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 5 if LOOP else ERR,
-      "PerRefine:=", 30],
-     ["NAME:Mult", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
-     "Solution Order:=", "Normal"],
-    ["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
-     "Solution Order:=", "High"]])
+LIGHT = REGION in ("loop", "lx")                       # DC not needed: one coarse pass
+SETUP = ["NAME:Setup1", "AdaptiveFreq:=", "100MHz", "SaveFields:=", False, "Enabled:=", True,
+         ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
+          "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "High", "Solver Type:=", "Iterative"],
+         ["NAME:DC", "SolveResOnly:=", False,
+          ["NAME:Cond", "MaxPass:=", 3 if LIGHT else 10, "MinPass:=", 1, "MinConvPass:=", 1,
+           "PerError:=", 5 if LIGHT else ERR, "PerRefine:=", 30],
+          ["NAME:Mult", "MaxPass:=", 1 if LIGHT else 6, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 5 if LIGHT else ERR,
+           "PerRefine:=", 30],
+          "Solution Order:=", "Normal"]]
+if not DCONLY:
+    SETUP.append(["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
+                  "Solution Order:=", "High"])
+log("setup: %s, DC only %r" % (KIND, DCONLY))
+oDesign.GetModule("AnalysisSetup").InsertSetup("Matrix", SETUP)
 try:
     log("validate: %r" % oDesign.ValidateDesign())
     oProject.Save()
     oDesign.Analyze("Setup1")
-    oDesign.ExportMatrixData(os.path.join(OUT, TAG + "_matrix.txt"), "C, DC RL, AC RL", "", "Setup1:LastAdaptive",
+    oDesign.ExportMatrixData(os.path.join(OUT, TAG + "_matrix.txt"), "C, DC RL" if DCONLY else "C, DC RL, AC RL", "", "Setup1:LastAdaptive",
                              "Original", "ohm", "nH", "pF", "mSie", 100000000, "Maxwell,Spice,Couple", 0, False, 15,
                              20, 1)
     f = open(os.path.join(OUT, TAG + "_terminals.txt"), "w")

@@ -1,0 +1,10 @@
+"# 4 layers, 1.6 mm FR4, 2 oz on all layers (JLC3313 stack-up), ENIG, bolt pads without mask"
+Qty,References,Value,Footprint,Manufacturer part / note,Fit
+1,J9,"LEVEL V: 1 DC+, 2 DC- (HV referenced)",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
+4,C1 C2 C3 C4,"DNP: 100 V hybrid polymer ~20-30 mOhm ESR (damping, fit if ringing)",CP_Elec_10x10.5,"select: 100 V hybrid polymer, 10 x 10.5 mm SMD",DNP
+
+Mechanical (not placed by the assembler)
+6,J1-J6,M4 x 8 screw + washer into the leg REDCUBE terminals,-,"steel, A2"
+6,H1-H6,nylon standoff M2.5 x 6.5 mm (leg H3/H4),-,nylon
+4,H7-H10,"M3 insulating standoff to the frame (8 mm Cu keep-out, 1200 V)",-,PA66 / ceramic
+2,J7-J8,"M6 ring lug + Cu braid to the level above / below, M6 bolt + nut",-,"Cu, tin plated"

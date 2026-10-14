@@ -1,5 +1,5 @@
 """
-Laminated PCB busbar: the common DC bus of one 75 V level, joining the three phase-leg boards (Rev B, spb-bb-revb).
+Laminated PCB busbar: the common DC bus of one 75 V level, joining the three phase-leg boards (Rev B load-test boards, spb-bb-revb-load).
 
 The leg boards stand side by side (pitch 94.5 mm = 89.5 mm board + 5 mm gap). Their DC terminals (Wuerth REDCUBE
 74650174, M4 through-thread, 7 x 7 mm, 6.5 mm high) are on the leg-board bottom side in one row at y = -18.8 mm:

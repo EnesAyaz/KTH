@@ -4,7 +4,7 @@ The comparison is by connectivity: every schematic net must contain exactly the 
 way round). Where the schematic net carries a label, its name must also equal the PCB net name.
 
     kicad-cli sch export netlist --format kicadsexpr -o <tmp>/sch.net hardware/spb-bb-fab/spb-bb-fab.kicad_sch
-    python scripts/check_sch_vs_pcb.py <tmp>/sch.net [spb-bb-fab | spb-bb-revb]
+    python scripts/check_sch_vs_pcb.py <tmp>/sch.net [spb-bb-fab | spb-bb-revb-dpt | spb-bb-revb-load]
 """
 import collections
 import json

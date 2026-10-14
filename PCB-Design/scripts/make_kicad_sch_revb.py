@@ -1,10 +1,10 @@
 """
 KiCad 7 schematic of the Rev B SPB leg board (4 x EPC2361 per switch, 2 x 2EDF7275K), generated so that it matches
-the routed PCB pin by pin (hardware/spb-bb-revb/pad_nets.json from scripts/dump_pad_nets.py, and parts.json).
+the routed PCB pin by pin (hardware/<board>/pad_nets.json from scripts/dump_pad_nets.py, and parts.json).
 
     "C:\\Program Files\\KiCad\\7.0\\bin\\python.exe" scripts\\dump_pad_nets.py spb-bb-revb
-    python scripts/make_kicad_sch_revb.py  ->  hardware/spb-bb-revb/spb-bb-revb.kicad_sch, spb_fab.kicad_sym, sym-lib-table
-    kicad-cli sch export netlist ... ; python scripts/check_sch_vs_pcb.py <netlist> spb-bb-revb   (0 problems)
+    python scripts/make_kicad_sch_revb.py spb-bb-revb-dpt  ->  hardware/spb-bb-revb-dpt/spb-bb-revb-dpt.kicad_sch, spb_fab.kicad_sym, sym-lib-table
+    kicad-cli sch export netlist ... ; python scripts/check_sch_vs_pcb.py <netlist> spb-bb-revb-dpt   (0 problems)
 
 Parts are found by the nets they connect (not by reference), so a renumbered board does not break the drawing.
 Sections: power stage (DC link, four cells with Kelvin pad, per-cell UFCS shunt, joined AC to four terminals), the two
@@ -15,18 +15,19 @@ import json
 import math
 import os
 import re
+import sys
 import uuid
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HW = os.path.join(ROOT, "hardware", "spb-bb-revb")
+NAME = sys.argv[1] if len(sys.argv) > 1 else "spb-bb-revb-dpt"      # spb-bb-revb-dpt | spb-bb-revb-load
+HW = os.path.join(ROOT, "hardware", NAME)
 SYMDIR = "C:/Program Files/KiCad/7.0/share/kicad/symbols"
-NAME = "spb-bb-revb"
-ROOT_UUID = str(uuid.uuid5(uuid.NAMESPACE_URL, "spb-bb-revb-root"))
+ROOT_UUID = str(uuid.uuid5(uuid.NAMESPACE_URL, NAME + "-root"))
 G = 2.54
 
 
 def uid(*k):
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, "spb-bb-revb/" + "/".join(str(x) for x in k)))
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, NAME + "/" + "/".join(str(x) for x in k)))
 
 
 def q(s):
@@ -268,8 +269,9 @@ def lab_dn(p, net):
 
 
 # ================================================================== 1 power stage
-T("POWER STAGE AND DC LINK  (block 1: Q1-Q4, block 2: Q5-Q8; one cell = HS + LS transistor + UFCS shunt in the LS "
-  "source; AC of all four cells joined on the PCB)", 25.4, 27.94)
+SHUNT = any(r.startswith("RS") for r in PADS)
+T("POWER STAGE AND DC LINK  (block 1: Q1-Q4, block 2: Q5-Q8; one cell = HS + LS transistor%s; AC of all four cells "
+  "joined on the PCB)" % (" + UFCS shunt in the LS source" if SHUNT else ", LS source straight to DC-"), 25.4, 27.94)
 caps = find("DCP", "DCN", pre="C")
 half = (len(caps) + 1) // 2
 for row, (yp, yn) in enumerate(((40.64, 76.2), (96.52, 132.08))):
@@ -289,7 +291,7 @@ for r in caps:
     v = PADS[r][0].split(" (")[0]
     cnt[v] = cnt.get(v, 0) + 1
 T("DC link, %d capacitors: " % len(caps) + ",  ".join("%d x %s" % (n, v) for v, n in sorted(cnt.items())) +
-  "  (1 uF 0805: bypass at the HS drains of each cell; 10 uF 1210: bank)", 30.48, 144.78, 1.5, False)
+  "  (1 uF 0805: bypass at the HS drains of each cell, top + bottom; 22 uF 2220: bank)", 30.48, 144.78, 1.5, False)
 
 YDP, YSW, YL, YDN = 35.56, 76.2, 116.84, 142.24
 XA, XD = 609.6, 670.56
@@ -300,7 +302,7 @@ for c, hq in enumerate(hs_q):
     blk = net_of(hq, "2")[-1]
     lq = with_pin("1", "GL_" + net_of(hq, "1")[3:], "Q")                # same cell: GH_L1 -> GL_L1
     lsrc = net_of(lq, "4")
-    rs = one(lsrc, "DCN")
+    rs = one(lsrc, "DCN") if lsrc != "DCN" else None
     xb = X + 10.16
     xbs.append(xb)
     for ref, Y, ytop, ybot in ((hq, 55.88, YDP, YSW), (lq, 99.06, YSW, YL)):
@@ -312,11 +314,14 @@ for c, hq in enumerate(hs_q):
         W((xb, Y + 3.81), (xb, ybot))
         plabel(ref, "1")
         plabel(ref, "2")
-    W((xb, YL), (xb + 5.08, YL))
-    LBL(lsrc, xb + 5.08, YL, (1, 0))
-    t, b = vert(rs, xb, 127.0, lsrc)
-    W((xb, YL), t)
-    W(b, (xb, YDN))
+    if rs:
+        W((xb, YL), (xb + 5.08, YL))
+        LBL(lsrc, xb + 5.08, YL, (1, 0))
+        t, b = vert(rs, xb, 127.0, lsrc)
+        W((xb, YL), t)
+        W(b, (xb, YDN))
+    else:                                        # load-test board: LS source = DC- (via-in-pad to L2)
+        W((xb, YL), (xb, YDN))
     T("cell %d (block %s)" % (c + 1, blk), X - 7.62, 43.18, 1.5, False)
 W((xbs[0] - 7.62, YDP), (XD, YDP))
 W((xbs[0] - 7.62, YDN), (XD, YDN))
@@ -324,7 +329,8 @@ LBL("DCP", xbs[0] - 7.62, YDP, (-1, 0))
 LBL("DCN", xbs[0] - 7.62, YDN, (-1, 0))
 W((xbs[0], YSW), (XA, YSW))
 LBL("SW", xbs[0] + 5.08, YSW, (0, -1))
-T("RS1-RS4: PMK UFCS-R001 1 mOhm coaxial shunt, IN = LS source (LSRCx), SHLD = DC-", 393.7, 152.4, 1.5, False)
+T("RS1-RS4: PMK UFCS-R001 1 mOhm coaxial shunt, IN = LS source (LSRCx), SHLD = DC-" if SHUNT else
+  "No shunt (load-test board): LS source stripes via-in-pad (blind L1-L2) into the DC- plane", 393.7, 152.4, 1.5, False)
 # AC terminals on the joined switch node
 ac = sorted((r for r in PADS if r.startswith("J") and set(PADS[r][1].values()) == {"SW"}), key=refkey)
 for k, ref in enumerate(ac):
@@ -541,7 +547,7 @@ for i, (blk, ab, kk) in enumerate(((1, "A", "KH"), (1, "B", "KL"), (2, "A", "KH"
 # ================================================================== 4 U.FL measurement ports
 YU = 337.82
 T("U.FL MEASUREMENT PORTS (bottom side, at each cell): V_GS HS / LS (0 R, shield = Kelvin), V_DS LS (953 R series = "
-  "20:1 into the 50 R scope input, shield = LS source LSRCx)", 25.4, YU - 12.7)
+  "20:1 into the 50 R scope input, shield = LS source %s)" % ("LSRCx" if SHUNT else "= DC-"), 25.4, YU - 12.7)
 ufl = sorted((r for r in PADS if PADS[r][0].startswith("U.FL")), key=refkey)
 for i, j in enumerate(ufl):
     Xu, Yu = 50.8 + 101.6 * (i % 6), YU + 25.4 * (i // 6)
@@ -558,15 +564,17 @@ for i, j in enumerate(ufl):
 # ================================================================== 5 mechanical, notes
 YM = 391.16
 T("MOUNTING: H1-H4 board corners (insulated), H5-H7 heatsink spreader; heatsink HS1 (Fischer LAM 4, 100 mm, rotated "
-  "90 deg, tube across the board width) is a board-only item", 25.4, YM - 7.62)
+  "90 deg, tube across the board width) is a board-only item" if "HS1" in PADS else
+  "MOUNTING: H1-H4 board corners (insulated); no heatsink (double-pulse board)", 25.4, YM - 7.62)
 holes = sorted((r for r in PADS if r.startswith("H") and r not in SKIP), key=refkey)
 for k, h in enumerate(holes):
     place(h, 30.48 + 12.7 * k, YM + 5.08)
 notes = [
     "Nets: DCP = DC+, DCN = DC-, SW = joined switch node of all four cells.  KH1/KH2 and KL1/KL2 are the Kelvin source "
     "nets (pad 2 of each EPC2361); they meet the power source only inside the package.",
-    "LSRC1-LSRC4: LS power source of each cell = UFCS IN; the shunt SHLD side is DC-.  The LS gate drive and the LS "
-    "supply are referenced to the Kelvin net KLx, not to DC-.",
+    ("LSRC1-LSRC4: LS power source of each cell = UFCS IN; the shunt SHLD side is DC-.  " if SHUNT else
+     "LS power source = DC- directly (no shunt).  ") + "The LS gate drive and the LS supply are referenced to the "
+    "Kelvin net KLx, not to DC-.",
     "Block suffix 1/2 on every driver-side net (GNDI1, VDDA2, ...).  Primary side: GNDIx and +12Vx come from the control "
     "header through a common-mode choke per pair (12 V/GND, PWM_H/PWM_L, DIS).",
     "No short-circuit protection on this board.  Closed-loop control from a TI TMS320F28379D over the CTRL headers.",
@@ -623,8 +631,10 @@ JUNC = set(p for p, n in ends.items() if n + pinpts.get(p, 0) >= 3)
 
 # ------------------------------------------------------------------ write
 out = ['(kicad_sch (version 20230121) (generator eeschema)', ' (uuid %s)' % ROOT_UUID, ' (paper "A1")',
-       ' (title_block (title "SPB leg building block, Rev B") (date "2026-10-12") (rev "B") (company "KTH")'
-       ' (comment 1 "4 x EPC2361 per switch, 2 x 2EDF7275K, UFCS shunt per cell, external isolated supplies, U.FL ports")'
+       ' (title_block (title "SPB leg, Rev B, %s") (date "2026-10-14") (rev "B") (company "KTH")'
+       ' (comment 1 "4 x EPC2361 per switch, 2 x 2EDF7275K, %s, external isolated supplies, U.FL ports")' % (
+           ("double-pulse board" if SHUNT else "load-test board"), ("UFCS shunt per cell, no heatsink" if SHUNT else
+                                                                   "no shunt, LAM 4 heatsink")) + ''
        ' (comment 2 "generated by scripts/make_kicad_sch_revb.py; netlist identical to the PCB (check_sch_vs_pcb.py)"))',
        ' (lib_symbols']
 for k, s in LIB.items():

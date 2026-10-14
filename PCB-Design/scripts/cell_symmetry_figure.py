@@ -1,7 +1,7 @@
 """
 Left vs right cell of one block (Rev B, block 1): EPC2361 pads by function and the Kelvin collector routes,
 before (on L2, the DC- return plane) and after the fix (on L4). Reads the board through kicad-cli free text:
-pad data via KiCad python is not available in the matplotlib venv, so pads are taken from hardware/spb-bb-revb/
+pad data via KiCad python is not available in the matplotlib venv, so pads are taken from hardware/spb-bb-revb-dpt/
 parts.json + the EPC2361 footprint (rot 180 left, 0 right), exactly as placed by make_kicad_bb_revb.py.
 
     C:\\Github\\KTH\\LossCalculation-SPB\\.venv\\Scripts\\python.exe scripts\\cell_symmetry_figure.py
@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import FancyBboxPatch, Rectangle  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PARTS = {p["ref"]: p for p in json.load(open(os.path.join(ROOT, "hardware", "spb-bb-revb", "parts.json")))}
+PARTS = {p["ref"]: p for p in json.load(open(os.path.join(ROOT, "hardware", "spb-bb-revb-dpt", "parts.json")))}
 # EPC2361 footprint (epc2361-cell.pretty): number, x, y, w, h, function
 PADS = [("1", -2.352, -1.23, 1.102, 1.14, "G"), ("2", -2.352, 0.67, 1.102, 2.26, "K"),
         ("3", -1.275, 0, 0.65, 3.6, "D"), ("4", -0.425, 0, 0.65, 3.6, "S"), ("5", 0.425, 0, 0.65, 3.6, "D"),
