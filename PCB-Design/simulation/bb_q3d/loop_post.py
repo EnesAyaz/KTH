@@ -42,7 +42,7 @@ def loop(cells, bottom=True, shunt=L_SHUNT):
     for c in cells:
         inj["QL_D_%d" % c] = 1.0
         inj["QL_S_%d" % c] = -1.0
-    V, _, _ = net.solve(w, inj, "CapN_1")
+    V, _, _ = net.solve(w, inj, "CapN_" + os.environ.get("REVB_LOOP_SINKCELL", "1"))
     return {"cell%d" % c: round(float(((V["QL_D_%d" % c] - V["QL_S_%d" % c]) / w).imag * 1e9), 4) for c in cells}
 
 

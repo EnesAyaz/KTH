@@ -208,7 +208,8 @@ for ref, f in fps.items():
         add_pad(net, tname, (x - h, x + h, y - h, y + h), tname, "bottom")
 SINK = {"DCP": "J_DCP", "DCN": "J_DCN", "AC": "J_AC"}
 if LOOP:                                           # sinks inside the cell band
-    SINK = {"DCP": "CapP_1", "DCN": "CapN_1"}
+    SC = os.environ.get("REVB_LOOP_SINKCELL", "1")      # cell that holds the DC sinks (model check)
+    SINK = {"DCP": "CapP_" + SC, "DCN": "CapN_" + SC}
     SINK.update({"AC%d" % c: "QH_S_%d" % c for c in range(1, 5)})
 for c in range(1, 5):
     SINK["LSRC%d" % c] = "RSI_%d" % c
@@ -216,6 +217,12 @@ terms = []
 for tname, (net, pts, side) in sorted(groups.items()):
     terms.append(["Sink" if SINK.get(net) == tname else "Source", tname, net, pts, side])
 assert all(any(t[0] == "Sink" and t[2] == n for t in terms) for n in set(t_[2] for t_ in terms))
+if os.environ.get("REVB_MIRROR"):                  # model check: mirror the whole geometry x -> -x
+    polys = [[n, l, [[-p[0], p[1]] for p in o][::-1], [[[-p[0], p[1]] for p in h][::-1] for h in hs]]
+             for n, l, o, hs in polys]
+    vias = [[v[0], -v[1]] + v[2:] for v in vias]
+    pads = [[n, nm, -x1, -x0, y0, y1, sd] for n, nm, x0, x1, y0, y1, sd in pads]
+    terms = [[k, nm, n, [[-p[0], p[1]] for p in pts], sd] for k, nm, n, pts, sd in terms]
 out = dict(polys=polys, vias=vias, pads=pads, terminals=terms,
            note="routed board %s, simplification %.2f mm" % (os.path.basename(BRD), TOL))
 os.makedirs(os.path.join(HERE, "results"), exist_ok=True)

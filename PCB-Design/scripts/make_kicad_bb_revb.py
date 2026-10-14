@@ -40,6 +40,8 @@ import fab_router  # noqa: E402
 OUT = os.path.join(ROOT, "hardware", "spb-bb-revb")
 # shunt-path study (SHUNT_VARIANT = base | vip | compact | noshunt): variants go to hardware/variants/<variant>
 VARIANT = os.environ.get("SHUNT_VARIANT", "base")
+NOSHUNT = VARIANT in ("noshunt", "noshunt_rot0")
+ROT0 = VARIANT.endswith("rot0")            # symmetry study: left FETs NOT rotated (gate routing of the left cells omitted)
 if VARIANT != "base":
     OUT = os.path.join(ROOT, "hardware", "variants", "spb-bb-revb-" + VARIANT)
 os.makedirs(OUT, exist_ok=True)
@@ -425,7 +427,7 @@ def build_block(bi, xoff):
     kh, kl = bn("KH"), bn("KL")                     # Kelvin networks: meet the source only inside the EPC2361
     # ---- power copper (block-local copy of the Q3D geometry)
     lsrc = {"L": "LSRC%d" % (2 * bi - 1), "R": "LSRC%d" % (2 * bi)}   # low-side source copper of each cell
-    if VARIANT == "noshunt":
+    if NOSHUNT:
         lsrc = {"L": "DCN", "R": "DCN"}
     for n, nm, lay, x0, x1, y0, y1 in G["boxes"]:
         if lay in LAYER and n:
@@ -436,7 +438,7 @@ def build_block(bi, xoff):
                 nn = lsrc[nm[-1]]
             rect_zone(LAYER[lay], nn, max(x0, -XE), min(x1, XE), y0, y1, prio)
     for n, x, y, to in G["vias"]:
-        if n == "DCN" and abs(y - Y["src_via"]) < 1e-6 and VARIANT != "noshunt":
+        if n == "DCN" and abs(y - Y["src_via"]) < 1e-6 and not NOSHUNT:
             continue                                    # the shunt closes the loop, not a via to L2
         POWER_VIAS.append(via(x, VIA_SHIFT.get(round(y, 2), y), sw if n == "AC" else NETMAP[n]))
     # (DC terminals: one pair for the whole leg at the board centre, see dc_terminals())
@@ -444,14 +446,14 @@ def build_block(bi, xoff):
     # ---- transistors
     gate = {}
     qn = 4 * (bi - 1)
-    for side, sgn, rot in (("L", -1, 180.0), ("R", 1, 0.0)):
+    for side, sgn, rot in (("L", -1, 0.0 if ROT0 else 180.0), ("R", 1, 0.0)):
         xq = sgn * XC
         epc = lambda g, k, s, d: {"1": g, "2": k, "4": s, "6": s, "3": d, "5": d, "7": d}
         qh = place(EPC_LIB, "EPC2361", "Q%d" % (qn + (1 if side == "L" else 2)), "EPC2361", xq, YQH, rot,
                    nets=epc(bn("GH_" + side), kh, sw, "DCP"), mpn="EPC2361")
         ql = place(EPC_LIB, "EPC2361", "Q%d" % (qn + (3 if side == "L" else 4)), "EPC2361", xq, YQL, rot,
                    nets=epc(bn("GL_" + side), kl, lsrc[side], sw), mpn="EPC2361")
-        if VARIANT == "noshunt":
+        if NOSHUNT:
             # via-in-pad in the LS source stripes (pads 4, 6) straight into L2 DC-: the via row below the FET
             # cannot be used (it cuts the interleaved drain stripes), so the vias go inside the source stripes
             for q in ql.Pads():
@@ -485,6 +487,8 @@ def build_block(bi, xoff):
     KROW = {"H": YSH + 0.85, "L": YSL - 0.85}
     for tag, ys in (("H", YSH), ("L", YSL)):
         for side, sgn in (("L", -1), ("R", 1)):
+            if ROT0 and side == "L":
+                continue                        # study variant: left gate/Kelvin routing omitted
             gx, gy = gate[tag + side]
             kx, ky = gate["K" + tag + side]
             n_star, n_gate = bn("G%s_STAR" % tag), bn("G%s_%s" % (tag, side))
@@ -497,10 +501,17 @@ def build_block(bi, xoff):
             kvx = gx - sgn * 1.05
             seg(F, [(kx, ky), (kvx, ky)], 0.3, kn)
             via(kvx, ky, kn, 0.45, 0.25)
-            pts = [(kvx, ky), (sgn * XB, ky), (sgn * XB, KROW[tag]), (0, KROW[tag])]
-            seg(L2l, pts, 0.3, kn)
-            for (xa, ya), (xb, yb) in zip(pts[:-1], pts[1:]):
-                keepout(L2l, min(xa, xb) - 0.5, max(xa, xb) + 0.5, min(ya, yb) - 0.5, max(ya, yb) + 0.5)
+            # Kelvin collector on L4 (bottom), NOT on L2: L2 is the DC- return plane of the commutation loop and the
+            # Kelvin pads of the left (180 deg) and right (0 deg) transistors sit at different heights, so L2 slots
+            # would cut the return differently under the two cells of a pair (0.13 nH left/right difference).
+            if tag == "H":                      # joins the HS Kelvin route on L4 at the corridor centre
+                pts = [(kvx, ky), (sgn * XB, ky), (sgn * XB, KROW[tag]), (0, KROW[tag])]
+                seg(Bl, pts, 0.3, kn)
+            else:                               # LS: back to L2 inside the driver corridor (clear of the HS route)
+                pts = [(kvx, ky), (sgn * XB, ky), (sgn * XB, KROW[tag]), (sgn * 1.6, KROW[tag])]
+                seg(Bl, pts, 0.3, kn)
+                via(sgn * 1.6, KROW[tag], kn, 0.45, 0.25)
+                seg(L2l, [(sgn * 1.6, KROW[tag]), (0, KROW[tag])], 0.3, kn)
             # gate via for the U.FL V_GS sense (bottom side)
             via(sgn * 5.4, gy, n_gate, 0.45, 0.25)
             gate["V" + tag + side] = (sgn * 5.4, gy)
@@ -606,7 +617,7 @@ def build_block(bi, xoff):
     for side, sgn in (("L", -1), ("R", 1)):
         xs = sgn * XS_OFF
         c = 2 * (bi - 1) + (1 if side == "L" else 2)
-        if VARIANT != "noshunt":
+        if not NOSHUNT:
             fp = ufcs()
             finish(fp, "RS%d" % c, "UFCS-R001", xs, ysv, 0.0, False, {"1": lsrc[side], "2": "DCN"},
                    "PMK UFCS-R001 (1 mOhm, 50 A cont.)", "PMK_UFCS_R001")
@@ -614,7 +625,7 @@ def build_block(bi, xoff):
         rect_zone(F, lsrc[side], xa, xb, 11.2, 15.0 + dys, 2)    # IN side, joined to the source strip
         rect_zone(F, "DCN", xa, xb, (ysv + 0.25) if VARIANT == "notch" else 15.5 + dys, 20.2, 2)   # SHLD side
         rows = (19.0, 19.75)
-        if VARIANT in ("vip", "compact", "notch"):
+        if not NOSHUNT:                # return vias inside the SHLD pad (shunt study: -0.05 nH)
             rows = (ysv + 0.75, ysv + 1.45, ysv + 2.15, ysv + 2.85) + rows     # via-in-pad (filled, capped)
         for yv in rows:
             k = 0
@@ -626,7 +637,7 @@ def build_block(bi, xoff):
                 k += 1
         xa2, xb2 = sorted((sgn * 4.9, sgn * 20.3))
         rect_zone(L2l, "DCN", xa2, xb2, 11.9, 20.6, 1)          # L2 DC- return under the shunt
-        if VARIANT != "noshunt":
+        if not NOSHUNT:
             text("RS%d" % c, xs, 21.2, 0.8, pcbnew.F_Fab)
 
     # ---- AC columns per cell: L3/L4 from the cell down, L1/L2 below the shunts, into the AC bus (y > 36.3)
@@ -767,6 +778,8 @@ def build_block(bi, xoff):
     # ---- U.FL connectors (bottom side, outer half of each cell), series resistors, explicit L4 traces
     ufl = []
     for side, sgn in (("L", -1), ("R", 1)):
+        if ROT0 and side == "L":
+            continue
         c = 2 * (bi - 1) + (1 if side == "L" else 2)
         gvh, gvl, kvl, kvh = gate["VH" + side], gate["VL" + side], gate["VKL" + side], gate["VKH" + side]
         rows = (("H", gvh[1], gvh, kh, "0R (V_GS HS)", "0R 0402"),
@@ -1094,6 +1107,7 @@ for t in board.GetTracks():
                                              pcbnew.ToMM(t.GetEnd().x), pcbnew.ToMM(t.GetEnd().y),
                                              pcbnew.ToMM(t.GetWidth()) / 2)))
 removed = 0
+BAD = set()
 for v in POWER_VIAS:
     x, y, r, n = pcbnew.ToMM(v.GetPosition().x), pcbnew.ToMM(v.GetPosition().y), pcbnew.ToMM(v.GetWidth()) / 2, v.GetNetname()
     bad = False
@@ -1113,9 +1127,22 @@ for v in POWER_VIAS:
         if math.hypot(x - hx_, y - hy_) < hr_ + 0.15 + 0.45:
             bad = True
     if bad:
+        BAD.add(id(v))
+# symmetric pruning: a power via removed in one cell takes its mirror image (about the block centre) in the other
+# cell with it, so both cells of a pair keep identical via sets (a single surviving via changed the loop by ~0.13 nH)
+_pos = [(pcbnew.ToMM(v.GetPosition().x), pcbnew.ToMM(v.GetPosition().y), v.GetNetname(), v) for v in POWER_VIAS]
+for x, y, n, v in _pos:
+    if id(v) not in BAD:
+        continue
+    bx_ = -BX if x < 0 else BX
+    for x2, y2, n2, v2 in _pos:
+        if n2 == n and abs(x2 - (2 * bx_ - x)) < 0.15 and abs(y2 - y) < 0.15:
+            BAD.add(id(v2))
+for v in POWER_VIAS:
+    if id(v) in BAD:
         board.Remove(v)
         removed += 1
-print("power vias removed:", removed, "of", len(POWER_VIAS), flush=True)
+print("power vias removed:", removed, "of", len(POWER_VIAS), "(mirror pairs)", flush=True)
 
 # ==================================================================== save, fill, DRC
 print("STEP save", flush=True)
