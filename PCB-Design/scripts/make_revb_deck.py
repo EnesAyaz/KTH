@@ -234,6 +234,8 @@ NP = {k: RF["npar"][k] for k in ("0.5nH", "1nH")}
 
 
 def npv(L, n, key, fmt="%.1f"):
+    if NP[L][n - 1]["tj"] >= 199.0 and key != "vpk":     # thermal runaway on the air heatsink: no steady state
+        return "runaway"
     return fmt % NP[L][n - 1][key]
 
 
@@ -269,7 +271,7 @@ table(s, [X0, Y0 + 220, 520, 180], [
     ["Modulation index", "M ≤ 1.15 (SVM)"],
     ["Machine", "PMSM, cos φ assumed 0.9"],
     ["Switching frequency", "≥ 50 kHz (step 6)"],
-    ["Coolant / T_{j}", "60 °C / ≤ 125 °C"],
+    ["Cooling / T_{j}", "load test: air 25–40 °C / ≤ 125 °C"],
     ["Device stress", "V_{DS} ≤ 90 V at nominal bus (100 V part)"],
 ], size=13, colw=[190, 330])
 text(s, [X0 + 545, Y0 + 225, 365, 175], [
@@ -386,38 +388,41 @@ text(s, [X0, Y0 + 258, W, 150], [
 ], 13)
 
 # ================================================================== 5 n parallel
-s = slide("Thermal path per device", 5, "5  Devices in parallel")
-table(s, [X0, Y0, 560, 260], [["Layer (top-side cooling, per device)", "K/W"],
-                              ["R_{θJC} (top), datasheet", "0.20"], ["TIM 1, 50 µm, 3 W/mK, 15 mm²", "1.11"],
-                              ["AlN 0.635 mm, 170 W/mK, 25 mm²", "0.15"], ["TIM 2, 50 µm, 3 W/mK, 50 mm²", "0.33"],
-                              ["cold plate, h = 10 kW/m²K, 100 mm²", "1.00"],
-                              ["coupling to neighbours, coolant rise (+20 %)", "0.56"],
-                              ["Junction–coolant", "3.4"]], size=16, colw=[460, 100], bold_last=True)
-text(s, [X0 + 580, Y0, 330, 400], [
-    "Two TIM layers and the cold plate dominate",
-    "Used for the decisions: **3.4 K/W**, coolant 60 °C",
-    "Bounds: 2.1 K/W (sintered stack), 8 K/W (gap pad)",
-    "R_{DS(on)}(T_{j}) from the datasheet: ×1.49 at 100 °C, ×1.80 at 150 °C",
-    "Load-test board: LAM 4 K 50 12 (0.65 K/W) on an Al spreader (step 10)",
-], 16)
+TH = RF["thermal"]
+s = slide("Thermal path per device: load-test board", 5, "5  Devices in parallel")
+table(s, [X0, Y0, 590, 230], [["Path (LAM 4 K 50 12 in air, per device)", "K/W"],
+                              ["R_{θJC} (top), datasheet", "%.2f" % TH["R_JC"]],
+                              ["gap pad 0.4 mm, 5 W/mK, over the 15 mm² package top", "%.1f" % TH["R_PAD"]],
+                              ["Al spreader, outer cell → tube (8 mm in 12.8 × 3 mm, 2 devices)", "%.1f" % TH["R_SPR"]],
+                              ["**Junction → heatsink, per device**", "**%.1f**" % TH["R_JH"]],
+                              ["Heatsink → air, whole leg (Fischer LAM 4 K 50 12)", "%.2f" % TH["R_HS"]]],
+      size=15, colw=[500, 90])
+text(s, [X0 + 610, Y0, 300, 400], [
+    "T_{j} = T_{amb} + 0.65 K/W · P_{leg} + %.1f K/W · P_{device}" % TH["R_JH"],
+    "The gap pad dominates (insulation is needed: the package top is at source potential)",
+    "n = 4 at full load: **%.0f °C** (40 °C ambient), %.0f °C (25 °C), %.0f °C with a 3 W/mK pad" % (
+        TH["tj4_40"], TH["tj4_25"], TH["tj4_40_3W"]),
+    "R_{DS(on)}(T_{j}): ×1.49 at 100 °C, ×1.80 at 150 °C",
+], 15)
+note(s, "Spreader and pad values are hand estimates from the dimensions; for n ≠ 4 the same per-device path is assumed.")
 
 s = slide("n identical cells per switch (one device and one driver each)", 5)
 image(s, "img/flow_npar2.png", [X0, Y0, W, 280])
 text(s, [X0, Y0 + 282, W, 80], [
-    "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH (left bars) and 1 nH "
-    "(hatched)",
+    "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together (load-test board in air, previous slide); LTspice "
+    "energies at 0.5 nH (left bars) and 1 nH (hatched)",
     "n = 4: %s W (0.5 nH) / %s W (1 nH) per leg, T_{j} %s °C; peak V_{DS} at 80 A: **%s V (0.5 nH), %s V (1 nH)**" % (
         npv("0.5nH", 4, "tot"), npv("1nH", 4, "tot"), npv("0.5nH", 4, "tj", "%.0f"), npv("0.5nH", 4, "vpk", "%.0f"),
         npv("1nH", 4, "vpk", "%.0f")),
 ], 14)
-decision(s, "**4 EPC2361 per switch** (T_{j} for all three R_{th}; ≤ 90 V needs ≈ 0.5 nH; 4 splits into two equal pairs)")
+decision(s, "**4 EPC2361 per switch** (T_{j} < 80 °C in all three cases; ≤ 90 V needs ≈ 0.5 nH; two equal pairs)")
 
 s = slide("Where the loss comes from: line period and junction temperature", 5)
 image(s, "img/flow_wave2.png", [X0, Y0, W, 310])
 w05, w1 = RF["wave"]["0.5nH"], RF["wave"]["1nH"]
 text(s, [X0, Y0 + 312, W, 95], [
     "n = 4, 50 kHz: switching loss follows |i| (plus a constant E_{oss} part), conduction loss follows i²",
-    "Conduction %.1f W per leg (28 %% above its 25 °C value); switching %.1f W at 0.5 nH, %.1f W at 1 nH (lower E_{on}, "
+    "Conduction %.1f W per leg (at the load-test T_{j}); switching %.1f W at 0.5 nH, %.1f W at 1 nH (lower E_{on}, "
     "higher E_{off} and overshoot)" % (w05["p_cond"], w05["p_sw"], w1["p_sw"]),
 ], 15)
 
@@ -426,15 +431,17 @@ rows = [["n per switch"] + [str(n) for n in range(1, 9)]]
 for L, lab in (("0.5nH", "0.5 nH"), ("1nH", "1 nH")):
     rows.append(["Loss per leg, %s (W)" % lab] + [npv(L, n, "tot") for n in range(1, 9)])
 rows += [["  conduction at T_{j} (W)"] + [npv("0.5nH", n, "cond") for n in range(1, 9)],
-         ["  switching 0.5 / 1 nH (W)"] + ["%s / %s" % (npv("0.5nH", n, "sw"), npv("1nH", n, "sw")) for n in range(1, 9)],
-         ["Efficiency, 0.5 nH (%)"] + ["%.2f" % (100 * NP["0.5nH"][n - 1]["eta"]) for n in range(1, 9)],
+         ["  switching 0.5 / 1 nH (W)"] + [("%s / %s" % (npv("0.5nH", n, "sw"), npv("1nH", n, "sw")))
+                                          if NP["0.5nH"][n - 1]["tj"] < 199 else "–" for n in range(1, 9)],
+         ["Efficiency, 0.5 nH (%)"] + [("%.2f" % (100 * NP["0.5nH"][n - 1]["eta"])) if NP["0.5nH"][n - 1]["tj"] < 199
+                                       else "–" for n in range(1, 9)],
          ["Loss per device (W)"] + [npv("0.5nH", n, "pdev") for n in range(1, 9)],
          ["T_{j} (°C)"] + [npv("0.5nH", n, "tj", "%.0f") for n in range(1, 9)],
          ["Peak V_{DS} 0.5 / 1 nH (V)"] + ["%s / %s" % (npv("0.5nH", n, "vpk", "%.0f"), npv("1nH", n, "vpk", "%.0f"))
                                          for n in range(1, 9)],
          ["Driver channels per leg"] + [str(2 * n) for n in range(1, 9)]]
 table(s, [X0, Y0, W, 330], rows, size=14, colw=[270] + [80] * 8)
-note(s, "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 50 kHz; efficiency relative to 6.25 kW per leg.")
+note(s, "Semiconductor losses only; leg loss / (2 n) = loss per device; T_j on the load-test board at 40 °C ambient, 50 kHz; efficiency relative to 6.25 kW per leg.")
 
 # ================================================================== 6 fsw, DC link
 s = slide("Switching frequency: losses, DC-link capacitors, current ripple", 6, "6  Switching frequency and DC link")

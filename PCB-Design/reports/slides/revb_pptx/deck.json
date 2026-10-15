@@ -157,8 +157,8 @@
        "≥ 50 kHz (step 6)"
       ],
       [
-       "Coolant / T_{j}",
-       "60 °C / ≤ 125 °C"
+       "Cooling / T_{j}",
+       "load test: air 25–40 °C / ≤ 125 °C"
       ],
       [
        "Device stress",
@@ -587,7 +587,7 @@
    ]
   },
   {
-   "title": "Thermal path per device",
+   "title": "Thermal path per device: load-test board",
    "step": 5,
    "section": "5  Devices in parallel",
    "items": [
@@ -596,12 +596,12 @@
      "box": [
       25,
       100,
-      560,
-      260
+      590,
+      230
      ],
      "rows": [
       [
-       "Layer (top-side cooling, per device)",
+       "Path (LAM 4 K 50 12 in air, per device)",
        "K/W"
       ],
       [
@@ -609,68 +609,60 @@
        "0.20"
       ],
       [
-       "TIM 1, 50 µm, 3 W/mK, 15 mm²",
-       "1.11"
+       "gap pad 0.4 mm, 5 W/mK, over the 15 mm² package top",
+       "5.3"
       ],
       [
-       "AlN 0.635 mm, 170 W/mK, 25 mm²",
-       "0.15"
+       "Al spreader, outer cell → tube (8 mm in 12.8 × 3 mm, 2 devices)",
+       "2.1"
       ],
       [
-       "TIM 2, 50 µm, 3 W/mK, 50 mm²",
-       "0.33"
+       "**Junction → heatsink, per device**",
+       "**7.6**"
       ],
       [
-       "cold plate, h = 10 kW/m²K, 100 mm²",
-       "1.00"
-      ],
-      [
-       "coupling to neighbours, coolant rise (+20 %)",
-       "0.56"
-      ],
-      [
-       "Junction–coolant",
-       "3.4"
+       "Heatsink → air, whole leg (Fischer LAM 4 K 50 12)",
+       "0.65"
       ]
      ],
-     "size": 16,
+     "size": 15,
      "colw": [
-      460,
-      100
+      500,
+      90
      ],
-     "bold_last": true
+     "bold_last": false
     },
     {
      "type": "text",
      "box": [
-      605,
+      635,
       100,
-      330,
+      300,
       400
      ],
      "paras": [
       [
        0,
-       "Two TIM layers and the cold plate dominate"
+       "T_{j} = T_{amb} + 0.65 K/W · P_{leg} + 7.6 K/W · P_{device}"
       ],
       [
        0,
-       "Used for the decisions: **3.4 K/W**, coolant 60 °C"
+       "The gap pad dominates (insulation is needed: the package top is at source potential)"
       ],
       [
        0,
-       "Bounds: 2.1 K/W (sintered stack), 8 K/W (gap pad)"
+       "n = 4 at full load: **69 °C** (40 °C ambient), 52 °C (25 °C), 78 °C with a 3 W/mK pad"
       ],
       [
        0,
-       "R_{DS(on)}(T_{j}) from the datasheet: ×1.49 at 100 °C, ×1.80 at 150 °C"
-      ],
-      [
-       0,
-       "Load-test board: LAM 4 K 50 12 (0.65 K/W) on an Al spreader (step 10)"
+       "R_{DS(on)}(T_{j}): ×1.49 at 100 °C, ×1.80 at 150 °C"
       ]
      ],
-     "size": 16
+     "size": 15
+    },
+    {
+     "type": "note",
+     "text": "Spreader and pad values are hand estimates from the dimensions; for n ≠ 4 the same per-device path is assumed."
     }
    ]
   },
@@ -700,11 +692,11 @@
      "paras": [
       [
        0,
-       "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH (left bars) and 1 nH (hatched)"
+       "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together (load-test board in air, previous slide); LTspice energies at 0.5 nH (left bars) and 1 nH (hatched)"
       ],
       [
        0,
-       "n = 4: 17.9 W (0.5 nH) / 17.0 W (1 nH) per leg, T_{j} 68 °C; peak V_{DS} at 80 A: **83 V (0.5 nH), 93 V (1 nH)**"
+       "n = 4: 18.0 W (0.5 nH) / 17.0 W (1 nH) per leg, T_{j} 69 °C; peak V_{DS} at 80 A: **83 V (0.5 nH), 93 V (1 nH)**"
       ]
      ],
      "size": 14
@@ -717,7 +709,7 @@
       910,
       40
      ],
-     "text": "**4 EPC2361 per switch** (T_{j} for all three R_{th}; ≤ 90 V needs ≈ 0.5 nH; 4 splits into two equal pairs)"
+     "text": "**4 EPC2361 per switch** (T_{j} < 80 °C in all three cases; ≤ 90 V needs ≈ 0.5 nH; two equal pairs)"
     }
    ]
   },
@@ -751,7 +743,7 @@
       ],
       [
        0,
-       "Conduction 12.4 W per leg (28 % above its 25 °C value); switching 5.0 W at 0.5 nH, 4.1 W at 1 nH (lower E_{on}, higher E_{off} and overshoot)"
+       "Conduction 12.5 W per leg (at the load-test T_{j}); switching 5.0 W at 0.5 nH, 4.1 W at 1 nH (lower E_{on}, higher E_{off} and overshoot)"
       ]
      ],
      "size": 15
@@ -785,40 +777,40 @@
       ],
       [
        "Loss per leg, 0.5 nH (W)",
-       "79.1",
-       "33.1",
-       "22.2",
-       "17.9",
-       "16.0",
-       "15.1",
+       "runaway",
+       "39.5",
+       "23.2",
+       "18.0",
+       "15.8",
        "14.8",
-       "14.8"
+       "14.5",
+       "14.6"
       ],
       [
        "Loss per leg, 1 nH (W)",
-       "78.2",
-       "32.2",
-       "21.3",
+       "runaway",
+       "38.4",
+       "22.2",
        "17.0",
-       "15.0",
-       "14.0",
-       "13.6",
-       "13.6"
+       "14.8",
+       "13.7",
+       "13.3",
+       "13.3"
       ],
       [
        "  conduction at T_{j} (W)",
-       "70.0",
-       "27.5",
-       "17.0",
-       "12.4",
-       "9.8",
-       "8.1",
-       "7.0",
-       "6.1"
+       "runaway",
+       "33.9",
+       "18.0",
+       "12.5",
+       "9.7",
+       "7.9",
+       "6.7",
+       "5.8"
       ],
       [
        "  switching 0.5 / 1 nH (W)",
-       "8.4 / 7.5",
+       "–",
        "5.0 / 4.2",
        "4.6 / 3.8",
        "5.0 / 4.1",
@@ -829,20 +821,20 @@
       ],
       [
        "Efficiency, 0.5 nH (%)",
-       "98.73",
-       "99.47",
-       "99.64",
+       "–",
+       "99.37",
+       "99.63",
        "99.71",
-       "99.74",
+       "99.75",
        "99.76",
-       "99.76",
-       "99.76"
+       "99.77",
+       "99.77"
       ],
       [
        "Loss per device (W)",
-       "39.5",
-       "8.3",
-       "3.7",
+       "runaway",
+       "9.9",
+       "3.9",
        "2.2",
        "1.6",
        "1.2",
@@ -851,14 +843,14 @@
       ],
       [
        "T_{j} (°C)",
-       "194",
-       "88",
-       "73",
-       "68",
-       "65",
-       "64",
-       "64",
-       "63"
+       "runaway",
+       "141",
+       "84",
+       "69",
+       "62",
+       "59",
+       "57",
+       "56"
       ],
       [
        "Peak V_{DS} 0.5 / 1 nH (V)",
@@ -899,7 +891,7 @@
     },
     {
      "type": "note",
-     "text": "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 50 kHz; efficiency relative to 6.25 kW per leg."
+     "text": "Semiconductor losses only; leg loss / (2 n) = loss per device; T_j on the load-test board at 40 °C ambient, 50 kHz; efficiency relative to 6.25 kW per leg."
     }
    ]
   },
@@ -929,7 +921,7 @@
      "paras": [
       [
        0,
-       "(a) n = 4: 99.77 / 99.71 / 99.62 % at 20 / 50 / 100 kHz; (b) the voltage ripple sets the 2220 count (20 per leg at 50 kHz), ripple current needs only 7; (c) winding ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine"
+       "(a) n = 4: 99.77 / 99.71 / 99.61 % at 20 / 50 / 100 kHz; (b) the voltage ripple sets the 2220 count (20 per leg at 50 kHz), ripple current needs only 7; (c) winding ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine"
       ]
      ],
      "size": 14
@@ -3470,14 +3462,14 @@
        "whole board, all terminals",
        "DC R only",
        "current sharing, copper loss",
-       "(pending) / (pending) min"
+       "26 / 22 min"
       ],
       [
        "bank",
        "DC terminals + bank + bypass (y −25 … 4.3 mm)",
        "AC 1 MHz",
        "leg DC-link port, L_{b} bypass → bank",
-       "(pending) min"
+       "6 min"
       ],
       [
        "lx",

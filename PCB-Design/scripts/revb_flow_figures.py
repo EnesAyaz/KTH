@@ -335,18 +335,28 @@ NUM["cond"] = {"%d" % i: dict(P25=i ** 2 * rds(25), P100=i ** 2 * rds(100)) for 
 th = np.linspace(0, np.pi, 2001)
 
 
-def leg(n, f=F_SW, rth=RTH, L=0.5e-9):
+# thermal path of the LOAD-TEST board (LAM 4 K 50 12 in air): all transistor loss of the leg through the heatsink
+# (0.65 K/W), per device R_thJC top 0.2 K/W + gap pad 0.4 mm, 5 W/mK over the 15 mm2 package top (5.3 K/W) + the Al
+# spreader from the outer cell to the 50 mm tube (8 mm in 12.8 x 3 mm Al, 1.04 K/W per cell = 2 devices -> 2.1 K/W)
+R_HS, R_JC, R_PAD, R_SPR = 0.65, 0.2, 0.4e-3 / (5.0 * 15e-6), 2 * 0.008 / (200.0 * 12.8e-3 * 3e-3)
+R_JH = R_JC + R_PAD + R_SPR
+T_AMB = 40.0
+TH_SET = [(25.0, R_JH, "ambient 25 °C", C["green"]), (40.0, R_JH, "ambient 40 °C", C["red"]),
+          (40.0, R_JC + 0.4e-3 / (3.0 * 15e-6) + R_SPR, "40 °C, 3 W/mK pad", C["purple"])]
+
+
+def leg(n, f=F_SW, amb=T_AMB, rjh=R_JH, L=0.5e-9):
     ia = I_PK * np.sin(th)
     irms = I_PK / math.sqrt(2)
     pon, poff = FIT[L]
     sw = n * f * float(np.mean(np.polyval(pon, ia / n) + np.polyval(poff, ia / n))) + n * EOSS * f
     dead = 2 * f * S["t_dead"] * float(np.mean(ia * (S["Vsd0"] + S["Rsd"] / n * ia)))
     gate = 2 * n * QG * VG * f
-    tj = T_COOL
+    tj = amb
     for _ in range(80):
         cond = irms ** 2 * rds(tj) / n
         pdev = (cond + sw + dead) / (2 * n)
-        tj_new = T_COOL + rth * pdev
+        tj_new = amb + R_HS * (cond + sw + dead) + rjh * pdev
         if tj_new > 200:
             tj = 200.0
             break
@@ -371,6 +381,8 @@ for k, L in enumerate(LS_):
                label=lab if k == 0 else None, hatch=None if k == 0 else "//")
         bottom += v
 ax.bar([], [], color="w", edgecolor="k", label="left 0.5 nH, right 1 nH (hatched)")
+if leg(1)["tj"] >= 199:
+    ax.text(1, 56, "n = 1:\nthermal\nrunaway", ha="center", fontsize=8, color=C["red"])
 ax.set_xticks(ns)
 ax.set_xlabel("EPC2361 per switch $n$")
 ax.set_ylabel("semiconductor loss per leg (W)")
@@ -379,13 +391,13 @@ ax.legend(loc="upper right", fontsize=7.5)
 ax.grid(axis="x", visible=False)
 panel(ax, "(a)")
 ax = axs[1]
-for rth, lab, c in RTH_SET:
-    ax.plot(ns, [leg(int(n), rth=rth)["tj"] for n in ns], "-o", color=c, ms=4, label=lab)
+for amb, rjh, lab, c in TH_SET:
+    ax.plot(ns, [leg(int(n), amb=amb, rjh=rjh)["tj"] for n in ns], "-o", color=c, ms=4, label=lab)
 ax.axhline(TJ_LIM, color="k", ls="--", lw=0.9)
 ax.set_ylim(55, 180)
 ax.set_xticks(ns)
 ax.set_xlabel("EPC2361 per switch $n$")
-ax.set_ylabel("$T_j$ (°C), coolant 60 °C, 0.5 nH")
+ax.set_ylabel("$T_j$ (°C), load-test board, 0.5 nH")
 ax.legend(loc="upper right")
 panel(ax, "(b)")
 ax = axs[2]
@@ -400,6 +412,9 @@ ax.legend(loc="upper right")
 panel(ax, "(c)")
 save(fig, "flow_npar2")
 NUM["npar"] = {"%gnH" % (L * 1e9): [leg(int(n), L=L) for n in ns] for L in LS_}
+NUM["thermal"] = dict(R_HS=R_HS, R_JC=R_JC, R_PAD=R_PAD, R_SPR=R_SPR, R_JH=R_JH, T_AMB=T_AMB,
+                      tj4_25=leg(4, amb=25.0)["tj"], tj4_40=leg(4)["tj"],
+                      tj4_40_3W=leg(4, rjh=TH_SET[2][1])["tj"])
 
 # ===================================================================================================== loss over the period
 deg = np.linspace(0, 360, 721)
@@ -439,7 +454,7 @@ for n, c in ((2, C["purple"]), (4, C["red"]), (6, C["blue"])):
 ax.set_xlim(25, 168)
 ax.set_xlabel("$T_j$ (°C)")
 ax.set_ylabel("conduction loss per leg (W)")
-ax.text(30, 33, "dots: operating point (3.4 K/W, 60 °C)", fontsize=8.5, va="top")
+ax.text(30, 33, "dots: operating point (load-test board, 40 °C ambient)", fontsize=8.5, va="top")
 panel(ax, "(b)")
 save(fig, "flow_wave2")
 
