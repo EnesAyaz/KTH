@@ -1,4 +1,4 @@
-# Build an editable PowerPoint deck from reports/slides/revb_pptx/deck.json (written by scripts/make_revb_deck.py).
+﻿# Build an editable PowerPoint deck from reports/slides/revb_pptx/deck.json (written by scripts/make_revb_deck.py).
 #   powershell -ExecutionPolicy Bypass -File scripts\build_pptx.ps1 [-Out reports\slides\spb_revb_design_flow.pptx]
 # Native PowerPoint objects only: text boxes, tables, shapes, pictures. Markup: **bold**, !!alert!!, _{sub}, ^{sup}.
 param([string]$Spec = "", [string]$Out = "")
@@ -15,7 +15,7 @@ $C = @{
   ls = RGB 50 100 190; pri = RGB 60 140 80; pri10 = RGB 230 243 233; meas = RGB 20 140 60; meas10 = RGB 226 243 232
   black = RGB 30 30 30; gray = RGB 120 120 120; white = RGB 255 255 255; dec = RGB 238 244 251; alert = RGB 200 70 50
 }
-$FONT = "Calibri"
+$FONT = "Arial"
 
 function Parse-Markup([string]$s) {
   # returns plain text and a list of runs (start index 0-based, length, kind)
@@ -50,6 +50,7 @@ function Apply-Runs($tr, $runs, [int]$offset) {
 }
 
 function Set-Text($shape, $paras, [double]$size, [bool]$bullets, $color = $C.black, [string]$align = "left") {
+  $size = [Math]::Round($size * $script:SCALE * $script:FS * 1.33, 1)
   $plain = @(); $allruns = @()
   foreach ($p in $paras) { $r = Parse-Markup ([string]$p[1]); $plain += $r[0]; $allruns += , @($r[1]) }
   $tf = $shape.TextFrame
@@ -57,7 +58,7 @@ function Set-Text($shape, $paras, [double]$size, [bool]$bullets, $color = $C.bla
   $tr = $tf.TextRange
   $tr.Text = ($plain -join "`r")
   $tr.Font.Name = $FONT
-  $tr.Font.Size = $size
+  $tr.Font.Size = [single]$size
   if ($env:PPTX_DEBUG) { Write-Host "SET [$($tr.Text.Substring(0, [Math]::Min(30, $tr.Text.Length)))] color=$color" }
   try { $tr.Font.Color.RGB = $color } catch { $shape.TextFrame2.TextRange.Font.Fill.ForeColor.RGB = $color }
   $tr.ParagraphFormat.Alignment = @{ left = 1; center = 2; right = 3 }[$align]
@@ -70,7 +71,7 @@ function Set-Text($shape, $paras, [double]$size, [bool]$bullets, $color = $C.bla
       $para.ParagraphFormat.Bullet.Character = $(if ($lvl -gt 0) { 8211 } else { 8226 })
       $para.IndentLevel = $lvl + 1
       $para.ParagraphFormat.SpaceAfter = 4
-      if ($lvl -gt 0) { $para.Font.Size = $size - 1 }
+      if ($lvl -gt 0) { $para.Font.Size = [single]($size - 1) }
     }
     Apply-Runs $tr $allruns[$i] $off
     $off += $plain[$i].Length + 1
@@ -95,44 +96,47 @@ function Add-Flow($sl, $steps, [int]$active) {
   }
 }
 
+# KTH 16:9 template (720 x 405 pt): the spec is written on a 960 x 540 frame -> scale 0.75; fonts x FS
+$TEMPLATE = Join-Path (Split-Path -Parent $root) "KTH_16_9 .pptx"
+$SCALE = 0.75; $FS = 0.92
 $pp = New-Object -ComObject PowerPoint.Application
-$pres = $pp.Presentations.Add(0)
-$pres.PageSetup.SlideWidth = 960; $pres.PageSetup.SlideHeight = 540
+$pres = $pp.Presentations.Open($TEMPLATE, $true, $true, $false)     # read-only, untitled copy
+while ($pres.Slides.Count -gt 0) { $pres.Slides(1).Delete() }
+$LAY = @{}
+foreach ($l in $pres.SlideMaster.CustomLayouts) { $LAY[$l.Name] = $l }
 $k = 0
 foreach ($s in $deck.slides) {
   $k++
-  $sl = $pres.Slides.Add($k, 12)       # ppLayoutBlank
-  $sl.FollowMasterBackground = 0
-  $sl.Background.Fill.ForeColor.RGB = $C.white
   if ($s.kind -eq "title" -or $s.kind -eq "end") {
-    $bg = $sl.Shapes.AddShape(1, 0, 0, 960, 540); $bg.Fill.ForeColor.RGB = $C.kth; $bg.Line.Visible = 0
-    $t = $sl.Shapes.AddTextbox(1, 60, $(if ($s.kind -eq "end") { 220 } else { 150 }), 840, 70)
-    Set-Text $t @(, @(0, $s.title)) 36 $false $C.white
-    $t.TextFrame.TextRange.Font.Bold = -1
-    if ($s.subtitle) {
-      $st = $sl.Shapes.AddTextbox(1, 60, 240, 840, 90)
-      Set-Text $st @($s.subtitle -split "`n" | ForEach-Object { , @(0, $_) }) 20 $false $C.white
-      $au = $sl.Shapes.AddTextbox(1, 60, 400, 840, 40)
-      Set-Text $au @(, @(0, $s.author)) 14 $false $C.white
+    $sl = $pres.Slides.AddSlide($k, $LAY["Title slide_eng"])
+    foreach ($sh in @($sl.Shapes)) {
+      if ($sh.Type -ne 14) { continue }
+      $pt = $sh.PlaceholderFormat.Type
+      if ($pt -eq 3 -or $pt -eq 1) { $sh.TextFrame.TextRange.Text = $(if ($s.kind -eq "end") { "Thank you - questions?" } else { $s.title }) }
+      elseif ($pt -eq 4 -or $pt -eq 2) {
+        $sub = $(if ($s.kind -eq "end") { "Enes Ayaz, KTH Royal Institute of Technology" } else { ($s.subtitle -replace "`n", " ") + "`r" + $s.author })
+        $sh.TextFrame.TextRange.Text = $sub
+      }
     }
-    if ($s.kind -eq "end") {
-      $q = $sl.Shapes.AddTextbox(1, 60, 290, 840, 40); Set-Text $q @(, @(0, "Questions?")) 20 $false $C.white
-    }
+    try { $sl.HeadersFooters.Footer.Visible = 0; $sl.HeadersFooters.DateAndTime.Visible = 0; $sl.HeadersFooters.SlideNumber.Visible = 0 } catch { }
     continue
   }
-  # title bar
-  $bar = $sl.Shapes.AddShape(1, 0, 0, 960, 46); $bar.Fill.ForeColor.RGB = $C.kth; $bar.Line.Visible = 0; $bar.Name = "titlebar"
-  $tt = $sl.Shapes.AddTextbox(1, 24, 4, 820, 40); $tt.Name = "title"
-  Set-Text $tt @(, @(0, $s.title)) 24 $false $C.white
-  $tt.TextFrame.VerticalAnchor = 3
-  if ($s.section) {
-    $sec = $sl.Shapes.AddTextbox(1, 700, 14, 240, 20)
-    Set-Text $sec @(, @(0, $s.section)) 10 $false $C.kth10 "right"
+  $sl = $pres.Slides.AddSlide($k, $LAY["Endast rubrik"])
+  foreach ($sh in @($sl.Shapes)) {
+    if ($sh.Type -eq 14 -and $sh.PlaceholderFormat.Type -eq 1) {
+      $sh.TextFrame.TextRange.Text = $s.title
+      $sh.TextFrame.TextRange.Font.Size = $(if ($s.title.Length -gt 58) { 18 } else { 21 })
+    }
   }
-  if ($null -ne $s.step -and [int]$s.step -gt 0) { Add-Flow $sl $deck.steps ([int]$s.step) }
-  $num = $sl.Shapes.AddTextbox(1, 880, 515, 60, 18); Set-Text $num @(, @(0, "$k / $($deck.slides.Count)")) 9 $false $C.gray "right"
+  try {
+    $hf = $sl.HeadersFooters
+    $hf.Footer.Visible = -1; $hf.Footer.Text = $(if ($s.section) { $s.section } else { $script:lastsec })
+    $hf.SlideNumber.Visible = -1; $hf.DateAndTime.Visible = 0
+  } catch { }
+  if ($s.section) { $script:lastsec = $s.section }
   foreach ($it in $s.items) {
-    $b = $it.box
+    $b = $null
+    if ($it.box) { $b = @($it.box | ForEach-Object { [double]$_ * $SCALE }) }
     if ($env:PPTX_DEBUG) { Write-Host "slide $k item $($it.type)" }
     switch ($it.type) {
       "text" {
@@ -161,9 +165,9 @@ foreach ($s in $deck.slides) {
       }
       "table" {
         $rows = $it.rows; $nr = $rows.Count; $nc = $rows[0].Count
-        $tb = $sl.Shapes.AddTable($nr, $nc, $b[0], $b[1], $b[2], [Math]::Min($b[3], 22 * $nr))
+        $tb = $sl.Shapes.AddTable($nr, $nc, $b[0], $b[1], $b[2], [Math]::Min($b[3], 16.5 * $nr))
         $tbl = $tb.Table
-        if ($it.colw) { for ($ci = 1; $ci -le $nc; $ci++) { $tbl.Columns($ci).Width = $it.colw[$ci - 1] } }
+        if ($it.colw) { for ($ci = 1; $ci -le $nc; $ci++) { $tbl.Columns($ci).Width = [double]$it.colw[$ci - 1] * $SCALE } }
         for ($r = 1; $r -le $nr; $r++) {
           for ($ci = 1; $ci -le $nc; $ci++) {
             $cell = $tbl.Cell($r, $ci)
@@ -173,19 +177,19 @@ foreach ($s in $deck.slides) {
             $cell.Shape.Fill.ForeColor.RGB = $(if ($r -eq 1) { $C.kth } elseif ($r % 2 -eq 0) { $C.kth10 } else { $C.white })
             if ($r -eq 1 -or ($it.bold_last -and $r -eq $nr)) { $cell.Shape.TextFrame.TextRange.Font.Bold = -1 }
           }
-          $tbl.Rows($r).Height = 18
+          $tbl.Rows($r).Height = 13
         }
       }
       "decision" {
         $sh = $sl.Shapes.AddShape(5, $b[0], $b[1], $b[2], $b[3])
         $sh.Fill.ForeColor.RGB = $C.dec; $sh.Line.ForeColor.RGB = $C.kth; $sh.Line.Weight = 1.25
-        $sh.TextFrame.MarginLeft = 10; $sh.TextFrame.VerticalAnchor = 3
-        Set-Text $sh @(, @(0, ("**Decision:** " + $it.text))) 14 $false
+        $sh.TextFrame.MarginLeft = 8; $sh.TextFrame.MarginTop = 2; $sh.TextFrame.MarginBottom = 2; $sh.TextFrame.VerticalAnchor = 3
+        Set-Text $sh @(, @(0, ("**Decision:** " + $it.text))) 15 $false
         $sh.Name = "decision"
       }
       "note" {
-        $sh = $sl.Shapes.AddTextbox(1, 30, 495, 840, 30)
-        Set-Text $sh @(, @(0, $it.text)) 10 $false $C.gray
+        $sh = $sl.Shapes.AddTextbox(1, 18, 362, 620, 18)
+        Set-Text $sh @(, @(0, $it.text)) 8 $false $C.gray
       }
       "rect" {
         $sh = $sl.Shapes.AddShape($(if ($it.round) { 5 } else { 1 }), $b[0], $b[1], $b[2], $b[3])
@@ -198,7 +202,7 @@ foreach ($s in $deck.slides) {
         }
       }
       "line" {
-        $p = $it.pts
+        $p = @($it.pts | ForEach-Object { [double]$_ * $SCALE })
         $ln = $sl.Shapes.AddLine($p[0], $p[1], $p[2], $p[3])
         $ln.Line.ForeColor.RGB = $C[$it.color]; $ln.Line.Weight = [single]$it.w
         if ($it.arrow) { $ln.Line.EndArrowheadStyle = 2 }
@@ -207,7 +211,7 @@ foreach ($s in $deck.slides) {
   }
 }
 if (Test-Path $Out) { Remove-Item $Out -Confirm:$false }
-$pres.SaveAs($Out)
+$pres.SaveAs($Out, 24)
 $pres.Close()
 $pp.Quit()
 [System.Runtime.InteropServices.Marshal]::ReleaseComObject($pp) | Out-Null

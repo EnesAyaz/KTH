@@ -58,7 +58,7 @@ def load(tag, sinks=None):
                    ("Rdc", "DC Resistance Matrix")):
         try:                                       # R-only DC solves have no DC inductance block
             names, M = block(lines, t)
-        except KeyError:
+        except (KeyError, ValueError):          # missing or N/A (R-only DC)
             continue
         out[key] = M * (1e-9 if key[0] == "L" else 1.0)
     if sinks is None:

@@ -135,6 +135,19 @@ def write_lumped():
     return "FLOW_lumped.cir"
 
 
+def write_lumped2():
+    """same lumped half bridge, loop 0.5 / 1 nH (the layout values: 0.4-0.65 nH per cell on the final boards), current
+    per device 10-330 A incl. 60 / 80 / 120 A (n = 4 at the peak current is 80 A)."""
+    open(os.path.join(SP, "FLOW_lumped.inc"), "w").write(LUMPED)
+    open(os.path.join(SP, "FLOW_lumped2.cir"), "w").write(
+        "* One EPC2361 per switch, lumped power loop LLOOP = 0.5 / 1 nH, Eon/Eoff and overshoot vs current per device.\n"
+        ".param VBUS=75 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.85 RPD=0.35\n"
+        ".step param LLOOP list 0.5n 1n\n"
+        ".step param IPK list 10 40 60 80 120 160 200 250 330\n"
+        ".include FLOW_lumped.inc\n.end\n")
+    return "FLOW_lumped2.cir"
+
+
 # ------------------------------------------------------------------------------------------------ two blocks
 def suffix_block(txt, k):
     """Flatten one copy of the building block: suffix element and node names with _k (ground 0 stays global)."""
@@ -217,7 +230,7 @@ def run(cir):
 
 def parse():
     res = {}
-    for tag in ("single", "lumped", "two"):
+    for tag in ("single", "lumped", "lumped2", "two"):
         log = os.path.join(SP, "FLOW_%s.log" % tag)
         if os.path.exists(log):
             m, st = parse_log(log)
@@ -235,6 +248,8 @@ if __name__ == "__main__":
         run(write_single())
     if what in ("lumped", "all"):
         run(write_lumped())
+    if what == "lumped2":
+        run(write_lumped2())
     if what in ("two", "all"):
         run(write_two())
     parse()

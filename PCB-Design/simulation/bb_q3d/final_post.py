@@ -43,7 +43,7 @@ def load_any(tag):
             names, M = block(lines, t)
             out[key] = M * (1e-9 if key[0] == "L" else 1.0)
             out["names"] = names
-        except KeyError:
+        except (KeyError, ValueError):          # missing or N/A (R-only DC)
             pass
     sinks = {}
     tf = os.path.join(RES, tag + "_terminals.txt")

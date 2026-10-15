@@ -1,0 +1,6 @@
+* One EPC2361 per switch, lumped power loop LLOOP = 0.5 / 1 nH, Eon/Eoff and overshoot vs current per device.
+.param VBUS=75 TON1=10.667u LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.85 RPD=0.35
+.step param LLOOP list 0.5n 1n
+.step param IPK list 10 40 60 80 120 160 200 250 330
+.include FLOW_lumped.inc
+.end

@@ -7,10 +7,11 @@ Rev B design-flow deck (4 x EPC2361 per switch on one board, three legs on a PCB
 
 Steps 1-7 follow spb_design_flow_v3 (same figures, converted to PNG in revb_pptx/img); steps 8-12 are the Rev B
 board, supplies and measurement, the three-phase DC bus (PCB busbar) and the Q3D verification of leg + busbar
-(numbers from reports/slides/data/revb_numbers.json, written by simulation/bb_q3d/revb_post.py).
+(numbers from reports/slides/data/final_numbers.json, written by simulation/bb_q3d/final_post.py).
 Markup in texts: **bold**, !!alert!!, _{sub}, ^{sup}. Coordinates in points on a 960 x 540 slide.
 """
 import json
+import math
 import os
 import subprocess
 
@@ -26,8 +27,8 @@ OUT = os.path.join(SL, "revb_pptx")
 IMG = os.path.join(OUT, "img")
 os.makedirs(IMG, exist_ok=True)
 FN = json.load(open(os.path.join(SL, "data", "flow_numbers.json")))
-RB_PATH = os.path.join(SL, "data", "revb_numbers.json")
-RB = json.load(open(RB_PATH)) if os.path.exists(RB_PATH) else {}
+
+
 EST = json.load(open(os.path.join(ROOT, "hardware", "spb-busbar", "estimates.json")))
 PDFTOPPM = "pdftoppm"
 
@@ -67,103 +68,86 @@ def pdf_crop(pdf, name, box_mm=None, dpi=150):
 
 
 KCLI = r"C:\Program Files\KiCad\7.0\bin\kicad-cli.exe"
-HWB = os.path.join(ROOT, "hardware", "spb-bb-revb")
-SCH = os.path.join(HWB, "spb-bb-revb_schematic.pdf")
-subprocess.run([KCLI, "sch", "export", "pdf", "-o", SCH, os.path.join(HWB, "spb-bb-revb.kicad_sch")], check=True)
-for side, lays, extra in (("top", "F.Cu,F.SilkS,Edge.Cuts", []), ("bottom", "B.Cu,B.SilkS,Edge.Cuts", ["--mirror"])):
-    pdf = os.path.join(HWB, "plots", "revb_%s.pdf" % side)
-    subprocess.run([KCLI, "pcb", "export", "pdf", "--layers", lays, "-o", pdf] + extra +
-                   [os.path.join(HWB, "spb-bb-revb.kicad_pcb")], check=True)
-    pdf_crop(pdf, "revb_%s" % side, None, 200)
+HW = {b: os.path.join(ROOT, "hardware", "spb-bb-revb-" + b) for b in ("dpt", "load")}
+for b, hw in HW.items():
+    nm = "spb-bb-revb-" + b
+    os.makedirs(os.path.join(hw, "plots"), exist_ok=True)
+    subprocess.run([KCLI, "sch", "export", "pdf", "-o", os.path.join(hw, "plots", nm + "_schematic.pdf"),
+                    os.path.join(hw, nm + ".kicad_sch")], check=True)
+    for side, lays, extra in (("top", "F.Cu,F.SilkS,Edge.Cuts", []), ("bottom", "B.Cu,B.SilkS,Edge.Cuts", ["--mirror"])):
+        pdf = os.path.join(hw, "plots", "%s_%s.pdf" % (nm, side))
+        subprocess.run([KCLI, "pcb", "export", "pdf", "--layers", lays, "-o", pdf] + extra +
+                       [os.path.join(hw, nm + ".kicad_pcb")], check=True)
+        pdf_crop(pdf, "revb_%s_%s" % (b, side), None, 200)
+SCH = os.path.join(HW["dpt"], "plots", "spb-bb-revb-dpt_schematic.pdf")
 pdf_crop(SCH, "sch_power", (380, 25, 745, 160))
+pdf_crop(os.path.join(HW["load"], "plots", "spb-bb-revb-load_schematic.pdf"), "sch_power_load", (380, 25, 745, 160))
 pdf_crop(SCH, "sch_driver", (25, 180, 262, 258))
 pdf_crop(SCH, "sch_islands", (25, 262, 228, 322))
 pdf_crop(SCH, "sch_ufl", (25, 322, 245, 352))
 pdf_crop(os.path.join(ROOT, "hardware", "spb-busbar", "plots", "spb-busbar-busbar_view.pdf"), "busbar_top", None, 200)
-for n in ("top", "bottom", "revb_overview", "revb_3d_noheatsink", "revb_3d_iso", "revb_3d_bottom"):
-    p = os.path.join(IMG, n + ".png")
-    if os.path.exists(p):
-        autocrop(p)
+for n in os.listdir(IMG):
+    if n.startswith("r3d_"):
+        autocrop(os.path.join(IMG, n))
+
+# results of the fast Q3D set (simulation/bb_q3d/run_bb_q3d_final.cmd -> final_post.py); nothing older is used
+FP_ = os.path.join(SL, "data", "final_numbers.json")
+FQ = json.load(open(FP_)) if os.path.exists(FP_) else {}
 
 plt.rcParams.update({"font.size": 11, "axes.grid": True, "grid.alpha": 0.3})
-sweep = os.path.join(ROOT, "simulation", "bb_q3d", "results", "revb_sweep.csv")
+RES = os.path.join(ROOT, "simulation", "bb_q3d", "results")
+sweep = os.path.join(RES, "final_sweep.csv")
 HAVE_SWEEP = os.path.exists(sweep)
 if HAVE_SWEEP:
     d = np.loadtxt(sweep, delimiter=",", skiprows=1)
     fig, ax = plt.subplots(figsize=(7.0, 3.6), dpi=200)
-    ax.loglog(d[:, 0], d[:, 2] * 1e3, color="#888888", lw=1.8, label="leg 1 alone")
+    ax.loglog(d[:, 0], d[:, 2] * 1e3, color="#888888", lw=1.8, label="leg a alone")
     ax.loglog(d[:, 0], d[:, 1] * 1e3, color="#1954A6", lw=2.2, label="three legs on the PCB busbar")
     ax.axvline(50e3, color="#C84632", ls="--", lw=1)
-    ax.text(52e3, ax.get_ylim()[0] * 1.5 if ax.get_ylim()[0] > 0 else 0.01, "50 kHz", color="#C84632")
+    ax.text(52e3, d[:, 1].min() * 1e3 * 1.3, "50 kHz", color="#C84632")
     ax.set_xlabel("frequency (Hz)")
-    ax.set_ylabel("|Z| seen by the cells of leg 1 (mΩ)")
+    ax.set_ylabel("|Z| seen by the cells of leg a (mΩ)")
     ax.legend(loc="upper center")
     fig.tight_layout()
-    fig.savefig(os.path.join(IMG, "revb_sweep.png"))
+    fig.savefig(os.path.join(IMG, "final_sweep.png"))
     plt.close(fig)
 
-# fast loop-only Q3D (run_bb_q3d_loop.cmd): per-cell loop of the study variants and of the final layout
-RES = os.path.join(ROOT, "simulation", "bb_q3d", "results")
-LS = {}
-for tag in ("", "_vip", "_notch", "_noshunt", "_symv", "_noshunt_symv"):
-    p_ = os.path.join(RES, "loop_summary%s.json" % tag)
-    if os.path.exists(p_):
-        LS[tag.strip("_") or "base"] = json.load(open(p_))
+
+def lcells(b, key="all_switching"):
+    return [FQ[b]["loop"][key]["cell%d" % c] for c in range(1, 5)]
 
 
-def cells(tag, key="all_switching"):
-    return [LS[tag][key]["cell%d" % c] for c in range(1, 5)]
+HAVE_LOOP = all(b in FQ and "loop" in FQ[b] for b in ("dpt", "load"))
+if HAVE_LOOP:
+    fig, ax = plt.subplots(figsize=(7.0, 3.7), dpi=200)
+    xs = np.arange(4)
+    for k, (b, lab, col) in enumerate((("dpt", "DPT board (UFCS shunt, short IN land)", "#C84632"),
+                                       ("load", "load-test board (no shunt, source via-in-pad)", "#1954A6"))):
+        v = lcells(b)
+        ax.bar(xs + (k - 0.5) * 0.36, v, 0.34, color=col, label=lab)
+        for x_, y_ in zip(xs + (k - 0.5) * 0.36, v):
+            ax.text(x_, y_ + 0.01, "%.3f" % y_, ha="center", va="bottom", fontsize=8)
+    ax.axhline(0.5, color="#2CA02C", ls="--", lw=1, label="0.5 nH design value")
+    ax.set_xticks(xs)
+    ax.set_xticklabels(["cell 1\n(left, block 1)", "cell 2\n(right, block 1)", "cell 3\n(left, block 2)",
+                        "cell 4\n(right, block 2)"])
+    ax.set_ylabel("commutation loop per cell (nH)")
+    ax.set_ylim(0, 1.0)
+    ax.legend(fontsize=8, loc="upper center", ncol=2)
+    fig.tight_layout()
+    fig.savefig(os.path.join(IMG, "final_loop_cells.png"))
+    plt.close(fig)
 
-
-fig, ax = plt.subplots(figsize=(7.0, 3.7), dpi=200)
-xs = np.arange(4)
-for k, (tag, lab, col, hatch) in enumerate((("base", "with shunt, before the fix", "#E6A0A0", "//"),
-                                            ("symv", "with shunt, final", "#C84632", ""),
-                                            ("noshunt", "no shunt, before the fix", "#9DB8E0", "//"),
-                                            ("noshunt_symv", "no shunt, final", "#1954A6", ""))):
-    v = cells(tag)
-    ax.bar(xs + (k - 1.5) * 0.2, v, 0.19, color=col, hatch=hatch, edgecolor="white", label=lab)
-    if not hatch:
-        for x_, y_ in zip(xs + (k - 1.5) * 0.2, v):
-            ax.text(x_, y_ + 0.01, "%.2f" % y_, ha="center", va="bottom", fontsize=7)
-ax.axhline(0.374, color="gray", ls="--", lw=1, label="Rev A model, 0.374 nH")
-ax.set_xticks(xs)
-ax.set_xticklabels(["cell 1\n(left, block 1)", "cell 2\n(right, block 1)", "cell 3\n(left, block 2)",
-                    "cell 4\n(right, block 2)"])
-ax.set_ylabel("commutation loop per cell (nH)")
-ax.set_ylim(0, 1.2)
-ax.legend(fontsize=8, ncol=3, loc="upper center")
-fig.tight_layout()
-fig.savefig(os.path.join(IMG, "revb_loop_cells.png"))
-plt.close(fig)
-
-fig, ax = plt.subplots(figsize=(7.0, 3.7), dpi=200)
-bars = [("as routed\n(shunt)", LS["base"]["mean_nH"], "#E6A0A0"),
-        ("vias in\nshunt pad", LS["vip"]["mean_nH"], "#E6A0A0"),
-        ("notched\nheatsink", LS["notch"]["mean_nH"], "#E6A0A0"),
-        ("final\n(shunt)", LS["symv"]["mean_nH"], "#C84632"),
-        ("final, shunt\nas 0 pH", float(np.mean(cells("symv", "all_switching_shunt_0pH"))), "#D9A441"),
-        ("final\nno shunt", LS["noshunt_symv"]["mean_nH"], "#1954A6")]
-for k, (lab, v, col) in enumerate(bars):
-    ax.bar(k, v, 0.6, color=col)
-    ax.text(k, v + 0.01, "%.2f nH\n%.0f V" % (v, 75 + 30 * v), ha="center", va="bottom", fontsize=8)
-ax.axhline(0.5, color="#2CA02C", ls="--", lw=1, label="0.5 nH design value (90 V at 30 A/ns)")
-ax.legend(fontsize=8, loc="upper right")
-ax.set_xticks(range(len(bars)))
-ax.set_xticklabels([b[0] for b in bars], fontsize=8.5)
-ax.set_ylabel("mean loop per cell (nH)")
-ax.set_ylim(0, 1.05)
-fig.tight_layout()
-fig.savefig(os.path.join(IMG, "revb_shunt_study.png"))
-plt.close(fig)
-
-# bypass hand-over with the Rev B numbers: TDK 0805 1 uF keeps 18 % at 75 V, L_b from Q3D
+# bypass hand-over: TDK 0805 1 uF keeps 18 % at 75 V; L_b from the bank Q3D model of the final boards
+LB = FQ.get("bank", {}).get("L_b_nH", [])        # bank model (same copper on both boards), AC 1 MHz
+LB_LO, LB_HI = (min(LB), max(LB)) if LB else (None, None)
 I_DEV, C_PART = FN["bypass"]["I_dev"], 0.178e-6
 dv = np.linspace(0.5, 5.0, 200)
 fig, ax = plt.subplots(figsize=(6.0, 4.6), dpi=200)
-ax.fill_between(dv, 0.65e-9 * (I_DEV / dv) ** 2 * 1e6, 0.77e-9 * (I_DEV / dv) ** 2 * 1e6, color="#1954A6", alpha=0.35,
-                label="hand-over, $L_b$ = 0.65–0.77 nH (Q3D)")
-ax.plot(dv, 1e-9 * (I_DEV / dv) ** 2 * 1e6, color="#C84632", lw=1.2, ls=":", label="hand-over, $L_b$ = 1 nH (assumed before)")
+if LB:
+    ax.fill_between(dv, LB_LO * 1e-9 * (I_DEV / dv) ** 2 * 1e6, max(LB_HI, LB_LO * 1.02) * 1e-9 * (I_DEV / dv) ** 2 * 1e6,
+                    color="#1954A6", alpha=0.35, label="hand-over, $L_b$ = %.2f–%.2f nH (Q3D)" % (LB_LO, LB_HI))
+ax.plot(dv, 1e-9 * (I_DEV / dv) ** 2 * 1e6, color="#C84632", lw=1.2, ls=":", label="hand-over, $L_b$ = 1 nH")
 ax.plot(dv, FN["bypass"]["dQ"] / dv * 1e6, color="k", ls="--", lw=1.2, label="edge charge")
 for n, col in ((6, "#9467BD"), (10, "#2CA02C")):
     ax.axhline(n * C_PART * 1e6, color=col, lw=1.2)
@@ -177,15 +161,19 @@ ax.legend(fontsize=8, loc="upper right")
 fig.tight_layout()
 fig.savefig(os.path.join(IMG, "revb_bypass.png"))
 plt.close(fig)
-pdf_crop(os.path.join(ROOT, "reports", "shunt-loop", "figs", "loop_paths.pdf"), "loop_paths", None, 200)
+
+
+def dip(n):
+    return I_DEV * math.sqrt((LB_HI if LB else 0.7) * 1e-9 / (n * C_PART))
+
 
 # ------------------------------------------------------------------ slide helpers
 STEPS = ["Inputs", "Device", "Submodule\nvoltage", "One device,\none driver", "n in\nparallel", "f_sw,\nDC link",
          "Gate drive\n→ block", "Four on\none board", "Supplies,\nmeasurement", "Three-phase\nDC bus",
          "Verify\n(Q3D)", "Rev B\nboard"]
 SLIDES = []
-X0, W = 30, 900                     # body area
-Y0 = 92
+X0, W = 25, 910                     # body area (960 x 540 design frame, KTH template below the title)
+Y0 = 100
 
 
 def slide(title, step=None, section=None):
@@ -208,7 +196,7 @@ def table(s, box, rows, size=12, colw=None, bold_last=False):
 
 
 def decision(s, txt, box=None):
-    s["items"].append(dict(type="decision", box=box or [X0, 470, W, 42], text=txt))
+    s["items"].append(dict(type="decision", box=box or [X0, 462, W, 40], text=txt))
 
 
 def note(s, txt):
@@ -228,35 +216,53 @@ def label(s, box, txt, size=10, color="black", bold=False, align="left"):
     s["items"].append(dict(type="label", box=box, text=txt, size=size, color=color, bold=bold, align=align))
 
 
-L2 = [X0, Y0, 430, 370]             # left half
-R2 = [X0 + 450, Y0, 450, 370]       # right half
+def q(*keys, fmt="%.2f", d=None):
+    """value from the final Q3D numbers, or '(pending)'."""
+    v = FQ if d is None else d
+    try:
+        for k in keys:
+            v = v[k]
+        return fmt % v
+    except (KeyError, TypeError, IndexError):
+        return "(pending)"
+
+
+L2 = [X0, Y0, 450, 400]             # left half
+R2 = [X0 + 465, Y0, 445, 400]       # right half
+RF = json.load(open(os.path.join(SL, "data", "revb_flow_numbers.json")))
+NP = {k: RF["npar"][k] for k in ("0.5nH", "1nH")}
+
+
+def npv(L, n, key, fmt="%.1f"):
+    return fmt % NP[L][n - 1][key]
+
 
 # ================================================================== title and overview
-s = slide("GaN Building Block Rev B")
+s = slide("SPB Leg Building Block: Design Flow")
 s["kind"] = "title"
-s["subtitle"] = "Four EPC2361 per switch on one board, three legs on a PCB busbar:\na decision-driven design for a 1200 V, 300 kW Stacked Polyphase Bridge inverter"
-s["author"] = "Enes Ayaz · KTH Royal Institute of Technology · October 2026"
+s["subtitle"] = "Four EPC2361 per switch: DPT and load-test boards, 1200 V / 300 kW SPB inverter"
+s["author"] = "Enes Ayaz, KTH Royal Institute of Technology, October 2026"
 
 s = slide("Design flow", 0)
-table(s, [X0, Y0, W, 410], [
+table(s, [X0, Y0, W, 400], [
     ["", "Step", "Question → decision"],
     ["1", "Design inputs", "1200 V, 300 kW, M ≤ 1.15, PMSM cos φ = 0.9 → 228 A_{rms} per leg"],
-    ["2", "Device", "100–650 V Si/SiC/GaN survey → 100 V GaN, EPC2361"],
-    ["3", "Submodule voltage", "V_{m} + L·di/dt ≤ 90 V, even integer N → 75 V, N = 16"],
-    ["4", "One device, one driver", "first-cut loop + LTspice → ≤ 80 A per device"],
+    ["2", "Device", "100–650 V GaN survey, absolute and per volt → 100 V GaN, EPC2361 (Kelvin pad)"],
+    ["3", "Submodule voltage", "V_{m} + L·di/dt ≤ 90 V for 0.5 / 1 nH, even N → 75 V, N = 16"],
+    ["4", "One device, one driver", "loop of one cell + LTspice at 0.5 / 1 nH → ≤ 80 A per device"],
     ["5", "n in parallel", "loss, T_{j}, V_{DS} vs n → 4 EPC2361 per switch"],
-    ["6", "f_{sw}, DC link", "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 bank + 10 × 1 µF bypass per cell (DC bias at 75 V)"],
-    ["7", "Gate drive → block", "one driver per pair (star, Kelvin) → building block of two cells"],
-    ["8", "Four on one board", "two pairs, one driver each (star); one DC pair, one bank, one AC output → Rev B leg"],
-    ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS shunt per cell, U.FL, HO 250-S"],
-    ["10", "Three-phase DC bus", "legs share the 75 V bus → laminated PCB busbar under the legs"],
-    ["11–12", "Verification, board", "Q3D of leg + busbar, KiCad schematic = PCB, Rev B fab files"],
-], size=12, colw=[50, 190, 660])
+    ["6", "f_{sw}, DC link", "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 + 10 × 1 µF bypass per cell"],
+    ["7", "Gate drive → block", "one 2EDF7275K per pair (star, Kelvin) → building block of two cells"],
+    ["8", "Four on one board", "two pairs, one DC pair, one AC output → DPT board and load-test board"],
+    ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL, HO 250-S"],
+    ["10", "Three-phase DC bus", "legs share the 75 V bus → laminated PCB busbar; 3D level and 16-level stack"],
+    ["11–12", "Verification, boards", "fast Q3D set on the final boards and the busbar; fab files"],
+], size=15, colw=[60, 230, 620])
 
 # ================================================================== 1 inputs
 s = slide("Design inputs", 1, "1  Design inputs")
-image(s, "img/fig_spb_standalone.png", L2)
-table(s, [X0 + 460, Y0 + 10, 440, 250], [
+image(s, "img/fig_spb_standalone.png", [X0, Y0, W, 215])
+table(s, [X0, Y0 + 220, 520, 180], [
     ["Quantity", "Value"],
     ["DC bus", "1200 V nominal"],
     ["Output power", "300 kW"],
@@ -265,152 +271,194 @@ table(s, [X0 + 460, Y0 + 10, 440, 250], [
     ["Switching frequency", "≥ 50 kHz (step 6)"],
     ["Coolant / T_{j}", "60 °C / ≤ 125 °C"],
     ["Device stress", "V_{DS} ≤ 90 V at nominal bus (100 V part)"],
-], size=13, colw=[180, 260])
-text(s, [X0 + 460, Y0 + 280, 440, 80], ["SPB: N three-phase submodules in series on the DC side, each feeding one "
-                                        "winding set; V_{m} = 1200 V / N."], 12)
+], size=13, colw=[190, 330])
+text(s, [X0 + 545, Y0 + 225, 365, 175], [
+    "SPB: N three-phase submodules in series on the DC side, each feeding one winding set of the machine",
+    "V_{m} = 1200 V / N per submodule; each submodule = 3 legs on one DC link",
+], 16)
 
 s = slide("Phase current follows from the inputs", 1)
-text(s, [X0, Y0, 520, 330], [
+text(s, [X0, Y0, 540, 400], [
     "Each of the 3N legs delivers P/3N at V_{ph} = M·V_{m}/(2√2):",
     "I_{rms} = P / (3 · M·V_{bus}/(2√2) · cos φ)",
     (1, "N·V_{m} = V_{bus}: the phase current does !!not!! depend on N"),
     (1, "V_{ph} = 1.15 · 75 V / 2√2 = 30.5 V; 6.25 kW per leg"),
     (1, "**%.0f A_{rms} per leg**, %.0f A peak (cos φ = 0.9)" % (FN["I_rms_leg"], FN["I_pk"])),
     (1, "DC current per leg 83 A; series DC chain 250 A"),
-], 15)
-table(s, [X0 + 560, Y0 + 10, 300, 200], [["cos φ", "I_{rms} per leg"]] +
-      [[k, "%.0f A" % FN["I_vs_pf"][k]] for k in ("1.0", "0.95", "0.9", "0.85")], size=14)
-note(s, "Losses below are for cos φ = 0.9; the PMSM operating point must be confirmed with the machine design.")
+    "Losses in this deck are for cos φ = 0.9; the PMSM operating point is confirmed with the machine design",
+], 17)
+table(s, [X0 + 570, Y0, 340, 200], [["cos φ", "I_{rms} per leg"]] +
+      [[k, "%.0f A" % FN["I_vs_pf"][k]] for k in ("1.0", "0.95", "0.9", "0.85")], size=17)
 
 # ================================================================== 2 device
 s = slide("Voltage class: why 100 V GaN", 2, "2  Device")
-image(s, "img/fig_devices.png", [X0, Y0, 520, 370])
-text(s, [X0 + 540, Y0, 360, 370], [
-    "At fixed bus voltage and phase current the minimum semiconductor loss scales with R_{DS(on)}·C_{oss,tr}",
-    "100 V GaN gives the lowest product among 100–650 V Si/SiC/GaN candidates",
-    "Selected: **EPC2361**, 100 V, 0.75 mΩ typ, 3 × 5 mm, top-side cooling",
-], 14)
+image(s, "img/dev_compare.png", [X0, Y0, W, 270])
+text(s, [X0, Y0 + 272, W, 130], [
+    "(a) At fixed bus voltage and phase current the minimum semiconductor loss scales with √(R_{DS(on)}·C_{oss,tr}): "
+    "the 100 V GaN parts have the lowest product",
+    "(b) Per volt of blocking capability: 100 V GaN has the lowest R_{DS(on)}/V_{DS,max} (EPC2361 7.5 µΩ/V, 3–30× "
+    "below 200–650 V) at a higher C_{oss}/V; conduction dominates here (12.4 W vs 4–5 W switching per leg, step 5)",
+    "(c) Best device per class: 100 V needs more submodules but the fewest devices per switch and the smallest voltage "
+    "step → **EPC2361**, 100 V, 0.75 mΩ typ, 3 × 5 mm, top-side cooling",
+], 13)
 
-s = slide("EPC2361 key data", 2)
-table(s, [X0, Y0, 470, 330], [
+s = slide("EPC2361: key data and the Kelvin source", 2)
+image(s, "img/epc_kelvin.png", [X0 + 60, Y0, 790, 255])
+table(s, [X0, Y0 + 262, 470, 140], [
     ["Parameter", "Value"],
     ["V_{DS} / transient", "100 / 120 V"], ["R_{DS(on)}", "0.75 mΩ typ (1.0 max)"],
-    ["V_{GS} range", "−4 … +6 V"], ["V_{GS(th)}", "0.8 / 1.1 / 2.5 V"],
-    ["C_{iss} / C_{oss} / C_{rss}", "3599 / 1019 / 13 pF"], ["Q_{G} / Q_{GD} / Q_{OSS}", "28 / 3.8 / 90 nC"],
-    ["R_{G,int}", "0.4 Ω"], ["R_{θJC} top / R_{θJB}", "0.2 / 1.5 K/W"]], size=13, colw=[220, 250])
-text(s, [X0 + 500, Y0, 400, 330], [
-    "Low threshold and −4 V limit: gate drive needs care (bump, negative bias)",
+    ["V_{GS} range / V_{GS(th)}", "−4 … +6 V / 0.8 – 2.5 V"],
+    ["C_{iss} / C_{oss} / C_{rss}", "3599 / 1019 / 13 pF"], ["Q_{G} / Q_{GD} / Q_{OSS}", "28 / 3.8 / 90 nC"]],
+      size=12, colw=[220, 250])
+text(s, [X0 + 485, Y0 + 262, 425, 140], [
+    "Kelvin pad 2 next to the gate: the gate loop returns at the die, the source stripes and vias (L_{S}) stay in the "
+    "power loop only ⇒ no L_{S}·di/dt feedback into v_{GS}",
+    "Low threshold and −4 V limit: gate bump and negative bias need care (step 7)",
     "Top of the package at !!source potential!!: the thermal interface must insulate",
-    "Seven interleaved stripes; pad 2 next to the gate is the natural Kelvin point (own net KH/KL on Rev B)",
-], 14)
+], 13)
 
 # ================================================================== 3 submodule voltage
 s = slide("Submodule voltage from L·di/dt", 3, "3  Submodule voltage")
-image(s, "img/flow_vm.png", [X0, Y0, 500, 370])
-text(s, [X0 + 515, Y0, 385, 370], [
-    "Peak stress v̂_{DS} = V_{m} + L_{loop}·di/dt ≤ 90 V (10 % below the rating)",
-    "First-cut loop with MLCCs: ≈ 0.5 nH per cell",
-    "Fast switching (≈ 30 A/ns, analytical gate-charge model) ⇒ 15 V overshoot ⇒ V_{m} ≤ 75 V",
-    "N integer and even (symmetric submodules and winding sets): 14 → 86 V, 18 → 67 V and 12.5 % more parts",
-], 13)
-decision(s, "V_{m} = 75 V, N = 16")
+image(s, "img/flow_vm2.png", [X0, Y0, W, 268])
+v05 = RF["vm"]["80_A_0.5nH"]
+v1 = RF["vm"]["80_A_1nH"]
+text(s, [X0, Y0 + 270, W, 90], [
+    "Peak stress v̂_{DS} = V_{m} + L_{loop}·di/dt ≤ 90 V; turn-on di/dt (gate-charge model, R_{g,on} 2 Ω): %.0f / %.0f / "
+    "%.0f A/ns at 60 / 80 / 120 A per device" % (RF["vm"]["60_A_0.5nH"]["didt"], v05["didt"],
+                                                 RF["vm"]["120_A_0.5nH"]["didt"]),
+    "At 80 A per device: V_{m} ≤ **%.0f V** with 0.5 nH, only %.0f V with 1 nH ⇒ the loop must stay near 0.5 nH (or the "
+    "turn-on is slowed); N even (symmetric winding sets): 16 → 75 V" % (v05["vm_max"], v1["vm_max"]),
+], 14)
+decision(s, "V_{m} = 75 V, N = 16; layout target 0.5 nH per cell")
 
 s = slide("Why not lower: every submodule costs parts and loss", 3)
-image(s, "img/flow_cells.png", L2)
-text(s, R2, [
+image(s, "img/flow_cells.png", [X0, Y0, 520, 400])
+text(s, [X0 + 540, Y0, 370, 400], [
     "Phase current is fixed by P, V_{bus}, M, cos φ, not by N",
     "Each submodule carries the full phase current ⇒ conduction loss, transistors, drivers and supplies scale with N",
     "60 V (N = 20): +25 % parts and conduction loss",
-    "Overshoot margin rechecked with the final layout (Q3D, 0.374 nH per cell on Rev A; Rev B in step 11)",
-], 14)
+    "Overshoot margin rechecked on the final boards (Q3D, step 11)",
+], 17)
 
 # ================================================================== 4 one device
-s = slide("First-cut power loop of one cell", 4, "4  One device, one driver")
-image(s, "img/flow_loop.png", [X0, Y0, 500, 370])
-text(s, [X0 + 515, Y0, 385, 370], [
-    "Loop = PCB copper (vertical loop over 0.1 mm dielectric, vias, pads) + ESL of the local MLCCs",
-    "Copper alone ≈ 0.31 nH; MLCCs in parallel add ESL/n_{c}",
-    "1 / 2 / 4 / 6 MLCCs: 0.79 / 0.55 / 0.43 / 0.39 nH: beyond ≈ 4 the number hardly matters",
-    "Part: 1 µF 100 V X7S 0805 next to the drains",
-], 13)
-decision(s, "Design with L_{loop} = 0.5 nH per cell (0.3 and 0.8 nH as bounds)")
+s = slide("Power loop of one cell: copper, bypass ESL and shunt", 4, "4  One device, one driver")
+if os.path.exists(os.path.join(IMG, "loop_breakdown.png")):
+    image(s, "img/loop_breakdown.png", [X0, Y0, W, 262])
+LBK = json.load(open(os.path.join(RES, "loop_breakdown.json"))) if os.path.exists(
+    os.path.join(RES, "loop_breakdown.json")) else {}
+
+
+def lbk(b, key, fmt="%.2f"):
+    try:
+        return fmt % LBK[b][key]
+    except KeyError:
+        return "(pending)"
+
+
+text(s, [X0, Y0 + 265, W, 95], [
+    "Q3D of the final boards (cell band): loop = copper of the vertical loop over 0.1 mm (vias, pads) + bypass ESL/n "
+    "(+ UFCS 120 pH on the DPT board)",
+    "Copper alone: %s nH (load) / %s nH (DPT, shunt path); with 6 + 4 bypass 0805 per cell: **%s / %s nH**" % (
+        lbk("load", "copper"), lbk("dpt", "copper"), lbk("load", "total"), lbk("dpt", "total")),
+    "Beyond ≈ 4 bypass parts per cell the number hardly matters; part: 1 µF 100 V X7S 0805 next to the drains",
+], 14)
+decision(s, "Design value L_{loop} = 0.5 nH per cell; 1 nH as the pessimistic bound")
+
+FL1 = RF["single"]
+
+
+def vpk(L, i):
+    d = FL1[L]
+    return float(np.interp(i, d["I"], d["vpk"]))
+
 
 s = slide("One EPC2361 per switch: how fast and how much overshoot", 4)
-image(s, "img/flow_single.png", [X0, Y0, W, 230])
-text(s, [X0, Y0 + 240, W, 170], [
-    "LTspice half bridge, double pulse at 75 V: lumped loop, 1.7 nH gate loop, 0.03 nH common source, 2 Ω on / 0 Ω off",
-    "Turn-on di/dt set by the driver (≈ 45 A/ns); turn-off di/dt grows with current",
-    "0.5 nH: 83 V at 79 A, !!101 V at 119 A!! per device",
-    "One device would carry 322 A peak ⇒ **current per device ≤ 80 A**",
+image(s, "img/flow_single2.png", [X0, Y0, W, 255])
+text(s, [X0, Y0 + 258, W, 150], [
+    "LTspice half bridge at 75 V, lumped loop 0.5 / 1 nH, 1.7 nH gate loop, 2 Ω on / 0 Ω off, 4 A / 8 A driver",
+    "(a) Peak V_{DS} at 60 / 80 / 120 A: %.0f / %.0f / %.0f V (0.5 nH), %.0f / %.0f / %.0f V (1 nH)" % (
+        vpk("0.5nH", 60), vpk("0.5nH", 80), vpk("0.5nH", 120), vpk("1nH", 60), vpk("1nH", 80), vpk("1nH", 120)),
+    "(b, c) A larger loop lowers E_{on} (the loop takes L·di/dt of the voltage while the current rises) but raises E_{off} "
+    "and the overshoot; turn-on di/dt is set by the driver (≈ 45 A/ns)",
+    "(d) Conduction per device at 100 °C: %.1f / %.1f / %.1f W at 60 / 80 / 120 A_{rms}; one device would carry 322 A "
+    "peak ⇒ **current per device ≤ 80 A**" % (RF["cond"]["60"]["P100"], RF["cond"]["80"]["P100"],
+                                              RF["cond"]["120"]["P100"]),
 ], 13)
 
 # ================================================================== 5 n parallel
 s = slide("Thermal path per device", 5, "5  Devices in parallel")
-table(s, [X0, Y0, 520, 300], [["Layer (top-side cooling, per device)", "K/W"],
+table(s, [X0, Y0, 560, 260], [["Layer (top-side cooling, per device)", "K/W"],
                               ["R_{θJC} (top), datasheet", "0.20"], ["TIM 1, 50 µm, 3 W/mK, 15 mm²", "1.11"],
                               ["AlN 0.635 mm, 170 W/mK, 25 mm²", "0.15"], ["TIM 2, 50 µm, 3 W/mK, 50 mm²", "0.33"],
                               ["cold plate, h = 10 kW/m²K, 100 mm²", "1.00"],
                               ["coupling to neighbours, coolant rise (+20 %)", "0.56"],
-                              ["Junction–coolant", "3.4"]], size=13, colw=[420, 100], bold_last=True)
-text(s, [X0 + 545, Y0, 355, 330], [
+                              ["Junction–coolant", "3.4"]], size=16, colw=[460, 100], bold_last=True)
+text(s, [X0 + 580, Y0, 330, 400], [
     "Two TIM layers and the cold plate dominate",
     "Used for the decisions: **3.4 K/W**, coolant 60 °C",
     "Bounds: 2.1 K/W (sintered stack), 8 K/W (gap pad)",
-    "R_{DS(on)}(T_{j}) from the datasheet: 1.49 at 100 °C, 1.80 at 150 °C",
-], 14)
+    "R_{DS(on)}(T_{j}) from the datasheet: ×1.49 at 100 °C, ×1.80 at 150 °C",
+    "Load-test board: LAM 4 K 50 12 (0.65 K/W) on an Al spreader (step 10)",
+], 16)
 
 s = slide("n identical cells per switch (one device and one driver each)", 5)
-image(s, "img/flow_npar.png", [X0, Y0, W, 250])
-text(s, [X0, Y0 + 255, W, 120], [
-    "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH",
-    "n = 1: T_{j} > 150 °C; n = 2: 33 W and 131 V; n = 3: 96 V at 0.5 nH; n = 4 / 8: 18 / 15 W per leg",
-], 13)
-decision(s, "**4 EPC2361 per switch** (V_{DS} and T_{j} for all three R_{th}; 4 splits into two equal pairs)")
+image(s, "img/flow_npar2.png", [X0, Y0, W, 280])
+text(s, [X0, Y0 + 282, W, 80], [
+    "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH (left bars) and 1 nH "
+    "(hatched)",
+    "n = 4: %s W (0.5 nH) / %s W (1 nH) per leg, T_{j} %s °C; peak V_{DS} at 80 A: **%s V (0.5 nH), %s V (1 nH)**" % (
+        npv("0.5nH", 4, "tot"), npv("1nH", 4, "tot"), npv("0.5nH", 4, "tj", "%.0f"), npv("0.5nH", 4, "vpk", "%.0f"),
+        npv("1nH", 4, "vpk", "%.0f")),
+], 14)
+decision(s, "**4 EPC2361 per switch** (T_{j} for all three R_{th}; ≤ 90 V needs ≈ 0.5 nH; 4 splits into two equal pairs)")
 
 s = slide("Where the loss comes from: line period and junction temperature", 5)
-image(s, "img/flow_wave.png", [X0, Y0, W, 290])
-text(s, [X0, Y0 + 300, W, 90], [
+image(s, "img/flow_wave2.png", [X0, Y0, W, 310])
+w05, w1 = RF["wave"]["0.5nH"], RF["wave"]["1nH"]
+text(s, [X0, Y0 + 312, W, 95], [
     "n = 4, 50 kHz: switching loss follows |i| (plus a constant E_{oss} part), conduction loss follows i²",
-    "Conduction loss at the operating point is 28 % above its 25 °C value",
-], 13)
+    "Conduction %.1f W per leg (28 %% above its 25 °C value); switching %.1f W at 0.5 nH, %.1f W at 1 nH (lower E_{on}, "
+    "higher E_{off} and overshoot)" % (w05["p_cond"], w05["p_sw"], w1["p_sw"]),
+], 15)
 
 s = slide("Losses vs number in parallel", 5)
-table(s, [X0, Y0, W, 300], [
-    ["n per switch", "1", "2", "3", "4", "5", "6", "7", "8"],
-    ["Loss per leg (W)", "79.1", "33.0", "22.1", "17.8", "15.8", "14.9", "14.5", "14.5"],
-    ["  conduction at T_{j} (W)", "70.0", "27.5", "17.0", "12.4", "9.8", "8.1", "7.0", "6.1"],
-    ["  switching (W)", "8.4", "5.0", "4.5", "4.8", "5.4", "6.2", "7.0", "7.9"],
-    ["Efficiency (%)", "98.73", "99.47", "99.65", "99.72", "99.75", "99.76", "99.77", "99.77"],
-    ["Loss per device (W)", "39.5", "8.2", "3.7", "2.2", "1.6", "1.2", "1.0", "0.9"],
-    ["T_{j} (°C)", "194", "88", "72", "68", "65", "64", "63", "63"],
-    ["Peak V_{DS} (V)", "194", "131", "96", "83", "83", "83", "83", "83"],
-    ["Driver channels per leg", "2", "4", "6", "8", "10", "12", "14", "16"]], size=12,
-      colw=[220] + [85] * 8)
-note(s, "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 0.5 nH, 50 kHz; efficiency relative to 6.25 kW per leg.")
+rows = [["n per switch"] + [str(n) for n in range(1, 9)]]
+for L, lab in (("0.5nH", "0.5 nH"), ("1nH", "1 nH")):
+    rows.append(["Loss per leg, %s (W)" % lab] + [npv(L, n, "tot") for n in range(1, 9)])
+rows += [["  conduction at T_{j} (W)"] + [npv("0.5nH", n, "cond") for n in range(1, 9)],
+         ["  switching 0.5 / 1 nH (W)"] + ["%s / %s" % (npv("0.5nH", n, "sw"), npv("1nH", n, "sw")) for n in range(1, 9)],
+         ["Efficiency, 0.5 nH (%)"] + ["%.2f" % (100 * NP["0.5nH"][n - 1]["eta"]) for n in range(1, 9)],
+         ["Loss per device (W)"] + [npv("0.5nH", n, "pdev") for n in range(1, 9)],
+         ["T_{j} (°C)"] + [npv("0.5nH", n, "tj", "%.0f") for n in range(1, 9)],
+         ["Peak V_{DS} 0.5 / 1 nH (V)"] + ["%s / %s" % (npv("0.5nH", n, "vpk", "%.0f"), npv("1nH", n, "vpk", "%.0f"))
+                                         for n in range(1, 9)],
+         ["Driver channels per leg"] + [str(2 * n) for n in range(1, 9)]]
+table(s, [X0, Y0, W, 330], rows, size=14, colw=[270] + [80] * 8)
+note(s, "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 50 kHz; efficiency relative to 6.25 kW per leg.")
 
 # ================================================================== 6 fsw, DC link
 s = slide("Switching frequency: losses, DC-link capacitors, current ripple", 6, "6  Switching frequency and DC link")
-image(s, "img/flow_fsw.png", [X0, Y0, W, 220])
-text(s, [X0, Y0 + 225, W, 150], [
-    "(a) n = 4: 99.77 / 99.72 / 99.63 % at 20 / 50 / 100 kHz",
-    "(b) Voltage ripple sets the MLCC count below ≈ 99 kHz, ripple current above",
-    "(c) Winding current ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine leakage inductance",
-], 13)
-decision(s, "f_{sw} ≥ 50 kHz (higher allowed by the machine); the DC link below is sized for 50 kHz")
+image(s, "img/flow_fsw2.png", [X0, Y0, W, 280])
+text(s, [X0, Y0 + 282, W, 80], [
+    "(a) n = 4: %.2f / %.2f / %.2f %% at 20 / 50 / 100 kHz; (b) the voltage ripple sets the 2220 count (20 per leg at "
+    "50 kHz), ripple current needs only %d; (c) winding ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine" % (
+        RF["fsw"]["eta4"]["20"], RF["fsw"]["eta4"]["50"], RF["fsw"]["eta4"]["100"], RF["fsw"]["n_i"]),
+], 14)
+decision(s, "f_{sw} ≥ 50 kHz (higher allowed by the machine); the DC link is sized for 50 kHz")
 
 CC = json.load(open(os.path.join(SL, "data", "capacitor_compare.json")))
 s = slide("DC-link sizing for a three-phase level", 6)
-image(s, "img/dclink_sizing.png", [X0, Y0, 520, 200])
-text(s, [X0, Y0 + 210, 520, 170], [
-    "One 75 V level = three legs on one bus; SVPWM M = 1.15, cos φ = 0.9, 322 A peak, switching function per period",
-    "Balanced three-phase: no 2f ripple; capacitor RMS current **85 A per level** (≈ 28 A per leg)",
-    "Worst charge excursion per period **860 µC at 50 kHz** (≈ Î/(8 f_{sw})) ⇒ ripple, not current, sets C",
-], 13)
-table(s, [X0 + 545, Y0, 355, 200], [
-    ["f_{sw}", "ΔV_{pp}", "C_{eff} per level", "per leg"],
+image(s, "img/dclink2.png", [X0, Y0, 520, 330])
+table(s, [X0 + 540, Y0, 370, 120], [
+    ["f_{sw}", "ΔV_{pp}", "C_{eff} level", "per leg"],
     ["50 kHz", "2 %", "573 µF", "191 µF"], ["50 kHz", "**3 %**", "**382 µF**", "**127 µF**"],
-    ["100 kHz", "2 %", "287 µF", "96 µF"], ["100 kHz", "3 %", "191 µF", "64 µF"]], size=12, colw=[80, 70, 115, 90])
-decision(s, "ΔV_{pp} ≤ 3 % (2.25 V) at 50 kHz ⇒ 127 µF **effective** per leg board (three legs share the level)")
+    ["100 kHz", "2 %", "287 µF", "96 µF"], ["100 kHz", "3 %", "191 µF", "64 µF"]], size=14, colw=[85, 75, 115, 95])
+text(s, [X0 + 540, Y0 + 145, 370, 230], [
+    "One 75 V level = three legs on one bus (SVPWM, M = 1.15, cos φ = 0.9)",
+    "Balanced three-phase: no 2f ripple; capacitor RMS current 85 A per level (≈ 28 A per leg)",
+    "Per switching period the bank supplies the difference between the cell current and its average: ΔV_{pp} = ΔQ / C",
+], 14)
+decision(s, "ΔV_{pp} ≤ 3 % (2.25 V) at 50 kHz ⇒ 127 µF **effective** per leg board ⇒ 20 × 22 µF 2220")
 
 s = slide("Capacitor selection: effective capacitance at 75 V", 6)
 rows = [["Part (100 V X7S)", "Size", "C_{nom} → C at 75 V", "Kept", "ESR 50 kHz", "Parts / leg (3 %)"]]
@@ -418,82 +466,146 @@ for p_ in CC["parts"]:
     rows.append([("**%s**" % p_["part"]) if "226" in p_["part"] else p_["part"], p_["size"],
                  "%.1f → %.2f µF" % (p_["C_nom_uF"], p_["C_eff_uF"]), "%.0f %%" % (100 * p_["retention"]),
                  ("%.1f mΩ" % p_["ESR50k_mOhm"]) if p_["ESR50k_mOhm"] else "–", str(p_["n_50kHz_3pct"])])
-table(s, [X0, Y0, W, 170], rows, size=12, colw=[260, 60, 170, 70, 120, 220])
-text(s, [X0, Y0 + 185, W, 190], [
-    "DC bias at 75 V from the manufacturers' characteristic data (TDK product centre, Murata): 100 V class-II MLCCs keep "
-    "only 15–29 %; the current Murata 1210 keeps !!15 %!!, not the 30 % assumed before",
+table(s, [X0, Y0, W, 190], rows, size=14, colw=[290, 70, 180, 75, 120, 175])
+text(s, [X0, Y0 + 200, W, 160], [
+    "DC bias at 75 V from the manufacturers' characteristic data (TDK, Murata): 100 V class-II MLCCs keep only 15–29 %",
     "TDK C5750X7S2A226M280KB (2220, 22 µF): highest C per part and per area (0.22 µF/mm²), 2.8 mΩ, 4.5 A for +10 K",
-    "Checks: 2.8 mm height under the heatsink spreader; 2220 flex cracking ⇒ away from board edge and mounting holes",
-], 13)
+    "Checks: 2.8 mm height under the heatsink spreader; 2220 flex cracking ⇒ away from the board edge and holes",
+], 15)
 decision(s, "Bank: **20 × TDK C5750X7S2A226M280KB** per leg (2 rows), 127 µF effective, 1.4 A ripple per part")
 
 s = slide("Bypass capacitors: how many and how large", 6)
-image(s, "img/revb_bypass.png", [X0, Y0, 400, 370])
-text(s, [X0 + 420, Y0, 480, 370], [
+image(s, "img/revb_bypass.png", [X0, Y0, 440, 360])
+text(s, [X0 + 455, Y0, 455, 360], [
     "**Bypass** (1 µF 0805 at the drains) supplies the edge, **bank** the f_{sw} ripple; per cell 81 A:",
-    (1, "di/dt → number: L_{Cu} + ESL/n ≤ 0.5 nH ⇒ n ≥ 4"),
-    (1, "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)²: !!sets the value!!"),
-    (1, "L_{b} from Q3D (Rev B copper): **0.65–0.77 nH** (1 nH assumed before)"),
+    (1, "di/dt → number: L_{Cu} + ESL/n ≈ 0.5 nH ⇒ n ≥ 4"),
+    (1, "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)² !!sets the value!!"),
+    (1, ("L_{b} from Q3D (final boards, bypass → bank, 1 MHz): **%.2f–%.2f nH**" % (LB_LO, LB_HI))
+     if LB else "L_{b} from Q3D: (pending)"),
     (1, "0805 1 µF 100 V X7S keeps only **18 %** at 75 V (TDK data): 0.18 µF per part"),
-    (1, "6 per cell = 1.1 µF ⇒ 2.2 V dip; 10 per cell = 1.8 µF ⇒ **1.7 V** dip"),
-], 13)
-decision(s, "10 × 1 µF 0805 per cell: 6 on top at the drains (loop unchanged) + 4 on the bottom, identical in all cells")
+    (1, ("6 per cell = 1.1 µF ⇒ %.1f V dip; 10 per cell = 1.8 µF ⇒ **%.1f V** dip" % (dip(6), dip(10))) if LB else
+     "dip for 6 / 10 per cell: (pending bank model)"),
+], 15)
+decision(s, "10 × 1 µF 0805 per cell: 6 on top at the drains + 4 on the bottom, identical in all cells")
 
-s = slide("DC link of the Rev B leg", 6)
-table(s, [X0, Y0, 470, 200], [
+s = slide("DC link of one leg board", 6)
+table(s, [X0, Y0, 520, 120], [
     ["Per leg board", "Parts", "Nominal", "At 75 V"],
     ["Bypass, 10 per cell × 4", "40 × 1 µF 0805", "40 µF", "7 µF"],
     ["Bank, rows A (8) + B (12)", "20 × 22 µF 2220", "440 µF", "127 µF"],
-    ["Total", "60", "480 µF", "134 µF"]], size=13, colw=[170, 120, 80, 100], bold_last=True)
-text(s, [X0 + 495, Y0, 405, 370], [
+    ["Total", "60", "480 µF", "134 µF"]], size=13, colw=[205, 145, 80, 90], bold_last=True)
+text(s, [X0, Y0 + 150, 520, 300], [
     "Ripple at 50 kHz with the three legs of a level sharing: **2.1 V (2.9 %)**",
-    "Leg alone (DPT / back-to-back test without the busbar): ≈ 2× higher, acceptable for the lab tests",
-    "60 instead of 99 MLCCs, bank ≥ 10 × bypass (127 vs 7 µF eff.): fulfilled",
-    "Row A leaves the board centre free: the DC terminal pins are there",
-], 13)
-decision(s, "Bank and bypass as above; the Rev B layout is updated to these parts (DRC clean, schematic = PCB)")
+    "Leg alone (DPT, back-to-back test without the busbar): ≈ 2× higher, acceptable for the lab tests",
+    "Bank ≥ 10 × bypass (127 vs 7 µF eff.): fulfilled",
+    "Row A leaves the board centre free for the DC terminal pins",
+], 16)
+image(s, "img/r3d_load_nohs.png", [X0 + 540, Y0, 370, 360])
+decision(s, "Same DC link on the DPT and load-test boards")
 
 # ================================================================== 7 gate drive
 s = slide("Can one driver drive all four?", 7, "7  Gate drive: from 4 devices to a building block")
-image(s, "img/drv_scaling.png", [X0, Y0, 540, 370])
-text(s, [X0 + 555, Y0, 345, 370], [
-    "One channel for 3 / 4 / 6 transistors: E_{on} per transistor +16 / +31 / +60 %",
-    "Peak sink current 12–14 A, above the 8 A rating",
-    "Longer gate tree brings the gate bump back",
-    "One driver per device: symmetric, but 4 channels and supplies per switch",
+image(s, "img/drv_scaling.png", [X0, Y0, W, 245])
+text(s, [X0, Y0 + 250, W, 155], [
+    "Why E_{on} per transistor rises with n per channel: the n gate capacitances (n × 3.6 nF C_{iss}) charge through one "
+    "driver output (4 A source, 0.85 Ω) and a longer shared gate trace ⇒ v_{GS} rises n× slower ⇒ lower di/dt and dv/dt at "
+    "turn-on ⇒ longer V–I overlap: **+16 / +31 / +60 %** E_{on} for 3 / 4 / 6",
+    "(b) Extra gate-loop inductance of the longer tree raises the gate bump; (a) peak sink current 12–14 A for 4–6 "
+    "devices exceeds the 8 A rating",
+    "(c) One channel per device is symmetric but needs 4 channels and supplies per switch",
 ], 14)
 
-s = slide("Why symmetry: current-sharing sensitivity", 7)
-image(s, "img/fig_sharing.png", [X0, Y0, 540, 370])
-text(s, [X0 + 555, Y0, 345, 370], [
-    "Static sharing is fine (R_{DS(on)} has a positive TC)",
-    "Dynamic sharing is set by the gate circuits:",
-    (1, "gate-loop mismatch 2 vs 8 nH → 19 % imbalance, 4:1 E_{on}"),
-    (1, "common source without Kelvin → 29 %, 2.8 × E_{on}"),
-    "⇒ star gate network with Kelvin returns, one driver channel per pair",
-], 14)
+s = slide("Driver arrangement for 1 … 4 EPC2361 per switch", 7)
+image(s, "img/drv_layouts.png", [X0, Y0, 560, 330])
+text(s, [X0 + 575, Y0, 335, 400], [
+    "One dual-channel driver (HS + LS) between two cells: both gate loops equal, short (≈ 1.7 nH) and with their own "
+    "Kelvin return",
+    "n = 3 breaks the symmetry (pair + single)",
+    "n = 4: two pairs, two drivers, one star per pair ⇒ the building block of two mirrored cells",
+], 16)
+decision(s, "2 × EPC2361 per driver channel; 4 per switch = two pairs = two drivers")
+
+s = slide("Gate driver selection: why the 2EDF7275K", 7)
+table(s, [X0, Y0, W, 175], [
+    ["", "**2EDF7275K** (Infineon)", "1EDF5673K (Infineon)", "LMG1210 (TI)"],
+    ["Channels / isolation", "2, each output isolated (functional)", "1, isolated", "half bridge, bootstrap HS"],
+    ["Peak source / sink", "4 A / 8 A", "0.85 Ω / 0.35 Ω output", "1.5 A / 3 A class"],
+    ["Prop. delay / mismatch", "37 ns / ≤ 3 ns ch-ch", "37 ns", "≤ 21 ns / ≤ 3.4 ns"],
+    ["CMTI", "150 V/ns", "> 200 V/ns", "300 V/ns (HS dv/dt)"],
+    ["Off-voltage", "external (Zener split)", "built-in negative (RC)", "0 V only"],
+    ["ICs per switch (4 EPC2361)", "**2** (one per pair)", "4", "2 (weak for a pair)"]],
+      size=13, colw=[220, 240, 225, 225])
+text(s, [X0, Y0 + 225, W, 180], [
+    "A pair needs ≈ 2 × 3.6 nF: 4 A / 8 A drives it at the single-device speed; the 1.5 A / 3 A half-bridge driver does not",
+    "Two isolated outputs in one 5 × 5 mm LGA: HS and LS of the same pair from one IC, ≤ 3 ns channel mismatch",
+    "Floating outputs: each output gets its own supply split (5.1 V Zener on, −1.2 V off) for the bump margin (next)",
+], 15)
+note(s, "Data: Infineon / TI product pages and datasheets (2EDF7275K, 1EDF5673K, LMG1210); check the current revision.")
+
+s = slide("Why symmetry: what sets the current sharing", 7)
+image(s, "img/fig_sharing.png", [X0, Y0, W, 175])
+table(s, [X0, Y0 + 180, W, 180], [
+    ["Asymmetry (LTspice, two EPC2361 in parallel)", "Case", "E_{on}+E_{off} imbalance", "Layout measure"],
+    ["Power-loop inductance mismatch", "L_{D} +0.3 nH", "2 %", "mirrored cells, identical via sets"],
+    ["Gate-loop inductance mismatch", "L_{G} 2 vs 8 nH", "**19 %** (E_{on} 4 : 1)", "star network, equal gate traces"],
+    ["Common-source inductance, no Kelvin", "symmetric", "0 %, both +47 % E_{on}", "Kelvin pad per device"],
+    ["Common-source mismatch, no Kelvin", "L_{CS} +0.2 nH", "**29 %**", "Kelvin return per device"],
+    ["Threshold spread", "V_{th} +0.3 V", "7 %", "same driver channel per pair"],
+    ["Static (conduction): copper / R_{DS(on)}", "–", "self-limiting (positive TC)", "symmetric copper (Q3D, step 11)"]],
+      size=12, colw=[300, 130, 210, 270])
+decision(s, "Star gate network with Kelvin returns, one driver channel per pair, mirrored cells")
 
 s = slide("Gate bump and negative off-voltage", 7)
-image(s, "img/bump_mechanism.png", [X0, Y0, 440, 300])
-image(s, "img/bump_mitigation.png", [X0 + 460, Y0, 440, 300])
-text(s, [X0, Y0 + 305, W, 80], [
-    "Bump ≈ Q_{GD}/C_{GS} ≈ 1.06 V, independent of current and voltage; close to the 0.8 V minimum threshold",
-    "With ≈ −1.2 V off-voltage the peak falls to ≈ 0 V; undershoot −2.3 V (rating −4 V); dead-time loss +0.1 W per leg",
+image(s, "img/bump_mechanism.png", [X0, Y0, 560, 195])
+image(s, "img/bump_mitigation.png", [X0, Y0 + 200, 560, 205])
+text(s, [X0 + 575, Y0, 335, 400], [
+    "**Bump:** when the other device of the leg turns on, the off device sees dv/dt; C_{GD}·dv/dt flows through its gate "
+    "loop and lifts v_{GS} by ≈ Q_{GD}/C_{GS} ≈ 1.06 V",
+    "Independent of load current and bus voltage (top b, c); close to the 0.8 V minimum threshold ⇒ shoot-through risk",
+    "**Negative off-voltage** shifts the whole bump down: −1 V ⇒ peak ≈ 0 V; extra C_{GS} divides it further (bottom)",
+    "Cost: reverse conduction in the dead time at V_{SD} + |V_{off}| ⇒ +0.1 W per leg; undershoot −2.3 V (limit −4 V)",
+    "Implemented: V_{GS,off} = −(V_{ISO} − 5.1 V) ≈ −1.2 V",
 ], 13)
 
 s = slide("Building block: two mirrored cells, one centre driver", 7)
-image(s, "img/q3d_model.png", L2)
-text(s, R2, [
+if os.path.exists(os.path.join(IMG, "q3d_model_cells.png")):
+    image(s, "img/q3d_model_cells.png", [X0, Y0, 540, 355])
+text(s, [X0 + 555, Y0, 355, 355], [
+    "Q3D model of the final board (cell band): copper per net, vias, FET pads and bypass terminals",
     "Two cells mirrored about the driver: identical gate loops and Kelvin returns",
-    "One 2EDF7275K channel drives a **pair** symmetrically (star network, R_{G} 0.5 Ω per transistor)",
-    "Each cell keeps its own commutation loop (0.374 nH per cell, Rev A Q3D)",
-    "Driver: 4 A / 8 A, separate turn-on (0.75 Ω) and turn-off (diode + 0 Ω) paths",
-], 14)
-decision(s, "2 × EPC2361 per driver channel (star per pair); **4 per switch = two pairs, two drivers, one leg board**")
+    "One 2EDF7275K channel drives a **pair** (star network, R_{G} 0.5 Ω per transistor)",
+    "Each cell keeps its own commutation loop (step 11: %s nH load board, %s nH DPT board)" % (
+        q("load", "loop", "mean_nH"), q("dpt", "loop", "mean_nH")),
+], 15)
+decision(s, "2 × EPC2361 per channel; **4 per switch = two pairs, two drivers, one leg board**")
 
 # ================================================================== 8 four on one board
+
+
+def durations():
+    """minutes per Q3D step from results/final_progress.txt: gaps between consecutive 'done' stamps (the batch
+    writes the 'step' stamps with the queue start time)."""
+    import re as _re
+    p = os.path.join(RES, "final_progress.txt")
+    out, last = {}, None
+    if not os.path.exists(p):
+        return out
+    for line in open(p):
+        m = _re.match(r"\[\s*(\d+):(\d+):(\d+)[,.](\d+)\] (step|done) (\S+)", line.strip())
+        if not m:
+            continue
+        t = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3))
+        if m.group(5) == "step" and last is None:
+            last = t
+        elif m.group(5) == "done" and last is not None:
+            out[m.group(6)] = ((t - last) % 86400) / 60.0
+            last = t
+    return out
+
+
+DUR = durations()
+
 s = slide("Rev B: four cells per switch, two drivers, one leg", 8, "8  Four per switch on one board")
-# native diagram: one leg, four cells, two drivers (one per pair), one DC pair, one AC output
 bx, by = X0 + 10, Y0 + 20
 rect(s, [bx, by, 470, 330], "", fill="white", line="gray", round_=False)
 label(s, [bx + 5, by + 3, 300, 18], "Rev B leg board, 89.5 × 80 mm, 4 layers", 11, "gray", True)
@@ -507,7 +619,7 @@ label(s, [bx + 20, by + 30, 160, 16], "laminated terminal row + one bank", 9, "g
 for k in range(4):
     cx = bx + 30 + k * 110
     rect(s, [cx, by + 85, 90, 65], "cell %d\nHS + LS\nEPC2361" % (k + 1), "hs10", "hs", 10)
-    rect(s, [cx + 15, by + 160, 60, 26], "UFCS %d" % (k + 1), "meas10", "meas", 9)
+    rect(s, [cx + 5, by + 160, 80, 26], "UFCS (DPT only)", "meas10", "meas", 8)
     line(s, [cx + 30, by + 52, cx + 30, by + 85], "hs", 2)
     line(s, [cx + 60, by + 64, cx + 60, by + 85], "ls", 2)
     line(s, [cx + 45, by + 150, cx + 45, by + 160], "black", 1.5)
@@ -520,107 +632,141 @@ line(s, [bx + 235, by + 245, bx + 235, by + 290], "black", 5, True)
 label(s, [bx + 245, by + 270, 220, 40], "ONE M6 AC bolt pad → Cu bar\n→ LEM HO 250-S → load", 10)
 text(s, [X0 + 500, Y0, 400, 380], [
     "One leg: 4 EPC2361 per switch, **two 2EDF7275K**, each drives one pair (HS + LS channel) through a star",
-    "Why one driver per pair (option B): the driver sits between its two cells ⇒ short, identical gate loops (1.7 nH); "
-    "one HS + one LS isolated supply, split per driver",
+    "Why one driver per pair: the driver sits between its two cells ⇒ short, identical gate loops; one HS + one LS "
+    "isolated supply, split per driver",
     "**One DC+ / DC− pair** at the centre: laminated terminal row (L1/L3 +, L2/L4 −) feeds one continuous bank",
     "**One AC output**: all four switch nodes joined, one M6 bolt pad, Cu bar through the HO 250-S",
-    "UFCS shunt in every LS source: same board for DPT and back-to-back load test; no short-circuit protection",
-], 13)
+    "Built as **two boards** from the same generator: DPT (UFCS shunt per cell) and load test (no shunt)",
+], 15)
 
-s = slide("Rev B leg board layout", 8)
-image(s, "img/revb_top.png", [X0, Y0, 440, 390])
-image(s, "img/revb_bottom.png", [X0 + 450, Y0, 230, 390])
+s = slide("Two boards from one design: double-pulse test and load test", 8)
+table(s, [X0, Y0, W, 300], [
+    ["", "DPT board (spb-bb-revb-dpt)", "Load-test board (spb-bb-revb-load)"],
+    ["Purpose", "switching energies, per-cell current, overshoot", "back-to-back / three-phase load test"],
+    ["LS source path", "PMK UFCS-R001 per cell (1 mΩ, 120 pH)", "source stripes via-in-pad (blind L1–L2) to DC−"],
+    ["UFCS land", "IN land shortened to 1.2 mm: blade 1.45 mm from the source", "–"],
+    ["Cooling", "none (pulsed test)", "Fischer LAM 4 K 50 12 on an Al spreader"],
+    ["Loop per cell (Q3D)", "%s nH (mean)" % q("dpt", "loop", "mean_nH", fmt="%.2f"),
+     "%s nH (mean)" % q("load", "loop", "mean_nH", fmt="%.2f")],
+    ["v̂_{DS} at 30 A/ns", "%s V" % q("dpt", "loop", "overshoot_30Apns_V", fmt="%.0f"),
+     "%s V" % q("load", "loop", "overshoot_30Apns_V", fmt="%.0f")],
+    ["Parts / DRC / schematic", "200 footprints, DRC 0 / 0 / 0, schematic = PCB", "200 footprints, DRC 0 / 0 / 0, "
+                                                                              "schematic = PCB"]],
+      size=13, colw=[170, 365, 365])
+decision(s, "Same copper, drivers, bank and terminals; only the LS source path and the cooling differ")
+
+s = slide("DPT board layout (UFCS shunts, no heatsink)", 8)
+image(s, "img/revb_dpt_top.png", [X0, Y0, 440, 390])
+image(s, "img/revb_dpt_bottom.png", [X0 + 450, Y0, 230, 390])
 text(s, [X0 + 690, Y0, 210, 400], [
-    "89.5 × 80 mm, 4 layers, 204 parts",
-    "Top edge: one DC+ / DC− pair (REDCUBE M4, bottom side), 20 × 2220 bank in two rows",
-    "Bottom edge: one M6 AC bolt pad",
-    "Heatsink LAM 4 rotated 90° over cells and bank",
-    "DRC 0 / 0 / 0; schematic = PCB (0 problems)",
-], 12)
+    "89.5 × 80 mm, 4 layers",
+    "UFCS-R001 per cell, IN land 1.2 mm (blade at the source edge), return vias in the SHLD pad",
+    "No heatsink, no spreader holes",
+    "DRC 0 / 0 / 0, schematic = PCB",
+], 14)
 
-s = slide("Rev B leg board in 3D (KiCad models)", 8)
-image(s, "img/revb_3d_noheatsink.png", [X0, Y0, 445, 300])
-image(s, "img/revb_3d_iso.png", [X0 + 455, Y0, 445, 300])
-text(s, [X0, Y0 + 305, W, 90], [
-    "Every footprint has a 3D model: KiCad library parts, plus box models for EPC2361, 2EDF7275K, PMK UFCS, TDK 2220 "
-    "(2.8 mm), WE-CNSW, M6 bolt + 12 × 5 mm Cu bar, LAM 4 + Al spreader (scripts/make_3d_models_revb.py)",
-    "Board STEP for the mechanics: hardware/spb-bb-revb/fab/spb-bb-revb.step. Spreader underside 1.68 mm, top 4.68 mm: "
-    "clears the 2.8 mm bank; the shunts stay in front of the heatsink",
-], 12)
+s = slide("Load-test board layout (no shunt, heatsink)", 8)
+image(s, "img/revb_load_top.png", [X0, Y0, 440, 390])
+image(s, "img/revb_load_bottom.png", [X0 + 450, Y0, 230, 390])
+text(s, [X0 + 690, Y0, 210, 400], [
+    "89.5 × 80 mm, 4 layers",
+    "LS source stripes: 3 blind L1–L2 vias each (filled, capped) into the DC− plane",
+    "LAM 4 K 50 12 over the cells, 3 spreader holes (H5–H7)",
+    "DRC 0 / 0 / 0, schematic = PCB",
+], 14)
+
+s = slide("The two boards in 3D (KiCad models)", 8)
+image(s, "img/r3d_dpt.png", [X0, Y0, 445, 300])
+image(s, "img/r3d_load.png", [X0 + 455, Y0, 445, 300])
+label(s, [X0, Y0 + 300, 445, 18], "DPT board: UFCS shunts over the LS FETs, M6 AC bolt + Cu bar", 11, "gray", False,
+      "center")
+label(s, [X0 + 455, Y0 + 300, 445, 18], "Load-test board: LAM 4 K 50 12 + Al spreader", 11, "gray", False, "center")
+text(s, [X0, Y0 + 325, W, 70], [
+    "Every footprint has a 3D model (KiCad library + box models: EPC2361, 2EDF7275K, UFCS, TDK 2220, WE-CNSW, M6 bolt "
+    "+ bar, heatsink); board STEPs in hardware/spb-bb-revb-*/fab; rendered with pyvista (scripts/render_3d.py)",
+], 14)
 note(s, "Box models are dimensioned envelopes, not manufacturer CAD (UFCS SMA jack position approximate).")
 
-s = slide("Rev B leg board in 3D: bottom side", 8)
-image(s, "img/revb_3d_bottom.png", [X0, Y0, 560, 380])
-text(s, [X0 + 580, Y0, 320, 380], [
-    "REDCUBE M4 DC terminals on the bottom: the leg stands on the PCB busbar",
-    "4 bypass 0805 per cell under the drains, mirrored in all cells",
-    "U.FL probes per cell: V_{GS} HS / LS, V_{DS} LS",
-    "M6 nut of the AC bolt under the 14 mm pad",
-], 13)
+s = slide("Top view with the silkscreen: DPT and load-test boards", 8)
+image(s, "img/r3d_dpt_top.png", [X0, Y0, 450, 360])
+image(s, "img/r3d_load_top.png", [X0 + 460, Y0, 450, 360])
+label(s, [X0, Y0 + 365, 450, 20], "DPT board (UFCS shunts over the LS FETs)", 13, "gray", False, "center")
+label(s, [X0 + 460, Y0 + 365, 450, 20], "load-test board (heatsink removed for the view)", 13, "gray", False, "center")
+
+s = slide("Bottom side and the load board without heatsink", 8)
+image(s, "img/r3d_dpt_bottom.png", [X0, Y0, 445, 300])
+image(s, "img/r3d_load_nohs.png", [X0 + 455, Y0, 445, 300])
+text(s, [X0, Y0 + 310, W, 80], [
+    "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL probes, M6 AC nut",
+    "Top without heatsink: 20 × 2220 bank in two rows, 8 EPC2361 under the spreader pedestals, 2 drivers",
+], 14)
+
 s = slide("Two driver pairs on one switch node: driver skew", 8)
-lx_hs = get(RB, "block_to_block", "HS", fmt="%.2f")
-lx_ls = get(RB, "block_to_block", "LS", fmt="%.2f")
-di = get(RB, "block_to_block", "dI_per_ns_A", fmt="%.0f")
 text(s, [X0, Y0, 520, 370], [
-    "Joining the AC in copper makes the inductance between the switch nodes of the two driver pairs (L_{x}) small",
+    "The four switch nodes are joined in copper; L_{x} = inductance between the switch nodes of the two driver pairs",
     "If driver 2 switches Δt later, pair 1 takes ΔI ≈ V_{m}·Δt / L_{x} until pair 2 follows",
-    "Q3D (previous Rev B layout, rerun pending): L_{x} = %s nH (HS on) / %s nH (LS on) ⇒ **≈ %s A per ns of skew**" % (lx_hs, lx_ls, di),
-    "Rev A deck required L_{x} ≳ 20 nH for two separate blocks; on one board the skew must be small instead",
+    "Q3D (fast lx model, final boards): L_{x} = **%s nH** (HS on) / **%s nH** (LS on) on the load board, %s / %s nH on "
+    "the DPT board" % (q("load", "lx", "HS"), q("load", "lx", "LS"), q("dpt", "lx", "HS"), q("dpt", "lx", "LS")),
+    "⇒ **≈ %s A per ns of skew** (load board)" % q("load", "lx", "dI_per_ns_A", fmt="%.0f"),
 ], 14)
 table(s, [X0 + 545, Y0 + 10, 355, 190], [
     ["Measure", "Rev B"],
     ["One PWM source", "C2000 drives both headers"],
     ["Matched traces", "same PCB, same CMC per block"],
     ["Driver skew", "2EDF7275K part-to-part: check datasheet"],
-    ["Verify", "U.FL V_{GS} of both blocks, UFCS per cell"]], size=12, colw=[130, 225])
-decision(s, "Measure the per-cell current (UFCS) with both blocks switching; add delay trim in the C2000 if needed")
+    ["Verify", "U.FL V_{GS} of both blocks, UFCS per cell (DPT)"]], size=13, colw=[130, 225])
+image(s, "img/q3d_full_load.png", [X0 + 545, Y0 + 205, 365, 250])
+decision(s, "Measure the per-cell current (UFCS) with both drivers switching; delay trim in the C2000 if needed",
+         [X0, 462, 530, 40])
 
 # ================================================================== 9 supplies, measurement
 s = slide("Gate supplies: two isolated supplies, Zener split", 9, "9  Supplies and measurement")
-image(s, "img/sch_islands.png", [X0, Y0, 520, 300])
+image(s, "img/sch_islands.png", [X0, Y0, 560, 400])
 text(s, [X0 + 540, Y0, 360, 370], [
     "One external isolated supply for all HS drivers and one for all LS drivers; each splits per driver through a WE-CNSW common-mode choke",
     "5.1 V Zener VDD–S and 150 Ω bias resistor S–VEE (Karakaya, METU 2020, Fig. 4.1): V_{GS,on} = +5.1 V, V_{GS,off} = −(V_{ISO} − 5.1 V)",
     "e.g. V_{ISO} = 6.3 V ⇒ −1.2 V off (bump mitigation); island decoupling 1 µF + 4.7 µF per rail",
-], 13)
+], 15)
 
 s = slide("Driver block: input filters, turn-on / turn-off paths, star", 9)
 image(s, "img/sch_driver.png", [X0, Y0, W, 260])
 text(s, [X0, Y0 + 270, W, 110], [
     "Per block a 2×3 control header (12 V, GND, PWM_H, PWM_L, DIS) with common-mode chokes on each pair",
     "47 Ω / 100 pF input filters, 10 k pull-downs, R_{ON} 0.75 Ω, R_{OFF} 0 Ω + Schottky, R_{G} 0.5 Ω per transistor",
-], 13)
+], 15)
 
 s = slide("Measurement and control", 9)
 table(s, [X0, Y0, 520, 270], [
     ["Quantity", "How", "Where"],
-    ["Cell current (DPT + load)", "PMK UFCS-R001, 1 mΩ, 120 pH", "LS source of each cell"],
+    ["Cell current (DPT)", "PMK UFCS-R001, 1 mΩ, 120 pH", "LS source of each cell, DPT board"],
     ["Phase current (control)", "LEM HO 250-S, ±625 A, 3.2 mV/A", "Cu bar on the M6 AC pad"],
-    ["V_{GS} HS / LS", "U.FL, 0 Ω, shield = Kelvin", "bottom, at each cell"],
-    ["V_{DS} LS", "U.FL, 953 Ω (20:1 into 50 Ω)", "bottom, at each cell"],
-    ["Heatsink temperature", "NTC 10 k", "DC− domain"]], size=12, colw=[150, 210, 160])
-image(s, "img/sch_ufl.png", [X0 + 545, Y0, 355, 130])
+    ["V_{GS} HS / LS", "U.FL, 0 Ω, shield = Kelvin", "bottom, at each cell (both boards)"],
+    ["V_{DS} LS", "U.FL, 953 Ω (20:1 into 50 Ω)", "bottom, at each cell (both boards)"],
+    ["Heatsink temperature", "NTC 10 k", "DC− domain"]], size=13, colw=[150, 200, 170])
+image(s, "img/sch_ufl.png", [X0, Y0 + 285, 540, 120])
 text(s, [X0 + 545, Y0 + 150, 355, 220], [
     "Back-to-back load test, closed loop on a TI TMS320F28379D",
-    "UFCS continuous rating 50 A only up to +30 °C ambient: short load-test runs or forced air",
-    "No short-circuit protection on the board",
-], 13)
+    "Load board: no shunt ⇒ phase current from the HO 250-S, cell sharing from the DPT board",
+    "No short-circuit protection on the boards",
+], 15)
 
-s = slide("Power stage schematic (generated, identical to the PCB)", 9)
-image(s, "img/sch_power.png", [X0, Y0, W, 330])
-note(s, "scripts/make_kicad_sch_revb.py; check_sch_vs_pcb.py: 89 PCB nets, 0 problems")
+s = slide("Power stage schematics (generated, identical to the PCBs)", 9)
+image(s, "img/sch_power.png", [X0, Y0, W, 175])
+image(s, "img/sch_power_load.png", [X0, Y0 + 185, W, 175])
+note(s, "Top: DPT board (UFCS in each LS source). Bottom: load-test board (LS source to DC−). "
+        "make_kicad_sch_revb.py; check_sch_vs_pcb.py: 0 problems on both")
 
 # ================================================================== 10 three-phase bus
 s = slide("Three legs on one 75 V bus: what the bus must do", 10, "10  Three-phase DC bus")
 text(s, [X0, Y0, 520, 370], [
     "The switching edge closes on each board (bypass + bank); the bus only carries the f_{sw} ripple between the leg banks",
-    "Sharing needs ωL_{bus} ≪ 1/(ωC): at 50 kHz and ≈ 250 µF eff. per leg L ≪ 40 nH ⇒ **target ≤ 5 nH leg to leg**",
+    "Sharing needs ωL_{bus} ≪ 1/(ωC): at 50 kHz and ≈ 127 µF eff. per leg L ≪ 80 nH ⇒ **target ≤ 5 nH leg to leg**",
     "DC: 250 A stack current enters the level, 83 A per leg",
     "All-MLCC banks joined by nH copper form a high-Q resonator ⇒ damping footprints",
 ], 14)
 bx, by = X0 + 545, Y0 + 20
 for k in range(3):
-    rect(s, [bx + k * 120, by, 105, 90], "leg %d\n(phase %s)\nRev B board" % (k + 1, "abc"[k]), "kth10", "kth", 10)
+    rect(s, [bx + k * 120, by, 105, 90], "leg %s\n(phase %s)\nload board" % ("abc"[k], "abc"[k]), "kth10", "kth", 10)
     line(s, [bx + 30 + k * 120, by + 90, bx + 30 + k * 120, by + 130], "hs", 3)
     line(s, [bx + 75 + k * 120, by + 90, bx + 75 + k * 120, by + 140], "ls", 3)
 line(s, [bx - 5, by + 130, bx + 350, by + 130], "hs", 5)
@@ -637,172 +783,210 @@ table(s, [X0, Y0 + 155, 430, 220], [
     ["Copper", "2 oz all layers (JLCPCB JLC3313); 3–4 oz option"],
     ["Stack-up", "L1 DC+ / ≤ 0.2 mm / L2 DC− / core / L3 DC+ / ≤ 0.2 mm / L4 DC−"],
     ["Leg contact", "6 × M4: one DC pair per leg (REDCUBE, 6.5 mm)"],
-    ["Stack contact", "2 × M6 lug pads at the centre leg (92 vias each)"],
-    ["Insulation", "frame holes with 8 mm Cu keep-out (1200 V)"]], size=11, colw=[110, 320])
+    ["Stack contact", "2 × M6 lug pads at the centre leg"],
+    ["Insulation", "frame holes with 8 mm Cu keep-out (1200 V)"]], size=12, colw=[110, 320])
 text(s, [X0 + 455, Y0 + 155, 445, 220], [
-    "Estimate (μ_{0}·d·l/w): **%.2f nH** leg to leg" % EST["L_leg_to_leg_nH"],
-    "R per polarity and leg segment %.2f mΩ (2 oz) ⇒ %.1f W at 83 A per leg (3 oz: %.1f W, 4 oz: %.1f W)" % (
-        EST["R_seg_per_polarity_mOhm"], EST["P_bus_W"], EST.get("P_bus_W_3oz", 5.0), EST.get("P_bus_W_4oz", 3.7)),
+    "Q3D (step 11): leg-to-leg loop **%s nH** at 1 MHz (a–b), DC busbar loss **%s W**" % (
+        q("level", "bus_ac", "L_leg12_nH"), q("level", "dc", "P_bus_W", fmt="%.1f")),
     "Damping caps (100 V hybrid polymer) as DNP footprints; nylon standoffs at the leg corner holes",
-    "Generated: scripts/make_kicad_busbar.py, DRC clean",
-], 13)
+    "Generated: scripts/make_kicad_busbar.py, DRC clean; fab files in hardware/spb-busbar/fab",
+], 15)
+
+s = slide("One 75 V level in 3D: busbar + three load-test legs", 10)
+image(s, "img/r3d_level_iso.png", [X0, Y0, W, 330])
+text(s, [X0, Y0 + 335, W, 60], [
+    "Legs a, b, c (pitch 94.5 mm, 5 mm gaps) stand on their REDCUBE DC terminals (6.5 mm) on the PCB busbar; M4 × 8 "
+    "screws from below; AC bar of each leg through its LEM HO 250-S; heatsinks stay inside each board outline",
+], 14)
+
+s = slide("Level assembly: busbar side and DC connection", 10)
+image(s, "img/r3d_level_back.png", [X0, Y0, 445, 250])
+image(s, "img/r3d_level_detail.png", [X0 + 455, Y0, 445, 250])
+image(s, "img/r3d_level_side.png", [X0, Y0 + 260, 445, 130])
+text(s, [X0 + 455, Y0 + 260, 445, 130], [
+    "Right: middle leg on the bus: REDCUBE + M4, nylon standoffs, M6 stack lugs, DNP damping caps, level header",
+    "Left bottom: side view (z stack): busbar top z = 0, leg bottom 6.5 mm, heatsink top 52.8 mm",
+], 14)
+
+s = slide("Mechanics: heatsink length fixed by the leg pitch", 10)
+text(s, [X0, Y0, 520, 370], [
+    "LAM 4 (100 mm) + fan = 110 mm: wider than the 89.5 mm board ⇒ with 5 mm gaps the heatsinks of neighbouring legs "
+    "would overlap by ≈ 15 mm",
+    "**LAM 4 K 50 12** (Farnell 4708974, 0.65 K/W): 50 mm tube + fan centred over the cells (x −35 … 25 mm), inside the "
+    "board outline",
+    "Al spreader 89.5 × 12.8 × 3 mm carries the outer cells (x ±33 mm) to the tube; ≈ 18 W FET loss per leg ⇒ ≈ 12 K "
+    "heatsink rise",
+    "Spreader underside 1.68 mm, top 4.68 mm: clears the 2.8 mm bank and all bypass parts",
+], 15)
+image(s, "img/r3d_load.png", [X0 + 540, Y0, 360, 260])
+decision(s, "Load board heatsink: LAM 4 K 50 12, centred; leg pitch stays 94.5 mm (busbar unchanged)")
+
+s = slide("Full inverter: 16 levels on one 1200 V stack", 10)
+image(s, "img/r3d_stack.png", [X0, Y0, 300, 400])
+text(s, [X0 + 320, Y0, 580, 380], [
+    "16 identical levels (75 V each) stacked in z, pitch 72 mm ⇒ ≈ 1.15 m",
+    "DC+ lug of level k ↔ DC− lug of level k + 1 by a Cu braid (8 × 1.5 mm in the model); stack ends = 1200 V DC+ / DC−",
+    "Each level: 3 legs = one three-phase winding set; AC bars + HO 250-S per leg",
+    "Every level floats up to 1200 V above the frame: insulating standoffs with 8 mm Cu keep-out on the busbar",
+    "Assembly STEP: hardware/assembly/spb-level-assembly.step (1 level), spb-stack-assembly.step (16 levels), "
+    "scripts/make_assembly_step.py (OpenCascade)",
+], 15)
+note(s, "Stack direction and frame are illustrative: the machine-side layout (winding terminals) sets the final arrangement.")
 
 # ================================================================== 11 verification (Q3D)
-# ================================================================== 11 verification (Q3D), main PCB first
-_mx = os.path.join(ROOT, "simulation", "bb_q3d", "results", "BB_PL_REVB_matrix.txt")
-AC_SRC = open(_mx).readline().strip() if os.path.exists(_mx) else ""
-_m = __import__("re").search(r"MACL(\d+)", AC_SRC)
-AC_PASS = ("AC adaptive pass %s (solve still converging)" % _m.group(1)) if _m and "from Q3D solution" in AC_SRC else \
-    "converged AC solve"
-FS, FN_ = LS["symv"], LS["noshunt_symv"]
-s = slide("Q3D: commutation loop per cell, final layout", 11, "11  Verification (Q3D)")
-image(s, "img/revb_loop_cells.png", [X0, Y0, 540, 285])
-table(s, [X0 + 555, Y0, 345, 150], [
-    ["Final layout (nH)", "with shunt", "no shunt"],
-    ["cell 1 / 2", "%.2f / %.2f" % tuple(cells("symv")[:2]), "%.2f / %.2f" % tuple(cells("noshunt_symv")[:2])],
-    ["cell 3 / 4", "%.2f / %.2f" % tuple(cells("symv")[2:]), "%.2f / %.2f" % tuple(cells("noshunt_symv")[2:])],
-    ["**mean**", "**%.2f**" % FS["mean_nH"], "**%.2f**" % FN_["mean_nH"]],
-    ["v̂_{DS} at 30 A/ns", "!!%.0f V!!" % FS["overshoot_30Apns_V"], "%.0f V" % FN_["overshoot_30Apns_V"]]],
-      size=12, colw=[135, 105, 105])
-text(s, [X0 + 555, Y0 + 160, 345, 220], [
-    "Four cells within **2 %** (shunt) and **1 %** (no shunt); before the fix the left cells were 0.13–0.14 nH higher",
-    "Shunt costs ≈ 0.29 nH: 120 pH part + the LS source detour to the 15 × 3 mm pads",
-    "≤ 90 V with the shunt: turn-on ≤ %.0f A/ns" % (15 / FS["mean_nH"]),
-], 12)
-text(s, [X0, Y0 + 295, 540, 90], [
-    "Fast loop-only model: routed copper of the FET band (y −4.6 … 20.6 mm), all 8 FETs, per-cell AC and source nets, "
-    "bypass groups as sinks; 2 % convergence, ≈ 45 min per run (run_bb_q3d_loop.cmd)",
-], 11)
-note(s, "Loop per cell with all four LS FETs switching together (cell coupling included); simulation/bb_q3d/results/loop_summary_*.json")
+s = slide("Fast Q3D set on the final boards", 11, "11  Verification (Q3D)")
+table(s, [X0, Y0, W, 230], [
+    ["Model", "Region", "Solve", "Gives", "Run time"],
+    ["loop (per board)", "cell band y −4.6 … 20.6 mm, AC split per cell", "AC 100 MHz",
+     "commutation loop per cell", "%s / %s min" % (q("loop_dpt", fmt="%.0f", d=DUR), q("loop_load", fmt="%.0f", d=DUR))],
+    ["full board", "whole board, all terminals", "DC R only", "current sharing, copper loss",
+     "%s / %s min" % (q("dc_dpt", fmt="%.0f", d=DUR), q("dc_load", fmt="%.0f", d=DUR))],
+    ["bank", "DC terminals + bank + bypass (y −25 … 4.3 mm)", "AC 1 MHz", "leg DC-link port, L_{b} bypass → bank",
+     "%s min" % q("bank", fmt="%.0f", d=DUR)],
+    ["lx", "cells + AC columns + AC bus, no bank / terminals", "AC 100 MHz", "L_{x} between the driver pairs",
+     "%s / %s min" % (q("lx_dpt", fmt="%.0f", d=DUR), q("lx_load", fmt="%.0f", d=DUR))],
+    ["busbar", "PCB busbar, stitching vias every 2nd", "DC + AC 1 MHz, 2 %", "leg-to-leg loop, DC distribution",
+     "%s min" % q("bus", fmt="%.0f", d=DUR)],
+    ["three-phase level", "3 × bank model + busbar matrices", "network (MNA)", "ripple sharing, |Z|, terminal currents",
+     "seconds"]], size=12, colw=[120, 270, 120, 270, 120])
+text(s, [X0, Y0 + 290, W, 120], [
+    "Instead of one large model (> 3 h, not converged): small models, each solved only for what it is used for; DC is "
+    "solved for R only (the DC-inductance solve alone ran > 19 h on the first attempt)",
+    "Run: simulation/bb_q3d/run_bb_q3d_final.cmd (KTH licence) → final_post.py → reports/slides/data/final_numbers.json",
+    "Run times: DPT / load board",
+], 14)
 
-s = slide("Where the loop current flows (exploded side view)", 11)
-image(s, "img/loop_paths.png", [X0, Y0, W, 330])
-text(s, [X0, Y0 + 340, W, 50], [
-    "Bypass → L1 drain stripes → HS FET → switch node → LS FET → source → (shunt) → L2 DC− plane under the cell → bypass. "
-    "The return on L2 directly below L1 makes the loop vertical and small (Karakaya, METU 2020, Design 3)",
-], 12)
+s = slide("Q3D: commutation loop per cell, final boards", 11)
+if HAVE_LOOP:
+    image(s, "img/final_loop_cells.png", [X0, Y0, 540, 285])
+table(s, [X0 + 555, Y0, 345, 170], [
+    ["Loop per cell (nH)", "DPT", "load test"],
+    ["cell 1 / 2", "%s / %s" % (q("dpt", "loop", "all_switching", "cell1", fmt="%.3f"),
+                                q("dpt", "loop", "all_switching", "cell2", fmt="%.3f")),
+     "%s / %s" % (q("load", "loop", "all_switching", "cell1", fmt="%.3f"),
+                  q("load", "loop", "all_switching", "cell2", fmt="%.3f"))],
+    ["cell 3 / 4", "%s / %s" % (q("dpt", "loop", "all_switching", "cell3", fmt="%.3f"),
+                                q("dpt", "loop", "all_switching", "cell4", fmt="%.3f")),
+     "%s / %s" % (q("load", "loop", "all_switching", "cell3", fmt="%.3f"),
+                  q("load", "loop", "all_switching", "cell4", fmt="%.3f"))],
+    ["**mean**", "**%s**" % q("dpt", "loop", "mean_nH", fmt="%.2f"), "**%s**" % q("load", "loop", "mean_nH", fmt="%.2f")],
+    ["v̂_{DS} at 30 A/ns", "!!%s V!!" % q("dpt", "loop", "overshoot_30Apns_V", fmt="%.0f"),
+     "%s V" % q("load", "loop", "overshoot_30Apns_V", fmt="%.0f")]], size=13, colw=[135, 105, 105])
+_lm = FQ.get("dpt", {}).get("loop", {}).get("mean_nH")
+text(s, [X0 + 555, Y0 + 180, 345, 200], [
+    "All four LS switching together; HS shorted, bypass as its ESL, UFCS 120 pH",
+    "Cells within %s %% (DPT) and %s %% (load): left/right symmetric by layout (power vias pruned in mirror pairs)" % (
+        q("dpt", fmt="%.0f", d={"dpt": (max(lcells("dpt")) / min(lcells("dpt")) - 1) * 100} if HAVE_LOOP else {}),
+        q("load", fmt="%.0f", d={"load": (max(lcells("load")) / min(lcells("load")) - 1) * 100} if HAVE_LOOP else {})),
+    ("DPT ≤ 90 V: turn-on ≤ **%.0f A/ns**" % (15.0 / _lm)) if _lm else "DPT di/dt limit: (pending)",
+], 14)
 
-s = slide("Shunt in the loop: study of the options", 11)
-image(s, "img/revb_shunt_study.png", [X0, Y0, 540, 290])
-text(s, [X0 + 555, Y0, 345, 380], [
-    "UFCS = 0.7 mm blade on two 15 × 3 mm pads: current crosses only at the blade ⇒ fixed geometry",
-    "Vias in the shunt DC− pad and a notched heatsink (IN pad shortened, blade 1.45 mm from the source) gain only 0.05–0.08 nH",
-    "Largest gain on the routed board: **source via-in-pad** and **symmetric via pruning** (final, 0.69 nH)",
-    "Without the shunt, LS source vias straight to L2 (blind L1–L2): **0.41 nH**, close to the 0.374 nH model",
-    "Bypass on both sides: the bottom row lowers the loop by only ≈ 0.02 nH; it is there for capacitance",
-], 12)
-decision(s, "Proposal: two assemblies of the same design: **DPT board with UFCS** (di/dt ≤ 22 A/ns) and **load-test board "
-            "without shunt** (source via-in-pad, 30 A/ns)")
+s = slide("Q3D model of the cell band (fast loop model)", 11)
+image(s, "img/q3d_loop_dpt.png", [X0, Y0, 450, 300])
+image(s, "img/q3d_loop_load.png", [X0 + 460, Y0, 450, 300])
+label(s, [X0, Y0 + 300, 450, 20], "DPT board: LS source (green) to the UFCS land", 13, "gray", False, "center")
+label(s, [X0 + 460, Y0 + 300, 450, 20], "load-test board: LS source straight to DC−", 13, "gray", False, "center")
+text(s, [X0, Y0 + 330, W, 75], [
+    "Geometry exported from the routed KiCad boards (revb_export.py): copper per net and layer with clearance holes, "
+    "vias with their layer span (blind L1–L2 on the load board), FET and bypass terminal pads; z stretched 4×",
+], 14)
 
-s = slide("Left/right symmetry: cause and fix", 11)
-table(s, [X0, Y0, 520, 220], [
-    ["Test (no-shunt board, nH)", "cell 1", "cell 2", "cell 3", "cell 4"],
-    ["as routed", "0.56", "0.42", "0.55", "0.42"],
-    ["left FETs not rotated (rot 0)", "0.55", "0.41", "0.54", "0.41"],
-    ["Kelvin collectors moved L2 → L4", "0.57", "0.41", "0.55", "0.41"],
-    ["mirrored model (solver check)", "0.57", "0.41", "0.56", "0.41"],
-    ["**power vias pruned in mirror pairs**", "**0.41**", "**0.41**", "**0.41**", "**0.41**"]],
-      size=12, colw=[240, 70, 70, 70, 70])
-text(s, [X0 + 545, Y0, 355, 380], [
-    "Cause: the clearance clean-up removed power vias near pads one by one; a few vias from the source copper to the L2 "
-    "DC− plane survived only in the right cells ⇒ shorter return path there",
-    "Not the cause: FET rotation (180° vs 0°), Kelvin routing, solver (mirrored model shows the same)",
-    "Fix: a via that fails clearance takes its mirror twin with it (make_kicad_bb_revb.py) ⇒ identical via sets in every "
-    "cell; Kelvin collectors stay on L4 (L2 plane uncut)",
-], 12)
-decision(s, "Symmetric cells ⇒ equal dynamic current sharing by layout; verify with the UFCS per cell in the DPT")
+s = slide("Q3D: static current sharing and copper loss", 11)
+rows = [["Board, path (DC)", "R total (mΩ)", "R copper (mΩ)", "share cell 1 / 2 / 3 / 4", "max/min"]]
+for b, bl in (("dpt", "DPT"), ("load", "load")):
+    for p, lab in (("HS", "DC+ → HS FETs → AC"), ("LS", "AC → LS FETs%s → DC−" % (" → shunts" if b == "dpt" else ""))):
+        d_ = FQ.get(b, {}).get("dc", {}).get(p)
+        rows.append(["%s: %s" % (bl, lab)] + ([("%.2f" % d_["R_total_mOhm"]), ("%.2f" % d_["R_copper_mOhm"]),
+                                                 " / ".join("%.0f %%" % (100 * x) for x in d_["share"]),
+                                                 "%.2f" % (1 + d_["imbalance_pct"] / 100)] if d_ else ["–"] * 4))
+table(s, [X0, Y0, W, 150], rows, size=13, colw=[260, 110, 120, 290, 120])
+text(s, [X0, Y0 + 165, W, 220], [
+    "**Static sharing** = how the conduction (DC) current splits between the four parallel cells: set by each cell's copper "
+    "path (DC terminals → cell → AC pad) plus R_{DS(on)}; dynamic sharing during the edges is set by the gate loops (step 7)",
+    "Full-board DC model; FET 0.75 mΩ × 1.49 (100 °C), UFCS 1 mΩ; DC terminals as one pair, AC at the M6 bolt pad",
+    "Board copper loss at 228 A_{rms}: **%s W** (DPT, + %s W in the shunts) / **%s W** (load board)" % (
+        q("dpt", "dc", "P_copper_W", fmt="%.0f"), q("dpt", "dc", "P_shunts_W", fmt="%.1f"),
+        q("load", "dc", "P_copper_W", fmt="%.0f")),
+    "Hand-over inductance bypass → bank L_{b} = %s (bank model, 1 MHz) ⇒ used for the bypass sizing (step 6)" % (
+        ("%.2f–%.2f nH" % (LB_LO, LB_HI)) if LB else "(pending)"),
+], 15)
 
-s = slide("Q3D: static current sharing and copper loss (previous layout)", 11)
-dcl = RB.get("dc_leg", {})
-rows = [["Path (DC)", "R total (mΩ)", "R copper (mΩ)", "current share cell 1 / 2 / 3 / 4", "max/min"]]
-for p, lab in (("HS", "DC+ → HS FETs → AC"), ("LS", "AC → LS FETs → shunts → DC−")):
-    d = dcl.get(p)
-    rows.append([lab] + ([("%.2f" % d["R_total_mOhm"]), ("%.2f" % d["R_copper_mOhm"]),
-                          " / ".join("%.0f %%" % (100 * x) for x in d["share"]), "%.2f" % (1 + d["imbalance_pct"] / 100)]
-                         if d else ["–"] * 4))
-table(s, [X0, Y0, W, 80], rows, size=12, colw=[230, 110, 120, 330, 110])
-text(s, [X0, Y0 + 100, W, 270], [
-    "!!Previous layout (13 Oct: two DC pairs, four AC terminals, 1210 bank)!!: full-board rerun on the final layout pending",
-    "Converged DC solve; FET 0.75 mΩ × 1.49 (100 °C), shunt 1 mΩ; DC terminals joined (bus), AC terminals joined (bar)",
-    "Board copper loss at 228 A_{rms}: !!%s W per leg!! (semiconductors ≈ 18 W); shunts ≈ %s W" % (
-        get(dcl, "P_copper_W", fmt="%.0f"), get(dcl, "P_shunts_W", fmt="%.1f")),
-    "Static sharing is uneven: the inner cells (2, 4) carry ≈ 29 %, the outer cells (1, 3) ≈ 20–23 % ⇒ hotter inner cells",
-    "Cause: the copper path from each cell to the joined AC bus and to the DC terminals differs (cell position, AC columns on L3/L4)",
-    "Next layout iteration: widen the outer-cell AC columns / add AC copper on L1–L2, 2 oz → 3 oz, symmetric DC terminal placement",
-], 13)
-
-s = slide("Main PCB: findings from the Q3D extraction", 11)
-bb = RB.get("block_to_block", {})
-table(s, [X0, Y0, W, 170], [
-    ["Quantity", "Rev B (Q3D)", "Target / Rev A", "Consequence"],
-    ["Loop per cell, with shunt", "%.2f nH (4 cells within 2 %%)" % FS["mean_nH"], "0.5 nH design, 0.374 nH Rev A",
-     "DPT at ≤ 22 A/ns"],
-    ["Loop per cell, no shunt", "%.2f nH (4 cells within 1 %%)" % FN_["mean_nH"], "0.5 nH design",
-     "load test at 30 A/ns: 87 V"],
-    ["Static sharing, max/min *", get(dcl, "HS", "imbalance_pct", fmt="%.0f") + " % above", "< 10 %",
-     "rerun on the final layout"],
-    ["Board copper loss *", "%s W per leg" % get(dcl, "P_copper_W", fmt="%.0f"), "≈ 11 W (2 × Rev A block)",
-     "rerun on the final layout"],
-    ["Block-to-block L_{x} *", "%s nH" % get(bb, "HS", fmt="%.1f"), "≳ 20 nH (Rev A deck)",
-     "%s A per ns driver skew" % get(bb, "dI_per_ns_A", fmt="%.0f")],
-], size=12, colw=[200, 170, 230, 300])
-text(s, [X0, Y0 + 210, W, 180], [
-    "Loop: symmetric and within the design value without the shunt; with the shunt the turn-on must be slowed for the DPT",
-    "The Rev B board is a good !!measurement!! board: UFCS per cell, U.FL V_{GS} / V_{DS}, both drivers from one C2000",
-    "Next Q3D: full board on the final layout (DC sharing, copper loss, L_{x}) and the busbar with one DC pair per leg",
-], 13)
-note(s, "* previous layout (13 Oct); values in nH unless noted")
-
-s = slide("Q3D: three legs on the PCB busbar", 11)
-sysr = RB.get("system", {})
+s = slide("Q3D: three load-test legs on the PCB busbar", 11)
+lv = FQ.get("level", {})
 rows = [["Quantity", "Value"],
-        ["Leg-to-leg loop 1 → 2 (DC / 1 MHz)", "%s / %s nH" % (get(sysr, "bus_dc", "L_leg12_nH"), get(sysr, "bus_ac", "L_leg12_nH"))],
-        ["Leg-to-leg loop 1 → 3 (DC / 1 MHz)", "%s / %s nH" % (get(sysr, "bus_dc", "L_leg13_nH"), get(sysr, "bus_ac", "L_leg13_nH"))],
-        ["Ripple of leg 1 at 50 kHz from legs 1 / 2 / 3", " / ".join(
-            "%.0f %%" % (100 * x) for x in sysr["ripple_50kHz"]["share_of_leg"]) if "ripple_50kHz" in sysr else "–"],
-        ["Busbar DC loss (250 A in, 3 × 83 A)", "%s W" % get(sysr, "dc", "P_bus_W", fmt="%.1f")],
-        ["Highest REDCUBE terminal current", "%s A" % get(sysr, "dc", "I_terminal_max_A", fmt="%.0f")]]
-table(s, [X0, Y0, 470, 240], rows, size=12, colw=[300, 170])
+        ["Leg-to-leg loop a–b / a–c, 1 MHz", "%s / %s nH" % (q("bus_ac", "L_leg12_nH", d=lv), q("bus_ac", "L_leg13_nH", d=lv))],
+        ["Leg-to-leg loop a–b / a–c, DC", "%s / %s nH" % (q("bus_dc", "L_leg12_nH", d=lv), q("bus_dc", "L_leg13_nH", d=lv))],
+        ["Ripple of leg a at 50 kHz from banks a / b / c", " / ".join(
+            "%.0f %%" % (100 * x) for x in lv["ripple_50kHz"]["share_of_leg"]) if "ripple_50kHz" in lv else "(pending)"],
+        ["Busbar DC loss (250 A in, 3 × 83 A)", "%s W" % q("dc", "P_bus_W", fmt="%.1f", d=lv)],
+        ["Highest REDCUBE terminal current", "%s A" % q("dc", "I_terminal_max_A", fmt="%.0f", d=lv)]]
+table(s, [X0, Y0, 470, 240], rows, size=13, colw=[300, 170])
 if HAVE_SWEEP:
-    image(s, "img/revb_sweep.png", [X0 + 485, Y0, 415, 240])
+    image(s, "img/final_sweep.png", [X0 + 485, Y0, 415, 240])
 text(s, [X0, Y0 + 255, W, 120], [
-    "Target ≤ 5 nH leg to leg met at 1 MHz; DC values are the low-frequency limit (current spread through all layers)",
-    "!!Busbar version with two DC pairs per leg!!; the busbar is regenerated with one pair per leg, rerun pending",
-    "Network: Q3D matrices of three Rev B legs + busbar, MLCC banks with ESR/ESL and 35 % of C at 75 V; peaks in |Z| = inter-leg resonance",
-], 13)
+    "Network: Q3D bank-model matrices of three load-test legs (cells draw at their bypass; MLCCs with ESR/ESL, C at 75 V) "
+    "+ busbar (DC below 1 MHz, AC above); peaks in |Z| = inter-leg resonance",
+    "Target ≤ 5 nH leg to leg (step 10)",
+], 15)
 
-# ================================================================== 12 board, status
-s = slide("Rev B fabrication files", 12, "12  Rev B board")
-image(s, "img/top.png", [X0, Y0, 440, 300])
-image(s, "img/bottom.png", [X0 + 460, Y0, 440, 300])
-text(s, [X0, Y0 + 310, W, 80], [
-    "Generated: make_kicad_bb_revb.py (board), make_kicad_sch_revb.py (schematic), make_kicad_busbar.py (busbar)",
-    "3D models for all parts and the board STEP (fab/spb-bb-revb.step); next: Gerbers, drill, BOM and placement for Rev B "
-    "and the busbar, LAM 4 100 mm order code",
-], 13)
+s = slide("Main findings on the final boards", 11)
+table(s, [X0, Y0, W, 230], [
+    ["Quantity", "DPT board", "Load-test board", "Consequence"],
+    ["Loop per cell", "%s nH" % q("dpt", "loop", "mean_nH"), "%s nH" % q("load", "loop", "mean_nH"),
+     "DPT: limit di/dt; load: 30 A/ns ok"],
+    ["Static sharing, max/min (HS / LS)",
+     "%s / %s" % (q("dpt", "dc", "HS", "imbalance_pct", fmt="+%.0f %%"), q("dpt", "dc", "LS", "imbalance_pct", fmt="+%.0f %%")),
+     "%s / %s" % (q("load", "dc", "HS", "imbalance_pct", fmt="+%.0f %%"), q("load", "dc", "LS", "imbalance_pct", fmt="+%.0f %%")),
+     "verify with the UFCS per cell"],
+    ["Board copper loss at 228 A_{rms}", "%s W" % q("dpt", "dc", "P_copper_W", fmt="%.0f"),
+     "%s W" % q("load", "dc", "P_copper_W", fmt="%.0f"), "heats the board, not the FETs"],
+    ["L_{x} between driver pairs (HS / LS)", "%s / %s nH" % (q("dpt", "lx", "HS"), q("dpt", "lx", "LS")),
+     "%s / %s nH" % (q("load", "lx", "HS"), q("load", "lx", "LS")), "skew → ΔI = V_{m}Δt / L_{x}"],
+    ["Bus leg-to-leg loop (1 MHz)", "–", "%s nH" % q("level", "bus_ac", "L_leg12_nH"), "target ≤ 5 nH"]],
+      size=13, colw=[230, 180, 180, 310])
+image(s, "img/q3d_full_load.png", [X0 + 200, Y0 + 205, 510, 250])
+note(s, "All values from the fast Q3D set on the final layouts (run_bb_q3d_final.cmd, final_post.py).")
+
+# ================================================================== 12 boards, status
+s = slide("Fabrication files", 12, "12  Rev B boards")
+table(s, [X0, Y0, W, 230], [
+    ["Board", "Fab set (hardware/<board>/fab)", "Notes for the fab house"],
+    ["spb-bb-revb-dpt", "Gerber zip, drill, pos, BOM, STEP, assembly + schematic PDF",
+     "2 oz all layers, 0.1 mm prepreg, via-in-pad filled + capped"],
+    ["spb-bb-revb-load", "same", "+ blind vias L1–L2 (0.25 mm) filled + capped"],
+    ["spb-busbar", "Gerber zip, drill, pos, BOM, STEP", "2 oz all layers (JLC3313), bolt pads without mask"],
+    ["assembly", "spb-level-assembly.step, spb-stack-assembly.step", "mechanics / frame design"]],
+      size=13, colw=[160, 380, 360])
+text(s, [X0, Y0 + 140, W, 140], [
+    "Generated: make_kicad_bb_revb.py (BOARD=dpt | load), make_kicad_sch_revb.py, make_kicad_busbar.py, "
+    "make_3d_models_revb.py, make_fab_outputs_revb.py, make_assembly_step.py, render_3d.py",
+    "Mechanical items (screws, spreader, gap pads, heatsink, lugs) are listed at the end of each BOM",
+], 14)
+image(s, "img/revb_dpt_top.png", [X0, Y0 + 215, 220, 190])
+image(s, "img/revb_load_top.png", [X0 + 230, Y0 + 215, 220, 190])
+image(s, "img/busbar_top.png", [X0 + 460, Y0 + 215, 450, 190])
 
 s = slide("Status and next steps", 12, "Status")
-table(s, [X0, Y0, 520, 360], [
+table(s, [X0, Y0, 520, 330], [
     ["Item", "Status"],
-    ["DC link: 20 × 22 µF 2220 + 10 × 1 µF per cell", "decided, in the layout"],
-    ["Rev B leg board (one leg, 4 per switch)", "routed, DRC 0 / 0 / 0"],
-    ["Rev B schematic", "generated, = PCB (0 problems)"],
-    ["Loop per cell (fast Q3D)", "0.69 nH shunt / 0.41 nH no shunt, symmetric"],
-    ["3D models + board STEP", "done"],
-    ["PCB busbar (one DC pair per leg)", "routed, DRC clean, 2 oz"],
-    ["Q3D full board + busbar, final layout", "next"],
-    ["Fab outputs, BOM (Rev B, busbar)", "next"],
-    ["DPT (shunt) + load test (no shunt)", "after assembly"]], size=12, colw=[300, 220])
+    ["DC link: 20 × 22 µF 2220 + 10 × 1 µF per cell", "in both layouts"],
+    ["DPT board (UFCS, no heatsink)", "DRC 0 / 0 / 0, schematic = PCB"],
+    ["Load-test board (no shunt, LAM 4 K 50)", "DRC 0 / 0 / 0, schematic = PCB"],
+    ["PCB busbar", "DRC clean, fab files"],
+    ["Fast Q3D: loop, DC, L_{x}, busbar, level", "done (this deck)" if FQ.get("level") else "running"],
+    ["3D models, board + assembly STEP", "done"],
+    ["Fab outputs + BOMs", "done"],
+    ["DPT and three-phase load test", "after assembly"]], size=13, colw=[300, 220])
 text(s, [X0 + 545, Y0, 355, 370], [
-    "Decide: two assemblies (DPT with UFCS, load test without shunt and with source via-in-pad)",
-    "Measure: per-cell current sharing (UFCS), V_{GS} of both drivers (skew), V_{DS} overshoot, bus ripple and ringing",
-    "Decide after measurement: bank depopulation, damping caps, copper weight of the busbar",
+    "Order: DPT board first (switching energies, per-cell current, overshoot vs di/dt), then 3 load boards + busbar",
+    "Mechanics: spreader drawing, frame and stack insulation from the assembly STEP",
+    "Decide after measurement: bank depopulation, damping caps, busbar copper weight",
     "Machine: L_{σ}, cos φ and the final f_{sw}",
-], 13)
+], 15)
 
 s = slide("Thank you")
 s["kind"] = "end"
 
 json.dump(dict(steps=STEPS, slides=SLIDES), open(os.path.join(OUT, "deck.json"), "w", encoding="utf-8"),
           ensure_ascii=False, indent=1)
-print("slides", len(SLIDES), "Q3D numbers", "yes" if RB else "no")
+print("slides", len(SLIDES), "final Q3D numbers:", sorted(FQ))

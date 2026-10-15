@@ -18,11 +18,16 @@ import math
 import os
 import re
 
+import subprocess
+
 import numpy as np
 import pyvista as pv
+from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG = os.path.join(ROOT, "reports", "slides", "revb_pptx", "img")
+KCLI = "C:/Program Files/KiCad/7.0/bin/kicad-cli.exe"
+ORIGIN = {"spb-bb-revb-dpt": (150.0, 100.0), "spb-bb-revb-load": (150.0, 100.0), "spb-busbar": (160.0, 80.0)}
 PITCH = 94.5
 LEGS = (-PITCH, 0.0, PITCH)
 Z_LEG = 6.5                                    # REDCUBE 74650174 height: leg bottom above the busbar top
@@ -101,6 +106,7 @@ class Scene:
 
     def __init__(self):
         self.pts, self.faces, self.cols, self.n = [], [], [], 0
+        self.tex = []                                   # textured board faces: (4 corners, png)
 
     def add(self, P, faces, rgb):
         if len(P) == 0 or not faces:
@@ -148,7 +154,18 @@ class Scene:
         x0, y0, x1, y1 = D["edge"]
         T = D["thickness"]
         self.box(x0 + dx, y0 + dy, dz - T, x1 + dx, y1 + dy, dz, color)
+        textured = set()
+        for side in ("top", "bottom"):
+            png = board_texture(D, side)
+            if png:
+                z = dz + 0.03 if side == "top" else dz - T - 0.03
+                P = np.array([(x0 + dx, -(y0 + dy), z), (x1 + dx, -(y0 + dy), z), (x1 + dx, -(y1 + dy), z),
+                              (x0 + dx, -(y1 + dy), z)])
+                self.tex.append((P, png))
+                textured.add(side)
         for a, b, c, d, side, circ, drill in D["pads"]:
+            if side in textured:
+                continue
             z = dz + 0.02 if side == "top" else dz - T - 0.02
             if circ:
                 n = 20
@@ -204,11 +221,68 @@ def level(sc, D_leg, D_bus, dz=0.0, lem=True, screws=True):
         sc.cyl(x, -37.0, dz - 1.6 - 5.0, dz - 1.6, 5.0, STEEL, 6)
 
 
-def render(mesh, name, cam, size=(2400, 1500), zoom=1.0, parallel=False, bg="white"):
+_TEX = {}
+
+
+def board_texture(D, side):
+    """solder mask (green), mask openings (gold) and silkscreen (white) of one board side, plotted by KiCad at
+    20 px/mm and cropped to the outline; None if the board does not fit the A4 plot page (busbar)."""
+    name = D["name"]
+    key = (name, side)
+    if key in _TEX:
+        return _TEX[key]
+    ox, oy = ORIGIN[name]
+    x0, y0, x1, y1 = D["edge"]
+    ax0, ay0, ax1, ay1 = x0 + ox, y0 + oy, x1 + ox, y1 + oy
+    if ax0 < 0 or ay0 < 0 or ax1 > 297 or ay1 > 210:
+        _TEX[key] = None
+        return None
+    pcb = os.path.join(ROOT, "hardware", name, name + ".kicad_pcb")
+    tmp = os.path.join(os.environ.get("TEMP", "."), "r3d_tex")
+    os.makedirs(tmp, exist_ok=True)
+    R = 20.0 * 25.4
+    lays = {}
+    for what in ("Mask", "SilkS"):
+        lay = ("F." if side == "top" else "B.") + what
+        pdf = os.path.join(tmp, "%s_%s.pdf" % (name, lay))
+        subprocess.run([KCLI, "pcb", "export", "pdf", "--layers", lay, "--black-and-white", "--drill-shape-opt", "0",
+                        "-o", pdf, pcb], check=True, capture_output=True)
+        out = os.path.join(tmp, "%s_%s" % (name, lay))
+        k = R / 25.4
+        subprocess.run(["pdftoppm", "-r", "%d" % R, "-gray", "-png", "-singlefile", "-x", str(int(ax0 * k)),
+                        "-y", str(int(ay0 * k)), "-W", str(int((ax1 - ax0) * k)), "-H", str(int((ay1 - ay0) * k)),
+                        pdf, out], check=True)
+        lays[what] = np.asarray(Image.open(out + ".png").convert("L")) < 128
+    h = min(a.shape[0] for a in lays.values())
+    w = min(a.shape[1] for a in lays.values())
+    img = np.zeros((h, w, 3), np.uint8)
+    img[:] = (24, 92, 52)
+    img[lays["Mask"][:h, :w]] = (214, 182, 100)
+    img[lays["SilkS"][:h, :w]] = (245, 245, 240)
+    png = os.path.join(tmp, "%s_%s_tex.png" % (name, side))
+    Image.fromarray(img).save(png)
+    _TEX[key] = png
+    return png
+
+
+_TEXOBJ = {}
+
+
+def add_textures(pl, quads):
+    for P, png in quads:
+        if png not in _TEXOBJ:
+            _TEXOBJ[png] = pv.read_texture(png)
+        q = pv.PolyData(np.asarray(P, float), np.array([4, 0, 1, 2, 3]))
+        q.active_texture_coordinates = np.array([[0, 1], [1, 1], [1, 0], [0, 0]], float)
+        pl.add_mesh(q, texture=_TEXOBJ[png], ambient=0.35, diffuse=0.7, specular=0.1)
+
+
+def render(mesh, name, cam, size=(2400, 1500), zoom=1.0, parallel=False, bg="white", tex=()):
     pl = pv.Plotter(off_screen=True, window_size=size)
     pl.set_background(bg)
     pl.add_mesh(mesh, scalars="rgb", rgb=True, show_edges=False, smooth_shading=False, specular=0.15, ambient=0.25,
                 diffuse=0.8)
+    add_textures(pl, tex)
     pl.enable_anti_aliasing("ssaa")
     pl.camera_position = cam
     if parallel:
@@ -234,20 +308,27 @@ if __name__ == "__main__":
     for D, nm, skip in ((DPT, "r3d_dpt.png", ()), (LOAD, "r3d_load.png", ()), (LOAD, "r3d_load_nohs.png", ("HS",))):
         sc = Scene()
         sc.board(D, skip=skip)
-        render(sc.mesh(), nm, iso((0, -12, 0), 230, -60, 38), zoom=1.0)
+        render(sc.mesh(), nm, iso((0, -12, 0), 230, -60, 38), zoom=1.0, tex=sc.tex)
     sc = Scene()
     sc.board(DPT)
-    render(sc.mesh(), "r3d_dpt_bottom.png", iso((0, -12, 0), 230, -60, -40), zoom=1.0)
+    render(sc.mesh(), "r3d_dpt_bottom.png", iso((0, -12, 0), 230, -60, -40), zoom=1.0, tex=sc.tex)
+    sc = Scene()
+    sc.board(DPT)
+    render(sc.mesh(), "r3d_dpt_top.png", [(0, -15, 260), (0, -15, 0), (0, 1, 0)], zoom=1.25, parallel=True, tex=sc.tex)
+    sc = Scene()
+    sc.board(LOAD, skip=("HS",))
+    render(sc.mesh(), "r3d_load_top.png", [(0, -15, 260), (0, -15, 0), (0, 1, 0)], zoom=1.25, parallel=True, tex=sc.tex)
     # one 75 V level: busbar + three load-test legs
     sc = Scene()
     level(sc, LOAD, BUS)
     m = sc.mesh()
-    render(m, "r3d_level_iso.png", iso((0, -10, 15), 520, -62, 32), zoom=1.15)
-    render(m, "r3d_level_back.png", iso((0, 20, 10), 520, 110, 28), zoom=1.15)
-    render(m, "r3d_level_below.png", iso((0, 15, 0), 520, -70, -35), zoom=1.15)
-    render(m, "r3d_level_side.png", [(600, 15, 20), (0, 15, 20), (0, 0, 1)], zoom=2.0, parallel=True)
+    T_ = sc.tex
+    render(m, "r3d_level_iso.png", iso((0, -10, 15), 520, -62, 32), zoom=1.15, tex=T_)
+    render(m, "r3d_level_back.png", iso((0, 20, 10), 520, 110, 28), zoom=1.15, tex=T_)
+    render(m, "r3d_level_below.png", iso((0, 15, 0), 520, -70, -35), zoom=1.15, tex=T_)
+    render(m, "r3d_level_side.png", [(600, 15, 20), (0, 15, 20), (0, 0, 1)], zoom=2.0, parallel=True, tex=T_)
     # detail: DC connection of the middle leg to the busbar
-    render(m, "r3d_level_detail.png", iso((0, 19, 4), 170, 72, 7), zoom=1.0)
+    render(m, "r3d_level_detail.png", iso((0, 19, 4), 170, 72, 7), zoom=1.0, tex=T_)
     # full inverter: 16 levels in z, DC+ lug of level k to the DC- lug of level k+1 (Cu braid)
     sc = Scene()
     lvl = Scene()
@@ -263,4 +344,5 @@ if __name__ == "__main__":
         sc.segment((x, -37.0 - 14.0, z), (x, -37.0 - 70.0, z), 10.0, 2.0, (0.75, 0.1, 0.1) if x < 0 else (0.1, 0.1, 0.1))
     stack = pv.merge(blocks + [sc.mesh()])
     H = 16 * LEVEL_DZ
-    render(stack, "r3d_stack.png", iso((0, 0, H / 2), 2600, 58, 16), size=(1800, 2400), zoom=1.0)
+    stex = [(P + np.array([0, 0, k * LEVEL_DZ]), png) for k in range(16) for P, png in lvl.tex]
+    render(stack, "r3d_stack.png", iso((0, 0, H / 2), 2600, 58, 16), size=(1800, 2400), zoom=1.0, tex=stex)

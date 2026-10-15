@@ -15,13 +15,13 @@
  ],
  "slides": [
   {
-   "title": "GaN Building Block Rev B",
+   "title": "SPB Leg Building Block: Design Flow",
    "step": null,
    "section": null,
    "items": [],
    "kind": "title",
-   "subtitle": "Four EPC2361 per switch on one board, three legs on a PCB busbar:\na decision-driven design for a 1200 V, 300 kW Stacked Polyphase Bridge inverter",
-   "author": "Enes Ayaz · KTH Royal Institute of Technology · October 2026"
+   "subtitle": "Four EPC2361 per switch: DPT and load-test boards, 1200 V / 300 kW SPB inverter",
+   "author": "Enes Ayaz, KTH Royal Institute of Technology, October 2026"
   },
   {
    "title": "Design flow",
@@ -31,10 +31,10 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      900,
-      410
+      25,
+      100,
+      910,
+      400
      ],
      "rows": [
       [
@@ -50,17 +50,17 @@
       [
        "2",
        "Device",
-       "100–650 V Si/SiC/GaN survey → 100 V GaN, EPC2361"
+       "100–650 V GaN survey, absolute and per volt → 100 V GaN, EPC2361 (Kelvin pad)"
       ],
       [
        "3",
        "Submodule voltage",
-       "V_{m} + L·di/dt ≤ 90 V, even integer N → 75 V, N = 16"
+       "V_{m} + L·di/dt ≤ 90 V for 0.5 / 1 nH, even N → 75 V, N = 16"
       ],
       [
        "4",
        "One device, one driver",
-       "first-cut loop + LTspice → ≤ 80 A per device"
+       "loop of one cell + LTspice at 0.5 / 1 nH → ≤ 80 A per device"
       ],
       [
        "5",
@@ -70,39 +70,39 @@
       [
        "6",
        "f_{sw}, DC link",
-       "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 bank + 10 × 1 µF bypass per cell (DC bias at 75 V)"
+       "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 + 10 × 1 µF bypass per cell"
       ],
       [
        "7",
        "Gate drive → block",
-       "one driver per pair (star, Kelvin) → building block of two cells"
+       "one 2EDF7275K per pair (star, Kelvin) → building block of two cells"
       ],
       [
        "8",
        "Four on one board",
-       "two pairs, one driver each (star); one DC pair, one bank, one AC output → Rev B leg"
+       "two pairs, one DC pair, one AC output → DPT board and load-test board"
       ],
       [
        "9",
        "Supplies, measurement",
-       "two isolated supplies + Zener bias, UFCS shunt per cell, U.FL, HO 250-S"
+       "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL, HO 250-S"
       ],
       [
        "10",
        "Three-phase DC bus",
-       "legs share the 75 V bus → laminated PCB busbar under the legs"
+       "legs share the 75 V bus → laminated PCB busbar; 3D level and 16-level stack"
       ],
       [
        "11–12",
-       "Verification, board",
-       "Q3D of leg + busbar, KiCad schematic = PCB, Rev B fab files"
+       "Verification, boards",
+       "fast Q3D set on the final boards and the busbar; fab files"
       ]
      ],
-     "size": 12,
+     "size": 15,
      "colw": [
-      50,
-      190,
-      660
+      60,
+      230,
+      620
      ],
      "bold_last": false
     }
@@ -117,19 +117,19 @@
      "type": "image",
      "file": "img/fig_spb_standalone.png",
      "box": [
-      30,
-      92,
-      430,
-      370
+      25,
+      100,
+      910,
+      215
      ]
     },
     {
      "type": "table",
      "box": [
-      490,
-      102,
-      440,
-      250
+      25,
+      320,
+      520,
+      180
      ],
      "rows": [
       [
@@ -167,26 +167,30 @@
      ],
      "size": 13,
      "colw": [
-      180,
-      260
+      190,
+      330
      ],
      "bold_last": false
     },
     {
      "type": "text",
      "box": [
-      490,
-      372,
-      440,
-      80
+      570,
+      325,
+      365,
+      175
      ],
      "paras": [
       [
        0,
-       "SPB: N three-phase submodules in series on the DC side, each feeding one winding set; V_{m} = 1200 V / N."
+       "SPB: N three-phase submodules in series on the DC side, each feeding one winding set of the machine"
+      ],
+      [
+       0,
+       "V_{m} = 1200 V / N per submodule; each submodule = 3 legs on one DC link"
       ]
      ],
-     "size": 12
+     "size": 16
     }
    ]
   },
@@ -198,10 +202,10 @@
     {
      "type": "text",
      "box": [
-      30,
-      92,
-      520,
-      330
+      25,
+      100,
+      540,
+      400
      ],
      "paras": [
       [
@@ -227,16 +231,20 @@
       [
        1,
        "DC current per leg 83 A; series DC chain 250 A"
+      ],
+      [
+       0,
+       "Losses in this deck are for cos φ = 0.9; the PMSM operating point is confirmed with the machine design"
       ]
      ],
-     "size": 15
+     "size": 17
     },
     {
      "type": "table",
      "box": [
-      590,
-      102,
-      300,
+      595,
+      100,
+      340,
       200
      ],
      "rows": [
@@ -261,13 +269,9 @@
        "241 A"
       ]
      ],
-     "size": 14,
+     "size": 17,
      "colw": null,
      "bold_last": false
-    },
-    {
-     "type": "note",
-     "text": "Losses below are for cos φ = 0.9; the PMSM operating point must be confirmed with the machine design."
     }
    ]
   },
@@ -278,52 +282,62 @@
    "items": [
     {
      "type": "image",
-     "file": "img/fig_devices.png",
+     "file": "img/dev_compare.png",
      "box": [
-      30,
-      92,
-      520,
-      370
+      25,
+      100,
+      910,
+      270
      ]
     },
     {
      "type": "text",
      "box": [
-      570,
-      92,
-      360,
-      370
+      25,
+      372,
+      910,
+      130
      ],
      "paras": [
       [
        0,
-       "At fixed bus voltage and phase current the minimum semiconductor loss scales with R_{DS(on)}·C_{oss,tr}"
+       "(a) At fixed bus voltage and phase current the minimum semiconductor loss scales with √(R_{DS(on)}·C_{oss,tr}): the 100 V GaN parts have the lowest product"
       ],
       [
        0,
-       "100 V GaN gives the lowest product among 100–650 V Si/SiC/GaN candidates"
+       "(b) Per volt of blocking capability: 100 V GaN has the lowest R_{DS(on)}/V_{DS,max} (EPC2361 7.5 µΩ/V, 3–30× below 200–650 V) at a higher C_{oss}/V; conduction dominates here (12.4 W vs 4–5 W switching per leg, step 5)"
       ],
       [
        0,
-       "Selected: **EPC2361**, 100 V, 0.75 mΩ typ, 3 × 5 mm, top-side cooling"
+       "(c) Best device per class: 100 V needs more submodules but the fewest devices per switch and the smallest voltage step → **EPC2361**, 100 V, 0.75 mΩ typ, 3 × 5 mm, top-side cooling"
       ]
      ],
-     "size": 14
+     "size": 13
     }
    ]
   },
   {
-   "title": "EPC2361 key data",
+   "title": "EPC2361: key data and the Kelvin source",
    "step": 2,
    "section": null,
    "items": [
     {
+     "type": "image",
+     "file": "img/epc_kelvin.png",
+     "box": [
+      85,
+      100,
+      790,
+      255
+     ]
+    },
+    {
      "type": "table",
      "box": [
-      30,
-      92,
+      25,
+      362,
       470,
-      330
+      140
      ],
      "rows": [
       [
@@ -339,12 +353,8 @@
        "0.75 mΩ typ (1.0 max)"
       ],
       [
-       "V_{GS} range",
-       "−4 … +6 V"
-      ],
-      [
-       "V_{GS(th)}",
-       "0.8 / 1.1 / 2.5 V"
+       "V_{GS} range / V_{GS(th)}",
+       "−4 … +6 V / 0.8 – 2.5 V"
       ],
       [
        "C_{iss} / C_{oss} / C_{rss}",
@@ -353,17 +363,9 @@
       [
        "Q_{G} / Q_{GD} / Q_{OSS}",
        "28 / 3.8 / 90 nC"
-      ],
-      [
-       "R_{G,int}",
-       "0.4 Ω"
-      ],
-      [
-       "R_{θJC} top / R_{θJB}",
-       "0.2 / 1.5 K/W"
       ]
      ],
-     "size": 13,
+     "size": 12,
      "colw": [
       220,
       250
@@ -373,26 +375,26 @@
     {
      "type": "text",
      "box": [
-      530,
-      92,
-      400,
-      330
+      510,
+      362,
+      425,
+      140
      ],
      "paras": [
       [
        0,
-       "Low threshold and −4 V limit: gate drive needs care (bump, negative bias)"
+       "Kelvin pad 2 next to the gate: the gate loop returns at the die, the source stripes and vias (L_{S}) stay in the power loop only ⇒ no L_{S}·di/dt feedback into v_{GS}"
+      ],
+      [
+       0,
+       "Low threshold and −4 V limit: gate bump and negative bias need care (step 7)"
       ],
       [
        0,
        "Top of the package at !!source potential!!: the thermal interface must insulate"
-      ],
-      [
-       0,
-       "Seven interleaved stripes; pad 2 next to the gate is the natural Kelvin point (own net KH/KL on Rev B)"
       ]
      ],
-     "size": 14
+     "size": 13
     }
    ]
   },
@@ -403,51 +405,43 @@
    "items": [
     {
      "type": "image",
-     "file": "img/flow_vm.png",
+     "file": "img/flow_vm2.png",
      "box": [
-      30,
-      92,
-      500,
-      370
+      25,
+      100,
+      910,
+      268
      ]
     },
     {
      "type": "text",
      "box": [
-      545,
-      92,
-      385,
-      370
+      25,
+      370,
+      910,
+      90
      ],
      "paras": [
       [
        0,
-       "Peak stress v̂_{DS} = V_{m} + L_{loop}·di/dt ≤ 90 V (10 % below the rating)"
+       "Peak stress v̂_{DS} = V_{m} + L_{loop}·di/dt ≤ 90 V; turn-on di/dt (gate-charge model, R_{g,on} 2 Ω): 25 / 33 / 50 A/ns at 60 / 80 / 120 A per device"
       ],
       [
        0,
-       "First-cut loop with MLCCs: ≈ 0.5 nH per cell"
-      ],
-      [
-       0,
-       "Fast switching (≈ 30 A/ns, analytical gate-charge model) ⇒ 15 V overshoot ⇒ V_{m} ≤ 75 V"
-      ],
-      [
-       0,
-       "N integer and even (symmetric submodules and winding sets): 14 → 86 V, 18 → 67 V and 12.5 % more parts"
+       "At 80 A per device: V_{m} ≤ **73 V** with 0.5 nH, only 57 V with 1 nH ⇒ the loop must stay near 0.5 nH (or the turn-on is slowed); N even (symmetric winding sets): 16 → 75 V"
       ]
      ],
-     "size": 13
+     "size": 14
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "V_{m} = 75 V, N = 16"
+     "text": "V_{m} = 75 V, N = 16; layout target 0.5 nH per cell"
     }
    ]
   },
@@ -460,19 +454,19 @@
      "type": "image",
      "file": "img/flow_cells.png",
      "box": [
-      30,
-      92,
-      430,
-      370
+      25,
+      100,
+      520,
+      400
      ]
     },
     {
      "type": "text",
      "box": [
-      480,
-      92,
-      450,
-      370
+      565,
+      100,
+      370,
+      400
      ],
      "paras": [
       [
@@ -489,65 +483,61 @@
       ],
       [
        0,
-       "Overshoot margin rechecked with the final layout (Q3D, 0.374 nH per cell on Rev A; Rev B in step 11)"
+       "Overshoot margin rechecked on the final boards (Q3D, step 11)"
       ]
      ],
-     "size": 14
+     "size": 17
     }
    ]
   },
   {
-   "title": "First-cut power loop of one cell",
+   "title": "Power loop of one cell: copper, bypass ESL and shunt",
    "step": 4,
    "section": "4  One device, one driver",
    "items": [
     {
      "type": "image",
-     "file": "img/flow_loop.png",
+     "file": "img/loop_breakdown.png",
      "box": [
-      30,
-      92,
-      500,
-      370
+      25,
+      100,
+      910,
+      262
      ]
     },
     {
      "type": "text",
      "box": [
-      545,
-      92,
-      385,
-      370
+      25,
+      365,
+      910,
+      95
      ],
      "paras": [
       [
        0,
-       "Loop = PCB copper (vertical loop over 0.1 mm dielectric, vias, pads) + ESL of the local MLCCs"
+       "Q3D of the final boards (cell band): loop = copper of the vertical loop over 0.1 mm (vias, pads) + bypass ESL/n (+ UFCS 120 pH on the DPT board)"
       ],
       [
        0,
-       "Copper alone ≈ 0.31 nH; MLCCs in parallel add ESL/n_{c}"
+       "Copper alone: 0.34 nH (load) / 0.46 nH (DPT, shunt path); with 6 + 4 bypass 0805 per cell: **0.41 / 0.65 nH**"
       ],
       [
        0,
-       "1 / 2 / 4 / 6 MLCCs: 0.79 / 0.55 / 0.43 / 0.39 nH: beyond ≈ 4 the number hardly matters"
-      ],
-      [
-       0,
-       "Part: 1 µF 100 V X7S 0805 next to the drains"
+       "Beyond ≈ 4 bypass parts per cell the number hardly matters; part: 1 µF 100 V X7S 0805 next to the drains"
       ]
      ],
-     "size": 13
+     "size": 14
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "Design with L_{loop} = 0.5 nH per cell (0.3 and 0.8 nH as bounds)"
+     "text": "Design value L_{loop} = 0.5 nH per cell; 1 nH as the pessimistic bound"
     }
    ]
   },
@@ -558,38 +548,38 @@
    "items": [
     {
      "type": "image",
-     "file": "img/flow_single.png",
+     "file": "img/flow_single2.png",
      "box": [
-      30,
-      92,
-      900,
-      230
+      25,
+      100,
+      910,
+      255
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      332,
-      900,
-      170
+      25,
+      358,
+      910,
+      150
      ],
      "paras": [
       [
        0,
-       "LTspice half bridge, double pulse at 75 V: lumped loop, 1.7 nH gate loop, 0.03 nH common source, 2 Ω on / 0 Ω off"
+       "LTspice half bridge at 75 V, lumped loop 0.5 / 1 nH, 1.7 nH gate loop, 2 Ω on / 0 Ω off, 4 A / 8 A driver"
       ],
       [
        0,
-       "Turn-on di/dt set by the driver (≈ 45 A/ns); turn-off di/dt grows with current"
+       "(a) Peak V_{DS} at 60 / 80 / 120 A: 87 / 83 / 102 V (0.5 nH), 83 / 93 / 137 V (1 nH)"
       ],
       [
        0,
-       "0.5 nH: 83 V at 79 A, !!101 V at 119 A!! per device"
+       "(b, c) A larger loop lowers E_{on} (the loop takes L·di/dt of the voltage while the current rises) but raises E_{off} and the overshoot; turn-on di/dt is set by the driver (≈ 45 A/ns)"
       ],
       [
        0,
-       "One device would carry 322 A peak ⇒ **current per device ≤ 80 A**"
+       "(d) Conduction per device at 100 °C: 4.0 / 7.2 / 16.1 W at 60 / 80 / 120 A_{rms}; one device would carry 322 A peak ⇒ **current per device ≤ 80 A**"
       ]
      ],
      "size": 13
@@ -604,10 +594,10 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      520,
-      300
+      25,
+      100,
+      560,
+      260
      ],
      "rows": [
       [
@@ -643,9 +633,9 @@
        "3.4"
       ]
      ],
-     "size": 13,
+     "size": 16,
      "colw": [
-      420,
+      460,
       100
      ],
      "bold_last": true
@@ -653,10 +643,10 @@
     {
      "type": "text",
      "box": [
-      575,
-      92,
-      355,
-      330
+      605,
+      100,
+      330,
+      400
      ],
      "paras": [
       [
@@ -673,10 +663,14 @@
       ],
       [
        0,
-       "R_{DS(on)}(T_{j}) from the datasheet: 1.49 at 100 °C, 1.80 at 150 °C"
+       "R_{DS(on)}(T_{j}) from the datasheet: ×1.49 at 100 °C, ×1.80 at 150 °C"
+      ],
+      [
+       0,
+       "Load-test board: LAM 4 K 50 12 (0.65 K/W) on an Al spreader (step 10)"
       ]
      ],
-     "size": 14
+     "size": 16
     }
    ]
   },
@@ -687,43 +681,43 @@
    "items": [
     {
      "type": "image",
-     "file": "img/flow_npar.png",
+     "file": "img/flow_npar2.png",
      "box": [
-      30,
-      92,
-      900,
-      250
+      25,
+      100,
+      910,
+      280
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      347,
-      900,
-      120
+      25,
+      382,
+      910,
+      80
      ],
      "paras": [
       [
        0,
-       "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH"
+       "228 A_{rms} per leg, 50 kHz, T_{j} and R_{DS(on)} solved together; LTspice energies at 0.5 nH (left bars) and 1 nH (hatched)"
       ],
       [
        0,
-       "n = 1: T_{j} > 150 °C; n = 2: 33 W and 131 V; n = 3: 96 V at 0.5 nH; n = 4 / 8: 18 / 15 W per leg"
+       "n = 4: 17.9 W (0.5 nH) / 17.0 W (1 nH) per leg, T_{j} 68 °C; peak V_{DS} at 80 A: **83 V (0.5 nH), 93 V (1 nH)**"
       ]
      ],
-     "size": 13
+     "size": 14
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "**4 EPC2361 per switch** (V_{DS} and T_{j} for all three R_{th}; 4 splits into two equal pairs)"
+     "text": "**4 EPC2361 per switch** (T_{j} for all three R_{th}; ≤ 90 V needs ≈ 0.5 nH; 4 splits into two equal pairs)"
     }
    ]
   },
@@ -734,21 +728,21 @@
    "items": [
     {
      "type": "image",
-     "file": "img/flow_wave.png",
+     "file": "img/flow_wave2.png",
      "box": [
-      30,
-      92,
-      900,
-      290
+      25,
+      100,
+      910,
+      310
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      392,
-      900,
-      90
+      25,
+      412,
+      910,
+      95
      ],
      "paras": [
       [
@@ -757,10 +751,10 @@
       ],
       [
        0,
-       "Conduction loss at the operating point is 28 % above its 25 °C value"
+       "Conduction 12.4 W per leg (28 % above its 25 °C value); switching 5.0 W at 0.5 nH, 4.1 W at 1 nH (lower E_{on}, higher E_{off} and overshoot)"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
@@ -772,10 +766,10 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      900,
-      300
+      25,
+      100,
+      910,
+      330
      ],
      "rows": [
       [
@@ -790,15 +784,26 @@
        "8"
       ],
       [
-       "Loss per leg (W)",
+       "Loss per leg, 0.5 nH (W)",
        "79.1",
-       "33.0",
-       "22.1",
-       "17.8",
-       "15.8",
-       "14.9",
-       "14.5",
-       "14.5"
+       "33.1",
+       "22.2",
+       "17.9",
+       "16.0",
+       "15.1",
+       "14.8",
+       "14.8"
+      ],
+      [
+       "Loss per leg, 1 nH (W)",
+       "78.2",
+       "32.2",
+       "21.3",
+       "17.0",
+       "15.0",
+       "14.0",
+       "13.6",
+       "13.6"
       ],
       [
        "  conduction at T_{j} (W)",
@@ -812,31 +817,31 @@
        "6.1"
       ],
       [
-       "  switching (W)",
-       "8.4",
-       "5.0",
-       "4.5",
-       "4.8",
-       "5.4",
-       "6.2",
-       "7.0",
-       "7.9"
+       "  switching 0.5 / 1 nH (W)",
+       "8.4 / 7.5",
+       "5.0 / 4.2",
+       "4.6 / 3.8",
+       "5.0 / 4.1",
+       "5.6 / 4.6",
+       "6.4 / 5.3",
+       "7.3 / 6.1",
+       "8.2 / 6.9"
       ],
       [
-       "Efficiency (%)",
+       "Efficiency, 0.5 nH (%)",
        "98.73",
        "99.47",
-       "99.65",
-       "99.72",
-       "99.75",
+       "99.64",
+       "99.71",
+       "99.74",
        "99.76",
-       "99.77",
-       "99.77"
+       "99.76",
+       "99.76"
       ],
       [
        "Loss per device (W)",
        "39.5",
-       "8.2",
+       "8.3",
        "3.7",
        "2.2",
        "1.6",
@@ -848,23 +853,23 @@
        "T_{j} (°C)",
        "194",
        "88",
-       "72",
+       "73",
        "68",
        "65",
        "64",
-       "63",
+       "64",
        "63"
       ],
       [
-       "Peak V_{DS} (V)",
-       "194",
-       "131",
-       "96",
-       "83",
-       "83",
-       "83",
-       "83",
-       "83"
+       "Peak V_{DS} 0.5 / 1 nH (V)",
+       "195 / 292",
+       "131 / 180",
+       "96 / 123",
+       "83 / 93",
+       "86 / 85",
+       "86 / 84",
+       "84 / 86",
+       "83 / 87"
       ],
       [
        "Driver channels per leg",
@@ -878,23 +883,23 @@
        "16"
       ]
      ],
-     "size": 12,
+     "size": 14,
      "colw": [
-      220,
-      85,
-      85,
-      85,
-      85,
-      85,
-      85,
-      85,
-      85
+      270,
+      80,
+      80,
+      80,
+      80,
+      80,
+      80,
+      80,
+      80
      ],
      "bold_last": false
     },
     {
      "type": "note",
-     "text": "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 0.5 nH, 50 kHz; efficiency relative to 6.25 kW per leg."
+     "text": "Semiconductor losses only, 3.4 K/W, 60 °C coolant, 50 kHz; efficiency relative to 6.25 kW per leg."
     }
    ]
   },
@@ -905,47 +910,39 @@
    "items": [
     {
      "type": "image",
-     "file": "img/flow_fsw.png",
+     "file": "img/flow_fsw2.png",
      "box": [
-      30,
-      92,
-      900,
-      220
+      25,
+      100,
+      910,
+      280
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      317,
-      900,
-      150
+      25,
+      382,
+      910,
+      80
      ],
      "paras": [
       [
        0,
-       "(a) n = 4: 99.77 / 99.72 / 99.63 % at 20 / 50 / 100 kHz"
-      ],
-      [
-       0,
-       "(b) Voltage ripple sets the MLCC count below ≈ 99 kHz, ripple current above"
-      ],
-      [
-       0,
-       "(c) Winding current ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine leakage inductance"
+       "(a) n = 4: 99.77 / 99.71 / 99.62 % at 20 / 50 / 100 kHz; (b) the voltage ripple sets the 2220 count (20 per leg at 50 kHz), ripple current needs only 7; (c) winding ripple Δi_{pp} = V_{m}/(4 L_{σ} f_{sw}) depends on the machine"
       ]
      ],
-     "size": 13
+     "size": 14
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "f_{sw} ≥ 50 kHz (higher allowed by the machine); the DC link below is sized for 50 kHz"
+     "text": "f_{sw} ≥ 50 kHz (higher allowed by the machine); the DC link is sized for 50 kHz"
     }
    ]
   },
@@ -956,51 +953,27 @@
    "items": [
     {
      "type": "image",
-     "file": "img/dclink_sizing.png",
+     "file": "img/dclink2.png",
      "box": [
-      30,
-      92,
+      25,
+      100,
       520,
-      200
+      330
      ]
-    },
-    {
-     "type": "text",
-     "box": [
-      30,
-      302,
-      520,
-      170
-     ],
-     "paras": [
-      [
-       0,
-       "One 75 V level = three legs on one bus; SVPWM M = 1.15, cos φ = 0.9, 322 A peak, switching function per period"
-      ],
-      [
-       0,
-       "Balanced three-phase: no 2f ripple; capacitor RMS current **85 A per level** (≈ 28 A per leg)"
-      ],
-      [
-       0,
-       "Worst charge excursion per period **860 µC at 50 kHz** (≈ Î/(8 f_{sw})) ⇒ ripple, not current, sets C"
-      ]
-     ],
-     "size": 13
     },
     {
      "type": "table",
      "box": [
-      575,
-      92,
-      355,
-      200
+      565,
+      100,
+      370,
+      120
      ],
      "rows": [
       [
        "f_{sw}",
        "ΔV_{pp}",
-       "C_{eff} per level",
+       "C_{eff} level",
        "per leg"
       ],
       [
@@ -1028,24 +1001,48 @@
        "64 µF"
       ]
      ],
-     "size": 12,
+     "size": 14,
      "colw": [
-      80,
-      70,
+      85,
+      75,
       115,
-      90
+      95
      ],
      "bold_last": false
     },
     {
+     "type": "text",
+     "box": [
+      565,
+      245,
+      370,
+      230
+     ],
+     "paras": [
+      [
+       0,
+       "One 75 V level = three legs on one bus (SVPWM, M = 1.15, cos φ = 0.9)"
+      ],
+      [
+       0,
+       "Balanced three-phase: no 2f ripple; capacitor RMS current 85 A per level (≈ 28 A per leg)"
+      ],
+      [
+       0,
+       "Per switching period the bank supplies the difference between the cell current and its average: ΔV_{pp} = ΔQ / C"
+      ]
+     ],
+     "size": 14
+    },
+    {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "ΔV_{pp} ≤ 3 % (2.25 V) at 50 kHz ⇒ 127 µF **effective** per leg board (three legs share the level)"
+     "text": "ΔV_{pp} ≤ 3 % (2.25 V) at 50 kHz ⇒ 127 µF **effective** per leg board ⇒ 20 × 22 µF 2220"
     }
    ]
   },
@@ -1057,10 +1054,10 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      900,
-      170
+      25,
+      100,
+      910,
+      190
      ],
      "rows": [
       [
@@ -1120,29 +1117,29 @@
        "20"
       ]
      ],
-     "size": 12,
+     "size": 14,
      "colw": [
-      260,
-      60,
-      170,
+      290,
       70,
+      180,
+      75,
       120,
-      220
+      175
      ],
      "bold_last": false
     },
     {
      "type": "text",
      "box": [
-      30,
-      277,
-      900,
-      190
+      25,
+      300,
+      910,
+      160
      ],
      "paras": [
       [
        0,
-       "DC bias at 75 V from the manufacturers' characteristic data (TDK product centre, Murata): 100 V class-II MLCCs keep only 15–29 %; the current Murata 1210 keeps !!15 %!!, not the 30 % assumed before"
+       "DC bias at 75 V from the manufacturers' characteristic data (TDK, Murata): 100 V class-II MLCCs keep only 15–29 %"
       ],
       [
        0,
@@ -1150,18 +1147,18 @@
       ],
       [
        0,
-       "Checks: 2.8 mm height under the heatsink spreader; 2220 flex cracking ⇒ away from board edge and mounting holes"
+       "Checks: 2.8 mm height under the heatsink spreader; 2220 flex cracking ⇒ away from the board edge and holes"
       ]
      ],
-     "size": 13
+     "size": 15
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
      "text": "Bank: **20 × TDK C5750X7S2A226M280KB** per leg (2 rows), 127 µF effective, 1.4 A ripple per part"
     }
@@ -1176,19 +1173,19 @@
      "type": "image",
      "file": "img/revb_bypass.png",
      "box": [
-      30,
-      92,
-      400,
-      370
+      25,
+      100,
+      440,
+      360
      ]
     },
     {
      "type": "text",
      "box": [
-      450,
-      92,
       480,
-      370
+      100,
+      455,
+      360
      ],
      "paras": [
       [
@@ -1197,15 +1194,15 @@
       ],
       [
        1,
-       "di/dt → number: L_{Cu} + ESL/n ≤ 0.5 nH ⇒ n ≥ 4"
+       "di/dt → number: L_{Cu} + ESL/n ≈ 0.5 nH ⇒ n ≥ 4"
       ],
       [
        1,
-       "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)²: !!sets the value!!"
+       "Hand-over to the bank through L_{b}: C_{bp} ≥ L_{b}(ΔI/ΔV)² !!sets the value!!"
       ],
       [
        1,
-       "L_{b} from Q3D (Rev B copper): **0.65–0.77 nH** (1 nH assumed before)"
+       "L_{b} from Q3D: (pending)"
       ],
       [
        1,
@@ -1213,35 +1210,35 @@
       ],
       [
        1,
-       "6 per cell = 1.1 µF ⇒ 2.2 V dip; 10 per cell = 1.8 µF ⇒ **1.7 V** dip"
+       "dip for 6 / 10 per cell: (pending bank model)"
       ]
      ],
-     "size": 13
+     "size": 15
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "10 × 1 µF 0805 per cell: 6 on top at the drains (loop unchanged) + 4 on the bottom, identical in all cells"
+     "text": "10 × 1 µF 0805 per cell: 6 on top at the drains + 4 on the bottom, identical in all cells"
     }
    ]
   },
   {
-   "title": "DC link of the Rev B leg",
+   "title": "DC link of one leg board",
    "step": 6,
    "section": null,
    "items": [
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      470,
-      200
+      25,
+      100,
+      520,
+      120
      ],
      "rows": [
       [
@@ -1271,20 +1268,20 @@
      ],
      "size": 13,
      "colw": [
-      170,
-      120,
+      205,
+      145,
       80,
-      100
+      90
      ],
      "bold_last": true
     },
     {
      "type": "text",
      "box": [
-      525,
-      92,
-      405,
-      370
+      25,
+      250,
+      520,
+      300
      ],
      "paras": [
       [
@@ -1293,28 +1290,38 @@
       ],
       [
        0,
-       "Leg alone (DPT / back-to-back test without the busbar): ≈ 2× higher, acceptable for the lab tests"
+       "Leg alone (DPT, back-to-back test without the busbar): ≈ 2× higher, acceptable for the lab tests"
       ],
       [
        0,
-       "60 instead of 99 MLCCs, bank ≥ 10 × bypass (127 vs 7 µF eff.): fulfilled"
+       "Bank ≥ 10 × bypass (127 vs 7 µF eff.): fulfilled"
       ],
       [
        0,
-       "Row A leaves the board centre free: the DC terminal pins are there"
+       "Row A leaves the board centre free for the DC terminal pins"
       ]
      ],
-     "size": 13
+     "size": 16
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_load_nohs.png",
+     "box": [
+      565,
+      100,
+      370,
+      360
+     ]
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "Bank and bypass as above; the Rev B layout is updated to these parts (DRC clean, schematic = PCB)"
+     "text": "Same DC link on the DPT and load-test boards"
     }
    ]
   },
@@ -1327,36 +1334,32 @@
      "type": "image",
      "file": "img/drv_scaling.png",
      "box": [
-      30,
-      92,
-      540,
-      370
+      25,
+      100,
+      910,
+      245
      ]
     },
     {
      "type": "text",
      "box": [
-      585,
-      92,
-      345,
-      370
+      25,
+      350,
+      910,
+      155
      ],
      "paras": [
       [
        0,
-       "One channel for 3 / 4 / 6 transistors: E_{on} per transistor +16 / +31 / +60 %"
+       "Why E_{on} per transistor rises with n per channel: the n gate capacitances (n × 3.6 nF C_{iss}) charge through one driver output (4 A source, 0.85 Ω) and a longer shared gate trace ⇒ v_{GS} rises n× slower ⇒ lower di/dt and dv/dt at turn-on ⇒ longer V–I overlap: **+16 / +31 / +60 %** E_{on} for 3 / 4 / 6"
       ],
       [
        0,
-       "Peak sink current 12–14 A, above the 8 A rating"
+       "(b) Extra gate-loop inductance of the longer tree raises the gate bump; (a) peak sink current 12–14 A for 4–6 devices exceeds the 8 A rating"
       ],
       [
        0,
-       "Longer gate tree brings the gate bump back"
-      ],
-      [
-       0,
-       "One driver per device: symmetric, but 4 channels and supplies per switch"
+       "(c) One channel per device is symmetric but needs 4 channels and supplies per switch"
       ]
      ],
      "size": 14
@@ -1364,7 +1367,154 @@
    ]
   },
   {
-   "title": "Why symmetry: current-sharing sensitivity",
+   "title": "Driver arrangement for 1 … 4 EPC2361 per switch",
+   "step": 7,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/drv_layouts.png",
+     "box": [
+      25,
+      100,
+      560,
+      330
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      600,
+      100,
+      335,
+      400
+     ],
+     "paras": [
+      [
+       0,
+       "One dual-channel driver (HS + LS) between two cells: both gate loops equal, short (≈ 1.7 nH) and with their own Kelvin return"
+      ],
+      [
+       0,
+       "n = 3 breaks the symmetry (pair + single)"
+      ],
+      [
+       0,
+       "n = 4: two pairs, two drivers, one star per pair ⇒ the building block of two mirrored cells"
+      ]
+     ],
+     "size": 16
+    },
+    {
+     "type": "decision",
+     "box": [
+      25,
+      462,
+      910,
+      40
+     ],
+     "text": "2 × EPC2361 per driver channel; 4 per switch = two pairs = two drivers"
+    }
+   ]
+  },
+  {
+   "title": "Gate driver selection: why the 2EDF7275K",
+   "step": 7,
+   "section": null,
+   "items": [
+    {
+     "type": "table",
+     "box": [
+      25,
+      100,
+      910,
+      175
+     ],
+     "rows": [
+      [
+       "",
+       "**2EDF7275K** (Infineon)",
+       "1EDF5673K (Infineon)",
+       "LMG1210 (TI)"
+      ],
+      [
+       "Channels / isolation",
+       "2, each output isolated (functional)",
+       "1, isolated",
+       "half bridge, bootstrap HS"
+      ],
+      [
+       "Peak source / sink",
+       "4 A / 8 A",
+       "0.85 Ω / 0.35 Ω output",
+       "1.5 A / 3 A class"
+      ],
+      [
+       "Prop. delay / mismatch",
+       "37 ns / ≤ 3 ns ch-ch",
+       "37 ns",
+       "≤ 21 ns / ≤ 3.4 ns"
+      ],
+      [
+       "CMTI",
+       "150 V/ns",
+       "> 200 V/ns",
+       "300 V/ns (HS dv/dt)"
+      ],
+      [
+       "Off-voltage",
+       "external (Zener split)",
+       "built-in negative (RC)",
+       "0 V only"
+      ],
+      [
+       "ICs per switch (4 EPC2361)",
+       "**2** (one per pair)",
+       "4",
+       "2 (weak for a pair)"
+      ]
+     ],
+     "size": 13,
+     "colw": [
+      220,
+      240,
+      225,
+      225
+     ],
+     "bold_last": false
+    },
+    {
+     "type": "text",
+     "box": [
+      25,
+      325,
+      910,
+      180
+     ],
+     "paras": [
+      [
+       0,
+       "A pair needs ≈ 2 × 3.6 nF: 4 A / 8 A drives it at the single-device speed; the 1.5 A / 3 A half-bridge driver does not"
+      ],
+      [
+       0,
+       "Two isolated outputs in one 5 × 5 mm LGA: HS and LS of the same pair from one IC, ≤ 3 ns channel mismatch"
+      ],
+      [
+       0,
+       "Floating outputs: each output gets its own supply split (5.1 V Zener on, −1.2 V off) for the bump margin (next)"
+      ]
+     ],
+     "size": 15
+    },
+    {
+     "type": "note",
+     "text": "Data: Infineon / TI product pages and datasheets (2EDF7275K, 1EDF5673K, LMG1210); check the current revision."
+    }
+   ]
+  },
+  {
+   "title": "Why symmetry: what sets the current sharing",
    "step": 7,
    "section": null,
    "items": [
@@ -1372,43 +1522,82 @@
      "type": "image",
      "file": "img/fig_sharing.png",
      "box": [
-      30,
-      92,
-      540,
-      370
+      25,
+      100,
+      910,
+      175
      ]
     },
     {
-     "type": "text",
+     "type": "table",
      "box": [
-      585,
-      92,
-      345,
-      370
+      25,
+      280,
+      910,
+      180
      ],
-     "paras": [
+     "rows": [
       [
-       0,
-       "Static sharing is fine (R_{DS(on)} has a positive TC)"
+       "Asymmetry (LTspice, two EPC2361 in parallel)",
+       "Case",
+       "E_{on}+E_{off} imbalance",
+       "Layout measure"
       ],
       [
-       0,
-       "Dynamic sharing is set by the gate circuits:"
+       "Power-loop inductance mismatch",
+       "L_{D} +0.3 nH",
+       "2 %",
+       "mirrored cells, identical via sets"
       ],
       [
-       1,
-       "gate-loop mismatch 2 vs 8 nH → 19 % imbalance, 4:1 E_{on}"
+       "Gate-loop inductance mismatch",
+       "L_{G} 2 vs 8 nH",
+       "**19 %** (E_{on} 4 : 1)",
+       "star network, equal gate traces"
       ],
       [
-       1,
-       "common source without Kelvin → 29 %, 2.8 × E_{on}"
+       "Common-source inductance, no Kelvin",
+       "symmetric",
+       "0 %, both +47 % E_{on}",
+       "Kelvin pad per device"
       ],
       [
-       0,
-       "⇒ star gate network with Kelvin returns, one driver channel per pair"
+       "Common-source mismatch, no Kelvin",
+       "L_{CS} +0.2 nH",
+       "**29 %**",
+       "Kelvin return per device"
+      ],
+      [
+       "Threshold spread",
+       "V_{th} +0.3 V",
+       "7 %",
+       "same driver channel per pair"
+      ],
+      [
+       "Static (conduction): copper / R_{DS(on)}",
+       "–",
+       "self-limiting (positive TC)",
+       "symmetric copper (Q3D, step 11)"
       ]
      ],
-     "size": 14
+     "size": 12,
+     "colw": [
+      300,
+      130,
+      210,
+      270
+     ],
+     "bold_last": false
+    },
+    {
+     "type": "decision",
+     "box": [
+      25,
+      462,
+      910,
+      40
+     ],
+     "text": "Star gate network with Kelvin returns, one driver channel per pair, mirrored cells"
     }
    ]
   },
@@ -1421,38 +1610,50 @@
      "type": "image",
      "file": "img/bump_mechanism.png",
      "box": [
-      30,
-      92,
-      440,
-      300
+      25,
+      100,
+      560,
+      195
      ]
     },
     {
      "type": "image",
      "file": "img/bump_mitigation.png",
      "box": [
-      490,
-      92,
-      440,
-      300
+      25,
+      300,
+      560,
+      205
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      397,
-      900,
-      80
+      600,
+      100,
+      335,
+      400
      ],
      "paras": [
       [
        0,
-       "Bump ≈ Q_{GD}/C_{GS} ≈ 1.06 V, independent of current and voltage; close to the 0.8 V minimum threshold"
+       "**Bump:** when the other device of the leg turns on, the off device sees dv/dt; C_{GD}·dv/dt flows through its gate loop and lifts v_{GS} by ≈ Q_{GD}/C_{GS} ≈ 1.06 V"
       ],
       [
        0,
-       "With ≈ −1.2 V off-voltage the peak falls to ≈ 0 V; undershoot −2.3 V (rating −4 V); dead-time loss +0.1 W per leg"
+       "Independent of load current and bus voltage (top b, c); close to the 0.8 V minimum threshold ⇒ shoot-through risk"
+      ],
+      [
+       0,
+       "**Negative off-voltage** shifts the whole bump down: −1 V ⇒ peak ≈ 0 V; extra C_{GS} divides it further (bottom)"
+      ],
+      [
+       0,
+       "Cost: reverse conduction in the dead time at V_{SD} + |V_{off}| ⇒ +0.1 W per leg; undershoot −2.3 V (limit −4 V)"
+      ],
+      [
+       0,
+       "Implemented: V_{GS,off} = −(V_{ISO} − 5.1 V) ≈ −1.2 V"
       ]
      ],
      "size": 13
@@ -1466,51 +1667,51 @@
    "items": [
     {
      "type": "image",
-     "file": "img/q3d_model.png",
+     "file": "img/q3d_model_cells.png",
      "box": [
-      30,
-      92,
-      430,
-      370
+      25,
+      100,
+      540,
+      355
      ]
     },
     {
      "type": "text",
      "box": [
-      480,
-      92,
-      450,
-      370
+      580,
+      100,
+      355,
+      355
      ],
      "paras": [
+      [
+       0,
+       "Q3D model of the final board (cell band): copper per net, vias, FET pads and bypass terminals"
+      ],
       [
        0,
        "Two cells mirrored about the driver: identical gate loops and Kelvin returns"
       ],
       [
        0,
-       "One 2EDF7275K channel drives a **pair** symmetrically (star network, R_{G} 0.5 Ω per transistor)"
+       "One 2EDF7275K channel drives a **pair** (star network, R_{G} 0.5 Ω per transistor)"
       ],
       [
        0,
-       "Each cell keeps its own commutation loop (0.374 nH per cell, Rev A Q3D)"
-      ],
-      [
-       0,
-       "Driver: 4 A / 8 A, separate turn-on (0.75 Ω) and turn-off (diode + 0 Ω) paths"
+       "Each cell keeps its own commutation loop (step 11: 0.41 nH load board, 0.65 nH DPT board)"
       ]
      ],
-     "size": 14
+     "size": 15
     },
     {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      910,
+      40
      ],
-     "text": "2 × EPC2361 per driver channel (star per pair); **4 per switch = two pairs, two drivers, one leg board**"
+     "text": "2 × EPC2361 per channel; **4 per switch = two pairs, two drivers, one leg board**"
     }
    ]
   },
@@ -1522,8 +1723,8 @@
     {
      "type": "rect",
      "box": [
-      40,
-      112,
+      35,
+      120,
       470,
       330
      ],
@@ -1538,8 +1739,8 @@
     {
      "type": "label",
      "box": [
-      45,
-      115,
+      40,
+      123,
       300,
       18
      ],
@@ -1552,8 +1753,8 @@
     {
      "type": "rect",
      "box": [
-      225,
-      134,
+      220,
+      142,
       45,
       22
      ],
@@ -1568,8 +1769,8 @@
     {
      "type": "rect",
      "box": [
-      280,
-      134,
+      275,
+      142,
       45,
       22
      ],
@@ -1584,10 +1785,10 @@
     {
      "type": "line",
      "pts": [
-      60,
-      164,
-      490,
-      164
+      55,
+      172,
+      485,
+      172
      ],
      "color": "hs",
      "w": 4,
@@ -1596,10 +1797,10 @@
     {
      "type": "line",
      "pts": [
-      60,
-      176,
-      490,
-      176
+      55,
+      184,
+      485,
+      184
      ],
      "color": "ls",
      "w": 4,
@@ -1608,10 +1809,10 @@
     {
      "type": "line",
      "pts": [
-      247,
-      156,
-      247,
-      164
+      242,
+      164,
+      242,
+      172
      ],
      "color": "hs",
      "w": 3,
@@ -1620,10 +1821,10 @@
     {
      "type": "line",
      "pts": [
-      302,
-      156,
-      302,
-      176
+      297,
+      164,
+      297,
+      184
      ],
      "color": "ls",
      "w": 3,
@@ -1632,8 +1833,8 @@
     {
      "type": "label",
      "box": [
-      60,
-      142,
+      55,
+      150,
       160,
       16
      ],
@@ -1646,8 +1847,8 @@
     {
      "type": "rect",
      "box": [
-      70,
-      197,
+      65,
+      205,
       90,
       65
      ],
@@ -1662,15 +1863,15 @@
     {
      "type": "rect",
      "box": [
-      85,
-      272,
-      60,
+      70,
+      280,
+      80,
       26
      ],
-     "text": "UFCS 1",
+     "text": "UFCS (DPT only)",
      "fill": "meas10",
      "line": "meas",
-     "size": 9,
+     "size": 8,
      "bold": false,
      "color": "black",
      "round": true
@@ -1678,10 +1879,10 @@
     {
      "type": "line",
      "pts": [
-      100,
-      164,
-      100,
-      197
+      95,
+      172,
+      95,
+      205
      ],
      "color": "hs",
      "w": 2,
@@ -1690,10 +1891,10 @@
     {
      "type": "line",
      "pts": [
-      130,
-      176,
-      130,
-      197
+      125,
+      184,
+      125,
+      205
      ],
      "color": "ls",
      "w": 2,
@@ -1702,10 +1903,10 @@
     {
      "type": "line",
      "pts": [
-      115,
-      262,
-      115,
-      272
+      110,
+      270,
+      110,
+      280
      ],
      "color": "black",
      "w": 1.5,
@@ -1714,10 +1915,10 @@
     {
      "type": "line",
      "pts": [
-      115,
-      337,
-      115,
-      357
+      110,
+      345,
+      110,
+      365
      ],
      "color": "black",
      "w": 3,
@@ -1726,8 +1927,8 @@
     {
      "type": "rect",
      "box": [
-      180,
-      197,
+      175,
+      205,
       90,
       65
      ],
@@ -1742,15 +1943,15 @@
     {
      "type": "rect",
      "box": [
-      195,
-      272,
-      60,
+      180,
+      280,
+      80,
       26
      ],
-     "text": "UFCS 2",
+     "text": "UFCS (DPT only)",
      "fill": "meas10",
      "line": "meas",
-     "size": 9,
+     "size": 8,
      "bold": false,
      "color": "black",
      "round": true
@@ -1758,10 +1959,10 @@
     {
      "type": "line",
      "pts": [
-      210,
-      164,
-      210,
-      197
+      205,
+      172,
+      205,
+      205
      ],
      "color": "hs",
      "w": 2,
@@ -1770,10 +1971,10 @@
     {
      "type": "line",
      "pts": [
-      240,
-      176,
-      240,
-      197
+      235,
+      184,
+      235,
+      205
      ],
      "color": "ls",
      "w": 2,
@@ -1782,10 +1983,10 @@
     {
      "type": "line",
      "pts": [
-      225,
-      262,
-      225,
-      272
+      220,
+      270,
+      220,
+      280
      ],
      "color": "black",
      "w": 1.5,
@@ -1794,10 +1995,10 @@
     {
      "type": "line",
      "pts": [
-      225,
-      337,
-      225,
-      357
+      220,
+      345,
+      220,
+      365
      ],
      "color": "black",
      "w": 3,
@@ -1806,8 +2007,8 @@
     {
      "type": "rect",
      "box": [
-      290,
-      197,
+      285,
+      205,
       90,
       65
      ],
@@ -1822,15 +2023,15 @@
     {
      "type": "rect",
      "box": [
-      305,
-      272,
-      60,
+      290,
+      280,
+      80,
       26
      ],
-     "text": "UFCS 3",
+     "text": "UFCS (DPT only)",
      "fill": "meas10",
      "line": "meas",
-     "size": 9,
+     "size": 8,
      "bold": false,
      "color": "black",
      "round": true
@@ -1838,10 +2039,10 @@
     {
      "type": "line",
      "pts": [
-      320,
-      164,
-      320,
-      197
+      315,
+      172,
+      315,
+      205
      ],
      "color": "hs",
      "w": 2,
@@ -1850,10 +2051,10 @@
     {
      "type": "line",
      "pts": [
-      350,
-      176,
-      350,
-      197
+      345,
+      184,
+      345,
+      205
      ],
      "color": "ls",
      "w": 2,
@@ -1862,10 +2063,10 @@
     {
      "type": "line",
      "pts": [
-      335,
-      262,
-      335,
-      272
+      330,
+      270,
+      330,
+      280
      ],
      "color": "black",
      "w": 1.5,
@@ -1874,10 +2075,10 @@
     {
      "type": "line",
      "pts": [
-      335,
-      337,
-      335,
-      357
+      330,
+      345,
+      330,
+      365
      ],
      "color": "black",
      "w": 3,
@@ -1886,8 +2087,8 @@
     {
      "type": "rect",
      "box": [
-      400,
-      197,
+      395,
+      205,
       90,
       65
      ],
@@ -1902,15 +2103,15 @@
     {
      "type": "rect",
      "box": [
-      415,
-      272,
-      60,
+      400,
+      280,
+      80,
       26
      ],
-     "text": "UFCS 4",
+     "text": "UFCS (DPT only)",
      "fill": "meas10",
      "line": "meas",
-     "size": 9,
+     "size": 8,
      "bold": false,
      "color": "black",
      "round": true
@@ -1918,10 +2119,10 @@
     {
      "type": "line",
      "pts": [
-      430,
-      164,
-      430,
-      197
+      425,
+      172,
+      425,
+      205
      ],
      "color": "hs",
      "w": 2,
@@ -1930,10 +2131,10 @@
     {
      "type": "line",
      "pts": [
-      460,
-      176,
-      460,
-      197
+      455,
+      184,
+      455,
+      205
      ],
      "color": "ls",
      "w": 2,
@@ -1942,10 +2143,10 @@
     {
      "type": "line",
      "pts": [
-      445,
-      262,
-      445,
-      272
+      440,
+      270,
+      440,
+      280
      ],
      "color": "black",
      "w": 1.5,
@@ -1954,10 +2155,10 @@
     {
      "type": "line",
      "pts": [
-      445,
-      337,
-      445,
-      357
+      440,
+      345,
+      440,
+      365
      ],
      "color": "black",
      "w": 3,
@@ -1966,8 +2167,8 @@
     {
      "type": "rect",
      "box": [
-      110,
-      305,
+      105,
+      313,
       110,
       28
      ],
@@ -1982,8 +2183,8 @@
     {
      "type": "rect",
      "box": [
-      330,
-      305,
+      325,
+      313,
       110,
       28
      ],
@@ -1998,10 +2199,10 @@
     {
      "type": "line",
      "pts": [
-      90,
-      357,
-      445,
-      357
+      85,
+      365,
+      440,
+      365
      ],
      "color": "black",
      "w": 5,
@@ -2010,8 +2211,8 @@
     {
      "type": "label",
      "box": [
-      80,
-      362,
+      75,
+      370,
       180,
       18
      ],
@@ -2024,10 +2225,10 @@
     {
      "type": "line",
      "pts": [
-      275,
-      357,
-      275,
-      402
+      270,
+      365,
+      270,
+      410
      ],
      "color": "black",
      "w": 5,
@@ -2036,8 +2237,8 @@
     {
      "type": "label",
      "box": [
-      285,
-      382,
+      280,
+      390,
       220,
       40
      ],
@@ -2050,8 +2251,8 @@
     {
      "type": "text",
      "box": [
-      530,
-      92,
+      525,
+      100,
       400,
       380
      ],
@@ -2062,7 +2263,7 @@
       ],
       [
        0,
-       "Why one driver per pair (option B): the driver sits between its two cells ⇒ short, identical gate loops (1.7 nH); one HS + one LS isolated supply, split per driver"
+       "Why one driver per pair: the driver sits between its two cells ⇒ short, identical gate loops; one HS + one LS isolated supply, split per driver"
       ],
       [
        0,
@@ -2074,34 +2275,109 @@
       ],
       [
        0,
-       "UFCS shunt in every LS source: same board for DPT and back-to-back load test; no short-circuit protection"
+       "Built as **two boards** from the same generator: DPT (UFCS shunt per cell) and load test (no shunt)"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
   {
-   "title": "Rev B leg board layout",
+   "title": "Two boards from one design: double-pulse test and load test",
+   "step": 8,
+   "section": null,
+   "items": [
+    {
+     "type": "table",
+     "box": [
+      25,
+      100,
+      910,
+      300
+     ],
+     "rows": [
+      [
+       "",
+       "DPT board (spb-bb-revb-dpt)",
+       "Load-test board (spb-bb-revb-load)"
+      ],
+      [
+       "Purpose",
+       "switching energies, per-cell current, overshoot",
+       "back-to-back / three-phase load test"
+      ],
+      [
+       "LS source path",
+       "PMK UFCS-R001 per cell (1 mΩ, 120 pH)",
+       "source stripes via-in-pad (blind L1–L2) to DC−"
+      ],
+      [
+       "UFCS land",
+       "IN land shortened to 1.2 mm: blade 1.45 mm from the source",
+       "–"
+      ],
+      [
+       "Cooling",
+       "none (pulsed test)",
+       "Fischer LAM 4 K 50 12 on an Al spreader"
+      ],
+      [
+       "Loop per cell (Q3D)",
+       "0.65 nH (mean)",
+       "0.41 nH (mean)"
+      ],
+      [
+       "v̂_{DS} at 30 A/ns",
+       "94 V",
+       "87 V"
+      ],
+      [
+       "Parts / DRC / schematic",
+       "200 footprints, DRC 0 / 0 / 0, schematic = PCB",
+       "200 footprints, DRC 0 / 0 / 0, schematic = PCB"
+      ]
+     ],
+     "size": 13,
+     "colw": [
+      170,
+      365,
+      365
+     ],
+     "bold_last": false
+    },
+    {
+     "type": "decision",
+     "box": [
+      25,
+      462,
+      910,
+      40
+     ],
+     "text": "Same copper, drivers, bank and terminals; only the LS source path and the cooling differ"
+    }
+   ]
+  },
+  {
+   "title": "DPT board layout (UFCS shunts, no heatsink)",
    "step": 8,
    "section": null,
    "items": [
     {
      "type": "image",
-     "file": "img/revb_top.png",
+     "file": "img/revb_dpt_top.png",
      "box": [
-      30,
-      92,
+      25,
+      100,
       440,
       390
      ]
     },
     {
      "type": "image",
-     "file": "img/revb_bottom.png",
+     "file": "img/revb_dpt_bottom.png",
      "box": [
-      480,
-      92,
+      475,
+      100,
       230,
       390
      ]
@@ -2109,81 +2385,156 @@
     {
      "type": "text",
      "box": [
-      720,
-      92,
+      715,
+      100,
       210,
       400
      ],
      "paras": [
       [
        0,
-       "89.5 × 80 mm, 4 layers, 204 parts"
+       "89.5 × 80 mm, 4 layers"
       ],
       [
        0,
-       "Top edge: one DC+ / DC− pair (REDCUBE M4, bottom side), 20 × 2220 bank in two rows"
+       "UFCS-R001 per cell, IN land 1.2 mm (blade at the source edge), return vias in the SHLD pad"
       ],
       [
        0,
-       "Bottom edge: one M6 AC bolt pad"
+       "No heatsink, no spreader holes"
       ],
       [
        0,
-       "Heatsink LAM 4 rotated 90° over cells and bank"
-      ],
-      [
-       0,
-       "DRC 0 / 0 / 0; schematic = PCB (0 problems)"
+       "DRC 0 / 0 / 0, schematic = PCB"
       ]
      ],
-     "size": 12
+     "size": 14
     }
    ]
   },
   {
-   "title": "Rev B leg board in 3D (KiCad models)",
+   "title": "Load-test board layout (no shunt, heatsink)",
    "step": 8,
    "section": null,
    "items": [
     {
      "type": "image",
-     "file": "img/revb_3d_noheatsink.png",
+     "file": "img/revb_load_top.png",
      "box": [
-      30,
-      92,
+      25,
+      100,
+      440,
+      390
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/revb_load_bottom.png",
+     "box": [
+      475,
+      100,
+      230,
+      390
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      715,
+      100,
+      210,
+      400
+     ],
+     "paras": [
+      [
+       0,
+       "89.5 × 80 mm, 4 layers"
+      ],
+      [
+       0,
+       "LS source stripes: 3 blind L1–L2 vias each (filled, capped) into the DC− plane"
+      ],
+      [
+       0,
+       "LAM 4 K 50 12 over the cells, 3 spreader holes (H5–H7)"
+      ],
+      [
+       0,
+       "DRC 0 / 0 / 0, schematic = PCB"
+      ]
+     ],
+     "size": 14
+    }
+   ]
+  },
+  {
+   "title": "The two boards in 3D (KiCad models)",
+   "step": 8,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_dpt.png",
+     "box": [
+      25,
+      100,
       445,
       300
      ]
     },
     {
      "type": "image",
-     "file": "img/revb_3d_iso.png",
+     "file": "img/r3d_load.png",
      "box": [
-      485,
-      92,
+      480,
+      100,
       445,
       300
      ]
     },
     {
+     "type": "label",
+     "box": [
+      25,
+      400,
+      445,
+      18
+     ],
+     "text": "DPT board: UFCS shunts over the LS FETs, M6 AC bolt + Cu bar",
+     "size": 11,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
+    },
+    {
+     "type": "label",
+     "box": [
+      480,
+      400,
+      445,
+      18
+     ],
+     "text": "Load-test board: LAM 4 K 50 12 + Al spreader",
+     "size": 11,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
+    },
+    {
      "type": "text",
      "box": [
-      30,
-      397,
-      900,
-      90
+      25,
+      425,
+      910,
+      70
      ],
      "paras": [
       [
        0,
-       "Every footprint has a 3D model: KiCad library parts, plus box models for EPC2361, 2EDF7275K, PMK UFCS, TDK 2220 (2.8 mm), WE-CNSW, M6 bolt + 12 × 5 mm Cu bar, LAM 4 + Al spreader (scripts/make_3d_models_revb.py)"
-      ],
-      [
-       0,
-       "Board STEP for the mechanics: hardware/spb-bb-revb/fab/spb-bb-revb.step. Spreader underside 1.68 mm, top 4.68 mm: clears the 2.8 mm bank; the shunts stay in front of the heatsink"
+       "Every footprint has a 3D model (KiCad library + box models: EPC2361, 2EDF7275K, UFCS, TDK 2220, WE-CNSW, M6 bolt + bar, heatsink); board STEPs in hardware/spb-bb-revb-*/fab; rendered with pyvista (scripts/render_3d.py)"
       ]
      ],
-     "size": 12
+     "size": 14
     },
     {
      "type": "note",
@@ -2192,47 +2543,104 @@
    ]
   },
   {
-   "title": "Rev B leg board in 3D: bottom side",
+   "title": "Top view with the silkscreen: DPT and load-test boards",
    "step": 8,
    "section": null,
    "items": [
     {
      "type": "image",
-     "file": "img/revb_3d_bottom.png",
+     "file": "img/r3d_dpt_top.png",
      "box": [
-      30,
-      92,
-      560,
-      380
+      25,
+      100,
+      450,
+      360
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_load_top.png",
+     "box": [
+      485,
+      100,
+      450,
+      360
+     ]
+    },
+    {
+     "type": "label",
+     "box": [
+      25,
+      465,
+      450,
+      20
+     ],
+     "text": "DPT board (UFCS shunts over the LS FETs)",
+     "size": 13,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
+    },
+    {
+     "type": "label",
+     "box": [
+      485,
+      465,
+      450,
+      20
+     ],
+     "text": "load-test board (heatsink removed for the view)",
+     "size": 13,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
+    }
+   ]
+  },
+  {
+   "title": "Bottom side and the load board without heatsink",
+   "step": 8,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_dpt_bottom.png",
+     "box": [
+      25,
+      100,
+      445,
+      300
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_load_nohs.png",
+     "box": [
+      480,
+      100,
+      445,
+      300
      ]
     },
     {
      "type": "text",
      "box": [
-      610,
-      92,
-      320,
-      380
+      25,
+      410,
+      910,
+      80
      ],
      "paras": [
       [
        0,
-       "REDCUBE M4 DC terminals on the bottom: the leg stands on the PCB busbar"
+       "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL probes, M6 AC nut"
       ],
       [
        0,
-       "4 bypass 0805 per cell under the drains, mirrored in all cells"
-      ],
-      [
-       0,
-       "U.FL probes per cell: V_{GS} HS / LS, V_{DS} LS"
-      ],
-      [
-       0,
-       "M6 nut of the AC bolt under the 14 mm pad"
+       "Top without heatsink: 20 × 2220 bank in two rows, 8 EPC2361 under the spreader pedestals, 2 drivers"
       ]
      ],
-     "size": 13
+     "size": 14
     }
    ]
   },
@@ -2244,15 +2652,15 @@
     {
      "type": "text",
      "box": [
-      30,
-      92,
+      25,
+      100,
       520,
       370
      ],
      "paras": [
       [
        0,
-       "Joining the AC in copper makes the inductance between the switch nodes of the two driver pairs (L_{x}) small"
+       "The four switch nodes are joined in copper; L_{x} = inductance between the switch nodes of the two driver pairs"
       ],
       [
        0,
@@ -2260,11 +2668,11 @@
       ],
       [
        0,
-       "Q3D (previous Rev B layout, rerun pending): L_{x} = 1.14 nH (HS on) / 1.08 nH (LS on) ⇒ **≈ 69 A per ns of skew**"
+       "Q3D (fast lx model, final boards): L_{x} = **(pending) nH** (HS on) / **(pending) nH** (LS on) on the load board, (pending) / (pending) nH on the DPT board"
       ],
       [
        0,
-       "Rev A deck required L_{x} ≳ 20 nH for two separate blocks; on one board the skew must be small instead"
+       "⇒ **≈ (pending) A per ns of skew** (load board)"
       ]
      ],
      "size": 14
@@ -2272,8 +2680,8 @@
     {
      "type": "table",
      "box": [
-      575,
-      102,
+      570,
+      110,
       355,
       190
      ],
@@ -2296,10 +2704,10 @@
       ],
       [
        "Verify",
-       "U.FL V_{GS} of both blocks, UFCS per cell"
+       "U.FL V_{GS} of both blocks, UFCS per cell (DPT)"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
       130,
       225
@@ -2307,14 +2715,24 @@
      "bold_last": false
     },
     {
+     "type": "image",
+     "file": "img/q3d_full_load.png",
+     "box": [
+      570,
+      305,
+      365,
+      250
+     ]
+    },
+    {
      "type": "decision",
      "box": [
-      30,
-      470,
-      900,
-      42
+      25,
+      462,
+      530,
+      40
      ],
-     "text": "Measure the per-cell current (UFCS) with both blocks switching; add delay trim in the C2000 if needed"
+     "text": "Measure the per-cell current (UFCS) with both drivers switching; delay trim in the C2000 if needed"
     }
    ]
   },
@@ -2327,17 +2745,17 @@
      "type": "image",
      "file": "img/sch_islands.png",
      "box": [
-      30,
-      92,
-      520,
-      300
+      25,
+      100,
+      560,
+      400
      ]
     },
     {
      "type": "text",
      "box": [
-      570,
-      92,
+      565,
+      100,
       360,
       370
      ],
@@ -2355,7 +2773,7 @@
        "e.g. V_{ISO} = 6.3 V ⇒ −1.2 V off (bump mitigation); island decoupling 1 µF + 4.7 µF per rail"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
@@ -2368,18 +2786,18 @@
      "type": "image",
      "file": "img/sch_driver.png",
      "box": [
-      30,
-      92,
-      900,
+      25,
+      100,
+      910,
       260
      ]
     },
     {
      "type": "text",
      "box": [
-      30,
-      362,
-      900,
+      25,
+      370,
+      910,
       110
      ],
      "paras": [
@@ -2392,7 +2810,7 @@
        "47 Ω / 100 pF input filters, 10 k pull-downs, R_{ON} 0.75 Ω, R_{OFF} 0 Ω + Schottky, R_{G} 0.5 Ω per transistor"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
@@ -2404,8 +2822,8 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
+      25,
+      100,
       520,
       270
      ],
@@ -2416,9 +2834,9 @@
        "Where"
       ],
       [
-       "Cell current (DPT + load)",
+       "Cell current (DPT)",
        "PMK UFCS-R001, 1 mΩ, 120 pH",
-       "LS source of each cell"
+       "LS source of each cell, DPT board"
       ],
       [
        "Phase current (control)",
@@ -2428,12 +2846,12 @@
       [
        "V_{GS} HS / LS",
        "U.FL, 0 Ω, shield = Kelvin",
-       "bottom, at each cell"
+       "bottom, at each cell (both boards)"
       ],
       [
        "V_{DS} LS",
        "U.FL, 953 Ω (20:1 into 50 Ω)",
-       "bottom, at each cell"
+       "bottom, at each cell (both boards)"
       ],
       [
        "Heatsink temperature",
@@ -2441,11 +2859,11 @@
        "DC− domain"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
       150,
-      210,
-      160
+      200,
+      170
      ],
      "bold_last": false
     },
@@ -2453,17 +2871,17 @@
      "type": "image",
      "file": "img/sch_ufl.png",
      "box": [
-      575,
-      92,
-      355,
-      130
+      25,
+      385,
+      540,
+      120
      ]
     },
     {
      "type": "text",
      "box": [
-      575,
-      242,
+      570,
+      250,
       355,
       220
      ],
@@ -2474,19 +2892,19 @@
       ],
       [
        0,
-       "UFCS continuous rating 50 A only up to +30 °C ambient: short load-test runs or forced air"
+       "Load board: no shunt ⇒ phase current from the HO 250-S, cell sharing from the DPT board"
       ],
       [
        0,
-       "No short-circuit protection on the board"
+       "No short-circuit protection on the boards"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
   {
-   "title": "Power stage schematic (generated, identical to the PCB)",
+   "title": "Power stage schematics (generated, identical to the PCBs)",
    "step": 9,
    "section": null,
    "items": [
@@ -2494,15 +2912,25 @@
      "type": "image",
      "file": "img/sch_power.png",
      "box": [
-      30,
-      92,
-      900,
-      330
+      25,
+      100,
+      910,
+      175
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/sch_power_load.png",
+     "box": [
+      25,
+      285,
+      910,
+      175
      ]
     },
     {
      "type": "note",
-     "text": "scripts/make_kicad_sch_revb.py; check_sch_vs_pcb.py: 89 PCB nets, 0 problems"
+     "text": "Top: DPT board (UFCS in each LS source). Bottom: load-test board (LS source to DC−). make_kicad_sch_revb.py; check_sch_vs_pcb.py: 0 problems on both"
     }
    ]
   },
@@ -2514,8 +2942,8 @@
     {
      "type": "text",
      "box": [
-      30,
-      92,
+      25,
+      100,
       520,
       370
      ],
@@ -2526,7 +2954,7 @@
       ],
       [
        0,
-       "Sharing needs ωL_{bus} ≪ 1/(ωC): at 50 kHz and ≈ 250 µF eff. per leg L ≪ 40 nH ⇒ **target ≤ 5 nH leg to leg**"
+       "Sharing needs ωL_{bus} ≪ 1/(ωC): at 50 kHz and ≈ 127 µF eff. per leg L ≪ 80 nH ⇒ **target ≤ 5 nH leg to leg**"
       ],
       [
        0,
@@ -2542,130 +2970,130 @@
     {
      "type": "rect",
      "box": [
-      575,
-      112,
-      105,
-      90
-     ],
-     "text": "leg 1\n(phase a)\nRev B board",
-     "fill": "kth10",
-     "line": "kth",
-     "size": 10,
-     "bold": false,
-     "color": "black",
-     "round": true
-    },
-    {
-     "type": "line",
-     "pts": [
-      605,
-      202,
-      605,
-      242
-     ],
-     "color": "hs",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "line",
-     "pts": [
-      650,
-      202,
-      650,
-      252
-     ],
-     "color": "ls",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "rect",
-     "box": [
-      695,
-      112,
-      105,
-      90
-     ],
-     "text": "leg 2\n(phase b)\nRev B board",
-     "fill": "kth10",
-     "line": "kth",
-     "size": 10,
-     "bold": false,
-     "color": "black",
-     "round": true
-    },
-    {
-     "type": "line",
-     "pts": [
-      725,
-      202,
-      725,
-      242
-     ],
-     "color": "hs",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "line",
-     "pts": [
-      770,
-      202,
-      770,
-      252
-     ],
-     "color": "ls",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "rect",
-     "box": [
-      815,
-      112,
-      105,
-      90
-     ],
-     "text": "leg 3\n(phase c)\nRev B board",
-     "fill": "kth10",
-     "line": "kth",
-     "size": 10,
-     "bold": false,
-     "color": "black",
-     "round": true
-    },
-    {
-     "type": "line",
-     "pts": [
-      845,
-      202,
-      845,
-      242
-     ],
-     "color": "hs",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "line",
-     "pts": [
-      890,
-      202,
-      890,
-      252
-     ],
-     "color": "ls",
-     "w": 3,
-     "arrow": false
-    },
-    {
-     "type": "line",
-     "pts": [
       570,
-      242,
-      925,
-      242
+      120,
+      105,
+      90
+     ],
+     "text": "leg a\n(phase a)\nload board",
+     "fill": "kth10",
+     "line": "kth",
+     "size": 10,
+     "bold": false,
+     "color": "black",
+     "round": true
+    },
+    {
+     "type": "line",
+     "pts": [
+      600,
+      210,
+      600,
+      250
+     ],
+     "color": "hs",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      645,
+      210,
+      645,
+      260
+     ],
+     "color": "ls",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "rect",
+     "box": [
+      690,
+      120,
+      105,
+      90
+     ],
+     "text": "leg b\n(phase b)\nload board",
+     "fill": "kth10",
+     "line": "kth",
+     "size": 10,
+     "bold": false,
+     "color": "black",
+     "round": true
+    },
+    {
+     "type": "line",
+     "pts": [
+      720,
+      210,
+      720,
+      250
+     ],
+     "color": "hs",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      765,
+      210,
+      765,
+      260
+     ],
+     "color": "ls",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "rect",
+     "box": [
+      810,
+      120,
+      105,
+      90
+     ],
+     "text": "leg c\n(phase c)\nload board",
+     "fill": "kth10",
+     "line": "kth",
+     "size": 10,
+     "bold": false,
+     "color": "black",
+     "round": true
+    },
+    {
+     "type": "line",
+     "pts": [
+      840,
+      210,
+      840,
+      250
+     ],
+     "color": "hs",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      885,
+      210,
+      885,
+      260
+     ],
+     "color": "ls",
+     "w": 3,
+     "arrow": false
+    },
+    {
+     "type": "line",
+     "pts": [
+      565,
+      250,
+      920,
+      250
      ],
      "color": "hs",
      "w": 5,
@@ -2674,10 +3102,10 @@
     {
      "type": "line",
      "pts": [
-      570,
-      252,
-      925,
-      252
+      565,
+      260,
+      920,
+      260
      ],
      "color": "ls",
      "w": 5,
@@ -2686,8 +3114,8 @@
     {
      "type": "label",
      "box": [
-      575,
-      260,
+      570,
+      268,
       350,
       18
      ],
@@ -2700,10 +3128,10 @@
     {
      "type": "line",
      "pts": [
-      735,
-      252,
-      735,
-      312
+      730,
+      260,
+      730,
+      320
      ],
      "color": "black",
      "w": 3,
@@ -2712,8 +3140,8 @@
     {
      "type": "label",
      "box": [
-      635,
-      317,
+      630,
+      325,
       220,
       30
      ],
@@ -2734,17 +3162,17 @@
      "type": "image",
      "file": "img/busbar_top.png",
      "box": [
-      30,
-      92,
-      900,
+      25,
+      100,
+      910,
       140
      ]
     },
     {
      "type": "table",
      "box": [
-      30,
-      247,
+      25,
+      255,
       430,
       220
      ],
@@ -2771,14 +3199,14 @@
       ],
       [
        "Stack contact",
-       "2 × M6 lug pads at the centre leg (92 vias each)"
+       "2 × M6 lug pads at the centre leg"
       ],
       [
        "Insulation",
        "frame holes with 8 mm Cu keep-out (1200 V)"
       ]
      ],
-     "size": 11,
+     "size": 12,
      "colw": [
       110,
       320
@@ -2788,19 +3216,15 @@
     {
      "type": "text",
      "box": [
-      485,
-      247,
+      480,
+      255,
       445,
       220
      ],
      "paras": [
       [
        0,
-       "Estimate (μ_{0}·d·l/w): **0.28 nH** leg to leg"
-      ],
-      [
-       0,
-       "R per polarity and leg segment 0.27 mΩ (2 oz) ⇒ 7.5 W at 83 A per leg (3 oz: 5.0 W, 4 oz: 3.7 W)"
+       "Q3D (step 11): leg-to-leg loop **(pending) nH** at 1 MHz (a–b), DC busbar loss **(pending) W**"
       ],
       [
        0,
@@ -2808,24 +3232,322 @@
       ],
       [
        0,
-       "Generated: scripts/make_kicad_busbar.py, DRC clean"
+       "Generated: scripts/make_kicad_busbar.py, DRC clean; fab files in hardware/spb-busbar/fab"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
   {
-   "title": "Q3D: commutation loop per cell, final layout",
+   "title": "One 75 V level in 3D: busbar + three load-test legs",
+   "step": 10,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_level_iso.png",
+     "box": [
+      25,
+      100,
+      910,
+      330
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      25,
+      435,
+      910,
+      60
+     ],
+     "paras": [
+      [
+       0,
+       "Legs a, b, c (pitch 94.5 mm, 5 mm gaps) stand on their REDCUBE DC terminals (6.5 mm) on the PCB busbar; M4 × 8 screws from below; AC bar of each leg through its LEM HO 250-S; heatsinks stay inside each board outline"
+      ]
+     ],
+     "size": 14
+    }
+   ]
+  },
+  {
+   "title": "Level assembly: busbar side and DC connection",
+   "step": 10,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_level_back.png",
+     "box": [
+      25,
+      100,
+      445,
+      250
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_level_detail.png",
+     "box": [
+      480,
+      100,
+      445,
+      250
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_level_side.png",
+     "box": [
+      25,
+      360,
+      445,
+      130
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      480,
+      360,
+      445,
+      130
+     ],
+     "paras": [
+      [
+       0,
+       "Right: middle leg on the bus: REDCUBE + M4, nylon standoffs, M6 stack lugs, DNP damping caps, level header"
+      ],
+      [
+       0,
+       "Left bottom: side view (z stack): busbar top z = 0, leg bottom 6.5 mm, heatsink top 52.8 mm"
+      ]
+     ],
+     "size": 14
+    }
+   ]
+  },
+  {
+   "title": "Mechanics: heatsink length fixed by the leg pitch",
+   "step": 10,
+   "section": null,
+   "items": [
+    {
+     "type": "text",
+     "box": [
+      25,
+      100,
+      520,
+      370
+     ],
+     "paras": [
+      [
+       0,
+       "LAM 4 (100 mm) + fan = 110 mm: wider than the 89.5 mm board ⇒ with 5 mm gaps the heatsinks of neighbouring legs would overlap by ≈ 15 mm"
+      ],
+      [
+       0,
+       "**LAM 4 K 50 12** (Farnell 4708974, 0.65 K/W): 50 mm tube + fan centred over the cells (x −35 … 25 mm), inside the board outline"
+      ],
+      [
+       0,
+       "Al spreader 89.5 × 12.8 × 3 mm carries the outer cells (x ±33 mm) to the tube; ≈ 18 W FET loss per leg ⇒ ≈ 12 K heatsink rise"
+      ],
+      [
+       0,
+       "Spreader underside 1.68 mm, top 4.68 mm: clears the 2.8 mm bank and all bypass parts"
+      ]
+     ],
+     "size": 15
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_load.png",
+     "box": [
+      565,
+      100,
+      360,
+      260
+     ]
+    },
+    {
+     "type": "decision",
+     "box": [
+      25,
+      462,
+      910,
+      40
+     ],
+     "text": "Load board heatsink: LAM 4 K 50 12, centred; leg pitch stays 94.5 mm (busbar unchanged)"
+    }
+   ]
+  },
+  {
+   "title": "Full inverter: 16 levels on one 1200 V stack",
+   "step": 10,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_stack.png",
+     "box": [
+      25,
+      100,
+      300,
+      400
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      345,
+      100,
+      580,
+      380
+     ],
+     "paras": [
+      [
+       0,
+       "16 identical levels (75 V each) stacked in z, pitch 72 mm ⇒ ≈ 1.15 m"
+      ],
+      [
+       0,
+       "DC+ lug of level k ↔ DC− lug of level k + 1 by a Cu braid (8 × 1.5 mm in the model); stack ends = 1200 V DC+ / DC−"
+      ],
+      [
+       0,
+       "Each level: 3 legs = one three-phase winding set; AC bars + HO 250-S per leg"
+      ],
+      [
+       0,
+       "Every level floats up to 1200 V above the frame: insulating standoffs with 8 mm Cu keep-out on the busbar"
+      ],
+      [
+       0,
+       "Assembly STEP: hardware/assembly/spb-level-assembly.step (1 level), spb-stack-assembly.step (16 levels), scripts/make_assembly_step.py (OpenCascade)"
+      ]
+     ],
+     "size": 15
+    },
+    {
+     "type": "note",
+     "text": "Stack direction and frame are illustrative: the machine-side layout (winding terminals) sets the final arrangement."
+    }
+   ]
+  },
+  {
+   "title": "Fast Q3D set on the final boards",
    "step": 11,
    "section": "11  Verification (Q3D)",
    "items": [
     {
-     "type": "image",
-     "file": "img/revb_loop_cells.png",
+     "type": "table",
      "box": [
-      30,
-      92,
+      25,
+      100,
+      910,
+      230
+     ],
+     "rows": [
+      [
+       "Model",
+       "Region",
+       "Solve",
+       "Gives",
+       "Run time"
+      ],
+      [
+       "loop (per board)",
+       "cell band y −4.6 … 20.6 mm, AC split per cell",
+       "AC 100 MHz",
+       "commutation loop per cell",
+       "44 / 28 min"
+      ],
+      [
+       "full board",
+       "whole board, all terminals",
+       "DC R only",
+       "current sharing, copper loss",
+       "(pending) / (pending) min"
+      ],
+      [
+       "bank",
+       "DC terminals + bank + bypass (y −25 … 4.3 mm)",
+       "AC 1 MHz",
+       "leg DC-link port, L_{b} bypass → bank",
+       "(pending) min"
+      ],
+      [
+       "lx",
+       "cells + AC columns + AC bus, no bank / terminals",
+       "AC 100 MHz",
+       "L_{x} between the driver pairs",
+       "(pending) / (pending) min"
+      ],
+      [
+       "busbar",
+       "PCB busbar, stitching vias every 2nd",
+       "DC + AC 1 MHz, 2 %",
+       "leg-to-leg loop, DC distribution",
+       "(pending) min"
+      ],
+      [
+       "three-phase level",
+       "3 × bank model + busbar matrices",
+       "network (MNA)",
+       "ripple sharing, |Z|, terminal currents",
+       "seconds"
+      ]
+     ],
+     "size": 12,
+     "colw": [
+      120,
+      270,
+      120,
+      270,
+      120
+     ],
+     "bold_last": false
+    },
+    {
+     "type": "text",
+     "box": [
+      25,
+      390,
+      910,
+      120
+     ],
+     "paras": [
+      [
+       0,
+       "Instead of one large model (> 3 h, not converged): small models, each solved only for what it is used for; DC is solved for R only (the DC-inductance solve alone ran > 19 h on the first attempt)"
+      ],
+      [
+       0,
+       "Run: simulation/bb_q3d/run_bb_q3d_final.cmd (KTH licence) → final_post.py → reports/slides/data/final_numbers.json"
+      ],
+      [
+       0,
+       "Run times: DPT / load board"
+      ]
+     ],
+     "size": 14
+    }
+   ]
+  },
+  {
+   "title": "Q3D: commutation loop per cell, final boards",
+   "step": 11,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/final_loop_cells.png",
+     "box": [
+      25,
+      100,
       540,
       285
      ]
@@ -2833,39 +3555,39 @@
     {
      "type": "table",
      "box": [
-      585,
-      92,
+      580,
+      100,
       345,
-      150
+      170
      ],
      "rows": [
       [
-       "Final layout (nH)",
-       "with shunt",
-       "no shunt"
+       "Loop per cell (nH)",
+       "DPT",
+       "load test"
       ],
       [
        "cell 1 / 2",
-       "0.69 / 0.70",
-       "0.41 / 0.41"
+       "0.644 / 0.646",
+       "0.405 / 0.406"
       ],
       [
        "cell 3 / 4",
-       "0.69 / 0.70",
-       "0.41 / 0.41"
+       "0.642 / 0.654",
+       "0.407 / 0.410"
       ],
       [
        "**mean**",
-       "**0.69**",
+       "**0.65**",
        "**0.41**"
       ],
       [
        "v̂_{DS} at 30 A/ns",
-       "!!96 V!!",
+       "!!94 V!!",
        "87 V"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
       135,
       105,
@@ -2876,428 +3598,200 @@
     {
      "type": "text",
      "box": [
-      585,
-      252,
+      580,
+      280,
       345,
-      220
+      200
      ],
      "paras": [
       [
        0,
-       "Four cells within **2 %** (shunt) and **1 %** (no shunt); before the fix the left cells were 0.13–0.14 nH higher"
+       "All four LS switching together; HS shorted, bypass as its ESL, UFCS 120 pH"
       ],
       [
        0,
-       "Shunt costs ≈ 0.29 nH: 120 pH part + the LS source detour to the 15 × 3 mm pads"
+       "Cells within 2 % (DPT) and 1 % (load): left/right symmetric by layout (power vias pruned in mirror pairs)"
       ],
       [
        0,
-       "≤ 90 V with the shunt: turn-on ≤ 22 A/ns"
+       "DPT ≤ 90 V: turn-on ≤ **23 A/ns**"
       ]
      ],
-     "size": 12
-    },
-    {
-     "type": "text",
-     "box": [
-      30,
-      387,
-      540,
-      90
-     ],
-     "paras": [
-      [
-       0,
-       "Fast loop-only model: routed copper of the FET band (y −4.6 … 20.6 mm), all 8 FETs, per-cell AC and source nets, bypass groups as sinks; 2 % convergence, ≈ 45 min per run (run_bb_q3d_loop.cmd)"
-      ]
-     ],
-     "size": 11
-    },
-    {
-     "type": "note",
-     "text": "Loop per cell with all four LS FETs switching together (cell coupling included); simulation/bb_q3d/results/loop_summary_*.json"
+     "size": 14
     }
    ]
   },
   {
-   "title": "Where the loop current flows (exploded side view)",
+   "title": "Q3D model of the cell band (fast loop model)",
    "step": 11,
    "section": null,
    "items": [
     {
      "type": "image",
-     "file": "img/loop_paths.png",
+     "file": "img/q3d_loop_dpt.png",
      "box": [
-      30,
-      92,
-      900,
-      330
+      25,
+      100,
+      450,
+      300
      ]
     },
-    {
-     "type": "text",
-     "box": [
-      30,
-      432,
-      900,
-      50
-     ],
-     "paras": [
-      [
-       0,
-       "Bypass → L1 drain stripes → HS FET → switch node → LS FET → source → (shunt) → L2 DC− plane under the cell → bypass. The return on L2 directly below L1 makes the loop vertical and small (Karakaya, METU 2020, Design 3)"
-      ]
-     ],
-     "size": 12
-    }
-   ]
-  },
-  {
-   "title": "Shunt in the loop: study of the options",
-   "step": 11,
-   "section": null,
-   "items": [
     {
      "type": "image",
-     "file": "img/revb_shunt_study.png",
+     "file": "img/q3d_loop_load.png",
      "box": [
-      30,
-      92,
-      540,
-      290
+      485,
+      100,
+      450,
+      300
      ]
+    },
+    {
+     "type": "label",
+     "box": [
+      25,
+      400,
+      450,
+      20
+     ],
+     "text": "DPT board: LS source (green) to the UFCS land",
+     "size": 13,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
+    },
+    {
+     "type": "label",
+     "box": [
+      485,
+      400,
+      450,
+      20
+     ],
+     "text": "load-test board: LS source straight to DC−",
+     "size": 13,
+     "color": "gray",
+     "bold": false,
+     "align": "center"
     },
     {
      "type": "text",
      "box": [
-      585,
-      92,
-      345,
-      380
+      25,
+      430,
+      910,
+      75
      ],
      "paras": [
       [
        0,
-       "UFCS = 0.7 mm blade on two 15 × 3 mm pads: current crosses only at the blade ⇒ fixed geometry"
-      ],
-      [
-       0,
-       "Vias in the shunt DC− pad and a notched heatsink (IN pad shortened, blade 1.45 mm from the source) gain only 0.05–0.08 nH"
-      ],
-      [
-       0,
-       "Largest gain on the routed board: **source via-in-pad** and **symmetric via pruning** (final, 0.69 nH)"
-      ],
-      [
-       0,
-       "Without the shunt, LS source vias straight to L2 (blind L1–L2): **0.41 nH**, close to the 0.374 nH model"
-      ],
-      [
-       0,
-       "Bypass on both sides: the bottom row lowers the loop by only ≈ 0.02 nH; it is there for capacitance"
+       "Geometry exported from the routed KiCad boards (revb_export.py): copper per net and layer with clearance holes, vias with their layer span (blind L1–L2 on the load board), FET and bypass terminal pads; z stretched 4×"
       ]
      ],
-     "size": 12
-    },
-    {
-     "type": "decision",
-     "box": [
-      30,
-      470,
-      900,
-      42
-     ],
-     "text": "Proposal: two assemblies of the same design: **DPT board with UFCS** (di/dt ≤ 22 A/ns) and **load-test board without shunt** (source via-in-pad, 30 A/ns)"
+     "size": 14
     }
    ]
   },
   {
-   "title": "Left/right symmetry: cause and fix",
+   "title": "Q3D: static current sharing and copper loss",
    "step": 11,
    "section": null,
    "items": [
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      520,
-      220
+      25,
+      100,
+      910,
+      150
      ],
      "rows": [
       [
-       "Test (no-shunt board, nH)",
-       "cell 1",
-       "cell 2",
-       "cell 3",
-       "cell 4"
-      ],
-      [
-       "as routed",
-       "0.56",
-       "0.42",
-       "0.55",
-       "0.42"
-      ],
-      [
-       "left FETs not rotated (rot 0)",
-       "0.55",
-       "0.41",
-       "0.54",
-       "0.41"
-      ],
-      [
-       "Kelvin collectors moved L2 → L4",
-       "0.57",
-       "0.41",
-       "0.55",
-       "0.41"
-      ],
-      [
-       "mirrored model (solver check)",
-       "0.57",
-       "0.41",
-       "0.56",
-       "0.41"
-      ],
-      [
-       "**power vias pruned in mirror pairs**",
-       "**0.41**",
-       "**0.41**",
-       "**0.41**",
-       "**0.41**"
-      ]
-     ],
-     "size": 12,
-     "colw": [
-      240,
-      70,
-      70,
-      70,
-      70
-     ],
-     "bold_last": false
-    },
-    {
-     "type": "text",
-     "box": [
-      575,
-      92,
-      355,
-      380
-     ],
-     "paras": [
-      [
-       0,
-       "Cause: the clearance clean-up removed power vias near pads one by one; a few vias from the source copper to the L2 DC− plane survived only in the right cells ⇒ shorter return path there"
-      ],
-      [
-       0,
-       "Not the cause: FET rotation (180° vs 0°), Kelvin routing, solver (mirrored model shows the same)"
-      ],
-      [
-       0,
-       "Fix: a via that fails clearance takes its mirror twin with it (make_kicad_bb_revb.py) ⇒ identical via sets in every cell; Kelvin collectors stay on L4 (L2 plane uncut)"
-      ]
-     ],
-     "size": 12
-    },
-    {
-     "type": "decision",
-     "box": [
-      30,
-      470,
-      900,
-      42
-     ],
-     "text": "Symmetric cells ⇒ equal dynamic current sharing by layout; verify with the UFCS per cell in the DPT"
-    }
-   ]
-  },
-  {
-   "title": "Q3D: static current sharing and copper loss (previous layout)",
-   "step": 11,
-   "section": null,
-   "items": [
-    {
-     "type": "table",
-     "box": [
-      30,
-      92,
-      900,
-      80
-     ],
-     "rows": [
-      [
-       "Path (DC)",
+       "Board, path (DC)",
        "R total (mΩ)",
        "R copper (mΩ)",
-       "current share cell 1 / 2 / 3 / 4",
+       "share cell 1 / 2 / 3 / 4",
        "max/min"
       ],
       [
-       "DC+ → HS FETs → AC",
-       "0.98",
-       "0.70",
-       "20 % / 29 % / 23 % / 28 %",
-       "1.48"
+       "DPT: DC+ → HS FETs → AC",
+       "–",
+       "–",
+       "–",
+       "–"
       ],
       [
-       "AC → LS FETs → shunts → DC−",
-       "1.38",
-       "0.85",
-       "20 % / 29 % / 24 % / 28 %",
-       "1.46"
+       "DPT: AC → LS FETs → shunts → DC−",
+       "–",
+       "–",
+       "–",
+       "–"
+      ],
+      [
+       "load: DC+ → HS FETs → AC",
+       "–",
+       "–",
+       "–",
+       "–"
+      ],
+      [
+       "load: AC → LS FETs → DC−",
+       "–",
+       "–",
+       "–",
+       "–"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
-      230,
+      260,
       110,
       120,
-      330,
-      110
+      290,
+      120
      ],
      "bold_last": false
     },
     {
      "type": "text",
      "box": [
-      30,
-      192,
-      900,
-      270
+      25,
+      265,
+      910,
+      220
      ],
      "paras": [
       [
        0,
-       "!!Previous layout (13 Oct: two DC pairs, four AC terminals, 1210 bank)!!: full-board rerun on the final layout pending"
+       "**Static sharing** = how the conduction (DC) current splits between the four parallel cells: set by each cell's copper path (DC terminals → cell → AC pad) plus R_{DS(on)}; dynamic sharing during the edges is set by the gate loops (step 7)"
       ],
       [
        0,
-       "Converged DC solve; FET 0.75 mΩ × 1.49 (100 °C), shunt 1 mΩ; DC terminals joined (bus), AC terminals joined (bar)"
+       "Full-board DC model; FET 0.75 mΩ × 1.49 (100 °C), UFCS 1 mΩ; DC terminals as one pair, AC at the M6 bolt pad"
       ],
       [
        0,
-       "Board copper loss at 228 A_{rms}: !!40 W per leg!! (semiconductors ≈ 18 W); shunts ≈ 6.5 W"
+       "Board copper loss at 228 A_{rms}: **(pending) W** (DPT, + (pending) W in the shunts) / **(pending) W** (load board)"
       ],
       [
        0,
-       "Static sharing is uneven: the inner cells (2, 4) carry ≈ 29 %, the outer cells (1, 3) ≈ 20–23 % ⇒ hotter inner cells"
-      ],
-      [
-       0,
-       "Cause: the copper path from each cell to the joined AC bus and to the DC terminals differs (cell position, AC columns on L3/L4)"
-      ],
-      [
-       0,
-       "Next layout iteration: widen the outer-cell AC columns / add AC copper on L1–L2, 2 oz → 3 oz, symmetric DC terminal placement"
+       "Hand-over inductance bypass → bank L_{b} = (pending) (bank model, 1 MHz) ⇒ used for the bypass sizing (step 6)"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
   {
-   "title": "Main PCB: findings from the Q3D extraction",
+   "title": "Q3D: three load-test legs on the PCB busbar",
    "step": 11,
    "section": null,
    "items": [
     {
      "type": "table",
      "box": [
-      30,
-      92,
-      900,
-      170
-     ],
-     "rows": [
-      [
-       "Quantity",
-       "Rev B (Q3D)",
-       "Target / Rev A",
-       "Consequence"
-      ],
-      [
-       "Loop per cell, with shunt",
-       "0.69 nH (4 cells within 2 %)",
-       "0.5 nH design, 0.374 nH Rev A",
-       "DPT at ≤ 22 A/ns"
-      ],
-      [
-       "Loop per cell, no shunt",
-       "0.41 nH (4 cells within 1 %)",
-       "0.5 nH design",
-       "load test at 30 A/ns: 87 V"
-      ],
-      [
-       "Static sharing, max/min *",
-       "48 % above",
-       "< 10 %",
-       "rerun on the final layout"
-      ],
-      [
-       "Board copper loss *",
-       "40 W per leg",
-       "≈ 11 W (2 × Rev A block)",
-       "rerun on the final layout"
-      ],
-      [
-       "Block-to-block L_{x} *",
-       "1.1 nH",
-       "≳ 20 nH (Rev A deck)",
-       "69 A per ns driver skew"
-      ]
-     ],
-     "size": 12,
-     "colw": [
-      200,
-      170,
-      230,
-      300
-     ],
-     "bold_last": false
-    },
-    {
-     "type": "text",
-     "box": [
-      30,
-      302,
-      900,
-      180
-     ],
-     "paras": [
-      [
-       0,
-       "Loop: symmetric and within the design value without the shunt; with the shunt the turn-on must be slowed for the DPT"
-      ],
-      [
-       0,
-       "The Rev B board is a good !!measurement!! board: UFCS per cell, U.FL V_{GS} / V_{DS}, both drivers from one C2000"
-      ],
-      [
-       0,
-       "Next Q3D: full board on the final layout (DC sharing, copper loss, L_{x}) and the busbar with one DC pair per leg"
-      ]
-     ],
-     "size": 13
-    },
-    {
-     "type": "note",
-     "text": "* previous layout (13 Oct); values in nH unless noted"
-    }
-   ]
-  },
-  {
-   "title": "Q3D: three legs on the PCB busbar",
-   "step": 11,
-   "section": null,
-   "items": [
-    {
-     "type": "table",
-     "box": [
-      30,
-      92,
+      25,
+      100,
       470,
       240
      ],
@@ -3307,27 +3801,27 @@
        "Value"
       ],
       [
-       "Leg-to-leg loop 1 → 2 (DC / 1 MHz)",
-       "4.36 / 0.88 nH"
+       "Leg-to-leg loop a–b / a–c, 1 MHz",
+       "(pending) / (pending) nH"
       ],
       [
-       "Leg-to-leg loop 1 → 3 (DC / 1 MHz)",
-       "9.10 / 1.37 nH"
+       "Leg-to-leg loop a–b / a–c, DC",
+       "(pending) / (pending) nH"
       ],
       [
-       "Ripple of leg 1 at 50 kHz from legs 1 / 2 / 3",
-       "26 % / 35 % / 39 %"
+       "Ripple of leg a at 50 kHz from banks a / b / c",
+       "(pending)"
       ],
       [
        "Busbar DC loss (250 A in, 3 × 83 A)",
-       "12.4 W"
+       "(pending) W"
       ],
       [
        "Highest REDCUBE terminal current",
-       "62 A"
+       "(pending) A"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
       300,
       170
@@ -3335,85 +3829,200 @@
      "bold_last": false
     },
     {
-     "type": "image",
-     "file": "img/revb_sweep.png",
-     "box": [
-      515,
-      92,
-      415,
-      240
-     ]
-    },
-    {
      "type": "text",
      "box": [
-      30,
-      347,
-      900,
+      25,
+      355,
+      910,
       120
      ],
      "paras": [
       [
        0,
-       "Target ≤ 5 nH leg to leg met at 1 MHz; DC values are the low-frequency limit (current spread through all layers)"
+       "Network: Q3D bank-model matrices of three load-test legs (cells draw at their bypass; MLCCs with ESR/ESL, C at 75 V) + busbar (DC below 1 MHz, AC above); peaks in |Z| = inter-leg resonance"
       ],
       [
        0,
-       "!!Busbar version with two DC pairs per leg!!; the busbar is regenerated with one pair per leg, rerun pending"
-      ],
-      [
-       0,
-       "Network: Q3D matrices of three Rev B legs + busbar, MLCC banks with ESR/ESL and 35 % of C at 75 V; peaks in |Z| = inter-leg resonance"
+       "Target ≤ 5 nH leg to leg (step 10)"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
   {
-   "title": "Rev B fabrication files",
-   "step": 12,
-   "section": "12  Rev B board",
+   "title": "Main findings on the final boards",
+   "step": 11,
+   "section": null,
    "items": [
     {
-     "type": "image",
-     "file": "img/top.png",
+     "type": "table",
      "box": [
-      30,
-      92,
-      440,
-      300
-     ]
+      25,
+      100,
+      910,
+      230
+     ],
+     "rows": [
+      [
+       "Quantity",
+       "DPT board",
+       "Load-test board",
+       "Consequence"
+      ],
+      [
+       "Loop per cell",
+       "0.65 nH",
+       "0.41 nH",
+       "DPT: limit di/dt; load: 30 A/ns ok"
+      ],
+      [
+       "Static sharing, max/min (HS / LS)",
+       "(pending) / (pending)",
+       "(pending) / (pending)",
+       "verify with the UFCS per cell"
+      ],
+      [
+       "Board copper loss at 228 A_{rms}",
+       "(pending) W",
+       "(pending) W",
+       "heats the board, not the FETs"
+      ],
+      [
+       "L_{x} between driver pairs (HS / LS)",
+       "(pending) / (pending) nH",
+       "(pending) / (pending) nH",
+       "skew → ΔI = V_{m}Δt / L_{x}"
+      ],
+      [
+       "Bus leg-to-leg loop (1 MHz)",
+       "–",
+       "(pending) nH",
+       "target ≤ 5 nH"
+      ]
+     ],
+     "size": 13,
+     "colw": [
+      230,
+      180,
+      180,
+      310
+     ],
+     "bold_last": false
     },
     {
      "type": "image",
-     "file": "img/bottom.png",
+     "file": "img/q3d_full_load.png",
      "box": [
-      490,
-      92,
-      440,
-      300
+      225,
+      305,
+      510,
+      250
      ]
+    },
+    {
+     "type": "note",
+     "text": "All values from the fast Q3D set on the final layouts (run_bb_q3d_final.cmd, final_post.py)."
+    }
+   ]
+  },
+  {
+   "title": "Fabrication files",
+   "step": 12,
+   "section": "12  Rev B boards",
+   "items": [
+    {
+     "type": "table",
+     "box": [
+      25,
+      100,
+      910,
+      230
+     ],
+     "rows": [
+      [
+       "Board",
+       "Fab set (hardware/<board>/fab)",
+       "Notes for the fab house"
+      ],
+      [
+       "spb-bb-revb-dpt",
+       "Gerber zip, drill, pos, BOM, STEP, assembly + schematic PDF",
+       "2 oz all layers, 0.1 mm prepreg, via-in-pad filled + capped"
+      ],
+      [
+       "spb-bb-revb-load",
+       "same",
+       "+ blind vias L1–L2 (0.25 mm) filled + capped"
+      ],
+      [
+       "spb-busbar",
+       "Gerber zip, drill, pos, BOM, STEP",
+       "2 oz all layers (JLC3313), bolt pads without mask"
+      ],
+      [
+       "assembly",
+       "spb-level-assembly.step, spb-stack-assembly.step",
+       "mechanics / frame design"
+      ]
+     ],
+     "size": 13,
+     "colw": [
+      160,
+      380,
+      360
+     ],
+     "bold_last": false
     },
     {
      "type": "text",
      "box": [
-      30,
-      402,
-      900,
-      80
+      25,
+      240,
+      910,
+      140
      ],
      "paras": [
       [
        0,
-       "Generated: make_kicad_bb_revb.py (board), make_kicad_sch_revb.py (schematic), make_kicad_busbar.py (busbar)"
+       "Generated: make_kicad_bb_revb.py (BOARD=dpt | load), make_kicad_sch_revb.py, make_kicad_busbar.py, make_3d_models_revb.py, make_fab_outputs_revb.py, make_assembly_step.py, render_3d.py"
       ],
       [
        0,
-       "3D models for all parts and the board STEP (fab/spb-bb-revb.step); next: Gerbers, drill, BOM and placement for Rev B and the busbar, LAM 4 100 mm order code"
+       "Mechanical items (screws, spreader, gap pads, heatsink, lugs) are listed at the end of each BOM"
       ]
      ],
-     "size": 13
+     "size": 14
+    },
+    {
+     "type": "image",
+     "file": "img/revb_dpt_top.png",
+     "box": [
+      25,
+      315,
+      220,
+      190
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/revb_load_top.png",
+     "box": [
+      255,
+      315,
+      220,
+      190
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/busbar_top.png",
+     "box": [
+      485,
+      315,
+      450,
+      190
+     ]
     }
    ]
   },
@@ -3425,10 +4034,10 @@
     {
      "type": "table",
      "box": [
-      30,
-      92,
+      25,
+      100,
       520,
-      360
+      330
      ],
      "rows": [
       [
@@ -3437,42 +4046,38 @@
       ],
       [
        "DC link: 20 × 22 µF 2220 + 10 × 1 µF per cell",
-       "decided, in the layout"
+       "in both layouts"
       ],
       [
-       "Rev B leg board (one leg, 4 per switch)",
-       "routed, DRC 0 / 0 / 0"
+       "DPT board (UFCS, no heatsink)",
+       "DRC 0 / 0 / 0, schematic = PCB"
       ],
       [
-       "Rev B schematic",
-       "generated, = PCB (0 problems)"
+       "Load-test board (no shunt, LAM 4 K 50)",
+       "DRC 0 / 0 / 0, schematic = PCB"
       ],
       [
-       "Loop per cell (fast Q3D)",
-       "0.69 nH shunt / 0.41 nH no shunt, symmetric"
+       "PCB busbar",
+       "DRC clean, fab files"
       ],
       [
-       "3D models + board STEP",
+       "Fast Q3D: loop, DC, L_{x}, busbar, level",
+       "running"
+      ],
+      [
+       "3D models, board + assembly STEP",
        "done"
       ],
       [
-       "PCB busbar (one DC pair per leg)",
-       "routed, DRC clean, 2 oz"
+       "Fab outputs + BOMs",
+       "done"
       ],
       [
-       "Q3D full board + busbar, final layout",
-       "next"
-      ],
-      [
-       "Fab outputs, BOM (Rev B, busbar)",
-       "next"
-      ],
-      [
-       "DPT (shunt) + load test (no shunt)",
+       "DPT and three-phase load test",
        "after assembly"
       ]
      ],
-     "size": 12,
+     "size": 13,
      "colw": [
       300,
       220
@@ -3482,30 +4087,30 @@
     {
      "type": "text",
      "box": [
-      575,
-      92,
+      570,
+      100,
       355,
       370
      ],
      "paras": [
       [
        0,
-       "Decide: two assemblies (DPT with UFCS, load test without shunt and with source via-in-pad)"
+       "Order: DPT board first (switching energies, per-cell current, overshoot vs di/dt), then 3 load boards + busbar"
       ],
       [
        0,
-       "Measure: per-cell current sharing (UFCS), V_{GS} of both drivers (skew), V_{DS} overshoot, bus ripple and ringing"
+       "Mechanics: spreader drawing, frame and stack insulation from the assembly STEP"
       ],
       [
        0,
-       "Decide after measurement: bank depopulation, damping caps, copper weight of the busbar"
+       "Decide after measurement: bank depopulation, damping caps, busbar copper weight"
       ],
       [
        0,
        "Machine: L_{σ}, cos φ and the final f_{sw}"
       ]
      ],
-     "size": 13
+     "size": 15
     }
    ]
   },
