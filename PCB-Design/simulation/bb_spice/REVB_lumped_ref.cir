@@ -1,0 +1,5 @@
+* Lumped reference for the Q3D validation: one EPC2361 per switch at 80.5 A, LLOOP = Q3D loop per cell.
+.param VBUS=75 IPK=80.5 TON1=1.0667e-05 LLOAD={TON1*VBUS/IPK} RGON=2 RGOFF=0 RPU=0.85 RPD=0.35
+.step param LLOOP list 0.4068n 0.6464n
+.include FLOW_lumped.inc
+.end
