@@ -23,6 +23,7 @@ Coordinates: mm, x across the board, y down; block-local x (x_r) is relative to 
 """
 import json
 import math
+import re
 import os
 import sys
 
@@ -925,7 +926,6 @@ def dc_terminals():
                    x, YT + 4.6, 0, True, mpn="Wuerth 74650174 (REDCUBE THR, M4)")
         for pad in fp.Pads():
             pad.SetNet(net(n))
-        text(lab, x, YT + 0.9, 0.8)
 
 
 dc_terminals()
@@ -1054,7 +1054,6 @@ d8 = place(FP + "LED_SMD.pretty", "LED_0603_1608Metric", ref("D"), "red 0603 (DC
 set_pads(d8, {"1": "DCN", "2": "HVB"})
 two("Resistor_SMD.pretty", "R_1206_3216Metric", ref("R"), "100k 1206 (bleeder)", 19.2, -8.5, 90, "DCN", "DCP",
     "100k 1206 1% 200 V")
-text("HV", 18.4, -11.0, 0.8)
 OFFX[0] = 0.0
 
 # mounting: board corners, spreader holes (outer edges + centre)
@@ -1186,6 +1185,90 @@ for v in POWER_VIAS:
         board.Remove(v)
         removed += 1
 print("power vias removed:", removed, "of", len(POWER_VIAS), "(mirror pairs)", flush=True)
+
+# ==================================================================== silkscreen
+# every part gets its reference (connectors with their function), connector pins their names, plus board labels;
+# collision-checked against pads, silk and the outline (scripts/silk_placer.py)
+print("STEP silk", flush=True)
+import silk_placer  # noqa: E402
+SK = silk_placer.Silk(board, (-XO, Y0, XO, Y1))
+FPS = {f.GetReference(): f for f in board.GetFootprints()}
+
+
+def scan(xs, ys, ang=0):
+    return [(x, y, ang) for y in ys for x in xs]
+
+
+def frange(a, b, st):
+    n = int(round((b - a) / st))
+    return [a + k * st for k in range(n + 1)]
+
+
+BRD_NAME = {"dpt": "DPT BOARD", "load": "LOAD-TEST BOARD"}.get(BOARD, VARIANT.upper())
+XS_ALL = sorted(frange(-40.0, 40.0, 1.0), key=abs)
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5, 40.0, -0.5)), "top", 1.2)
+SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0, 40.0, -0.5)), "top", 1.0)
+SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "top", 1.0)
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5, 40.0, -0.5)), "bottom", 1.2)
+SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
+for c, xc in enumerate((-33.25, -14.25, 14.25, 33.25)):
+    cc = sorted(scan(frange(xc - 6, xc + 6, 0.25), frange(2.5, -4.0, -0.25)),
+                key=lambda p: abs(p[0] - xc) + 2 * abs(p[1] - 0.0))
+    if not SK.put("CELL %d" % (c + 1), cc, "top", 1.0):
+        SK.put("%d" % (c + 1), cc, "top", 1.0)
+for r_, lab in (("J1", "DC+"), ("J2", "DC-")):                 # terminals are bottom parts: name them on top
+    f_ = FPS[r_]
+    SK.put(lab, SK.around(silk_placer._box(f_.GetBoundingBox(False, False)), lab, 1.5, centre=False), "top", 1.5)
+for r_, lab in (("J1", "+"), ("J2", "-")):
+    f_ = FPS[r_]
+    SK.put(lab, SK.around(silk_placer._box(f_.GetBoundingBox(False, False)), lab, 2.0, centre=False), "bottom", 2.0)
+f_ = FPS[[r for r, f in FPS.items() if f.GetValue() == "AC"][0]]
+for side in ("top", "bottom"):
+    SK.put("AC", SK.around(silk_placer._box(f_.GetBoundingBox(False, False)), "AC", 1.5, centre=False), side, 1.5)
+UFL = {"H": "VGS-H", "L": "VGS-L", "D": "VDS-L"}
+
+
+def ref_text(rf, f_):
+    v = f_.GetValue()
+    if v.startswith("U.FL"):
+        tag = v.split()[1]
+        return "%s %s%s" % (rf, UFL[tag[0]], tag[1:])
+    if rf.startswith("J"):
+        if v in ("DC+", "DC-", "AC"):
+            return "%s %s" % (rf, v)
+        if v.startswith("CTRL"):
+            return "%s %s" % (rf, v.split(":")[0])
+        if "HS in" in v:
+            return "%s HS-ISO" % rf
+        if "LS in" in v:
+            return "%s LS-ISO" % rf
+        if v.startswith("FAN"):
+            return "%s FAN" % rf
+        if "NTC" in v:
+            return "%s NTC" % rf
+    if rf.startswith("D") and "LED" in f_.GetFPID().GetLibItemName().wx_str():
+        return "%s %s" % (rf, "HV" if "DC link" in v else "12V")
+    return rf
+
+
+def order(rf):
+    pre = re.match(r"[A-Z]+", rf).group(0)
+    rank = {"J": 0, "U": 1, "RS": 2, "Q": 3, "L": 4, "D": 5, "RT": 6, "C": 7, "R": 8}.get(pre, 9)
+    return (rank, int(re.sub(r"\D", "", rf) or 0))
+
+
+for rf in sorted(FPS, key=order):
+    f_ = FPS[rf]
+    if rf.startswith(("H", "HS")) or rf in ("REF**",):
+        continue
+    SK.label_fp(f_, ref_text(rf, f_))
+    if rf.startswith("J"):
+        v = f_.GetValue()
+        npads = len([p for p in f_.Pads() if p.GetNumber()])
+        if npads in (2, 6) and not v.startswith(("U.FL", "DC", "AC")):
+            SK.pin_labels(f_, silk_placer.pins_from_value(v))
+print("silk: %d texts could not be placed on silk (on Fab instead): %s" % (len(SK.failed), " ".join(SK.failed)),
+      flush=True)
 
 # ==================================================================== save, fill, DRC
 print("STEP save", flush=True)

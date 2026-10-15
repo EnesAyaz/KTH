@@ -10,8 +10,10 @@ of that run (tags dpt / load):
                              cells (R_DS(on) at 100 C, shunt 1 mOhm on the DPT board) to the AC bolt pad
 3  driver-pair inductance    BB_PL_LX_<b> (cells + AC bus, AC 100 MHz): L_x between the switch nodes of the two
    L_x                       driver pairs, HS-on and LS-on path (driver skew dI/dt = V_m / L_x)
-4  three-phase level         three load-test legs (BB_PL_REVB_load, DC R/L) on the PCB busbar (BB_BUS_PCB, DC R/L
-                             below 1 MHz, AC above): DC distribution 250 A -> 3 x 83 A, ripple sharing at f_sw,
+2b DC-link port, L_b        BB_PL_BANK_load (terminals + bank + bypass, AC 1 MHz): hand-over inductance bypass ->
+                             bank per cell, terminals -> bank
+4  three-phase level         three load-test legs (bank model: R + L at 1 MHz, cells drawing at their bypass) on the
+                             PCB busbar (BB_BUS_PCB, DC R/L below 1 MHz, AC above): DC distribution 250 A -> 3 x 83 A, ripple sharing at f_sw,
                              |Z| at the cells of leg a with and without the bus, bus leg-to-leg loop
 Network method, component data and loop definition as in revb_post.py (modified nodal analysis on the Q3D branches).
 """
@@ -84,11 +86,11 @@ for b in ("dpt", "load"):
     leg = load_any("BB_PL_REVB_" + b)
     if not leg:
         continue
-    shunt = any(s.startswith("RSI_") for s in leg["src"]) or any(t == "RSI_1" for _, t in leg["branches"])
+    shunt = any(t == "RSI_1" for _, t in leg["branches"])
     dc = {}
     for path in ("HS", "LS"):
         net = Net()
-        net.group(leg["branches"], leg["Rdc"], leg["Ldc"])
+        net.group(leg["branches"], leg["Rdc"], np.zeros_like(leg["Rdc"]))
         idx = []
         for c in range(1, 5):
             if path == "HS":
@@ -112,20 +114,28 @@ for b in ("dpt", "load"):
                         imbalance_pct=(max(fet) / min(fet) - 1) * 100)
     dc["P_copper_W"] = I_RMS ** 2 * (dc["HS"]["R_copper_mOhm"] + dc["LS"]["R_copper_mOhm"]) / 2 * 1e-3
     dc["P_shunts_W"] = (I_RMS / 4) ** 2 * R_SHUNT * 4 * 0.5 if shunt else 0.0
-    # hand-over inductance L_b from the bypass of each cell to the bank (banks shorted, other bypass groups open);
-    # DC inductance matrix: current spread over all layers -> an upper bound of the MHz value
-    w = 2 * math.pi * 1e3
+    S.setdefault(b, {})["dc"] = dc
+
+# ================================================================== 2b DC-link port (bank model, same copper on both boards)
+bank = load_any("BB_PL_BANK_load")
+if bank and "Lac" in bank:
+    w = 2 * math.pi * 1e6
     lb = []
-    for c in range(1, 5):
+    for c in range(1, 5):                          # bypass of cell c -> bank (banks shorted, other bypass open)
         net = Net()
-        net.group(leg["branches"], np.zeros_like(leg["Rdc"]), leg["Ldc"])
-        for src in leg["src"]:
+        net.group(bank["branches"], np.zeros_like(bank["Lac"]), bank["Lac"])
+        for src in bank["src"]:
             if src.startswith("BankP_"):
                 net.add(src, "BankN_" + src[6:], 0.0)
         V, _, _ = net.solve(w, {"CapP_%d" % c: 1.0, "CapN_%d" % c: -1.0}, "J_DCN")
         lb.append(float(((V["CapP_%d" % c] - V["CapN_%d" % c]) / w).imag * 1e9))
-    dc["L_b_nH"] = lb
-    S.setdefault(b, {})["dc"] = dc
+    net = Net()                                    # terminals -> bank (all bank groups shorted)
+    net.group(bank["branches"], np.zeros_like(bank["Lac"]), bank["Lac"])
+    for src in bank["src"]:
+        if src.startswith("BankP_"):
+            net.add(src, "BankN_" + src[6:], 0.0)
+    V, _, _ = net.solve(w, {"J_DCP": 1.0}, "J_DCN")
+    S["bank"] = dict(L_b_nH=lb, L_term_bank_nH=float((V["J_DCP"] / w).imag * 1e9))
 
 # ================================================================== 3 L_x between the two driver pairs
 for b in ("dpt", "load"):
@@ -153,10 +163,10 @@ for b in ("dpt", "load"):
     S.setdefault(b, {})["lx"] = lx
 
 # ================================================================== 4 three legs on the busbar
-leg = load_any("BB_PL_REVB_load")
+leg = load_any("BB_PL_BANK_load")                # DC-link port: terminals, bank, bypass (cells draw at the bypass)
 bus = load_any("BB_BUS_PCB")
-if leg and bus:
-    NC = ncap("load")
+if leg and bus and "Lac" in leg:
+    NC = {t[1]: len(t[3]) for t in json.load(open(os.path.join(RES, "revb_bank_geometry_load.json")))["terminals"]}
     caps = caps_of(leg, NC)
     LEGS = (1, 2, 3)
 
@@ -166,7 +176,7 @@ if leg and bus:
             net = Net()
             for k in (LEGS if with_bus else (1,)):
                 pre = "L%d." % k
-                net.group(leg["branches"], leg["Rdc"], leg["Ldc"], pre)
+                net.group(leg["branches"], leg["Rdc"] if "Rdc" in leg else leg["Rac"], leg["Lac"], pre)
                 for p, n_, cnt, kind in caps:
                     net.add(pre + p, pre + n_, cap_z(cnt, kind))
                 if with_bus:
@@ -182,8 +192,8 @@ if leg and bus:
     inj = {"LUG_P": I_STACK, "LUG_N": -I_STACK}
     for k in LEGS:
         for c in range(1, 5):
-            inj["L%d.QH_D_%d" % (k, c)] = -I_LEG / 4
-            inj["L%d.QL_S_%d" % (k, c)] = I_LEG / 4
+            inj["L%d.CapP_%d" % (k, c)] = -I_LEG / 4
+            inj["L%d.CapN_%d" % (k, c)] = I_LEG / 4
     V, Ig, Is = net.solve(0.0, inj, "LUG_N")
     Ib = Ig[len(LEGS)].real
     term = {bus["src"][i]: float(abs(Ib[i])) for i in range(len(Ib))}
@@ -194,8 +204,8 @@ if leg and bus:
         net = system()(w)
         inj = {}
         for c in range(1, 5):
-            inj["L1.QH_D_%d" % c] = -0.25
-            inj["L1.QL_S_%d" % c] = 0.25
+            inj["L1.CapP_%d" % c] = -0.25
+            inj["L1.CapN_%d" % c] = 0.25
         V, Ig, Is = net.solve(w, inj, "L1.J_DCN")
         share = [float(abs(np.sum(Is[k * per_leg:k * per_leg + len(caps)]))) for k in range(len(LEGS))]
         out["ripple_%dkHz" % (f / 1e3)] = dict(share_of_leg=[s / sum(share) for s in share])
@@ -205,10 +215,10 @@ if leg and bus:
         row = [f]
         for wb in (True, False):
             net = system(wb)(w)
-            inj = {"L1.QH_D_%d" % c: -0.25 for c in range(1, 5)}
-            inj.update({"L1.QL_S_%d" % c: 0.25 for c in range(1, 5)})
+            inj = {"L1.CapP_%d" % c: -0.25 for c in range(1, 5)}
+            inj.update({"L1.CapN_%d" % c: 0.25 for c in range(1, 5)})
             V, _, _ = net.solve(w, inj, "L1.J_DCN")
-            row.append(abs(V["L1.QH_D_1"] - V["L1.QL_S_1"]))
+            row.append(abs(V["L1.CapP_1"] - V["L1.CapN_1"]))
         rows.append(row)
     rows = np.array(rows)
     np.savetxt(os.path.join(RES, "final_sweep.csv"), rows, delimiter=",",

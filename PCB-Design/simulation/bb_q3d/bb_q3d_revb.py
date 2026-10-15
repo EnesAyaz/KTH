@@ -19,11 +19,11 @@ ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
 oDesktop.RestoreWindow()
 HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in dir() else os.getcwd()
 OUT = os.path.join(HERE, "results")
-REGION = os.environ.get("REVB_REGION", "")          # "" full board | loop (cell band) | lx (cells + AC bus)
+REGION = os.environ.get("REVB_REGION", "")   # "" full board | loop (cell band) | lx (cells + AC bus) | bank (DC link)
 LOOP = REGION == "loop"                                # fast loop-only model (cell band, bypass, shunts)
 VT = os.environ.get("REVB_LOOP_TAG", "")              # board / variant tag (file names)
 SFX = ("_" + VT) if VT else ""
-KIND = {"loop": "LOOP", "lx": "LX"}.get(REGION, "REVB")
+KIND = {"loop": "LOOP", "lx": "LX", "bank": "BANK"}.get(REGION, "REVB")
 TAG = "BB_PL_" + KIND + SFX
 DCONLY = os.environ.get("REVB_SOLVE", "") == "dc"     # full board: DC R/L only (sharing, loss, low-f port matrix)
 LOG = open(os.path.join(OUT, "%s_log%s.txt" % (KIND.lower(), SFX)), "w")
@@ -35,7 +35,8 @@ def log(m):
 
 
 import traceback
-G = json.load(open(os.path.join(OUT, {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry"}.get(REGION, "revb_geometry")
+G = json.load(open(os.path.join(OUT, {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry",
+                                      "bank": "revb_bank_geometry"}.get(REGION, "revb_geometry")
                                 + SFX + ".json")))
 ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
@@ -190,15 +191,16 @@ for kind, name, net, pts, side in sorted(G["terminals"], key=lambda t: t[0] != "
     else:
         sources.setdefault(net, []).append(name)
 log("terminals assigned")
-LIGHT = REGION in ("loop", "lx")                       # DC not needed: one coarse pass
-SETUP = ["NAME:Setup1", "AdaptiveFreq:=", "100MHz", "SaveFields:=", False, "Enabled:=", True,
+# DC: resistance only everywhere (the DC inductance solve ran > 19 h on the DPT loop model and is not needed:
+# loop / lx use the 100 MHz AC matrix, the bank model the 1 MHz AC matrix, the full board only R)
+LIGHT = REGION in ("loop", "lx", "bank")               # DC only as a coarse by-product
+FREQ = "1MHz" if REGION == "bank" else "100MHz"
+SETUP = ["NAME:Setup1", "AdaptiveFreq:=", FREQ, "SaveFields:=", False, "Enabled:=", True,
          ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
           "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "High", "Solver Type:=", "Iterative"],
-         ["NAME:DC", "SolveResOnly:=", False,
+         ["NAME:DC", "SolveResOnly:=", True,
           ["NAME:Cond", "MaxPass:=", 3 if LIGHT else 10, "MinPass:=", 1, "MinConvPass:=", 1,
            "PerError:=", 5 if LIGHT else ERR, "PerRefine:=", 30],
-          ["NAME:Mult", "MaxPass:=", 1 if LIGHT else 6, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 5 if LIGHT else ERR,
-           "PerRefine:=", 30],
           "Solution Order:=", "Normal"]]
 if not DCONLY:
     SETUP.append(["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,

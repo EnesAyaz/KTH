@@ -784,13 +784,13 @@
 }
 ],
 [
-"HS1",
-"Fischer LAM 4 K 50 12 + spreader",
+"H1",
+"M2.5 insulated",
 {}
 ],
 [
-"H1",
-"M2.5 insulated",
+"HS1",
+"Fischer LAM 4 K 50 12 + spreader",
 {}
 ],
 [
@@ -1217,19 +1217,19 @@
 }
 ],
 [
-"R1",
-"0R5 1% (R_G HL)",
-{
-"1": "GH_L1",
-"2": "GH_STAR1"
-}
-],
-[
 "RT1",
 "NTC 10k B3380",
 {
 "1": "DCN",
 "2": "NTC"
+}
+],
+[
+"R1",
+"0R5 1% (R_G HL)",
+{
+"1": "GH_L1",
+"2": "GH_STAR1"
 }
 ],
 [

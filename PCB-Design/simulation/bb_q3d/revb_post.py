@@ -56,7 +56,10 @@ def load(tag, sinks=None):
     out = {}
     for key, t in (("Lac", "AC Inductance Matrix"), ("Rac", "AC Resistance Matrix"), ("Ldc", "DC Inductance Matrix"),
                    ("Rdc", "DC Resistance Matrix")):
-        names, M = block(lines, t)
+        try:                                       # R-only DC solves have no DC inductance block
+            names, M = block(lines, t)
+        except KeyError:
+            continue
         out[key] = M * (1e-9 if key[0] == "L" else 1.0)
     if sinks is None:
         sinks = {}

@@ -194,7 +194,7 @@ try:
          "AutoIncreaseSolutionOrder:=", True, "SolutionOrder:=", "Normal", "Solver Type:=", "Iterative"],
         ["NAME:DC", "SolveResOnly:=", False,
          ["NAME:Cond", "MaxPass:=", 10, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
-         ["NAME:Mult", "MaxPass:=", 6, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30],
+         ["NAME:Mult", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 1, "PerRefine:=", 30],
          "Solution Order:=", "Normal"],
         ["NAME:AC", "MaxPass:=", 8, "MinPass:=", 2, "MinConvPass:=", 1, "PerError:=", ERR, "PerRefine:=", 30,
          "Solution Order:=", "High"]])

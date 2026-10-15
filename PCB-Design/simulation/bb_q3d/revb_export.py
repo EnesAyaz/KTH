@@ -96,8 +96,12 @@ for t in b.GetTracks():
 # inductance between the switch nodes of the two driver pairs (driver skew).
 REGION = os.environ.get("REVB_REGION", "")
 LOOP = REGION == "loop"
-CROP = REGION in ("loop", "lx")
-REG = (-46.0, -4.6, 46.0, 20.6) if LOOP else (-46.0, -4.6, 46.0, 56.0)   # loop: below 20.6 (AC columns from 20.8)
+# BANK model (REVB_REGION=bank): DC terminals, terminal row, bank and both bypass rows (y = -25 .. 4.3), no cells:
+# DC-link port of the leg (terminals -> bank -> bypass) for the three-phase network and the hand-over L_b.
+CROP = REGION in ("loop", "lx", "bank")
+BANK = REGION == "bank"
+REG = {"loop": (-46.0, -4.6, 46.0, 20.6), "lx": (-46.0, -4.6, 46.0, 56.0), "bank": (-46.0, -25.0, 46.0, 4.3)}.get(
+    REGION, (-46.0, -25.0, 46.0, 56.0))                # loop: below 20.6 (AC columns from 20.8)
 CELLX = (-33.25, -14.25, 14.25, 33.25)
 
 
@@ -126,6 +130,8 @@ for (n, lay), ps in sorted(acc.items(), key=lambda kv: (kv[0][0], kv[0][1])):
         holes = [ring(ps.Hole(i, h)) for h in range(ps.HoleCount(i))]
         holes = [hh for hh in holes if len(hh) >= 3 and area(hh) > 0.05]
         nn = NETS[n]
+        if BANK and nn not in ("DCP", "DCN"):
+            continue
         if LOOP and nn == "AC":
             nn = "AC%d" % cell_of(sum(p[0] for p in outl) / len(outl))
         polys.append([nn, LAYERS[lay], outl, holes])
@@ -162,6 +168,9 @@ cell_x = {}
 for ref, f in fps.items():
     if not ref.startswith("Q"):
         continue
+    if BANK:                                       # bank model: cells not modelled, only their x for the groups
+        cell_x[CELL[[p.GetNetname() for p in f.Pads() if p.GetNumber() == "1"][0][3:]]] = mm(f.GetPosition().x) - OX
+        continue
     g = [p.GetNetname() for p in f.Pads() if p.GetNumber() == "1"][0]
     c = CELL[g[3:]]
     hs = g.startswith("GH")
@@ -183,7 +192,7 @@ for ref, f in fps.items():
             continue
         x = mm(f.GetPosition().x) - OX
         local = f.GetValue().startswith("1uF")
-        if CROP and not local:
+        if CROP and not local and not BANK:
             continue                               # loop / lx model: bypass only
         c = min(cell_x, key=lambda k: abs(cell_x[k] - x))
         g = str(c) if (local or abs(x) > 6.0) else "C"
@@ -193,12 +202,12 @@ for ref, f in fps.items():
             bot = f.IsFlipped()                    # second bypass row on the bottom side: own terminal group
             tname = ("Cap%s%s_%s" % (pol, "b" if bot else "", g)) if local else ("Bank%s_%s" % (pol, g))
             add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), tname, "bottom" if bot else "top")
-    elif ref.startswith("RS"):
+    elif ref.startswith("RS") and not BANK:
         c = int(ref[2:])
         for p in f.Pads():
             net = NETS[p.GetNetname()]
             add_pad(net, "%s_%s" % (ref, p.GetNumber()), bbox(p), ("RSI_%d" if net.startswith("LSRC") else "RSN_%d") % c)
-    elif ref.startswith("J") and f.GetValue() in ("DC+", "DC-", "AC") and not CROP:
+    elif ref.startswith("J") and f.GetValue() in ("DC+", "DC-", "AC") and (not CROP or (BANK and f.GetValue() != "AC")):
         # DC: REDCUBE body = solid 7 x 7 mm block on the bottom shorting the four press-in pins (pins as vias);
         # AC: M6 bolt pad, contact face 12 x 12 mm (bar + washer) on the bottom, hole barrel and via rings as vias
         x, y = mm(f.GetPosition().x) - OX, mm(f.GetPosition().y) - OY
@@ -232,7 +241,7 @@ if os.environ.get("REVB_MIRROR"):                  # model check: mirror the who
 out = dict(polys=polys, vias=vias, pads=pads, terminals=terms,
            note="routed board %s, simplification %.2f mm" % (os.path.basename(BRD), TOL))
 os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-GEO = {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry"}.get(REGION, "revb_geometry") + ("_" + TAGS if TAGS else "")
+GEO = {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry", "bank": "revb_bank_geometry"}.get(REGION, "revb_geometry") + ("_" + TAGS if TAGS else "")
 json.dump(out, open(os.path.join(HERE, "results", GEO + ".json"), "w"))
 npts = sum(len(p[2]) + sum(len(h) for h in p[3]) for p in polys)
 print("polys %d (holes %d, points %d), vias %d, pads %d, terminals %d" % (
