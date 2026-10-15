@@ -1,0 +1,42 @@
+% Fig. 2: design procedure of the SPB building block (\input from spb_building_block.tex)
+\begin{tikzpicture}[font=\footnotesize, >=Latex, line width=0.5pt,
+  stp/.style={draw, rounded corners=2pt, fill=white, align=center, text width=2.55cm, minimum height=1.55cm,
+              inner sep=2pt, font=\scriptsize},
+  ttl/.style={font=\scriptsize\bfseries},
+  num/.style={circle, draw, fill=#1, text=white, font=\tiny\bfseries, inner sep=0.8pt, minimum size=0.36cm}]
+\definecolor{cA}{rgb}{0.0,0.40,0.75}\definecolor{cB}{rgb}{0.15,0.55,0.15}
+\definecolor{cC}{rgb}{0.85,0.30,0.10}\definecolor{cD}{rgb}{0.45,0.20,0.60}
+\node[draw, thick, fill=gray!8, align=center, text width=17.1cm, minimum height=0.85cm] (spec) at (8.55,3.25)
+ {\textbf{Specification:} $V_\mathrm{bus}$\,=\,1200\,V, $P$\,=\,300\,kW, $M\leq1.15$, PMSM $\cos\varphi$\,=\,0.9, $f_\mathrm{sw}\geq50$\,kHz,
+  $\hat v_\mathrm{DS}\leq90$\,V $\Rightarrow$ $I_\mathrm{ph}$\,=\,228\,A$_\mathrm{rms}$ per leg, independent of the number of submodules $N$};
+% row 1: device level
+\foreach \i/\x/\c/\t/\d in {
+ 1/1.4/cA/Voltage class/{100--650\,V GaN, $\tau=R_\mathrm{DS(on)}C_\mathrm{oss,tr}$ and per volt\\$\Rightarrow$ 100\,V, EPC2361},
+ 2/4.3/cA/Submodule voltage/{$V_m+L\,di/dt\leq90$\,V at 0.5/1\,nH, $N$ even\\$\Rightarrow$ $V_m$\,=\,75\,V, $N$\,=\,16},
+ 3/7.2/cA/One device per switch/{loop of one cell, LTspice 0.5/1\,nH\\$\Rightarrow$ $\leq$\,80\,A per device},
+ 4/10.1/cB/Devices in parallel/{loss, $T_j$ (air heatsink), $\hat v_\mathrm{DS}$ vs.\ $n$\\$\Rightarrow$ $n$\,=\,4 per switch},
+ 5/13.0/cB/$f_\mathrm{sw}$ and dc link/{3\,\% ripple, three legs per bus, dc bias\\$\Rightarrow$ 20$\times$22\,\textmu F 2220 + bypass},
+ 6/15.9/cB/Gate drive/{sharing sensitivity, gate bump, driver count\\$\Rightarrow$ one 2EDF7275K per pair}}{
+  \node[stp, draw=\c] (s\i) at (\x,1.55) {\textcolor{\c}{\textbf{\t}}\\[1pt]\d};
+  \node[num=\c] at ($(s\i.north west)+(0.12,-0.12)$) {\i};
+}
+% row 2: board and system level
+\foreach \i/\x/\c/\t/\d in {
+ 7/15.9/cC/Four cells on one board/{two mirrored pairs, one dc pair, one ac output\\$\Rightarrow$ leg board},
+ 8/13.0/cC/Two assemblies/{shunt for DPT, via-in-pad for load test\\$\Rightarrow$ DPT and load-test boards},
+ 9/10.1/cC/{Supplies, measurement}/{isolated supplies, Zener split, UFCS, U.FL, HO\,250-S},
+ 10/7.2/cD/Three-phase dc bus/{laminated PCB busbar under three legs, stack of 16 levels},
+ 11/4.3/cD/Verification (Q3D)/{loop per cell, symmetry, copper loss, $L_x$, busbar},
+ 12/1.4/cD/Hardware/{schematic = PCB, fabrication files, DPT and load test}}{
+  \node[stp, draw=\c] (s\i) at (\x,-0.55) {\textcolor{\c}{\textbf{\t}}\\[1pt]\d};
+  \node[num=\c] at ($(s\i.north west)+(0.12,-0.12)$) {\i};
+}
+\draw[->, thick] (spec.south -| s1.north) -- (s1.north);
+\foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,7/8,8/9,9/10,10/11,11/12}{\draw[->, thick] (s\a) -- (s\b);}
+\draw[->, thick] (s6.south) -- (s7.north);
+% feedback of the verification
+\draw[->, thick, dashed, cD] (s11.south) -- ++(0,-0.35) -| node[pos=0.25, below, font=\tiny, text=cD]
+  {$L_\mathrm{loop}>0.5$\,nH, sharing, ripple, $T_j$ not met: layout, $n$, dc link, turn-on speed} (s8.south);
+\draw[->, thick, dashed, cD] ($(s11.north)+(-0.6,0)$) -- ++(0,0.25) -| ($(s2.south)+(-0.6,0)$);
+\node[font=\tiny, text=cD, anchor=west] at (2.45,0.6) {overshoot};
+\end{tikzpicture}

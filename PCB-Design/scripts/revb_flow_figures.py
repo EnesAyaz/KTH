@@ -31,8 +31,11 @@ es.setup()
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import FancyBboxPatch, Rectangle, FancyArrowPatch  # noqa: E402
 
-plt.rcParams.update({"font.size": 9.5, "axes.labelsize": 9.5, "xtick.labelsize": 8.5, "ytick.labelsize": 8.5,
-                     "legend.fontsize": 8.5, "axes.titlesize": 9.5})
+PAPER = os.environ.get("PAPER", "") == "1"         # IEEE paper: larger fonts (figure printed at ~0.57 scale), PDF
+_k = 1.55 if PAPER else 1.0
+plt.rcParams.update({"font.size": 9.5 * _k, "axes.labelsize": 9.5 * _k, "xtick.labelsize": 8.5 * _k,
+                     "ytick.labelsize": 8.5 * _k, "legend.fontsize": 8.0 * _k, "axes.titlesize": 9.5 * _k,
+                     "lines.linewidth": 1.5 * (1.3 if PAPER else 1.0), "lines.markersize": 4 * (1.3 if PAPER else 1.0)})
 ANA = os.path.join(os.path.dirname(ROOT), "Analytical Loss Calculations - GaN")
 sys.path.insert(0, ANA)
 from epc2361_loss import LossInputs, calculate, rds_temperature_factor  # noqa: E402
@@ -70,8 +73,15 @@ def rds(tj):
     return RDS25 * rds_temperature_factor(min(max(tj, 0.0), 150.0))
 
 
+PAPER_DIR = os.path.join(ROOT, "reports", "paper", "figures", "revb")
+
+
 def save(fig, name):
-    fig.savefig(os.path.join(IMG, name + ".png"), dpi=220)
+    if PAPER:
+        os.makedirs(PAPER_DIR, exist_ok=True)
+        fig.savefig(os.path.join(PAPER_DIR, name + ".pdf"), bbox_inches="tight", pad_inches=0.02)
+    else:
+        fig.savefig(os.path.join(IMG, name + ".png"), dpi=220)
     plt.close(fig)
     print("wrote", name)
 
@@ -612,5 +622,6 @@ if os.path.exists(LBP):
     panel(ax, "(b)")
     save(fig, "loop_breakdown")
 
-json.dump(NUM, open(os.path.join(DATA, "revb_flow_numbers.json"), "w"), indent=1, default=float)
+if not PAPER:
+    json.dump(NUM, open(os.path.join(DATA, "revb_flow_numbers.json"), "w"), indent=1, default=float)
 print(json.dumps({k: v for k, v in NUM.items() if k in ("vm", "cond", "fsw", "wave")}, indent=1, default=float)[:2500])

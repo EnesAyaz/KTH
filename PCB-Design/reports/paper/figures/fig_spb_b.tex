@@ -1,0 +1,84 @@
+% Fig. 1: (a) SPB converter, (b) building block (one phase leg) with four commutation cells and two drivers.
+% \input from spb_bb_ieee.tex (needs circuitikz); also compiles standalone via fig_spb_standalone.tex
+\begin{tikzpicture}[font=\footnotesize, >=Latex, line width=0.5pt]
+\ctikzset{bipoles/length=0.85cm, tripoles/mos style/arrows}
+\definecolor{cBlue}{rgb}{0.0,0.447,0.741}
+\definecolor{cRed}{rgb}{0.85,0.325,0.098}
+\definecolor{cGreen}{rgb}{0.466,0.674,0.188}
+%------------------------------------------------------------------ (a) SPB
+\begin{scope}
+\node[draw, circle, minimum size=2.1cm, fill=gray!8, align=center, font=\scriptsize] (M) at (4.15,1.1)
+  {multiphase\\[-2pt]machine\\[-2pt]$3N$ phases};
+\foreach \k/\y/\lab in {1/3.0/1, 2/1.55/2, 3/-0.85/N}{
+  \fill[cBlue!10, rounded corners=2pt] (0.15,\y-0.6) rectangle (2.45,\y+0.6);
+  \draw[cBlue!70!black, rounded corners=2pt] (0.15,\y-0.6) rectangle (2.45,\y+0.6);
+  \node[anchor=south east, cBlue!70!black, font=\scriptsize\bfseries, inner sep=1pt] at (2.45,\y+0.6) {SM\,\lab};
+  \draw (0.6,\y+0.45) to[C] (0.6,\y-0.45);
+  \draw (0.6,\y+0.45) -- (2.11,\y+0.45); \draw (0.6,\y-0.45) -- (2.11,\y-0.45);
+  \foreach \j in {0,1,2}{
+    \pgfmathsetmacro{\xx}{1.35+\j*0.38}
+    \ifnum\k=1 \ifnum\j=0 \fill[cRed!25] (\xx-0.13,\y-0.42) rectangle (\xx+0.13,\y+0.42); \fi\fi
+    \draw (\xx-0.13,\y-0.42) rectangle (\xx+0.13,\y+0.42);
+    \draw (\xx,\y+0.42) -- (\xx,\y+0.45); \draw (\xx,\y-0.42) -- (\xx,\y-0.45);
+    \fill (\xx,\y) circle (0.8pt);
+  }
+  \draw[cRed!80!black, ->, line width=0.9pt] (2.45,\y) -- ($(M.center)!1.06cm!(2.45,\y)$) node[pos=0.45, above, sloped, font=\tiny, inner sep=1pt]{3 ph.};
+}
+\node at (1.35,0.42) {$\vdots$};
+\draw[thick] (0.6,3.45) -- (0.6,3.85) -- (-0.15,3.85) node[left]{$+$};
+\draw[thick] (0.6,-1.30) -- (0.6,-1.7) -- (-0.15,-1.7) node[left]{$-$};
+\draw (0.6,2.55) -- (0.6,2.0); \draw (0.6,1.1) -- (0.6,0.75); \draw (0.6,0.0) -- (0.6,-0.4);
+\draw[<->] (-0.35,3.65) -- node[left, align=center]{$V_\mathrm{bus}$} (-0.35,-1.5);
+\node[font=\scriptsize, align=left, cRed!80!black, anchor=west] at (1.25,3.95) {one leg = building block, (b)};
+\node[font=\scriptsize, align=center] at (1.3,-2.0) {$V_m=V_\mathrm{bus}/N$ per submodule};
+\node[font=\bfseries] at (-0.6,-2.35) {(a)};
+\end{scope}
+%------------------------------------------------------------------ (b) building block: one leg, four cells
+\begin{scope}[xshift=7.1cm, yshift=-1.3cm]
+\draw[thick] (-0.6,4.3) node[left]{dc$+$} -- (10.9,4.3);
+\draw[thick] (-0.6,0.3) node[left]{dc$-$} -- (10.9,0.3);
+\draw (-0.1,4.3) to[C, l_={$C_\mathrm{bank}$}] (-0.1,0.3);
+\node[font=\tiny, align=center] at (-0.1,-0.25) {$20\times22\,\mu$F\\[-2pt]2220};
+\foreach \c/\x/\m in {1/1.0/0, 2/3.4/1, 3/5.9/0, 4/8.3/1}{
+  \fill[cRed!8, rounded corners=2pt] (\x-0.25,-0.05) rectangle (\x+1.95,4.75);
+  \node[cRed!70!black, font=\scriptsize\bfseries, anchor=north west] at (\x-0.25,4.75) {cell \c};
+  \draw (\x+0.1,4.3) to[C] (\x+0.1,0.3);
+  \node[font=\tiny, anchor=west] at (\x-0.22,1.05) {$C_\mathrm{byp}$};
+  \draw (\x+1.35,4.3) to[Tnigfete, n=QH\c] (\x+1.35,2.3) to[Tnigfete, n=QL\c] (\x+1.35,0.95);
+  \draw[cBlue, dashed] (\x+1.35,0.95) to[R, l_={\tiny UFCS}] (\x+1.35,0.3);
+  \fill (\x+1.35,2.3) circle (1pt);
+  \draw[cRed, line width=1.0pt, ->, rounded corners=4pt] (\x+0.35,2.6) -- (\x+0.35,4.05) -- (\x+1.1,4.05) -- (\x+1.1,0.55) -- (\x+0.35,0.55) -- (\x+0.35,1.95);
+}
+\draw (2.35,2.3) -- (9.65,2.3);
+\draw[line width=1.6pt] (5.0,2.3) to[short, *-o] (5.0,-0.55) node[below, font=\scriptsize]{ac (M6)};
+\foreach \d/\xa/\xb in {1/2.35/4.75, 2/7.25/9.65}{
+  \node[draw, fill=cGreen!15, minimum width=0.9cm, minimum height=0.42cm, font=\tiny, align=center] (drv\d) at ({(\xa+\xb)/2},3.45) {2EDF\\[-2pt]7275K};
+}
+\draw[cGreen!50!black] (QH1.G) -- (drv1.west |- QH1.G); \draw[cGreen!50!black] (QH2.G) -- (drv1.east |- QH2.G);
+\draw[cGreen!50!black] (QH3.G) -- (drv2.west |- QH3.G); \draw[cGreen!50!black] (QH4.G) -- (drv2.east |- QH4.G);
+\node[font=\tiny, cBlue!80!black, align=left, anchor=west] at (9.75,0.62) {shunt:\\[-2pt]DPT board\\[-2pt]only};
+\node[font=\tiny, cGreen!40!black, align=center] at (5.3,5.05) {one 2EDF7275K (HS + LS channel) per pair of cells, star gate network};
+\node[font=\bfseries] at (-1.4,-1.05) {(b)};
+\end{scope}
+%------------------------------------------------------------------ (c) gate and power circuit of one transistor
+\begin{scope}[xshift=19.4cm, yshift=-1.3cm]
+\fill[cGreen!10, rounded corners=2pt] (-0.35,-0.2) rectangle (4.75,3.4);
+\node[draw, fill=white, minimum width=1.05cm, minimum height=1.6cm, align=center, font=\scriptsize] (D) at (0.25,2.2) {driver\\[-2pt]\tiny 2EDF7275K\\[1pt]\tiny $R_\mathrm{pu}$, $R_\mathrm{pd}$};
+\draw (0.75,2.65) to[R, l={\scriptsize $R_\mathrm{g,on}$}] (2.05,2.65) -- (2.25,2.65) -- (2.25,2.2);
+\draw (0.75,1.75) to[R, l_={\scriptsize $R_\mathrm{g,off}$}] (2.05,1.75) -- (2.25,1.75) -- (2.25,2.2);
+\draw (2.25,2.2) to[L, l={\scriptsize $L_G$}, color=cGreen!50!black] (3.35,2.2) to[R, l_={\scriptsize $R_\mathrm{G,int}$}] (4.3,2.2);
+\draw (5.0,3.5) to[Tnigfete, n=Q, mirror] (5.0,0.9);
+\draw (4.3,2.2) -- (Q.G);
+\draw (5.0,0.9) to[L, l_={\scriptsize $L_{CS}$}, color=cRed!80!black] (5.0,0.0);
+\fill (5.0,0.0) circle (1pt) node[right, font=\tiny]{K};
+\draw[cGreen!50!black] (5.0,0.0) -- (0.25,0.0) -- (D.south);
+\node[font=\tiny, cGreen!45!black, anchor=south] at (2.6,0.0) {Kelvin return};
+\draw[cRed, line width=0.9pt, ->] (5.0,0.0) -- (5.0,-0.6);
+\draw[cRed, line width=0.9pt, <-] (5.0,3.5) -- (5.0,4.1);
+\node[font=\tiny, cRed!80!black, anchor=west, align=left] at (5.1,3.95) {power loop $L_\mathrm{loop}$, from $C_\mathrm{loc}$};
+\node[font=\tiny, cRed!80!black, anchor=west, align=left] at (5.1,-0.5) {to dc$-$ / ac};
+\node[font=\scriptsize] at (5.65,2.2) {Q};
+
+\node[font=\bfseries] at (-0.6,-1.05) {(c)};
+\end{scope}
+\end{tikzpicture}
