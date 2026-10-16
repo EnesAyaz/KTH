@@ -1,0 +1,1065 @@
+{
+ "topic": "Topic categories: 17. Power Electronics for Transportation Electrification; 01. Power Devices (Si / Wide Band Gap) and Applications",
+ "title": "Building Block Design for Stacked Polyphase Bridge Converters for High-Voltage Traction Drives",
+ "abstract": [
+  [
+   "In a stacked polyphase bridge (SPB) converter the battery voltage is shared by series-connected three-phase submodules, so the transistor voltage class becomes a design variable. This digest presents the design of the phase-leg building block of a 1200 V, 300 kW SPB traction inverter. Because the phase current does not depend on the number of submodules, 100 V GaN transistors give the lowest loss, and the turn-off overshoot at a realistic commutation-loop inductance sets 16 submodules of 75 V. Four EPC2361 per switch, driven as two mirrored pairs by one dual-channel isolated driver each, keep the junction temperature at 69 °C. The leg is built as a double-pulse-test (DPT) board with a coaxial shunt in every cell and as a load-test board without shunts. Q3D extraction of the routed boards gives 0.41 nH per cell without and 0.65 nH with the shunt. A double-pulse simulation with the complete extracted parasitic network confirms current sharing among the four cells within 3 % and a peak drain-source voltage of 86 V at the peak phase current. Double-pulse measurements on the DPT board will be added in the final paper.",
+   ""
+  ]
+ ],
+ "blocks": [
+  {
+   "t": "h1",
+   "text": "Introduction"
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "High-voltage traction batteries push two-level inverters to 1200 V transistors and large voltage steps at the machine terminals. The stacked polyphase bridge (SPB) converter [1], [2] connects ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     " three-phase bridges in series on the dc side, each feeding one winding set of a multiphase machine. Every submodule blocks only ",
+     ""
+    ],
+    [
+     "V",
+     "i"
+    ],
+    [
+     "bus",
+     "s"
+    ],
+    [
+     "/",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     ", which allows low-voltage transistors and reduces the voltage step and the dc-link capacitance [3], [4]. Control, dc-link stability and machine design of the SPB have been studied [2]–[6], and a GaN-based SPB was found competitive with a three-level flying-capacitor inverter [7].",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "The submodule itself has received little attention. At 1200 V and 300 kW each leg conducts 228 A",
+     ""
+    ],
+    [
+     "rms",
+     "s"
+    ],
+    [
+     " at 75 V, so several GaN transistors must be paralleled, and paralleled low-voltage GaN stages are limited by turn-off overshoot [8], uneven dynamic current sharing [9], [10] and gate disturbances. Designs with up to eight devices per switch [11], [12] start from a given bus voltage. In an SPB the submodule voltage is free, and it is coupled to the device count and the layout through the loop inductance. This work contributes: (i) a selection of the device voltage class and the submodule voltage that includes the loop inductance; (ii) a gate-drive arrangement for four paralleled GaN transistors per switch based on a current-sharing sensitivity analysis; (iii) a four-cell leg board in a test and an operating version, verified by Q3D extraction and by a double-pulse simulation with the complete extracted parasitic network.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Device and Submodule Voltage"
+  },
+  {
+   "t": "fig",
+   "img": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\img\\fig_spb.png",
+   "w_cm": 16.0,
+   "cap": [
+    [
+     "Fig. 1: (a) SPB inverter with ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     " submodules (SM) of ",
+     ""
+    ],
+    [
+     "V",
+     "i"
+    ],
+    [
+     "m",
+     "s"
+    ],
+    [
+     " = ",
+     ""
+    ],
+    [
+     "V",
+     "i"
+    ],
+    [
+     "bus",
+     "s"
+    ],
+    [
+     "/",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     ". (b) Building block, one phase leg: four commutation cells (QH, QL: EPC2361) with bypass capacitors ",
+     ""
+    ],
+    [
+     "C",
+     "i"
+    ],
+    [
+     "byp",
+     "s"
+    ],
+    [
+     ", a common bank ",
+     ""
+    ],
+    [
+     "C",
+     "i"
+    ],
+    [
+     "bank",
+     "s"
+    ],
+    [
+     " and one ac output; one dual-channel driver per pair of cells; shunt (dashed) on the DPT board only. (c) Gate circuit with the common-source inductance ",
+     ""
+    ],
+    [
+     "L",
+     "i"
+    ],
+    [
+     "CS",
+     "s"
+    ],
+    [
+     " up to the Kelvin pad K.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "For ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     " submodules sharing the power equally (Fig. 1a), the inverter power is",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "eq",
+   "um": "P=3N P_(\"leg\")=(3M V_(\"bus\"))/(2√2) I_(\"ph\") cos⁡φ",
+   "n": 1
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "so the phase current is independent of ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     ": with ",
+     ""
+    ],
+    [
+     "M",
+     "i"
+    ],
+    [
+     " = 1.15 and cos φ = 0.9, 300 kW at 1200 V require 228 A",
+     ""
+    ],
+    [
+     "rms",
+     "s"
+    ],
+    [
+     " (322 A peak) in every leg. Since every submodule carries the full current, the conduction loss scales with ",
+     ""
+    ],
+    [
+     "N I",
+     "i"
+    ],
+    [
+     "2",
+     "p"
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "DS(on)",
+     "s"
+    ],
+    [
+     "/",
+     ""
+    ],
+    [
+     "n",
+     "i"
+    ],
+    [
+     " and the output-charge loss with ",
+     ""
+    ],
+    [
+     "N n f",
+     "i"
+    ],
+    [
+     "sw",
+     "s"
+    ],
+    [
+     "C",
+     "i"
+    ],
+    [
+     "oss,tr",
+     "s"
+    ],
+    [
+     "V",
+     "i"
+    ],
+    [
+     "m",
+     "s"
+    ],
+    [
+     "2",
+     "p"
+    ],
+    [
+     " for ",
+     ""
+    ],
+    [
+     "n",
+     "i"
+    ],
+    [
+     " devices per switch. Optimizing ",
+     ""
+    ],
+    [
+     "n",
+     "i"
+    ],
+    [
+     " gives",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "eq",
+   "um": "P_(\"min\")=6 I V_(\"bus\") √(f_(\"sw\") R_(\"DS(on)\") C_(\"oss,tr\"))",
+   "n": 2
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "in which the voltage class cancels to first order. Ten GaN transistors of the 100–650 V classes are therefore ranked by the time constant τ = ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "DS(on)",
+     "s"
+    ],
+    [
+     "C",
+     "i"
+    ],
+    [
+     "oss,tr",
+     "s"
+    ],
+    [
+     " and, since conduction dominates, by the on-resistance per volt of blocking capability (Fig. 2). The 100 V class leads in both; EPC2361 (0.75 mΩ) reaches 7.5 µΩ/V, three to thirty times below the higher-voltage parts. The submodule voltage then follows from the overshoot at turn-off,",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "eq",
+   "um": "V_m+L_(\"loop\") di∕dt≤90 \"V\"",
+   "n": 3
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "A vertical loop over a 0.1 mm dielectric reaches about 0.5 nH per cell, whereas a measurement shunt raises it to about 1 nH. With the turn-on rate of 33 A/ns at 80 A per device, (3) allows 73 V at 0.5 nH and 57 V at 1 nH. An even ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     " is required for symmetric winding sets, so ",
+     ""
+    ],
+    [
+     "N",
+     "i"
+    ],
+    [
+     " = 16 and ",
+     ""
+    ],
+    [
+     "V",
+     "i"
+    ],
+    [
+     "m",
+     "s"
+    ],
+    [
+     " = 75 V are selected; the operating hardware must therefore stay close to 0.5 nH.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "fig",
+   "img": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\img\\dev_compare.png",
+   "w_cm": 14.5,
+   "cap": [
+    [
+     "Fig. 2: Device selection (datasheet values). (a) ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "DS(on)",
+     "s"
+    ],
+    [
+     " against ",
+     ""
+    ],
+    [
+     "C",
+     "i"
+    ],
+    [
+     "oss,tr",
+     "s"
+    ],
+    [
+     " with lines of constant τ; (b) both per volt of blocking capability; (c) SPBs from the best device of each class, normalized: minimum loss (2), devices per switch, submodules, voltage step and transistor count.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Devices per Switch, Gate Drive and DC Link"
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "The leg loss over a fundamental period is computed from LTspice switching energies at 0.5 and 1 nH, with the junction temperature and ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "DS(on)",
+     "s"
+    ],
+    [
+     " solved together for the thermal path of the load-test hardware (fan heatsink 0.65 K/W, 7.6 K/W from junction to heatsink per device). One device per switch runs away thermally and two reach 141 °C (Fig. 3). Three devices exceed 90 V. Four devices dissipate 18.0 W per leg at 69 °C and 40 °C ambient with 83 V peak at 0.5 nH, but 93 V at 1 nH; four per switch are chosen.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "fig",
+   "img": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\img\\flow_npar2.png",
+   "w_cm": 14.5,
+   "cap": [
+    [
+     "Fig. 3: ",
+     ""
+    ],
+    [
+     "n",
+     "i"
+    ],
+    [
+     " EPC2361 per switch at 228 A",
+     ""
+    ],
+    [
+     "rms",
+     "s"
+    ],
+    [
+     " and 50 kHz. (a) Semiconductor loss per leg, 0.5 nH (left) and 1 nH (right, hatched); (b) junction temperature on the load-test heatsink; (c) peak ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     " at the peak current per device.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "table",
+   "cap": [
+    [
+     "Table I: Switching-energy imbalance of two paralleled EPC2361 (LTspice, 75 V, 120 A)",
+     ""
+    ]
+   ],
+   "rows": [
+    [
+     [
+      [
+       "Asymmetry",
+       "b"
+      ]
+     ],
+     [
+      [
+       "Imbalance",
+       "b"
+      ]
+     ],
+     [
+      [
+       "Layout measure",
+       "b"
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "Power loop, ",
+       ""
+      ],
+      [
+       "L",
+       "i"
+      ],
+      [
+       "D",
+       "s"
+      ],
+      [
+       " +0.3 nH",
+       ""
+      ]
+     ],
+     [
+      [
+       "2 %",
+       ""
+      ]
+     ],
+     [
+      [
+       "mirrored cells",
+       ""
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "Gate loop, ",
+       ""
+      ],
+      [
+       "L",
+       "i"
+      ],
+      [
+       "G",
+       "s"
+      ],
+      [
+       " 2 vs. 8 nH",
+       ""
+      ]
+     ],
+     [
+      [
+       "19 %",
+       ""
+      ]
+     ],
+     [
+      [
+       "star gate network",
+       ""
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "No Kelvin, ",
+       ""
+      ],
+      [
+       "L",
+       "i"
+      ],
+      [
+       "CS",
+       "s"
+      ],
+      [
+       " +0.2 nH",
+       ""
+      ]
+     ],
+     [
+      [
+       "29 %",
+       ""
+      ]
+     ],
+     [
+      [
+       "Kelvin return per device",
+       ""
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       "Threshold, ",
+       ""
+      ],
+      [
+       "V",
+       "i"
+      ],
+      [
+       "th",
+       "s"
+      ],
+      [
+       " +0.3 V",
+       ""
+      ]
+     ],
+     [
+      [
+       "7 %",
+       ""
+      ]
+     ],
+     [
+      [
+       "one channel per pair",
+       ""
+      ]
+     ]
+    ]
+   ],
+   "w_cm": [
+    5.6,
+    2.4,
+    5.0
+   ]
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "Dynamic sharing is dominated by the gate loop and the common-source path, not by the power loop (Table I). One channel for all four devices of a switch is excluded, since the slower gate charging raises the turn-on energy by 31 % and the sink current exceeds the 8 A rating. One 2EDF7275K (isolated high- and low-side channel) is therefore placed on the symmetry line between two mirrored cells and drives both gates through a star with Kelvin returns (Fig. 1b); a Zener split of its supply gives +5.1 V and −1.2 V against the Miller-induced gate bump. The three legs of a submodule share one dc bus, so only the switching-frequency ripple remains: 3 % ripple requires 127 µF effective per leg, and with only 29 % of the nominal value left at 75 V, twenty 22 µF 2220 MLCCs are placed on each leg board, plus ten 1 µF 0805 bypass capacitors per cell.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Leg Board in Two Versions"
+  },
+  {
+   "t": "fig",
+   "img": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\img\\boards.png",
+   "w_cm": 16.0,
+   "cap": [
+    [
+     "Fig. 4: Leg board, four EPC2361 per switch (89.5 × 80 mm, four layers). (a) DPT board with a coaxial shunt per cell; (b) load-test board with fan heatsink; (c) Q3D model of the cells, generated from the routed copper (red dc+, blue dc−, orange switch node).",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two mirrored pairs, each with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below (Fig. 4). Vias removed for clearance are removed together with their mirror image. Measuring every cell current requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell and U.FL probes for ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "GS",
+     "s"
+    ],
+    [
+     " and ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     "; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.34 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.3 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. Three load-test boards form a level on a laminated PCB busbar with 1.46 nH between neighbouring legs.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Validation With the Extracted Parasitics"
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "To check the lumped design against the routed copper, the extracted network was inserted into a double-pulse circuit: the 100 MHz partial-inductance matrix of cells, bypass pads, shunt lands and switch-node copper as one inductor per terminal with every mutual coupling (29 inductors and 400 couplings for the load-test board), the dc resistance matrix including its mutual terms as behavioural sources, eight EPC2361 models, the bypass capacitors with dc-bias capacitance and ESL, the shunts, the bank and two drivers with star gates and Kelvin returns. The load current is switched at the peak phase current (Fig. 5).",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "fig",
+   "img": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\img\\q3d_spice_2x2.png",
+   "w_cm": 14.5,
+   "cap": [
+    [
+     "Fig. 5: Double-pulse simulation with the Q3D-extracted copper, 75 V, 316 A (≈ 80 A per device), ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "g,on",
+     "s"
+    ],
+    [
+     " = 2 Ω. (a) Low-side turn-off and (b) turn-on on the load-test board, four cells: drain current (solid), ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     " (dashed). (c) High-side ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     " at the low-side turn-on vs. the lumped model. (d) Switching energy per device in each cell; lines: lumped model.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "The four cells carry 77–81 A at turn-off and their turn-on energies differ by 2 %, so the mirrored layout and the per-pair drive leave none of the mechanisms of Table I active. The low-side turn-off is uncritical (81 V). The critical event is the low-side turn-on, at 46 A/ns: the high-side device peaks at 91 V on the load-test board, in agreement with the lumped model at the extracted loop (91 V), and at 94 V on the DPT board. Turn-on energies agree with the lumped model within 10 %. With ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "g,on",
+     "s"
+    ],
+    [
+     " = 3 Ω the turn-on slows to 34 A/ns and the peaks drop to 86 V and 87 V for a 20 % higher turn-on energy (below 1 W per leg); both boards are operated with 3 Ω. The gate bump of 1.2 V with a 0 V off-state confirms the need for the negative off-state voltage.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Experimental Verification in the Final Paper"
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "The final paper will add double-pulse measurements on the DPT board at 75 V up to the peak phase current of 322 A: the four cell currents through the coaxial shunts, ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     " and ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "GS",
+     "s"
+    ],
+    [
+     " of every cell through the U.FL probe points, the overshoot for ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "g,on",
+     "s"
+    ],
+    [
+     " = 2 and 3 Ω, and the measured switching energies and their spread, compared with the simulation of Section V. Continuous operation of the load-test board will verify the thermal design.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "Conclusion"
+  },
+  {
+   "t": "p",
+   "runs": [
+    [
+     "Because the phase current of an SPB is independent of the number of submodules, the device and the submodule voltage can be chosen for minimum loss and the available overshoot margin. For a 1200 V, 300 kW inverter this gives 16 submodules of 75 V with four 100 V GaN transistors per switch, driven in mirrored pairs by one dual-channel isolated driver each. Q3D extraction of the routed board gives 0.41 nH per cell, and a double-pulse simulation with the full extracted network confirms equal sharing among the four cells and a peak voltage of 86 V with ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "g,on",
+     "s"
+    ],
+    [
+     " = 3 Ω.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h1",
+   "text": "References"
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[1] S. Norrga, L. Jin, O. Wallmark, A. Mayer, and K. Ilves, \"A novel inverter topology for compact EV and HEV drive systems,\" in ",
+     ""
+    ],
+    [
+     "Proc. IECON",
+     "i"
+    ],
+    [
+     ", 2013, pp. 6590–6595.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[2] L. Jin, S. Norrga, O. Wallmark, and M. Nikouei Harnefors, \"Control and modulation of the stacked polyphase bridges inverter,\" in ",
+     ""
+    ],
+    [
+     "Proc. IEEE ECCE",
+     "i"
+    ],
+    [
+     ", 2014.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[3] L. Jin, S. Norrga, O. Wallmark, and N. Apostolopoulos, \"Modulation and power losses of a stacked polyphase bridge converter,\" ",
+     ""
+    ],
+    [
+     "IEEE J. Emerg. Sel. Topics Power Electron.",
+     "i"
+    ],
+    [
+     ", vol. 5, no. 1, pp. 409–418, 2017.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[4] T. Bringezu and J. Biela, \"Control of a 9-phase PMSM with stacked polyphase bridge converter including dc source impedance,\" in ",
+     ""
+    ],
+    [
+     "Proc. EPE ECCE Europe",
+     "i"
+    ],
+    [
+     ", 2023.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[5] M. Nikouie, O. Wallmark, L. Jin, L. Harnefors, and H.-P. Nee, \"DC-link stability analysis and controller design for the stacked polyphase bridges converter,\" ",
+     ""
+    ],
+    [
+     "IEEE Trans. Power Electron.",
+     "i"
+    ],
+    [
+     ", vol. 32, no. 2, pp. 1666–1674, 2017.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[6] L. Verkroost ",
+     ""
+    ],
+    [
+     "et al.",
+     "i"
+    ],
+    [
+     ", \"Multi-agent control scheme for power distribution in a multi-three-phase motor drive fed by a stacked polyphase bridges converter,\" ",
+     ""
+    ],
+    [
+     "IEEE Trans. Energy Convers.",
+     "i"
+    ],
+    [
+     ", vol. 39, no. 4, pp. 2568–2580, 2024.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[7] G. Rohner, J. Huber, S. Mirić, and J. W. Kolar, \"Comparative evaluation of three-phase three-level flying capacitor and stacked polyphase bridge GaN inverter systems for integrated motor drives,\" ",
+     ""
+    ],
+    [
+     "Electronics",
+     "i"
+    ],
+    [
+     ", vol. 13, no. 7, 1259, 2024.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[8] J. A. Brothers and T. Beechner, \"GaN module design recommendations based on the analysis of a commercial 3-phase GaN module,\" in ",
+     ""
+    ],
+    [
+     "Proc. IEEE ECCE",
+     "i"
+    ],
+    [
+     ", 2019, pp. 4109–4116.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[9] J. Lu and D. Chen, \"Paralleling GaN E-HEMTs in 10 kW-100 kW systems,\" in ",
+     ""
+    ],
+    [
+     "Proc. IEEE APEC",
+     "i"
+    ],
+    [
+     ", 2017, pp. 3049–3056.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[10] M. T. Tran ",
+     ""
+    ],
+    [
+     "et al.",
+     "i"
+    ],
+    [
+     ", \"A high-performance GaN power module with parallel packaging for high-current and low-voltage traction inverter applications,\" ",
+     ""
+    ],
+    [
+     "IEEE J. Emerg. Sel. Topics Power Electron.",
+     "i"
+    ],
+    [
+     ", vol. 13, no. 1, pp. 1188–1209, 2025.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[11] M. Wattenberg, O. G. Lorenz, and J. Sanchez, \"A multi-kilowatt low-profile GaN inverter for light electric vehicles and high-power tools,\" in ",
+     ""
+    ],
+    [
+     "Proc. IEEE APEC",
+     "i"
+    ],
+    [
+     ", 2023, pp. 1443–1450.",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "ref",
+   "runs": [
+    [
+     "[12] M. W. J. Cooke and D. J. Rogers, \"120 V, 155 A traction inverter using eight parallel GaN HEMTs,\" 2026.",
+     ""
+    ]
+   ]
+  }
+ ],
+ "compliance": [
+  [
+   "Statement of compliance: this digest complies with the export control laws of the country in which the authors reside; the required clearances have been obtained prior to submission.",
+   ""
+  ]
+ ]
+}

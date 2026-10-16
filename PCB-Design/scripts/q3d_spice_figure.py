@@ -56,7 +56,9 @@ def panel(ax, s):
 
 
 tl, gl = trace(os.path.join(SP, "REVB_Q3D_load.raw"))
-fig, axs = plt.subplots(1, 4, figsize=(15.5, 3.6))
+GRID = os.environ.get("GRID", "") == "2x2"           # 2x2 layout for the one-column ICPE digest
+fig, axs = plt.subplots(2, 2, figsize=(11.0, 7.2)) if GRID else plt.subplots(1, 4, figsize=(15.5, 3.6))
+axs = axs.ravel()
 
 # (a) turn-off, load-test board
 ax = axs[0]
@@ -135,8 +137,11 @@ ax.set_ylim(0, 58)
 ax.legend(loc="upper center", ncol=2, frameon=False, fontsize=6.3 * _k)
 panel(ax, "(d)")
 
-fig.tight_layout(w_pad=1.2)
-if PAPER:
+fig.tight_layout(w_pad=1.2, h_pad=1.0)
+if GRID:
+    out = os.path.join(ROOT, "reports", "paper", "icpe", "img", "q3d_spice_2x2.png")
+    fig.savefig(out, dpi=200)
+elif PAPER:
     out = os.path.join(ROOT, "reports", "paper", "figures", "revb", "q3d_spice.pdf")
     fig.savefig(out, bbox_inches="tight", pad_inches=0.02)
 else:
