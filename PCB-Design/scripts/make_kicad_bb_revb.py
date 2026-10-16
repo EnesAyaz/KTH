@@ -1447,7 +1447,14 @@ open(os.path.join(OUT, NAME + ".kicad_dru"), "w").write("\n".join(rules) + "\n")
 board2 = pcbnew.LoadBoard(path)
 board2.BuildConnectivity()
 print("filling", flush=True)
-pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
+for _try in range(3):                            # the filler has once returned with all zones empty: check, retry
+    ok = pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
+    _cu = [z for z in board2.Zones() if not z.GetIsRuleArea()]
+    if ok and all(z.IsFilled() for z in _cu) and sum(z.GetFilledArea() > 0 for z in _cu) > len(_cu) // 2:
+        break
+    print("zone fill incomplete, retrying", flush=True)
+else:
+    raise SystemExit("zone fill failed")
 pcbnew.SaveBoard(path, board2)
 pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)
 print("saved", path, "footprints", len(board.GetFootprints()), "nets", len(NETS),
