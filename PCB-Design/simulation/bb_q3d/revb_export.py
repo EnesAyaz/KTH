@@ -92,7 +92,7 @@ for t in b.GetTracks():
             ps.Append(int(ex - sy * h * uy), int(ey + sy * h * ux))
 # LOOP model (REVB_REGION=loop): only the cell band from the bypass row to the shunts (y = -4.6 .. 20.6), the bank and
 # the terminals are left out; the switch node is split per cell (AC1..AC4: the cells meet only at the AC bus).
-# LX model (REVB_REGION=lx): cell band + AC columns + AC bus (y = -4.6 .. 56), no bank, no terminals, AC joined:
+# LX model (REVB_REGION=lx): cell band + AC columns + AC bus (y = -4.6 .. 61.2, whole bus since D_BUS = 5.2), no bank, no terminals, AC joined:
 # inductance between the switch nodes of the two driver pairs (driver skew).
 REGION = os.environ.get("REVB_REGION", "")
 LOOP = REGION == "loop"
@@ -100,8 +100,8 @@ LOOP = REGION == "loop"
 # DC-link port of the leg (terminals -> bank -> bypass) for the three-phase network and the hand-over L_b.
 CROP = REGION in ("loop", "lx", "bank")
 BANK = REGION == "bank"
-REG = {"loop": (-46.0, -4.6, 46.0, 20.6), "lx": (-46.0, -4.6, 46.0, 56.0), "bank": (-46.0, -25.0, 46.0, 4.3)}.get(
-    REGION, (-46.0, -25.0, 46.0, 56.0))                # loop: below 20.6 (AC columns from 20.8)
+REG = {"loop": (-46.0, -4.6, 46.0, 20.6), "lx": (-46.0, -4.6, 46.0, 61.2), "bank": (-46.0, -25.0, 46.0, 4.3)}.get(
+    REGION, (-46.0, -25.0, 46.0, 61.2))                # loop: below 20.6 (AC columns from 20.8)
 CELLX = (-33.25, -14.25, 14.25, 33.25)
 
 

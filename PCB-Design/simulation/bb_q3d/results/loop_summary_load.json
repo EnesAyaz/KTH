@@ -1,29 +1,29 @@
 {
  "all_switching": {
-  "cell1": 0.4049,
-  "cell2": 0.4055,
-  "cell3": 0.4067,
-  "cell4": 0.4102
+  "cell1": 0.4084,
+  "cell2": 0.4077,
+  "cell3": 0.4059,
+  "cell4": 0.4125
  },
  "all_switching_top_bypass_only": {
-  "cell1": 0.4234,
-  "cell2": 0.4242,
-  "cell3": 0.4254,
-  "cell4": 0.4287
+  "cell1": 0.4271,
+  "cell2": 0.4266,
+  "cell3": 0.4248,
+  "cell4": 0.4311
  },
  "all_switching_shunt_0pH": {
-  "cell1": 0.4049,
-  "cell2": 0.4055,
-  "cell3": 0.4067,
-  "cell4": 0.4102
+  "cell1": 0.4084,
+  "cell2": 0.4077,
+  "cell3": 0.4059,
+  "cell4": 0.4125
  },
  "each_alone": {
-  "cell1": 0.3983,
-  "cell2": 0.3903,
-  "cell3": 0.3915,
-  "cell4": 0.4035
+  "cell1": 0.4017,
+  "cell2": 0.392,
+  "cell3": 0.3902,
+  "cell4": 0.4058
  },
  "matrix": "Setup1:LastAdaptive",
- "mean_nH": 0.4068,
- "overshoot_30Apns_V": 87.2
+ "mean_nH": 0.4086,
+ "overshoot_30Apns_V": 87.3
 }

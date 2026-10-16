@@ -172,6 +172,13 @@ for net, objs in NETOBJ.items():
     big = [o for o in lumps if o not in small]
     if small:
         ed.Delete(["NAME:Selections", "Selections:=", ",".join(small)])
+    if len(big) > 1 and REGION == "loop":
+        # loop crop: switch-node copper whose link to the cell lies outside the crop (AC column starts) carries no
+        # commutation-loop current -> keep the cell body only
+        log("loop: net %s, detached lumps deleted: %r" % (net, [(o, round(_diag(o), 1)) for o in big[1:]]))
+        ed.Delete(["NAME:Selections", "Selections:=", ",".join(big[1:])])
+        small += big[1:]
+        big = big[:1]
     if len(big) > 1:
         log("WARNING net %s has %d large lumps: %r" % (net, len(big), [(o, round(_diag(o), 1)) for o in big]))
         ed.Unite(["NAME:Selections", "Selections:=", ",".join(big)], ["NAME:UniteParameters", "KeepOriginals:=", False])
