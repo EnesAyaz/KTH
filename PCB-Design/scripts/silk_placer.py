@@ -165,6 +165,6 @@ def pins_from_value(value):
     """'CTRL1: 1 12V 2 GND 3 PWM_H ...' / 'V_ISO,HS in: 1 +, 2 -' / '1:NTC 2:DC-' -> {pin: name}."""
     body = value.split(":", 1)[1] if re.match(r"^[A-Za-z_ ,0-9]+:\s*\d", value) else value
     out = {}
-    for m in re.finditer(r"(\d)\s*[: ]\s*([^\s,()]+)", body):
+    for m in re.finditer(r"(?<!\d)(\d+)\s*[: ]\s*([^\s,()]+)", body):
         out[m.group(1)] = m.group(2).replace("_", "")
     return out

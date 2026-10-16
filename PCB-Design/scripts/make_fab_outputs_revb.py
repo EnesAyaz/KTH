@@ -21,9 +21,11 @@ LAYERS = "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,
 ORIGIN = {"spb-bb-revb-dpt": "150x100mm", "spb-bb-revb-load": "150x100mm", "spb-busbar": "160x80mm"}
 NOTE = {
     "spb-bb-revb-dpt": "4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; "
-                       "filled + capped via-in-pad (SHLD pads); double-pulse board (UFCS shunts, no heatsink)",
+                       "filled + capped via-in-pad (SHLD pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; "
+                       "solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)",
     "spb-bb-revb-load": "4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; "
-                        "BLIND vias L1-L2 (0.25 mm drill) filled + capped in the LS source pads; load-test board",
+                        "BLIND vias L1-L2 (0.25 mm drill) filled + capped in the LS source pads; load-test board; IPC class 2; "
+                        "solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)",
     "spb-busbar": "4 layers, 1.6 mm FR4, 2 oz on all layers (JLC3313 stack-up), ENIG, bolt pads without mask",
 }
 MECH = {
@@ -34,10 +36,15 @@ MECH = {
         (4, "H1-H4", "M2.5 standoff + screw (board mounting)", "-", "nylon / insulated"),
         (4, "RS1-RS4", "PMK UFCS-R001 hand-soldered at the blade (short IN land), SMA cable to the scope", "-",
          "PMK UFCS-R001"),
+        (2, "J5, J14", "Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return)", "-",
+         "2.54 mm IDC, e.g. Wurth 61201021621"),
     ],
     "spb-bb-revb-load": [
         (1, "HS1", "Fan heatsink 40 x 40 x 50 mm, 12 V fan", "-", "Fischer Elektronik LAM 4 K 50 12 (0.65 K/W), "
                                                                  "Farnell 4708974"),
+        (1, "HS1", "Fan supply: 12 V from the bench supply (no fan header on the board: 1200 V barrier)", "-", "-"),
+        (2, "J5, J14", "Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return)", "-",
+         "2.54 mm IDC, e.g. Wurth 61201021621"),
         (1, "HS1", "Heat spreader Al 6061, 89.5 x 12.8 x 3 mm, 4 pedestals 5.6 x 7.7 x 0.6 mm over the cells, "
                    "3 x M2.5 (H5-H7)", "-", "machined"),
         (4, "HS1", "Insulating gap pad over each cell, 5.6 x 7.7 mm, 0.5 mm, >= 5 W/mK", "-",

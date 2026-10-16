@@ -12,7 +12,7 @@ KiCad 7 stops a report at 579 violations, so "capped" means more pairs exist bey
 distance is still found because the closest pairs are reported first per item.
 
 Domains (by net name):
-  CTRL  primary side of the 2EDF7275K: control connector, 12 V, PWM, DIS, GNDI   (potential of the controller)
+  CTRL  primary side of the 2EDF7275K: control connector, 12 V, PWM, DIS, NTC, GNDI (potential of the controller)
   HS    switch-node domain: SW, high-side Kelvin KH and the HS gate/driver nets  (0..90 V against DC-)
   LS    DC- domain: DC-, LS sources, low-side Kelvin KL and the LS gate/driver nets
   DCP   DC+ (and the DC+ LED divider)
@@ -33,9 +33,9 @@ NAME = "spb-bb-revb-" + BOARD
 SRC = os.path.join(ROOT, "hardware", NAME)
 
 DOM = {
-    "CTRL": ["GNDI*", "+12V*", "C_*", "PWM_*", "DIS*", "INA*", "INB*", "VDDI*", "LEDA_12V*"],
+    "CTRL": ["GNDI*", "+12V*", "12V_CM*", "C_*", "PWM_*", "DIS*", "INA*", "INB*", "VDDI*", "LEDA_12V*", "NTC"],
     "HS": ["SW", "KH*", "VDDA*", "VEEA*", "GH_*", "OUTA*", "OFFA*", "VINA_*", "UFL_H*"],
-    "LS": ["DCN", "LSRC*", "KL*", "VDDB*", "VEEB*", "GL_*", "OUTB*", "OFFB*", "VINB_*", "UFL_L*", "UFL_D*", "NTC"],
+    "LS": ["DCN", "LSRC*", "KL*", "VDDB*", "VEEB*", "GL_*", "OUTB*", "OFFB*", "VINB_*", "UFL_L*", "UFL_D*"],
     "DCP": ["DCP", "HVA", "HVB"],
 }
 PAIRS = [("CTRL", "HS"), ("CTRL", "LS"), ("CTRL", "DCP"), ("HS", "LS"), ("HS", "DCP"), ("LS", "DCP")]

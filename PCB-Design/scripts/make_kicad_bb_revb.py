@@ -87,11 +87,20 @@ YDR = 15.6 + DY                              # driver centre
 BX = 23.75                                   # block centres at x = -+BX
 XS_OFF = 12.4                                # shunt centre |x_r| (pads 4.9 .. 19.9)
 XO = BX + 19.9 + EDGE + 0.1                  # board half width
-Y0, Y1 = YT - EDGE, 55.6
+# 1200 V barrier (2026-10-16, reports/pcb-rules/PCB_rules_and_checklist.md): the control domain of each block (driver
+# input side, control connector, common-mode chokes) is a top-layer-only SMD area right below the driver; power copper
+# keeps >= 4.0 mm on the outer layers (IPC-2221B B4/A6 at 1200 V, solder mask) and >= 3.0 mm on L2 (IPC B1). L3 and
+# L4 may pass under it (>= 1.3 mm of laminate = solid insulation). The AC bus moves down by D_BUS to make room.
+D_BUS = 5.2
+CA_X, CA_Y0, CA_Y1 = 6.75, 21.6, 40.5         # control area: |x_r| <= CA_X, CA_Y0 .. CA_Y1 (input pads at 20.775)
+BAR_OUT, BAR_IN = 4.0, 3.0                   # barrier: outer layers / L2
+QX0 = 16.6                                   # inner edge |x_r| of the AC columns on L1/L2 (was 13.5): room for the
+#                                              gate-supply islands outside the barrier (|x_r| 10.9 .. 16.0)
+Y0, Y1 = YT - EDGE, 55.6 + D_BUS
 YSH, YSL = YQH, YQL
 YS = 15.25                                   # shunt centre (IN pad 12.0..15.0, SHLD 15.5..18.5)
-YBUS = 39.3                                  # AC bus (all layers) from here to the bottom
-YJ = 49.4                                    # AC output terminals
+YBUS = 39.3 + D_BUS                          # AC bus (all layers) from here to the bottom
+MOAT = []                                    # (layer set, x0, x1, y0, y1) board coordinates: no power vias inside
 
 board = pcbnew.BOARD()
 board.SetCopperLayerCount(4)
@@ -188,6 +197,16 @@ def rect_zone(layer, n, x0, x1, y0, y1, prio=0, clearance=0.2):
     return zone(layer, n, [(x0, y0), (x1, y0), (x1, y1), (x0, y1)], prio, clearance)
 
 
+def moat(layer, x0, x1, y0, y1):
+    """barrier keepout: no pours, tracks or vias (pads allowed: the driver's own pads sit in it)."""
+    z = keepout(layer, x0, x1, y0, y1)
+    z.SetDoNotAllowTracks(True)
+    z.SetDoNotAllowVias(True)
+    z.SetZoneName("barrier 1200 V")
+    MOAT.append((layer, x0 + OFFX[0], x1 + OFFX[0], y0, y1))
+    return z
+
+
 def keepout(layer, x0, x1, y0, y1):
     z = pcbnew.ZONE(board)
     z.SetLayer(layer)
@@ -202,6 +221,7 @@ def keepout(layer, x0, x1, y0, y1):
     for x, y in ((x0, y0), (x1, y0), (x1, y1), (x0, y1)):
         ol.Append(MM(x + OFFX[0]), MM(y))
     board.Add(z)
+    return z
 
 
 def text(s, x, y, size=0.8, layer=pcbnew.F_SilkS, mirror=False):
@@ -228,7 +248,7 @@ def ref(prefix):
 FPNICK = [("R_", "Resistor_SMD"), ("C_", "Capacitor_SMD"), ("D_SOD", "Diode_SMD"), ("SOT-23", "Package_TO_SOT_SMD"),
           ("PinHeader", "Connector_PinHeader_2.54mm"), ("Wuerth", "TerminalBlock_Wuerth"), ("MountingHole", "MountingHole"),
           ("EPC2361", "epc2361-cell"), ("2EDF", "spb_fab"), ("LED_", "LED_SMD"), ("HS_", "spb_fab"),
-          ("PMK_UFCS", "spb_fab"), ("TI_DVG", "spb_fab"), ("U.FL", "Connector_Coaxial"), ("L_CommonMode", "Inductor_SMD")]
+          ("PMK_UFCS", "spb_fab"), ("TI_DVG", "spb_fab"), ("U.FL", "Connector_Coaxial"), ("L_CommonMode", "Inductor_SMD"), ("L_0603", "Inductor_SMD")]
 
 
 # parts whose KiCad library model is missing or wrong (scripts/make_3d_models_revb.py -> hardware/spb-bb-revb-<BOARD>/3d)
@@ -590,47 +610,48 @@ def build_block(bi, xoff):
            "Infineon 2EDF7275KXUMA1", "2EDF7275K_PG-TFLGA-13-4")
     drv = "U%d" % bi
     for ch, sg, out_pin, node in (("A", -1, 12, bn("GH_STAR")), ("B", 1, 9, bn("GL_STAR"))):
-        two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "0R75 1%% (R_ON,%s)" % ch, sg * 1.0, 12.2, 90,
+        two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "0R75 1%% (R_ON,%s)" % ch, sg * 1.2, 12.2, 90,
             node, bn("OUT" + ch), "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)")
         two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "0R (R_OFF,%s)" % ch, sg * 2.7, 11.7, 90,
             node, bn("OFF" + ch), "0R 0402 jumper (set R_OFF here)")
-        d = place(FP + "Diode_SMD.pretty", "D_SOD-323F", ref("D"), "PMEG3020EJ", sg * 2.7, 14.25, 90, False,
+        d = place(FP + "Diode_SMD.pretty", "D_SOD-323F", ref("D"), "PMEG3020EJ", sg * 2.9, 14.25, 90, False,
                   mpn="Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)")
         if padxy(d.GetReference(), 1)[1] < 14.25:
             d.SetOrientationDegrees(270.0)
             PARTS[-1]["rot"] = 270.0
         set_pads(d, {"1": bn("OUT" + ch), "2": bn("OFF" + ch)})
         ox, oy = padxy(drv, out_pin)
-        seg(F, [(sg * 1.0, 11.375), (sg * 1.0, 11.3), (sg * 2.7, 11.3), (sg * 2.7, 11.22)], 0.3, node)
-        seg(F, [(sg * 2.7, 12.18), (sg * 2.7, 13.15)], 0.3, bn("OFF" + ch))
-        seg(F, [(sg * 1.0, 13.025), (sg * 1.0, 15.9), (ox, oy)], 0.3, bn("OUT" + ch))
-        seg(F, [(sg * 2.7, 15.35), (sg * 2.2, 15.9), (sg * 1.0, 15.9)], 0.3, bn("OUT" + ch))
-    seg(F, [GHV2, (-1.0, 10.7), (-1.0, 11.375)], 0.3, bn("GH_STAR"))
-    seg(F, [(1.0, 11.375), (1.0, 10.3), (0, 10.3), (0, YSL)], 0.3, bn("GL_STAR"))
-    cols = {}
+        seg(F, [(sg * 1.2, 11.375), (sg * 1.2, 11.3), (sg * 2.7, 11.3), (sg * 2.7, 11.22)], 0.3, node)
+        seg(F, [(sg * 2.7, 12.18), (sg * 2.9, 13.15)], 0.3, bn("OFF" + ch))
+        seg(F, [(sg * 1.2, 13.025), (ox, oy)], 0.3, bn("OUT" + ch))
+        seg(F, [(sg * 2.9, 15.35), (sg * 1.3, 15.35)], 0.3, bn("OUT" + ch))
+    seg(F, [GHV2, (-1.2, 10.7), (-1.2, 11.375)], 0.3, bn("GH_STAR"))
+    seg(F, [(1.2, 11.375), (1.2, 10.3), (0, 10.3), (0, YSL)], 0.3, bn("GL_STAR"))
+    # output supplies: both nets of a channel drop through vias next to their pins, >= 4 mm from the input pins
+    # (y <= 16.4); the 1 uF decoupling sits on the bottom side under the driver; L3 takes the three nets (top, bottom,
+    # Kelvin S) sideways at once and around the control area to the island (the control area keeps >= 3 mm on L3)
     for ch, sg, top, bot, sref in (("A", -1, bn("VDDA"), bn("VEEA"), kh), ("B", 1, bn("VEEB"), bn("VDDB"), kl)):
-        for yy, nn in ((13.45 + DY, top), (14.45 + DY, bot)):
-            two("Capacitor_SMD.pretty", "C_0402_1005Metric", ref("C"), "1uF 16V X7R 0402", sg * 3.75, yy, 0,
-                sref if sg < 0 else nn, nn if sg < 0 else sref, "Murata GRM155R71C105KA12")
-        seg(F, [padxy(drv, 13 if sg < 0 else 8), (sg * 3.27, 13.45 + DY)], 0.3, top)
-        seg(F, [padxy(drv, 11 if sg < 0 else 10), (sg * 0.65, 14.45 + DY), (sg * 3.27, 14.45 + DY)], 0.3, bot)
         K2 = HSK2 if sg < 0 else LSK2
-        seg(F, [K2, (sg * 4.4, 11.5), (sg * 4.4, 13.45 + DY), (sg * 4.23, 13.45 + DY)], 0.3, sref)
-        seg(F, [(sg * 4.4, 13.45 + DY), (sg * 4.4, 14.45 + DY), (sg * 4.23, 14.45 + DY)], 0.3, sref)
-        seg(F, [(sg * 4.4, 14.45 + DY), (sg * 4.4, 15.4 + DY), (sg * 4.3, 16.0 + DY)], 0.3, sref)
-        via(sg * 4.3, 16.0 + DY, sref)
-        seg(F, [(sg * 3.27, 13.45 + DY), (sg * 3.2, 12.75 + DY)], 0.3, top)
-        via(sg * 3.2, 12.75 + DY, top)
-        seg(F, [(sg * 3.27, 14.45 + DY), (sg * 3.6, 15.3 + DY)], 0.3, bot)
-        via(sg * 3.6, 15.3 + DY, bot)
-        # L3 columns down to the supply island (outer = top-cap net, middle = source reference, inner = bottom)
-        yc = {5.0: 22.1, 4.0: 27.8, 3.0: 31.6}                    # near / S / far column ends at the island
-        seg(L3l, [(sg * 3.2, 12.75 + DY), (sg * 5.0, 12.75 + DY), (sg * 5.0, yc[5.0])], 0.3, top)
-        seg(L3l, [(sg * 4.3, 16.0 + DY), (sg * 4.0, 16.3 + DY), (sg * 4.0, yc[4.0])], 0.3, sref)
-        seg(L3l, [(sg * 3.6, 15.3 + DY), (sg * 3.0, 15.9 + DY), (sg * 3.0, yc[3.0])], 0.3, bot)
-        for xc_, nn in ((5.0, top), (4.0, sref), (3.0, bot)):
-            via(sg * xc_, yc[xc_], nn)
-        cols[ch] = dict(top=top, bot=bot, s=sref)
+        vt, vb = (sg * 2.05, 16.15), (sg * 0.5, 16.15)
+        seg(F, [padxy(drv, 13 if sg < 0 else 8), vt], 0.3, top)
+        seg(F, [padxy(drv, 11 if sg < 0 else 10), vb], 0.3, bot)
+        via(vt[0], vt[1], top, 0.45, 0.25)
+        via(vb[0], vb[1], bot, 0.45, 0.25)
+        two("Capacitor_SMD.pretty", "C_0402_1005Metric", ref("C"), "1uF 16V X7R 0402", sg * 3.0, 17.0, 0,
+            sref if sg < 0 else top, top if sg < 0 else sref, "Murata GRM155R71C105KA12", bottom=True)
+        two("Capacitor_SMD.pretty", "C_0402_1005Metric", ref("C"), "1uF 16V X7R 0402", sg * 1.2, 18.0, 0,
+            sref if sg < 0 else bot, bot if sg < 0 else sref, "Murata GRM155R71C105KA12", bottom=True)
+        seg(Bl, [vt, (sg * 2.52, 17.0)], 0.3, top)
+        seg(Bl, [vb, (sg * 0.72, 18.0)], 0.3, bot)
+        seg(Bl, [K2, (sg * 3.9, 18.0), (sg * 1.68, 18.0)], 0.3, sref)
+        seg(Bl, [(sg * 3.48, 17.0), (sg * 3.9, 17.0)], 0.3, sref)
+        # L3: S y 16.6 -> x 10.4, top y 17.3 -> x 9.8, bottom y 18.0 -> x 9.2, then down to the island vias
+        seg(L3l, [K2, (sg * 3.9, 16.6), (sg * 10.4, 16.6), (sg * 10.4, 36.6), (sg * 13.45, 36.6)], 0.3, sref)
+        seg(L3l, [vt, (sg * 2.05, 17.3), (sg * 9.8, 17.3), (sg * 9.8, 37.3), (sg * 11.25, 37.3)], 0.3, top)
+        seg(L3l, [vb, (sg * 0.5, 18.0), (sg * 9.2, 18.0), (sg * 9.2, 38.0), (sg * 15.7, 38.0)], 0.3, bot)
+        via(sg * 13.45, 36.6, sref)
+        via(sg * 11.25, 37.3, top)
+        via(sg * 15.7, 38.0, bot)
     # input side: RC filters, VDDI (SLDO on, 3 k from 12 V, 22 nF), DISABLE
     two("Capacitor_SMD.pretty", "C_0402_1005Metric", ref("C"), "100pF C0G 0402", -2.0, 18.75 + DY, 0, bn("GNDI"),
         bn("INA"), "Murata GRM1555C1H101JA01")
@@ -671,9 +692,12 @@ def build_block(bi, xoff):
         if not NOSHUNT:                # return vias inside the SHLD pad (shunt study: -0.05 nH)
             rows = (ysv + 0.75, ysv + 1.45, ysv + 2.15, ysv + 2.85) + rows     # via-in-pad (filled, capped)
         for yv in rows:
+            # the two rows below the shunt pad at 2 mm pitch (aligned): at 1 mm their antipads cut the L3/L4 AC
+            # column planes all the way across, and the cells would reach the AC bus only through other layers
+            pitch = 2.0 if yv in (19.0, 19.75) else 1.0
             k = 0
             while True:
-                xv = xa + 0.5 + k * 1.0
+                xv = xa + 0.5 + k * pitch
                 if xv > xb - 0.5:
                     break
                 POWER_VIAS.append(via(xv, yv, "DCN"))
@@ -686,9 +710,11 @@ def build_block(bi, xoff):
     # ---- AC columns per cell: L3/L4 from the cell down, L1/L2 below the shunts, into the AC bus (y > 36.3)
     for side, sgn in (("L", -1), ("R", 1)):
         o0, o1 = sorted((sgn * 5.4, sgn * 19.9))
-        q0, q1 = sorted((sgn * 13.5, sgn * 19.9))
-        for lay in (L3l, Bl):
-            rect_zone(lay, sw, o0, o1, 5.2 if lay == L3l else 4.6, 33.4, 1)
+        q0, q1 = sorted((sgn * QX0, sgn * 19.9))
+        r0, r1 = sorted((sgn * (CA_X + BAR_OUT + 0.2), sgn * 19.9))        # clear of the control area (barrier)
+        for lay, ycut in ((L3l, 15.9), (Bl, 18.4)):
+            rect_zone(lay, sw, o0, o1, 5.2 if lay == L3l else 4.6, ycut, 1)
+            rect_zone(lay, sw, r0, r1, ycut - 1.0, 33.4, 1)       # overlaps the upper part
             rect_zone(lay, sw, q0, q1, 33.0, YBUS, 1)
         for lay in (F, L2l):
             rect_zone(lay, sw, q0, q1, 20.8, YBUS, 1)
@@ -700,123 +726,198 @@ def build_block(bi, xoff):
                 k += 1
             yv += 1.2
 
-    # ---- external-supply islands, hand-routed (left: HS = channel A, ref KH; right: LS = channel B, ref KL)
-    # Planar plan on L1: the column next to the island ("near", x = 5) is reached by a horizontal trace from the
-    # choke's upper output and a vertical bus at x = 6.6; the far column (x = 3) by a bus at x = 8.05 that turns
-    # along the island bottom (y = 29.6). Every source-reference (S) pad drops into the L2 shield, which is S.
+    # ---- external-supply islands (left: HS = channel A, ref KH; right: LS = channel B, ref KL), outside the barrier
+    # (|x_r| 10.9 .. 16.0, y 20.8 .. 38.3). Header pins at y 21.6 (x 11.9 = near line, 14.44 = far line), WE-CNSW choke
+    # below it, then a near bus (x 11.25), an S bus (x 13.45) and a far bus (x 15.7) with the parts between them; the
+    # three buses end in the L3 vias from the driver (near 37.3, S 36.6, far 38.0). L2 under the island = S shield.
     for ch, sg in (("A", -1), ("B", 1)):
         if ch == "A":
             near, far, s, near_in, far_in = bn("VDDA"), bn("VEEA"), kh, bn("VINA_P"), bn("VINA_N")
         else:
             near, far, s, near_in, far_in = bn("VEEB"), bn("VDDB"), kl, bn("VINB_N"), bn("VINB_P")
         vinp, vdd = bn("VIN%s_P" % ch), bn("VDD" + ch)
-        X = lambda v: sg * v
-        ia, ib = sorted((X(3.5), X(13.0)))
-        rect_zone(L2l, s, ia, ib, 20.8, 33.4, 2)                 # shield = source reference of the channel
-        # input connector (pin 1 = +): upper pin feeds the near line
-        top_is_pin1 = near_in == vinp
+        X = lambda v: sg * v                                                   # noqa: E731
+        ia, ib = sorted((X(CA_X + BAR_IN), X(16.4)))
+        rect_zone(L2l, s, ia, ib, 20.8, 39.0, 2)                              # shield = source reference
+        # header: pin 1 (+) on whichever line carries V_ISO+
+        p_plus = (X(11.9), 21.6) if near_in == vinp else (X(14.44), 21.6)
+        p_minus = (X(14.44), 21.6) if near_in == vinp else (X(11.9), 21.6)
         jv = place(FP + "Connector_PinHeader_2.54mm.pretty", "PinHeader_1x02_P2.54mm_Vertical", ref("J"),
-                   "V_ISO,%s in: 1 +, 2 -" % ("HS" if ch == "A" else "LS"), X(13.2), 21.9 if top_is_pin1 else 24.44,
-                   0 if top_is_pin1 else 180, False, None, "2.54 mm header 1x2")
+                   "V_ISO,%s in: 1 +, 2 -" % ("HS" if ch == "A" else "LS"), p_plus[0], p_plus[1], 0, False, None,
+                   "2.54 mm header 1x2")
+        for rot in (0, 90, 180, 270):                                          # pin 2 onto p_minus
+            jv.SetOrientationDegrees(rot)
+            px, py = padxy(jv.GetReference(), 2)
+            if abs(px - p_minus[0]) < 0.05 and abs(py - p_minus[1]) < 0.05:
+                PARTS[-1]["rot"] = rot
+                break
         set_pads(jv, {"1": vinp, "2": bn("VIN%s_N" % ch)})
-        # common-mode choke: windings 1-2 (upper line) and 4-3 (lower line)
+        # choke (rot 90): windings vertical at x 11.9 (near) and 12.9 (far); inputs on top (y 23.65), outputs 26.35
         L = place(FP + "Inductor_SMD.pretty", "L_CommonMode_Wurth_WE-CNSW-1206", ref("L"), "WE-CNSW 744232601",
-                  X(9.2), 22.6, 0, False, None, "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)")
-        if sg > 0:
-            set_pads(L, {"2": near_in, "1": near, "3": far_in, "4": far})
-        else:
-            set_pads(L, {"1": near_in, "2": near, "4": far_in, "3": far})
-        seg(F, [(X(13.2), 21.9), (X(10.55), 22.1)], 0.3, near_in)
-        seg(F, [(X(13.2), 24.44), (X(10.55), 23.1)], 0.3, far_in)
-        seg(F, [(X(7.85), 22.1), (X(5.0), 22.1)], 0.3, near)          # near column via at (5, 22.1)
-        seg(F, [(X(6.6), 22.1), (X(6.6), 28.6)], 0.3, near)           # near bus
-        seg(F, [(X(7.85), 23.1), (X(7.85), 31.6), (X(3.0), 31.6)], 0.3, far)   # far bus to the column via
-        two("Capacitor_SMD.pretty", "C_0805_2012Metric", ref("C"), "4.7uF 25V X7R 0805", X(7.3), 24.7, 0,
-            near if sg > 0 else far, far if sg > 0 else near, "Murata GRM21BR71E475KA73")
-
-        def slot(kind, x, y, rot, role, mpn_val):
-            name, lib, val, mpn = mpn_val
-            fp = place(FP + lib, name, ref(kind), val, X(x), y, rot, False, None, mpn)
-            pads = sorted(fp.Pads(), key=lambda q: abs(rx(q.GetPosition().x)) if rot in (0, 180) else
-                          pcbnew.ToMM(q.GetPosition().y))
-            # rot 0: outer pad = near (slot SN1) or S (slots SF); rot 90: upper pad = near
-            if role == "near":
-                bus_pad, s_pad = (pads[1], pads[0]) if rot in (0, 180) else (pads[0], pads[1])
-                bus_net = near
-            else:
-                bus_pad, s_pad = pads[0], pads[1]
-                bus_net = far
-            return fp, bus_pad, s_pad, bus_net
-
+                  X(12.4), 25.6, 90, False, None, "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)")
+        wind = {}
+        for q in L.Pads():
+            wind.setdefault("a" if q.GetNumber() in ("1", "2") else "b", []).append(q)
+        wa = abs(rx(wind["a"][0].GetPosition().x))
+        wb = abs(rx(wind["b"][0].GetPosition().x))
+        w_near, w_far = (wind["a"], wind["b"]) if wa < wb else (wind["b"], wind["a"])
+        for w, n_in, n_out in ((w_near, near_in, near), (w_far, far_in, far)):
+            for q in w:
+                q.SetNet(net(n_in if pcbnew.ToMM(q.GetPosition().y) < 25.6 else n_out))
+        seg(F, [(X(11.9), 21.6), (X(11.9), 24.25)], 0.3, near_in)
+        seg(F, [(X(14.44), 21.6), (X(14.44), 23.6), (X(12.9), 24.25)], 0.3, far_in)
+        # buses
+        seg(F, [(X(11.9), 26.95), (X(11.25), 27.7), (X(11.25), 37.3)], 0.3, near)
+        seg(F, [(X(12.9), 26.95), (X(15.7), 26.95), (X(15.7), 38.0)], 0.3, far)
+        seg(F, [(X(13.45), 30.8), (X(13.45), 36.6)], 0.3, s)
+        # 4.7 uF near-far right after the choke
+        two("Capacitor_SMD.pretty", "C_0805_2012Metric", ref("C"), "4.7uF 25V X7R 0805", X(13.45), 28.8, 0,
+            far if sg < 0 else near, near if sg < 0 else far, "Murata GRM21BR71E475KA73")
+        seg(F, [(X(11.25), 28.8), (X(12.5), 28.8)], 0.3, near)
+        seg(F, [(X(14.4), 28.8), (X(15.7), 28.8)], 0.3, far)
+        # parts between the buses: (near side centre 12.35, far side centre 14.58)
         CAP = ("C_0603_1608Metric", "Capacitor_SMD.pretty", "4.7uF 16V X5R 0603", "Murata GRM188R61C475KAAJ")
         RB = ("R_0603_1608Metric", "Resistor_SMD.pretty", "150R 1% 0603 (bias, <= 82 mW)", "150R 0603 1% 0.1 W")
         DZ = ("D_SOD-323", "Diode_SMD.pretty", "BZX384-C5V1", "Nexperia BZX384-C5V1 (5.1 V, 300 mW)")
-        if ch == "A":       # near = VDD: Zener and C(VDD-S) on the near side; R_b and C(S-VEE) on the far side
-            plan = [("D", 5.1, 26.8, 0, "near", DZ), ("C", 6.6, 29.45, 90, "near", CAP),
-                    ("C", 9.2, 27.0, 0, "far", CAP), ("R", 9.4, 29.6, 0, "far", RB)]
-        else:               # near = VEE: R_b and C(S-VEE) near; C(VDD-S) and Zener far
-            plan = [("R", 5.1, 26.8, 0, "near", RB), ("C", 6.6, 29.45, 90, "near", CAP),
-                    ("C", 9.2, 27.0, 0, "far", CAP), ("D", 9.4, 29.6, 0, "far", DZ)]
-        for k, (kind, x, y, rot, role, part) in enumerate(plan):
-            fp, bp, sp, bnet = slot(kind, x, y, rot, role, part)
-            if kind == "D" and bnet != vdd:
-                raise RuntimeError("Zener must sit on the VDD bus")
-            if kind == "D" and bp.GetNumber() != "1":          # cathode (pad 1) to VDD
-                fp.SetOrientationDegrees((fp.GetOrientationDegrees() + 180) % 360)
-                PARTS[-1]["rot"] = fp.GetOrientationDegrees()
-                bp, sp = sp, bp
-            bp.SetNet(net(bnet))
-            sp.SetNet(net(s))
-            bx_, by_ = rx(bp.GetPosition().x), pcbnew.ToMM(bp.GetPosition().y)
-            sx_, sy_ = rx(sp.GetPosition().x), pcbnew.ToMM(sp.GetPosition().y)
-            busx = X(6.6) if role == "near" else X(7.85)
-            if rot in (0, 180):
-                seg(F, [(bx_, by_), (busx, by_)], 0.3, bnet)
-            if k == 0:                                          # S pad -> S column via (also into the shield)
-                seg(F, [(sx_, sy_), (X(4.0), 27.8)], 0.3, s)
-            elif k == 1:
-                via(sx_, sy_ + 0.7, s, 0.45, 0.25)
-                seg(F, [(sx_, sy_), (sx_, sy_ + 0.7)], 0.3, s)
-            elif k == 2:
-                via(sx_, sy_ - 0.85, s, 0.45, 0.25)
-                seg(F, [(sx_, sy_), (sx_, sy_ - 0.85)], 0.3, s)
-            else:
-                via(sx_ + X(0.6), sy_ + 0.75, s, 0.45, 0.25)
-                seg(F, [(sx_, sy_), (sx_ + X(0.6), sy_ + 0.75)], 0.3, s)
-        text("HS ISO" if ch == "A" else "LS ISO", X(10.6), 20.4, 0.8, pcbnew.F_Fab)
+        # A: near = VDD -> Zener and C(VDD-S) on the near side, R_b and C(S-VEE) on the far side; B: mirrored roles
+        # staggered rows (near side 30.8 / 34.45, far side 32.75 / 35.95): courtyards clear at the S bus
+        rows = [(30.8, 32.75, DZ if ch == "A" else RB, DZ if ch == "B" else RB), (34.45, 35.95, CAP, CAP)]
+        for y_near, y_far, p_near, p_far in rows:
+            for part, xc_, bus_net, bus_x, yrow in ((p_near, 12.35, near, 11.25, y_near), (p_far, 14.58, far, 15.7, y_far)):
+                name, lib, val, mpn = part
+                fp = place(FP + lib, name, ref("D" if part is DZ else ("R" if part is RB else "C")), val,
+                           X(xc_), yrow, 0, False, None, mpn)
+                pads = sorted(fp.Pads(), key=lambda q: abs(rx(q.GetPosition().x) - X(bus_x)))
+                bus_pad, s_pad = pads[0], pads[1]
+                if part is DZ and bus_net == vdd and bus_pad.GetNumber() != "1":     # cathode (pad 1) to VDD
+                    fp.SetOrientationDegrees(180.0)
+                    PARTS[-1]["rot"] = 180.0
+                    pads = sorted(fp.Pads(), key=lambda q: abs(rx(q.GetPosition().x) - X(bus_x)))
+                    bus_pad, s_pad = pads[0], pads[1]
+                if part is DZ and bus_net != vdd:
+                    raise RuntimeError("Zener must sit on the VDD bus")
+                bus_pad.SetNet(net(bus_net))
+                s_pad.SetNet(net(s))
+                bx_, sx_ = rx(bus_pad.GetPosition().x), rx(s_pad.GetPosition().x)
+                seg(F, [(X(bus_x), yrow), (bx_, yrow)], 0.3, bus_net)
+                seg(F, [(sx_, yrow), (X(13.45), yrow)], 0.3, s)
+        text("HS ISO" if ch == "A" else "LS ISO", X(13.4), 39.4, 0.8, pcbnew.F_Fab)
 
-    # ---- primary side of the block: corridor pours, control connector with common-mode chokes
+    # ---- control domain of the block (primary side of the driver): TOP LAYER + a bottom GNDI plane only, all SMD,
+    # inside |x_r| <= CA_X, y CA_Y0 .. CA_Y1. Every signal leaves on its own pair (signal + its return) through a
+    # WE-CNSW common-mode choke; 12 V gets a ferrite bead after the choke. Barrier keepouts around it (see MOAT).
     gi = bn("GNDI")
-    rect_zone(Bl, gi, -1.9, 1.9, 16.0 + DY, 23.2 + DY, 1)
-    rect_zone(Bl, gi, -4.6, 4.6, 26.7, 38.8, 1)
-    rect_zone(Bl, gi, -12.0, 12.0, 33.8, 38.8, 1)
-    rect_zone(L2l, gi, -12.0, 12.0, 33.8, 38.8, 1)
-    place(FP + "Connector_PinHeader_2.54mm.pretty", "PinHeader_2x03_P2.54mm_Vertical", ref("J"),
-          "CTRL%d: 1 12V 2 GND 3 PWM_H 4 PWM_L 5 DIS 6 GND" % bi, -3.6, 37.6, 90, False,
-          {"1": bn("C_12V"), "2": bn("C_GND"), "3": bn("C_PWMH"), "4": bn("C_PWML"), "5": bn("C_DIS"),
-           "6": bn("C_GND")}, "2.54 mm header 2x3")
-    for xk, (a_in, a_out, b_in, b_out) in ((-10.5, (bn("C_12V"), bn("+12V"), bn("C_GND"), gi)),
-                                           (-7.9, (bn("C_PWMH"), bn("PWM_H"), bn("C_PWML"), bn("PWM_L"))),
-                                           (4.6, (bn("C_DIS"), bn("DIS"), None, None))):
-        L = place(FP + "Inductor_SMD.pretty", "L_CommonMode_Wurth_WE-CNSW-1206", ref("L"), "WE-CNSW 744232601",
-                  xk, 36.3, 90, False, None, "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)")
-        set_pads(L, {"1": a_in, "2": a_out} if b_in is None else {"1": a_in, "2": a_out, "4": b_in, "3": b_out})
-    two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k (PWM_H pull-down)", 6.3, 34.7, 90, bn("PWM_H"), gi,
-        "10k 0402 1%")
-    two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k (PWM_L pull-down)", 7.4, 34.7, 90, bn("PWM_L"), gi,
-        "10k 0402 1%")
-    two("Capacitor_SMD.pretty", "C_0805_2012Metric", ref("C"), "4.7uF 25V X7R 0805 (12 V)", 7.4, 37.7, 0, bn("+12V"),
-        gi, "Murata GRM21BR71E475KA73")
+    rect_zone(F, gi, -CA_X, CA_X, CA_Y0, 28.6, 1)                            # board side of the chokes only
+    rect_zone(Bl, gi, -6.0, 6.0, 22.4, 27.6, 1)       # bottom GNDI plane: >= 4 mm to L4 power, >= 3 mm to the
+    #                                                   L3 supply routes (x 9.2), which are only 0.1 mm (prepreg) above
+    seg(F, [padxy(drv, 1), (-2.3, 21.7), (-2.48, 22.25)], 0.3, gi)
+    seg(F, [padxy(drv, 4), (0.0, 21.9)], 0.3, gi)
+    for vx_, vy_ in ((-3.3, 23.1), (0.35, 24.3), (5.0, 22.7), (-5.4, 27.0)):
+        via(vx_, vy_, gi)
+    # columns k = 0..4 at x = -5.08 + 2.54 k: (board net, cable net, cable return net, GND winding on the left?)
+    COLS = [("PWM_H", "C_PWMH", "C_RTN_PWMH", True), ("PWM_L", "C_PWML", "C_RTN_PWML", False),
+            ("DIS", "C_DIS", "C_RTN_DIS", True), ("12V_CM", "C_12V", "C_RTN_12V", False)]
     if bi == 1:
-        d7 = place(FP + "LED_SMD.pretty", "LED_0603_1608Metric", ref("D"), "green 0603 (12 V)", 10.9, 34.6, 90, False,
-                   None, "Wurth 150060GS75000")
-        set_pads(d7, {"1": gi, "2": bn("LEDA_12V")})
-        two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "4.7k (LED)", 10.9, 37.6, 90, bn("LEDA_12V"),
-            bn("+12V"), "4.7k 0603 1%")
-    else:
-        place(FP + "Connector_PinHeader_2.54mm.pretty", "PinHeader_1x02_P2.54mm_Vertical", ref("J"),
-              "FAN 12V: 1 +12V, 2 GND", 11.4, 34.9, 0, False, {"1": bn("+12V"), "2": gi}, "2.54 mm header 1x2 (fan)")
-    text("CTRL%d" % bi, -10.5, 38.9, 0.8, pcbnew.F_Fab)
+        COLS.append(("NTC", "C_NTC", "C_RTN_NTC", True))
+    YCH, YCON = 30.0, 36.4
+    sig_top = {}
+    for k, (nb_, nc_, nr_, gnd_left) in enumerate(COLS):
+        xk = -5.08 + 2.54 * k
+        L = place(FP + "Inductor_SMD.pretty", "L_CommonMode_Wurth_WE-CNSW-1206", ref("L"), "WE-CNSW 744232601",
+                  xk, YCH, 90, False, None, "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)")
+        wind = {}
+        for q in L.Pads():
+            wind.setdefault("a" if q.GetNumber() in ("1", "2") else "b", []).append(q)
+        a_left = rx(wind["a"][0].GetPosition().x) < rx(wind["b"][0].GetPosition().x)
+        w_left, w_right = (wind["a"], wind["b"]) if a_left else (wind["b"], wind["a"])
+        w_gnd, w_sig = (w_left, w_right) if gnd_left else (w_right, w_left)
+        for w, n_board, n_cable in ((w_sig, bn(nb_), bn(nc_)), (w_gnd, gi, bn(nr_))):
+            for q in w:
+                q.SetNet(net(n_board if pcbnew.ToMM(q.GetPosition().y) < YCH else n_cable))
+        xs_ = rx(w_sig[0].GetPosition().x)
+        xg_ = rx(w_gnd[0].GetPosition().x)
+        sig_top[nb_] = xs_
+        COLS[k] = (nb_, nc_, nr_, gnd_left, xk, xs_, xg_)
+    # control connector: 2 x 5 SMT header (rot 90): column k = pair (upper pin = signal, lower pin = its return)
+    J = place(FP + "Connector_PinHeader_2.54mm.pretty", "PinHeader_2x05_P2.54mm_Vertical_SMD", ref("J"), "CTRL",
+              0.0, YCON, 90, False, None, "Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)")
+    for it in list(J.GraphicalItems()):                       # library courtyard is far larger than pads + body
+        if it.GetLayer() == pcbnew.F_CrtYd:
+            J.Remove(it)
+    for (a_, b_), (c_, d_) in (((-4.2, -6.6), (4.2, -6.6)), ((4.2, -6.6), (4.2, 6.6)), ((4.2, 6.6), (-4.2, 6.6)),
+                               ((-4.2, 6.6), (-4.2, -6.6))):
+        sh = pcbnew.FP_SHAPE(J)
+        sh.SetShape(pcbnew.SHAPE_T_SEGMENT)
+        sh.SetLayer(pcbnew.F_CrtYd)
+        sh.SetWidth(MM(0.05))
+        sh.SetStart0(vloc(a_, b_))
+        sh.SetEnd0(vloc(c_, d_))
+        J.Add(sh)
+        sh.SetDrawCoord()
+    J.SetFPID(pcbnew.LIB_ID("spb_fab", "PinHeader_2x05_P2.54mm_Vertical_SMD"))   # project copy (tight courtyard)
+    if "PinHeader_2x05_SMD" not in SAVED:
+        SAVED.add("PinHeader_2x05_SMD")
+        cp = pcbnew.FOOTPRINT(J)
+        cp.SetReference("REF**")
+        cp.SetOrientationDegrees(0)
+        pcbnew.FootprintSave(_lib, cp)
+    pins = {}
+    for q in J.Pads():
+        x_, y_ = rx(q.GetPosition().x), pcbnew.ToMM(q.GetPosition().y)
+        k = int(round((x_ + 5.08) / 2.54))
+        if k >= len(COLS):
+            pins[int(q.GetNumber())] = "NC"
+            continue
+        nb_, nc_, nr_, gnd_left, xk, xs_, xg_ = COLS[k]
+        upper = y_ < YCON
+        q.SetNet(net(bn(nc_ if upper else nr_)))
+        pins[int(q.GetNumber())] = (nc_[2:] if upper else "RTN").replace("12V", "12V")
+        if upper:                                            # signal pin -> signal winding (cable side)
+            seg(F, [(xk, y_ - 1.2), (xs_, YCH + 1.35)], 0.25, bn(nc_))
+        else:                                                # return pin -> around the upper pin -> GND winding
+            xr = xk + (1.0 if xg_ > xk else -1.0)        # 1.0: two returns can share a gap
+            seg(F, [(xk, y_ - 1.2), (xr, y_ - 1.8), (xr, YCH + 2.2), (xg_, YCH + 1.35)], 0.25, bn(nr_))
+    J.SetValue("CTRL%d: " % bi + " ".join("%d %s" % (n_, pins[n_]) for n_ in sorted(pins)))
+    PARTS[-1]["value"] = J.GetValue()
+    # board side of the chokes -> driver input filters (R11/R12 47 R + 100 pF at the pins, 3 k to VDDI)
+    yt = YCH - 1.35                                          # top pads of the chokes
+    xh, xl, xd, x12 = sig_top["PWM_H"], sig_top["PWM_L"], sig_top["DIS"], sig_top["12V_CM"]
+    seg(F, [(xh, yt), (xh, 25.8), (-1.9, 25.8), (-1.9, 25.28)], 0.25, bn("PWM_H"))
+    two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k (PWM_H pull-down)", xh + 0.6, 25.2, 0,
+        bn("PWM_H"), gi, "10k 0402 1%")
+    seg(F, [(xh + 0.12, 25.2), (xh, 25.8)], 0.25, bn("PWM_H"))
+    seg(F, [(xl, yt), (xl, 26.4), (-0.65, 26.4), (-0.65, 25.28)], 0.25, bn("PWM_L"))
+    two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k (PWM_L pull-down)", -1.3, 26.9, 90,
+        bn("PWM_L"), gi, "10k 0402 1%")
+    seg(F, [(xd, yt), (xd, 27.1), (1.0, 26.6), (1.0, 22.4)], 0.25, bn("DIS"))
+    two("Inductor_SMD.pretty", "L_0603_1608Metric", ref("FB"), "BLM18PG221SN1 (220 R @ 100 MHz)", 1.85, 26.25, 90,
+        bn("+12V"), bn("12V_CM"), "Murata BLM18PG221SN1D (ferrite bead, 1.4 A)")
+    seg(F, [(x12, yt), (1.85, 27.04)], 0.3, bn("12V_CM"))
+    seg(F, [(1.85, 25.46), (1.85, 24.9), (1.9, 24.28)], 0.3, bn("+12V"))
+    seg(F, [(1.9, 24.28), (2.6, 23.6), (3.4, 23.525)], 0.3, bn("+12V"))
+    two("Capacitor_SMD.pretty", "C_0603_1608Metric", ref("C"), "4.7uF 25V X5R 0603 (12 V)", 3.4, 24.3, 90, bn("+12V"),
+        gi, "Murata GRM188R61E475KE11")
+    if bi == 1:                                              # NTC on the control side (board temperature at the driver)
+        two("Resistor_SMD.pretty", "R_0402_1005Metric", "RT1", "NTC 10k B3380", 5.6, 26.0, 90, gi, "NTC",
+            "Murata NCP15XH103F03RC")
+        seg(F, [(sig_top["NTC"], yt), (sig_top["NTC"], 27.3), (5.6, 26.51)], 0.25, "NTC")
+    text("CTRL%d" % bi, 0.0, 41.4, 0.8, pcbnew.F_Fab)
+    # barrier keepouts (no pour, tracks or vias; pads allowed): L1 4.0 mm, L4 4.0 mm around the bottom GNDI plane and
+    # nothing under the chokes/connector, L2 3.0 mm (vias of the control area allowed)
+    w_o = CA_X + BAR_OUT
+    for sx in (-1, 1):
+        a, b = sorted((sx * 2.35, sx * w_o))
+        moat(F, a, b, 16.8, CA_Y0 - 0.2)
+        a, b = sorted((sx * (CA_X + 0.2), sx * w_o))
+        moat(F, a, b, CA_Y0 - 0.2, YBUS)
+        moat(Bl, a, b, 22.2, YBUS)
+    moat(F, -w_o, w_o, CA_Y1 + 0.2, YBUS)
+    moat(Bl, -w_o, w_o, 18.4, 22.2)
+    moat(Bl, -(CA_X + 0.2), CA_X + 0.2, 27.8, YBUS)
+    z = keepout(L2l, -(CA_X + BAR_IN), CA_X + BAR_IN, 17.6, YBUS - 1.0)
+    z.SetDoNotAllowTracks(True)
+    z.SetZoneName("barrier 1200 V (L2)")
+    MOAT.append((L2l, -(CA_X + BAR_IN) + OFFX[0], CA_X + BAR_IN + OFFX[0], 17.6, YBUS - 1.0))
 
     # ---- U.FL connectors (bottom side, outer half of each cell), series resistors, explicit L4 traces
     ufl = []
@@ -926,6 +1027,11 @@ def dc_terminals():
                    x, YT + 4.6, 0, True, mpn="Wuerth 74650174 (REDCUBE THR, M4)")
         for pad in fp.Pads():
             pad.SetNet(net(n))
+        if n == "DCP":
+            # the metal REDCUBE body sits on the bottom side: under the DC+ terminal L4 must be DC+, not the DC-
+            # plane of the terminal row (only the solder mask would separate them); island 8.5 x 8.5 mm, the
+            # higher priority makes the DC- plane clear it
+            rect_zone(Bl, "DCP", x - 4.25, x + 4.25, YT + 4.6 - 4.25, YT + 4.6 + 4.25, 3)
 
 
 dc_terminals()
@@ -1007,9 +1113,9 @@ def ac_bolt_pad():
     return fp
 
 
-YAC = 47.2
+YAC = 47.2 + D_BUS
 ac_bolt_pad()
-text("AC OUT: M6 bolt pad, 12 x 5 mm Cu bar bolted on, through the LEM HO 250-S to the load", 0, 39.9, 0.8, pcbnew.F_Fab)
+text("AC OUT: M6 bolt pad, 12 x 5 mm Cu bar bolted on, through the LEM HO 250-S to the load", 0, 39.9 + D_BUS, 0.8, pcbnew.F_Fab)
 
 
 def fab_rect(x0, y0, x1, y1, layer=pcbnew.Cmts_User):
@@ -1031,17 +1137,7 @@ t.SetPosition(vloc(0, Y1 + 25.0))
 t.SetLayer(pcbnew.Cmts_User)
 board.Add(t)
 
-# NTC near the inner HS FET of block 2, read on J (DC- referenced) in the centre band
-two("Resistor_SMD.pretty", "R_0402_1005Metric", "RT1", "NTC 10k B3380", 7.0, 2.8, 90, "NTC", "DCN",
-    "Murata NCP15XH103F03RC")
-seg(F, [(7.0, 3.28), (7.0, 4.0)], 0.3, "DCN")
-via(7.0, 4.0, "DCN")
-seg(F, [(7.0, 2.32), (6.0, 2.32)], 0.25, "NTC")
-via(6.0, 2.32, "NTC")
-place(FP + "Connector_PinHeader_2.54mm.pretty", "PinHeader_1x02_P2.54mm_Vertical", ref("J"),
-      "1:NTC 2:DC- (LS domain!)", 0.0, 24.0, 0, False, {"1": "NTC", "2": "DCN"}, "2.54 mm header 1x2")
-seg(L2l, [(6.0, 2.32), (6.0, 21.6), (1.2, 22.8), (0.0, 24.0)], 0.25, "NTC")
-seg(L2l, [(0.0, 26.54), (-1.6, 25.4), (-1.6, 20.3)], 0.3, "DCN")
+# NTC: on the control side of block 1 (RT1 in the control area, read through the CTRL1 connector)
 
 # DC link indicator and bleeder (block 2 terminal zone, as Rev A)
 OFFX[0] = BX
@@ -1082,18 +1178,7 @@ def A(bx, x0, x1):
     return a, b
 
 
-for bi, bx in ((1, -BX), (2, BX)):
-    BI[0] = bi
-    # driver channel and sensors: primary nets
-    PRI = [(0, bx - 2.6, bx + 2.6, 17.0 + DY, 33.9), (0, bx - 12.2, bx + 12.2, 33.7, 38.9),
-           (1, bx - 3.3, bx + 3.3, 26.7, 38.9), (2, bx - 2.6, bx + 2.6, 26.7, 38.9), (3, bx - 4.6, bx + 4.6, 26.7, 38.9),
-           (1, bx - 12.2, bx + 12.2, 33.7, 38.9), (2, bx - 12.2, bx + 12.2, 33.7, 38.9),
-           (1, bx - 2.6, bx + 2.6, 24.0, 26.7), (2, bx - 2.6, bx + 2.6, 24.0, 26.7),
-           (3, bx - 12.2, bx + 12.2, 33.7, 38.9)]
-    for n, w in (("GNDI", 0.3), ("+12V", 0.3), ("PWM_H", 0.2), ("PWM_L", 0.2), ("DIS", 0.2), ("LEDA_12V", 0.2),
-                 ("C_12V", 0.3), ("C_GND", 0.3), ("C_PWMH", 0.2), ("C_PWML", 0.2), ("C_DIS", 0.2)):
-        fails += R.route_net(bn(n), PRI, width=w)
-BI[0] = 0
+# the control areas are hand-routed (barrier): no auto-routed primary nets any more
 # DC-link indicator: own router with 0.6 mm clearance
 RHV = fab_router.Router(board, (-XO, Y0, XO, Y1), LAYS, clearance=0.6, edge=0.7, hard_zones=HARD)
 HVR = [(0, BX + 11.4, BX + 20.4, Y0 + 0.5, -4.6)]
@@ -1168,6 +1253,9 @@ for v in POWER_VIAS:
     for hx_, hy_, hr_ in PTH:
         if math.hypot(x - hx_, y - hy_) < hr_ + 0.15 + 0.45:
             bad = True
+    for _lay, mx0, mx1, my0, my1 in MOAT:                  # 1200 V barrier keepouts (all layers for a via)
+        if mx0 - r - 0.05 < x < mx1 + r + 0.05 and my0 - r - 0.05 < y < my1 + r + 0.05:
+            bad = True
     if bad:
         BAD.add(id(v))
 # symmetric pruning: a power via removed in one cell takes its mirror image (about the block centre) in the other
@@ -1206,10 +1294,10 @@ def frange(a, b, st):
 
 BRD_NAME = {"dpt": "DPT BOARD", "load": "LOAD-TEST BOARD"}.get(BOARD, VARIANT.upper())
 XS_ALL = sorted(frange(-40.0, 40.0, 1.0), key=abs)
-SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5, 40.0, -0.5)), "top", 1.2)
-SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0, 40.0, -0.5)), "top", 1.0)
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "top", 1.2)
+SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0 + D_BUS, 40.0 + D_BUS, -0.5)), "top", 1.0)
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "top", 1.0)
-SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5, 40.0, -0.5)), "bottom", 1.2)
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "bottom", 1.2)
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
 for c, xc in enumerate((-33.25, -14.25, 14.25, 33.25)):
     cc = sorted(scan(frange(xc - 6, xc + 6, 0.25), frange(2.5, -4.0, -0.25)),
@@ -1265,7 +1353,7 @@ for rf in sorted(FPS, key=order):
     if rf.startswith("J"):
         v = f_.GetValue()
         npads = len([p for p in f_.Pads() if p.GetNumber()])
-        if npads in (2, 6) and not v.startswith(("U.FL", "DC", "AC")):
+        if npads in (2, 6, 10) and not v.startswith(("U.FL", "DC", "AC")):
             SK.pin_labels(f_, silk_placer.pins_from_value(v))
 print("silk: %d texts could not be placed on silk (on Fab instead): %s" % (len(SK.failed), " ".join(SK.failed)),
       flush=True)
@@ -1291,6 +1379,49 @@ open(os.path.join(OUT, "fp-lib-table"), "w").write(
     '  (lib (name "spb_fab")(type "KiCad")(uri "${KIPRJMOD}/spb_fab.pretty")(options "")(descr "SPB footprints"))\n'
     '  (lib (name "epc2361-cell")(type "KiCad")(uri "%s/epc2361-cell/epc2361-cell.pretty")(options "")'
     '(descr "EPC2361 land pattern"))\n)\n' % _epc)
+# ---- design rules (reports/pcb-rules/PCB_rules_and_checklist.md): voltage domains by exact net names
+DOMAINS = {
+    "CTRL": ("GNDI", "+12V", "12V_CM", "C_", "PWM_", "DIS", "INA", "INB", "VDDI", "NTC"),
+    "HS": ("SW", "KH", "VDDA", "VEEA", "GH_", "OUTA", "OFFA", "VINA_", "UFL_H"),
+    "LS": ("DCN", "LSRC", "KL", "VDDB", "VEEB", "GL_", "OUTB", "OFFB", "VINB_", "UFL_L", "UFL_D"),
+    "DCP": ("DCP", "HVA", "HVB"),
+}
+DOM_NETS = {d: sorted(n for n in NETS if n and n.startswith(pre)) for d, pre in DOMAINS.items()}
+_left = sorted(set(n for n in NETS if n) - set(sum(DOM_NETS.values(), [])))
+assert not _left, "nets without a voltage domain: %s" % _left
+
+
+def _in(dom, side):
+    return "(" + " || ".join("%s.NetName == '%s'" % (side, n) for n in DOM_NETS[dom]) + ")"
+
+
+def _pair(a_doms, b_doms):
+    a = " || ".join(_in(d, "A") for d in a_doms)
+    b = " || ".join(_in(d, "B") for d in b_doms)
+    a2 = " || ".join(_in(d, "B") for d in a_doms)
+    b2 = " || ".join(_in(d, "A") for d in b_doms)
+    return "((%s) && (%s)) || ((%s) && (%s))" % (a, b, a2, b2)
+
+
+PWR = ("HS", "LS", "DCP")
+rules = ['(version 1)',
+         '# generated by scripts/make_kicad_bb_revb.py - see reports/pcb-rules/PCB_rules_and_checklist.md',
+         '(rule "75 V functional insulation between power domains (IEC 60664-1 PD2 / IPC-2221B B4)"',
+         '  (condition "%s || %s || %s")' % (_pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"])),
+         '  (constraint clearance (min 0.2mm)))',
+         '(rule "1200 V barrier, outer layers (IPC-2221B B4/A6: 3.66 mm)"',
+         '  (layer outer)',
+         '  (condition "%s")' % _pair(["CTRL"], PWR),
+         '  (constraint clearance (min %.1fmm)))' % BAR_OUT,
+         '(rule "1200 V barrier, inner layers (IPC-2221B B1: 3.0 mm)"',
+         '  (layer inner)',
+         '  (condition "%s")' % _pair(["CTRL"], PWR),
+         '  (constraint clearance (min %.1fmm)))' % BAR_IN,
+         '(rule "barrier inside the 2EDF7275K courtyard (package: 3.4 mm)"',
+         '  (condition "((A.insideCourtyard(\'U1\') && B.insideCourtyard(\'U1\')) || '
+         '(A.insideCourtyard(\'U2\') && B.insideCourtyard(\'U2\'))) && (%s)")' % _pair(["CTRL"], PWR),
+         '  (constraint clearance (min 3.0mm)))']
+open(os.path.join(OUT, NAME + ".kicad_dru"), "w").write("\n".join(rules) + "\n")
 board2 = pcbnew.LoadBoard(path)
 board2.BuildConnectivity()
 print("filling", flush=True)

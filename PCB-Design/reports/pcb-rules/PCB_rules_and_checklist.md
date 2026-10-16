@@ -124,7 +124,61 @@ Hundreds of CTRL-to-power pairs lie within 3.4 mm, because the GNDI corridor pou
 | 16 | Thermal: solid planes, thermal vias under hot parts, no splits in heat paths | [TI], [T] | load board heat goes to the top through the gap pad; PCB is secondary ✔ |
 | 17 | Fab notes: IPC class, stack-up with copper and dielectric thickness, blind vias, mask colour, minimum annular ring, drill chart and tolerances, ≥ 3 fiducials, pin 1 / polarity, connector pin names on silk | [HS] §8.1 | silk and pin names ✔; **add a fab drawing** with the stack-up (0.1 mm L1–L2), blind L1–L2 vias (load), tented vias, IPC class 2, fiducials |
 
-## 6. Decisions needed
+## 6. Implemented in Rev B (2026-10-16)
+
+Enes decided: put clearance and creepage for **1200 V** on the boards (only one level is tested now, at full switching speed). The DPT board has no heatsink. The NTC is measured from the control side. Common-mode filtering goes on the board.
+
+**Rule set.** `scripts/make_kicad_bb_revb.py` writes `<board>.kicad_dru` into both projects. KiCad's DRC checks it, with the voltage domains given as exact net-name lists:
+
+| Rule | Value | Basis |
+|---|---|---|
+| Control ↔ power domains, outer layers | ≥ 4.0 mm | IPC-2221B B4/A6 at 1200 V with solder mask: 3.66 mm |
+| Control ↔ power domains, inner layers | ≥ 3.0 mm | IPC-2221B B1: 0.0025 mm/V |
+| Control ↔ power inside the 2EDF7275K courtyard | ≥ 3.0 mm (the package gives 3.35 mm) | component-defined |
+| Between power domains (HS / LS / DC+) | ≥ 0.2 mm, tented vias | IEC 60664-1 PD2 / IPC B4, 75 V functional |
+| Inner-layer neighbours across the 0.1 mm prepreg (L1–L2, L3–L4) | ≥ 3.0 mm in-plane offset between control and power copper | by construction (keepouts), not checked by DRC |
+
+**Layout.**
+- **Control area per block:** right below the driver, |x_r| ≤ 6.75 mm, y 21.6–40.5 mm. All SMD on the top layer, plus a small GNDI plane on the bottom (|x_r| ≤ 6 mm) that joins the top pour.
+- **Barrier keepouts** (no pour, tracks or vias) around the control area:
+  - top and bottom layers: 4 mm;
+  - L2: no copper within 3 mm;
+  - under the chokes and the connector: no copper on any layer.
+- **L3 under the control area:** clear. The gate-supply routes leave the driver sideways on L3 and run around the control area.
+- **Gate-supply islands** moved to |x_r| = 10.9–16.0 mm; the AC columns on L1/L2 now start at |x_r| = 16.6 mm.
+- **Driver output decoupling** moved to the bottom side.
+- **AC bus and bolt** moved down 5.2 mm: the board is now **89.5 × 85.2 mm**.
+
+**Common-mode filtering.**
+- **Control connector:** a 2 × 5 SMT header where every signal has its own return pin: PWM_H, PWM_L, DIS, 12 V and NTC (block 1).
+- **One WE-CNSW choke per signal/return pair:** 5 chokes on block 1 and 4 on block 2.
+- **12 V:** a ferrite bead after the choke (Murata BLM18PG221SN1, 220 Ω at 100 MHz) and 4.7 µF.
+- **Pull-downs and inputs:** 10 k pull-downs on PWM; the 47 Ω + 100 pF input filters at the driver stay.
+- **No plane under any choke** on any layer. The isolated gate supplies keep their chokes and now also have no plane under them.
+
+**Results.**
+- **DRC:** 0 violations and 0 unconnected on both boards with the rule file active; schematic = PCB (0 problems).
+- **Spacing measured** with `domain_spacing.py`:
+  - control ↔ power on outer layers ≥ 4.0 mm, except the driver pins and their escape traces (3.35–3.6 mm, set by the package);
+  - inner layers ≥ 3.35 mm.
+
+**Removed.**
+- The DC−-referenced NTC header J23; the NTC is now RT1 in the control area of block 1.
+- The 12 V LED.
+- The fan header on block 2. On the load board the fan is supplied from the bench.
+
+**Still limited.** The 2EDF7275K is functional isolation with V_IOWM = 460 V. The PCB is now laid out for 1200 V, but a stack test above ≈ 460 V between the controller and a level needs a reinforced driver (2EDS, WB DSO-16).
+
+**To redo.**
+- The Q3D loop of the DPT board, because the DC− copper next to the inner shunt ends was trimmed by the barrier.
+- The lx and full-board DC models, because the AC bus moved.
+- The 3D renders and the assembly STEP.
+
+## 7. Decisions needed (status 2026-10-16)
+
+Items 1–6 were answered as described in §6. Item 1 is open for the stack only.
+
+## 7a. Original decision list
 
 1. **Controller reference in the stack**: per-level reference (keep the 2EDF7275K) or one earth-referenced controller (reinforced driver, new footprint)?
 2. **Barrier rule for Rev B**: implement the 460 V barrier now (3.4 mm outer / 1.2 mm inner, no crossing), or keep the bench-only layout?

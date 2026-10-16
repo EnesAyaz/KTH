@@ -279,7 +279,7 @@
   "value": "0R75 1% (R_ON,A)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
-  "x": -24.75,
+  "x": -24.95,
   "y": 12.2,
   "rot": 90,
   "side": "top",
@@ -301,7 +301,7 @@
   "value": "PMEG3020EJ",
   "footprint": "D_SOD-323F",
   "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
-  "x": -26.45,
+  "x": -26.65,
   "y": 14.25,
   "rot": 90,
   "side": "top",
@@ -312,7 +312,7 @@
   "value": "0R75 1% (R_ON,B)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
-  "x": -22.75,
+  "x": -22.55,
   "y": 12.2,
   "rot": 90,
   "side": "top",
@@ -334,7 +334,7 @@
   "value": "PMEG3020EJ",
   "footprint": "D_SOD-323F",
   "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
-  "x": -21.05,
+  "x": -20.85,
   "y": 14.25,
   "rot": 90,
   "side": "top",
@@ -345,10 +345,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": -27.5,
-  "y": 16.95,
+  "x": -26.75,
+  "y": 17.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 1
  },
  {
@@ -356,10 +356,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": -27.5,
-  "y": 17.95,
+  "x": -24.95,
+  "y": 18.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 1
  },
  {
@@ -367,10 +367,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": -20.0,
-  "y": 16.95,
+  "x": -20.75,
+  "y": 17.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 1
  },
  {
@@ -378,10 +378,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": -20.0,
-  "y": 17.95,
+  "x": -22.55,
+  "y": 18.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 1
  },
  {
@@ -477,9 +477,9 @@
   "value": "V_ISO,HS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
-  "x": -36.95,
-  "y": 21.9,
-  "rot": 0,
+  "x": -35.65,
+  "y": 21.6,
+  "rot": 270,
   "side": "top",
   "block": 1
  },
@@ -488,9 +488,9 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -32.95,
-  "y": 22.6,
-  "rot": 0,
+  "x": -36.15,
+  "y": 25.6,
+  "rot": 90,
   "side": "top",
   "block": 1
  },
@@ -499,8 +499,8 @@
   "value": "4.7uF 25V X7R 0805",
   "footprint": "C_0805_2012Metric",
   "mpn": "Murata GRM21BR71E475KA73",
-  "x": -31.05,
-  "y": 24.7,
+  "x": -37.2,
+  "y": 28.8,
   "rot": 0,
   "side": "top",
   "block": 1
@@ -510,8 +510,19 @@
   "value": "BZX384-C5V1",
   "footprint": "D_SOD-323",
   "mpn": "Nexperia BZX384-C5V1 (5.1 V, 300 mW)",
-  "x": -28.85,
-  "y": 26.8,
+  "x": -36.1,
+  "y": 30.8,
+  "rot": 180.0,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "R14",
+  "value": "150R 1% 0603 (bias, <= 82 mW)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "150R 0603 1% 0.1 W",
+  "x": -38.33,
+  "y": 32.75,
   "rot": 0,
   "side": "top",
   "block": 1
@@ -521,9 +532,9 @@
   "value": "4.7uF 16V X5R 0603",
   "footprint": "C_0603_1608Metric",
   "mpn": "Murata GRM188R61C475KAAJ",
-  "x": -30.35,
-  "y": 29.45,
-  "rot": 90,
+  "x": -36.1,
+  "y": 34.45,
+  "rot": 0,
   "side": "top",
   "block": 1
  },
@@ -532,19 +543,8 @@
   "value": "4.7uF 16V X5R 0603",
   "footprint": "C_0603_1608Metric",
   "mpn": "Murata GRM188R61C475KAAJ",
-  "x": -32.95,
-  "y": 27.0,
-  "rot": 0,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "R14",
-  "value": "150R 1% 0603 (bias, <= 82 mW)",
-  "footprint": "R_0603_1608Metric",
-  "mpn": "150R 0603 1% 0.1 W",
-  "x": -33.15,
-  "y": 29.6,
+  "x": -38.33,
+  "y": 35.95,
   "rot": 0,
   "side": "top",
   "block": 1
@@ -554,9 +554,9 @@
   "value": "V_ISO,LS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
-  "x": -10.55,
-  "y": 24.44,
-  "rot": 180,
+  "x": -9.31,
+  "y": 21.6,
+  "rot": 270,
   "side": "top",
   "block": 1
  },
@@ -565,9 +565,9 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -14.55,
-  "y": 22.6,
-  "rot": 0,
+  "x": -11.35,
+  "y": 25.6,
+  "rot": 90,
   "side": "top",
   "block": 1
  },
@@ -576,8 +576,8 @@
   "value": "4.7uF 25V X7R 0805",
   "footprint": "C_0805_2012Metric",
   "mpn": "Murata GRM21BR71E475KA73",
-  "x": -16.45,
-  "y": 24.7,
+  "x": -10.3,
+  "y": 28.8,
   "rot": 0,
   "side": "top",
   "block": 1
@@ -587,30 +587,8 @@
   "value": "150R 1% 0603 (bias, <= 82 mW)",
   "footprint": "R_0603_1608Metric",
   "mpn": "150R 0603 1% 0.1 W",
-  "x": -18.65,
-  "y": 26.8,
-  "rot": 0,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "C24",
-  "value": "4.7uF 16V X5R 0603",
-  "footprint": "C_0603_1608Metric",
-  "mpn": "Murata GRM188R61C475KAAJ",
-  "x": -17.15,
-  "y": 29.45,
-  "rot": 90,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "C25",
-  "value": "4.7uF 16V X5R 0603",
-  "footprint": "C_0603_1608Metric",
-  "mpn": "Murata GRM188R61C475KAAJ",
-  "x": -14.55,
-  "y": 27.0,
+  "x": -11.4,
+  "y": 30.8,
   "rot": 0,
   "side": "top",
   "block": 1
@@ -620,20 +598,31 @@
   "value": "BZX384-C5V1",
   "footprint": "D_SOD-323",
   "mpn": "Nexperia BZX384-C5V1 (5.1 V, 300 mW)",
-  "x": -14.35,
-  "y": 29.6,
+  "x": -9.17,
+  "y": 32.75,
+  "rot": 180.0,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "C24",
+  "value": "4.7uF 16V X5R 0603",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61C475KAAJ",
+  "x": -11.4,
+  "y": 34.45,
   "rot": 0,
   "side": "top",
   "block": 1
  },
  {
-  "ref": "J5",
-  "value": "CTRL1: 1 12V 2 GND 3 PWM_H 4 PWM_L 5 DIS 6 GND",
-  "footprint": "PinHeader_2x03_P2.54mm_Vertical",
-  "mpn": "2.54 mm header 2x3",
-  "x": -27.35,
-  "y": 37.6,
-  "rot": 90,
+  "ref": "C25",
+  "value": "4.7uF 16V X5R 0603",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61C475KAAJ",
+  "x": -9.17,
+  "y": 35.95,
+  "rot": 0,
   "side": "top",
   "block": 1
  },
@@ -642,8 +631,8 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -34.25,
-  "y": 36.3,
+  "x": -28.83,
+  "y": 30.0,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -653,8 +642,8 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -31.65,
-  "y": 36.3,
+  "x": -26.29,
+  "y": 30.0,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -664,8 +653,41 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -19.15,
-  "y": 36.3,
+  "x": -23.75,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "L6",
+  "value": "WE-CNSW 744232601",
+  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
+  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
+  "x": -21.21,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "L7",
+  "value": "WE-CNSW 744232601",
+  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
+  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
+  "x": -18.67,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "J5",
+  "value": "CTRL1: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 RTN 10 NTC",
+  "footprint": "PinHeader_2x05_P2.54mm_Vertical_SMD",
+  "mpn": "Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",
+  "x": -23.75,
+  "y": 36.4,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -675,9 +697,9 @@
   "value": "10k (PWM_H pull-down)",
   "footprint": "R_0402_1005Metric",
   "mpn": "10k 0402 1%",
-  "x": -17.45,
-  "y": 34.7,
-  "rot": 90,
+  "x": -27.729999999999997,
+  "y": 25.2,
+  "rot": 0,
   "side": "top",
   "block": 1
  },
@@ -686,41 +708,41 @@
   "value": "10k (PWM_L pull-down)",
   "footprint": "R_0402_1005Metric",
   "mpn": "10k 0402 1%",
-  "x": -16.35,
-  "y": 34.7,
+  "x": -25.05,
+  "y": 26.9,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "FB1",
+  "value": "BLM18PG221SN1 (220 R @ 100 MHz)",
+  "footprint": "L_0603_1608Metric",
+  "mpn": "Murata BLM18PG221SN1D (ferrite bead, 1.4 A)",
+  "x": -21.9,
+  "y": 26.25,
   "rot": 90,
   "side": "top",
   "block": 1
  },
  {
   "ref": "C26",
-  "value": "4.7uF 25V X7R 0805 (12 V)",
-  "footprint": "C_0805_2012Metric",
-  "mpn": "Murata GRM21BR71E475KA73",
-  "x": -16.35,
-  "y": 37.7,
-  "rot": 0,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "D5",
-  "value": "green 0603 (12 V)",
-  "footprint": "LED_0603_1608Metric",
-  "mpn": "Wurth 150060GS75000",
-  "x": -12.85,
-  "y": 34.6,
+  "value": "4.7uF 25V X5R 0603 (12 V)",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61E475KE11",
+  "x": -20.35,
+  "y": 24.3,
   "rot": 90,
   "side": "top",
   "block": 1
  },
  {
-  "ref": "R18",
-  "value": "4.7k (LED)",
-  "footprint": "R_0603_1608Metric",
-  "mpn": "4.7k 0603 1%",
-  "x": -12.85,
-  "y": 37.6,
+  "ref": "RT1",
+  "value": "NTC 10k B3380",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "Murata NCP15XH103F03RC",
+  "x": -18.15,
+  "y": 26.0,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -737,7 +759,7 @@
   "block": 1
  },
  {
-  "ref": "R19",
+  "ref": "R18",
   "value": "0R (V_GS HS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -759,7 +781,7 @@
   "block": 1
  },
  {
-  "ref": "R20",
+  "ref": "R19",
   "value": "0R (V_GS LS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -781,7 +803,7 @@
   "block": 1
  },
  {
-  "ref": "R21",
+  "ref": "R20",
   "value": "953R 1% (V_DS LS, 20:1 into 50 R)",
   "footprint": "R_0402_1005Metric",
   "mpn": "953R 0402 1% 100 V",
@@ -803,7 +825,7 @@
   "block": 1
  },
  {
-  "ref": "R22",
+  "ref": "R21",
   "value": "0R (V_GS HS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -825,7 +847,7 @@
   "block": 1
  },
  {
-  "ref": "R23",
+  "ref": "R22",
   "value": "0R (V_GS LS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -847,7 +869,7 @@
   "block": 1
  },
  {
-  "ref": "R24",
+  "ref": "R23",
   "value": "953R 1% (V_DS LS, 20:1 into 50 R)",
   "footprint": "R_0402_1005Metric",
   "mpn": "953R 0402 1% 100 V",
@@ -1122,7 +1144,7 @@
   "block": 2
  },
  {
-  "ref": "R25",
+  "ref": "R24",
   "value": "0R5 1% (R_G HL)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
@@ -1133,7 +1155,7 @@
   "block": 2
  },
  {
-  "ref": "R26",
+  "ref": "R25",
   "value": "0R5 1% (R_G HR)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
@@ -1144,7 +1166,7 @@
   "block": 2
  },
  {
-  "ref": "R27",
+  "ref": "R26",
   "value": "0R5 1% (R_G LL)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
@@ -1155,7 +1177,7 @@
   "block": 2
  },
  {
-  "ref": "R28",
+  "ref": "R27",
   "value": "0R5 1% (R_G LR)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0.5R 0402 1% (Panasonic ERJ-2BQFR50X)",
@@ -1166,7 +1188,7 @@
   "block": 2
  },
  {
-  "ref": "R29",
+  "ref": "R28",
   "value": "10k 1% (HS gate pull-down)",
   "footprint": "R_0402_1005Metric",
   "mpn": "10k 0402 1%",
@@ -1177,7 +1199,7 @@
   "block": 2
  },
  {
-  "ref": "R30",
+  "ref": "R29",
   "value": "10k 1% (LS gate pull-down)",
   "footprint": "R_0402_1005Metric",
   "mpn": "10k 0402 1%",
@@ -1199,18 +1221,18 @@
   "block": 2
  },
  {
-  "ref": "R31",
+  "ref": "R30",
   "value": "0R75 1% (R_ON,A)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
-  "x": 22.75,
+  "x": 22.55,
   "y": 12.2,
   "rot": 90,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "R32",
+  "ref": "R31",
   "value": "0R (R_OFF,A)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402 jumper (set R_OFF here)",
@@ -1221,29 +1243,29 @@
   "block": 2
  },
  {
-  "ref": "D6",
+  "ref": "D5",
   "value": "PMEG3020EJ",
   "footprint": "D_SOD-323F",
   "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
-  "x": 21.05,
+  "x": 20.85,
   "y": 14.25,
   "rot": 90,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "R33",
+  "ref": "R32",
   "value": "0R75 1% (R_ON,B)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
-  "x": 24.75,
+  "x": 24.95,
   "y": 12.2,
   "rot": 90,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "R34",
+  "ref": "R33",
   "value": "0R (R_OFF,B)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402 jumper (set R_OFF here)",
@@ -1254,11 +1276,11 @@
   "block": 2
  },
  {
-  "ref": "D7",
+  "ref": "D6",
   "value": "PMEG3020EJ",
   "footprint": "D_SOD-323F",
   "mpn": "Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",
-  "x": 26.45,
+  "x": 26.65,
   "y": 14.25,
   "rot": 90,
   "side": "top",
@@ -1269,10 +1291,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": 20.0,
-  "y": 16.95,
+  "x": 20.75,
+  "y": 17.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 2
  },
  {
@@ -1280,10 +1302,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": 20.0,
-  "y": 17.95,
+  "x": 22.55,
+  "y": 18.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 2
  },
  {
@@ -1291,10 +1313,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": 27.5,
-  "y": 16.95,
+  "x": 26.75,
+  "y": 17.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 2
  },
  {
@@ -1302,10 +1324,10 @@
   "value": "1uF 16V X7R 0402",
   "footprint": "C_0402_1005Metric",
   "mpn": "Murata GRM155R71C105KA12",
-  "x": 27.5,
-  "y": 17.95,
+  "x": 24.95,
+  "y": 18.0,
   "rot": 0,
-  "side": "top",
+  "side": "bottom",
   "block": 2
  },
  {
@@ -1342,7 +1364,7 @@
   "block": 2
  },
  {
-  "ref": "R35",
+  "ref": "R34",
   "value": "47R 1% (INA)",
   "footprint": "R_0402_1005Metric",
   "mpn": "47R 0402 1%",
@@ -1353,7 +1375,7 @@
   "block": 2
  },
  {
-  "ref": "R36",
+  "ref": "R35",
   "value": "47R 1% (INB)",
   "footprint": "R_0402_1005Metric",
   "mpn": "47R 0402 1%",
@@ -1364,7 +1386,7 @@
   "block": 2
  },
  {
-  "ref": "R37",
+  "ref": "R36",
   "value": "3k 1% (RVDDI)",
   "footprint": "R_0402_1005Metric",
   "mpn": "3.0k 0402 1%",
@@ -1401,20 +1423,20 @@
   "value": "V_ISO,HS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
-  "x": 10.55,
-  "y": 21.9,
-  "rot": 0,
+  "x": 11.85,
+  "y": 21.6,
+  "rot": 270,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "L6",
+  "ref": "L8",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 14.55,
-  "y": 22.6,
-  "rot": 0,
+  "x": 11.35,
+  "y": 25.6,
+  "rot": 90,
   "side": "top",
   "block": 2
  },
@@ -1423,19 +1445,30 @@
   "value": "4.7uF 25V X7R 0805",
   "footprint": "C_0805_2012Metric",
   "mpn": "Murata GRM21BR71E475KA73",
-  "x": 16.45,
-  "y": 24.7,
+  "x": 10.3,
+  "y": 28.8,
   "rot": 0,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "D8",
+  "ref": "D7",
   "value": "BZX384-C5V1",
   "footprint": "D_SOD-323",
   "mpn": "Nexperia BZX384-C5V1 (5.1 V, 300 mW)",
-  "x": 18.65,
-  "y": 26.8,
+  "x": 11.4,
+  "y": 30.8,
+  "rot": 180.0,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "R37",
+  "value": "150R 1% 0603 (bias, <= 82 mW)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "150R 0603 1% 0.1 W",
+  "x": 9.17,
+  "y": 32.75,
   "rot": 0,
   "side": "top",
   "block": 2
@@ -1445,9 +1478,9 @@
   "value": "4.7uF 16V X5R 0603",
   "footprint": "C_0603_1608Metric",
   "mpn": "Murata GRM188R61C475KAAJ",
-  "x": 17.15,
-  "y": 29.45,
-  "rot": 90,
+  "x": 11.4,
+  "y": 34.45,
+  "rot": 0,
   "side": "top",
   "block": 2
  },
@@ -1456,19 +1489,8 @@
   "value": "4.7uF 16V X5R 0603",
   "footprint": "C_0603_1608Metric",
   "mpn": "Murata GRM188R61C475KAAJ",
-  "x": 14.55,
-  "y": 27.0,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "R38",
-  "value": "150R 1% 0603 (bias, <= 82 mW)",
-  "footprint": "R_0603_1608Metric",
-  "mpn": "150R 0603 1% 0.1 W",
-  "x": 14.35,
-  "y": 29.6,
+  "x": 9.17,
+  "y": 35.95,
   "rot": 0,
   "side": "top",
   "block": 2
@@ -1478,97 +1500,9 @@
   "value": "V_ISO,LS in: 1 +, 2 -",
   "footprint": "PinHeader_1x02_P2.54mm_Vertical",
   "mpn": "2.54 mm header 1x2",
-  "x": 36.95,
-  "y": 24.44,
-  "rot": 180,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "L7",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 32.95,
-  "y": 22.6,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "C57",
-  "value": "4.7uF 25V X7R 0805",
-  "footprint": "C_0805_2012Metric",
-  "mpn": "Murata GRM21BR71E475KA73",
-  "x": 31.05,
-  "y": 24.7,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "R39",
-  "value": "150R 1% 0603 (bias, <= 82 mW)",
-  "footprint": "R_0603_1608Metric",
-  "mpn": "150R 0603 1% 0.1 W",
-  "x": 28.85,
-  "y": 26.8,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "C58",
-  "value": "4.7uF 16V X5R 0603",
-  "footprint": "C_0603_1608Metric",
-  "mpn": "Murata GRM188R61C475KAAJ",
-  "x": 30.35,
-  "y": 29.45,
-  "rot": 90,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "C59",
-  "value": "4.7uF 16V X5R 0603",
-  "footprint": "C_0603_1608Metric",
-  "mpn": "Murata GRM188R61C475KAAJ",
-  "x": 32.95,
-  "y": 27.0,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "D9",
-  "value": "BZX384-C5V1",
-  "footprint": "D_SOD-323",
-  "mpn": "Nexperia BZX384-C5V1 (5.1 V, 300 mW)",
-  "x": 33.15,
-  "y": 29.6,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "J14",
-  "value": "CTRL2: 1 12V 2 GND 3 PWM_H 4 PWM_L 5 DIS 6 GND",
-  "footprint": "PinHeader_2x03_P2.54mm_Vertical",
-  "mpn": "2.54 mm header 2x3",
-  "x": 20.15,
-  "y": 37.6,
-  "rot": 90,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "L8",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 13.25,
-  "y": 36.3,
-  "rot": 90,
+  "x": 38.19,
+  "y": 21.6,
+  "rot": 270,
   "side": "top",
   "block": 2
  },
@@ -1577,9 +1511,64 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 15.85,
-  "y": 36.3,
+  "x": 36.15,
+  "y": 25.6,
   "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C57",
+  "value": "4.7uF 25V X7R 0805",
+  "footprint": "C_0805_2012Metric",
+  "mpn": "Murata GRM21BR71E475KA73",
+  "x": 37.2,
+  "y": 28.8,
+  "rot": 0,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "R38",
+  "value": "150R 1% 0603 (bias, <= 82 mW)",
+  "footprint": "R_0603_1608Metric",
+  "mpn": "150R 0603 1% 0.1 W",
+  "x": 36.1,
+  "y": 30.8,
+  "rot": 0,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "D8",
+  "value": "BZX384-C5V1",
+  "footprint": "D_SOD-323",
+  "mpn": "Nexperia BZX384-C5V1 (5.1 V, 300 mW)",
+  "x": 38.33,
+  "y": 32.75,
+  "rot": 180.0,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C58",
+  "value": "4.7uF 16V X5R 0603",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61C475KAAJ",
+  "x": 36.1,
+  "y": 34.45,
+  "rot": 0,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C59",
+  "value": "4.7uF 16V X5R 0603",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61C475KAAJ",
+  "x": 38.33,
+  "y": 35.95,
+  "rot": 0,
   "side": "top",
   "block": 2
  },
@@ -1588,58 +1577,102 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 28.35,
-  "y": 36.3,
+  "x": 18.67,
+  "y": 30.0,
   "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "L11",
+  "value": "WE-CNSW 744232601",
+  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
+  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
+  "x": 21.21,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "L12",
+  "value": "WE-CNSW 744232601",
+  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
+  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
+  "x": 23.75,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "L13",
+  "value": "WE-CNSW 744232601",
+  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
+  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
+  "x": 26.29,
+  "y": 30.0,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "J14",
+  "value": "CTRL2: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 NC 10 NC",
+  "footprint": "PinHeader_2x05_P2.54mm_Vertical_SMD",
+  "mpn": "Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",
+  "x": 23.75,
+  "y": 36.4,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "R39",
+  "value": "10k (PWM_H pull-down)",
+  "footprint": "R_0402_1005Metric",
+  "mpn": "10k 0402 1%",
+  "x": 19.770000000000003,
+  "y": 25.2,
+  "rot": 0,
   "side": "top",
   "block": 2
  },
  {
   "ref": "R40",
-  "value": "10k (PWM_H pull-down)",
+  "value": "10k (PWM_L pull-down)",
   "footprint": "R_0402_1005Metric",
   "mpn": "10k 0402 1%",
-  "x": 30.05,
-  "y": 34.7,
+  "x": 22.45,
+  "y": 26.9,
   "rot": 90,
   "side": "top",
   "block": 2
  },
  {
-  "ref": "R41",
-  "value": "10k (PWM_L pull-down)",
-  "footprint": "R_0402_1005Metric",
-  "mpn": "10k 0402 1%",
-  "x": 31.15,
-  "y": 34.7,
+  "ref": "FB2",
+  "value": "BLM18PG221SN1 (220 R @ 100 MHz)",
+  "footprint": "L_0603_1608Metric",
+  "mpn": "Murata BLM18PG221SN1D (ferrite bead, 1.4 A)",
+  "x": 25.6,
+  "y": 26.25,
   "rot": 90,
   "side": "top",
   "block": 2
  },
  {
   "ref": "C60",
-  "value": "4.7uF 25V X7R 0805 (12 V)",
-  "footprint": "C_0805_2012Metric",
-  "mpn": "Murata GRM21BR71E475KA73",
-  "x": 31.15,
-  "y": 37.7,
-  "rot": 0,
+  "value": "4.7uF 25V X5R 0603 (12 V)",
+  "footprint": "C_0603_1608Metric",
+  "mpn": "Murata GRM188R61E475KE11",
+  "x": 27.15,
+  "y": 24.3,
+  "rot": 90,
   "side": "top",
   "block": 2
  },
  {
   "ref": "J15",
-  "value": "FAN 12V: 1 +12V, 2 GND",
-  "footprint": "PinHeader_1x02_P2.54mm_Vertical",
-  "mpn": "2.54 mm header 1x2 (fan)",
-  "x": 35.15,
-  "y": 34.9,
-  "rot": 0,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "J16",
   "value": "U.FL H3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1650,7 +1683,7 @@
   "block": 2
  },
  {
-  "ref": "R42",
+  "ref": "R41",
   "value": "0R (V_GS HS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -1661,7 +1694,7 @@
   "block": 2
  },
  {
-  "ref": "J17",
+  "ref": "J16",
   "value": "U.FL L3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1672,7 +1705,7 @@
   "block": 2
  },
  {
-  "ref": "R43",
+  "ref": "R42",
   "value": "0R (V_GS LS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -1683,7 +1716,7 @@
   "block": 2
  },
  {
-  "ref": "J18",
+  "ref": "J17",
   "value": "U.FL D3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1694,7 +1727,7 @@
   "block": 2
  },
  {
-  "ref": "R44",
+  "ref": "R43",
   "value": "953R 1% (V_DS LS, 20:1 into 50 R)",
   "footprint": "R_0402_1005Metric",
   "mpn": "953R 0402 1% 100 V",
@@ -1705,7 +1738,7 @@
   "block": 2
  },
  {
-  "ref": "J19",
+  "ref": "J18",
   "value": "U.FL H4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1716,7 +1749,7 @@
   "block": 2
  },
  {
-  "ref": "R45",
+  "ref": "R44",
   "value": "0R (V_GS HS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -1727,7 +1760,7 @@
   "block": 2
  },
  {
-  "ref": "J20",
+  "ref": "J19",
   "value": "U.FL L4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1738,7 +1771,7 @@
   "block": 2
  },
  {
-  "ref": "R46",
+  "ref": "R45",
   "value": "0R (V_GS LS)",
   "footprint": "R_0402_1005Metric",
   "mpn": "0R 0402",
@@ -1749,7 +1782,7 @@
   "block": 2
  },
  {
-  "ref": "J21",
+  "ref": "J20",
   "value": "U.FL D4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1760,7 +1793,7 @@
   "block": 2
  },
  {
-  "ref": "R47",
+  "ref": "R46",
   "value": "953R 1% (V_DS LS, 20:1 into 50 R)",
   "footprint": "R_0402_1005Metric",
   "mpn": "953R 0402 1% 100 V",
@@ -2079,40 +2112,18 @@
   "block": 0
  },
  {
-  "ref": "J22",
+  "ref": "J21",
   "value": "AC",
   "footprint": "AC_BOLT_M6",
   "mpn": "M6 bolt + nut, 12 x 5 mm Cu bar",
   "x": 0.0,
-  "y": 47.2,
+  "y": 52.400000000000006,
   "rot": 0.0,
   "side": "top",
   "block": 0
  },
  {
-  "ref": "RT1",
-  "value": "NTC 10k B3380",
-  "footprint": "R_0402_1005Metric",
-  "mpn": "Murata NCP15XH103F03RC",
-  "x": 7.0,
-  "y": 2.8,
-  "rot": 90,
-  "side": "top",
-  "block": 0
- },
- {
-  "ref": "J23",
-  "value": "1:NTC 2:DC- (LS domain!)",
-  "footprint": "PinHeader_1x02_P2.54mm_Vertical",
-  "mpn": "2.54 mm header 1x2",
-  "x": 0.0,
-  "y": 24.0,
-  "rot": 0,
-  "side": "top",
-  "block": 0
- },
- {
-  "ref": "R48",
+  "ref": "R47",
   "value": "68k 1206 (HV LED)",
   "footprint": "R_1206_3216Metric",
   "mpn": "68k 1206 1% 200 V",
@@ -2123,7 +2134,7 @@
   "block": 0
  },
  {
-  "ref": "R49",
+  "ref": "R48",
   "value": "68k 1206 (HV LED)",
   "footprint": "R_1206_3216Metric",
   "mpn": "68k 1206 1% 200 V",
@@ -2134,7 +2145,7 @@
   "block": 0
  },
  {
-  "ref": "D10",
+  "ref": "D9",
   "value": "red 0603 (DC link present)",
   "footprint": "LED_0603_1608Metric",
   "mpn": "Wurth 150060RS75000",
@@ -2145,7 +2156,7 @@
   "block": 0
  },
  {
-  "ref": "R50",
+  "ref": "R49",
   "value": "100k 1206 (bleeder)",
   "footprint": "R_1206_3216Metric",
   "mpn": "100k 1206 1% 200 V",
@@ -2161,7 +2172,7 @@
   "footprint": "MountingHole_2.7mm_M2.5",
   "mpn": "",
   "x": -42.35,
-  "y": 53.2,
+  "y": 58.400000000000006,
   "rot": 0.0,
   "side": "top",
   "block": 0
@@ -2172,7 +2183,7 @@
   "footprint": "MountingHole_2.7mm_M2.5",
   "mpn": "",
   "x": 42.35,
-  "y": 53.2,
+  "y": 58.400000000000006,
   "rot": 0.0,
   "side": "top",
   "block": 0

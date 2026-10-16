@@ -95,7 +95,8 @@ CUSTOM = {
 }
 STD = [("Device", "R"), ("Device", "C"), ("Device", "D_Schottky"), ("Device", "D_Zener"), ("Device", "LED"),
        ("Device", "Thermistor_NTC"), ("Mechanical", "MountingHole"), ("Connector_Generic", "Conn_01x01"),
-       ("Connector_Generic", "Conn_02x03_Odd_Even"), ("Connector_Generic", "Conn_01x02"), ("Connector", "Conn_Coaxial")]
+       ("Connector_Generic", "Conn_02x03_Odd_Even"), ("Connector_Generic", "Conn_02x05_Odd_Even"),
+       ("Connector_Generic", "Conn_01x02"), ("Connector", "Conn_Coaxial"), ("Device", "FerriteBead")]
 LIB = {}
 for lib, nm in STD:
     LIB[lib + ":" + nm] = extract(lib, nm)
@@ -155,6 +156,8 @@ def lib_id(ref):
         return "spb_fab:EPC2361"
     if ref.startswith("U"):
         return "spb_fab:2EDF7275K"
+    if ref.startswith("FB"):
+        return "Device:FerriteBead"
     if ref.startswith("L"):
         return "spb_fab:WE-CNSW"
     if ref.startswith("RT"):
@@ -170,7 +173,8 @@ def lib_id(ref):
     if val.startswith("U.FL"):
         return "Connector:Conn_Coaxial"
     n = len(PADS[ref][1])
-    return {6: "Connector_Generic:Conn_02x03_Odd_Even", 2: "Connector_Generic:Conn_01x02"}.get(
+    return {10: "Connector_Generic:Conn_02x05_Odd_Even", 6: "Connector_Generic:Conn_02x03_Odd_Even",
+            2: "Connector_Generic:Conn_01x02"}.get(
         n, "Connector_Generic:Conn_01x01")
 
 
@@ -363,17 +367,6 @@ t, b = vert(rbl, 650.24, 88.9, "DCP")
 W((650.24, YDP), t)
 W(b, (650.24, YDN))
 T("DC link present LED, %s 100 k bleeder" % rbl, 627.38, 157.48, 1.5, False)
-# NTC (DC- domain) and its connector
-rt = find("NTC", "DCN", pre="RT")[0]
-t, b = vert(rt, 701.04, 76.2, "NTC")
-lab_up(t, "NTC")
-lab_dn(b, "DCN")
-jn = [r for r in PADS if r.startswith("J") and net_of(r, "1") == "NTC"][0]
-place(jn, 721.36, 76.2)
-plabel(jn, "1")
-plabel(jn, "2")
-T("NTC on the heatsink side, DC- referenced:", 693.42, 60.96, 1.5, False)
-T("%s is in the LS domain (high voltage)" % jn, 693.42, 64.77, 1.5, False)
 
 # ================================================================== 2 driver blocks
 YD = 220.98
@@ -384,32 +377,31 @@ for blk, dx in ((1, -15.24), (2, -15.24 + 406.4)):
     X = lambda v: v + dx                                       # noqa: E731  (Rev A coordinates shifted)
     x0 = 45.72 + dx + 15.24
     T("BLOCK %s" % s, x0 - 15.24, YD - 30.48, 1.8)
-    # control header and its chokes
-    jc = with_pin("3", "C_PWMH" + s, "J")
+    # control header (2 x 5 SMT, every signal with its own return) and one common-mode choke per pair
+    jc = [r for r in PADS if r.startswith("J") and "C_PWMH" + s in PADS[r][1].values()][0]
     place(jc, x0, YD)
-    for n in ("1", "2", "3", "4", "5", "6"):
+    for n in sorted(PADS[jc][1], key=int):
         plabel(jc, n)
-    for net, yy in (("C_12V", -20.32), ("C_PWMH", 7.62), ("C_DIS", 27.94)):
-        cm = with_pin("1", net + s, "L")
-        place(cm, x0 + 40.64, YD + yy)
+    chokes = [r for r in PADS if r.startswith("L") and any(v.startswith(("C_PWM", "C_DIS", "C_12V", "C_NTC"))
+                                                          and v.endswith(s) for v in PADS[r][1].values())]
+    for k, cm in enumerate(sorted(chokes, key=refkey)):
+        place(cm, x0 + 40.64, YD - 27.94 + 15.24 * k)
         for n in ("1", "2", "3", "4"):
             plabel(cm, n)
+    fb = [r for r in PADS if r.startswith("FB") and "12V_CM" + s in PADS[r][1].values()][0]
+    t, b = vert(fb, x0 - 7.62, YD + 22.86, "12V_CM" + s)
+    lab_up(t, "12V_CM" + s)
+    lab_dn(b, "+12V" + s)
     c12 = [r for r in find("+12V" + s, "GNDI" + s) if r.startswith("C")][0]
-    t, b = vert(c12, x0 - 10.16, YD + 22.86, "+12V" + s)
+    t, b = vert(c12, x0 + 2.54, YD + 22.86, "+12V" + s)
     lab_up(t, "+12V" + s)
     lab_dn(b, "GNDI" + s)
-    led_r = find("+12V" + s, "LEDA_12V" + s)
-    if led_r:
-        t, b = vert(led_r[0], x0, YD + 17.78, "+12V" + s)
-        t2, b2 = vert(one("GNDI" + s, "LEDA_12V" + s), x0, YD + 30.48, "LEDA_12V" + s)
-        W(b, t2)
-        lab_up(t, "+12V" + s)
-        lab_dn(b2, "GNDI" + s)
-    fan = [r for r in find("+12V" + s, "GNDI" + s) if r.startswith("J")]
-    if fan:
-        place(fan[0], x0 + 5.08, YD + 22.86)
-        plabel(fan[0], "1")
-        plabel(fan[0], "2")
+    rt = find("NTC", "GNDI" + s, pre="RT")
+    if rt:
+        t, b = vert(rt[0], x0 + 12.7, YD + 22.86, "NTC")
+        lab_up(t, "NTC")
+        lab_dn(b, "GNDI" + s)
+        T("NTC on the control side (board temperature at the driver)", x0 - 12.7, YD + 41.91, 1.27, False)
     # driver core
     u = with_pin("2", "INA" + s, "U")
     place(u, X(190.5), YD)
@@ -575,8 +567,10 @@ notes = [
     ("LSRC1-LSRC4: LS power source of each cell = UFCS IN; the shunt SHLD side is DC-.  " if SHUNT else
      "LS power source = DC- directly (no shunt).  ") + "The LS gate drive and the LS supply are referenced to the "
     "Kelvin net KLx, not to DC-.",
-    "Block suffix 1/2 on every driver-side net (GNDI1, VDDA2, ...).  Primary side: GNDIx and +12Vx come from the control "
-    "header through a common-mode choke per pair (12 V/GND, PWM_H/PWM_L, DIS).",
+    "Block suffix 1/2 on every driver-side net (GNDI1, VDDA2, ...).  Control side (CTRLx 2 x 5 header): PWM_H, PWM_L, "
+    "DIS, 12 V and (block 1) NTC each with their own return C_RTN_* through one WE-CNSW common-mode choke per pair; "
+    "12 V then through a ferrite bead.  The control side is a top-layer-only area with a 1200 V barrier (4 mm outer, "
+    "3 mm L2) to all power copper; see reports/pcb-rules/PCB_rules_and_checklist.md.",
     "No short-circuit protection on this board.  Closed-loop control from a TI TMS320F28379D over the CTRL headers.",
 ]
 for k, t in enumerate(notes):
@@ -663,8 +657,8 @@ for ref, (lid, X, Y, rot) in sorted(INST.items()):
         short = val.split(":")[0]
     elif ref.startswith("H"):
         short = "M2.5"
-    two = lid in ("Device:R", "Device:C", "Device:Thermistor_NTC") + DIODES
-    vertical = rot in (0, 180) if lid in ("Device:R", "Device:C", "Device:Thermistor_NTC") else rot in (90, 270)
+    two = lid in ("Device:R", "Device:C", "Device:Thermistor_NTC", "Device:FerriteBead") + DIODES
+    vertical = rot in (0, 180) if lid in ("Device:R", "Device:C", "Device:Thermistor_NTC", "Device:FerriteBead") else rot in (90, 270)
     left = False
     if lid.startswith("spb_fab"):
         top = max(abs(py) for _, py, _ in PINS[lid].values()) + 2.54
