@@ -180,12 +180,15 @@ p("Dynamic sharing is dominated by the gate loop and the common-source path, not
 # ------------------------------------------------------------------------------------------------ IV
 h1("Leg Board in Two Versions")
 fig("boards.png", 16.0,
-    "Fig. 4: Leg board, four EPC2361 per switch (89.5 × 80 mm, four layers). (a) DPT board with a coaxial shunt per "
+    "Fig. 4: Leg board, four EPC2361 per switch (89.5 × 85.2 mm, four layers). (a) DPT board with a coaxial shunt per "
     "cell; (b) load-test board with fan heatsink; (c) Q3D model of the cells, generated from the routed copper "
     "(red dc+, blue dc−, orange switch node).")
 p("The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two mirrored pairs, each "
   "with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below "
-  "(Fig. 4). Vias removed for clearance are removed together with their mirror image. Measuring every cell current "
+  "(Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with one "
+  "common-mode choke per signal pair and a ferrite bead in the 12 V feed, keep 4.0 mm (outer) and 3.0 mm (inner "
+  "layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated "
+  "driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current "
   "requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design "
   "is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell and U.FL probes for *v*_{GS} and *v*_{DS}; "
   "the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D "

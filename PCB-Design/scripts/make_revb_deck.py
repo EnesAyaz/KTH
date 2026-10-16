@@ -615,7 +615,7 @@ DUR = durations()
 s = slide("Rev B: four cells per switch, two drivers, one leg", 8, "8  Four per switch on one board")
 bx, by = X0 + 10, Y0 + 20
 rect(s, [bx, by, 470, 330], "", fill="white", line="gray", round_=False)
-label(s, [bx + 5, by + 3, 300, 18], "Rev B leg board, 89.5 × 80 mm, 4 layers", 11, "gray", True)
+label(s, [bx + 5, by + 3, 300, 18], "Rev B leg board, 89.5 × 85.2 mm, 4 layers", 11, "gray", True)
 rect(s, [bx + 185, by + 22, 45, 22], "DC+", "hs10", "hs", 10, True)
 rect(s, [bx + 240, by + 22, 45, 22], "DC−", "kth10", "ls", 10, True)
 line(s, [bx + 20, by + 52, bx + 450, by + 52], "hs", 4)
@@ -666,7 +666,7 @@ s = slide("DPT board layout (UFCS shunts, no heatsink)", 8)
 image(s, "img/revb_dpt_top.png", [X0, Y0, 440, 390])
 image(s, "img/revb_dpt_bottom.png", [X0 + 450, Y0, 230, 390])
 text(s, [X0 + 690, Y0, 210, 400], [
-    "89.5 × 80 mm, 4 layers",
+    "89.5 × 85.2 mm, 4 layers",
     "UFCS-R001 per cell, IN land 1.2 mm (blade at the source edge), return vias in the SHLD pad",
     "No heatsink, no spreader holes",
     "DRC 0 / 0 / 0, schematic = PCB",
@@ -676,7 +676,7 @@ s = slide("Load-test board layout (no shunt, heatsink)", 8)
 image(s, "img/revb_load_top.png", [X0, Y0, 440, 390])
 image(s, "img/revb_load_bottom.png", [X0 + 450, Y0, 230, 390])
 text(s, [X0 + 690, Y0, 210, 400], [
-    "89.5 × 80 mm, 4 layers",
+    "89.5 × 85.2 mm, 4 layers",
     "LS source stripes: 3 blind L1–L2 vias each (filled, capped) into the DC− plane",
     "LAM 4 K 50 12 over the cells, 3 spreader holes (H5–H7)",
     "DRC 0 / 0 / 0, schematic = PCB",

@@ -1,4 +1,4 @@
-# ICPE 2027-ECCE Asia digest: fills a copy of the official template (reports/paper/ICPE_Template.docx) with
+﻿# ICPE 2027-ECCE Asia digest: fills a copy of the official template (reports/paper/ICPE_Template.docx) with
 # reports/paper/icpe/digest_content.json (scripts/make_icpe_digest_content.py) and exports the PDF for submission.
 #   powershell -ExecutionPolicy Bypass -File scripts\build_icpe_digest.ps1
 param(
@@ -16,7 +16,8 @@ $CM = 28.3465
 
 Copy-Item $Tpl $Docx -Force
 Unblock-File $Docx            # the downloaded template carries the web mark -> Protected View, read-only
-$w = New-Object -ComObject Word.Application
+. (Join-Path $PSScriptRoot "word_start.ps1")
+$w = New-WordApp
 # Word may attach to an instance the user is working in: never hide or quit it then, only close our own file
 $own = ($w.Documents.Count -eq 0)
 if ($own) { $w.Visible = [bool]$Show }
@@ -28,7 +29,10 @@ if ($own) { foreach ($a in $w.AddIns) { if ($a.Name -like "Zotero*") { $a.Instal
 # disconnected without admin rights). The finished document is therefore taken out as Flat OPC XML, which
 # needs no save, and a fresh Word session opens that file and writes the .docx and the PDF.
 try {
-    $d = $w.Documents.Open($Docx, $false, $false, $false)
+    $global:WordDoc = $null
+    Wait-WordReady { $global:WordDoc = $w.Documents.Open($Docx, $false, $false, $false); if (-not $global:WordDoc) { throw "open rejected" } }
+    $d = $global:WordDoc
+    Wait-WordReady { $d.RemovePersonalInformation = $false }
     "read-only: " + $d.ReadOnly + ", remove-personal-info flag: " + $d.RemovePersonalInformation
     $d.RemovePersonalInformation = $false      # its save-time warning dialog blocks a hidden Word; fields cleared below
     $w.Options.WarnBeforeSavingPrintingSendingMarkup = $false

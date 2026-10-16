@@ -153,7 +153,7 @@ $\cos\varphi$ & $I_\mathrm{rms}$ per leg \\
 \item Phase current is fixed by $P$, $V_\mathrm{bus}$, $M$, $\cos\varphi$, not by $N$
 \item Each submodule carries the full phase current $\Rightarrow$ conduction loss, transistors, drivers and isolated supplies all scale with $N$
 \item 60\,V ($N$ = 20): +25\,\% parts and conduction loss
-\item At the maximum bus voltage the overshoot margin shrinks; this is checked again with the final layout (Q3D, 0.374\,nH per cell)
+\item At the maximum bus voltage the overshoot margin shrinks; checked with the final Rev B layout (Q3D: 0.41\,nH per cell on the load board, 0.65\,nH on the DPT board with the shunt)
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -336,7 +336,7 @@ $n$ per switch & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
 \begin{itemize}
 \item Two cells mirrored about the driver: identical gate loops and Kelvin returns for both transistors of a switch
 \item One 2EDF7275K channel drives a \textbf{pair} symmetrically (star gate network)
-\item Each cell keeps its own commutation loop (0.374\,nH per cell)
+\item Each cell keeps its own commutation loop (Rev B, Q3D: 0.41\,nH per cell, load board)
 \end{itemize}
 \decision{Building block = 2\,$\times$ EPC2361 per switch, one driver; \textbf{4 per switch = two blocks}}
 \end{columns}

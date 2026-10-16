@@ -135,7 +135,7 @@ Static sharing is benign because $R_\mathrm{DS(on)}$ rises with temperature; dyn
 \subfloat[]{\includegraphics[height=3.9cm]{r3d_dpt_top.png}}\hfill
 \subfloat[]{\includegraphics[height=3.9cm]{r3d_load.png}}\hfill
 \subfloat[]{\includegraphics[height=3.9cm]{q3d_loop_dpt.png}}
-\caption{Leg board, four EPC2361 per switch (89.5\,$\times$\,80\,mm, four layers). (a) Double-pulse-test board with a coaxial shunt per cell; (b) load-test board with fan heatsink; (c) Q3D model of the cells of the test board, generated from the routed copper (red dc$+$, blue dc$-$, orange switch node; $z$ stretched).}
+\caption{Leg board, four EPC2361 per switch (89.5\,$\times$\,85.2\,mm, four layers). (a) Double-pulse-test board with a coaxial shunt per cell; (b) load-test board with fan heatsink; (c) Q3D model of the cells of the test board, generated from the routed copper (red dc$+$, blue dc$-$, orange switch node; $z$ stretched).}
 \label{fig:board}
 \end{figure*}
 
@@ -151,7 +151,7 @@ The three legs of a submodule share one dc bus, so the low-frequency ripple canc
 %=========================================================================
 \section{Leg Board and Verification}\label{sec:board}
 %=========================================================================
-The four-layer leg board (2\,oz, 0.1\,mm dielectric between L1 and L2) carries the four cells as two mirrored pairs, each with its driver in the centre (Fig.~\ref{fig:board}). Each commutation loop is vertical: the forward path on L1 returns on the dc$-$ plane on L2 directly below. One dc terminal pair feeds a laminated row across the board that supplies both the capacitor bank and all cells, and the four switch nodes are joined in copper and leave through a single bolted ac terminal. Symmetry required two measures. The interleaved drain and source stripes of the EPC2361 leave no room for a via row, so the low-side source stripes use vias in the pad, and any via removed for clearance is removed together with its mirror image.
+The four-layer leg board (2\,oz, 0.1\,mm dielectric between L1 and L2) carries the four cells as two mirrored pairs, each with its driver in the centre (Fig.~\ref{fig:board}). Each commutation loop is vertical: the forward path on L1 returns on the dc$-$ plane on L2 directly below. One dc terminal pair feeds a laminated row across the board that supplies both the capacitor bank and all cells, and the four switch nodes are joined in copper and leave through a single bolted ac terminal. Symmetry required two measures. The interleaved drain and source stripes of the EPC2361 leave no room for a via row, so the low-side source stripes use vias in the pad, and any via removed for clearance is removed together with its mirror image. The driver inputs, with one common-mode choke per signal pair and a ferrite bead in the 12\,V feed, keep 4.0\,mm on the outer and 3.0\,mm on the inner layers from all power copper, the IPC-2221B spacing for 1200\,V, so the layout is ready for a reinforced isolated driver; the 2EDF7275K used here provides functional isolation for the 75\,V tests.
 
 A shunt in every low-side source is needed to measure the cell currents but lengthens the loop and blocks the heatsink. The board is therefore built in two versions from the same design. The double-pulse-test (DPT) board carries a 1\,m$\Omega$ coaxial shunt (PMK UFCS) per cell on a shortened land and needs no heatsink. The load-test board connects the low-side sources through blind vias to the dc$-$ plane and carries the heatsink.
 

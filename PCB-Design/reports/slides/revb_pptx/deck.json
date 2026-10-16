@@ -520,7 +520,7 @@
       ],
       [
        0,
-       "Copper alone: 0.34 nH (load) / 0.46 nH (DPT, shunt path); with 6 + 4 bypass 0805 per cell: **0.41 / 0.65 nH**"
+       "Copper alone: 0.35 nH (load) / 0.47 nH (DPT, shunt path); with 6 + 4 bypass 0805 per cell: **0.41 / 0.65 nH**"
       ],
       [
        0,
@@ -1736,7 +1736,7 @@
       300,
       18
      ],
-     "text": "Rev B leg board, 89.5 × 80 mm, 4 layers",
+     "text": "Rev B leg board, 89.5 × 85.2 mm, 4 layers",
      "size": 11,
      "color": "gray",
      "bold": true,
@@ -2385,7 +2385,7 @@
      "paras": [
       [
        0,
-       "89.5 × 80 mm, 4 layers"
+       "89.5 × 85.2 mm, 4 layers"
       ],
       [
        0,
@@ -2440,7 +2440,7 @@
      "paras": [
       [
        0,
-       "89.5 × 80 mm, 4 layers"
+       "89.5 × 85.2 mm, 4 layers"
       ],
       [
        0,
@@ -2660,11 +2660,11 @@
       ],
       [
        0,
-       "Q3D (fast lx model, final boards): L_{x} = **(pending) nH** (HS on) / **(pending) nH** (LS on) on the load board, (pending) / (pending) nH on the DPT board"
+       "Q3D (fast lx model, final boards): L_{x} = **6.77 nH** (HS on) / **5.44 nH** (LS on) on the load board, 4.91 / 2.68 nH on the DPT board"
       ],
       [
        0,
-       "⇒ **≈ (pending) A per ns of skew** (load board)"
+       "⇒ **≈ 14 A per ns of skew** (load board)"
       ]
      ],
      "size": 14
@@ -3216,7 +3216,7 @@
      "paras": [
       [
        0,
-       "Q3D (step 11): leg-to-leg loop **(pending) nH** at 1 MHz (a–b), DC busbar loss **(pending) W**"
+       "Q3D (step 11): leg-to-leg loop **1.46 nH** at 1 MHz (a–b), DC busbar loss **(pending) W**"
       ],
       [
        0,
@@ -3455,7 +3455,7 @@
        "cell band y −4.6 … 20.6 mm, AC split per cell",
        "AC 100 MHz",
        "commutation loop per cell",
-       "44 / 28 min"
+       "90 / 30 min"
       ],
       [
        "full board",
@@ -3476,14 +3476,14 @@
        "cells + AC columns + AC bus, no bank / terminals",
        "AC 100 MHz",
        "L_{x} between the driver pairs",
-       "(pending) / (pending) min"
+       "138 / 113 min"
       ],
       [
        "busbar",
        "PCB busbar, stitching vias every 2nd",
        "DC + AC 1 MHz, 2 %",
        "leg-to-leg loop, DC distribution",
-       "(pending) min"
+       "43 min"
       ],
       [
        "three-phase level",
@@ -3560,13 +3560,13 @@
       ],
       [
        "cell 1 / 2",
-       "0.644 / 0.646",
-       "0.405 / 0.406"
+       "0.647 / 0.648",
+       "0.408 / 0.408"
       ],
       [
        "cell 3 / 4",
-       "0.642 / 0.654",
-       "0.407 / 0.410"
+       "0.645 / 0.658",
+       "0.406 / 0.412"
       ],
       [
        "**mean**",
@@ -3602,7 +3602,7 @@
       ],
       [
        0,
-       "Cells within 2 % (DPT) and 1 % (load): left/right symmetric by layout (power vias pruned in mirror pairs)"
+       "Cells within 2 % (DPT) and 2 % (load): left/right symmetric by layout (power vias pruned in mirror pairs)"
       ],
       [
        0,
@@ -3794,11 +3794,11 @@
       ],
       [
        "Leg-to-leg loop a–b / a–c, 1 MHz",
-       "(pending) / (pending) nH"
+       "1.46 / 1.98 nH"
       ],
       [
        "Leg-to-leg loop a–b / a–c, DC",
-       "(pending) / (pending) nH"
+       "7.41 / 10.01 nH"
       ],
       [
        "Ripple of leg a at 50 kHz from banks a / b / c",
@@ -3882,14 +3882,14 @@
       ],
       [
        "L_{x} between driver pairs (HS / LS)",
-       "(pending) / (pending) nH",
-       "(pending) / (pending) nH",
+       "4.91 / 2.68 nH",
+       "6.77 / 5.44 nH",
        "skew → ΔI = V_{m}Δt / L_{x}"
       ],
       [
        "Bus leg-to-leg loop (1 MHz)",
        "–",
-       "(pending) nH",
+       "1.46 nH",
        "target ≤ 5 nH"
       ]
      ],
@@ -4054,7 +4054,7 @@
       ],
       [
        "Fast Q3D: loop, DC, L_{x}, busbar, level",
-       "running"
+       "done (this deck)"
       ],
       [
        "3D models, board + assembly STEP",

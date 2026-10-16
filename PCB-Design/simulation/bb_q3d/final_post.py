@@ -226,6 +226,12 @@ if leg and bus and "Lac" in leg:
     zb = rows[:, 1]
     out["sweep_peaks_bus"] = [[float(rows[i, 0]), float(zb[i])] for i in range(1, len(zb) - 1)
                               if zb[i] > zb[i - 1] and zb[i] > zb[i + 1]]
+    S["level"] = out
+
+# ================================================================== 5 busbar alone: leg-to-leg loop
+bus = load_any("BB_BUS_PCB")
+if bus:
+    out = S.setdefault("level", {})
     idx = {n: i for i, n in enumerate(bus["src"])}
     for tag, Lk, Rk in (("dc", "Ldc", "Rdc"), ("ac", "Lac", "Rac")):
         if Lk not in bus:
@@ -241,7 +247,6 @@ if leg and bus and "Lac" in leg:
             r["R_leg%d%d_mOhm" % (a, b_)] = float(v @ bus[Rk] @ v) * 1e3
         out["bus_" + tag] = r
     # leg DC-link port: DC inductance from the DC terminals to the bank (all caps shorted)
-    S["level"] = out
 
 json.dump(S, open(os.path.join(RES, "final_summary.json"), "w"), indent=1)
 os.makedirs(os.path.join(ROOT, "reports", "slides", "data"), exist_ok=True)
