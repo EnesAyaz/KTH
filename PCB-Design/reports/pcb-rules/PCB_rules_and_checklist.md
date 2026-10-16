@@ -137,6 +137,8 @@ Enes decided: put clearance and creepage for **1200 V** on the boards (only one 
 | Control ↔ power inside the 2EDF7275K courtyard | ≥ 3.0 mm (the package gives 3.35 mm) | component-defined |
 | Between power domains (HS / LS / DC+) | ≥ 0.2 mm, tented vias | IEC 60664-1 PD2 / IPC B4, 75 V functional |
 | Bare pads of different power nets, outer layers | ≥ 0.5 mm (EPC2361 land pattern and the shunt IN land excepted) | IPC-2221B A6 |
+| Bare pad to the (masked) pour of another power domain, outer layers | ≥ 0.5 mm (top-side EPC2361 land pattern excepted); the pours pull back | same as above: a bare pad and its fillet face the pour edge |
+| Power terminal pins J1 (DC+), J2 (DC−), J21 (AC) to another power domain, outer layers | ≥ 1.0 mm | large hand-soldered fillets on the bus rails, bank behind them |
 | Inner-layer neighbours across the 0.1 mm prepreg (L1–L2, L3–L4) | ≥ 3.0 mm in-plane offset between control and power copper | by construction (keepouts), not checked by DRC |
 
 **Layout.**
@@ -176,6 +178,20 @@ Enes decided: put clearance and creepage for **1200 V** on the boards (only one 
 - The Q3D loop of the DPT board, because the DC− copper next to the inner shunt ends was trimmed by the barrier.
 - The lx and full-board DC models, because the AC bus moved.
 - The 3D renders and the assembly STEP.
+
+**Pad-to-pour and terminals (follow-up).** The 0.5 mm bare-pad rule only checked pad against pad. The DC− terminal pins therefore sat 0.2 mm from the top-side DC+ pour, and J1 likewise in the bottom DC− pour. Two rules were added on the outer layers:
+- bare pad to the pour of another power domain: 0.5 mm;
+- terminal pins J1, J2, J21 to another power domain: 1.0 mm.
+
+The pours pull back automatically, on the bank capacitors C75–C82, the U.FL ports with their 0603 and 2512 resistors, and the gate resistors. The FET exception now uses `existsOnLayer('F.Cu') && insideFrontCourtyard('Qk')`. The earlier `insideCourtyard('Qk')` also excused the bottom-side U.FL parts under the FETs; this affected the pad-to-pad rule too.
+
+Vias stay at 0.2 mm:
+- All vias are tented, which puts them in IPC-2221B B4 (outer) and B1 (inner), both ~0.1–0.13 mm at 75 V.
+- The hole wall to copper of another net is ≥ 0.30–0.35 mm.
+- Opposite-polarity power via barrels are ≥ 1.55 mm apart, so CAF is not a concern at 75 V.
+- Larger antipads would widen the slots that the 0.7–1.0 mm-pitch DC− via rows already cut into the foreign planes (1.0 mm antipads with the unused inner rings kept).
+
+Both boards: DRC 0/0, schematic = PCB.
 
 ## 7. Decisions needed (status 2026-10-16)
 

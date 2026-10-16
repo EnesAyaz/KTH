@@ -1425,12 +1425,29 @@ rules = ['(version 1)',
          '  (layer outer)',
          '  (condition "A.Type == \'Pad\' && B.Type == \'Pad\' && (%s || %s || %s) && !(%s)")' % (
              _pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"]),
-             " || ".join(["(A.insideCourtyard('Q%d') && B.insideCourtyard('Q%d'))" % (k, k) for k in range(1, 9)] +
+             " || ".join(["(A.existsOnLayer('F.Cu') && A.insideFrontCourtyard('Q%d') && B.existsOnLayer('F.Cu') && B.insideFrontCourtyard('Q%d'))" % (k, k) for k in range(1, 9)] +
                          # the UFCS IN land continues the LS source strip of the EPC2361 land pattern
-                         ["(A.insideCourtyard('Q%d') && B.insideCourtyard('RS%d')) || "
-                          "(B.insideCourtyard('Q%d') && A.insideCourtyard('RS%d'))" % (k, m, k, m)
+                         ["(A.existsOnLayer('F.Cu') && A.insideFrontCourtyard('Q%d') && B.insideFrontCourtyard('RS%d')) || "
+                          "(B.existsOnLayer('F.Cu') && B.insideFrontCourtyard('Q%d') && A.insideFrontCourtyard('RS%d'))" % (k, m, k, m)
                           for k in range(1, 9) for m in range(1, 5)])),
          '  (constraint clearance (min 0.5mm)))',
+         # bare (unmasked) pads against the masked pours of another power domain: same 0.5 mm, the pours pull back
+         '(rule "75 V bare pad to pour of another power domain (0.5 mm; EPC2361 land pattern excepted)"',
+         '  (layer outer)',
+         "  (condition \"((A.Type == 'Pad' && B.Type == 'Zone') || (A.Type == 'Zone' && B.Type == 'Pad')) "
+         '&& (%s || %s || %s) && !(%s)")' % (
+             _pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"]),
+             " || ".join("(A.Type == 'Pad' && A.existsOnLayer('F.Cu') && A.insideFrontCourtyard('Q%d')) || (B.Type == 'Pad' && B.existsOnLayer('F.Cu') && B.insideFrontCourtyard('Q%d'))"
+                         % (k, k) for k in range(1, 9))),
+         '  (constraint clearance (min 0.5mm)))',
+         # DC / AC terminal pins: large hand-soldered fillets on the bus rails with the bank behind them
+         '(rule "power terminal pins J1 J2 J21 to another power domain (1.0 mm)"',
+         '  (layer outer)',
+         '  (condition "(%s) && (%s || %s || %s)")' % (
+             " || ".join("(A.Type == 'Pad' && A.insideCourtyard('%s')) || (B.Type == 'Pad' && B.insideCourtyard('%s'))"
+                       % (j, j) for j in ("J1", "J2", "J21")),
+             _pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"])),
+         '  (constraint clearance (min 1.0mm)))',
          '(rule "1200 V barrier, outer layers (IPC-2221B B4/A6: 3.66 mm)"',
          '  (layer outer)',
          '  (condition "%s")' % _pair(["CTRL"], PWR),
