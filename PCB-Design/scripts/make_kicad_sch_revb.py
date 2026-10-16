@@ -540,8 +540,9 @@ for i, (blk, ab, kk) in enumerate(((1, "A", "KH"), (1, "B", "KL"), (2, "A", "KH"
 
 # ================================================================== 4 U.FL measurement ports
 YU = 337.82
-T("U.FL MEASUREMENT PORTS (bottom side, at each cell): V_GS HS / LS (0 R, shield = Kelvin), V_DS LS (953 R series = "
-  "20:1 into the 50 R scope input, shield = LS source %s)" % ("LSRCx" if SHUNT else "= DC-"), 25.4, YU - 12.7)
+T("U.FL MEASUREMENT PORTS (bottom side, at each cell): V_GS HS / LS (0 R, shield = Kelvin), V_DS LS (4.99 k 2512 "
+  "series into the 50 R scope input = 100:1, 1.1 W at 75 V; shield = LS source %s)"
+  % ("LSRCx" if SHUNT else "= DC-"), 25.4, YU - 12.7)
 ufl = sorted((r for r in PADS if PADS[r][0].startswith("U.FL")), key=refkey)
 for i, j in enumerate(ufl):
     Xu, Yu = 50.8 + 101.6 * (i % 6), YU + 25.4 * (i // 6)

@@ -776,13 +776,13 @@
 }
 ],
 [
-"HS1",
-"Fischer LAM 4 K 50 12 + spreader",
+"H1",
+"M2.5 insulated",
 {}
 ],
 [
-"H1",
-"M2.5 insulated",
+"HS1",
+"Fischer LAM 4 K 50 12 + spreader",
 {}
 ],
 [
@@ -1231,19 +1231,19 @@
 }
 ],
 [
-"RT1",
-"NTC 10k B3380 0603",
-{
-"1": "NTC",
-"2": "GNDI1"
-}
-],
-[
 "R1",
 "0R5 1% (R_G HL)",
 {
 "1": "GH_L1",
 "2": "GH_STAR1"
+}
+],
+[
+"RT1",
+"NTC 10k B3380 0603",
+{
+"1": "NTC",
+"2": "GNDI1"
 }
 ],
 [
@@ -1376,7 +1376,7 @@
 ],
 [
 "R18",
-"953R 1% (V_DS LS, 20:1 into 50 R)",
+"0R (V_DS LS, high-Z probe)",
 {
 "1": "UFL_D1",
 "2": "SW"
@@ -1400,7 +1400,7 @@
 ],
 [
 "R21",
-"953R 1% (V_DS LS, 20:1 into 50 R)",
+"0R (V_DS LS, high-Z probe)",
 {
 "1": "SW",
 "2": "UFL_D2"
@@ -1544,7 +1544,7 @@
 ],
 [
 "R39",
-"953R 1% (V_DS LS, 20:1 into 50 R)",
+"0R (V_DS LS, high-Z probe)",
 {
 "1": "UFL_D3",
 "2": "SW"
@@ -1568,7 +1568,7 @@
 ],
 [
 "R42",
-"953R 1% (V_DS LS, 20:1 into 50 R)",
+"0R (V_DS LS, high-Z probe)",
 {
 "1": "SW",
 "2": "UFL_D4"

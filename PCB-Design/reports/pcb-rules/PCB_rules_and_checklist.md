@@ -118,7 +118,7 @@ Hundreds of CTRL-to-power pairs lie within 3.4 mm, because the GNDI corridor pou
 | 10 | Signals leaving the board: series R or ferrite bead; 45° corners | [PAC] | PWM 47 Ω ✔; NTC, fan unfiltered ✘ |
 | 11 | Differential sense lines symmetric; filter capacitor at the receiver | [PAC], [ADI] | shunt sensing goes to U.FL (coax) ✔ |
 | 12 | Star connection of power, driver and logic grounds; no slots in return planes; no traces over plane gaps | [PAC], [ADI], [ST], [HS] | GNDI per block ✔; check the inner-layer splits under PWM/DIS — **to check** |
-| 13 | Decoupling at the IC pins, short and wide, vias right at the pads | [PAC], [ST], [ADI] | driver decoupling ✔ (0402 at the pins) |
+| 13 | Decoupling at the IC pins, short and wide, vias right at the pads | [PAC], [ST], [ADI] | driver decoupling ✔ (0603 at the pins) |
 | 14 | Current per via 1–3 A ([TI]); 8 mil (0.2 mm) via ≈ 0.8 A for 5 °C rise ([HS]) | [TI], [HS] | DC/AC terminals and power vias: count vias per path against the current — **to do** |
 | 15 | Creepage/clearance per IPC-2221 / UL / IEC 60664 by insulation type | [TI], [PAC] | §2–3: power stage ✔, isolation barrier ✘ |
 | 16 | Thermal: solid planes, thermal vias under hot parts, no splits in heat paths | [TI], [T] | load board heat goes to the top through the gap pad; PCB is secondary ✔ |
@@ -163,7 +163,7 @@ Enes decided: put clearance and creepage for **1200 V** on the boards (only one 
   - control ↔ power on outer layers ≥ 4.0 mm, except the driver pins and their escape traces (3.35–3.6 mm, set by the package);
   - inner layers ≥ 3.35 mm.
 
-**Bare pads and 0603 (follow-up, same day).** The 0.5 mm bare-pad rule moved bank capacitor row A up by 0.25 mm and the top bypass row 0.1 mm towards the bank (both previously 0.30 / 0.45 mm). All 0402 parts became 0603 for hand soldering; this also gives the 953 Ω V_DS resistors a 75 V rating and 0.85 mm between their pads. The driver input side was re-placed. The external 10 k PWM pull-downs and the 12 V 4.7 µF were dropped: INA, INB and DISABLE have internal 150 k pull-downs, and the 12 V only feeds VDDI through 3 k.
+**Bare pads and 0603 (follow-up, same day).** The 0.5 mm bare-pad rule moved bank capacitor row A up by 0.25 mm and the top bypass row 0.1 mm towards the bank (both previously 0.30 / 0.45 mm). All 0402 parts became 0603 for hand soldering; the V_DS port is treated separately (next paragraph). The driver input side was re-placed. The external 10 k PWM pull-downs and the 12 V 4.7 µF were dropped: INA, INB and DISABLE have internal 150 k pull-downs, and the 12 V only feeds VDDI through 3 k.
 
 **Removed.**
 - The DC−-referenced NTC header J23; the NTC is now RT1 in the control area of block 1.
@@ -189,3 +189,5 @@ Items 1–6 were answered as described in §6. Item 1 is open for the stack only
 4. **Signal chokes**: re-pair PWM/DIS with their returns, use a 4-line choke, or replace them with R/C filters? Void the planes under all chokes?
 5. **Heatsink potential**: tie it to DC− (recommended) and power the fan from the level side?
 6. **NTC**: measure it on the power side, or isolate it?
+
+**V_DS port (follow-up).** The old 953 Ω series resistor into the 50 Ω scope input gives 20:1, but it dissipates 75²/1003 ≈ 5.6 W, 5.3 W of it in the resistor. It is now **4.99 kΩ 1 % in 2512** (Vishay CRCW25124K99FKEGHP, 1.5 W, 500 V working voltage), which gives **5040/50 ≈ 100.8:1** into a 50 Ω input. That is about 0.75 V at the U.FL at 75 V, so any U.FL variant is fine (U.FL-R-SMT-1(10)). It dissipates **1.1 W continuously** while the bus is energized and the scope is connected. With no 50 Ω termination (scope on 1 MΩ), almost no current flows. The resistor's parallel capacitance (≈ 0.1–0.3 pF for a 2512) bypasses the 4.99 k above roughly 1/(2π·4.99k·0.2 pF) ≈ 160 MHz. Fast-edge content is therefore over-weighted: expect overshoot on the edges, not a slow edge. Treat the port as a ~100 MHz monitor and take the edge itself with the passive or isolated probe. The 2512 sits on the bottom SW pour under the AC column (free copper, good heat spreading). The SW end lands directly in the pour. The 50 Ω side (0.25 mm trace) runs back to the U.FL through the gap in the DC− via row.

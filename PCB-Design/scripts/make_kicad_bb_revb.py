@@ -925,7 +925,8 @@ def build_block(bi, xoff):
         gvh, gvl, kvl, kvh = gate["VH" + side], gate["VL" + side], gate["VKL" + side], gate["VKH" + side]
         rows = (("H", gvh[1], gvh, kh, "0R (V_GS HS)", "0R 0603"),
                 ("L", gvl[1], gvl, kl, "0R (V_GS LS)", "0R 0603"),
-                ("D", 14.9, None, lsrc[side], "953R 1% (V_DS LS, 20:1 into 50 R)", "953R 0603 1% (75 V working)"))
+                ("D", 14.9, None, lsrc[side], "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
+                 "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)"))
         for tag, yy, src, gnd, val, mpn in rows:
             sn = "UFL_%s%d" % (tag, c)
             fp = place(FP + "Connector_Coaxial.pretty", "U.FL_Hirose_U.FL-R-SMT-1_Vertical", ref("J"),
@@ -951,11 +952,23 @@ def build_block(bi, xoff):
             cx, cy = padxy(fp.GetReference(), "1")
             src_net = sw if tag == "D" else bn(("GH_" if tag == "H" else "GL_") + side)
             ri, ro = sgn * (9.2 - 0.825), sgn * (9.2 + 0.825)
-            r = place(FP + "Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), val, sgn * 9.2, yy, 0, True, None, mpn)
-            for q in r.Pads():
-                inner = abs(rx(q.GetPosition().x)) < 9.2
-                q.SetNet(net(src_net if inner else sn))
-            seg(Bl, [(ro, yy), (cx, cy)], 0.25, sn)
+            if tag == "D":
+                # V_DS divider: 4.99 k into the 50 R scope input = 100:1, 1.1 W at 75 V -> 2512 on the bottom SW pour
+                # under the AC column (free copper); the 50 R side runs back to the U.FL through the DC- via-row gap
+                RDY = 26.72
+                r = place(FP + "Resistor_SMD.pretty", "R_2512_6332Metric", ref("R"), val, sgn * 16.4, RDY, 90, True,
+                          None, mpn)
+                for q in r.Pads():
+                    q.SetNet(net(sn if pcbnew.ToMM(q.GetPosition().y) < RDY else src_net))
+                seg(Bl, [(cx, cy), (sgn * 10.5, cy), (sgn * 10.5, 17.3), (sgn * 16.4, 17.3),
+                         (sgn * 16.4, RDY - 2.9625)], 0.25, sn)
+            else:
+                r = place(FP + "Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), val, sgn * 9.2, yy, 0, True,
+                          None, mpn)
+                for q in r.Pads():
+                    inner = abs(rx(q.GetPosition().x)) < 9.2
+                    q.SetNet(net(src_net if inner else sn))
+                seg(Bl, [(ro, yy), (cx, cy)], 0.25, sn)
             if src is not None:
                 seg(Bl, [src, (ri, yy)], 0.25, src_net)
             gpads = [q for q in fp.Pads() if q.GetNumber() == "2"]
