@@ -136,6 +136,7 @@ Enes decided: put clearance and creepage for **1200 V** on the boards (only one 
 | Control ↔ power domains, inner layers | ≥ 3.0 mm | IPC-2221B B1: 0.0025 mm/V |
 | Control ↔ power inside the 2EDF7275K courtyard | ≥ 3.0 mm (the package gives 3.35 mm) | component-defined |
 | Between power domains (HS / LS / DC+) | ≥ 0.2 mm, tented vias | IEC 60664-1 PD2 / IPC B4, 75 V functional |
+| Bare pads of different power nets, outer layers | ≥ 0.5 mm (EPC2361 land pattern and the shunt IN land excepted) | IPC-2221B A6 |
 | Inner-layer neighbours across the 0.1 mm prepreg (L1–L2, L3–L4) | ≥ 3.0 mm in-plane offset between control and power copper | by construction (keepouts), not checked by DRC |
 
 **Layout.**
@@ -161,6 +162,8 @@ Enes decided: put clearance and creepage for **1200 V** on the boards (only one 
 - **Spacing measured** with `domain_spacing.py`:
   - control ↔ power on outer layers ≥ 4.0 mm, except the driver pins and their escape traces (3.35–3.6 mm, set by the package);
   - inner layers ≥ 3.35 mm.
+
+**Bare pads and 0603 (follow-up, same day).** The 0.5 mm bare-pad rule moved bank capacitor row A up by 0.25 mm and the top bypass row 0.1 mm towards the bank (both previously 0.30 / 0.45 mm). All 0402 parts became 0603 for hand soldering; this also gives the 953 Ω V_DS resistors a 75 V rating and 0.85 mm between their pads. The driver input side was re-placed. The external 10 k PWM pull-downs and the 12 V 4.7 µF were dropped: INA, INB and DISABLE have internal 150 k pull-downs, and the 12 V only feeds VDDI through 3 k.
 
 **Removed.**
 - The DC−-referenced NTC header J23; the NTC is now RT1 in the control area of block 1.
