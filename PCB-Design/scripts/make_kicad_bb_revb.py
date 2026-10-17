@@ -1357,9 +1357,38 @@ def order(rf):
     return (rank, int(re.sub(r"\D", "", rf) or 0))
 
 
+def ctrl_legend(f_):
+    """2 x 5 control header: signal row on the choke side, return row towards the board edge. Each signal name is
+    printed vertically under its own pin column, the rows are marked SIG / RTN on the left, and the connector name
+    goes to the free side (it used to sit centred under the header and read like a pin label)."""
+    pins = silk_placer.pins_from_value(f_.GetValue())
+    bb = silk_placer._box(f_.GetBoundingBox(False, False))
+    pads = {p.GetNumber(): (pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y)) for p in f_.Pads()
+            if p.GetNumber()}
+    ret = [n for n in pads if pins.get(n) == "RTN"]
+    y_ret = pads[ret[0]][1]
+    # signal row = the other row; its pins name the columns (a column with NC on both rows is named once)
+    sig = sorted((n for n in pads if pins.get(n) and abs(pads[n][1] - y_ret) > 1.0), key=lambda n: pads[n][0])
+    y_sig = pads[sig[0]][1]
+    away = 1 if y_ret > y_sig else -1                  # direction from the signal row to the return row
+    edge = bb[3] if away > 0 else bb[1]
+    for n in sig:
+        name = pins[n]
+        w, h = SK.size_of(name, 0.8, 90)
+        SK.put(name, [(pads[n][0], edge + away * (h / 2 + d), 90) for d in frange(0.15, 1.5, 0.05)], "top", 0.8)
+    for lab, yy in (("SIG", y_sig), ("RTN", y_ret)):
+        w, h = SK.size_of(lab, 0.8, 90)
+        SK.put(lab, [(bb[0] - w / 2 - d, yy, 90) for d in frange(0.15, 1.5, 0.05)] +
+               [(bb[2] + w / 2 + d, yy, 90) for d in frange(0.15, 1.5, 0.05)], "top", 0.8)
+    SK.label_fp(f_, ref_text(f_.GetReference(), f_))
+
+
 for rf in sorted(FPS, key=order):
     f_ = FPS[rf]
     if rf.startswith(("H", "HS")) or rf in ("REF**",):
+        continue
+    if rf.startswith("J") and f_.GetValue().startswith("CTRL"):
+        ctrl_legend(f_)
         continue
     SK.label_fp(f_, ref_text(rf, f_))
     if rf.startswith("J"):
