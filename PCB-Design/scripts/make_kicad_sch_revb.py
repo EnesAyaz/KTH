@@ -540,20 +540,23 @@ for i, (blk, ab, kk) in enumerate(((1, "A", "KH"), (1, "B", "KL"), (2, "A", "KH"
 
 # ================================================================== 4 U.FL measurement ports
 YU = 337.82
-T("U.FL MEASUREMENT PORTS (bottom side, at each cell): V_GS HS / LS (0 R, shield = Kelvin), V_DS LS (4.99 k 2512 "
-  "series into the 50 R scope input = 100:1, 1.1 W at 75 V; shield = LS source %s)"
+T("U.FL MEASUREMENT PORTS (bottom side, at each cell): V_GS HS / LS (0 R, shield = Kelvin), V_DS LS (centre pin "
+  "directly on the switch node, 1 MOhm scope input only - never 50 R at 75 V; shield = LS source %s)"
   % ("LSRCx" if SHUNT else "= DC-"), 25.4, YU - 12.7)
 ufl = sorted((r for r in PADS if PADS[r][0].startswith("U.FL")), key=refkey)
 for i, j in enumerate(ufl):
     Xu, Yu = 50.8 + 101.6 * (i % 6), YU + 25.4 * (i // 6)
     sig = net_of(j, "1")
-    rr = [r for r in PADS if r.startswith("R") and sig in PADS[r][1].values()][0]
-    src = [n for n in PADS[rr][1].values() if n != sig][0]
+    rr = [r for r in PADS if r.startswith("R") and sig in PADS[r][1].values() and len(set(PADS[r][1].values())) == 2]
     place(j, Xu + 20.32, Yu)
-    l, r = horiz(rr, Xu + 5.08, Yu, src)
-    W((Xu - 5.08, Yu), l)
-    LBL(src, Xu - 5.08, Yu, (-1, 0))
-    W(r, pin_xy(j, "1"))
+    if rr and not sig.startswith(("SW", "DC")):    # V_GS: 0 R link from the gate net
+        src = [n for n in PADS[rr[0]][1].values() if n != sig][0]
+        l, r = horiz(rr[0], Xu + 5.08, Yu, src)
+        W((Xu - 5.08, Yu), l)
+        LBL(src, Xu - 5.08, Yu, (-1, 0))
+        W(r, pin_xy(j, "1"))
+    else:                                          # V_DS: centre pin directly on the power net
+        plabel(j, "1")
     plabel(j, "2")
 
 # ================================================================== 5 mechanical, notes

@@ -100,7 +100,8 @@ Y0, Y1 = YT - EDGE, 55.6 + D_BUS
 YSH, YSL = YQH, YQL
 YS = 15.25                                   # shunt centre (IN pad 12.0..15.0, SHLD 15.5..18.5)
 YBUS = 39.3 + D_BUS                          # AC bus (all layers) from here to the bottom
-MOAT = []                                    # (layer set, x0, x1, y0, y1) board coordinates: no power vias inside
+MOAT = []                                          # (layer set, x0, x1, y0, y1) board coordinates: no power vias inside
+UFLD = []                                          # V_DS U.FL refs (centre pin SW, shield LSRC)
 
 board = pcbnew.BOARD()
 board.SetCopperLayerCount(4)
@@ -925,14 +926,14 @@ def build_block(bi, xoff):
         gvh, gvl, kvl, kvh = gate["VH" + side], gate["VL" + side], gate["VKL" + side], gate["VKH" + side]
         rows = (("H", gvh[1], gvh, kh, "0R (V_GS HS)", "0R 0603"),
                 ("L", gvl[1], gvl, kl, "0R (V_GS LS)", "0R 0603"),
-                ("D", 14.9, None, lsrc[side], "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
-                 "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)"))
+                ("D", 14.9, None, lsrc[side], None, None))
         for tag, yy, src, gnd, val, mpn in rows:
-            sn = "UFL_%s%d" % (tag, c)
+            sn = sw if tag == "D" else "UFL_%s%d" % (tag, c)     # V_DS: centre pin directly on the switch node
             fp = place(FP + "Connector_Coaxial.pretty", "U.FL_Hirose_U.FL-R-SMT-1_Vertical", ref("J"),
                        "U.FL %s%d" % (tag, c), sgn * (16.2 if tag == "L" else 13.0), yy, 180 if sgn < 0 else 0,
                        True, None,
-                       "Hirose U.FL-R-SMT-1(10)")
+                       # V_DS port carries 75 V DC (90 V peaks): the variant listed at 100 V (series sheet: 60 V AC rms)
+                       "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm" if tag == "D" else "Hirose U.FL-R-SMT-1(10)")
             set_pads(fp, {"1": sn, "2": gnd})
             for z in list(fp.Zones()):
                 fp.Remove(z)                          # library keepout (RF) would block the sense leads and pours
@@ -953,15 +954,10 @@ def build_block(bi, xoff):
             src_net = sw if tag == "D" else bn(("GH_" if tag == "H" else "GL_") + side)
             ri, ro = sgn * (9.2 - 0.825), sgn * (9.2 + 0.825)
             if tag == "D":
-                # V_DS divider: 4.99 k into the 50 R scope input = 100:1, 1.1 W at 75 V -> 2512 on the bottom SW pour
-                # under the AC column (free copper); the 50 R side runs back to the U.FL through the DC- via-row gap
-                RDY = 26.72
-                r = place(FP + "Resistor_SMD.pretty", "R_2512_6332Metric", ref("R"), val, sgn * 16.4, RDY, 90, True,
-                          None, mpn)
-                for q in r.Pads():
-                    q.SetNet(net(sn if pcbnew.ToMM(q.GetPosition().y) < RDY else src_net))
-                seg(Bl, [(cx, cy), (sgn * 10.5, cy), (sgn * 10.5, 17.3), (sgn * 16.4, 17.3),
-                         (sgn * 16.4, RDY - 2.9625)], 0.25, sn)
+                UFLD.append(fp.GetReference())
+                # V_DS LS (DPT, 75 V): no divider - the centre pin sits on the switch node (bottom SW pour) and the
+                # shield on LSRC; a 1 MOhm scope input or a 50 R input with an external attenuator is used
+                seg(Bl, [(cx, cy), (ri, yy)], 0.4, sw)
             else:
                 r = place(FP + "Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), val, sgn * 9.2, yy, 0, True,
                           None, mpn)
@@ -1311,6 +1307,7 @@ SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0 + D_BUS,
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "top", 1.0)
 SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "bottom", 1.2)
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
+SK.put("VDS U.FL = 75 V: 1 MOHM SCOPE INPUT ONLY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
 for c, xc in enumerate((-33.25, -14.25, 14.25, 33.25)):
     cc = sorted(scan(frange(xc - 6, xc + 6, 0.25), frange(2.5, -4.0, -0.25)),
                 key=lambda p: abs(p[0] - xc) + 2 * abs(p[1] - 0.0))
@@ -1455,6 +1452,8 @@ rules = ['(version 1)',
          '  (condition "A.Type == \'Pad\' && B.Type == \'Pad\' && (%s || %s || %s) && !(%s)")' % (
              _pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"]),
              " || ".join(["(A.existsOnLayer('F.Cu') && A.insideFrontCourtyard('Q%d') && B.existsOnLayer('F.Cu') && B.insideFrontCourtyard('Q%d'))" % (k, k) for k in range(1, 9)] +
+                         # V_DS U.FL: centre pin (SW) and shield (LSRC) of the connector itself (Hirose geometry)
+                         ["(A.existsOnLayer('B.Cu') && A.insideBackCourtyard('%s') && B.existsOnLayer('B.Cu') && B.insideBackCourtyard('%s'))" % (j, j) for j in UFLD] +
                          # the UFCS IN land continues the LS source strip of the EPC2361 land pattern
                          ["(A.existsOnLayer('F.Cu') && A.insideFrontCourtyard('Q%d') && B.insideFrontCourtyard('RS%d')) || "
                           "(B.existsOnLayer('F.Cu') && B.insideFrontCourtyard('Q%d') && A.insideFrontCourtyard('RS%d'))" % (k, m, k, m)
@@ -1505,3 +1504,8 @@ pcbnew.SaveBoard(path, board2)
 pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)
 print("saved", path, "footprints", len(board.GetFootprints()), "nets", len(NETS),
       "outline %.1f x %.1f mm" % (2 * XO, Y1 - Y0), flush=True)
+# pad -> net map of the saved board for the schematic generator and the schematic check (was a separate manual step;
+# a stale map made schematic and check agree with each other but not with the board)
+import subprocess  # noqa: E402
+subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "dump_pad_nets.py"), NAME],
+               check=True)

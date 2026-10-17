@@ -740,21 +740,10 @@
   "ref": "J8",
   "value": "U.FL D1",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(10)",
+  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
   "x": -36.75,
   "y": 14.9,
   "rot": 180,
-  "side": "bottom",
-  "block": 1
- },
- {
-  "ref": "R18",
-  "value": "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
-  "footprint": "R_2512_6332Metric",
-  "mpn": "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)",
-  "x": -40.15,
-  "y": 26.72,
-  "rot": 90,
   "side": "bottom",
   "block": 1
  },
@@ -770,7 +759,7 @@
   "block": 1
  },
  {
-  "ref": "R19",
+  "ref": "R18",
   "value": "0R (V_GS HS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -792,7 +781,7 @@
   "block": 1
  },
  {
-  "ref": "R20",
+  "ref": "R19",
   "value": "0R (V_GS LS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -806,21 +795,10 @@
   "ref": "J11",
   "value": "U.FL D2",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(10)",
+  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
   "x": -10.75,
   "y": 14.9,
   "rot": 0,
-  "side": "bottom",
-  "block": 1
- },
- {
-  "ref": "R21",
-  "value": "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
-  "footprint": "R_2512_6332Metric",
-  "mpn": "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)",
-  "x": -7.350000000000001,
-  "y": 26.72,
-  "rot": 90,
   "side": "bottom",
   "block": 1
  },
@@ -1089,7 +1067,7 @@
   "block": 2
  },
  {
-  "ref": "R22",
+  "ref": "R20",
   "value": "0R5 1% (R_G HL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
@@ -1100,7 +1078,7 @@
   "block": 2
  },
  {
-  "ref": "R23",
+  "ref": "R21",
   "value": "0R5 1% (R_G HR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
@@ -1111,7 +1089,7 @@
   "block": 2
  },
  {
-  "ref": "R24",
+  "ref": "R22",
   "value": "0R5 1% (R_G LL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
@@ -1122,7 +1100,7 @@
   "block": 2
  },
  {
-  "ref": "R25",
+  "ref": "R23",
   "value": "0R5 1% (R_G LR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
@@ -1133,7 +1111,7 @@
   "block": 2
  },
  {
-  "ref": "R26",
+  "ref": "R24",
   "value": "10k 1% (HS gate pull-down)",
   "footprint": "R_0603_1608Metric",
   "mpn": "10k 0603 1%",
@@ -1144,7 +1122,7 @@
   "block": 2
  },
  {
-  "ref": "R27",
+  "ref": "R25",
   "value": "10k 1% (LS gate pull-down)",
   "footprint": "R_0603_1608Metric",
   "mpn": "10k 0603 1%",
@@ -1166,7 +1144,7 @@
   "block": 2
  },
  {
-  "ref": "R28",
+  "ref": "R26",
   "value": "0R75 1% (R_ON,A)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
@@ -1177,7 +1155,7 @@
   "block": 2
  },
  {
-  "ref": "R29",
+  "ref": "R27",
   "value": "0R (R_OFF,A)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603 jumper (set R_OFF here)",
@@ -1199,7 +1177,7 @@
   "block": 2
  },
  {
-  "ref": "R30",
+  "ref": "R28",
   "value": "0R75 1% (R_ON,B)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.75R 0603 1% (Panasonic ERJ-3RQFR75V)",
@@ -1210,7 +1188,7 @@
   "block": 2
  },
  {
-  "ref": "R31",
+  "ref": "R29",
   "value": "0R (R_OFF,B)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603 jumper (set R_OFF here)",
@@ -1287,7 +1265,7 @@
   "block": 2
  },
  {
-  "ref": "R32",
+  "ref": "R30",
   "value": "47R 1% (INA)",
   "footprint": "R_0603_1608Metric",
   "mpn": "47R 0603 1%",
@@ -1298,7 +1276,7 @@
   "block": 2
  },
  {
-  "ref": "R33",
+  "ref": "R31",
   "value": "47R 1% (INB)",
   "footprint": "R_0603_1608Metric",
   "mpn": "47R 0603 1%",
@@ -1331,7 +1309,7 @@
   "block": 2
  },
  {
-  "ref": "R34",
+  "ref": "R32",
   "value": "3k 1% (RVDDI)",
   "footprint": "R_0603_1608Metric",
   "mpn": "3.0k 0603 1%",
@@ -1386,7 +1364,7 @@
   "block": 2
  },
  {
-  "ref": "R35",
+  "ref": "R33",
   "value": "150R 1% 0603 (bias, <= 82 mW)",
   "footprint": "R_0603_1608Metric",
   "mpn": "150R 0603 1% 0.1 W",
@@ -1452,7 +1430,7 @@
   "block": 2
  },
  {
-  "ref": "R36",
+  "ref": "R34",
   "value": "150R 1% 0603 (bias, <= 82 mW)",
   "footprint": "R_0603_1608Metric",
   "mpn": "150R 0603 1% 0.1 W",
@@ -1573,7 +1551,7 @@
   "block": 2
  },
  {
-  "ref": "R37",
+  "ref": "R35",
   "value": "0R (V_GS HS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -1595,7 +1573,7 @@
   "block": 2
  },
  {
-  "ref": "R38",
+  "ref": "R36",
   "value": "0R (V_GS LS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -1609,21 +1587,10 @@
   "ref": "J17",
   "value": "U.FL D3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(10)",
+  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
   "x": 10.75,
   "y": 14.9,
   "rot": 180,
-  "side": "bottom",
-  "block": 2
- },
- {
-  "ref": "R39",
-  "value": "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
-  "footprint": "R_2512_6332Metric",
-  "mpn": "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)",
-  "x": 7.350000000000001,
-  "y": 26.72,
-  "rot": 90,
   "side": "bottom",
   "block": 2
  },
@@ -1639,7 +1606,7 @@
   "block": 2
  },
  {
-  "ref": "R40",
+  "ref": "R37",
   "value": "0R (V_GS HS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -1661,7 +1628,7 @@
   "block": 2
  },
  {
-  "ref": "R41",
+  "ref": "R38",
   "value": "0R (V_GS LS)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0R 0603",
@@ -1675,21 +1642,10 @@
   "ref": "J20",
   "value": "U.FL D4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(10)",
+  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
   "x": 36.75,
   "y": 14.9,
   "rot": 0,
-  "side": "bottom",
-  "block": 2
- },
- {
-  "ref": "R42",
-  "value": "4.99k 1% 2512 (V_DS LS, 100:1 into 50 R)",
-  "footprint": "R_2512_6332Metric",
-  "mpn": "Vishay CRCW25124K99FKEGHP (2512, 1.5 W; 1.1 W at 75 V)",
-  "x": 40.15,
-  "y": 26.72,
-  "rot": 90,
   "side": "bottom",
   "block": 2
  },
@@ -2013,7 +1969,7 @@
   "block": 0
  },
  {
-  "ref": "R43",
+  "ref": "R39",
   "value": "68k 1206 (HV LED)",
   "footprint": "R_1206_3216Metric",
   "mpn": "68k 1206 1% 200 V",
@@ -2024,7 +1980,7 @@
   "block": 0
  },
  {
-  "ref": "R44",
+  "ref": "R40",
   "value": "68k 1206 (HV LED)",
   "footprint": "R_1206_3216Metric",
   "mpn": "68k 1206 1% 200 V",
@@ -2046,7 +2002,7 @@
   "block": 0
  },
  {
-  "ref": "R45",
+  "ref": "R41",
   "value": "100k 1206 (bleeder)",
   "footprint": "R_1206_3216Metric",
   "mpn": "100k 1206 1% 200 V",
