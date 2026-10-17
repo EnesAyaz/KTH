@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,7.0.10*%
-%TF.CreationDate,2026-10-16T15:46:58+02:00*%
+%TF.CreationDate,2026-10-17T13:49:31+02:00*%
 %TF.ProjectId,spb-busbar,7370622d-6275-4736-9261-722e6b696361,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Top*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 7.0.10) date 2026-10-16 15:46:58*
+G04 Created by KiCad (PCBNEW 7.0.10) date 2026-10-17 13:49:31*
 %MOMM*%
 %LPD*%
 G01*

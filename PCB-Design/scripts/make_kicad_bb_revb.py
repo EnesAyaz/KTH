@@ -638,10 +638,10 @@ def build_block(bi, xoff):
         seg(F, [padxy(drv, 11 if sg < 0 else 10), vb], 0.3, bot)
         via(vt[0], vt[1], top, 0.45, 0.25)
         via(vb[0], vb[1], bot, 0.45, 0.25)
-        two("Capacitor_SMD.pretty", "C_0603_1608Metric", ref("C"), "1uF 16V X7R 0603", sg * 3.0, 15.4, 90,
-            sref, top, "Murata GRM188R71C105KA12", bottom=True)
-        two("Capacitor_SMD.pretty", "C_0603_1608Metric", ref("C"), "1uF 16V X7R 0603", sg * 1.1, 15.4, 90,
-            sref, bot, "Murata GRM188R71C105KA12", bottom=True)
+        two("Capacitor_SMD.pretty", "C_0603_1608Metric", ref("C"), "1uF 25V X7R 0603", sg * 3.0, 15.4, 90,
+            sref, top, "TDK C1608X7R1E105K080AB", bottom=True)
+        two("Capacitor_SMD.pretty", "C_0603_1608Metric", ref("C"), "1uF 25V X7R 0603", sg * 1.1, 15.4, 90,
+            sref, bot, "TDK C1608X7R1E105K080AB", bottom=True)
         seg(Bl, [vt, (sg * 3.0, 16.175)], 0.3, top)
         seg(Bl, [vb, (sg * 1.1, 16.175)], 0.3, bot)
         seg(Bl, [K2, (sg * 3.9, 14.0), (sg * 1.1, 14.0), (sg * 1.1, 14.625)], 0.3, sref)
