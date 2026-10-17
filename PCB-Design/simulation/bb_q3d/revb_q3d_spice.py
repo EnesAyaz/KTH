@@ -10,8 +10,11 @@ Copper (AC R/L matrix at 100 MHz, every mutual inductance kept as a K statement)
   dpt  : BB_PL_LOOP_dpt  cells + bypass pads + shunt lands; the four switch nodes are joined outside the model
 Components (same data as revb_post.py): bypass rows as C_eff / ESL / ESR per row, UFCS shunt 1 mOhm + 120 pH,
 bank 20 x 22 uF (127 uF eff.) behind L_b, 75 V supply through 20 nH, load inductor at the ac bolt.
-Gate drive as in the lumped model of the design flow (FLOW_lumped.inc): 0/5 V, 4 / 8 A (0.85 / 0.35 Ohm),
-R_g,on 2 Ohm, R_g,off 0, gate loop 1.7 nH per device (1.2 nH out, 0.5 nH Kelvin return), one driver channel per
+Gate drive: 0/5 V, 4 / 8 A (0.85 / 0.35 Ohm), one driver channel per pair. Gate network of the board with the
+inductances from the gate Q3D model (gate_post.py -> gate_summary_dpt.json, see gate_extracted()): R_ON 0.75 Ohm
+shared, R_G 0.5 Ohm per FET (RGON = R_G + 2 R_ON = 2 Ohm per device), D_OFF + R_OFF 0, and the coupling of the
+commutation loops into the gate loops. The case "dpt_lumpgate" keeps the earlier lumped gate drive of the design flow
+(FLOW_lumped.inc): R_g,on 2 Ohm, R_g,off 0, gate loop 1.7 nH per device (1.2 nH out, 0.5 nH Kelvin return), one driver channel per
 pair of cells (cells 1+2, 3+4), the same PWM for both pairs. Load current at turn-off 322 A (80.5 A per device).
 The lumped reference (one device, LLOOP = the Q3D loop per cell, 80.5 A) is run from the same driver data.
 """
@@ -74,7 +77,50 @@ def subckt(tag):
     return "\n".join(out), terms, len(br), nk
 
 
-def netlist(board, rgon=2):
+GSUM = os.path.join(RES, "gate_summary_dpt.json")
+GATE_OK = os.path.exists(GSUM)
+R_ON_STAR = 0.75                                 # board: R_ON shared by the pair (R7 / R9), R_G per FET = RGON - 2 R_ON
+GATE_ESL = "esl0.4"                              # 1 uF 0603 output-side bypass taken as 0.4 nH (no published ESL)
+
+
+def gate_extracted(pair, cells, rgon):
+    """Gate network of the board with the inductances from the gate Q3D model (gate_post.py, driver block 1 of the
+    DPT board; block 2 is its mirror image: cell 4 <-> cell 1, cell 3 <-> cell 2). Driver output D<s><pair> ->
+    R_ON + L_common,on -> star; star -> L_common,off -> D_OFF -> driver (turn-off); star -> R_G + L_branch -> gate;
+    Kelvin branch (half the Kelvin pad-to-pad inductance) -> common Kelvin node K<s><pair> at the driver.
+    The coupling of the commutation loops into each gate loop (LS switching, HS held off) is a source in the Kelvin
+    return: v = M_own di_own/dt + M_other di_other/dt, with the LS drain currents of the two cells of the block."""
+    gs = json.load(open(GSUM))
+    sp, kp = gs["split_nH"][GATE_ESL], gs["kelvin_pair_nH"]
+    cp = gs["coupling_pH"]["ls_switching_hs_held_off"]
+    rg = rgon - 2 * R_ON_STAR
+    ref = {1: 1, 2: 2, 3: 2, 4: 1}               # block-1 cell that each cell mirrors
+    fet = {("H", 1): "Q1", ("H", 2): "Q2", ("L", 1): "Q3", ("L", 2): "Q4"}
+    ln = ["* gate network %s: extracted (gate_summary_dpt.json, bypass ESL %s nH)" % (pair, GATE_ESL[3:])]
+    for s, ch in (("H", "A"), ("L", "B")):
+        qs = [fet[(s, ref[c])] for c in cells]
+        lc_on = sum(sp[q]["common_on"] for q in qs) / 2
+        lc_off = sum(sp[q]["common_off"] for q in qs) / 2
+        lk = kp[ch] / 2
+        st, d = "st%s%s" % (s, pair), "D%s%s" % (s, pair)
+        ln += ["Ron%s%s %s %sx %g" % (s, pair, d, st, R_ON_STAR), "Lcon%s%s %sx %s %.4gn" % (s, pair, st, st, lc_on),
+               "Doff%s%s %s %so DID" % (s, pair, st, st), "Lcoff%s%s %so %s %.4gn Rser=1m" % (s, pair, st, d, lc_off)]
+        for c in cells:
+            q = fet[(s, ref[c])]
+            other = [x for x in cells if x != c][0]
+            src = ("QH_S_%d" if s == "H" else "QL_S_%d") % c
+            lb = sp[q]["branch"] - lk
+            m_own = cp["cell%d_only" % ref[c]][q] * 1e-12
+            m_oth = cp["cell%d_only" % ref[other]][q] * 1e-12
+            ln += ["Rg%s%d %s gx%s%d %g" % (s, c, st, s, c, rg),
+                   "Lgb%s%d gx%s%d g%s%d %.4gn" % (s, c, s, c, s, c, lb),
+                   "Lkb%s%d %s kk%s%d %.4gn Rser=10m" % (s, c, src, s, c, lk),
+                   "Bm%s%d K%s%s kk%s%d V=%.4g*ddt(I(VIL%d))+%.4g*ddt(I(VIL%d))" % (s, c, s, pair, s, c, m_own, c,
+                                                                               m_oth, other)]
+    return ln
+
+
+def netlist(board, rgon=2, gate=True):
     tag = MODELS[board]
     sub, terms, nbr, nk = subckt(tag)
     nb = counts(board)
@@ -114,6 +160,9 @@ def netlist(board, rgon=2):
                "Rpu%s lo%s lo%s1 {RPU}" % (pair, pair, pair), "Dpu%s lo%s1 DL%s DID" % (pair, pair, pair),
                "Dpd%s DL%s lo%s2 DID" % (pair, pair, pair), "Rpd%s lo%s2 lo%s {RPD}" % (pair, pair, pair),
                "VHO%s ho%s KH%s 0" % (pair, pair, pair), "Rph%s ho%s DH%s {RPD}" % (pair, pair, pair)]
+        if gate:
+            ln += gate_extracted(pair, cells, rgon)
+            continue
         for c in cells:
             for s, d, g, src in (("L", "DL" + pair, "gL%d" % c, "QL_S_%d" % c), ("H", "DH" + pair, "gH%d" % c, "QH_S_%d" % c)):
                 ln += ["Lg%s%d %s g%sx%d {LGO}" % (s, c, d, s, c),
@@ -139,7 +188,7 @@ def netlist(board, rgon=2):
                ".meas TRAN VHpk%d MAX %s FROM {T2} TO {T2+150n}" % (c, vh),
                ".meas TRAN bump%d MAX V(gH%d,QH_S_%d) FROM {T2} TO {T2+150n}" % (c, c, c)]
     ln.append(".end")
-    name = "REVB_Q3D_%s%s.cir" % (board, "" if rgon == 2 else "_rg%g" % rgon)
+    name = "REVB_Q3D_%s%s%s.cir" % (board, "" if rgon == 2 else "_rg%g" % rgon, "" if gate else "_lumpgate")
     open(os.path.join(SP, name), "w").write("\n".join(ln) + "\n")
     return name
 
@@ -187,10 +236,11 @@ def main():
     fq = json.load(open(os.path.join(ROOT, "reports", "slides", "data", "final_numbers.json")))
     boards = [b for b in sys.argv[1:]] or ["load", "dpt"]
     res = {}
-    for b, rg in [(b, rg) for rg in (2, 3) for b in boards]:
+    cases = [(b, rg, GATE_OK) for rg in (2, 3) for b in boards] + ([("dpt", 2, False)] if GATE_OK and "dpt" in boards else [])
+    for b, rg, gt in cases:
         if not os.path.exists(os.path.join(RES, MODELS[b] + "_matrix.txt")):
             continue
-        cir = netlist(b, rg)
+        cir = netlist(b, rg, gt)
         run(cir)
         m = meas(cir)
         cells = []
@@ -200,7 +250,7 @@ def main():
                               Ion_pk=g("ionpk"), didt_on=g("didton") / 1e9, didt_off=-g("didtoff") / 1e9,
                               VHpk=g("vhpk"), bump=g("bump")))
         lp = fq[b]["loop"]["mean_nH"]
-        res[b + ("" if rg == 2 else "_rg%g" % rg)] = dict(loop_nH=lp, RGON=rg, VHpk_max=max(c["VHpk"] for c in cells), Iload=m["iload"][0], cells=cells,
+        res[b + ("" if rg == 2 else "_rg%g" % rg) + ("" if gt else "_lumpgate")] = dict(loop_nH=lp, RGON=rg, gate="extracted" if gt else "lumped 1.7 nH", VHpk_max=max(c["VHpk"] for c in cells), Iload=m["iload"][0], cells=cells,
                       Eon_tot_uJ=sum(c["Eon_uJ"] for c in cells), Eoff_tot_uJ=sum(c["Eoff_uJ"] for c in cells),
                       Vpk_max=max(c["Vpk"] for c in cells),
                       share_off_pct=100 * (max(c["I_off"] for c in cells) / (sum(c["I_off"] for c in cells) / 4) - 1),

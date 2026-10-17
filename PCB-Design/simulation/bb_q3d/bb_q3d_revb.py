@@ -23,7 +23,7 @@ REGION = os.environ.get("REVB_REGION", "")   # "" full board | loop (cell band) 
 LOOP = REGION == "loop"                                # fast loop-only model (cell band, bypass, shunts)
 VT = os.environ.get("REVB_LOOP_TAG", "")              # board / variant tag (file names)
 SFX = ("_" + VT) if VT else ""
-KIND = {"loop": "LOOP", "lx": "LX", "bank": "BANK"}.get(REGION, "REVB")
+KIND = {"loop": "LOOP", "lx": "LX", "bank": "BANK", "gate": "GATE"}.get(REGION, "REVB")
 TAG = "BB_PL_" + KIND + SFX
 DCONLY = os.environ.get("REVB_SOLVE", "") == "dc"     # full board: DC R/L only (sharing, loss, low-f port matrix)
 LOG = open(os.path.join(OUT, "%s_log%s.txt" % (KIND.lower(), SFX)), "w")
@@ -36,7 +36,7 @@ def log(m):
 
 import traceback
 G = json.load(open(os.path.join(OUT, {"loop": "revb_loop_geometry", "lx": "revb_lx_geometry",
-                                      "bank": "revb_bank_geometry"}.get(REGION, "revb_geometry")
+                                      "bank": "revb_bank_geometry", "gate": "revb_gate_geometry"}.get(REGION, "revb_geometry")
                                 + SFX + ".json")))
 ERR = float(os.environ.get("REVB_PERERROR", "2"))     # % convergence for DC and AC (1 % took > 3 h on 4 cores)
 # optional thinning of the AC-bus via grid (y > 30 mm, far from the commutation loops) to limit the mesh size
@@ -172,7 +172,7 @@ for net, objs in NETOBJ.items():
     big = [o for o in lumps if o not in small]
     if small:
         ed.Delete(["NAME:Selections", "Selections:=", ",".join(small)])
-    if len(big) > 1 and REGION == "loop":
+    if len(big) > 1 and REGION in ("loop", "gate"):
         # loop crop: switch-node copper whose link to the cell lies outside the crop (AC column starts) carries no
         # commutation-loop current -> keep the cell body only
         log("loop: net %s, detached lumps deleted: %r" % (net, [(o, round(_diag(o), 1)) for o in big[1:]]))
@@ -200,7 +200,7 @@ for kind, name, net, pts, side in sorted(G["terminals"], key=lambda t: t[0] != "
 log("terminals assigned")
 # DC: resistance only everywhere (the DC inductance solve ran > 19 h on the DPT loop model and is not needed:
 # loop / lx use the 100 MHz AC matrix, the bank model the 1 MHz AC matrix, the full board only R)
-LIGHT = REGION in ("loop", "lx", "bank")               # DC only as a coarse by-product
+LIGHT = REGION in ("loop", "lx", "bank", "gate")               # DC only as a coarse by-product
 FREQ = "1MHz" if REGION == "bank" else "100MHz"
 SETUP = ["NAME:Setup1", "AdaptiveFreq:=", FREQ, "SaveFields:=", False, "Enabled:=", True,
          ["NAME:Cap", "MaxPass:=", 1, "MinPass:=", 1, "MinConvPass:=", 1, "PerError:=", 30, "PerRefine:=", 30,
