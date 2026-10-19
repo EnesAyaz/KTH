@@ -508,8 +508,9 @@ def _fallback(board, net, anchor):
 
 
 def save_footprints(board, lib_path):
-    """the test-point and MMCX footprints into the board's own library (library check of the DRC)"""
-    for kind in ("TP", "SPRING", "MMCX"):
+    """the test-point footprints into the board's own library (library check of the DRC); the MMCX jack is placed
+    and saved by the board generator (with its project 3D model)"""
+    for kind in ("TP", "SPRING"):
         fp = make(board, kind, "REF**", "TestPoint")
         pcbnew.FootprintSave(lib_path, fp)
 

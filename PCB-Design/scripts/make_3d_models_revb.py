@@ -12,6 +12,8 @@ Dimensions (envelopes, NOT manufacturer CAD):
                        22 x 7.5 mm above it (outline from the footprint fab layer), SMA jack on top (approximate)
   AC_BOLT_M6           M6 hex bolt (10 mm AF) + washer, 12 x 5 mm Cu bar from the pad off the board edge (y -7 .. 38.4),
                        nut + washer under the board
+  WR-MMCX 66012102111404  Wurth MMCX PCB SMT jack, vertical: 3.5 x 3.5 mm base, 3.5 mm barrel, 5.0 mm high (KiCad's
+                       footprint names a model that KiCad 7 does not ship)
   HS_LAM4K5012_revb    Fischer LAM 4 K 50 12, tube along x (x -25 .. 25, y -28.7 .. 11.3, 40 x 40 mm) with the 12 V fan
                        at x -35 .. -25; Al spreader 89.5 x 12.8 x 3 mm (y -1.5 .. 11.3) on 0.6 mm pedestals over the four
                        FET pairs, 0.4 mm gap pads (compressed); spreader top at 4.68 mm clears the 2.8 mm 2220 bank
@@ -55,6 +57,13 @@ M = {
                    (-6.0, -6.0, 5.035, 6.0, 6.0, 6.235, STEEL), (-5.0, -5.0, 6.235, 5.0, 5.0, 10.235, STEEL),
                    (-6.0, -6.0, -2.835, 6.0, 6.0, -1.635, STEEL), (-5.0, -5.0, -7.835, 5.0, 5.0, -2.835, STEEL)],
     "HS_LAM4K5012_revb": hs,
+    # Wurth WR-MMCX 66012102111404 (datasheet p. 1): 3.5 x 3.5 mm base 0.65 mm high, barrel 3.5 mm diameter to 5.0 mm
+    # (three overlapping boxes approximate the round barrel), white PTFE insulator and gold centre contact on top
+    "WR-MMCX_Wuerth_66012102111404_Vertical": [
+        (-1.75, -1.75, 0.0, 1.75, 1.75, 0.65, GOLD),
+        (-1.75, -1.0, 0.65, 1.75, 1.0, 5.0, GOLD), (-1.0, -1.75, 0.65, 1.0, 1.75, 5.0, GOLD),
+        (-1.45, -1.45, 0.65, 1.45, 1.45, 5.0, GOLD),
+        (-0.9, -0.9, 5.0, 0.9, 0.9, 5.05, WHITE), (-0.3, -0.3, 5.0, 0.3, 0.3, 5.1, GOLD)],
 }
 
 if __name__ == "__main__":

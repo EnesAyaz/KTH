@@ -274,7 +274,8 @@ FPNICK = [("R_", "Resistor_SMD"), ("C_", "Capacitor_SMD"), ("D_SOD", "Diode_SMD"
 # parts whose KiCad library model is missing or wrong (scripts/make_3d_models_revb.py -> hardware/spb-bb-revb-<BOARD>/3d)
 LOCAL_MODEL = {"C_2220_5750Metric": "C_2220_5750Metric_TDK.wrl",
                "L_CommonMode_Wurth_WE-CNSW-1206": "L_CommonMode_Wurth_WE-CNSW-1206.wrl",
-               "AC_BOLT_M6": "AC_BOLT_M6.wrl"}
+               "AC_BOLT_M6": "AC_BOLT_M6.wrl",
+               "WR-MMCX_Wuerth_66012102111404_Vertical": "WR-MMCX_Wuerth_66012102111404_Vertical.wrl"}
 
 
 def set_model(fp, local=None):
@@ -958,7 +959,8 @@ def build_block(bi, xoff):
                     "MMCX VDS L%d" % c, mx_, my_, 90, True, None,
                     "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)")
         set_pads(mm_, {"1": sw, "2": lsrc[side]})
-        if "MMCX" not in SAVED:
+        mm_.Reference().SetVisible(False)                       # silk label "Jx VDS-Ly" (ref_text)
+        if "MMCX" not in SAVED:                                 # library copy after every change (no mismatch)
             SAVED.add("MMCX")
             cp_ = pcbnew.FOOTPRINT(mm_)
             cp_.SetReference("REF**")
@@ -967,7 +969,6 @@ def build_block(bi, xoff):
             cp_.SetOrientationDegrees(0)
             pcbnew.FootprintSave(_lib, cp_)
         mm_.SetFPID(pcbnew.LIB_ID("spb_fab", "WR-MMCX_Wuerth_66012102111404_Vertical"))
-        mm_.Reference().SetVisible(False)                       # silk label "Jx VDS-Ly" (ref_text)
         gys_ = sorted(pcbnew.ToMM(q.GetPosition().y) for q in mm_.Pads() if q.GetNumber() == "2")
         assert gys_[0] < my_ - 1.0 and gys_[1] > my_ + 1.0, gys_     # shield pads above / below the centre pin
         seg(Bl, [(mx_, my_), (sgn * 18.75, my_)], 0.4, sw)       # centre pin: outward between the shield pads
