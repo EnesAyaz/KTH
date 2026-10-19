@@ -1571,9 +1571,33 @@ import test_points  # noqa: E402
 OUTL = (OX - XO, OY + Y0, OX + XO, OY + Y1)
 os.makedirs(os.path.join(OUT, "fab"), exist_ok=True)
 
+SK_TP = silk_placer.Silk(board2, OUTL)
+
+
+def tp_label(d, last=False):
+    """name of a test point on the silk within 1.6 mm of its (signal) pad: full name, else without the block digit;
+    the pads of the point become silk obstacles. Returns the text or None."""
+    f_ = [f for f in board2.GetFootprints() if f.GetReference() == d["ref"]][0]
+    side_ = "bottom" if f_.IsFlipped() else "top"
+    pads_ = sorted(f_.Pads(), key=lambda q: q.GetNumber())
+    for p_ in pads_:
+        SK_TP.obst[side_].append(silk_placer._box(p_.GetBoundingBox(), silk_placer.CLR))
+    box_ = silk_placer._box(pads_[0].GetBoundingBox())
+    names = [d["value"]]
+    if d["value"][-1:].isdigit() and not d["value"].startswith(("VGS", "VDS")):
+        names.append(d["value"][:-1].lstrip("+") or d["value"])   # GNDI1 -> GNDI, +12V2 -> 12V
+    for reach_ in ((1.6, 3.0) if last else (1.6,)):        # right at the pad; last round: up to 3 mm
+        for nm in names:
+            if SK_TP.put(nm, SK_TP.around(box_, nm, 0.8, rings=(0.15, 0.5), centre=False, reach=reach_, step=0.2),
+                         side_, 0.8):
+                return nm
+            SK_TP.failed.pop()
+    return None
+
+
 TPS = test_points.run(board2, OUTL, os.path.join(OUT, "testpoints_cache.json"), os.path.join(OUT, "fab", "testpoints.csv"),
                       os.path.join(OUT, "drc_tp_tmp.txt"), (OX, OY), log=lambda m: print(m, flush=True),
-                      lib_path=_lib)
+                      lib_path=_lib, label_fn=tp_label)
 print("test points: %d placed (list: fab/testpoints.csv)" % len(TPS), flush=True)
 # silk labels covered by a test-point pad move away; every test point gets its name
 tp_boxes = [(silk_placer._box(p_.GetBoundingBox(), 0.25), "bottom" if f_.IsFlipped() else "top")
@@ -1592,10 +1616,6 @@ for txt_, side_, size_, bb_, ang_, pos_ in moved:                  # no room: ke
     if not SK2.put(txt_, SK2.around(bb_, txt_, size_), side_, size_):
         SK2.failed.pop()
         SK2.put(txt_, SK2.around(bb_, txt_, size_, reach=8.0, step=0.4), side_, size_, fab_at=pos_)
-for d_ in TPS:
-    f_ = [f for f in board2.GetFootprints() if f.GetReference() == d_["ref"]][0]
-    SK2.put(d_["value"], SK2.around(silk_placer._box(f_.GetBoundingBox(False, False)), d_["value"], 0.8,
-                                    centre=False), d_["side"], 0.8)
 print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join(SK2.failed) or "-"), flush=True)
 pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
 pcbnew.SaveBoard(path, board2)

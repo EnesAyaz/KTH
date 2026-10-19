@@ -220,6 +220,10 @@ class Placer:
             self._scratch_via.SetDrill(MM(0.3))
         v = self._scratch_via
         v.SetPosition(pcbnew.VECTOR2I(MM(x), MM(y)))
+        pt = pcbnew.VECTOR2I(MM(x), MM(y))
+        for z in self.b.Zones():                         # keepouts that forbid vias (1200 V barrier moats)
+            if z.GetIsRuleArea() and z.GetDoNotAllowVias() and z.Outline().Collide(pt, MM(0.35)):
+                return False
         for lay in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu):
             sh = v.GetEffectiveShape(lay)
             for q in items["pads"]:
@@ -426,8 +430,8 @@ def plan(board):
     out = []
     for b in (1, 2):
         u = ref_on("VDDI%d" % b, "U")[0]                   # the driver of the block
-        for n in ("GNDI", "+12V", "VDDI", "INA", "INB", "DIS"):
-            out.append(("TP", n + str(b), (n + str(b),), at(u, 0.0, 6.0), ("top",)))
+        for n in ("GNDI", "+12V", "VDDI", "INA", "INB", "DIS"):     # bottom: through a via (room for the label)
+            out.append(("TP", n + str(b), (n + str(b),), at(u, 0.0, 6.0), ("top",)))   # no vias into the GNDI area
         for ch, kk in (("A", "KH"), ("B", "KL")):
             cap = ref_on("VDD%s%d" % (ch, b), "C")[0]
             for n in ("VDD" + ch, "VEE" + ch, kk, "OUT" + ch):
@@ -483,8 +487,16 @@ def _unconnected_tps(board, tmp_report, placed=(), base=()):
         bad |= set(re.findall(r"of (TP\d+)", blk))
         if re.sub(r"\s+", " ", blk) in basekeys:
             continue
-        for x, y in pts:
-            near = [(min((px - x) ** 2 + (py - y) ** 2 for px, py in d["pads"]), d["ref"]) for d in placed]
+        for x, y in pts:                                  # nearest of everything a test point added (pads, stubs, vias)
+            near = []
+            for d in placed:
+                pts_ = list(d["pads"])
+                for it in d.get("items", [])[1:]:
+                    if it.GetClass() == "PCB_VIA":
+                        pts_.append((TO(it.GetPosition().x), TO(it.GetPosition().y)))
+                    else:
+                        pts_ += [(TO(it.GetStart().x), TO(it.GetStart().y)), (TO(it.GetEnd().x), TO(it.GetEnd().y))]
+                near.append((min((px - x) ** 2 + (py - y) ** 2 for px, py in pts_), d["ref"]))
             near = [n for n in near if n[0] < 100.0]
             if near:
                 bad.add(min(near)[1])
@@ -574,7 +586,7 @@ def mmcx_vds(board, outline, cache_path, lib_path, log=print):
     return out
 
 
-def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib_path=None):
+def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib_path=None, label_fn=None):
     """place the planned points (cache first), drop and re-place those that end up unconnected after the fill,
     write the cache and the bring-up list. origin: (x, y) mm subtracted for the list coordinates."""
     import json
@@ -584,6 +596,7 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
     cache = json.load(open(cache_path)) if os.path.exists(cache_path) else {}
     base = _unconnected(board, tmp_report)               # what is open before the test points (should be nothing)
     P = Placer(board, dom_of, outline, log)
+
     todo = plan(board)
     meta = {}
     for k, (kind, val, nets, anc, sides) in enumerate(todo):
@@ -608,6 +621,34 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
             if not last:
                 kind, val, nets, anc, sides = meta[ref]
                 P.place(kind, ref, val, nets, anc, sides)
+    labelled = {}
+    if label_fn:                                         # name on the silk right at the pad, or the point moves
+        for rnd in range(3):
+            moved = []
+            for d in list(P.placed):
+                if d["ref"] in labelled:
+                    continue
+                lab = label_fn(d, last=(rnd == 2))
+                if lab:
+                    labelled[d["ref"]] = lab
+                elif rnd < 2:
+                    moved.append(d["ref"])
+            if not moved:
+                break
+            log("test points moved for room for their silk label: %s" % " ".join(moved))
+            for ref in moved:
+                P.remove(ref)
+                kind, val, nets, anc, sides = meta[ref]
+                P.place(kind, ref, val, nets, anc, sides)
+            if moved:                                    # the moves may split pours again
+                bad = _unconnected_tps(board, tmp_report, P.placed, base)
+                for ref in bad:
+                    P.remove(ref)
+                    log("test point %s dropped (pour split after the label move)" % ref)
+    if label_fn:                                         # every test point on the board carries its name
+        for d in [d for d in P.placed if d["ref"] not in labelled]:
+            log("test point %s (%s): no room for its silk label, not placed (fallback pad listed)" % (d["ref"], d["value"]))
+            P.remove(d["ref"])
     placed = {d["value"]: d for d in P.placed}
     new_cache = {}
     rows = ["ref,kind,name,signal net,ground net,side,x mm,y mm,note"]
@@ -618,11 +659,12 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
             rows.append("%s,%s,%s,%s,%s,%s,%.2f,%.2f,%s" % (
                 ref, "spring pad" if kind == "SPRING" else "test point", val, d["nets"][0],
                 d["nets"][1] if len(d["nets"]) > 1 else "", d["side"], d["x"] - origin[0], d["y"] - origin[1],
-                "ground pad = oval, 1.5..6.0 mm from the signal pad" if kind == "SPRING" else ""))
+                ("ground pad = oval, 1.5..6.0 mm from the signal pad; " if kind == "SPRING" else "") +
+                ("silk label '%s'" % labelled[d["ref"]] if d["ref"] in labelled else "no silk label (no room)")))
         else:
             new_cache[val] = {"failed": True}
             sig = nets[0][0] if isinstance(nets[0], tuple) else nets[0]
-            note = "no free spot: probe " + _fallback(board, sig, anc)
+            note = "no labelled test point fits: probe " + _fallback(board, sig, anc)
             if kind == "SPRING":
                 note += " / ground " + _fallback(board, nets[1], anc)
             rows.append("%s,%s,%s,%s,%s,-,-,-,%s" % ("-", "spring pad" if kind == "SPRING" else "test point", val,
