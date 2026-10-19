@@ -24,9 +24,9 @@ Qty,References,Value,Footprint,Manufacturer part / note,Fit
 2,J14 J5,CTRL1: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 RTN 10 NTC,PinHeader_2x05_P2.54mm_Vertical_SMD,"Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",fit
 2,FB1 FB2,BLM18PG221SN1 (220 R @ 100 MHz),L_0603_1608Metric,"Murata BLM18PG221SN1D (ferrite bead, 1.4 A)",fit
 1,RT1,NTC 10k B3380 0603,R_0603_1608Metric,Murata NCP18XH103F03RB,fit
-8,J10 J15 J16 J18 J19 J6 J7 J9,U.FL H1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+4,J15 J18 J6 J9,MMCX VDS L1,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
+8,J10 J11 J16 J17 J19 J20 J7 J8,U.FL H1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
 8,R16 R17 R18 R19 R35 R36 R37 R38,0R (V_GS HS),R_0603_1608Metric,0R 0603,fit
-4,J11 J17 J20 J8,U.FL D1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,"Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",fit
 20,C67 C68 C69 C70 C71 C72 C73 C74 C75 C76 C77 C78 C79 C80 C81 C82 C83 C84 C85 C86,22uF 100V X7S 2220,C_2220_5750Metric_TightCrtYd,TDK C5750X7S2A226M280KB,fit
 2,R39 R40,68k 1206 (HV LED),R_1206_3216Metric,68k 1206 1% 200 V,fit
 1,D9,red 0603 (DC link present),LED_0603_1608Metric,Wurth 150060RS75000,fit
@@ -34,8 +34,8 @@ Qty,References,Value,Footprint,Manufacturer part / note,Fit
 
 Mechanical (not placed by the assembler)
 2,J1-J2,M4 x 8 screw + washer into REDCUBE (to the DC source / busbar),-,"steel, A2"
-1,J22,"M6 x 16 bolt + nut + 2 washers, AC bolt pad",-,"steel, A2"
-1,J22,"AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor",-,"Cu-ETP, tin plated"
+1,J21,"M6 x 16 bolt + nut + 2 washers, AC bolt pad",-,"steel, A2"
+1,J21,"AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor",-,"Cu-ETP, tin plated"
 4,H1-H4,M2.5 standoff + screw (board mounting),-,nylon / insulated
 4,RS1-RS4,"PMK UFCS-R001 hand-soldered at the blade (short IN land), SMA cable to the scope",-,PMK UFCS-R001
 2,"J5, J14",Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return),-,"2.54 mm IDC, e.g. Wurth 61201021621"

@@ -716,6 +716,17 @@
  },
  {
   "ref": "J6",
+  "value": "MMCX VDS L1",
+  "footprint": "WR-MMCX_Wuerth_66012102111404_Vertical",
+  "mpn": "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",
+  "x": -39.5,
+  "y": 17.0,
+  "rot": 90,
+  "side": "bottom",
+  "block": 1
+ },
+ {
+  "ref": "J7",
   "value": "U.FL H1",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -737,7 +748,7 @@
   "block": 1
  },
  {
-  "ref": "J7",
+  "ref": "J8",
   "value": "U.FL L1",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -759,18 +770,18 @@
   "block": 1
  },
  {
-  "ref": "J8",
-  "value": "U.FL D1",
-  "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
-  "x": -36.75,
-  "y": 14.9,
-  "rot": 180,
+  "ref": "J9",
+  "value": "MMCX VDS L2",
+  "footprint": "WR-MMCX_Wuerth_66012102111404_Vertical",
+  "mpn": "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",
+  "x": -8.0,
+  "y": 17.0,
+  "rot": 90,
   "side": "bottom",
   "block": 1
  },
  {
-  "ref": "J9",
+  "ref": "J10",
   "value": "U.FL H2",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -792,7 +803,7 @@
   "block": 1
  },
  {
-  "ref": "J10",
+  "ref": "J11",
   "value": "U.FL L2",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -809,17 +820,6 @@
   "mpn": "0R 0603",
   "x": -14.55,
   "y": 7.97,
-  "rot": 0,
-  "side": "bottom",
-  "block": 1
- },
- {
-  "ref": "J11",
-  "value": "U.FL D2",
-  "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
-  "x": -10.75,
-  "y": 14.9,
   "rot": 0,
   "side": "bottom",
   "block": 1
@@ -1585,6 +1585,17 @@
  },
  {
   "ref": "J15",
+  "value": "MMCX VDS L3",
+  "footprint": "WR-MMCX_Wuerth_66012102111404_Vertical",
+  "mpn": "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",
+  "x": 8.0,
+  "y": 17.0,
+  "rot": 90,
+  "side": "bottom",
+  "block": 2
+ },
+ {
+  "ref": "J16",
   "value": "U.FL H3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1606,7 +1617,7 @@
   "block": 2
  },
  {
-  "ref": "J16",
+  "ref": "J17",
   "value": "U.FL L3",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1628,18 +1639,18 @@
   "block": 2
  },
  {
-  "ref": "J17",
-  "value": "U.FL D3",
-  "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
-  "x": 10.75,
-  "y": 14.9,
-  "rot": 180,
+  "ref": "J18",
+  "value": "MMCX VDS L4",
+  "footprint": "WR-MMCX_Wuerth_66012102111404_Vertical",
+  "mpn": "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",
+  "x": 39.5,
+  "y": 17.0,
+  "rot": 90,
   "side": "bottom",
   "block": 2
  },
  {
-  "ref": "J18",
+  "ref": "J19",
   "value": "U.FL H4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1661,7 +1672,7 @@
   "block": 2
  },
  {
-  "ref": "J19",
+  "ref": "J20",
   "value": "U.FL L4",
   "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
   "mpn": "Hirose U.FL-R-SMT-1(10)",
@@ -1678,17 +1689,6 @@
   "mpn": "0R 0603",
   "x": 32.95,
   "y": 7.97,
-  "rot": 0,
-  "side": "bottom",
-  "block": 2
- },
- {
-  "ref": "J20",
-  "value": "U.FL D4",
-  "footprint": "U.FL_Hirose_U.FL-R-SMT-1_Vertical",
-  "mpn": "Hirose U.FL-R-SMT-1(01) - 100 V listed, confirm",
-  "x": 36.75,
-  "y": 14.9,
   "rot": 0,
   "side": "bottom",
   "block": 2

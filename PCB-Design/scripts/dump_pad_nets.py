@@ -16,6 +16,8 @@ b = pcbnew.LoadBoard(os.path.join(ROOT, "hardware", name, name + ".kicad_pcb"))
 out = []
 for fp in sorted(b.GetFootprints(), key=lambda f: (f.GetReference()[0],
                                                      int("".join(c for c in f.GetReference() if c.isdigit()) or 0))):
+    if fp.GetAttributes() & pcbnew.FP_BOARD_ONLY:      # test points: board-only, listed in fab/testpoints.csv
+        continue
     pads = {}
     for p in fp.Pads():
         if p.GetNumber():

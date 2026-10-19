@@ -107,13 +107,26 @@ board = pcbnew.BOARD()
 board.SetCopperLayerCount(4)
 ds = board.GetDesignSettings()
 ds.SetBoardThickness(MM(1.6))
-ds.m_MinClearance = MM(0.15)
-ds.m_TrackMinWidth = MM(0.15)
-ds.m_ViasMinSize = MM(0.45)
-ds.m_MinThroughDrill = MM(0.25)
+# manufacturing floor (2 oz outer and inner copper): written to the .kicad_pro as well (RULES below), so that a fresh
+# load of the saved project checks the same limits. The 0.45 / 0.25 mm gate-area vias need the fab's confirmation.
+RULES = {"min_clearance": 0.2, "min_track_width": 0.2, "min_connection": 0.2, "min_via_diameter": 0.45,
+         "min_through_hole_diameter": 0.25, "min_via_annular_width": 0.1, "min_hole_clearance": 0.25,
+         "min_hole_to_hole": 0.25, "min_copper_edge_clearance": 0.3, "solder_mask_min_width": 0.1,
+         "min_text_height": 0.8, "min_text_thickness": 0.12, "allow_blind_buried_vias": True,
+         "allow_microvias": False}
+ds.m_MinClearance = MM(RULES["min_clearance"])
+ds.m_TrackMinWidth = MM(RULES["min_track_width"])
+ds.m_MinConn = MM(RULES["min_connection"])
+ds.m_ViasMinSize = MM(RULES["min_via_diameter"])
+ds.m_MinThroughDrill = MM(RULES["min_through_hole_diameter"])
+ds.m_ViasMinAnnularWidth = MM(RULES["min_via_annular_width"])
+ds.m_HoleClearance = MM(RULES["min_hole_clearance"])
+ds.m_HoleToHoleMin = MM(RULES["min_hole_to_hole"])
+ds.m_SolderMaskMinWidth = MM(RULES["solder_mask_min_width"])
+ds.m_CopperEdgeClearance = MM(RULES["min_copper_edge_clearance"])
 ds.m_BlindBuriedViaAllowed = True                  # only the noshunt study variant uses blind vias
 ncl = ds.m_NetSettings.m_DefaultNetClass
-ncl.SetClearance(MM(0.15))
+ncl.SetClearance(MM(0.2))
 ncl.SetTrackWidth(MM(0.25))
 ncl.SetViaDiameter(MM(0.6))
 ncl.SetViaDrill(MM(0.3))
@@ -174,6 +187,10 @@ def via(x, y, n, d=0.6, drill=0.3):
     v.SetDrill(MM(drill))
     v.SetNet(net(n))
     v.SetIsFree(True)                           # keep the scripted net (KiCad would otherwise re-net it on save)
+    # no unused annular rings on the inner layers: with the 0.6 mm rings kept, the antipads (1.0 mm) of the
+    # 1.1 mm-pitch via rows left 0.1 mm necks in the foreign planes; without them the antipad is hole + 2 x 0.25 mm
+    v.SetRemoveUnconnected(True)
+    v.SetKeepStartEnd(True)
     board.Add(v)
     return v
 
@@ -184,7 +201,9 @@ def zone(layer, n, pts, prio=0, clearance=0.2, minw=0.2):
     z.SetNet(net(n))
     z.SetAssignedPriority(prio)
     z.SetLocalClearance(MM(clearance))
-    z.SetMinThickness(MM(minw))
+    # inner planes: 0.25 mm minimum fill width removes the < 0.2 mm webs between via antipads (1.0 mm pitch,
+    # 0.8 mm antipads) - adjacent antipads merge into clean slots instead of leaving 0.18 mm slivers
+    z.SetMinThickness(MM(max(minw, 0.25) if layer in (pcbnew.In1_Cu, pcbnew.In2_Cu) else minw))
     z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
     ol = z.Outline()
     ol.NewOutline()
@@ -925,8 +944,38 @@ def build_block(bi, xoff):
         c = 2 * (bi - 1) + (1 if side == "L" else 2)
         gvh, gvl, kvl, kvh = gate["VH" + side], gate["VL" + side], gate["VKL" + side], gate["VKH" + side]
         rows = (("H", gvh[1], gvh, kh, "0R (V_GS HS)", "0R 0603"),
-                ("L", gvl[1], gvl, kl, "0R (V_GS LS)", "0R 0603"),
-                ("D", 14.9, None, lsrc[side], None, None))
+                ("L", gvl[1], gvl, kl, "0R (V_GS LS)", "0R 0603"))
+        # V_DS LS: MMCX jack per cell (test_points.mmcx_vds, placed on the filled board) - the U.FL is rated 30 V.
+        # Its shield reaches LSRC through the LSS via from the (short) shunt IN land and a bottom track (as for the
+        # former U.FL V_DS port), which the placer uses as connection target.
+        lx_, ly_ = sgn * 13.475, (11.8 if SHORT_IN else 12.225)
+        via(lx_, ly_, lsrc[side], 0.6, 0.3)
+        # MMCX (Wurth WR-MMCX 66012102111404, 170 V rms) in the switch-node band between the DC- via field and the
+        # next via rows; shield pads above / below the centre pin (rotated 90); the power-via pruning clears the
+        # DC- vias under it (mirror pairs)
+        mx_, my_ = sgn * 15.75, 17.0
+        mm_ = place(FP + "Connector_Coaxial.pretty", "WR-MMCX_Wuerth_66012102111404_Vertical", ref("J"),
+                    "MMCX VDS L%d" % c, mx_, my_, 90, True, None,
+                    "Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)")
+        set_pads(mm_, {"1": sw, "2": lsrc[side]})
+        if "MMCX" not in SAVED:
+            SAVED.add("MMCX")
+            cp_ = pcbnew.FOOTPRINT(mm_)
+            cp_.SetReference("REF**")
+            if cp_.IsFlipped():
+                cp_.Flip(cp_.GetPosition(), False)
+            cp_.SetOrientationDegrees(0)
+            pcbnew.FootprintSave(_lib, cp_)
+        mm_.SetFPID(pcbnew.LIB_ID("spb_fab", "WR-MMCX_Wuerth_66012102111404_Vertical"))
+        mm_.Reference().SetVisible(False)                       # silk label "Jx VDS-Ly" (ref_text)
+        gys_ = sorted(pcbnew.ToMM(q.GetPosition().y) for q in mm_.Pads() if q.GetNumber() == "2")
+        assert gys_[0] < my_ - 1.0 and gys_[1] > my_ + 1.0, gys_     # shield pads above / below the centre pin
+        seg(Bl, [(mx_, my_), (sgn * 18.75, my_)], 0.4, sw)       # centre pin: outward between the shield pads
+        seg(Bl, [(lx_, ly_), (lx_, 13.425), (lx_, gys_[1])], 0.4, lsrc[side])
+        for gy_ in gys_:                                        # both shield pads onto the LSRC track
+            seg(Bl, [(lx_, gy_), (sgn * 14.6, gy_)], 0.4, lsrc[side])
+        MOAT.append((Bl, min(mx_ - 2.6, mx_ + 2.6) + OFFX[0], max(mx_ - 2.6, mx_ + 2.6) + OFFX[0],
+                     my_ - 2.6, my_ + 2.6))                     # no power vias under the jack
         for tag, yy, src, gnd, val, mpn in rows:
             sn = sw if tag == "D" else "UFL_%s%d" % (tag, c)     # V_DS: centre pin directly on the switch node
             fp = place(FP + "Connector_Coaxial.pretty", "U.FL_Hirose_U.FL-R-SMT-1_Vertical", ref("J"),
@@ -1307,7 +1356,7 @@ SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0 + D_BUS,
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "top", 1.0)
 SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "bottom", 1.2)
 SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
-SK.put("VDS U.FL = 75 V: 1 MOHM SCOPE INPUT ONLY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
+SK.put("VDS MMCX: SW / LSRC, 75 V - RATED PROBE ONLY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
 for c, xc in enumerate((-33.25, -14.25, 14.25, 33.25)):
     cc = sorted(scan(frange(xc - 6, xc + 6, 0.25), frange(2.5, -4.0, -0.25)),
                 key=lambda p: abs(p[0] - xc) + 2 * abs(p[1] - 0.0))
@@ -1330,6 +1379,8 @@ def ref_text(rf, f_):
     if v.startswith("U.FL"):
         tag = v.split()[1]
         return "%s %s%s" % (rf, UFL[tag[0]], tag[1:])
+    if v.startswith("MMCX"):
+        return "%s VDS-L%s" % (rf, v[-1])
     if rf.startswith("J"):
         if v in ("DC+", "DC-", "AC"):
             return "%s %s" % (rf, v)
@@ -1405,10 +1456,20 @@ for it in list(board.GetDrawings()) + list(board.GetTracks()) + list(board.GetFo
 ds.SetAuxOrigin(vloc(OX - XO, OY + Y1))
 path = os.path.join(OUT, NAME + ".kicad_pcb")
 pcbnew.SaveBoard(path, board)
-json.dump({"board": {"design_settings": {"rule_severities": {
-    "lib_footprint_issues": "ignore", "lib_footprint_mismatch": "ignore", "silk_over_copper": "warning",
-    "silk_overlap": "warning", "silk_edge_clearance": "warning", "text_height": "warning",
-    "text_thickness": "warning"}}},
+json.dump({"board": {"design_settings": {
+    "rules": RULES,
+    # library checks stay off: the generator saves its own (modified) footprints into spb_fab.pretty and the KiCad
+    # library copies differ by design (removed RF keepouts, tight courtyards); courtyards ARE checked
+    "rule_severities": {
+        "lib_footprint_issues": "ignore", "lib_footprint_mismatch": "ignore", "missing_courtyard": "error",
+        "silk_over_copper": "warning", "silk_overlap": "warning", "silk_edge_clearance": "warning",
+        "text_height": "warning", "text_thickness": "warning"}}},
+    "net_settings": {"classes": [{"name": "Default", "clearance": 0.2, "track_width": 0.25, "via_diameter": 0.6,
+                                  "via_drill": 0.3, "microvia_diameter": 0.3, "microvia_drill": 0.1,
+                                  "diff_pair_gap": 0.25, "diff_pair_width": 0.2, "diff_pair_via_gap": 0.25,
+                                  "wire_width": 6, "bus_width": 12, "line_style": 0,
+                                  "pcb_color": "rgba(0, 0, 0, 0.000)", "schematic_color": "rgba(0, 0, 0, 0.000)"}],
+                     "meta": {"version": 3}},
     "meta": {"filename": NAME + ".kicad_pro", "version": 1}}, open(os.path.join(OUT, NAME + ".kicad_pro"), "w"), indent=1)
 json.dump(PARTS, open(os.path.join(OUT, "parts.json"), "w"), indent=1)
 _epc = "${KIPRJMOD}/.." if not VARIANT else "${KIPRJMOD}/../.."
@@ -1442,6 +1503,7 @@ def _pair(a_doms, b_doms):
 
 
 PWR = ("HS", "LS", "DCP")
+TERMS = sorted(f.GetReference() for f in board.GetFootprints() if f.GetValue() in ("DC+", "DC-", "AC"))
 rules = ['(version 1)',
          '# generated by scripts/make_kicad_bb_revb.py - see reports/pcb-rules/PCB_rules_and_checklist.md',
          '(rule "75 V functional insulation between power domains (IEC 60664-1 PD2 / IPC-2221B B4)"',
@@ -1469,11 +1531,11 @@ rules = ['(version 1)',
                          % (k, k) for k in range(1, 9))),
          '  (constraint clearance (min 0.5mm)))',
          # DC / AC terminal pins: large hand-soldered fillets on the bus rails with the bank behind them
-         '(rule "power terminal pins J1 J2 J21 to another power domain (1.0 mm)"',
+         '(rule "power terminal pins %s to another power domain (1.0 mm)"' % " ".join(TERMS),
          '  (layer outer)',
          '  (condition "(%s) && (%s || %s || %s)")' % (
              " || ".join("(A.Type == 'Pad' && A.insideCourtyard('%s')) || (B.Type == 'Pad' && B.insideCourtyard('%s'))"
-                       % (j, j) for j in ("J1", "J2", "J21")),
+                       % (j, j) for j in TERMS),
              _pair(["HS"], ["LS"]), _pair(["HS"], ["DCP"]), _pair(["LS"], ["DCP"])),
          '  (constraint clearance (min 1.0mm)))',
          '(rule "1200 V barrier, outer layers (IPC-2221B B4/A6: 3.66 mm)"',
@@ -1484,8 +1546,11 @@ rules = ['(version 1)',
          '  (layer inner)',
          '  (condition "%s")' % _pair(["CTRL"], PWR),
          '  (constraint clearance (min %.1fmm)))' % BAR_IN,
-         '(rule "barrier inside the 2EDF7275K courtyard (package: 3.4 mm)"',
-         '  (condition "((A.insideCourtyard(\'U1\') && B.insideCourtyard(\'U1\')) || '
+         # only the driver's pads and their pin-escape tracks inside the courtyard (the package gives 3.4 mm between
+         # the input and output pin rows); pours and vias inside the courtyard keep the full 4.0 / 3.0 mm barrier
+         '(rule "barrier between the 2EDF7275K pins and their escapes (package: 3.4 mm)"',
+         '  (condition "(A.Type == \'Pad\' || A.Type == \'Track\') && (B.Type == \'Pad\' || B.Type == \'Track\') && '
+         '((A.insideCourtyard(\'U1\') && B.insideCourtyard(\'U1\')) || '
          '(A.insideCourtyard(\'U2\') && B.insideCourtyard(\'U2\'))) && (%s)")' % _pair(["CTRL"], PWR),
          '  (constraint clearance (min 3.0mm)))']
 open(os.path.join(OUT, NAME + ".kicad_dru"), "w").write("\n".join(rules) + "\n")
@@ -1500,6 +1565,38 @@ for _try in range(3):                            # the filler has once returned 
     print("zone fill incomplete, retrying", flush=True)
 else:
     raise SystemExit("zone fill failed")
+# ---- V_DS MMCX jacks and bring-up test points / spring-tip probe pads (scripts/test_points.py), on the filled board
+import test_points  # noqa: E402
+OUTL = (OX - XO, OY + Y0, OX + XO, OY + Y1)
+os.makedirs(os.path.join(OUT, "fab"), exist_ok=True)
+
+TPS = test_points.run(board2, OUTL, os.path.join(OUT, "testpoints_cache.json"), os.path.join(OUT, "fab", "testpoints.csv"),
+                      os.path.join(OUT, "drc_tp_tmp.txt"), (OX, OY), log=lambda m: print(m, flush=True),
+                      lib_path=_lib)
+print("test points: %d placed (list: fab/testpoints.csv)" % len(TPS), flush=True)
+# silk labels covered by a test-point pad move away; every test point gets its name
+tp_boxes = [(silk_placer._box(p_.GetBoundingBox(), 0.25), "bottom" if f_.IsFlipped() else "top")
+            for f_ in board2.GetFootprints() if f_.GetReference().startswith("TP") for p_ in f_.Pads()]
+moved = []
+for d_ in list(board2.GetDrawings()):
+    if d_.GetClass() == "PCB_TEXT" and d_.GetLayer() in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+        side_ = "top" if d_.GetLayer() == pcbnew.F_SilkS else "bottom"
+        bb_ = silk_placer._box(d_.GetBoundingBox())
+        if any(sd == side_ and silk_placer._hit(bb_, tb) for tb, sd in tp_boxes):
+            moved.append((d_.GetText(), side_, pcbnew.ToMM(d_.GetTextHeight()), bb_, d_.GetTextAngleDegrees(),
+                          (pcbnew.ToMM(d_.GetPosition().x), pcbnew.ToMM(d_.GetPosition().y))))
+            board2.Remove(d_)
+SK2 = silk_placer.Silk(board2, OUTL)
+for txt_, side_, size_, bb_, ang_, pos_ in moved:                  # no room: kept on the Fab layer
+    if not SK2.put(txt_, SK2.around(bb_, txt_, size_), side_, size_):
+        SK2.failed.pop()
+        SK2.put(txt_, SK2.around(bb_, txt_, size_, reach=8.0, step=0.4), side_, size_, fab_at=pos_)
+for d_ in TPS:
+    f_ = [f for f in board2.GetFootprints() if f.GetReference() == d_["ref"]][0]
+    SK2.put(d_["value"], SK2.around(silk_placer._box(f_.GetBoundingBox(False, False)), d_["value"], 0.8,
+                                    centre=False), d_["side"], 0.8)
+print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join(SK2.failed) or "-"), flush=True)
+pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
 pcbnew.SaveBoard(path, board2)
 pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)
 print("saved", path, "footprints", len(board.GetFootprints()), "nets", len(NETS),

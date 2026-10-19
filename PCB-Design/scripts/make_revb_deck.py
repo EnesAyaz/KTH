@@ -256,7 +256,7 @@ table(s, [X0, Y0, W, 400], [
     ["6", "f_{sw}, DC link", "≥ 50 kHz; 3 % ripple → 20 × 22 µF 2220 + 10 × 1 µF bypass per cell"],
     ["7", "Gate drive → block", "one 2EDF7275K per pair (star, Kelvin) → building block of two cells"],
     ["8", "Four on one board", "two pairs, one DC pair, one AC output → DPT board and load-test board"],
-    ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL, HO 250-S"],
+    ["9", "Supplies, measurement", "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL V_{GS}, MMCX V_{DS}, HO 250-S"],
     ["10", "Three-phase DC bus", "legs share the 75 V bus → laminated PCB busbar; 3D level and 16-level stack"],
     ["11–12", "Verification, boards", "fast Q3D set on the final boards and the busbar; fab files"],
 ], size=15, colw=[60, 230, 620])
@@ -704,7 +704,7 @@ s = slide("Bottom side and the load board without heatsink", 8)
 image(s, "img/r3d_dpt_bottom.png", [X0, Y0, 445, 300])
 image(s, "img/r3d_load_nohs.png", [X0 + 455, Y0, 445, 300])
 text(s, [X0, Y0 + 310, W, 80], [
-    "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL probes, M6 AC nut",
+    "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL V_{GS} and MMCX V_{DS} ports, M6 AC nut",
     "Top without heatsink: 20 × 2220 bank in two rows, 8 EPC2361 under the spreader pedestals, 2 drivers",
 ], 14)
 
@@ -748,8 +748,10 @@ table(s, [X0, Y0, 520, 270], [
     ["Cell current (DPT)", "PMK UFCS-R001, 1 mΩ, 120 pH", "LS source of each cell, DPT board"],
     ["Phase current (control)", "LEM HO 250-S, ±625 A, 3.2 mV/A", "Cu bar on the M6 AC pad"],
     ["V_{GS} HS / LS", "U.FL, 0 Ω, shield = Kelvin", "bottom, at each cell (both boards)"],
-    ["V_{DS} LS", "U.FL, 953 Ω (20:1 into 50 Ω)", "bottom, at each cell (both boards)"],
-    ["Heatsink temperature", "NTC 10 k", "DC− domain"]], size=13, colw=[150, 200, 170])
+    ["V_{DS} LS (DPT)", "MMCX (WR-MMCX, 170 V rms): SW / LSRC, rated isolated probe (e.g. IsoVu TIVPMX50X)",
+     "bottom, next to each LS FET"],
+    ["Bring-up", "test points + spring-tip pads (V_{GS}, V_{DS}), list in fab/testpoints.csv", "both sides"],
+    ["Board temperature", "NTC 10 k at the driver", "control side (GNDI)"]], size=13, colw=[150, 200, 170])
 image(s, "img/sch_ufl.png", [X0, Y0 + 285, 540, 120])
 text(s, [X0 + 545, Y0 + 150, 355, 220], [
     "Back-to-back load test, closed loop on a TI TMS320F28379D",

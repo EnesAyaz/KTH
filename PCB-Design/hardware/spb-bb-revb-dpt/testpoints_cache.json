@@ -1,0 +1,366 @@
+{
+ "GNDI1": {
+  "nets": [
+   "GNDI1"
+  ],
+  "side": "top",
+  "x": 127.85,
+  "y": 124.89999999999999,
+  "rot": 0
+ },
+ "+12V1": {
+  "nets": [
+   "+12V1"
+  ],
+  "side": "top",
+  "x": 132.45,
+  "y": 123.89999999999999,
+  "rot": 0
+ },
+ "VDDI1": {
+  "nets": [
+   "VDDI1"
+  ],
+  "side": "top",
+  "x": 127.85,
+  "y": 123.5,
+  "rot": 0
+ },
+ "INA1": {
+  "nets": [
+   "INA1"
+  ],
+  "side": "top",
+  "x": 121.85,
+  "y": 122.1,
+  "rot": 0
+ },
+ "INB1": {
+  "failed": true
+ },
+ "DIS1": {
+  "nets": [
+   "DIS1"
+  ],
+  "side": "top",
+  "x": 126.85,
+  "y": 126.1,
+  "rot": 0
+ },
+ "VDDA1": {
+  "nets": [
+   "VDDA1"
+  ],
+  "side": "bottom",
+  "x": 114.2,
+  "y": 133.4,
+  "rot": 0
+ },
+ "VEEA1": {
+  "nets": [
+   "VEEA1"
+  ],
+  "side": "bottom",
+  "x": 111.6,
+  "y": 134.20000000000002,
+  "rot": 0
+ },
+ "KH1": {
+  "nets": [
+   "KH1"
+  ],
+  "side": "bottom",
+  "x": 112.8,
+  "y": 132.60000000000002,
+  "rot": 0
+ },
+ "OUTA1": {
+  "failed": true
+ },
+ "VDDB1": {
+  "nets": [
+   "VDDB1"
+  ],
+  "side": "bottom",
+  "x": 140.89999999999998,
+  "y": 134.20000000000002,
+  "rot": 0
+ },
+ "VEEB1": {
+  "nets": [
+   "VEEB1"
+  ],
+  "side": "bottom",
+  "x": 138.29999999999998,
+  "y": 133.4,
+  "rot": 0
+ },
+ "KL1": {
+  "nets": [
+   "KL1"
+  ],
+  "side": "bottom",
+  "x": 139.7,
+  "y": 132.60000000000002,
+  "rot": 0
+ },
+ "OUTB1": {
+  "failed": true
+ },
+ "VGS Q1": {
+  "nets": [
+   "GH_L1",
+   "KH1"
+  ],
+  "side": "bottom",
+  "x": 119.95,
+  "y": 106.10000000000001,
+  "rot": 0
+ },
+ "VGS Q2": {
+  "nets": [
+   "GH_R1",
+   "KH1"
+  ],
+  "side": "bottom",
+  "x": 131.15,
+  "y": 103.7,
+  "rot": 180
+ },
+ "VGS Q3": {
+  "nets": [
+   "GL_L1",
+   "KL1"
+  ],
+  "side": "bottom",
+  "x": 120.75,
+  "y": 112.0,
+  "rot": 180
+ },
+ "VGS Q4": {
+  "failed": true
+ },
+ "GNDI2": {
+  "nets": [
+   "GNDI2"
+  ],
+  "side": "top",
+  "x": 175.35,
+  "y": 124.89999999999999,
+  "rot": 0
+ },
+ "+12V2": {
+  "nets": [
+   "+12V2"
+  ],
+  "side": "top",
+  "x": 178.15,
+  "y": 127.69999999999999,
+  "rot": 0
+ },
+ "VDDI2": {
+  "nets": [
+   "VDDI2"
+  ],
+  "side": "top",
+  "x": 175.35,
+  "y": 123.5,
+  "rot": 0
+ },
+ "INA2": {
+  "nets": [
+   "INA2"
+  ],
+  "side": "top",
+  "x": 169.35,
+  "y": 122.1,
+  "rot": 0
+ },
+ "INB2": {
+  "failed": true
+ },
+ "DIS2": {
+  "nets": [
+   "DIS2"
+  ],
+  "side": "top",
+  "x": 174.35,
+  "y": 126.1,
+  "rot": 0
+ },
+ "VDDA2": {
+  "nets": [
+   "VDDA2"
+  ],
+  "side": "bottom",
+  "x": 161.70000000000002,
+  "y": 133.4,
+  "rot": 0
+ },
+ "VEEA2": {
+  "nets": [
+   "VEEA2"
+  ],
+  "side": "bottom",
+  "x": 159.10000000000002,
+  "y": 134.20000000000002,
+  "rot": 0
+ },
+ "KH2": {
+  "nets": [
+   "KH2"
+  ],
+  "side": "bottom",
+  "x": 160.3,
+  "y": 132.60000000000002,
+  "rot": 0
+ },
+ "OUTA2": {
+  "failed": true
+ },
+ "VDDB2": {
+  "nets": [
+   "VDDB2"
+  ],
+  "side": "bottom",
+  "x": 188.33,
+  "y": 135.95,
+  "rot": 0
+ },
+ "VEEB2": {
+  "nets": [
+   "VEEB2"
+  ],
+  "side": "bottom",
+  "x": 185.79999999999998,
+  "y": 133.4,
+  "rot": 0
+ },
+ "KL2": {
+  "nets": [
+   "KL2"
+  ],
+  "side": "bottom",
+  "x": 187.2,
+  "y": 132.60000000000002,
+  "rot": 0
+ },
+ "OUTB2": {
+  "failed": true
+ },
+ "VGS Q5": {
+  "nets": [
+   "GH_L2",
+   "KH2"
+  ],
+  "side": "bottom",
+  "x": 167.45,
+  "y": 106.10000000000001,
+  "rot": 0
+ },
+ "VGS Q6": {
+  "nets": [
+   "GH_R2",
+   "KH2"
+  ],
+  "side": "bottom",
+  "x": 178.65,
+  "y": 103.7,
+  "rot": 180
+ },
+ "VGS Q7": {
+  "nets": [
+   "GL_L2",
+   "KL2"
+  ],
+  "side": "bottom",
+  "x": 168.25,
+  "y": 112.0,
+  "rot": 180
+ },
+ "VGS Q8": {
+  "failed": true
+ },
+ "VDS Q3": {
+  "failed": true
+ },
+ "VDS Q1": {
+  "nets": [
+   "DCP",
+   "SW"
+  ],
+  "side": "top",
+  "x": 112.75,
+  "y": 104.5,
+  "rot": 270
+ },
+ "VDS Q4": {
+  "failed": true
+ },
+ "VDS Q2": {
+  "nets": [
+   "DCP",
+   "SW"
+  ],
+  "side": "top",
+  "x": 139.75,
+  "y": 104.5,
+  "rot": 270
+ },
+ "VDS Q7": {
+  "failed": true
+ },
+ "VDS Q5": {
+  "nets": [
+   "DCP",
+   "SW"
+  ],
+  "side": "top",
+  "x": 160.25,
+  "y": 104.5,
+  "rot": 270
+ },
+ "VDS Q8": {
+  "failed": true
+ },
+ "VDS Q6": {
+  "nets": [
+   "DCP",
+   "SW"
+  ],
+  "side": "top",
+  "x": 187.25,
+  "y": 104.5,
+  "rot": 270
+ },
+ "DC+": {
+  "nets": [
+   "DCP"
+  ],
+  "side": "bottom",
+  "x": 144.0,
+  "y": 87.000001,
+  "rot": 0
+ },
+ "DC-": {
+  "nets": [
+   "DCN"
+  ],
+  "side": "bottom",
+  "x": 150.2,
+  "y": 81.200001,
+  "rot": 0
+ },
+ "SW": {
+  "nets": [
+   "SW"
+  ],
+  "side": "bottom",
+  "x": 143.4,
+  "y": 148.4,
+  "rot": 0
+ },
+ "NTC": {
+  "failed": true
+ }
+}

@@ -193,6 +193,34 @@ Vias stay at 0.2 mm:
 
 Both boards: DRC 0/0, schematic = PCB.
 
+**Read-only review of 19 October 2026 (`spb-bb-revb-dpt-review-2026-10-19.md`), DPT board: dispositions.**
+1. *V_DS U.FL underrated.* Hirose rates the U.FL-R-SMT-1 at 30 V. The four V_DS U.FL ports are replaced by Würth WR-MMCX 66012102111404 vertical SMT jacks (170 V rms working, 500 V rms withstanding).
+   - Connections: centre = SW (LS drain), shield = LSRCx (device side of the shunt), on the bottom between the DC− via field and the next via rows.
+   - Shield: reaches LSRC through the LSS via from the shunt IN land. Centre pin: a 0.4 mm stub between the shield pads into the switch-node pour.
+   - Vias: the mirrored power-via pruning removes about 25 DC− vias per cell under the jacks (238 of 1274 power vias are pruned in total, 138 before).
+   - Intended for a rated isolated probe with an MMCX tip, e.g. IsoVu TIVP + TIVPMX50X. The U.FL ports remain for V_GS only.
+2. *Fresh DRC differs from the saved report.* The project file had no rules section, so a fresh load used KiCad's defaults (0.5 / 0.3 mm vias). The generator now writes the rules into `.kicad_pro`:
+   - track 0.2 mm, clearance 0.2 mm, connection 0.2 mm, via 0.45 / 0.25 mm, annular ring 0.1 mm;
+   - hole clearance 0.25 mm, hole to hole 0.25 mm, copper to edge 0.3 mm, mask web 0.1 mm;
+   - Default netclass 0.2 mm clearance;
+   - missing courtyard = error.
+
+   A fresh load and DRC of a copy of the saved project gives 0 violations, 0 unconnected, 0 footprint errors. **The 0.45 / 0.25 mm gate-area vias and the 0.2 mm floor for 2 oz copper need the fab's confirmation.**
+3. *Manufacturing safeguards.* The new limits exposed real issues, all fixed:
+   - 0.1 mm necks in the inner planes between via antipads: unused inner annular rings removed on all vias (outer rings kept), and a 0.25 mm minimum fill width on the inner planes.
+   - Test points without courtyards: courtyards added and checked.
+
+   The library checks stay off on purpose: the generator saves its own modified footprints to `spb_fab.pretty`.
+4. *"1200 V" rule is not an insulation design.* Agreed; see section 7 and the 460 V functional isolation of the 2EDF7275K. The driver exception is narrowed: inside the U1/U2 courtyard only pads and their pin-escape tracks get 3.0 mm, while pours and vias keep 4.0 / 3.0 mm.
+5. *Measurement grounding.* See `DPT_measurement_setup.md`: port table, reference of every shield, connection rules and diagram.
+6. *Documentation.*
+   - The measurement slide describes the MMCX ports and the test points.
+   - The mechanical BOM takes the AC bolt reference from the board.
+   - The stale silk plots are archived in `plots/superseded-2026-10-15/`.
+   - The generator writes `pad_nets.json` itself, and the schematic check runs against the saved board.
+
+Open: rerun the Q3D loop model of the DPT board. About 100 DC− vias near the shunts are gone, and the inner planes changed. Not yet done for the load board.
+
 ## 7. Decisions needed (status 2026-10-16)
 
 Items 1–6 were answered as described in §6. Item 1 is open for the stack only.

@@ -31,8 +31,8 @@ NOTE = {
 MECH = {
     "spb-bb-revb-dpt": [
         (2, "J1-J2", "M4 x 8 screw + washer into REDCUBE (to the DC source / busbar)", "-", "steel, A2"),
-        (1, "J22", "M6 x 16 bolt + nut + 2 washers, AC bolt pad", "-", "steel, A2"),
-        (1, "J22", "AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor", "-", "Cu-ETP, tin plated"),
+        (1, "{AC}", "M6 x 16 bolt + nut + 2 washers, AC bolt pad", "-", "steel, A2"),
+        (1, "{AC}", "AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor", "-", "Cu-ETP, tin plated"),
         (4, "H1-H4", "M2.5 standoff + screw (board mounting)", "-", "nylon / insulated"),
         (4, "RS1-RS4", "PMK UFCS-R001 hand-soldered at the blade (short IN land), SMA cable to the scope", "-",
          "PMK UFCS-R001"),
@@ -52,8 +52,8 @@ MECH = {
         (3, "H5-H7", "M2.5 x 10 screw + insulating shoulder washer (spreader)", "-", "nylon or steel + washer"),
         (4, "H1-H4", "M2.5 standoff + screw (H3/H4: nylon M2.5 x 6.5 mm onto the busbar)", "-", "nylon"),
         (2, "J1-J2", "M4 x 8 screw + washer from below through the busbar into the REDCUBE", "-", "steel, A2"),
-        (1, "J22", "M6 x 16 bolt + nut + 2 washers, AC bolt pad", "-", "steel, A2"),
-        (1, "J22", "AC bar 12 x 5 mm Cu through a LEM HO 250-S", "-", "Cu-ETP + LEM HO 250-S"),
+        (1, "{AC}", "M6 x 16 bolt + nut + 2 washers, AC bolt pad", "-", "steel, A2"),
+        (1, "{AC}", "AC bar 12 x 5 mm Cu through a LEM HO 250-S", "-", "Cu-ETP + LEM HO 250-S"),
     ],
     "spb-busbar": [
         (6, "J1-J6", "M4 x 8 screw + washer into the leg REDCUBE terminals", "-", "steel, A2"),
@@ -107,7 +107,8 @@ for name in ("spb-bb-revb-dpt", "spb-bb-revb-load", "spb-busbar"):
             w.writerow([len(refs), " ".join(sorted(refs)), val, fp, mpn, "DNP" if dnp else "fit"])
         w.writerow([])
         w.writerow(["Mechanical (not placed by the assembler)"])
+        ac = [p["ref"] for p in parts if p["value"] == "AC"]          # AC bolt reference from the board itself
         for row in MECH[name]:
-            w.writerow(row)
+            w.writerow([str(c).replace("{AC}", ac[0] if ac else "AC bolt") for c in row])
     print("%s: BOM %d lines, %d placed parts -> %s" % (name, len(groups), sum(len(v[1]) for v in groups.values()),
                                                          FAB))

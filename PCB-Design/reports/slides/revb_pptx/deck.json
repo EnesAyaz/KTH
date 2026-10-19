@@ -85,7 +85,7 @@
       [
        "9",
        "Supplies, measurement",
-       "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL, HO 250-S"
+       "two isolated supplies + Zener bias, UFCS per cell (DPT), U.FL V_{GS}, MMCX V_{DS}, HO 250-S"
       ],
       [
        "10",
@@ -2625,7 +2625,7 @@
      "paras": [
       [
        0,
-       "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL probes, M6 AC nut"
+       "Bottom: REDCUBE M4 DC terminals (the leg stands on the busbar), 4 bypass 0805 per cell, U.FL V_{GS} and MMCX V_{DS} ports, M6 AC nut"
       ],
       [
        0,
@@ -2841,14 +2841,19 @@
        "bottom, at each cell (both boards)"
       ],
       [
-       "V_{DS} LS",
-       "U.FL, 953 Ω (20:1 into 50 Ω)",
-       "bottom, at each cell (both boards)"
+       "V_{DS} LS (DPT)",
+       "MMCX (WR-MMCX, 170 V rms): SW / LSRC, rated isolated probe (e.g. IsoVu TIVPMX50X)",
+       "bottom, next to each LS FET"
       ],
       [
-       "Heatsink temperature",
-       "NTC 10 k",
-       "DC− domain"
+       "Bring-up",
+       "test points + spring-tip pads (V_{GS}, V_{DS}), list in fab/testpoints.csv",
+       "both sides"
+      ],
+      [
+       "Board temperature",
+       "NTC 10 k at the driver",
+       "control side (GNDI)"
       ]
      ],
      "size": 13,

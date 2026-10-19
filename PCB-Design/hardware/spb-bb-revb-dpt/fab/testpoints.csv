@@ -1,0 +1,49 @@
+ref,kind,name,signal net,ground net,side,x mm,y mm,note
+TP1,test point,GNDI1,GNDI1,,top,-22.15,24.90,
+TP2,test point,+12V1,+12V1,,top,-17.55,23.90,
+TP3,test point,VDDI1,VDDI1,,top,-22.15,23.50,
+TP4,test point,INA1,INA1,,top,-28.15,22.10,
+-,test point,INB1,INB1,,-,-,-,no free spot: probe C18 pad 2 (top)
+TP6,test point,DIS1,DIS1,,top,-23.15,26.10,
+TP7,test point,VDDA1,VDDA1,,bottom,-35.80,33.40,
+TP8,test point,VEEA1,VEEA1,,bottom,-38.40,34.20,
+TP9,test point,KH1,KH1,,bottom,-37.20,32.60,
+-,test point,OUTA1,OUTA1,,-,-,-,no free spot: probe D1 pad 1 (top)
+TP11,test point,VDDB1,VDDB1,,bottom,-9.10,34.20,
+TP12,test point,VEEB1,VEEB1,,bottom,-11.70,33.40,
+TP13,test point,KL1,KL1,,bottom,-10.30,32.60,
+-,test point,OUTB1,OUTB1,,-,-,-,no free spot: probe D2 pad 1 (top)
+TP15,spring pad,VGS Q1,GH_L1,KH1,bottom,-30.05,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad
+TP16,spring pad,VGS Q2,GH_R1,KH1,bottom,-18.85,3.70,ground pad = oval, 1.5..6.0 mm from the signal pad
+TP17,spring pad,VGS Q3,GL_L1,KL1,bottom,-29.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad
+-,spring pad,VGS Q4,GL_R1,KL1,-,-,-,no free spot: probe R19 pad 1 (bottom) / ground J11 pad 2 (bottom)
+TP19,test point,GNDI2,GNDI2,,top,25.35,24.90,
+TP20,test point,+12V2,+12V2,,top,28.15,27.70,
+TP21,test point,VDDI2,VDDI2,,top,25.35,23.50,
+TP22,test point,INA2,INA2,,top,19.35,22.10,
+-,test point,INB2,INB2,,-,-,-,no free spot: probe C51 pad 2 (top)
+TP24,test point,DIS2,DIS2,,top,24.35,26.10,
+TP25,test point,VDDA2,VDDA2,,bottom,11.70,33.40,
+TP26,test point,VEEA2,VEEA2,,bottom,9.10,34.20,
+TP27,test point,KH2,KH2,,bottom,10.30,32.60,
+-,test point,OUTA2,OUTA2,,-,-,-,no free spot: probe D5 pad 1 (top)
+TP29,test point,VDDB2,VDDB2,,bottom,38.33,35.95,
+TP30,test point,VEEB2,VEEB2,,bottom,35.80,33.40,
+TP31,test point,KL2,KL2,,bottom,37.20,32.60,
+-,test point,OUTB2,OUTB2,,-,-,-,no free spot: probe D6 pad 1 (top)
+TP33,spring pad,VGS Q5,GH_L2,KH2,bottom,17.45,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad
+TP34,spring pad,VGS Q6,GH_R2,KH2,bottom,28.65,3.70,ground pad = oval, 1.5..6.0 mm from the signal pad
+TP35,spring pad,VGS Q7,GL_L2,KL2,bottom,18.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad
+-,spring pad,VGS Q8,GL_R2,KL2,-,-,-,no free spot: probe R38 pad 1 (bottom) / ground J20 pad 2 (bottom)
+-,spring pad,VDS Q3,SW,LSRC1,-,-,-,no free spot: probe J6 pad 1 (bottom) / ground RS1 pad 1 (top)
+TP38,spring pad,VDS Q1,DCP,SW,top,-37.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad
+-,spring pad,VDS Q4,SW,LSRC2,-,-,-,no free spot: probe J9 pad 1 (bottom) / ground RS2 pad 1 (top)
+TP40,spring pad,VDS Q2,DCP,SW,top,-10.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad
+-,spring pad,VDS Q7,SW,LSRC3,-,-,-,no free spot: probe J15 pad 1 (bottom) / ground RS3 pad 1 (top)
+TP42,spring pad,VDS Q5,DCP,SW,top,10.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad
+-,spring pad,VDS Q8,SW,LSRC4,-,-,-,no free spot: probe J18 pad 1 (bottom) / ground RS4 pad 1 (top)
+TP44,spring pad,VDS Q6,DCP,SW,top,37.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad
+TP45,test point,DC+,DCP,,bottom,-6.00,-13.00,
+TP46,test point,DC-,DCN,,bottom,0.20,-18.80,
+TP47,test point,SW,SW,,bottom,-6.60,48.40,
+-,test point,NTC,NTC,,-,-,-,no free spot: probe RT1 pad 1 (top)
