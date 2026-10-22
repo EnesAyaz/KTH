@@ -566,10 +566,17 @@ def build_block(bi, xoff):
                       (Y["capn"][0] + Y["capp"][1]) / 2 - 0.1, "DCN", "DCP", "TDK C2012X7S2A105K125AB")
     # bank MLCCs: placed once for the whole leg on a uniform 3 mm grid (see "bank" below)
 
-    # ---- gate stars (L1) and Kelvin collectors (L2), as Rev A
-    XB = XC - 5.2
-    RG_X = 3.0
-    KROW = {"H": YSH + 0.85, "L": YSL - 0.85}
+    # ---- gate branches (fabrication review G1/G2, 2026-10). The two cells of a row are rotated by 180 deg (left:
+    # gate pad below the Kelvin pad, right: above), so the routing is point-symmetric about the star (0, ys) and both
+    # branches stay identical. Per branch on L1: gate pad -> R_G (vertical, right next to the pad) -> star row, and
+    # the Kelvin return as the neighbouring L1 trace (1 mm away) to the corridor; there the two Kelvin rows drop at
+    # +-XKV and join under the star (HS: L4, LS: L2), so each gate branch has its own coplanar return up to the star.
+    # Star -> driver as stacked pairs: HS gate L1 stub + L3 over Kelvin L4, LS gate L1 over Kelvin L2.
+    XR = 5.6                                    # R_G centre (pads 0.525 mm from the Kelvin pad, courtyard < 6.40)
+    XS = 6.33                                   # U.FL sense vias between the FET pads and R_G
+    XKV = {"H": 1.8, "L": 4.0}                  # Kelvin row drop vias (LS: beyond R_OFF,B)
+    DK = 1.3                                    # Kelvin row offset from the star row (inside the Kelvin pads)
+    RGS = 0.3                                   # R_G shifted towards the star row (clear of the shunt IN land)
     for tag, ys in (("H", YSH), ("L", YSL)):
         for side, sgn in (("L", -1), ("R", 1)):
             if ROT0 and side == "L":
@@ -577,52 +584,60 @@ def build_block(bi, xoff):
             gx, gy = gate[tag + side]
             kx, ky = gate["K" + tag + side]
             n_star, n_gate = bn("G%s_STAR" % tag), bn("G%s_%s" % (tag, side))
-            two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "0R5 1%% (R_G %s%s)" % (tag, side),
-                sgn * RG_X, ys, 0, n_gate if sgn < 0 else n_star, n_star if sgn < 0 else n_gate,
-                "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)")
-            seg(F, [(0, ys), (sgn * (RG_X - 0.48), ys)], 0.3, n_star)
-            seg(F, [(sgn * (RG_X + 0.48), ys), (sgn * XB, ys), (sgn * XB, gy), (gx - sgn * 0.55, gy)], 0.3, n_gate)
             kn = kh if tag == "H" else kl
-            kvx = gx - sgn * 1.05
-            seg(F, [(kx, ky), (kvx, ky)], 0.3, kn)
-            via(kvx, ky, kn, 0.45, 0.25)
-            # Kelvin collector on L4 (bottom), NOT on L2: L2 is the DC- return plane of the commutation loop and the
-            # Kelvin pads of the left (180 deg) and right (0 deg) transistors sit at different heights, so L2 slots
-            # would cut the return differently under the two cells of a pair (0.13 nH left/right difference).
-            if tag == "H":                      # joins the HS Kelvin route on L4 at the corridor centre
-                pts = [(kvx, ky), (sgn * XB, ky), (sgn * XB, KROW[tag]), (0, KROW[tag])]
-                seg(Bl, pts, 0.3, kn)
-            else:                               # LS: back to L2 inside the driver corridor (clear of the HS route)
-                pts = [(kvx, ky), (sgn * XB, ky), (sgn * XB, KROW[tag]), (sgn * 1.6, KROW[tag])]
-                seg(Bl, pts, 0.3, kn)
-                via(sgn * 1.6, KROW[tag], kn, 0.45, 0.25)
-                seg(L2l, [(sgn * 1.6, KROW[tag]), (0, KROW[tag])], 0.3, kn)
-            # gate via for the U.FL V_GS sense (bottom side)
-            via(sgn * 5.4, gy, n_gate, 0.45, 0.25)
-            gate["V" + tag + side] = (sgn * 5.4, gy)
-            gate["VK" + tag + side] = (kvx, ky)
+            yk = ys + DK * (-1 if gy > ys else 1)          # Kelvin row on the Kelvin-pad side (away from the gate)
+            rg = two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "0R5 1%% (R_G %s%s)" % (tag, side),
+                     sgn * XR, (gy + ys) / 2 + RGS * (1 if ys > gy else -1), 90, n_gate, n_star,
+                     "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)")
+            yps = None
+            for q in rg.Pads():                 # the pad on the gate row takes the gate, the other the star
+                qy = pcbnew.ToMM(q.GetPosition().y)
+                q.SetNet(net(n_gate if abs(qy - gy) < abs(qy - ys) else n_star))
+                if abs(qy - gy) >= abs(qy - ys):
+                    yps = qy
+            seg(F, [(gx, gy), (sgn * XR, gy)], 0.3, n_gate)                       # gate pad -> R_G (1.5 mm)
+            seg(F, [(sgn * XR, yps), (sgn * (XR - abs(ys - yps)), ys), (0, ys)], 0.3, n_star)   # R_G -> star
+            xk = XKV[tag] if side == "R" else max(XKV[tag], 2.6)                  # left: on to the pull-down
+            seg(F, [(gx, yk), (sgn * min(XKV[tag], xk), yk)], 0.3, kn)            # Kelvin, next to it
+            if side == "L" and XKV[tag] > 2.6:
+                seg(F, [(sgn * XKV[tag], yk), (-2.6, yk)], 0.3, kn)
+            via(sgn * XKV[tag], yk, kn, 0.45, 0.25)
+            # U.FL V_GS sense: gate via between gate pad and R_G, Kelvin via on the Kelvin row at the FET
+            ykv = yk + 0.15 * (yk - ys)
+            via(sgn * XS, gy, n_gate, 0.45, 0.25)
+            via(sgn * XS, ykv, kn, 0.45, 0.25)
+            gate["V" + tag + side] = (sgn * XS, gy)
+            gate["VK" + tag + side] = (sgn * XS, ykv)
+            gate["VKY" + tag + side] = ky                                          # row of the U.FL shield link
+        # Kelvin drops joined under the star (point-symmetric diagonal through (0, ys)); gate pull-down (0402) on L1
+        # between the left Kelvin row and the star row
+        ykl = ys + DK * (-1 if gate[tag + "L"][1] > ys else 1)
+        kn = kh if tag == "H" else kl
+        seg(Bl if tag == "H" else L2l, [(-XKV[tag], ykl), (XKV[tag], 2 * ys - ykl)], 0.3, kn)
+        pd = two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k 1%% (%s gate pull-down)" %
+                 ("HS" if tag == "H" else "LS"), -3.0, (ys + ykl) / 2, 90, kn, bn("G%s_STAR" % tag), "10k 0402 1%")
+        for q in pd.Pads():
+            qy = pcbnew.ToMM(q.GetPosition().y)
+            to_star = abs(qy - ys) < abs(qy - ykl)
+            q.SetNet(net(bn("G%s_STAR" % tag) if to_star else kn))
+            seg(F, [(-3.0, qy), (-3.0, ys if to_star else ykl)], 0.25, bn("G%s_STAR" % tag) if to_star else kn)
     keepout(L2l, -3.3, 3.3, 3.3, 12.9)
     keepout(L2l, -4.6, 4.6, 10.0, 12.9)
-    keepout(Bl, -3.3, 3.3, 4.6, 15.0)
+    keepout(Bl, -3.3, 3.3, 3.3, 15.0)
     keepout(Bl, -4.6, 4.6, 10.0, 15.0)
-    via(0.0, YSH, bn("GH_STAR"))
-    via(0.0, KROW["H"], kh, 0.45, 0.25)
+    # HS: star stub on L1 down to the L3 via, Kelvin on L4 from under the star along the same path
+    GHV1 = (0.0, YSH + 1.7)
+    seg(F, [(0, YSH), GHV1], 0.3, bn("GH_STAR"))
+    via(GHV1[0], GHV1[1], bn("GH_STAR"))
     GHV2 = (-1.5, 10.0)
-    seg(L3l, [(0, YSH), (-0.75, YSH + 0.75), (-0.75, 9.25), GHV2], 0.3, bn("GH_STAR"))
+    seg(L3l, [GHV1, (-0.75, GHV1[1] + 0.75), (-0.75, 9.25), GHV2], 0.3, bn("GH_STAR"))
     via(GHV2[0], GHV2[1], bn("GH_STAR"))
     HSK2 = (-3.9, 11.0)
-    seg(Bl, [(0, KROW["H"]), (-0.75, KROW["H"] + 0.75), (-0.75, 10.6), (-1.15, 11.0), HSK2], 0.3, kh)
+    seg(Bl, [(0, YSH), (0, YSH + 0.7), (-0.75, YSH + 1.45), (-0.75, 10.6), (-1.15, 11.0), HSK2], 0.3, kh)
     via(HSK2[0], HSK2[1], kh, 0.45, 0.25)
-    two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "10k 1% (HS gate pull-down)", 0.75, YSH + 0.43, 90,
-        bn("GH_STAR"), kh, "10k 0603 1%")
-    seg(F, [(1.0, YSH + 0.91), (0.0, KROW["H"])], 0.25, kh)
-    two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "10k 1% (LS gate pull-down)", 0.75, YSL - 0.45, 90,
-        kl, bn("GL_STAR"), "10k 0603 1%")
-    via(0.0, 7.9, kl, 0.45, 0.25)
-    seg(F, [(1.0, YSL - 0.93), (0.0, 7.9)], 0.25, kl)
-    seg(L2l, [(0.0, 7.9), (0.0, KROW["L"])], 0.3, kl)
+    # LS: Kelvin node (0, YSL) on L2 (no via: L1 star above) under the L1 star feed from R_ON,B (see the driver section)
     LSK2 = (3.9, 11.0)
-    seg(L2l, [(0, KROW["L"]), (0, 10.6), (0.4, 11.0), LSK2], 0.3, kl)
+    seg(L2l, [(0, YSL), (0, 10.3), (1.2, 10.3), (1.2, 11.0), LSK2], 0.3, kl)
     via(LSK2[0], LSK2[1], kl, 0.45, 0.25)
 
     # ---- driver and its output networks (Rev A)
@@ -723,12 +738,11 @@ def build_block(bi, xoff):
             # the two rows below the shunt pad at 2 mm pitch (aligned): at 1 mm their antipads cut the L3/L4 AC
             # column planes all the way across, and the cells would reach the AC bus only through other layers
             pitch = 2.0 if yv in (19.0, 19.75) else 1.0
+            # counted from the inner edge (|x| = 4.9) in both cells, so the two cells get mirror-identical rows
+            # (review P1: counting from the left edge with a float end test gave the left cell -19.4 but not -5.4)
             k = 0
-            while True:
-                xv = xa + 0.5 + k * pitch
-                if xv > xb - 0.5:
-                    break
-                POWER_VIAS.append(via(xv, yv, "DCN"))
+            while k * pitch < 14.0 - 1e-6:
+                POWER_VIAS.append(via(sgn * (4.9 + 0.5 + k * pitch), yv, "DCN"))
                 k += 1
         xa2, xb2 = sorted((sgn * 4.9, sgn * 20.3))
         rect_zone(L2l, "DCN", xa2, xb2, 11.9, 20.6, 1)          # L2 DC- return under the shunt
@@ -944,8 +958,8 @@ def build_block(bi, xoff):
             continue
         c = 2 * (bi - 1) + (1 if side == "L" else 2)
         gvh, gvl, kvl, kvh = gate["VH" + side], gate["VL" + side], gate["VKL" + side], gate["VKH" + side]
-        rows = (("H", gvh[1], gvh, kh, "0R (V_GS HS)", "0R 0603"),
-                ("L", gvl[1], gvl, kl, "0R (V_GS LS)", "0R 0603"))
+        rows = (("H", gvh[1], gvh, kh, "DNP 0R (V_GS HS, fit to use the U.FL)", "0R 0603 - not fitted by default"),
+                ("L", gvl[1], gvl, kl, "DNP 0R (V_GS LS, fit to use the U.FL)", "0R 0603 - not fitted by default"))
         # V_DS LS: MMCX jack per cell (test_points.mmcx_vds, placed on the filled board) - the U.FL is rated 30 V.
         # Its shield reaches LSRC through the LSS via from the (short) shunt IN land and a bottom track (as for the
         # former U.FL V_DS port), which the placer uses as connection target.
@@ -1020,10 +1034,12 @@ def build_block(bi, xoff):
             gpads = [q for q in fp.Pads() if q.GetNumber() == "2"]
             seg(Bl, [(rx(gpads[0].GetPosition().x), pcbnew.ToMM(gpads[0].GetPosition().y)),
                      (rx(gpads[1].GetPosition().x), pcbnew.ToMM(gpads[1].GetPosition().y))], 0.4, gnd)
-            if tag in ("H", "L"):                       # Kelvin via -> nearest ground pad, along the Kelvin row
+            if tag in ("H", "L"):                       # Kelvin via -> shield pad (via the former Kelvin row)
                 kv = kvh if tag == "H" else kvl
-                gp = min(gpads, key=lambda q: abs(pcbnew.ToMM(q.GetPosition().y) - kv[1]))
-                seg(Bl, [kv, (rx(gp.GetPosition().x), kv[1])], 0.25, gnd)
+                kyo = gate["VKY" + tag + side]
+                gp = min(gpads, key=lambda q: abs(pcbnew.ToMM(q.GetPosition().y) - kyo))
+                gpx_, gpy_ = rx(gp.GetPosition().x), pcbnew.ToMM(gp.GetPosition().y)
+                seg(Bl, [kv, (kv[0], kyo), (gpx_, kyo), (gpx_, gpy_)], 0.25, gnd)
             if tag == "D":                              # LSS via from the shunt IN copper (L1) above
                 gp = min(gpads, key=lambda q: pcbnew.ToMM(q.GetPosition().y))
                 gx_, gy_ = rx(gp.GetPosition().x), pcbnew.ToMM(gp.GetPosition().y)
@@ -1566,6 +1582,10 @@ for _try in range(3):                            # the filler has once returned 
     print("zone fill incomplete, retrying", flush=True)
 else:
     raise SystemExit("zone fill failed")
+if os.environ.get("QUICK"):                      # layout iteration: DRC of the filled board without the test points
+    pcbnew.SaveBoard(path, board2)
+    pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)
+    raise SystemExit("QUICK: filled board and DRC written, test points not placed (not a fabrication state)")
 # ---- V_DS MMCX jacks and bring-up test points / spring-tip probe pads (scripts/test_points.py), on the filled board
 import test_points  # noqa: E402
 OUTL = (OX - XO, OY + Y0, OX + XO, OY + Y1)
@@ -1617,6 +1637,24 @@ for txt_, side_, size_, bb_, ang_, pos_ in moved:                  # no room: ke
         SK2.failed.pop()
         SK2.put(txt_, SK2.around(bb_, txt_, size_, reach=8.0, step=0.4), side_, size_, fab_at=pos_)
 print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join(SK2.failed) or "-"), flush=True)
+# via-in-pad list for the fab notes (fabrication review F1/F2): every via whose centre lies in an SMD pad is filled
+# and capped (the rest are tented); coordinates relative to the drill / pick-and-place origin
+VIP = []
+smd_pads = [q for f_ in board2.GetFootprints() for q in f_.Pads() if q.GetAttribute() == pcbnew.PAD_ATTRIB_SMD]
+for t_ in board2.GetTracks():
+    if t_.GetClass() != "PCB_VIA":
+        continue
+    hit = next((q for q in smd_pads if q.HitTest(t_.GetPosition())), None)
+    if hit is not None:
+        VIP.append(("%.3f" % (pcbnew.ToMM(t_.GetPosition().x) - OX), "%.3f" % -(pcbnew.ToMM(t_.GetPosition().y) - OY),
+                    "%.2f" % pcbnew.ToMM(t_.GetDrillValue()), "%.2f" % pcbnew.ToMM(t_.GetWidth()), t_.GetNetname(),
+                    "%s.%s" % (hit.GetParent().GetReference(), hit.GetNumber())))
+os.makedirs(os.path.join(OUT, "fab"), exist_ok=True)
+with open(os.path.join(OUT, "fab", "via_in_pad.csv"), "w", newline="") as f_:
+    f_.write("x_mm,y_mm,drill_mm,diameter_mm,net,in_pad\n")
+    for r_ in sorted(VIP, key=lambda r: (r[5], float(r[0]), float(r[1]))):
+        f_.write(",".join(r_) + "\n")
+print("via-in-pad (filled + capped): %d vias in %d pads" % (len(VIP), len(set(r[5] for r in VIP))), flush=True)
 pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
 pcbnew.SaveBoard(path, board2)
 pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)

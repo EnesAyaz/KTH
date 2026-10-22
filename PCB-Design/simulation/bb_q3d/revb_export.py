@@ -32,7 +32,8 @@ REGION = os.environ.get("REVB_REGION", "")
 GATE = REGION == "gate"
 GATE_NETS = ("GH_L1", "GH_R1", "GH_STAR1", "OUTA1", "OFFA1", "KH1", "VDDA1", "VEEA1",
              "GL_L1", "GL_R1", "GL_STAR1", "OUTB1", "OFFB1", "KL1", "VDDB1", "VEEB1")
-GATE_PARTS = ("R1", "R2", "R3", "R4", "R7", "R8", "R9", "R10", "D1", "D2", "U1", "C13", "C14", "C15", "C16")
+# R_G: R1 R2 (HS), R4 R5 (LS) since the fabrication-review gate re-layout (R3 / R6 = 10 k pull-downs, left out)
+GATE_PARTS = ("R1", "R2", "R4", "R5", "R7", "R8", "R9", "R10", "D1", "D2", "U1", "C13", "C14", "C15", "C16")
 if GATE:
     NETS.update({n: n for n in GATE_NETS})
 LAYERS = {pcbnew.F_Cu: "L1", pcbnew.In1_Cu: "L2", pcbnew.In2_Cu: "L3", pcbnew.B_Cu: "L4"}

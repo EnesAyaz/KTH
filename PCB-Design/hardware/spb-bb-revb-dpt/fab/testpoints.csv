@@ -13,10 +13,10 @@ TP11,test point,VDDB1,VDDB1,,bottom,-9.10,34.20,silk label 'VDDB1'
 TP12,test point,VEEB1,VEEB1,,bottom,-11.70,33.40,silk label 'VEEB1'
 TP13,test point,KL1,KL1,,bottom,-10.30,32.60,silk label 'KL1'
 -,test point,OUTB1,OUTB1,,-,-,-,no labelled test point fits: probe D2 pad 1 (top)
-TP15,spring pad,VGS Q1,GH_L1,KH1,bottom,-30.05,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q1'
-TP16,spring pad,VGS Q2,GH_R1,KH1,bottom,-18.85,3.70,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q2'
-TP17,spring pad,VGS Q3,GL_L1,KL1,bottom,-29.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q3'
--,spring pad,VGS Q4,GL_R1,KL1,-,-,-,no labelled test point fits: probe R19 pad 1 (bottom) / ground J11 pad 2 (bottom)
+TP15,spring pad,VGS Q1,GH_L1,KH1,bottom,-30.65,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q1'
+TP16,spring pad,VGS Q2,GH_R1,KH1,bottom,-17.85,3.90,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q2'
+TP17,spring pad,VGS Q3,GL_L1,KL1,bottom,-28.85,8.80,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q3'
+TP18,spring pad,VGS Q4,GL_R1,KL1,bottom,-17.25,8.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q4'
 TP19,test point,GNDI2,GNDI2,,top,18.55,26.50,silk label 'GNDI2'
 TP20,test point,+12V2,+12V2,,top,28.15,27.70,silk label '+12V2'
 -,test point,VDDI2,VDDI2,,-,-,-,no labelled test point fits: probe C52 pad 2 (top)
@@ -31,15 +31,15 @@ TP29,test point,VDDB2,VDDB2,,bottom,38.33,35.95,silk label 'VDDB2'
 TP30,test point,VEEB2,VEEB2,,bottom,35.80,33.40,silk label 'VEEB2'
 TP31,test point,KL2,KL2,,bottom,37.20,32.60,silk label 'KL2'
 -,test point,OUTB2,OUTB2,,-,-,-,no labelled test point fits: probe D6 pad 1 (top)
-TP33,spring pad,VGS Q5,GH_L2,KH2,bottom,17.45,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q5'
-TP34,spring pad,VGS Q6,GH_R2,KH2,bottom,28.65,3.70,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q6'
-TP35,spring pad,VGS Q7,GL_L2,KL2,bottom,18.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q7'
--,spring pad,VGS Q8,GL_R2,KL2,-,-,-,no labelled test point fits: probe R38 pad 1 (bottom) / ground J20 pad 2 (bottom)
--,spring pad,VDS Q3,SW,LSRC1,-,-,-,no labelled test point fits: probe J6 pad 1 (bottom) / ground RS1 pad 1 (top)
+TP33,spring pad,VGS Q5,GH_L2,KH2,bottom,16.85,6.10,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q5'
+TP34,spring pad,VGS Q6,GH_R2,KH2,bottom,29.65,3.90,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q6'
+TP35,spring pad,VGS Q7,GL_L2,KL2,bottom,18.65,8.80,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q7'
+TP36,spring pad,VGS Q8,GL_R2,KL2,bottom,30.25,8.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VGS Q8'
+TP37,spring pad,VDS Q3,SW,LSRC1,bottom,-31.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q3'
 TP38,spring pad,VDS Q1,DCP,SW,top,-37.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q1'
 -,spring pad,VDS Q4,SW,LSRC2,-,-,-,no labelled test point fits: probe J9 pad 1 (bottom) / ground RS2 pad 1 (top)
 TP40,spring pad,VDS Q2,DCP,SW,top,-10.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q2'
--,spring pad,VDS Q7,SW,LSRC3,-,-,-,no labelled test point fits: probe J15 pad 1 (bottom) / ground RS3 pad 1 (top)
+TP41,spring pad,VDS Q7,SW,LSRC3,bottom,16.25,12.00,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q7'
 TP42,spring pad,VDS Q5,DCP,SW,top,10.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q5'
 -,spring pad,VDS Q8,SW,LSRC4,-,-,-,no labelled test point fits: probe J18 pad 1 (bottom) / ground RS4 pad 1 (top)
 TP44,spring pad,VDS Q6,DCP,SW,top,37.25,4.50,ground pad = oval, 1.5..6.0 mm from the signal pad; silk label 'VDS Q6'

@@ -28,7 +28,7 @@ geo = json.load(open(os.path.join(RES, "revb_loop_geometry%s.json" % SFX)))
 NB = {t[1]: len(t[3]) for t in geo["terminals"]}
 
 
-def loop(cells, bottom=True, shunt=L_SHUNT):
+def loop(cells, bottom=True, shunt=L_SHUNT, read=None):
     net = Net()
     net.group(leg["branches"], np.zeros_like(leg["Rac"]), leg["Lac"])
     for c in range(1, 5):
@@ -43,7 +43,8 @@ def loop(cells, bottom=True, shunt=L_SHUNT):
         inj["QL_D_%d" % c] = 1.0
         inj["QL_S_%d" % c] = -1.0
     V, _, _ = net.solve(w, inj, "CapN_" + os.environ.get("REVB_LOOP_SINKCELL", "1"))
-    return {"cell%d" % c: round(float(((V["QL_D_%d" % c] - V["QL_S_%d" % c]) / w).imag * 1e9), 4) for c in cells}
+    return {"cell%d" % c: round(float(((V["QL_D_%d" % c] - V["QL_S_%d" % c]) / w).imag * 1e9), 4)
+            for c in (read or cells)}
 
 
 out = {"all_switching": loop([1, 2, 3, 4]),
@@ -51,6 +52,11 @@ out = {"all_switching": loop([1, 2, 3, 4]),
        "all_switching_shunt_0pH": loop([1, 2, 3, 4], shunt=0.0),
        "each_alone": {k: v for c in range(1, 5) for k, v in loop([c]).items()},
        "matrix": open(os.path.join(RES, "BB_PL_LOOP%s_matrix.txt" % SFX)).readline().strip()}
+# loop-to-loop coupling between the cells (FET pairs): 1 A in cell j only, voltage across every cell i -> M_ij;
+# diagonal = self loop, off-diagonal = mutual through the shared bank / planes; k_ij = M_ij / sqrt(L_ii L_jj)
+M = {"cell%d" % j: loop([j], read=[1, 2, 3, 4]) for j in range(1, 5)}
+out["mutual_cell_nH"] = M
+out["coupling_k"] = {j: {i: round(M[j][i] / math.sqrt(M[i][i] * M[j][j]), 4) for i in M[j]} for j in M}
 vals = list(out["all_switching"].values())
 out["mean_nH"] = round(sum(vals) / 4, 4)
 out["overshoot_30Apns_V"] = round(75 + out["mean_nH"] * 30, 1)

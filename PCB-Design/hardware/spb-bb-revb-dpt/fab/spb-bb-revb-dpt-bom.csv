@@ -1,32 +1,53 @@
-"# 4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; filled + capped via-in-pad (SHLD pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)"
+"# 4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; filled + capped via-in-pad (list in gerber/*-fab-notes.txt: shunt SHLD and bypass-capacitor pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)"
 Qty,References,Value,Footprint,Manufacturer part / note,Fit
-2,J1 J2,DC+,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit
+1,J1,DC+,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit
+1,J2,DC-,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit
 8,Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8,EPC2361,EPC2361,EPC2361,fit
-40,C1 C10 C11 C12 C2 C26 C27 C28 C29 C3 C30 C31 C32 C33 C34 C35 C36 C37 C38 C39 C4 C40 C41 C42 C43 C44 C45 C5 C59 C6 C60 C61 C62 C63 C64 C65 C66 C7 C8 C9,1uF 100V X7S,C_0805_2012Metric_TightCrtYd,TDK C2012X7S2A105K125AB,fit
-8,R1 R2 R20 R21 R22 R23 R3 R4,0R5 1% (R_G HL),R_0603_1608Metric,0.5R 0603 1% (Panasonic ERJ-3BQFR50V),fit
-4,R24 R25 R5 R6,10k 1% (HS gate pull-down),R_0603_1608Metric,10k 0603 1%,fit
+40,C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C26 C27 C28 C29 C30 C31 C32 C33 C34 C35 C36 C37 C38 C39 C40 C41 C42 C43 C44 C45 C59 C60 C61 C62 C63 C64 C65 C66,1uF 100V X7S,C_0805_2012Metric_TightCrtYd,TDK C2012X7S2A105K125AB,fit
+2,R1 R20,0R5 1% (R_G HL),R_0603_1608Metric,0.5R 0603 1% (Panasonic ERJ-3BQFR50V),fit
+2,R2 R21,0R5 1% (R_G HR),R_0603_1608Metric,0.5R 0603 1% (Panasonic ERJ-3BQFR50V),fit
+2,R3 R22,10k 1% (HS gate pull-down),R_0402_1005Metric,10k 0402 1%,fit
+2,R4 R23,0R5 1% (R_G LL),R_0603_1608Metric,0.5R 0603 1% (Panasonic ERJ-3BQFR50V),fit
+2,R5 R24,0R5 1% (R_G LR),R_0603_1608Metric,0.5R 0603 1% (Panasonic ERJ-3BQFR50V),fit
+2,R6 R25,10k 1% (LS gate pull-down),R_0402_1005Metric,10k 0402 1%,fit
 2,U1 U2,2EDF7275K,2EDF7275K_PG-TFLGA-13-4,Infineon 2EDF7275KXUMA1,fit
-4,R26 R28 R7 R9,"0R75 1% (R_ON,A)",R_0603_1608Metric,0.75R 0603 1% (Panasonic ERJ-3RQFR75V),fit
-4,R10 R27 R29 R8,"0R (R_OFF,A)",R_0603_1608Metric,0R 0603 jumper (set R_OFF here),fit
+2,R7 R26,"0R75 1% (R_ON,A)",R_0603_1608Metric,0.75R 0603 1% (Panasonic ERJ-3RQFR75V),fit
+2,R8 R27,"0R (R_OFF,A)",R_0603_1608Metric,0R 0603 jumper (set R_OFF here),fit
 4,D1 D2 D5 D6,PMEG3020EJ,D_SOD-323F,"Nexperia PMEG3020EJ (30 V, 2 A, SOD323F)",fit
+2,R9 R28,"0R75 1% (R_ON,B)",R_0603_1608Metric,0.75R 0603 1% (Panasonic ERJ-3RQFR75V),fit
+2,R10 R29,"0R (R_OFF,B)",R_0603_1608Metric,0R 0603 jumper (set R_OFF here),fit
 8,C13 C14 C15 C16 C46 C47 C48 C49,1uF 25V X7R 0603,C_0603_1608Metric,TDK C1608X7R1E105K080AB,fit
 4,C17 C18 C50 C51,100pF C0G 0603,C_0603_1608Metric,Murata GRM1885C1H101JA01,fit
-4,R11 R12 R30 R31,47R 1% (INA),R_0603_1608Metric,47R 0603 1%,fit
+2,R11 R30,47R 1% (INA),R_0603_1608Metric,47R 0603 1%,fit
+2,R12 R31,47R 1% (INB),R_0603_1608Metric,47R 0603 1%,fit
 2,C19 C52,22nF 25V X7R 0603,C_0603_1608Metric,Murata GRM188R71E223KA01,fit
 2,R13 R32,3k 1% (RVDDI),R_0603_1608Metric,3.0k 0603 1%,fit
-4,RS1 RS2 RS3 RS4,UFCS-R001,PMK_UFCS_R001_short_IN,"PMK UFCS-R001 (1 mOhm, 50 A cont.)",fit
-4,J12 J13 J3 J4,"V_ISO,HS in: 1 +, 2 -",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
-13,L1 L10 L11 L12 L13 L2 L3 L4 L5 L6 L7 L8 L9,WE-CNSW 744232601,L_CommonMode_Wurth_WE-CNSW-1206,"Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",fit
+4,RS1 RS2 RS3 RS4,UFCS-R001,PMK_UFCS_R001_short_IN,"PMK UFCS-R001 (1 mOhm, 50 A cont.)","NOT by the assembler: hand-soldered in the lab at the blade (short IN land), SMA cable to the scope"
+2,J3 J12,"V_ISO,HS in: 1 +, 2 -",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
+13,L1 L2 L3 L4 L5 L6 L7 L8 L9 L10 L11 L12 L13,WE-CNSW 744232601,L_CommonMode_Wurth_WE-CNSW-1206,"Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",fit
 4,C20 C23 C53 C56,4.7uF 25V X7R 0805,C_0805_2012Metric,Murata GRM21BR71E475KA73,fit
 4,D3 D4 D7 D8,BZX384-C5V1,D_SOD-323,"Nexperia BZX384-C5V1 (5.1 V, 300 mW)",fit
 4,R14 R15 R33 R34,"150R 1% 0603 (bias, <= 82 mW)",R_0603_1608Metric,150R 0603 1% 0.1 W,fit
 8,C21 C22 C24 C25 C54 C55 C57 C58,4.7uF 16V X5R 0603,C_0603_1608Metric,Murata GRM188R61C475KAAJ,fit
-2,J14 J5,CTRL1: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 RTN 10 NTC,PinHeader_2x05_P2.54mm_Vertical_SMD,"Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",fit
+2,J4 J13,"V_ISO,LS in: 1 +, 2 -",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
+1,J5,CTRL1: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 RTN 10 NTC,PinHeader_2x05_P2.54mm_Vertical_SMD,"Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",fit
 2,FB1 FB2,BLM18PG221SN1 (220 R @ 100 MHz),L_0603_1608Metric,"Murata BLM18PG221SN1D (ferrite bead, 1.4 A)",fit
 1,RT1,NTC 10k B3380 0603,R_0603_1608Metric,Murata NCP18XH103F03RB,fit
-4,J15 J18 J6 J9,MMCX VDS L1,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
-8,J10 J11 J16 J17 J19 J20 J7 J8,U.FL H1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
-8,R16 R17 R18 R19 R35 R36 R37 R38,0R (V_GS HS),R_0603_1608Metric,0R 0603,fit
+1,J6,MMCX VDS L1,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
+1,J7,U.FL H1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+4,R16 R18 R35 R37,"DNP 0R (V_GS HS, fit to use the U.FL)",R_0603_1608Metric,0R 0603 - not fitted by default,DNP
+1,J8,U.FL L1,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+4,R17 R19 R36 R38,"DNP 0R (V_GS LS, fit to use the U.FL)",R_0603_1608Metric,0R 0603 - not fitted by default,DNP
+1,J9,MMCX VDS L2,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
+1,J10,U.FL H2,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+1,J11,U.FL L2,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+1,J14,CTRL2: 1 RTN 2 PWMH 3 RTN 4 PWML 5 RTN 6 DIS 7 RTN 8 12V 9 NC 10 NC,PinHeader_2x05_P2.54mm_Vertical_SMD,"Samtec TSM-105-01-T-DV (2 x 5, 2.54 mm, SMT)",fit
+1,J15,MMCX VDS L3,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
+1,J16,U.FL H3,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+1,J17,U.FL L3,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+1,J18,MMCX VDS L4,WR-MMCX_Wuerth_66012102111404_Vertical,"Wurth 66012102111404 (WR-MMCX PCB SMT jack, vertical, 170 V rms)",fit
+1,J19,U.FL H4,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
+1,J20,U.FL L4,U.FL_Hirose_U.FL-R-SMT-1_Vertical,Hirose U.FL-R-SMT-1(10),fit
 20,C67 C68 C69 C70 C71 C72 C73 C74 C75 C76 C77 C78 C79 C80 C81 C82 C83 C84 C85 C86,22uF 100V X7S 2220,C_2220_5750Metric_TightCrtYd,TDK C5750X7S2A226M280KB,fit
 2,R39 R40,68k 1206 (HV LED),R_1206_3216Metric,68k 1206 1% 200 V,fit
 1,D9,red 0603 (DC link present),LED_0603_1608Metric,Wurth 150060RS75000,fit
@@ -37,5 +58,4 @@ Mechanical (not placed by the assembler)
 1,J21,"M6 x 16 bolt + nut + 2 washers, AC bolt pad",-,"steel, A2"
 1,J21,"AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor",-,"Cu-ETP, tin plated"
 4,H1-H4,M2.5 standoff + screw (board mounting),-,nylon / insulated
-4,RS1-RS4,"PMK UFCS-R001 hand-soldered at the blade (short IN land), SMA cable to the scope",-,PMK UFCS-R001
 2,"J5, J14",Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return),-,"2.54 mm IDC, e.g. Wurth 61201021621"

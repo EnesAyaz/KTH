@@ -8,7 +8,7 @@ Gate loops of driver block 1 (cells 1 + 2, driver U1) and their coupling to the 
 Circuit on the extracted copper (Net / load() from revb_post.py):
   FET die: Kelvin pad and power source joined (K_Q1 = QH_S_1, K_Q2 = QH_S_2, K_Q3 = QL_S_1, K_Q4 = QL_S_2); the gate is
   open (C_iss) except where the test current is injected.
-  Gate parts: R_G 0.5 Ohm (R1..R4), R_ON 0.75 Ohm (R7, R9), R_OFF 0 Ohm (R8, R10), D_OFF (D1, D2) 0.1 Ohm when it conducts;
+  Gate parts: R_G 0.5 Ohm (R1, R2 HS / R4, R5 LS), R_ON 0.75 Ohm (R7, R9), R_OFF 0 Ohm (R8, R10), D_OFF (D1, D2) 0.1 Ohm when it conducts;
   driver output to VDD 0.85 Ohm (on) or to VEE 0.35 Ohm (off) (2EDF7275K 4 / 8 A); 1 uF output-side bypass (C13..C16)
   as its ESL (ESL_0603, 0.4 nH assumed; also reported with 0 nH = copper only).
   Power: as loop_post.py (bypass groups as their ESL, UFCS shunt 120 pH).
@@ -42,7 +42,7 @@ FET = {"Q1": ("QH_S_1", "A"), "Q2": ("QH_S_2", "A"), "Q3": ("QL_S_1", "B"), "Q4"
 CH = {"A": dict(rg=(("R1_1", "R1_2"), ("R2_2", "R2_1")), ron=("R7_1", "R7_2"), roff=("R8_1", "R8_2"),
                 d=("D1_1", "D1_2"), out="U1_12", vdd="U1_13", vee="U1_11", cdd=("C13_1", "C13_2"),
                 cee=("C14_1", "C14_2")),
-      "B": dict(rg=(("R3_1", "R3_2"), ("R4_2", "R4_1")), ron=("R9_1", "R9_2"), roff=("R10_1", "R10_2"),
+      "B": dict(rg=(("R4_1", "R4_2"), ("R5_2", "R5_1")), ron=("R9_1", "R9_2"), roff=("R10_1", "R10_2"),
                 d=("D2_1", "D2_2"), out="U1_9", vdd="U1_10", vee="U1_8", cdd=("C16_1", "C16_2"),
                 cee=("C15_1", "C15_2"))}
 

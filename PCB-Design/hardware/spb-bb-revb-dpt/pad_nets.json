@@ -1211,6 +1211,14 @@
 }
 ],
 [
+"RS1",
+"UFCS-R001",
+{
+"1": "LSRC1",
+"2": "DCN"
+}
+],
+[
 "RT1",
 "NTC 10k B3380 0603",
 {
@@ -1227,10 +1235,10 @@
 }
 ],
 [
-"RS1",
+"RS2",
 "UFCS-R001",
 {
-"1": "LSRC1",
+"1": "LSRC2",
 "2": "DCN"
 }
 ],
@@ -1243,22 +1251,6 @@
 }
 ],
 [
-"RS2",
-"UFCS-R001",
-{
-"1": "LSRC2",
-"2": "DCN"
-}
-],
-[
-"R3",
-"0R5 1% (R_G LL)",
-{
-"1": "GL_L1",
-"2": "GL_STAR1"
-}
-],
-[
 "RS3",
 "UFCS-R001",
 {
@@ -1267,11 +1259,19 @@
 }
 ],
 [
-"R4",
-"0R5 1% (R_G LR)",
+"R3",
+"10k 1% (HS gate pull-down)",
 {
-"1": "GL_STAR1",
-"2": "GL_R1"
+"1": "GH_STAR1",
+"2": "KH1"
+}
+],
+[
+"R4",
+"0R5 1% (R_G LL)",
+{
+"1": "GL_L1",
+"2": "GL_STAR1"
 }
 ],
 [
@@ -1284,10 +1284,10 @@
 ],
 [
 "R5",
-"10k 1% (HS gate pull-down)",
+"0R5 1% (R_G LR)",
 {
-"1": "KH1",
-"2": "GH_STAR1"
+"1": "GL_STAR1",
+"2": "GL_R1"
 }
 ],
 [
@@ -1372,7 +1372,7 @@
 ],
 [
 "R16",
-"0R (V_GS HS)",
+"DNP 0R (V_GS HS, fit to use the U.FL)",
 {
 "1": "UFL_H1",
 "2": "GH_L1"
@@ -1380,7 +1380,7 @@
 ],
 [
 "R17",
-"0R (V_GS LS)",
+"DNP 0R (V_GS LS, fit to use the U.FL)",
 {
 "1": "UFL_L1",
 "2": "GL_L1"
@@ -1388,7 +1388,7 @@
 ],
 [
 "R18",
-"0R (V_GS HS)",
+"DNP 0R (V_GS HS, fit to use the U.FL)",
 {
 "1": "GH_R1",
 "2": "UFL_H2"
@@ -1396,7 +1396,7 @@
 ],
 [
 "R19",
-"0R (V_GS LS)",
+"DNP 0R (V_GS LS, fit to use the U.FL)",
 {
 "1": "GL_R1",
 "2": "UFL_L2"
@@ -1420,6 +1420,14 @@
 ],
 [
 "R22",
+"10k 1% (HS gate pull-down)",
+{
+"1": "GH_STAR2",
+"2": "KH2"
+}
+],
+[
+"R23",
 "0R5 1% (R_G LL)",
 {
 "1": "GL_L2",
@@ -1427,19 +1435,11 @@
 }
 ],
 [
-"R23",
+"R24",
 "0R5 1% (R_G LR)",
 {
 "1": "GL_STAR2",
 "2": "GL_R2"
-}
-],
-[
-"R24",
-"10k 1% (HS gate pull-down)",
-{
-"1": "KH2",
-"2": "GH_STAR2"
 }
 ],
 [
@@ -1524,7 +1524,7 @@
 ],
 [
 "R35",
-"0R (V_GS HS)",
+"DNP 0R (V_GS HS, fit to use the U.FL)",
 {
 "1": "UFL_H3",
 "2": "GH_L2"
@@ -1532,7 +1532,7 @@
 ],
 [
 "R36",
-"0R (V_GS LS)",
+"DNP 0R (V_GS LS, fit to use the U.FL)",
 {
 "1": "UFL_L3",
 "2": "GL_L2"
@@ -1540,7 +1540,7 @@
 ],
 [
 "R37",
-"0R (V_GS HS)",
+"DNP 0R (V_GS HS, fit to use the U.FL)",
 {
 "1": "GH_R2",
 "2": "UFL_H4"
@@ -1548,7 +1548,7 @@
 ],
 [
 "R38",
-"0R (V_GS LS)",
+"DNP 0R (V_GS LS, fit to use the U.FL)",
 {
 "1": "GL_R2",
 "2": "UFL_L4"

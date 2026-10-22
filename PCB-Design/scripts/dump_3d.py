@@ -8,6 +8,7 @@ rotation), its placement, the pads and the board outline, all in board-local mm 
 """
 import json
 import os
+import sys
 
 import pcbnew
 
@@ -59,4 +60,5 @@ def dump(name, ox, oy):
 
 if __name__ == "__main__":
     for n, (ox, oy) in BOARDS.items():
-        dump(n, ox, oy)
+        if len(sys.argv) < 2 or n in sys.argv[1:]:        # optional board names: dump only those
+            dump(n, ox, oy)
