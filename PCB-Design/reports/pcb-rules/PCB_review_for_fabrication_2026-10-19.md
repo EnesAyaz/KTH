@@ -219,3 +219,16 @@ All findings were accepted and handled in the generators (`scripts/make_kicad_bb
 Verification of the regenerated board: DRC 0 violations / 0 unconnected / 0 footprint errors, also after a fresh load of the saved project (rules: via 0.45 / drill 0.25 / track and clearance 0.20); schematic = PCB (94 nets, 187 parts, 0 problems); no 3D collisions (187 bodies); 36 labelled test points (all eight V_GS spring pads, V_DS spring pads on Q1-Q3 and Q5-Q7; Q4 / Q8 V_DS via the MMCX jacks), fallbacks listed in `fab/testpoints.csv`.
 
 Still open before ordering: F2 / F3 supplier confirmations, and the Q3D re-extraction of the power loop, the cell-to-cell loop coupling, the gate loops and the gate-power coupling on this geometry (P2: no earlier loop value is quoted for this layout).
+
+### 10.1 Gate loop after Q3D (2026-10-22 / 23)
+
+The first complete gate extraction (`simulation/bb_q3d/gate_post.py`, AC 100 MHz, copper only) showed that the shared star -> driver part, not the per-FET branch, dominated. Two further layout rounds paired every gate path with its Kelvin return on the adjacent layer (L1/L2 at 0.1 mm, L3/L4 at 0.1 mm) all the way to the 1 uF output-side capacitors, and took the island supply vias out of the gate-current path.
+
+| Gate loop (nH) | G1/G2 round 1 | round 2 | round 3 (released) |
+|---|---|---|---|
+| HS single FET on / pair-driven | 15.4 / 25.4 | 13.7 / 22.8 | 12.5 / 20.6 |
+| LS single FET on / pair-driven | 9.7 / 16.6 | 9.0 / 15.0 | 7.6 / 12.3 |
+| Gate-power coupling, both cells switching (pH) | 11 - 22 | 1.8 - 14 | 1.2 - 8.5 |
+| v_GK at 30 A/ns (V) | 0.32 - 0.65 | 0.02 - 0.43 | 0.04 - 0.26 |
+
+Double-pulse SPICE with the extracted copper (75 V, 322 A, `revb_q3d_spice.py`): HS V_DS peak at the LS turn-on 100.3 V at R_G,on = 2 Ohm, 94.0 V at 2.5 Ohm (E_on 105 uJ, equal to the design-flow value with the lumped 1.7 nH gate), 89.8 V at 3 Ohm. Recommendation: R_ON 1.0 Ohm (R_G,on 2.5 Ohm) for the first DPT, or keep the 75 V DPT peak below the rating by limiting the bus voltage.

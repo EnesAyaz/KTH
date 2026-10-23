@@ -484,9 +484,10 @@ def _unconnected_tps(board, tmp_report, placed=(), base=()):
     bad = set()
     basekeys = set(re.sub(r"\s+", " ", b_) for b_, _ in base)
     for blk, pts in _unconnected(board, tmp_report):
-        bad |= set(re.findall(r"of (TP\d+)", blk))
-        if re.sub(r"\s+", " ", blk) in basekeys:
-            continue
+        named = set(re.findall(r"of (TP\d+)", blk))
+        bad |= named
+        if named or re.sub(r"\s+", " ", blk) in basekeys:
+            continue                                      # a test point that is itself open: only that one goes
         for x, y in pts:                                  # nearest of everything a test point added (pads, stubs, vias)
             near = []
             for d in placed:

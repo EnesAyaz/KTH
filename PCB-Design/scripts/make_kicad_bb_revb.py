@@ -613,7 +613,7 @@ def build_block(bi, xoff):
         # between the left Kelvin row and the star row
         ykl = ys + DK * (-1 if gate[tag + "L"][1] > ys else 1)
         kn = kh if tag == "H" else kl
-        seg(Bl if tag == "H" else L2l, [(-XKV[tag], ykl), (XKV[tag], 2 * ys - ykl)], 0.3, kn)
+        seg(L2l, [(-XKV[tag], ykl), (XKV[tag], 2 * ys - ykl)], 0.3, kn)       # L2: 0.1 mm under the L1 star
         pd = two("Resistor_SMD.pretty", "R_0402_1005Metric", ref("R"), "10k 1%% (%s gate pull-down)" %
                  ("HS" if tag == "H" else "LS"), -3.0, (ys + ykl) / 2, 90, kn, bn("G%s_STAR" % tag), "10k 0402 1%")
         for q in pd.Pads():
@@ -625,7 +625,11 @@ def build_block(bi, xoff):
     keepout(L2l, -4.6, 4.6, 10.0, 12.9)
     keepout(Bl, -3.3, 3.3, 3.3, 15.0)
     keepout(Bl, -4.6, 4.6, 10.0, 15.0)
-    # HS: star stub on L1 down to the L3 via, Kelvin on L4 from under the star along the same path
+    # Star -> driver, second gate-loop round (Q3D 2026-10-22: the shared part was 6-10 nH): each Kelvin return runs
+    # straight to the 1 uF output-side capacitors directly under its gate path (HS: L2 under the L1 stub, then L4
+    # under L3 and under R_ON,A; LS: L2 under the L1 feed, then L4 under R_ON,B). The island supply vias (HSK2 /
+    # LSK2) hang off the side and carry no gate current.
+    # HS: star stub on L1 down to the L3 via, Kelvin on L2 under it, then L4 under the L3 route
     GHV1 = (0.0, YSH + 1.7)
     seg(F, [(0, YSH), GHV1], 0.3, bn("GH_STAR"))
     via(GHV1[0], GHV1[1], bn("GH_STAR"))
@@ -633,11 +637,19 @@ def build_block(bi, xoff):
     seg(L3l, [GHV1, (-0.75, GHV1[1] + 0.75), (-0.75, 9.25), GHV2], 0.3, bn("GH_STAR"))
     via(GHV2[0], GHV2[1], bn("GH_STAR"))
     HSK2 = (-3.9, 11.0)
-    seg(Bl, [(0, YSH), (0, YSH + 0.7), (-0.75, YSH + 1.45), (-0.75, 10.6), (-1.15, 11.0), HSK2], 0.3, kh)
+    HKV = (0.75, 7.0)                           # beside the L3 via (the L3 route leaves to the left)
+    seg(L2l, [(0, YSH), (0, YSH + 0.7), (0.75, YSH + 1.45), HKV], 0.3, kh)
+    via(HKV[0], HKV[1], kh, 0.45, 0.25)
+    HKV3 = (-0.6, 10.0)                         # back to L2 where the gate returns to L1 (GHV2)
+    seg(Bl, [HKV, (-0.75, 7.75), (-0.75, 9.85), HKV3], 0.3, kh)                  # L4 under the L3 route
+    via(HKV3[0], HKV3[1], kh, 0.45, 0.25)
+    seg(L2l, [HKV3, (-1.2, 10.6), (-1.2, 13.6), (-2.05, 14.2)], 0.3, kh)          # L2 under R_ON,A / OUTA -> caps
+    seg(L2l, [(-1.2, 11.0), HSK2], 0.3, kh)                                       # island supply (no gate current)
     via(HSK2[0], HSK2[1], kh, 0.45, 0.25)
     # LS: Kelvin node (0, YSL) on L2 (no via: L1 star above) under the L1 star feed from R_ON,B (see the driver section)
     LSK2 = (3.9, 11.0)
-    seg(L2l, [(0, YSL), (0, 10.3), (1.2, 10.3), (1.2, 11.0), LSK2], 0.3, kl)
+    seg(L2l, [(0, YSL), (0, 10.3), (1.2, 10.3), (1.2, 13.6), (2.05, 14.2)], 0.3, kl)   # L2 under the L1 feed / R_ON,B
+    seg(L2l, [(1.2, 11.0), LSK2], 0.3, kl)                                        # island supply (no gate current)
     via(LSK2[0], LSK2[1], kl, 0.45, 0.25)
 
     # ---- driver and its output networks (Rev A)
@@ -680,8 +692,9 @@ def build_block(bi, xoff):
             sref, bot, "TDK C1608X7R1E105K080AB", bottom=True)
         seg(Bl, [vt, (sg * 3.0, 16.175)], 0.3, top)
         seg(Bl, [vb, (sg * 1.1, 16.175)], 0.3, bot)
-        seg(Bl, [K2, (sg * 3.9, 14.0), (sg * 1.1, 14.0), (sg * 1.1, 14.625)], 0.3, sref)
-        seg(Bl, [(sg * 3.0, 14.0), (sg * 3.0, 14.625)], 0.3, sref)
+        via(sg * 2.05, 14.2, sref, 0.45, 0.25)  # Kelvin from L2 (under the gate path) down to both caps
+        seg(Bl, [(sg * 2.05, 14.2), (sg * 1.1, 14.4), (sg * 1.1, 14.625)], 0.3, sref)
+        seg(Bl, [(sg * 2.05, 14.2), (sg * 3.0, 14.4), (sg * 3.0, 14.625)], 0.3, sref)
         # L3: S y 16.6 -> x 10.4, top y 17.3 -> x 9.8, bottom y 18.0 -> x 9.2, then down to the island vias
         seg(L3l, [K2, (sg * 3.9, 16.6), (sg * 10.4, 16.6), (sg * 10.4, 36.6), (sg * 13.45, 36.6)], 0.3, sref)
         seg(L3l, [vt, (sg * 2.05, 17.3), (sg * 9.8, 17.3), (sg * 9.8, 37.3), (sg * 11.25, 37.3)], 0.3, top)

@@ -552,31 +552,31 @@ VHOA hoA KHA 0
 RphA hoA DHA {RPD}
 * gate network A: extracted (gate_summary_dpt.json, bypass ESL 0.4 nH)
 RonHA DHA stHAx 0.75
-LconHA stHAx stHA 10.31n
+LconHA stHAx stHA 8.442n
 DoffHA stHA stHAo DID
-LcoffHA stHAo DHA 10.5n Rser=1m
+LcoffHA stHAo DHA 8.662n Rser=1m
 RgH1 stHA gxH1 1.5
-LgbH1 gxH1 gH1 1.638n
-LkbH1 QH_S_1 kkH1 3.93n Rser=10m
-BmH1 KHA kkH1 V=8.333e-11*ddt(I(VIL1))+-7.148e-11*ddt(I(VIL2))
+LgbH1 gxH1 gH1 0.7641n
+LkbH1 QH_S_1 kkH1 3.723n Rser=10m
+BmH1 KHA kkH1 V=4.913e-11*ddt(I(VIL1))+-5.651e-11*ddt(I(VIL2))
 RgH2 stHA gxH2 1.5
-LgbH2 gxH2 gH2 1.503n
-LkbH2 QH_S_2 kkH2 3.93n Rser=10m
-BmH2 KHA kkH2 V=6.608e-11*ddt(I(VIL2))+-4.787e-11*ddt(I(VIL1))
+LgbH2 gxH2 gH2 0.7999n
+LkbH2 QH_S_2 kkH2 3.723n Rser=10m
+BmH2 KHA kkH2 V=5.617e-11*ddt(I(VIL2))+-5.736e-11*ddt(I(VIL1))
 RonLA DLA stLAx 0.75
-LconLA stLAx stLA 7.258n
+LconLA stLAx stLA 5.068n
 DoffLA stLA stLAo DID
-LcoffLA stLAo DLA 6.264n Rser=1m
+LcoffLA stLAo DLA 5.446n Rser=1m
 RgL1 stLA gxL1 1.5
-LgbL1 gxL1 gL1 3.481n
-LkbL1 QL_S_1 kkL1 3.481n Rser=10m
-KgkL1 LgbL1 LkbL1 -0.5857
-BmL1 KLA kkL1 V=-1.128e-10*ddt(I(VIL1))+1.292e-10*ddt(I(VIL2))
+LgbL1 gxL1 gL1 3.504n
+LkbL1 QL_S_1 kkL1 3.504n Rser=10m
+KgkL1 LgbL1 LkbL1 -0.5800
+BmL1 KLA kkL1 V=-1.082e-10*ddt(I(VIL1))+1.094e-10*ddt(I(VIL2))
 RgL2 stLA gxL2 1.5
-LgbL2 gxL2 gL2 3.481n
-LkbL2 QL_S_2 kkL2 3.481n Rser=10m
-KgkL2 LgbL2 LkbL2 -0.5881
-BmL2 KLA kkL2 V=-6.839e-11*ddt(I(VIL2))+8.776e-11*ddt(I(VIL1))
+LgbL2 gxL2 gL2 3.504n
+LkbL2 QL_S_2 kkL2 3.504n Rser=10m
+KgkL2 LgbL2 LkbL2 -0.5785
+BmL2 KLA kkL2 V=-9.496e-11*ddt(I(VIL2))+9.882e-11*ddt(I(VIL1))
 VLOB loB KLB PWL(0 0 {TSTART} 0 {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} 0 {T2} 0 {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} 0)
 RpuB loB loB1 {RPU}
 DpuB loB1 DLB DID
@@ -586,31 +586,31 @@ VHOB hoB KHB 0
 RphB hoB DHB {RPD}
 * gate network B: extracted (gate_summary_dpt.json, bypass ESL 0.4 nH)
 RonHB DHB stHBx 0.75
-LconHB stHBx stHB 10.31n
+LconHB stHBx stHB 8.442n
 DoffHB stHB stHBo DID
-LcoffHB stHBo DHB 10.5n Rser=1m
+LcoffHB stHBo DHB 8.662n Rser=1m
 RgH3 stHB gxH3 1.5
-LgbH3 gxH3 gH3 1.503n
-LkbH3 QH_S_3 kkH3 3.93n Rser=10m
-BmH3 KHB kkH3 V=6.608e-11*ddt(I(VIL3))+-4.787e-11*ddt(I(VIL4))
+LgbH3 gxH3 gH3 0.7999n
+LkbH3 QH_S_3 kkH3 3.723n Rser=10m
+BmH3 KHB kkH3 V=5.617e-11*ddt(I(VIL3))+-5.736e-11*ddt(I(VIL4))
 RgH4 stHB gxH4 1.5
-LgbH4 gxH4 gH4 1.638n
-LkbH4 QH_S_4 kkH4 3.93n Rser=10m
-BmH4 KHB kkH4 V=8.333e-11*ddt(I(VIL4))+-7.148e-11*ddt(I(VIL3))
+LgbH4 gxH4 gH4 0.7641n
+LkbH4 QH_S_4 kkH4 3.723n Rser=10m
+BmH4 KHB kkH4 V=4.913e-11*ddt(I(VIL4))+-5.651e-11*ddt(I(VIL3))
 RonLB DLB stLBx 0.75
-LconLB stLBx stLB 7.258n
+LconLB stLBx stLB 5.068n
 DoffLB stLB stLBo DID
-LcoffLB stLBo DLB 6.264n Rser=1m
+LcoffLB stLBo DLB 5.446n Rser=1m
 RgL3 stLB gxL3 1.5
-LgbL3 gxL3 gL3 3.481n
-LkbL3 QL_S_3 kkL3 3.481n Rser=10m
-KgkL3 LgbL3 LkbL3 -0.5881
-BmL3 KLB kkL3 V=-6.839e-11*ddt(I(VIL3))+8.776e-11*ddt(I(VIL4))
+LgbL3 gxL3 gL3 3.504n
+LkbL3 QL_S_3 kkL3 3.504n Rser=10m
+KgkL3 LgbL3 LkbL3 -0.5785
+BmL3 KLB kkL3 V=-9.496e-11*ddt(I(VIL3))+9.882e-11*ddt(I(VIL4))
 RgL4 stLB gxL4 1.5
-LgbL4 gxL4 gL4 3.481n
-LkbL4 QL_S_4 kkL4 3.481n Rser=10m
-KgkL4 LgbL4 LkbL4 -0.5857
-BmL4 KLB kkL4 V=-1.128e-10*ddt(I(VIL4))+1.292e-10*ddt(I(VIL3))
+LgbL4 gxL4 gL4 3.504n
+LkbL4 QL_S_4 kkL4 3.504n Rser=10m
+KgkL4 LgbL4 LkbL4 -0.5800
+BmL4 KLB kkL4 V=-1.082e-10*ddt(I(VIL4))+1.094e-10*ddt(I(VIL3))
 .options plotwinsize=0
 .tran 0 {TEND} 0 0.1n
 .save I(Lload) I(VIL1) I(VIH1) V(QL_D_1) V(QL_S_1) V(QH_D_1) V(QH_S_1) V(dL1) V(dH1) V(gL1) V(gH1) I(VIL2) I(VIH2) V(QL_D_2) V(QL_S_2) V(QH_D_2) V(QH_S_2) V(dL2) V(dH2) V(gL2) V(gH2) I(VIL3) I(VIH3) V(QL_D_3) V(QL_S_3) V(QH_D_3) V(QH_S_3) V(dL3) V(dH3) V(gL3) V(gH3) I(VIL4) I(VIH4) V(QL_D_4) V(QL_S_4) V(QH_D_4) V(QH_S_4) V(dL4) V(dH4) V(gL4) V(gH4)
