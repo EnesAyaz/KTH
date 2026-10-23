@@ -1,6 +1,6 @@
 * Leg board 'dpt': double-pulse test with the Q3D copper BB_PL_LOOP_dpt (30 branches, 426 couplings)
 .param VBUS=75 IPK=322 TON1=1.0667e-05 LLOAD={TON1*VBUS/IPK}
-.param RGON=2 RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 LGO=1.2n LGK=0.5n
+.param RGON=2.5 RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 LGO=1.2n LGK=0.5n
 .param TSTART=0.5u TOFF=1u TON2=0.5u
 .param T1={TSTART+TON1} T2={T1+TOFF} TEND={T2+TON2+0.3u}
 .include ../LMG1210-EPC2361/EPC2361.lib

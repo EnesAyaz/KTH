@@ -479,7 +479,7 @@ for blk, dx in ((1, -15.24), (2, -15.24 + 406.4)):
             W((X(238.76), yy), l)
             W(r, (r[0] + 2.54, r[1]))
             LBL(gnet, r[0] + 2.54, r[1], (1, 0))
-    T("R_ON 0.75 R, R_OFF 0 R (jumper), R_G 0.5 R per transistor, 10 k gate pull-down at the star to the Kelvin net",
+    T("R_ON 1.0 R, R_OFF 0 R (jumper), R_G 0.5 R per transistor, 10 k gate pull-down at the star to the Kelvin net",
       X(154.94), YD + 30.48, 1.27, False)
 
 # ================================================================== 3 isolated supply islands

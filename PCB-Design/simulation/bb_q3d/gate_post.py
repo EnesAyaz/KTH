@@ -8,7 +8,7 @@ Gate loops of driver block 1 (cells 1 + 2, driver U1) and their coupling to the 
 Circuit on the extracted copper (Net / load() from revb_post.py):
   FET die: Kelvin pad and power source joined (K_Q1 = QH_S_1, K_Q2 = QH_S_2, K_Q3 = QL_S_1, K_Q4 = QL_S_2); the gate is
   open (C_iss) except where the test current is injected.
-  Gate parts: R_G 0.5 Ohm (R1, R2 HS / R4, R5 LS), R_ON 0.75 Ohm (R7, R9), R_OFF 0 Ohm (R8, R10), D_OFF (D1, D2) 0.1 Ohm when it conducts;
+  Gate parts: R_G 0.5 Ohm (R1, R2 HS / R4, R5 LS), R_ON 1.0 Ohm (R7, R9), R_OFF 0 Ohm (R8, R10), D_OFF (D1, D2) 0.1 Ohm when it conducts;
   driver output to VDD 0.85 Ohm (on) or to VEE 0.35 Ohm (off) (2EDF7275K 4 / 8 A); 1 uF output-side bypass (C13..C16)
   as its ESL (ESL_0603, 0.4 nH assumed; also reported with 0 nH = copper only).
   Power: as loop_post.py (bypass groups as their ESL, UFCS shunt 120 pH).
@@ -35,7 +35,7 @@ leg = load("BB_PL_GATE_" + TAGB)
 geo = json.load(open(os.path.join(RES, "revb_gate_geometry_%s.json" % TAGB)))
 NB = {t[1]: len(t[3]) for t in geo["terminals"]}
 w = 2 * math.pi * F_LOOP
-R_G, R_ON, R_OFF, R_D = 0.5, 0.75, 1e-3, 0.1
+R_G, R_ON, R_OFF, R_D = 0.5, 1.0, 1e-3, 0.1
 R_UP, R_DN = 0.85, 0.35
 ESL_0603 = 0.4e-9
 FET = {"Q1": ("QH_S_1", "A"), "Q2": ("QH_S_2", "A"), "Q3": ("QL_S_1", "B"), "Q4": ("QL_S_2", "B")}

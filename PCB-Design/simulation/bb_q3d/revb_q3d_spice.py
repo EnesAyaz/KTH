@@ -11,8 +11,8 @@ Copper (AC R/L matrix at 100 MHz, every mutual inductance kept as a K statement)
 Components (same data as revb_post.py): bypass rows as C_eff / ESL / ESR per row, UFCS shunt 1 mOhm + 120 pH,
 bank 20 x 22 uF (127 uF eff.) behind L_b, 75 V supply through 20 nH, load inductor at the ac bolt.
 Gate drive: 0/5 V, 4 / 8 A (0.85 / 0.35 Ohm), one driver channel per pair. Gate network of the board with the
-inductances from the gate Q3D model (gate_post.py -> gate_summary_dpt.json, see gate_extracted()): R_ON 0.75 Ohm
-shared, R_G 0.5 Ohm per FET (RGON = R_G + 2 R_ON = 2 Ohm per device), D_OFF + R_OFF 0, and the coupling of the
+inductances from the gate Q3D model (gate_post.py -> gate_summary_dpt.json, see gate_extracted()): R_ON 1.0 Ohm
+shared, R_G 0.5 Ohm per FET (RGON = R_G + 2 R_ON = 2.5 Ohm per device), D_OFF + R_OFF 0, and the coupling of the
 commutation loops into the gate loops. The case "dpt_lumpgate" keeps the earlier lumped gate drive of the design flow
 (FLOW_lumped.inc): R_g,on 2 Ohm, R_g,off 0, gate loop 1.7 nH per device (1.2 nH out, 0.5 nH Kelvin return), one driver channel per
 pair of cells (cells 1+2, 3+4), the same PWM for both pairs. Load current at turn-off 322 A (80.5 A per device).
@@ -79,13 +79,15 @@ def subckt(tag):
 
 GSUM = os.path.join(RES, "gate_summary_dpt.json")
 GATE_OK = os.path.exists(GSUM)
-R_ON_STAR = 0.75                                 # board: R_ON shared by the pair (R7 / R9), R_G per FET = RGON - 2 R_ON
+R_ON_STAR = 1.0                                  # board: R_ON shared by the pair (R7 / R9), R_G per FET = RGON - 2 R_ON
+R_G_FET = 0.5
+RG_BOARD = R_G_FET + 2 * R_ON_STAR                   # 2.5 Ohm per device (R_ON 0.75 -> 1.0 after the gate Q3D, 2026-10-23)
 GATE_ESL = "esl0.4"                              # 1 uF 0603 output-side bypass taken as 0.4 nH (no published ESL)
 
 
 def gate_extracted(pair, cells, rgon):
     """Gate network of the board with the inductances from the gate Q3D model (gate_post.py, driver block 1 of the
-    DPT board; block 2 is its mirror image: cell 4 <-> cell 1, cell 3 <-> cell 2). Driver output D<s><pair> ->
+    DPT board; block 2 is the same layout shifted: cell 3 <-> cell 1, cell 4 <-> cell 2). Driver output D<s><pair> ->
     R_ON + L_common,on -> star; star -> L_common,off -> D_OFF -> driver (turn-off); star -> R_G + L_branch -> gate;
     Kelvin branch (half the Kelvin pad-to-pad inductance) -> common Kelvin node K<s><pair> at the driver.
     The coupling of the commutation loops into each gate loop (LS switching, HS held off) is a source in the Kelvin
@@ -93,8 +95,9 @@ def gate_extracted(pair, cells, rgon):
     gs = json.load(open(GSUM))
     sp, kp = gs["split_nH"][GATE_ESL], gs["kelvin_pair_nH"]
     cp = gs["coupling_pH"]["ls_switching_hs_held_off"]
-    rg = rgon - 2 * R_ON_STAR
-    ref = {1: 1, 2: 2, 3: 2, 4: 1}               # block-1 cell that each cell mirrors
+    rg = R_G_FET                                 # 0.5 Ohm per FET; the sweep changes R_ON (shared by the pair)
+    ron = (rgon - R_G_FET) / 2
+    ref = {1: 1, 2: 2, 3: 1, 4: 2}               # block-1 cell each cell copies (block 2 = block 1 shifted, not mirrored)
     fet = {("H", 1): "Q1", ("H", 2): "Q2", ("L", 1): "Q3", ("L", 2): "Q4"}
     ln = ["* gate network %s: extracted (gate_summary_dpt.json, bypass ESL %s nH)" % (pair, GATE_ESL[3:])]
     for s, ch in (("H", "A"), ("L", "B")):
@@ -103,7 +106,7 @@ def gate_extracted(pair, cells, rgon):
         lc_off = sum(sp[q]["common_off"] for q in qs) / 2
         lk = kp[ch] / 2
         st, d = "st%s%s" % (s, pair), "D%s%s" % (s, pair)
-        ln += ["Ron%s%s %s %sx %g" % (s, pair, d, st, R_ON_STAR), "Lcon%s%s %sx %s %.4gn" % (s, pair, st, st, lc_on),
+        ln += ["Ron%s%s %s %sx %g" % (s, pair, d, st, ron), "Lcon%s%s %sx %s %.4gn" % (s, pair, st, st, lc_on),
                "Doff%s%s %s %so DID" % (s, pair, st, st), "Lcoff%s%s %so %s %.4gn Rser=1m" % (s, pair, st, d, lc_off)]
         for c in cells:
             q = fet[(s, ref[c])]
@@ -198,7 +201,7 @@ def netlist(board, rgon=2, gate=True):
                ".meas TRAN VHpk%d MAX %s FROM {T2} TO {T2+150n}" % (c, vh),
                ".meas TRAN bump%d MAX V(gH%d,QH_S_%d) FROM {T2} TO {T2+150n}" % (c, c, c)]
     ln.append(".end")
-    name = "REVB_Q3D_%s%s%s.cir" % (board, "" if rgon == 2 else "_rg%g" % rgon, "" if gate else "_lumpgate")
+    name = "REVB_Q3D_%s%s%s.cir" % (board, "" if rgon == RG_BOARD else "_rg%g" % rgon, "" if gate else "_lumpgate")
     open(os.path.join(SP, name), "w").write("\n".join(ln) + "\n")
     return name
 
@@ -246,7 +249,7 @@ def main():
     fq = json.load(open(os.path.join(ROOT, "reports", "slides", "data", "final_numbers.json")))
     boards = [b for b in sys.argv[1:]] or ["load", "dpt"]
     res = {}
-    cases = [(b, rg, GATE_OK) for rg in (2, 3) for b in boards] + ([("dpt", 2, False)] if GATE_OK and "dpt" in boards else [])
+    cases = [(b, rg, GATE_OK) for rg in (RG_BOARD, 2) for b in boards]   # R_ON 1.0 (board) and 0.75 Ohm; 1.25 Ohm diverged numerically (2026-10-23) + ([("dpt", RG_BOARD, False)] if GATE_OK and "dpt" in boards else [])
     for b, rg, gt in cases:
         if not os.path.exists(os.path.join(RES, MODELS[b] + "_matrix.txt")):
             continue
@@ -260,7 +263,7 @@ def main():
                               Ion_pk=g("ionpk"), didt_on=g("didton") / 1e9, didt_off=-g("didtoff") / 1e9,
                               VHpk=g("vhpk"), bump=g("bump")))
         lp = fq[b]["loop"]["mean_nH"]
-        res[b + ("" if rg == 2 else "_rg%g" % rg) + ("" if gt else "_lumpgate")] = dict(loop_nH=lp, RGON=rg, gate="extracted" if gt else "lumped 1.7 nH", VHpk_max=max(c["VHpk"] for c in cells), Iload=m["iload"][0], cells=cells,
+        res[b + ("" if rg == RG_BOARD else "_rg%g" % rg) + ("" if gt else "_lumpgate")] = dict(loop_nH=lp, RGON=rg, gate="extracted" if gt else "lumped 1.7 nH", VHpk_max=max(c["VHpk"] for c in cells), Iload=m["iload"][0], cells=cells,
                       Eon_tot_uJ=sum(c["Eon_uJ"] for c in cells), Eoff_tot_uJ=sum(c["Eoff_uJ"] for c in cells),
                       Vpk_max=max(c["Vpk"] for c in cells),
                       share_off_pct=100 * (max(c["I_off"] for c in cells) / (sum(c["I_off"] for c in cells) / 4) - 1),
