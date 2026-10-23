@@ -64,19 +64,24 @@ MECH = {
 
 # fab notes / drawing that travel inside the Gerber zip (fabrication review F1/F2)
 STACK = [("L1 F.Cu", "copper", "70 um (2 oz) finished", "signal + power, ENIG"),
-         ("", "prepreg", "0.10 mm", "FR4, er ~4.2 (sets the L1-L2 loop spacing: keep)"),
+         ("", "prepreg", "0.10 mm (JLC 3313: 0.0994)", "FR4, er ~4.1 (sets the L1-L2 loop spacing: keep)"),
          ("L2 In1.Cu", "copper", "70 um", "DC- return plane"),
-         ("", "core", "~1.1 mm (fab adjusts for 1.60 mm total)", "FR4, Tg >= 150 C"),
+         ("", "core", "fab core for 1.60 mm total", "FR4; JLCPCB stack-up JLC04161H-3313, 2 oz / 2 oz"),
          ("L3 In2.Cu", "copper", "70 um", "DC+ / AC / gate"),
-         ("", "prepreg", "0.10 mm", "FR4 (sets the L3-L4 spacing: keep)"),
+         ("", "prepreg", "0.10 mm (JLC 3313: 0.0994)", "FR4 (sets the L3-L4 spacing: keep)"),
          ("L4 B.Cu", "copper", "70 um (2 oz) finished", "signal + power, ENIG")]
 RULES_TXT = ["Minimum track / space: 0.20 / 0.20 mm (functional clearance between domains 0.20 mm at 75 V)",
-             "Minimum via: 0.45 mm pad, 0.25 mm finished drill, annular ring >= 0.10 mm",
-             "Hole-to-hole 0.25 mm, copper to board edge 0.30 mm, solder-mask web >= 0.10 mm",
+             "Vias: 0.60 / 0.30 mm (power) and 0.45 / 0.25 mm (gate, Kelvin, sense): pad >= drill + 0.15 mm "
+             "(JLCPCB via rule: diameter >= hole + 0.10 mm, 0.15 mm preferred)",
+             "Plated component holes: annular ring >= 0.254 mm (JLCPCB 2 oz); smallest on the board 0.26 mm "
+             "(AC bolt stitching holes 0.40 / 0.92 mm)",
+             "Hole-to-hole 0.25 mm, copper to board edge 0.30 mm, solder-mask web >= 0.20 mm (JLCPCB 2 oz; EPC2361 "
+             "webs between different nets >= 0.28 mm)",
              "1200 V control/power barrier: 4.0 mm outer / 3.0 mm inner copper keep-out (do not reduce)",
              "Solder mask green both sides, white silk both sides, ENIG finish, IPC-6012 class 2, electrical test 100 %",
-             "ALL vias tented both sides (the barrier relies on it), EXCEPT the via-in-pad list below: IPC-4761 type VII "
-             "(filled with non-conductive epoxy + copper capped, planarised)",
+             "ALL vias covered both sides (the barrier relies on it); the via-in-pad list below needs IPC-4761 type VII "
+             "(filled with non-conductive epoxy + copper capped, planarised). JLCPCB: order 'Epoxy Filled & Capped', "
+             "which treats all vias this way (acceptable)",
              "Drill files: PTH and NPTH separate (Excellon, mm, absolute origin = drill origin)"]
 
 

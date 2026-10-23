@@ -1,6 +1,6 @@
 # DPT board (Rev B): ordering at JLCPCB with PCBA
 
-Board: `hardware/spb-bb-revb-dpt` at commit 3c36e5c (R_ON 1.5 Ω). Files in `hardware/spb-bb-revb-dpt/fab/`:
+Board: `hardware/spb-bb-revb-dpt`, final release (R_ON 1.5 Ω, JLC 2 oz rules; see the commit log). Files in `hardware/spb-bb-revb-dpt/fab/`:
 Gerber zip `spb-bb-revb-dpt-gerber.zip` (with the fab notes), JLC BOM and CPL in `fab/jlc/`
 (`scripts/make_jlc_files.py`). JLC limits checked on 2026-10-23 against their public capability pages; confirm on the
 order page, which is binding.
@@ -14,16 +14,22 @@ order page, which is binding.
 | Outer / inner copper | **2 oz / 2 oz** | JLC: 2 oz inner only with 1.6 mm, JLC3313 and 2 oz outer, i.e. exactly this combination |
 | Surface finish | ENIG | |
 | Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list (bypass and shunt SHLD pads); all other vias are then filled too, which is fine (design asks for tented vias) |
-| Solder mask | green, both sides | 2 oz mask web 0.20 mm: DRC at 0.20 mm shows no mask bridge |
+| Solder mask | green, both sides | 2 oz minimum web 0.20 mm: now the project rule; DRC clean. EPC2361 webs between different nets ≥ 0.28 mm |
 | Min track / space | 0.20 / 0.20 mm in the design | JLC 2 oz: 0.16 mm |
 | Remove order number | specify a location or "no" | keep it off the 1200 V barrier area |
 | Confirm production file | **yes** | to get the engineering answer on the via ring below |
 
-**Open point: annular ring at 2 oz.** JLC's capability table gives 0.20 mm minimum annular ring for 2 oz PTH
-(0.13 mm for 1 oz). The board has 1050 power vias 0.6/0.3 mm (ring 0.15 mm) and 44 vias 0.45/0.25 mm (ring 0.10 mm,
-gate / Kelvin / sense vias in the corridor). Ask JLC engineering (order comment or support) whether this is accepted.
-If not: power vias 0.7/0.3 and signal vias 0.65/0.25 mm, which needs a layout pass (corridor clearances, plane
-antipads) and a new Q3D loop and gate run.
+**Annular rings (resolved 2026-10-23).** JLC's capability page states separate rules:
+
+- vias: "Via diameter should be 0.1mm (0.15mm preferred) larger than Via hole size", multilayer minimum
+  0.15 / 0.25 mm. The board's 1050 power vias 0.60 / 0.30 mm (+0.30 mm) and 44 vias 0.45 / 0.25 mm (+0.20 mm) meet
+  it; 0.45 mm is not "less than 0.45 mm", so the via size carries no surcharge. Filled and capped via-in-pad is listed
+  for via diameters 0.15–0.55 mm.
+- plated component holes: "Multilayer: 2 oz: 0.254 mm or above". The AC bolt stitching holes were 0.40 / 0.80 mm
+  (ring 0.20 mm) and are now 0.40 / 0.92 mm (0.26 mm); REDCUBE 0.675 mm, headers 0.35 mm. A custom DRC rule now
+  enforces 0.254 mm on every plated pad.
+
+Still tick "confirm production file": the engineering question can then be answered on the actual CAM data.
 
 ## PCBA order settings
 

@@ -32,6 +32,30 @@ above the 1.1 V typical threshold). The simulated off-state ringing reaches abou
 without checking the EPC2361 minimum V_GS. At bring-up, measure on all eight V_GS spring pads: the on/off levels,
 the bump on the held-off FET at the other FET's turn-on, and the delay between U1 and U2.
 
+### Tolerance of the gate levels (review 2026-10-23, F2)
+
+EPC2361 limits: V_GS −4 / +6 V, V_GS(th) 0.8 V minimum. Simulated excursions around the static levels (75 V, 322 A):
+off-state ringing 1.55 V below the off level, bump on the held-off gate 1.44 V above it.
+
+| | Zener 4.8 V, V_ISO 6.9 V | nominal (5.1 V, 7.0 V) | Zener 5.4 V, V_ISO 7.1 V |
+|---|---|---|---|
+| V_GS,on | +4.8 V | +5.1 V | +5.4 V (0.6 V to +6 V) |
+| V_GS,off (static) | −2.1 V | −1.9 V | −1.7 V |
+| Off-state ringing | about −3.65 V | about −3.45 V | about −3.25 V |
+
+| | Zener 5.4 V, V_ISO 6.9 V | Zener 4.8 V, V_ISO 7.1 V |
+|---|---|---|
+| V_GS,off (static) | −1.5 V | −2.3 V |
+| Bump / ringing | bump about −0.06 V (0.86 V below V_th,min) | ringing about −3.85 V (**0.15 V** to −4 V) |
+
+BZX384-C5V1: 4.8–5.4 V. The Zener tolerance alone moves the off level by ±0.3 V, so a fixed V_ISO does not guarantee
+the margin. **Procedure:** before switching, measure the static V_GS,off of each driver channel on the spring pads and
+set V_ISO so that it lies between −1.7 and −1.9 V (if the HS and LS supplies cannot be set per driver, use the channel
+with the most negative level). Then raise the current in steps and record the minimum V_GS of the held-off device at
+each step; stop and add damping (higher R_G or a gate-source capacitor) rather than more negative bias if it comes
+within 0.3 V of −4 V. Probe loading of the V_GS measurement adds to the gate capacitance: use the same probe for all
+eight devices.
+
 ## Rules
 
 1. **One ground-referenced return at a time.** All channels of a normal oscilloscope share protective earth. Two
