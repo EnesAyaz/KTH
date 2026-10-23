@@ -130,7 +130,8 @@ for k, v in enumerate(sh or [None] * 3):
 
 # simulation validation with the Q3D copper (simulation/bb_q3d/revb_q3d_spice.py)
 QS = js(D, "q3d_spice_numbers.json")
-for key, tag in (("load", "Load"), ("dpt", "Dpt"), ("load_rg3", "LoadRgThree"), ("dpt_rg3", "DptRgThree")):
+for key, tag in (("load", "Load"), ("dpt", "Dpt"), ("load_rg3", "LoadRgThree"), ("dpt_rg2.5", "DptRgLow"),
+                 ("dpt_lumpgate", "DptLump")):
     q = QS.get(key, {})
     cells = q.get("cells", [])
     put("QsVh%s" % tag, q.get("VHpk_max"), "%.0f")
@@ -141,6 +142,9 @@ for key, tag in (("load", "Load"), ("dpt", "Dpt"), ("load_rg3", "LoadRgThree"), 
     put("QsEoff%s" % tag, sum(c["Eoff_uJ"] for c in cells) / 4 if cells else None, "%.1f")
     put("QsDidt%s" % tag, sum(c["didt_on"] for c in cells) / 4 if cells else None, "%.0f")
     put("QsBump%s" % tag, max(c["bump"] for c in cells) if cells else None, "%.1f")
+    put("QsBumpMin%s" % tag, min(c["bump"] for c in cells) if cells else None, "%.1f")
+    put("QsEonTot%s" % tag, q.get("Eon_tot_uJ"), "%.0f")
+    put("QsEoffTot%s" % tag, q.get("Eoff_tot_uJ"), "%.0f")
     put("QsImin%s" % tag, min(c["I_off"] for c in cells) if cells else None, "%.0f")
     put("QsImax%s" % tag, max(c["I_off"] for c in cells) if cells else None, "%.0f")
 lu = QS.get("lumped", {})
@@ -149,6 +153,32 @@ for i, tag in ((0, "Load"), (1, "Dpt")):
     put("QsLumEoff%s" % tag, get(lu, "Eoff_uJ", i), "%.1f")
     put("QsLumVh%s" % tag, get(lu, "VHpk", i), "%.0f")
     put("QsLumVl%s" % tag, get(lu, "Vpk", i), "%.0f")
+
+# loop-to-loop coupling between the four cells (loop_post.py: 1 A in one cell, voltage across every cell)
+mc = get(FQ, "dpt", "loop", "mutual_cell_nH") or {}
+kc = get(FQ, "dpt", "loop", "coupling_k") or {}
+offd = [(mc[i][j], kc[i][j]) for i in mc for j in mc[i] if i != j]
+put("CellMmax", max(m for m, _ in offd) * 1000 if offd else None, "%.0f")          # pH
+put("CellKmax", max(k for _, k in offd) if offd else None, "%.3f")
+# gate loops of driver block 1 on the DPT board (gate_post.py, copper only, 100 MHz)
+GS = js(ROOT, "simulation", "bb_q3d", "results", "gate_summary_dpt.json")
+gl = get(GS, "gate_loop_nH") or {}
+if gl:
+    g0 = {q: gl[q]["esl0.0"] for q in gl}
+    put("GateHS", (g0["Q1"]["on"] + g0["Q2"]["on"]) / 2, "%.1f")
+    put("GateLS", (g0["Q3"]["on"] + g0["Q4"]["on"]) / 2, "%.1f")
+    put("GatePairHS", (g0["Q1"]["on_pair_driven"] + g0["Q2"]["on_pair_driven"]) / 2, "%.1f")
+    put("GatePairLS", (g0["Q3"]["on_pair_driven"] + g0["Q4"]["on_pair_driven"]) / 2, "%.1f")
+    put("GateSym", 100 * max(abs(g0["Q1"]["on"] / g0["Q2"]["on"] - 1), abs(g0["Q3"]["on"] / g0["Q4"]["on"] - 1)), "%.1f")
+    sp = get(GS, "split_nH", "esl0.0") or {}
+    put("GateBranchHS", (sp["Q1"]["branch"] + sp["Q2"]["branch"]) / 2, "%.1f")
+    put("GateBranchLS", (sp["Q3"]["branch"] + sp["Q4"]["branch"]) / 2, "%.1f")
+    put("GateCommonHS", sp["Q1"]["common_on"], "%.1f")
+    put("GateCommonLS", sp["Q3"]["common_on"], "%.1f")
+    cp = get(GS, "coupling_pH") or {}
+    put("GateCoupMax", max(abs(v) for st in cp.values() for v in st["both_cells"].values()), "%.0f")
+    vg = get(GS, "v_gk_at_30Apns_V") or {}
+    put("GateVgkMax", max(abs(v) for st in vg.values() for v in st.values()), "%.2f")
 
 out = os.path.join(ROOT, "reports", "paper", "paper_numbers.tex")
 with open(out, "w", encoding="utf-8") as f:

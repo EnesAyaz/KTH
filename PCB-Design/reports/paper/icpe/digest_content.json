@@ -3,7 +3,7 @@
  "title": "Building Block Design for Stacked Polyphase Bridge Converters for High-Voltage Traction Drives",
  "abstract": [
   [
-   "In a stacked polyphase bridge (SPB) converter the battery voltage is shared by series-connected three-phase submodules, so the transistor voltage class becomes a design variable. This digest presents the design of the phase-leg building block of a 1200 V, 300 kW SPB traction inverter. Because the phase current does not depend on the number of submodules, 100 V GaN transistors give the lowest loss, and the turn-off overshoot at a realistic commutation-loop inductance sets 16 submodules of 75 V. Four EPC2361 per switch, driven as two mirrored pairs by one dual-channel isolated driver each, keep the junction temperature at 69 °C. The leg is built as a double-pulse-test (DPT) board with a coaxial shunt in every cell and as a load-test board without shunts. Q3D extraction of the routed boards gives 0.41 nH per cell without and 0.65 nH with the shunt. A double-pulse simulation with the complete extracted parasitic network confirms current sharing among the four cells within 3 % and a peak drain-source voltage of 86 V at the peak phase current. Double-pulse measurements on the DPT board will be added in the final paper.",
+   "In a stacked polyphase bridge (SPB) converter the battery voltage is shared by series-connected three-phase submodules, so the transistor voltage class becomes a design variable. This digest presents the design of the phase-leg building block of a 1200 V, 300 kW SPB traction inverter. Because the phase current does not depend on the number of submodules, 100 V GaN transistors give the lowest loss, and the turn-off overshoot at a realistic commutation-loop inductance sets 16 submodules of 75 V. Four EPC2361 per switch, driven in two identical pairs by one dual-channel isolated driver each, keep the junction temperature at 69 °C. The leg is built as a double-pulse-test (DPT) board with a coaxial shunt in every cell and as a load-test board without shunts. Q3D extraction of the routed boards gives 0.41 nH per cell without and 0.65 nH with the shunt, with negligible coupling between the cells, and gate loops that are equal for the four paralleled devices but reach 20.6 nH. A double-pulse simulation with the complete extracted parasitic network confirms current sharing among the four cells within 3 %; the DPT board needs a slower turn-on and a −1.9 V off-state to stay at 93 V. Double-pulse measurements on the DPT board will be added in the final paper.",
    ""
   ]
  ],
@@ -519,7 +519,7 @@
      ],
      [
       [
-       "mirrored cells",
+       "symmetric cells",
        ""
       ]
      ]
@@ -631,7 +631,7 @@
    "t": "p",
    "runs": [
     [
-     "Dynamic sharing is dominated by the gate loop and the common-source path, not by the power loop (Table I). One channel for all four devices of a switch is excluded, since the slower gate charging raises the turn-on energy by 31 % and the sink current exceeds the 8 A rating. One 2EDF7275K (isolated high- and low-side channel) is therefore placed on the symmetry line between two mirrored cells and drives both gates through a star with Kelvin returns (Fig. 1b); a Zener split of its supply gives +5.1 V and −1.2 V against the Miller-induced gate bump. The three legs of a submodule share one dc bus, so only the switching-frequency ripple remains: 3 % ripple requires 127 µF effective per leg, and with only 29 % of the nominal value left at 75 V, twenty 22 µF 2220 MLCCs are placed on each leg board, plus ten 1 µF 0805 bypass capacitors per cell.",
+     "Dynamic sharing is dominated by the gate loop and the common-source path, not by the power loop (Table I). One channel for all four devices of a switch is excluded, since the slower gate charging raises the turn-on energy by 31 % and the sink current exceeds the 8 A rating. One 2EDF7275K (isolated high- and low-side channel) is therefore placed between two cells rotated by 180° about it and drives both gates through a star with Kelvin returns (Fig. 1b), so both gate branches are identical; a Zener split of its supply gives +5.1 V and −1.9 V against the gate bump of the off device, inside the −4 V gate limit. The three legs of a submodule share one dc bus, so only the switching-frequency ripple remains: 3 % ripple requires 127 µF effective per leg, and with only 29 % of the nominal value left at 75 V, twenty 22 µF 2220 MLCCs are placed on each leg board, plus ten 1 µF 0805 bypass capacitors per cell.",
      ""
     ]
    ]
@@ -655,19 +655,7 @@
    "t": "p",
    "runs": [
     [
-     "The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two mirrored pairs, each with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below (Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with one common-mode choke per signal pair and a ferrite bead in the 12 V feed, keep 4.0 mm (outer) and 3.0 mm (inner layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell and U.FL probes for ",
-     ""
-    ],
-    [
-     "v",
-     "i"
-    ],
-    [
-     "GS",
-     "s"
-    ],
-    [
-     " and ",
+     "The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two identical pairs, each with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below (Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with one common-mode choke per signal pair and a ferrite bead in the 12 V feed, keep 4.0 mm (outer) and 3.0 mm (inner layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell, MMCX jacks for ",
      ""
     ],
     [
@@ -679,7 +667,27 @@
      "s"
     ],
     [
-     "; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. Three load-test boards form a level on a laminated PCB busbar with 1.46 nH between neighbouring legs.",
+     " and spring-probe pads for ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "GS",
+     "s"
+    ],
+    [
+     " of every device; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. The cells hardly couple (at most 21 pH, ",
+     ""
+    ],
+    [
+     "k",
+     "i"
+    ],
+    [
+     " ≤ 0.034). A second model adds the gate network of one driver block: gate and Kelvin return run on adjacent layers to the driver, and a device sees 20.6 nH (high side) and 12.3 nH (low side) when its pair is driven, equal within 0.3 % for all four paralleled devices, with at most 9 pH coupling from the commutation loops. This is about ten times the 1.7 nH of the lumped design, because the driver sits between two cells behind the isolation barrier. Three load-test boards form a level on a laminated PCB busbar with 1.46 nH between neighbouring legs.",
      ""
     ]
    ]
@@ -748,7 +756,7 @@
    "t": "p",
    "runs": [
     [
-     "The four cells carry 77–81 A at turn-off and their turn-on energies differ by 2 %, so the mirrored layout and the per-pair drive leave none of the mechanisms of Table I active. The low-side turn-off is uncritical (81 V). The critical event is the low-side turn-on, at 46 A/ns: the high-side device peaks at 91 V on the load-test board, in agreement with the lumped model at the extracted loop (91 V), and at 94 V on the DPT board. Turn-on energies agree with the lumped model within 10 %. With ",
+     "The four cells carry 77–81 A at turn-off and their turn-on energies differ by 2 %, so the symmetric layout and the per-pair drive leave none of the mechanisms of Table I active. The low-side turn-off is uncritical (81 V). The critical event is the low-side turn-on, at 46 A/ns: the high-side device peaks at 91 V on the load-test board, in agreement with the lumped model at the extracted loop (91 V). Turn-on energies agree with the lumped model within 10 %. With ",
      ""
     ],
     [
@@ -760,7 +768,19 @@
      "s"
     ],
     [
-     " = 3 Ω the turn-on slows to 34 A/ns and the peaks drop to 86 V and 87 V for a 20 % higher turn-on energy (below 1 W per leg); both boards are operated with 3 Ω. The gate bump of 1.2 V with a 0 V off-state confirms the need for the negative off-state voltage.",
+     " = 3 Ω the turn-on slows to 34 A/ns and the peak drops to 86 V for a 20 % higher turn-on energy (below 1 W per leg). The gate bump of 1.2 V with a 0 V off-state confirms the need for the negative off-state voltage. The gate loop is the exception to the lumped design: with the extracted gate network of the DPT board and ",
+     ""
+    ],
+    [
+     "R",
+     "i"
+    ],
+    [
+     "g,on",
+     "s"
+    ],
+    [
+     " = 2.5 Ω the turn-on reaches 49 A/ns and the high-side peak 105 V (90 V with the lumped gate loop). The DPT board is therefore driven with 3.5 Ω (1.5 Ω shared per pair) and −1.9 V: the peak is 93 V with the shunts in the loop, the held-off gate stays at -0.5 V, 1.3 V below the minimum threshold, and the off-state ringing (about −3.4 V) inside the −4 V limit.",
      ""
     ]
    ]
@@ -797,7 +817,7 @@
      "s"
     ],
     [
-     " of every cell through the U.FL probe points, the overshoot for ",
+     " of every device through the MMCX jacks and spring-probe pads, the overshoot and gate bump with ",
      ""
     ],
     [
@@ -809,7 +829,7 @@
      "s"
     ],
     [
-     " = 2 and 3 Ω, and the measured switching energies and their spread, compared with the simulation of Section V. Continuous operation of the load-test board will verify the thermal design.",
+     " = 3.5 Ω and −1.9 V off-state, and the measured switching energies and their spread, compared with the simulation of Section V. Continuous operation of the load-test board will verify the thermal design.",
      ""
     ]
    ]
@@ -822,7 +842,7 @@
    "t": "p",
    "runs": [
     [
-     "Because the phase current of an SPB is independent of the number of submodules, the device and the submodule voltage can be chosen for minimum loss and the available overshoot margin. For a 1200 V, 300 kW inverter this gives 16 submodules of 75 V with four 100 V GaN transistors per switch, driven in mirrored pairs by one dual-channel isolated driver each. Q3D extraction of the routed board gives 0.41 nH per cell, and a double-pulse simulation with the full extracted network confirms equal sharing among the four cells and a peak voltage of 86 V with ",
+     "Because the phase current of an SPB is independent of the number of submodules, the device and the submodule voltage can be chosen for minimum loss and the available overshoot margin. For a 1200 V, 300 kW inverter this gives 16 submodules of 75 V with four 100 V GaN transistors per switch, driven in pairs by one dual-channel isolated driver each. Q3D extraction of the routed board gives 0.41 nH per cell with negligible coupling between the cells, and a double-pulse simulation with the full extracted network confirms equal sharing among the four cells and a peak voltage of 86 V with ",
      ""
     ],
     [
@@ -834,7 +854,7 @@
      "s"
     ],
     [
-     " = 3 Ω.",
+     " = 3 Ω. The gate loop of the centre driver, equal for all four paralleled devices but about ten times the assumed value, is the main deviation; the DPT board stays at 93 V with 3.5 Ω and −1.9 V, and a driver stage next to each pair is planned for the next revision.",
      ""
     ]
    ]

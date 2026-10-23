@@ -11,6 +11,7 @@ board, supplies and measurement, the three-phase DC bus (PCB busbar) and the Q3D
 Markup in texts: **bold**, !!alert!!, _{sub}, ^{sup}. Coordinates in points on a 960 x 540 slide.
 """
 import json
+import shutil
 import math
 import os
 import subprocess
@@ -525,10 +526,10 @@ text(s, [X0, Y0 + 250, W, 155], [
 s = slide("Driver arrangement for 1 … 4 EPC2361 per switch", 7)
 image(s, "img/drv_layouts.png", [X0, Y0, 560, 330])
 text(s, [X0 + 575, Y0, 335, 400], [
-    "One dual-channel driver (HS + LS) between two cells: both gate loops equal, short (≈ 1.7 nH) and with their own "
-    "Kelvin return",
+    "One dual-channel driver (HS + LS) between two cells: both gate loops equal and with their own Kelvin return "
+    "(design value ≈ 1.7 nH; extracted on the routed board: step 11)",
     "n = 3 breaks the symmetry (pair + single)",
-    "n = 4: two pairs, two drivers, one star per pair ⇒ the building block of two mirrored cells",
+    "n = 4: two pairs, two drivers, one star per pair ⇒ the building block of two point-symmetric cells",
 ], 16)
 decision(s, "2 × EPC2361 per driver channel; 4 per switch = two pairs = two drivers")
 
@@ -545,7 +546,7 @@ table(s, [X0, Y0, W, 175], [
 text(s, [X0, Y0 + 225, W, 180], [
     "A pair needs ≈ 2 × 3.6 nF: 4 A / 8 A drives it at the single-device speed; the 1.5 A / 3 A half-bridge driver does not",
     "Two isolated outputs in one 5 × 5 mm LGA: HS and LS of the same pair from one IC, ≤ 3 ns channel mismatch",
-    "Floating outputs: each output gets its own supply split (5.1 V Zener on, −1.2 V off) for the bump margin (next)",
+    "Floating outputs: each output gets its own supply split (5.1 V Zener on, −1.9 V off) for the bump margin (next)",
 ], 15)
 note(s, "Data: Infineon / TI product pages and datasheets (2EDF7275K, 1EDF5673K, LMG1210); check the current revision.")
 
@@ -553,14 +554,14 @@ s = slide("Why symmetry: what sets the current sharing", 7)
 image(s, "img/fig_sharing.png", [X0, Y0, W, 175])
 table(s, [X0, Y0 + 180, W, 180], [
     ["Asymmetry (LTspice, two EPC2361 in parallel)", "Case", "E_{on}+E_{off} imbalance", "Layout measure"],
-    ["Power-loop inductance mismatch", "L_{D} +0.3 nH", "2 %", "mirrored cells, identical via sets"],
+    ["Power-loop inductance mismatch", "L_{D} +0.3 nH", "2 %", "symmetric cells, identical via sets"],
     ["Gate-loop inductance mismatch", "L_{G} 2 vs 8 nH", "**19 %** (E_{on} 4 : 1)", "star network, equal gate traces"],
     ["Common-source inductance, no Kelvin", "symmetric", "0 %, both +47 % E_{on}", "Kelvin pad per device"],
     ["Common-source mismatch, no Kelvin", "L_{CS} +0.2 nH", "**29 %**", "Kelvin return per device"],
     ["Threshold spread", "V_{th} +0.3 V", "7 %", "same driver channel per pair"],
     ["Static (conduction): copper / R_{DS(on)}", "–", "self-limiting (positive TC)", "symmetric copper (Q3D, step 11)"]],
       size=12, colw=[300, 130, 210, 270])
-decision(s, "Star gate network with Kelvin returns, one driver channel per pair, mirrored cells")
+decision(s, "Star gate network with Kelvin returns, one driver channel per pair, point-symmetric cells")
 
 s = slide("Gate bump and negative off-voltage", 7)
 image(s, "img/bump_mechanism.png", [X0, Y0, 560, 195])
@@ -570,16 +571,17 @@ text(s, [X0 + 575, Y0, 335, 400], [
     "loop and lifts v_{GS} by ≈ Q_{GD}/C_{GS} ≈ 1.06 V",
     "Independent of load current and bus voltage (top b, c); close to the 0.8 V minimum threshold ⇒ shoot-through risk",
     "**Negative off-voltage** shifts the whole bump down: −1 V ⇒ peak ≈ 0 V; extra C_{GS} divides it further (bottom)",
-    "Cost: reverse conduction in the dead time at V_{SD} + |V_{off}| ⇒ +0.1 W per leg; undershoot −2.3 V (limit −4 V)",
-    "Implemented: V_{GS,off} = −(V_{ISO} − 5.1 V) ≈ −1.2 V",
+    "Cost: reverse conduction in the dead time at V_{SD} + |V_{off}|; off-state ringing must stay above the −4 V limit",
+    "Implemented: V_{GS,off} = −(V_{ISO} − 5.1 V) = **−1.9 V** (V_{ISO} = 7 V), set with the extracted gate loop "
+    "(step 11): bump ≤ −0.5 V, ringing ≈ −3.4 V",
 ], 13)
 
-s = slide("Building block: two mirrored cells, one centre driver", 7)
+s = slide("Building block: two point-symmetric cells, one centre driver", 7)
 if os.path.exists(os.path.join(IMG, "q3d_model_cells.png")):
     image(s, "img/q3d_model_cells.png", [X0, Y0, 540, 355])
 text(s, [X0 + 555, Y0, 355, 355], [
     "Q3D model of the final board (cell band): copper per net, vias, FET pads and bypass terminals",
-    "Two cells mirrored about the driver: identical gate loops and Kelvin returns",
+    "Two cells rotated by 180° about the driver (point symmetry): identical gate loops and Kelvin returns",
     "One 2EDF7275K channel drives a **pair** (star network, R_{G} 0.5 Ω per transistor)",
     "Each cell keeps its own commutation loop (step 11: %s nH load board, %s nH DPT board)" % (
         q("load", "loop", "mean_nH"), q("dpt", "loop", "mean_nH")),
@@ -732,14 +734,15 @@ image(s, "img/sch_islands.png", [X0, Y0, 560, 400])
 text(s, [X0 + 540, Y0, 360, 370], [
     "One external isolated supply for all HS drivers and one for all LS drivers; each splits per driver through a WE-CNSW common-mode choke",
     "5.1 V Zener VDD–S and 150 Ω bias resistor S–VEE (Karakaya, METU 2020, Fig. 4.1): V_{GS,on} = +5.1 V, V_{GS,off} = −(V_{ISO} − 5.1 V)",
-    "e.g. V_{ISO} = 6.3 V ⇒ −1.2 V off (bump mitigation); island decoupling 1 µF + 4.7 µF per rail",
+    "V_{ISO} = 7.0 V ⇒ −1.9 V off (bump mitigation, inside the −4 V limit); island decoupling 1 µF + 4.7 µF per rail",
 ], 15)
 
 s = slide("Driver block: input filters, turn-on / turn-off paths, star", 9)
 image(s, "img/sch_driver.png", [X0, Y0, W, 260])
 text(s, [X0, Y0 + 270, W, 110], [
     "Per block a 2×3 control header (12 V, GND, PWM_H, PWM_L, DIS) with common-mode chokes on each pair",
-    "47 Ω / 100 pF input filters, 10 k pull-downs, R_{ON} 0.75 Ω, R_{OFF} 0 Ω + Schottky, R_{G} 0.5 Ω per transistor",
+    "47 Ω / 100 pF input filters, 10 k pull-downs, R_{ON} 1.5 Ω (shared by the pair), R_{OFF} 0 Ω + Schottky, "
+    "R_{G} 0.5 Ω per transistor ⇒ R_{g,on} = 3.5 Ω per device",
 ], 15)
 
 s = slide("Measurement and control", 9)
@@ -889,6 +892,61 @@ text(s, [X0 + 555, Y0 + 180, 345, 200], [
         q("load", fmt="%.0f", d={"load": (max(lcells("load")) / min(lcells("load")) - 1) * 100} if HAVE_LOOP else {})),
     ("DPT ≤ 90 V: turn-on ≤ **%.0f A/ns**" % (15.0 / _lm)) if _lm else "DPT di/dt limit: (pending)",
 ], 14)
+
+# cell-to-cell coupling and gate loops (loop_post.py / gate_post.py), gate drive from the extracted network (SPICE)
+_GS = json.load(open(os.path.join(ROOT, "simulation", "bb_q3d", "results", "gate_summary_dpt.json")))
+_QS = json.load(open(os.path.join(SL, "data", "q3d_spice_numbers.json")))
+shutil.copy(os.path.join(ROOT, "reports", "pcb-rules", "figures", "dpt_gate_layout_block1.png"),
+            os.path.join(IMG, "gate_layout_block1.png"))
+_mc = FQ["dpt"]["loop"]["mutual_cell_nH"]
+_kc = FQ["dpt"]["loop"]["coupling_k"]
+_g0 = {k_: v_["esl0.0"] for k_, v_ in _GS["gate_loop_nH"].items()}
+_sp = _GS["split_nH"]["esl0.0"]
+_cmax = max(abs(v_) for st_ in _GS["coupling_pH"].values() for v_ in st_["both_cells"].values())
+_vmax = max(abs(v_) for st_ in _GS["v_gk_at_30Apns_V"].values() for v_ in st_.values())
+s = slide("Q3D: coupling between the cells and the gate loops (DPT board)", 11)
+table(s, [X0, Y0, 400, 140], [["M (pH), k", "cell 2", "cell 3", "cell 4"]] + [
+    ["cell %d" % i] + [("%.0f, %.3f" % (1000 * _mc["cell%d" % i]["cell%d" % j], _kc["cell%d" % i]["cell%d" % j]))
+                       if j > i else "" for j in (2, 3, 4)] for i in (1, 2, 3)], size=12, colw=[85, 105, 105, 105])
+table(s, [X0, Y0 + 150, 400, 150], [
+    ["Gate loop (nH, copper)", "HS Q1 / Q2", "LS Q3 / Q4"],
+    ["one device driven", "%.2f / %.2f" % (_g0["Q1"]["on"], _g0["Q2"]["on"]),
+     "%.2f / %.2f" % (_g0["Q3"]["on"], _g0["Q4"]["on"])],
+    ["pair driven (operation)", "%.1f / %.1f" % (_g0["Q1"]["on_pair_driven"], _g0["Q2"]["on_pair_driven"]),
+     "%.1f / %.1f" % (_g0["Q3"]["on_pair_driven"], _g0["Q4"]["on_pair_driven"])],
+    ["branch / shared star-driver", "%.1f / %.1f" % (_sp["Q1"]["branch"], _sp["Q1"]["common_on"]),
+     "%.1f / %.1f" % (_sp["Q3"]["branch"], _sp["Q3"]["common_on"])],
+    ["gate-power coupling, both cells", "max %.0f pH" % _cmax, "max %.2f V at 30 A/ns" % _vmax]],
+    size=12, colw=[170, 115, 115])
+image(s, "img/gate_layout_block1.png", [X0 + 410, Y0, 500, 310])
+text(s, [X0, Y0 + 310, W, 95], [
+    "Cells: at most %.0f pH between neighbours (k ≤ %.3f) ⇒ each cell commutates through its own loop" % (
+        1000 * max(_mc[i][j] for i in _mc for j in _mc[i] if i != j),
+        max(_kc[i][j] for i in _kc for j in _kc[i] if i != j)),
+    "Gate: Kelvin return on the adjacent layer from every gate pad to the driver caps; Q1 = Q2, Q3 = Q4 within 0.3 %, "
+    "block 2 an identical copy ⇒ all four paralleled devices equal; but ≈ 10× the 1.7 nH design value (driver behind "
+    "the barrier)",
+], 13)
+
+s = slide("Gate drive from the extracted gate network (SPICE, DPT board, 75 V, 322 A)", 11)
+_rows = [["Case", "R_{g,on}", "off", "v̂_{DS} HS", "E_{on} / E_{off} (4 cells)", "di/dt on", "bump, held-off gate"]]
+for k_, lab_ in (("dpt_lumpgate", "lumped 1.7 nH gate, R_{ON} 1.5 Ω"), ("dpt_rg2.5", "extracted, R_{ON} 1.0 Ω"),
+                 ("dpt", "**extracted, R_{ON} 1.5 Ω (board)**")):
+    c_ = _QS.get(k_)
+    if c_:
+        _rows.append([lab_, "%.1f Ω" % c_["RGON"], "−1.9 V", "%.1f V" % c_["VHpk_max"],
+                      "%.0f / %.0f µJ" % (c_["Eon_tot_uJ"], c_["Eoff_tot_uJ"]),
+                      "%.0f A/ns" % (sum(x_["didt_on"] for x_ in c_["cells"]) / 4),
+                      "%.2f … %.2f V" % (min(x_["bump"] for x_ in c_["cells"]), max(x_["bump"] for x_ in c_["cells"]))])
+table(s, [X0, Y0, W, 140], _rows, size=12, colw=[250, 80, 60, 95, 160, 90, 175])
+text(s, [X0, Y0 + 155, W, 250], [
+    "Extracted gate network: Q3D copper + 0.4 nH per 0603 resistor body + 1 nH D_{OFF}; UFCS 120 pH as its own inductor",
+    "The larger gate loop **speeds up** the turn-on ⇒ HS overshoot ≈ 75 V + 0.65 nH × di/dt: R_{ON} 1.0 Ω gives 105 V",
+    "−1.9 V off: bump of the held-off gate ≤ −0.5 V (≥ 1.3 V below V_{th,min} 0.8 V); with 0 V off it was +1.2 … +1.4 V",
+    "Off-state ringing ≈ −3.4 V against the −4 V limit (EPC2361) ⇒ no larger negative bias",
+    "Turn-on of the four cells within 0.2 %; turn-off current inner vs outer cells ±1.5 % (power side)",
+], 14)
+decision(s, "DPT: R_{ON} 1.5 Ω (R_{g,on} 3.5 Ω), V_{ISO} 7 V (−1.9 / +5.1 V); next revision: driver stage next to each pair")
 
 s = slide("Q3D model of the cell band (fast loop model)", 11)
 image(s, "img/q3d_loop_dpt.png", [X0, Y0, 450, 300])

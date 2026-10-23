@@ -93,14 +93,15 @@ ABSTRACT = (
     "submodules, so the transistor voltage class becomes a design variable. This digest presents the design of the "
     "phase-leg building block of a 1200 V, 300 kW SPB traction inverter. Because the phase current does not depend "
     "on the number of submodules, 100 V GaN transistors give the lowest loss, and the turn-off overshoot at a "
-    "realistic commutation-loop inductance sets 16 submodules of 75 V. Four EPC2361 per switch, driven as two "
-    "mirrored pairs by one dual-channel isolated driver each, keep the junction temperature at %s °C. The leg is "
+    "realistic commutation-loop inductance sets 16 submodules of 75 V. Four EPC2361 per switch, driven in two "
+    "identical pairs by one dual-channel isolated driver each, keep the junction temperature at %s °C. The leg is "
     "built as a double-pulse-test (DPT) board with a coaxial shunt in every cell and as a load-test board without "
-    "shunts. Q3D extraction of the routed boards gives %s nH per cell without and %s nH with the shunt. A "
-    "double-pulse simulation with the complete extracted parasitic network confirms current sharing among the four "
-    "cells within %s %% and a peak drain-source voltage of %s V at the peak phase current. Double-pulse "
-    "measurements on the DPT board will be added in the final paper."
-    % (n("TjFour"), n("LoopLoad"), n("LoopDpt"), n("QsShareLoad"), n("QsVhLoadRgThree")))
+    "shunts. Q3D extraction of the routed boards gives %s nH per cell without and %s nH with the shunt, with "
+    "negligible coupling between the cells, and gate loops that are equal for the four paralleled devices but reach "
+    "%s nH. A double-pulse simulation with the complete extracted parasitic network confirms current sharing among "
+    "the four cells within %s %%; the DPT board needs a slower turn-on and a −1.9 V off-state to stay at %s V. "
+    "Double-pulse measurements on the DPT board will be added in the final paper."
+    % (n("TjFour"), n("LoopLoad"), n("LoopDpt"), n("GatePairHS"), n("QsShareLoad"), n("QsVhDpt")))
 
 # ------------------------------------------------------------------------------------------------ I
 h1("Introduction")
@@ -163,7 +164,7 @@ fig("flow_npar2.png", 14.5,
     "current per device." % n("Irms"))
 table("Table I: Switching-energy imbalance of two paralleled EPC2361 (LTspice, 75 V, 120 A)",
       [["**Asymmetry**", "**Imbalance**", "**Layout measure**"],
-       ["Power loop, *L*_{D} +0.3 nH", "2 %", "mirrored cells"],
+       ["Power loop, *L*_{D} +0.3 nH", "2 %", "symmetric cells"],
        ["Gate loop, *L*_{G} 2 vs. 8 nH", "19 %", "star gate network"],
        ["No Kelvin, *L*_{CS} +0.2 nH", "29 %", "Kelvin return per device"],
        ["Threshold, *V*_{th} +0.3 V", "7 %", "one channel per pair"]],
@@ -171,9 +172,9 @@ table("Table I: Switching-energy imbalance of two paralleled EPC2361 (LTspice, 7
 p("Dynamic sharing is dominated by the gate loop and the common-source path, not by the power loop (Table I). One "
   "channel for all four devices of a switch is excluded, since the slower gate charging raises the turn-on energy "
   "by 31 %% and the sink current exceeds the 8 A rating. One 2EDF7275K (isolated high- and low-side channel) is "
-  "therefore placed on the symmetry line between two mirrored cells and drives both gates through a star with "
-  "Kelvin returns (Fig. 1b); a Zener split of its supply gives +5.1 V and −1.2 V against the Miller-induced gate "
-  "bump. The three legs of a submodule share one dc bus, so only the switching-frequency ripple remains: 3 %% ripple "
+  "therefore placed between two cells rotated by 180° about it and drives both gates through a star with Kelvin "
+  "returns (Fig. 1b), so both gate branches are identical; a Zener split of its supply gives +5.1 V and −1.9 V "
+  "against the gate bump of the off device, inside the −4 V gate limit. The three legs of a submodule share one dc bus, so only the switching-frequency ripple remains: 3 %% ripple "
   "requires 127 µF effective per leg, and with only %s %% of the nominal value left at 75 V, twenty 22 µF 2220 "
   "MLCCs are placed on each leg board, plus ten 1 µF 0805 bypass capacitors per cell." % n("CtwoRet"))
 
@@ -183,19 +184,25 @@ fig("boards.png", 16.0,
     "Fig. 4: Leg board, four EPC2361 per switch (89.5 × 85.2 mm, four layers). (a) DPT board with a coaxial shunt per "
     "cell; (b) load-test board with fan heatsink; (c) Q3D model of the cells, generated from the routed copper "
     "(red dc+, blue dc−, orange switch node).")
-p("The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two mirrored pairs, each "
+p("The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two identical pairs, each "
   "with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below "
   "(Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with one "
   "common-mode choke per signal pair and a ferrite bead in the 12 V feed, keep 4.0 mm (outer) and 3.0 mm (inner "
   "layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated "
   "driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current "
   "requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design "
-  "is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell and U.FL probes for *v*_{GS} and *v*_{DS}; "
-  "the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D "
-  "extraction with all four cells switching gives %s nH per cell on the load-test board (%s nH copper, %s nH "
-  "capacitor ESL), equal in the four cells within %s %%, and %s nH on the DPT board, where the shunt and its "
-  "connection add 0.24 nH. Three load-test boards form a level on a laminated PCB busbar with %s nH between "
-  "neighbouring legs." % (n("LoopLoad"), n("CuLoad"), n("EslLoad"), n("LoopLoadSpread"), n("LoopDpt"), n("BusLab")))
+  "is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell, MMCX jacks for *v*_{DS} and spring-probe "
+  "pads for *v*_{GS} of every device; the load-test board connects the sources through blind vias to the dc− plane "
+  "and carries the heatsink. Q3D extraction with all four cells switching gives %s nH per cell on the load-test "
+  "board (%s nH copper, %s nH capacitor ESL), equal in the four cells within %s %%, and %s nH on the DPT board, "
+  "where the shunt and its connection add 0.24 nH. The cells hardly couple (at most %s pH, *k* ≤ %s). A second "
+  "model adds the gate network of one driver block: gate and Kelvin return run on adjacent layers to the driver, "
+  "and a device sees %s nH (high side) and %s nH (low side) when its pair is driven, equal within %s %% for all "
+  "four paralleled devices, with at most %s pH coupling from the commutation loops. This is about ten times the "
+  "1.7 nH of the lumped design, because the driver sits between two cells behind the isolation barrier. Three "
+  "load-test boards form a level on a laminated PCB busbar with %s nH between neighbouring legs."
+  % (n("LoopLoad"), n("CuLoad"), n("EslLoad"), n("LoopLoadSpread"), n("LoopDpt"), n("CellMmax"), n("CellKmax"),
+     n("GatePairHS"), n("GatePairLS"), n("GateSym"), n("GateCoupMax"), n("BusLab")))
 
 # ------------------------------------------------------------------------------------------------ V
 h1("Validation With the Extracted Parasitics")
@@ -210,33 +217,40 @@ fig("q3d_spice_2x2.png", 14.5,
     "*R*_{g,on} = 2 Ω. (a) Low-side turn-off and (b) turn-on on the load-test board, four cells: drain current "
     "(solid), *v*_{DS} (dashed). (c) High-side *v*_{DS} at the low-side turn-on vs. the lumped model. (d) Switching "
     "energy per device in each cell; lines: lumped model.")
-p("The four cells carry %s-%s A at turn-off and their turn-on energies differ by %s %%, so the mirrored layout and "
+p("The four cells carry %s-%s A at turn-off and their turn-on energies differ by %s %%, so the symmetric layout and "
   "the per-pair drive leave none of the mechanisms of Table I active. The low-side turn-off is uncritical (%s V). "
   "The critical event is the low-side turn-on, at %s A/ns: the high-side device peaks at %s V on the load-test "
-  "board, in agreement with the lumped model at the extracted loop (%s V), and at %s V on the DPT board. Turn-on "
-  "energies agree with the lumped model within 10 %%. With *R*_{g,on} = 3 Ω the turn-on slows to %s A/ns and the "
-  "peaks drop to %s V and %s V for a 20 %% higher turn-on energy (below 1 W per leg); both boards are operated "
-  "with 3 Ω. The gate bump of %s V with a 0 V off-state confirms the need for the negative off-state voltage."
+  "board, in agreement with the lumped model at the extracted loop (%s V). Turn-on energies agree with the lumped "
+  "model within 10 %%. With *R*_{g,on} = 3 Ω the turn-on slows to %s A/ns and the peak drops to %s V for a 20 %% "
+  "higher turn-on energy (below 1 W per leg). The gate bump of %s V with a 0 V off-state confirms the need for "
+  "the negative off-state voltage. The gate loop is the exception to the lumped design: with the extracted gate "
+  "network of the DPT board and *R*_{g,on} = 2.5 Ω the turn-on reaches %s A/ns and the high-side peak %s V "
+  "(%s V with the lumped gate loop). The DPT board is therefore driven with 3.5 Ω (1.5 Ω shared per pair) and "
+  "−1.9 V: the peak is %s V with the shunts in the loop, the held-off gate stays at %s V, 1.3 V below the minimum "
+  "threshold, and the off-state ringing (about −3.4 V) inside the −4 V limit."
   % (n("QsIminLoad"), n("QsImaxLoad"), n("QsShareEonLoad"), n("QsVlLoad"), n("QsDidtLoad"), n("QsVhLoad"),
-     n("QsLumVhLoad"), n("QsVhDpt"), n("QsDidtLoadRgThree"), n("QsVhLoadRgThree"), n("QsVhDptRgThree"),
-     n("QsBumpLoad")))
+     n("QsLumVhLoad"), n("QsDidtLoadRgThree"), n("QsVhLoadRgThree"), n("QsBumpLoad"), n("QsDidtDptRgLow"),
+     n("QsVhDptRgLow"), n("QsVhDptLump"), n("QsVhDpt"), n("QsBumpDpt")))
 
 # ------------------------------------------------------------------------------------------------ VI
 h1("Experimental Verification in the Final Paper")
 p("The final paper will add double-pulse measurements on the DPT board at 75 V up to the peak phase current of "
-  "%s A: the four cell currents through the coaxial shunts, *v*_{DS} and *v*_{GS} of every cell through the U.FL "
-  "probe points, the overshoot for *R*_{g,on} = 2 and 3 Ω, and the measured switching energies and their spread, "
-  "compared with the simulation of Section V. Continuous operation of the load-test board will verify the thermal "
+  "%s A: the four cell currents through the coaxial shunts, *v*_{DS} and *v*_{GS} of every device through the MMCX "
+  "jacks and spring-probe pads, the overshoot and gate bump with *R*_{g,on} = 3.5 Ω and −1.9 V off-state, and the "
+  "measured switching energies and their spread, compared with the simulation of Section V. Continuous operation of the load-test board will verify the thermal "
   "design." % n("Ipk"))
 
 # ------------------------------------------------------------------------------------------------ VII
 h1("Conclusion")
 p("Because the phase current of an SPB is independent of the number of submodules, the device and the submodule "
   "voltage can be chosen for minimum loss and the available overshoot margin. For a 1200 V, 300 kW inverter this "
-  "gives 16 submodules of 75 V with four 100 V GaN transistors per switch, driven in mirrored pairs by one "
-  "dual-channel isolated driver each. Q3D extraction of the routed board gives %s nH per cell, and a double-pulse "
-  "simulation with the full extracted network confirms equal sharing among the four cells and a peak voltage of "
-  "%s V with *R*_{g,on} = 3 Ω." % (n("LoopLoad"), n("QsVhLoadRgThree")))
+  "gives 16 submodules of 75 V with four 100 V GaN transistors per switch, driven in pairs by one dual-channel "
+  "isolated driver each. Q3D extraction of the routed board gives %s nH per cell with negligible coupling between "
+  "the cells, and a double-pulse simulation with the full extracted network confirms equal sharing among the four "
+  "cells and a peak voltage of %s V with *R*_{g,on} = 3 Ω. The gate loop of the centre driver, equal for all four "
+  "paralleled devices but about ten times the assumed value, is the main deviation; the DPT board stays at %s V "
+  "with 3.5 Ω and −1.9 V, and a driver stage next to each pair is planned for the next revision."
+  % (n("LoopLoad"), n("QsVhLoadRgThree"), n("QsVhDpt")))
 
 h1("References")
 for r in [
