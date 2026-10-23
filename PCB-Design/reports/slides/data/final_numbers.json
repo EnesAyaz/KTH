@@ -2,31 +2,83 @@
  "dpt": {
   "loop": {
    "all_switching": {
-    "cell1": 0.6475,
-    "cell2": 0.6481,
-    "cell3": 0.6449,
-    "cell4": 0.658
+    "cell1": 0.6522,
+    "cell2": 0.6523,
+    "cell3": 0.6473,
+    "cell4": 0.6527
    },
    "all_switching_top_bypass_only": {
-    "cell1": 0.666,
-    "cell2": 0.6668,
-    "cell3": 0.6636,
-    "cell4": 0.6765
+    "cell1": 0.6707,
+    "cell2": 0.6709,
+    "cell3": 0.666,
+    "cell4": 0.6711
    },
    "all_switching_shunt_0pH": {
-    "cell1": 0.5275,
-    "cell2": 0.5281,
-    "cell3": 0.5249,
-    "cell4": 0.538
+    "cell1": 0.5322,
+    "cell2": 0.5323,
+    "cell3": 0.5273,
+    "cell4": 0.5327
    },
    "each_alone": {
-    "cell1": 0.6387,
-    "cell2": 0.6187,
-    "cell3": 0.6155,
-    "cell4": 0.6491
+    "cell1": 0.6437,
+    "cell2": 0.6232,
+    "cell3": 0.6182,
+    "cell4": 0.6443
    },
    "matrix": "Setup1:LastAdaptive",
-   "mean_nH": 0.6496,
+   "mutual_cell_nH": {
+    "cell1": {
+     "cell1": 0.6437,
+     "cell2": 0.007,
+     "cell3": 0.0012,
+     "cell4": 0.0003
+    },
+    "cell2": {
+     "cell1": 0.007,
+     "cell2": 0.6232,
+     "cell3": 0.021,
+     "cell4": 0.0011
+    },
+    "cell3": {
+     "cell1": 0.0012,
+     "cell2": 0.021,
+     "cell3": 0.6182,
+     "cell4": 0.007
+    },
+    "cell4": {
+     "cell1": 0.0003,
+     "cell2": 0.0011,
+     "cell3": 0.007,
+     "cell4": 0.6443
+    }
+   },
+   "coupling_k": {
+    "cell1": {
+     "cell1": 1.0,
+     "cell2": 0.0111,
+     "cell3": 0.0019,
+     "cell4": 0.0005
+    },
+    "cell2": {
+     "cell1": 0.0111,
+     "cell2": 1.0,
+     "cell3": 0.0338,
+     "cell4": 0.0017
+    },
+    "cell3": {
+     "cell1": 0.0019,
+     "cell2": 0.0338,
+     "cell3": 1.0,
+     "cell4": 0.0111
+    },
+    "cell4": {
+     "cell1": 0.0005,
+     "cell2": 0.0017,
+     "cell3": 0.0111,
+     "cell4": 1.0
+    }
+   },
+   "mean_nH": 0.6511,
    "overshoot_30Apns_V": 94.5
   },
   "lx": {

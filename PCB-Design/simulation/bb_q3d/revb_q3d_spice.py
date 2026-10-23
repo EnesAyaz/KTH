@@ -109,12 +109,22 @@ def gate_extracted(pair, cells, rgon):
             q = fet[(s, ref[c])]
             other = [x for x in cells if x != c][0]
             src = ("QH_S_%d" if s == "H" else "QL_S_%d") % c
-            lb = sp[q]["branch"] - lk
+            # gate and Kelvin legs of a branch run as a coupled pair (same-layer neighbours since the fabrication-
+            # review re-layout): the Kelvin leg carries half the Kelvin pad-to-pad inductance, and when that exceeds
+            # the branch loop the gate leg gets the same inductance plus a coupling k so that L_g + L_k - 2M equals the
+            # extracted branch loop (L_branch - L_k alone went negative, -0.6 nH LS, and stalled the solver); both legs
+            # are passed from their first node around the loop (st -> g, source -> K), so the K value is negative
+            br = sp[q]["branch"]
+            if br > lk:
+                lb, kgk = br - lk, 0.0
+            else:
+                lb, kgk = lk, (2 * lk - br) / (2 * lk)
             m_own = cp["cell%d_only" % ref[c]][q] * 1e-12
             m_oth = cp["cell%d_only" % ref[other]][q] * 1e-12
             ln += ["Rg%s%d %s gx%s%d %g" % (s, c, st, s, c, rg),
                    "Lgb%s%d gx%s%d g%s%d %.4gn" % (s, c, s, c, s, c, lb),
                    "Lkb%s%d %s kk%s%d %.4gn Rser=10m" % (s, c, src, s, c, lk),
+                   ] + (["Kgk%s%d Lgb%s%d Lkb%s%d %.4f" % (s, c, s, c, s, c, -kgk)] if kgk > 0 else []) + [
                    "Bm%s%d K%s%s kk%s%d V=%.4g*ddt(I(VIL%d))+%.4g*ddt(I(VIL%d))" % (s, c, s, pair, s, c, m_own, c,
                                                                                m_oth, other)]
     return ln
@@ -265,7 +275,9 @@ def main():
                              Vpk=m["vdsl_pk"], VHpk=m["vdsh_pk"], didt_on=[v / 1e9 for v in m["didt_on"]],
                              didt_off=[-v / 1e9 for v in m["didt_off"]], bump=m["vgsh_bump"])
     out = os.path.join(ROOT, "reports", "slides", "data", "q3d_spice_numbers.json")
-    json.dump(res, open(out, "w"), indent=1)
+    old = json.load(open(out)) if os.path.exists(out) else {}
+    old.update(res)                                  # a run of one board keeps the other board's cases
+    json.dump(old, open(out, "w"), indent=1)
     print(json.dumps(res, indent=1))
 
 

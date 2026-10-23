@@ -31,7 +31,7 @@ goto :eof
 :solve
 if exist results\bb_q3d_%1_%2.aedtresults rmdir /s /q results\bb_q3d_%1_%2.aedtresults
 if exist results\bb_q3d_%1_%2.aedt.lock del results\bb_q3d_%1_%2.aedt.lock
-"%KPY%" revb_export.py
+"%KPY%" revb_export.py || (echo [%time%] export failed, solve skipped >> results\final_progress.txt & goto :eof)
 "%AEDT%" -ng -RunScriptAndExit "%~dp0bb_q3d_revb.py"
 goto :eof
 

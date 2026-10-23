@@ -1,0 +1,226 @@
+{
+ "matrix": "Setup1:LastAdaptive",
+ "note": "gate loops in nH for bypass ESL 0 / 0.4 / 0.6 nH (0603 1 uF, no published value); coupling in pH",
+ "gate_loop_nH": {
+  "Q1": {
+   "esl0.0": {
+    "on": 15.4821,
+    "off": 15.3541,
+    "off_path_only": 15.6761,
+    "on_pair_driven": 25.3956,
+    "off_path_only_pair_driven": 25.7793
+   },
+   "esl0.4": {
+    "on": 15.8821,
+    "off": 15.7541,
+    "off_path_only": 16.0761,
+    "on_pair_driven": 26.1956,
+    "off_path_only_pair_driven": 26.5793
+   },
+   "esl0.6": {
+    "on": 16.0821,
+    "off": 15.9541,
+    "off_path_only": 16.2761,
+    "on_pair_driven": 26.5956,
+    "off_path_only_pair_driven": 26.9793
+   }
+  },
+  "Q2": {
+   "esl0.0": {
+    "on": 15.3471,
+    "off": 15.2122,
+    "off_path_only": 15.5325,
+    "on_pair_driven": 25.2606,
+    "off_path_only_pair_driven": 25.6358
+   },
+   "esl0.4": {
+    "on": 15.7471,
+    "off": 15.6122,
+    "off_path_only": 15.9325,
+    "on_pair_driven": 26.0606,
+    "off_path_only_pair_driven": 26.4358
+   },
+   "esl0.6": {
+    "on": 15.9471,
+    "off": 15.8122,
+    "off_path_only": 16.1325,
+    "on_pair_driven": 26.4606,
+    "off_path_only_pair_driven": 26.8358
+   }
+  },
+  "Q3": {
+   "esl0.0": {
+    "on": 9.7415,
+    "off": 8.53,
+    "off_path_only": 8.7612,
+    "on_pair_driven": 16.5991,
+    "off_path_only_pair_driven": 14.6254
+   },
+   "esl0.4": {
+    "on": 10.1415,
+    "off": 8.93,
+    "off_path_only": 9.1612,
+    "on_pair_driven": 17.3991,
+    "off_path_only_pair_driven": 15.4254
+   },
+   "esl0.6": {
+    "on": 10.3415,
+    "off": 9.13,
+    "off_path_only": 9.3612,
+    "on_pair_driven": 17.7991,
+    "off_path_only_pair_driven": 15.8254
+   }
+  },
+  "Q4": {
+   "esl0.0": {
+    "on": 9.7251,
+    "off": 8.4971,
+    "off_path_only": 8.7188,
+    "on_pair_driven": 16.5827,
+    "off_path_only_pair_driven": 14.583
+   },
+   "esl0.4": {
+    "on": 10.1251,
+    "off": 8.8971,
+    "off_path_only": 9.1188,
+    "on_pair_driven": 17.3827,
+    "off_path_only_pair_driven": 15.383
+   },
+   "esl0.6": {
+    "on": 10.3251,
+    "off": 9.0971,
+    "off_path_only": 9.3188,
+    "on_pair_driven": 17.7827,
+    "off_path_only_pair_driven": 15.783
+   }
+  }
+ },
+ "split_nH": {
+  "esl0.0": {
+   "Q1": {
+    "branch": 5.5686,
+    "common_on": 9.9135,
+    "common_off": 10.1032
+   },
+   "Q2": {
+    "branch": 5.4336,
+    "common_on": 9.9135,
+    "common_off": 10.1033
+   },
+   "Q3": {
+    "branch": 2.8839,
+    "common_on": 6.8576,
+    "common_off": 5.8642
+   },
+   "Q4": {
+    "branch": 2.8675,
+    "common_on": 6.8576,
+    "common_off": 5.8642
+   }
+  },
+  "esl0.4": {
+   "Q1": {
+    "branch": 5.5686,
+    "common_on": 10.3135,
+    "common_off": 10.5032
+   },
+   "Q2": {
+    "branch": 5.4336,
+    "common_on": 10.3135,
+    "common_off": 10.5033
+   },
+   "Q3": {
+    "branch": 2.8839,
+    "common_on": 7.2576,
+    "common_off": 6.2642
+   },
+   "Q4": {
+    "branch": 2.8675,
+    "common_on": 7.2576,
+    "common_off": 6.2642
+   }
+  },
+  "esl0.6": {
+   "Q1": {
+    "branch": 5.5686,
+    "common_on": 10.5135,
+    "common_off": 10.7032
+   },
+   "Q2": {
+    "branch": 5.4336,
+    "common_on": 10.5135,
+    "common_off": 10.7033
+   },
+   "Q3": {
+    "branch": 2.8839,
+    "common_on": 7.4576,
+    "common_off": 6.4642
+   },
+   "Q4": {
+    "branch": 2.8675,
+    "common_on": 7.4576,
+    "common_off": 6.4642
+   }
+  }
+ },
+ "coupling_pH": {
+  "ls_switching_hs_held_off": {
+   "both_cells": {
+    "Q1": 11.86,
+    "Q2": 18.21,
+    "Q3": 16.38,
+    "Q4": 19.37
+   },
+   "cell1_only": {
+    "Q1": 83.33,
+    "Q2": -47.87,
+    "Q3": -112.77,
+    "Q4": 87.76
+   },
+   "cell2_only": {
+    "Q1": -71.48,
+    "Q2": 66.08,
+    "Q3": 129.15,
+    "Q4": -68.39
+   }
+  },
+  "hs_switching_ls_held_off": {
+   "both_cells": {
+    "Q1": 10.63,
+    "Q2": 16.98,
+    "Q3": 18.58,
+    "Q4": 21.6
+   },
+   "cell1_only": {
+    "Q1": 84.78,
+    "Q2": -46.43,
+    "Q3": -110.94,
+    "Q4": 89.61
+   },
+   "cell2_only": {
+    "Q1": -74.15,
+    "Q2": 63.41,
+    "Q3": 129.52,
+    "Q4": -68.01
+   }
+  }
+ },
+ "kelvin_pair_nH": {
+  "A": 7.8609,
+  "B": 6.9612
+ },
+ "v_gk_at_30Apns_V": {
+  "ls_switching_hs_held_off": {
+   "Q1": 0.356,
+   "Q2": 0.546,
+   "Q3": 0.491,
+   "Q4": 0.581
+  },
+  "hs_switching_ls_held_off": {
+   "Q1": 0.319,
+   "Q2": 0.509,
+   "Q3": 0.557,
+   "Q4": 0.648
+  }
+ }
+}

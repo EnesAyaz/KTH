@@ -260,7 +260,7 @@ for c in range(1, 5):
 if GATE:                                           # gate nets: sink at the driver-side pad
     SINK.update({"GH_L1": "R1_1", "GH_R1": "R2_2", "GH_STAR1": "R7_2", "OUTA1": "U1_12", "OFFA1": "D1_2",
                  "KH1": "C13_1", "VDDA1": "U1_13", "VEEA1": "U1_11",
-                 "GL_L1": "R3_1", "GL_R1": "R4_2", "GL_STAR1": "R9_2", "OUTB1": "U1_9", "OFFB1": "D2_2",
+                 "GL_L1": "R4_1", "GL_R1": "R5_2", "GL_STAR1": "R9_2", "OUTB1": "U1_9", "OFFB1": "D2_2",
                  "KL1": "C16_1", "VDDB1": "U1_10", "VEEB1": "U1_8"})
 terms = []
 for tname, (net, pts, side) in sorted(groups.items()):
