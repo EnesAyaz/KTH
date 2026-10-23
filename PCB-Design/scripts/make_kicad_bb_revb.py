@@ -659,8 +659,8 @@ def build_block(bi, xoff):
            "Infineon 2EDF7275KXUMA1", "2EDF7275K_PG-TFLGA-13-4")
     drv = "U%d" % bi
     for ch, sg, out_pin, node in (("A", -1, 12, bn("GH_STAR")), ("B", 1, 9, bn("GL_STAR"))):
-        two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "1R0 1%% (R_ON,%s)" % ch, sg * 1.2, 12.2, 90,
-            node, bn("OUT" + ch), "1.0R 0603 1% (Yageo RC0603FR-071RL)")   # 1.0 R since the gate Q3D (was 0.75)
+        two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "1R5 1%% (R_ON,%s)" % ch, sg * 1.2, 12.2, 90,
+            node, bn("OUT" + ch), "1.5R 0603 1% (Yageo RC0603FR-071R5L)")  # 1.5 R: HS V_DS peak < 95 V (gate Q3D + SPICE)
         two("Resistor_SMD.pretty", "R_0603_1608Metric", ref("R"), "0R (R_OFF,%s)" % ch, sg * 3.0, 11.5, 90,
             node, bn("OFF" + ch), "0R 0603 jumper (set R_OFF here)")
         d = place(FP + "Diode_SMD.pretty", "D_SOD-323F", ref("D"), "PMEG3020EJ", sg * 3.0, 14.6, 90, False,

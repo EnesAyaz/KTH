@@ -1,6 +1,6 @@
 * Leg board 'dpt': double-pulse test with the Q3D copper BB_PL_LOOP_dpt (30 branches, 426 couplings)
 .param VBUS=75 IPK=322 TON1=1.0667e-05 LLOAD={TON1*VBUS/IPK}
-.param RGON=2.5 RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 LGO=1.2n LGK=0.5n
+.param RGON=3.5 RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 VOFF=-1.9 LGO=1.2n LGK=0.5n
 .param TSTART=0.5u TOFF=1u TON2=0.5u
 .param T1={TSTART+TON1} T2={T1+TOFF} TEND={T2+TON2+0.3u}
 .include ../LMG1210-EPC2361/EPC2361.lib
@@ -512,19 +512,23 @@ Lbp4 BP CapP_4 4n Rser=0.2m
 Lbn4 BN CapN_4 4n Rser=0.2m
 CCapP_1 CapP_1 CapN_1 1.068u Rser=0.0075 Lser=0.08n
 CCapPb_1 CapPb_1 CapNb_1 0.712u Rser=0.01125 Lser=0.12n
-Rsh1 RSI_1 RSN_1 0.001 Lser=0.12n
+Rsh1 RSI_1 rsx1 0.001
+Lsh1 rsx1 RSN_1 0.12n
 Lac1 QH_S_1 ACO 1n Rser=0.1m
 CCapP_2 CapP_2 CapN_2 1.068u Rser=0.0075 Lser=0.08n
 CCapPb_2 CapPb_2 CapNb_2 0.712u Rser=0.01125 Lser=0.12n
-Rsh2 RSI_2 RSN_2 0.001 Lser=0.12n
+Rsh2 RSI_2 rsx2 0.001
+Lsh2 rsx2 RSN_2 0.12n
 Lac2 QH_S_2 ACO 1n Rser=0.1m
 CCapP_3 CapP_3 CapN_3 1.068u Rser=0.0075 Lser=0.08n
 CCapPb_3 CapPb_3 CapNb_3 0.712u Rser=0.01125 Lser=0.12n
-Rsh3 RSI_3 RSN_3 0.001 Lser=0.12n
+Rsh3 RSI_3 rsx3 0.001
+Lsh3 rsx3 RSN_3 0.12n
 Lac3 QH_S_3 ACO 1n Rser=0.1m
 CCapP_4 CapP_4 CapN_4 1.068u Rser=0.0075 Lser=0.08n
 CCapPb_4 CapPb_4 CapNb_4 0.712u Rser=0.01125 Lser=0.12n
-Rsh4 RSI_4 RSN_4 0.001 Lser=0.12n
+Rsh4 RSI_4 rsx4 0.001
+Lsh4 rsx4 RSN_4 0.12n
 Lac4 QH_S_4 ACO 1n Rser=0.1m
 Lload ACO BP {LLOAD} Rser=2m Cpar=20p
 VIH1 QH_D_1 dH1 0
@@ -543,74 +547,82 @@ VIH4 QH_D_4 dH4 0
 XQH4 gH4 dH4 QH_S_4 EPC2361
 VIL4 QL_D_4 dL4 0
 XQL4 gL4 dL4 QL_S_4 EPC2361
-VLOA loA KLA PWL(0 0 {TSTART} 0 {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} 0 {T2} 0 {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} 0)
+VLOA loA KLA PWL(0 {VOFF} {TSTART} {VOFF} {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} {VOFF} {T2} {VOFF} {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} {VOFF})
 RpuA loA loA1 {RPU}
 DpuA loA1 DLA DID
 DpdA DLA loA2 DID
 RpdA loA2 loA {RPD}
-VHOA hoA KHA 0
+VHOA hoA KHA {VOFF}
 RphA hoA DHA {RPD}
 * gate network A: extracted (gate_summary_dpt.json, bypass ESL 0.4 nH)
-RonHA DHA stHAx 1
-LconHA stHAx stHA 8.442n
+RonHA DHA stHAx 1.5
+LconHA stHAx stHA 8.842n
 DoffHA stHA stHAo DID
-LcoffHA stHAo DHA 8.662n Rser=1m
-RgH1 stHA gxH1 0.5
-LgbH1 gxH1 gH1 0.7641n
+LcoffHA stHAo DHA 10.06n Rser=1m
+RgH1 stHA grH1 0.5
+LrgH1 grH1 gxH1 0.4n
+LgbH1 gxH1 gH1 0.7644n
 LkbH1 QH_S_1 kkH1 3.723n Rser=10m
-BmH1 KHA kkH1 V=4.909e-11*ddt(I(VIL1))+-5.631e-11*ddt(I(VIL2))
-RgH2 stHA gxH2 0.5
-LgbH2 gxH2 gH2 0.8n
+BmH1 KHA kkH1 V=4.903e-11*ddt(I(VIL1))+-5.599e-11*ddt(I(VIL2))
+RgH2 stHA grH2 0.5
+LrgH2 grH2 gxH2 0.4n
+LgbH2 gxH2 gH2 0.7999n
 LkbH2 QH_S_2 kkH2 3.723n Rser=10m
-BmH2 KHA kkH2 V=5.637e-11*ddt(I(VIL2))+-5.74e-11*ddt(I(VIL1))
-RonLA DLA stLAx 1
-LconLA stLAx stLA 5.069n
+BmH2 KHA kkH2 V=5.669e-11*ddt(I(VIL2))+-5.746e-11*ddt(I(VIL1))
+RonLA DLA stLAx 1.5
+LconLA stLAx stLA 5.469n
 DoffLA stLA stLAo DID
-LcoffLA stLAo DLA 5.446n Rser=1m
-RgL1 stLA gxL1 0.5
+LcoffLA stLAo DLA 6.846n Rser=1m
+RgL1 stLA grL1 0.5
+LrgL1 grL1 gxL1 0.4n
 LgbL1 gxL1 gL1 3.505n
 LkbL1 QL_S_1 kkL1 3.505n Rser=10m
 KgkL1 LgbL1 LkbL1 -0.5800
 BmL1 KLA kkL1 V=-1.082e-10*ddt(I(VIL1))+1.094e-10*ddt(I(VIL2))
-RgL2 stLA gxL2 0.5
+RgL2 stLA grL2 0.5
+LrgL2 grL2 gxL2 0.4n
 LgbL2 gxL2 gL2 3.505n
 LkbL2 QL_S_2 kkL2 3.505n Rser=10m
-KgkL2 LgbL2 LkbL2 -0.5785
-BmL2 KLA kkL2 V=-9.497e-11*ddt(I(VIL2))+9.882e-11*ddt(I(VIL1))
-VLOB loB KLB PWL(0 0 {TSTART} 0 {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} 0 {T2} 0 {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} 0)
+KgkL2 LgbL2 LkbL2 -0.5786
+BmL2 KLA kkL2 V=-9.498e-11*ddt(I(VIL2))+9.882e-11*ddt(I(VIL1))
+VLOB loB KLB PWL(0 {VOFF} {TSTART} {VOFF} {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} {VOFF} {T2} {VOFF} {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} {VOFF})
 RpuB loB loB1 {RPU}
 DpuB loB1 DLB DID
 DpdB DLB loB2 DID
 RpdB loB2 loB {RPD}
-VHOB hoB KHB 0
+VHOB hoB KHB {VOFF}
 RphB hoB DHB {RPD}
 * gate network B: extracted (gate_summary_dpt.json, bypass ESL 0.4 nH)
-RonHB DHB stHBx 1
-LconHB stHBx stHB 8.442n
+RonHB DHB stHBx 1.5
+LconHB stHBx stHB 8.842n
 DoffHB stHB stHBo DID
-LcoffHB stHBo DHB 8.662n Rser=1m
-RgH3 stHB gxH3 0.5
-LgbH3 gxH3 gH3 0.7641n
+LcoffHB stHBo DHB 10.06n Rser=1m
+RgH3 stHB grH3 0.5
+LrgH3 grH3 gxH3 0.4n
+LgbH3 gxH3 gH3 0.7644n
 LkbH3 QH_S_3 kkH3 3.723n Rser=10m
-BmH3 KHB kkH3 V=4.909e-11*ddt(I(VIL3))+-5.631e-11*ddt(I(VIL4))
-RgH4 stHB gxH4 0.5
-LgbH4 gxH4 gH4 0.8n
+BmH3 KHB kkH3 V=4.903e-11*ddt(I(VIL3))+-5.599e-11*ddt(I(VIL4))
+RgH4 stHB grH4 0.5
+LrgH4 grH4 gxH4 0.4n
+LgbH4 gxH4 gH4 0.7999n
 LkbH4 QH_S_4 kkH4 3.723n Rser=10m
-BmH4 KHB kkH4 V=5.637e-11*ddt(I(VIL4))+-5.74e-11*ddt(I(VIL3))
-RonLB DLB stLBx 1
-LconLB stLBx stLB 5.069n
+BmH4 KHB kkH4 V=5.669e-11*ddt(I(VIL4))+-5.746e-11*ddt(I(VIL3))
+RonLB DLB stLBx 1.5
+LconLB stLBx stLB 5.469n
 DoffLB stLB stLBo DID
-LcoffLB stLBo DLB 5.446n Rser=1m
-RgL3 stLB gxL3 0.5
+LcoffLB stLBo DLB 6.846n Rser=1m
+RgL3 stLB grL3 0.5
+LrgL3 grL3 gxL3 0.4n
 LgbL3 gxL3 gL3 3.505n
 LkbL3 QL_S_3 kkL3 3.505n Rser=10m
 KgkL3 LgbL3 LkbL3 -0.5800
 BmL3 KLB kkL3 V=-1.082e-10*ddt(I(VIL3))+1.094e-10*ddt(I(VIL4))
-RgL4 stLB gxL4 0.5
+RgL4 stLB grL4 0.5
+LrgL4 grL4 gxL4 0.4n
 LgbL4 gxL4 gL4 3.505n
 LkbL4 QL_S_4 kkL4 3.505n Rser=10m
-KgkL4 LgbL4 LkbL4 -0.5785
-BmL4 KLB kkL4 V=-9.497e-11*ddt(I(VIL4))+9.882e-11*ddt(I(VIL3))
+KgkL4 LgbL4 LkbL4 -0.5786
+BmL4 KLB kkL4 V=-9.498e-11*ddt(I(VIL4))+9.882e-11*ddt(I(VIL3))
 .options plotwinsize=0
 .tran 0 {TEND} 0 0.1n
 .save I(Lload) I(VIL1) I(VIH1) V(QL_D_1) V(QL_S_1) V(QH_D_1) V(QH_S_1) V(dL1) V(dH1) V(gL1) V(gH1) I(VIL2) I(VIH2) V(QL_D_2) V(QL_S_2) V(QH_D_2) V(QH_S_2) V(dL2) V(dH2) V(gL2) V(gH2) I(VIL3) I(VIH3) V(QL_D_3) V(QL_S_3) V(QH_D_3) V(QH_S_3) V(dL3) V(dH3) V(gL3) V(gH3) I(VIL4) I(VIH4) V(QL_D_4) V(QL_S_4) V(QH_D_4) V(QH_S_4) V(dL4) V(dH4) V(gL4) V(gH4)

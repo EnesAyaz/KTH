@@ -15,7 +15,22 @@ board. Not valid for a level inside a 1200 V stack (see section 4 of the review)
 | Spring pads V_GS / V_DS, test points | see `hardware/spb-bb-revb-dpt/fab/testpoints.csv` | as listed there | as for the matching port | as for the matching port | passive probe only where the return is DC−-referenced (LS side) and no other channel is tied elsewhere |
 
 The U.FL connectors are rated 30 V (Hirose). They are used only for gate signals (≤ about 10 V between pin and shield).
+Their 0 Ω links (R16–R19, R35–R38) are not fitted by default; the V_GS spring pads are the primary gate measurement.
 The V_DS ports are MMCX (Würth WR-MMCX 66012102111404, 170 V rms working, 500 V rms withstanding).
+
+## Gate-drive settings for the DPT (2026-10-23)
+
+| Setting | Value | Why |
+|---|---|---|
+| Isolated gate supplies (HS and LS inputs) | **V_ISO = 7.0 V** | 5.1 V Zener: V_GS,on = +5.1 V, V_GS,off = −(7.0 − 5.1) = **−1.9 V** |
+| R_ON (R7, R9, R26, R28) | **1.5 Ω** (R_G,on = 0.5 + 2 × 1.5 = 3.5 Ω per device) | SPICE with the Q3D copper (75 V, 322 A): HS V_DS peak 92.9 V; 1.0 Ω gives about 105 V |
+| R_OFF (R8, R10, R27, R29) | 0 Ω jumper | turn-off through D_OFF; low hold-off impedance |
+| PWM | one source for both control headers (J5, J14), equal-length cables | the four parallel high-side switches are driven by two drivers (U1, U2): source and cable skew shifts one pair against the other |
+
+With −1.9 V off-bias, the simulated V_GS bump on the held-off FET peaks at −0.5 to −0.8 V (+1.2 to +1.4 V at 0 V off,
+above the 1.1 V typical threshold). The simulated off-state ringing reaches about −3.4 V: do not set V_ISO above 7 V
+without checking the EPC2361 minimum V_GS. At bring-up, measure on all eight V_GS spring pads: the on/off levels,
+the bump on the held-off FET at the other FET's turn-on, and the delay between U1 and U2.
 
 ## Rules
 

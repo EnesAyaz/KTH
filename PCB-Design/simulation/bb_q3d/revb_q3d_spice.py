@@ -10,9 +10,9 @@ Copper (AC R/L matrix at 100 MHz, every mutual inductance kept as a K statement)
   dpt  : BB_PL_LOOP_dpt  cells + bypass pads + shunt lands; the four switch nodes are joined outside the model
 Components (same data as revb_post.py): bypass rows as C_eff / ESL / ESR per row, UFCS shunt 1 mOhm + 120 pH,
 bank 20 x 22 uF (127 uF eff.) behind L_b, 75 V supply through 20 nH, load inductor at the ac bolt.
-Gate drive: 0/5 V, 4 / 8 A (0.85 / 0.35 Ohm), one driver channel per pair. Gate network of the board with the
-inductances from the gate Q3D model (gate_post.py -> gate_summary_dpt.json, see gate_extracted()): R_ON 1.0 Ohm
-shared, R_G 0.5 Ohm per FET (RGON = R_G + 2 R_ON = 2.5 Ohm per device), D_OFF + R_OFF 0, and the coupling of the
+Gate drive: -1.9 V / +5 V (V_ISO 7 V, 5.1 V Zener), 4 / 8 A (0.85 / 0.35 Ohm), one driver channel per pair. Gate network of the board with the
+inductances from the gate Q3D model (gate_post.py -> gate_summary_dpt.json, see gate_extracted()): R_ON 1.5 Ohm
+shared, R_G 0.5 Ohm per FET (RGON = R_G + 2 R_ON = 3.5 Ohm per device), D_OFF + R_OFF 0, and the coupling of the
 commutation loops into the gate loops. The case "dpt_lumpgate" keeps the earlier lumped gate drive of the design flow
 (FLOW_lumped.inc): R_g,on 2 Ohm, R_g,off 0, gate loop 1.7 nH per device (1.2 nH out, 0.5 nH Kelvin return), one driver channel per
 pair of cells (cells 1+2, 3+4), the same PWM for both pairs. Load current at turn-off 322 A (80.5 A per device).
@@ -79,10 +79,13 @@ def subckt(tag):
 
 GSUM = os.path.join(RES, "gate_summary_dpt.json")
 GATE_OK = os.path.exists(GSUM)
-R_ON_STAR = 1.0                                  # board: R_ON shared by the pair (R7 / R9), R_G per FET = RGON - 2 R_ON
+R_ON_STAR = 1.5                                  # board: R_ON shared by the pair (R7 / R9), R_G per FET = RGON - 2 R_ON
 R_G_FET = 0.5
-RG_BOARD = R_G_FET + 2 * R_ON_STAR                   # 2.5 Ohm per device (R_ON 0.75 -> 1.0 after the gate Q3D, 2026-10-23)
+RG_BOARD = R_G_FET + 2 * R_ON_STAR                   # 3.5 Ohm per device (R_ON 0.75 -> 1.5 after the gate Q3D and SPICE, 2026-10-23)
 GATE_ESL = "esl0.4"                              # 1 uF 0603 output-side bypass taken as 0.4 nH (no published ESL)
+L_R0603 = 0.4                                    # nH, body ESL of an 0603 resistor (R_G, R_ON, R_OFF jumper), typical
+L_DOFF = 1.0                                     # nH, SOD-323F diode body (D_OFF), typical
+V_OFF = -1.9                                     # V, gate off level: V_GS,off = -(V_ISO - 5.1 V) with V_ISO = 7 V
 
 
 def gate_extracted(pair, cells, rgon):
@@ -106,8 +109,11 @@ def gate_extracted(pair, cells, rgon):
         lc_off = sum(sp[q]["common_off"] for q in qs) / 2
         lk = kp[ch] / 2
         st, d = "st%s%s" % (s, pair), "D%s%s" % (s, pair)
-        ln += ["Ron%s%s %s %sx %g" % (s, pair, d, st, ron), "Lcon%s%s %sx %s %.4gn" % (s, pair, st, st, lc_on),
-               "Doff%s%s %s %so DID" % (s, pair, st, st), "Lcoff%s%s %so %s %.4gn Rser=1m" % (s, pair, st, d, lc_off)]
+        # part bodies are not in the Q3D copper: R_ON in the on path, D_OFF + the R_OFF jumper in the off path
+        ln += ["Ron%s%s %s %sx %g" % (s, pair, d, st, ron),
+               "Lcon%s%s %sx %s %.4gn" % (s, pair, st, st, lc_on + L_R0603),
+               "Doff%s%s %s %so DID" % (s, pair, st, st),
+               "Lcoff%s%s %so %s %.4gn Rser=1m" % (s, pair, st, d, lc_off + L_DOFF + L_R0603)]
         for c in cells:
             q = fet[(s, ref[c])]
             other = [x for x in cells if x != c][0]
@@ -124,7 +130,8 @@ def gate_extracted(pair, cells, rgon):
                 lb, kgk = lk, (2 * lk - br) / (2 * lk)
             m_own = cp["cell%d_only" % ref[c]][q] * 1e-12
             m_oth = cp["cell%d_only" % ref[other]][q] * 1e-12
-            ln += ["Rg%s%d %s gx%s%d %g" % (s, c, st, s, c, rg),
+            ln += ["Rg%s%d %s gr%s%d %g" % (s, c, st, s, c, rg),
+                   "Lrg%s%d gr%s%d gx%s%d %.4gn" % (s, c, s, c, s, c, L_R0603),          # R_G body
                    "Lgb%s%d gx%s%d g%s%d %.4gn" % (s, c, s, c, s, c, lb),
                    "Lkb%s%d %s kk%s%d %.4gn Rser=10m" % (s, c, src, s, c, lk),
                    ] + (["Kgk%s%d Lgb%s%d Lkb%s%d %.4f" % (s, c, s, c, s, c, -kgk)] if kgk > 0 else []) + [
@@ -140,7 +147,7 @@ def netlist(board, rgon=2, gate=True):
     shunt = "RSI_1" in terms
     ln = ["* Leg board '%s': double-pulse test with the Q3D copper %s (%d branches, %d couplings)" % (board, tag, nbr, nk),
           ".param VBUS=75 IPK=%g TON1=%g LLOAD={TON1*VBUS/IPK}" % (IPK, TON1),
-          ".param RGON=%g RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 LGO=1.2n LGK=0.5n" % rgon,
+          ".param RGON=%g RGOFF=0 RPU=0.85 RPD=0.35 VDRV=5 VOFF=%g LGO=1.2n LGK=0.5n" % (rgon, V_OFF),
           ".param TSTART=0.5u TOFF=1u TON2=0.5u",
           ".param T1={TSTART+TON1} T2={T1+TOFF} TEND={T2+TON2+0.3u}",
           ".include ../LMG1210-EPC2361/EPC2361.lib",
@@ -159,20 +166,22 @@ def netlist(board, rgon=2, gate=True):
             if k:
                 ln.append("C%s %s %s %.4gu Rser=%.4g Lser=%.4gn" % (key, p, n, k * C_0805 * 1e6, ESR_0805 / k, ESL_0805 * 1e9 / k))
         if shunt:
-            ln.append("Rsh%d RSI_%d RSN_%d %g Lser=0.12n" % (c, c, c, R_SHUNT))
+            # LTspice resistors take no Lser (the line was reported as an error and the 120 pH ignored)
+            ln += ["Rsh%d RSI_%d rsx%d %g" % (c, c, c, R_SHUNT), "Lsh%d rsx%d RSN_%d 0.12n" % (c, c, c)]
         ln.append("Lac%d QH_S_%d ACO 1n Rser=0.1m" % (c, c))
     ln.append("Lload ACO BP {LLOAD} Rser=2m Cpar=20p")
     # transistors with 0 V drain-current probes
     for c in range(1, 5):
         ln += ["VIH%d QH_D_%d dH%d 0" % (c, c, c), "XQH%d gH%d dH%d QH_S_%d EPC2361" % (c, c, c, c),
                "VIL%d QL_D_%d dL%d 0" % (c, c, c), "XQL%d gL%d dL%d QL_S_%d EPC2361" % (c, c, c, c)]
-    pwm = "PWL(0 0 {TSTART} 0 {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} 0 {T2} 0 {T2+1n} {VDRV} {T2+TON2} {VDRV} {T2+TON2+1n} 0)"
+    pwm = ("PWL(0 {VOFF} {TSTART} {VOFF} {TSTART+1n} {VDRV} {T1} {VDRV} {T1+1n} {VOFF} {T2} {VOFF} {T2+1n} {VDRV} "
+           "{T2+TON2} {VDRV} {T2+TON2+1n} {VOFF})")                  # off level V_OFF (negative bias), on +5 V
     for pair, cells in (("A", (1, 2)), ("B", (3, 4))):
         # low side: pulsed channel, star to both gates, Kelvin returns to both sources
         ln += ["VLO%s lo%s KL%s %s" % (pair, pair, pair, pwm),
                "Rpu%s lo%s lo%s1 {RPU}" % (pair, pair, pair), "Dpu%s lo%s1 DL%s DID" % (pair, pair, pair),
                "Dpd%s DL%s lo%s2 DID" % (pair, pair, pair), "Rpd%s lo%s2 lo%s {RPD}" % (pair, pair, pair),
-               "VHO%s ho%s KH%s 0" % (pair, pair, pair), "Rph%s ho%s DH%s {RPD}" % (pair, pair, pair)]
+               "VHO%s ho%s KH%s {VOFF}" % (pair, pair, pair), "Rph%s ho%s DH%s {RPD}" % (pair, pair, pair)]
         if gate:
             ln += gate_extracted(pair, cells, rgon)
             continue
@@ -249,7 +258,8 @@ def main():
     fq = json.load(open(os.path.join(ROOT, "reports", "slides", "data", "final_numbers.json")))
     boards = [b for b in sys.argv[1:]] or ["load", "dpt"]
     res = {}
-    cases = [(b, rg, GATE_OK) for rg in (RG_BOARD, 2) for b in boards]   # R_ON 1.0 (board) and 0.75 Ohm; 1.25 Ohm diverged numerically (2026-10-23) + ([("dpt", RG_BOARD, False)] if GATE_OK and "dpt" in boards else [])
+    # R_ON 1.5 Ohm (board) and 1.0 Ohm with the extracted gate network, plus the lumped design-flow gate at the board R_ON
+    cases = [(b, rg, GATE_OK) for rg in (RG_BOARD, 2.5) for b in boards] +         ([("dpt", RG_BOARD, False)] if GATE_OK and "dpt" in boards else [])
     for b, rg, gt in cases:
         if not os.path.exists(os.path.join(RES, MODELS[b] + "_matrix.txt")):
             continue

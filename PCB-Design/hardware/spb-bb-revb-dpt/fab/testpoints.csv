@@ -1,7 +1,7 @@
 ref,kind,name,signal net,ground net,side,x mm,y mm,note
 TP1,test point,GNDI1,GNDI1,,top,-28.95,26.50,silk label 'GNDI1'
 TP2,test point,+12V1,+12V1,,top,-17.55,23.90,silk label '+12V1'
-TP3,test point,VDDI1,VDDI1,,top,-22.15,23.50,silk label 'VDDI1'
+TP3,test point,VDDI1,VDDI1,,top,-22.15,23.70,silk label 'VDDI1'
 TP4,test point,INA1,INA1,,top,-28.15,22.10,silk label 'INA1'
 -,test point,INB1,INB1,,-,-,-,no labelled test point fits: probe C18 pad 2 (top)
 -,test point,DIS1,DIS1,,-,-,-,no labelled test point fits: probe L5 pad 3 (top)

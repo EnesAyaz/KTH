@@ -232,3 +232,15 @@ The first complete gate extraction (`simulation/bb_q3d/gate_post.py`, AC 100 MHz
 | v_GK at 30 A/ns (V) | 0.32 - 0.65 | 0.02 - 0.43 | 0.04 - 0.26 |
 
 Double-pulse SPICE with the extracted copper (75 V, 322 A, `revb_q3d_spice.py`): HS V_DS peak at the LS turn-on 100.3 V at R_G,on = 2 Ohm, 94.0 V at 2.5 Ohm (E_on 105 uJ, equal to the design-flow value with the lumped 1.7 nH gate), 89.8 V at 3 Ohm. Recommendation: R_ON 1.0 Ohm (R_G,on 2.5 Ohm) for the first DPT, or keep the 75 V DPT peak below the rating by limiting the bus voltage.
+
+### 10.2 Gate drive for the DPT (2026-10-23, supersedes the R_G,on recommendation above)
+
+The SPICE numbers in 10.1 lacked the 120 pH of the UFCS shunts (LTspice ignores `Lser` on resistors; now a separate inductor) and the body ESL of R_G / R_ON / R_OFF (0.4 nH each, 0603) and D_OFF (1 nH). With both included the HS V_DS peak is about 75 V + 0.65 nH x di/dt,on:
+
+| R_ON (R_G,on) | Off level | HS V_DS peak | E_on / E_off (4 cells) | V_GS bump on the held-off FET |
+|---|---|---|---|---|
+| 1.0 Ohm (2.5 Ohm) | 0 V | 103.3 V | 98 / 26 uJ | +1.15 ... +1.41 V |
+| 1.0 Ohm (2.5 Ohm) | -1.9 V | 105.2 V | 97 / 20 uJ | -0.45 ... -0.72 V |
+| **1.5 Ohm (3.5 Ohm)** | **-1.9 V** | **92.9 V** | **125 / 20 uJ** | **-0.50 ... -0.76 V** |
+
+Released: R_ON 1.5 Ohm (R7, R9, R26, R28, Yageo RC0603FR-071R5L) and V_ISO 7.0 V (V_GS -1.9 / +5.1 V), see `DPT_measurement_setup.md`. Off-state ringing reaches about -3.4 V: the EPC2361 minimum V_GS must be checked before any larger negative bias. Turn-on of the four parallel cells matches within 0.2 %; turn-off current inner vs outer cells +-1.5 % (power side).
