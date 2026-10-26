@@ -2590,6 +2590,57 @@
    ]
   },
   {
+   "title": "DPT board: the eight EPC2361 from above",
+   "step": 8,
+   "section": null,
+   "items": [
+    {
+     "type": "image",
+     "file": "img/r3d_dpt_fets_row.png",
+     "box": [
+      25,
+      100,
+      910,
+      245
+     ]
+    },
+    {
+     "type": "image",
+     "file": "img/r3d_dpt_fets_block1.png",
+     "box": [
+      25,
+      355,
+      265,
+      146
+     ]
+    },
+    {
+     "type": "text",
+     "box": [
+      305,
+      355,
+      630,
+      146
+     ],
+     "paras": [
+      [
+       0,
+       "Heatsink and UFCS shunt bodies hidden; straight top view (parallel projection)"
+      ],
+      [
+       0,
+       "Land pattern = EPC2361 recommended copper drawing (datasheet p. 12): copper 0.3 mm beyond the 3.0 × 5.0 mm body on the long sides, 0.4 mm at the ends, solder-mask defined; pin-1 circle at the gate pad"
+      ],
+      [
+       0,
+       "Cells of a driver block face each other with R_{G} between them (left: block 1, Q1–Q4)"
+      ]
+     ],
+     "size": 13
+    }
+   ]
+  },
+  {
    "title": "Bottom side and the load board without heatsink",
    "step": 8,
    "section": null,
@@ -2831,24 +2882,29 @@
        "LS source of each cell, DPT board"
       ],
       [
-       "Phase current (control)",
-       "LEM HO 250-S, ±625 A, 3.2 mV/A",
+       "Phase current",
+       "LEM HO 250-S, ±625 A",
        "Cu bar on the M6 AC pad"
       ],
       [
-       "V_{GS} HS / LS",
-       "U.FL, 0 Ω, shield = Kelvin",
-       "bottom, at each cell (both boards)"
+       "V_{GS} (all 8)",
+       "spring-tip pads; U.FL links DNP",
+       "bottom, at each FET"
       ],
       [
        "V_{DS} LS (DPT)",
-       "MMCX (WR-MMCX, 170 V rms): SW / LSRC, rated isolated probe (e.g. IsoVu TIVPMX50X)",
-       "bottom, next to each LS FET"
+       "MMCX SW / LSRC, isolated probe",
+       "bottom, at each LS FET"
+      ],
+      [
+       "V_{DS} HS (DPT)",
+       "spring-tip pads DC+ / SW",
+       "top, at each HS FET"
       ],
       [
        "Bring-up",
-       "test points + spring-tip pads (V_{GS}, V_{DS}), list in fab/testpoints.csv",
-       "both sides"
+       "13 loop test points + SMD pads",
+       "fab/testpoints.csv"
       ],
       [
        "Board temperature",
@@ -2856,10 +2912,10 @@
        "control side (GNDI)"
       ]
      ],
-     "size": 13,
+     "size": 12,
      "colw": [
-      150,
-      200,
+      140,
+      210,
       170
      ],
      "bold_last": false
@@ -4174,17 +4230,17 @@
       ],
       [
        "spb-bb-revb-dpt",
-       "Gerber zip, drill, pos, BOM, STEP, assembly + schematic PDF",
-       "2 oz all layers, 0.1 mm prepreg, via-in-pad filled + capped"
+       "Gerber zip, drill, pos, BOM, STEP, PDFs; JLC BOM + CPL",
+       "JLC PCB + PCBA (170 parts), vias filled + capped"
       ],
       [
        "spb-bb-revb-load",
-       "same",
+       "on hold until the DPT test",
        "+ blind vias L1–L2 (0.25 mm) filled + capped"
       ],
       [
        "spb-busbar",
-       "Gerber zip, drill, pos, BOM, STEP",
+       "on hold until the DPT test",
        "2 oz all layers (JLC3313), bolt pads without mask"
       ],
       [
@@ -4205,9 +4261,9 @@
      "type": "text",
      "box": [
       25,
-      240,
+      250,
       910,
-      140
+      70
      ],
      "paras": [
       [
@@ -4226,29 +4282,29 @@
      "file": "img/revb_dpt_top.png",
      "box": [
       25,
-      315,
-      220,
-      190
+      328,
+      208,
+      180
      ]
     },
     {
      "type": "image",
      "file": "img/revb_load_top.png",
      "box": [
-      255,
-      315,
-      220,
-      190
+      243,
+      328,
+      208,
+      180
      ]
     },
     {
      "type": "image",
      "file": "img/busbar_top.png",
      "box": [
-      485,
-      315,
-      450,
-      190
+      461,
+      328,
+      426,
+      180
      ]
     }
    ]
@@ -4277,7 +4333,7 @@
       ],
       [
        "DPT board (UFCS, no heatsink)",
-       "DRC 0 / 0 / 0, schematic = PCB"
+       "final review passed, ready to order (JLC)"
       ],
       [
        "Load-test board (no shunt, LAM 4 K 50)",
@@ -4297,7 +4353,7 @@
       ],
       [
        "Fab outputs + BOMs",
-       "done"
+       "DPT final; load + busbar on hold"
       ],
       [
        "DPT and three-phase load test",
@@ -4322,7 +4378,7 @@
      "paras": [
       [
        0,
-       "Order: DPT board first (switching energies, per-cell current, overshoot vs di/dt), then 3 load boards + busbar"
+       "Order: DPT board now (JLC PCB + PCBA; UFCS shunts and loop test points fitted in the lab); load boards + busbar only after the DPT test (switching energies, per-cell current, overshoot vs di/dt)"
       ],
       [
        0,

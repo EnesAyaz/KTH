@@ -772,12 +772,12 @@ s = slide("Measurement and control", 9)
 table(s, [X0, Y0, 520, 270], [
     ["Quantity", "How", "Where"],
     ["Cell current (DPT)", "PMK UFCS-R001, 1 mΩ, 120 pH", "LS source of each cell, DPT board"],
-    ["Phase current (control)", "LEM HO 250-S, ±625 A, 3.2 mV/A", "Cu bar on the M6 AC pad"],
-    ["V_{GS} HS / LS", "U.FL, 0 Ω, shield = Kelvin", "bottom, at each cell (both boards)"],
-    ["V_{DS} LS (DPT)", "MMCX (WR-MMCX, 170 V rms): SW / LSRC, rated isolated probe (e.g. IsoVu TIVPMX50X)",
-     "bottom, next to each LS FET"],
-    ["Bring-up", "test points + spring-tip pads (V_{GS}, V_{DS}), list in fab/testpoints.csv", "both sides"],
-    ["Board temperature", "NTC 10 k at the driver", "control side (GNDI)"]], size=13, colw=[150, 200, 170])
+    ["Phase current", "LEM HO 250-S, ±625 A", "Cu bar on the M6 AC pad"],
+    ["V_{GS} (all 8)", "spring-tip pads; U.FL links DNP", "bottom, at each FET"],
+    ["V_{DS} LS (DPT)", "MMCX SW / LSRC, isolated probe", "bottom, at each LS FET"],
+    ["V_{DS} HS (DPT)", "spring-tip pads DC+ / SW", "top, at each HS FET"],
+    ["Bring-up", "13 loop test points + SMD pads", "fab/testpoints.csv"],
+    ["Board temperature", "NTC 10 k at the driver", "control side (GNDI)"]], size=12, colw=[140, 210, 170])
 image(s, "img/sch_ufl.png", [X0, Y0 + 285, 540, 120])
 text(s, [X0 + 545, Y0 + 150, 355, 220], [
     "Back-to-back load test, closed loop on a TI TMS320F28379D",
@@ -1041,34 +1041,35 @@ note(s, "All values from the fast Q3D set on the final layouts (run_bb_q3d_final
 s = slide("Fabrication files", 12, "12  Rev B boards")
 table(s, [X0, Y0, W, 230], [
     ["Board", "Fab set (hardware/<board>/fab)", "Notes for the fab house"],
-    ["spb-bb-revb-dpt", "Gerber zip, drill, pos, BOM, STEP, assembly + schematic PDF",
-     "2 oz all layers, 0.1 mm prepreg, via-in-pad filled + capped"],
-    ["spb-bb-revb-load", "same", "+ blind vias L1–L2 (0.25 mm) filled + capped"],
-    ["spb-busbar", "Gerber zip, drill, pos, BOM, STEP", "2 oz all layers (JLC3313), bolt pads without mask"],
+    ["spb-bb-revb-dpt", "Gerber zip, drill, pos, BOM, STEP, PDFs; JLC BOM + CPL",
+     "JLC PCB + PCBA (170 parts), vias filled + capped"],
+    ["spb-bb-revb-load", "on hold until the DPT test", "+ blind vias L1–L2 (0.25 mm) filled + capped"],
+    ["spb-busbar", "on hold until the DPT test", "2 oz all layers (JLC3313), bolt pads without mask"],
     ["assembly", "spb-level-assembly.step, spb-stack-assembly.step", "mechanics / frame design"]],
       size=13, colw=[160, 380, 360])
-text(s, [X0, Y0 + 140, W, 140], [
+text(s, [X0, Y0 + 150, W, 70], [
     "Generated: make_kicad_bb_revb.py (BOARD=dpt | load), make_kicad_sch_revb.py, make_kicad_busbar.py, "
     "make_3d_models_revb.py, make_fab_outputs_revb.py, make_assembly_step.py, render_3d.py",
     "Mechanical items (screws, spreader, gap pads, heatsink, lugs) are listed at the end of each BOM",
 ], 14)
-image(s, "img/revb_dpt_top.png", [X0, Y0 + 215, 220, 190])
-image(s, "img/revb_load_top.png", [X0 + 230, Y0 + 215, 220, 190])
-image(s, "img/busbar_top.png", [X0 + 460, Y0 + 215, 450, 190])
+image(s, "img/revb_dpt_top.png", [X0, Y0 + 228, 208, 180])
+image(s, "img/revb_load_top.png", [X0 + 218, Y0 + 228, 208, 180])
+image(s, "img/busbar_top.png", [X0 + 436, Y0 + 228, 426, 180])
 
 s = slide("Status and next steps", 12, "Status")
 table(s, [X0, Y0, 520, 330], [
     ["Item", "Status"],
     ["DC link: 20 × 22 µF 2220 + 10 × 1 µF per cell", "in both layouts"],
-    ["DPT board (UFCS, no heatsink)", "DRC 0 / 0 / 0, schematic = PCB"],
+    ["DPT board (UFCS, no heatsink)", "final review passed, ready to order (JLC)"],
     ["Load-test board (no shunt, LAM 4 K 50)", "DRC 0 / 0 / 0, schematic = PCB"],
     ["PCB busbar", "DRC clean, fab files"],
     ["Fast Q3D: loop, DC, L_{x}, busbar, level", "done (this deck)" if FQ.get("level") else "running"],
     ["3D models, board + assembly STEP", "done"],
-    ["Fab outputs + BOMs", "done"],
+    ["Fab outputs + BOMs", "DPT final; load + busbar on hold"],
     ["DPT and three-phase load test", "after assembly"]], size=13, colw=[300, 220])
 text(s, [X0 + 545, Y0, 355, 370], [
-    "Order: DPT board first (switching energies, per-cell current, overshoot vs di/dt), then 3 load boards + busbar",
+    "Order: DPT board now (JLC PCB + PCBA; UFCS shunts and loop test points fitted in the lab); load boards + busbar "
+    "only after the DPT test (switching energies, per-cell current, overshoot vs di/dt)",
     "Mechanics: spreader drawing, frame and stack insulation from the assembly STEP",
     "Decide after measurement: bank depopulation, damping caps, busbar copper weight",
     "Machine: L_{σ}, cos φ and the final f_{sw}",
