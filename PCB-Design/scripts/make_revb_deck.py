@@ -15,6 +15,7 @@ import shutil
 import math
 import os
 import subprocess
+import time
 
 import matplotlib
 matplotlib.use("Agg")
@@ -52,7 +53,18 @@ def autocrop(path, pad=12):
     if len(xs):
         im = im.crop((max(xs.min() - pad, 0), max(ys.min() - pad, 0), min(xs.max() + pad, im.width),
                       min(ys.max() + pad, im.height)))
-    im.save(path)
+    retry(lambda: im.save(path))
+
+
+def retry(fn, n=6):
+    # a freshly written image is sometimes held open by another process for a moment (Windows)
+    for i in range(n):
+        try:
+            return fn()
+        except (OSError, subprocess.CalledProcessError):
+            if i == n - 1:
+                raise
+            time.sleep(3)
 
 
 def pdf_crop(pdf, name, box_mm=None, dpi=150):
@@ -63,7 +75,7 @@ def pdf_crop(pdf, name, box_mm=None, dpi=150):
         x0, y0, x1, y1 = box_mm
         args += ["-x", str(int(x0 * k)), "-y", str(int(y0 * k)), "-W", str(int((x1 - x0) * k)), "-H",
                  str(int((y1 - y0) * k))]
-    subprocess.run(args + [pdf, out], check=True)
+    retry(lambda: subprocess.run(args + [pdf, out], check=True, capture_output=True))
     autocrop(out + ".png")
     return "img/%s.png" % name
 

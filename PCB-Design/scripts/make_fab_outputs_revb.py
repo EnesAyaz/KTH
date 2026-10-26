@@ -13,6 +13,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -102,9 +103,18 @@ def fab_notes(name, D, GB):
 
 
 def run(*args):
-    r = subprocess.run([CLI] + list(args), capture_output=True, text=True)
-    if r.returncode:
-        sys.exit("kicad-cli %s failed:\n%s%s" % (args[:3], r.stdout, r.stderr))
+    # an output file is sometimes held open by another process just after it was written (Windows); kicad-cli then
+    # leaves the old file in place, so the output's time stamp is checked and the export repeated
+    o = args[list(args).index("-o") + 1] if "-o" in args else None
+    for _ in range(6):
+        t0 = time.time()
+        r = subprocess.run([CLI] + list(args), capture_output=True, text=True)
+        if r.returncode:
+            sys.exit("kicad-cli %s failed:\n%s%s" % (args[:3], r.stdout, r.stderr))
+        if o is None or os.path.isdir(o) or (os.path.exists(o) and os.path.getmtime(o) >= t0 - 2):
+            return
+        time.sleep(3)
+    sys.exit("kicad-cli %s did not rewrite %s" % (args[:3], o))
 
 
 for name in sys.argv[1:] or ("spb-bb-revb-dpt", "spb-bb-revb-load", "spb-busbar"):
@@ -166,9 +176,10 @@ for name in sys.argv[1:] or ("spb-bb-revb-dpt", "spb-bb-revb-load", "spb-busbar"
             tps = [r for r in csv.reader(open(tpf)) if len(r) > 2 and r[0].startswith("TP") and r[1] == "test point"
                    and kinds.get(r[2], {}).get("kind") == "TP"]          # the SMD fallback pads need no part
             if tps:
-                w.writerow([len(tps), " ".join(r[0] for r in tps), "Loop test point for a 1.0 mm hole, 0.1 in bushing "
-                            "(inserted in the lab, not by the assembler; see fab/testpoints.csv)", "-",
-                            "Keystone 5000 (red) / 5001 (black) or Adafruit 3825"])
+                w.writerow([len(tps), " ".join(r[0] for r in tps), "Loop test point, red, 0.1 in bushing, 1.02 mm "
+                            "(0.040 in) hole (inserted in the lab, not by the assembler; see fab/testpoints.csv)",
+                            "TestPoint_Keystone5000_Adafruit3825",
+                            "Adafruit 3825 (PiShop 1752), equivalent Keystone 5000 (red) / 5001 (black)"])
     tp = os.path.join(FAB, "testpoints.csv")
     print("%s: BOM %d lines, %d placed parts, %d via-in-pad, test-point list %s -> %s"
           % (name, len(groups), sum(len(v[1]) for v in groups.values()), n_vip,

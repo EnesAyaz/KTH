@@ -6,9 +6,9 @@ Every text is a board-level PCB_TEXT. A text is placed at the first candidate po
   - keeps CLR from every pad of that side (THT pads on both sides) - silk is never printed on solder pads,
   - keeps HOLE_CLR from every drilled via hole (both sides: the drill would cut the text),
   - does not overlap any silkscreen already on that side (footprint silk graphics and placed texts).
-Candidates around a footprint: above, below, left, right (also rotated 90 deg), the four corners, a second ring
-further out, and finally the centre of the part (under the body, between its pads). Texts that find no free spot go
-to the Fab layer (assembly drawing) and are reported.
+Reference labels (label_fp / label_near) must also be unambiguous: within NEAR mm of their own part, closer to it
+than to any other part by MARGIN, never over another part's body; rows of identical parts get one group label
+("C1-C5"). Texts that find no such spot go to the Fab layer (assembly drawing) and are reported.
 Coordinates: board mm before the final move (same frame as the generator).
 """
 import re
@@ -18,12 +18,22 @@ import pcbnew
 MM = pcbnew.FromMM
 EDGE, CLR, GAP = 0.35, 0.18, 0.12
 HOLE_CLR = 0.12                              # mm around a drilled via hole
+NEAR, MARGIN = 2.5, 0.25                     # a label: <= NEAR mm from its part, MARGIN closer to it than to others
+NEAR2, MARGIN2 = 4.0, 0.0                    # second pass: further out, still closer to its own part than to any other
+LAB_FITTED = ("RS",)                         # hand-fitted later (UFCS shunts): their bodies do not hide the labels
 SIZE, MIN_SIZE = 0.8, 0.8                    # mm text height (JLCPCB: >= 0.8 mm, line >= 0.153 mm)
 
 
 def _box(bb, m=0.0):
     return (pcbnew.ToMM(bb.GetLeft()) - m, pcbnew.ToMM(bb.GetTop()) - m, pcbnew.ToMM(bb.GetRight()) + m,
             pcbnew.ToMM(bb.GetBottom()) + m)
+
+
+def _gap(a, b):
+    """distance between two boxes (0 if they touch or overlap)"""
+    gx = max(a[0] - b[2], b[0] - a[2], 0.0)
+    gy = max(a[1] - b[3], b[1] - a[3], 0.0)
+    return (gx * gx + gy * gy) ** 0.5
 
 
 def _hit(a, b):
@@ -37,6 +47,7 @@ class Silk:
         self.obst = {"top": [], "bottom": []}     # copper pads (+CLR)
         self.silk = {"top": [], "bottom": []}     # existing silk
         self.failed = []
+        self.leaders = []                         # (text, side, start, end) of the leader lines
         for t in board.GetTracks():                 # drilled holes cut the silk on both sides (vias are tented,
             if t.GetClass() == "PCB_VIA":           # so they are not pads, but the drill still removes the text)
                 r = pcbnew.ToMM(t.GetDrillValue()) / 2 + HOLE_CLR
@@ -144,14 +155,104 @@ class Silk:
             out += [(cx, cy, 0), (cx, cy, 90)]
         return out
 
+    def _bodies(self, side):
+        """(ref, box) of every part on that side (pads + body graphics; through-hole parts on both sides)"""
+        if not hasattr(self, "_bod"):
+            self._bod = {"top": [], "bottom": []}
+            for fp in self.b.GetFootprints():
+                r = fp.GetReference()
+                if r.startswith(("H", "REF") + LAB_FITTED) or r in ("",):
+                    continue
+                bb = _box(fp.GetBoundingBox(False, False))
+                sides = ("bottom",) if fp.IsFlipped() else ("top",)
+                if any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH for p in fp.Pads()):
+                    sides = ("top", "bottom")
+                for sd in sides:
+                    self._bod[sd].append((r, bb))
+        return self._bod[side]
+
+    def leader(self, box, owners, s, side, size=SIZE, reach=10.0):
+        """label at the nearest free spot within `reach` plus a 0.15 mm silk line from the label to its part (box);
+        the label and the line keep clear of pads, holes, other silk and other parts' bodies. True if placed."""
+        bodies = [ob for r, ob in self._bodies(side) if r not in owners]
+        lw, clr = 0.15, 0.12
+
+        def seg_free(p, q):
+            n = max(2, int(((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5 / 0.1))
+            for k in range(n + 1):
+                x, y = p[0] + (q[0] - p[0]) * k / n, p[1] + (q[1] - p[1]) * k / n
+                pt = (x - lw / 2 - clr, y - lw / 2 - clr, x + lw / 2 + clr, y + lw / 2 + clr)
+                if any(_hit(pt, o) for o in self.obst[side]) or any(_hit(pt, o) for o in self.silk[side]) or \
+                        any(_hit(pt, o) for o in bodies):
+                    return False
+            return True
+        cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+        for x, y, ang in self.around(box, s, size, rings=(0.8, 1.5, 2.5), centre=False, reach=reach, step=0.3):
+            w, h = self.size_of(s, size, ang)
+            tb = (x - w / 2, y - h / 2, x + w / 2, y + h / 2)
+            if any(_gap(tb, ob) == 0 for ob in bodies) or not self._ok(tb, side):
+                continue
+            # line from the text box edge (towards the part) to the part outline
+            p = (min(max(cx, tb[0]), tb[2]), min(max(cy, tb[1]), tb[3]))
+            q = (min(max(p[0], box[0]), box[2]), min(max(p[1], box[1]), box[3]))
+            if ((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5 < 0.4:
+                continue                                  # touching: a plain label would have been found
+            # start the line 0.15 mm outside the text box
+            L = ((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5
+            p0 = (p[0] + (q[0] - p[0]) * 0.15 / L, p[1] + (q[1] - p[1]) * 0.15 / L)
+            q0 = (q[0] - (q[0] - p[0]) * 0.05 / L, q[1] - (q[1] - p[1]) * 0.05 / L)
+            if not seg_free(p0, q0):
+                continue
+            if not self.put(s, [(x, y, ang)], side, size):
+                self.failed.pop()
+                continue
+            ln = pcbnew.PCB_SHAPE(self.b)
+            ln.SetShape(pcbnew.SHAPE_T_SEGMENT)
+            ln.SetLayer(pcbnew.F_SilkS if side == "top" else pcbnew.B_SilkS)
+            ln.SetWidth(MM(lw))
+            ln.SetStart(pcbnew.VECTOR2I(MM(p0[0]), MM(p0[1])))
+            ln.SetEnd(pcbnew.VECTOR2I(MM(q0[0]), MM(q0[1])))
+            self.b.Add(ln)
+            self.silk[side].append((min(p0[0], q0[0]) - lw, min(p0[1], q0[1]) - lw, max(p0[0], q0[0]) + lw,
+                                    max(p0[1], q0[1]) + lw))
+            self.leaders.append((s, side, p0, q0))
+            return True
+        return False
+
+    def near_ok(self, s, size, ang, x, y, box, owners, side, max_d, margin=MARGIN, strict=True):
+        """the text at (x, y) is unambiguous: at most max_d from its own part(s) `box`, closer to it than to any other
+        part (by MARGIN), and not over another part's body"""
+        w, h = self.size_of(s, size, ang)
+        tb = (x - w / 2, y - h / 2, x + w / 2, y + h / 2)
+        own = _gap(tb, box)
+        if own > max_d:
+            return False
+        for r, ob in self._bodies(side):
+            if r in owners:
+                continue
+            g = _gap(tb, ob)
+            if g == 0 or (strict and g <= own + margin):   # never over another part; strict: also nearest to own
+                return False
+        return True
+
+    def label_near(self, box, owners, s, side, size=SIZE, max_d=NEAR, fab_at=None):
+        """place s next to box (the part or a group of parts `owners`), unambiguously (near_ok); a second pass further
+        out (still nearer to its own part than to any other); else on Fab"""
+        for md, mg in ((max_d, MARGIN), (NEAR2, MARGIN2)):
+            cands = [c for c in self.around(box, s, size, rings=(0.12, 0.3, 0.6), centre=False, reach=md, step=0.2)
+                     if self.near_ok(s, size, c[2], c[0], c[1], box, owners, side, md, mg)]
+            if self.put(s, cands, side, size):
+                return True
+            self.failed.pop()
+        if self.leader(box, owners, s, side, size):    # a free spot further out, joined to the part by a line
+            return True
+        return self.put(s, [], side, size, fab_at=fab_at)
+
     def label_fp(self, fp, s, size=SIZE):
         side = "bottom" if fp.IsFlipped() else "top"
         bb = _box(fp.GetBoundingBox(False, False))
         pos = (pcbnew.ToMM(fp.GetPosition().x), pcbnew.ToMM(fp.GetPosition().y))
-        if self.put(s, self.around(bb, s, size), side, size):
-            return True
-        self.failed.pop()                                # second pass: further out
-        return self.put(s, self.around(bb, s, size, reach=8.0, step=0.4), side, size, fab_at=pos)
+        return self.label_near(bb, {fp.GetReference()}, s, side, size, fab_at=pos)
 
     def pin_labels(self, fp, names, size=SIZE):
         """names {pad number: text}: each text next to its pad, the side away from the part centre first."""

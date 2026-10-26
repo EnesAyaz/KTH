@@ -1475,10 +1475,11 @@ def ctrl_legend(f_):
         name = pins[n]
         w, h = SK.size_of(name, 0.8, 90)
         far = bb[1] if away > 0 else bb[3]                # the other side of the header, if the via row blocks
-        SK.put(name, [(pads[n][0] + dx, edge + away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
-                      for d in frange(0.15, 1.5, 0.05)] +
-               [(pads[n][0] + dx, far - away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
-                for d in frange(0.15, 1.5, 0.05)], "top", 0.8)            # sideways: clear of the via rows
+        cands_ = [(pads[n][0] + dx, edge + away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
+                  for d in frange(0.15, 1.5, 0.05)] +                  [(pads[n][0] + dx, far - away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
+                  for d in frange(0.15, 1.5, 0.05)]                         # sideways: clear of the via rows
+        SK.put(name, [c for c in cands_ if SK.near_ok(name, 0.8, 90, c[0], c[1], bb, {f_.GetReference()}, "top", 3.0,
+                                                      strict=False)], "top", 0.8)   # never over another part
     for lab, yy in (("SIG", y_sig), ("RTN", y_ret)):
         w, h = SK.size_of(lab, 0.8, 90)
         SK.put(lab, [(bb[0] - w / 2 - d, yy, 90) for d in frange(0.15, 1.5, 0.05)] +
@@ -1486,9 +1487,52 @@ def ctrl_legend(f_):
     SK.label_fp(f_, ref_text(f_.GetReference(), f_))
 
 
+def ref_ranges(refs):
+    """['C1', 'C2', 'C3', 'C5'] -> 'C1-C3,C5'"""
+    pre = re.match(r"[A-Z]+", refs[0]).group(0)
+    nums = sorted(int(r[len(pre):]) for r in refs)
+    runs, a = [], nums[0]
+    for p_, n_ in zip(nums, nums[1:] + [None]):
+        if n_ != p_ + 1:
+            runs.append("%s%d" % (pre, a) if a == p_ else "%s%d-%s%d" % (pre, a, pre, p_))
+            a = n_
+    return ",".join(runs)
+
+
+# rows of >= 3 identical passives (bypass capacitors under the bank, ...) get ONE label next to the row: five names
+# squeezed between other parts read ambiguously (fabrication silk review 2026-10-26)
+GROUPED = set()
+NGROUP = [0]
+_rows = {}
+for rf, f_ in FPS.items():
+    if re.match(r"^[CR]\d+$", rf):
+        _rows.setdefault((f_.GetValue(), f_.GetFPID().GetLibItemName().wx_str(), f_.IsFlipped()), []).append(f_)
+for (_v, _fpn, _flip), lst in _rows.items():
+    lst.sort(key=lambda f: (round(pcbnew.ToMM(f.GetPosition().y), 1), pcbnew.ToMM(f.GetPosition().x)))
+    run = [lst[0]]
+    for f_ in lst[1:] + [None]:
+        if f_ is not None:
+            a_ = silk_placer._box(run[-1].GetBoundingBox(False, False))
+            b_ = silk_placer._box(f_.GetBoundingBox(False, False))
+            same_row = abs(pcbnew.ToMM(f_.GetPosition().y) - pcbnew.ToMM(run[-1].GetPosition().y)) < 0.3
+            if same_row and silk_placer._gap(a_, b_) <= 1.2:
+                run.append(f_)
+                continue
+        if len(run) >= 3:
+            refs = [g.GetReference() for g in run]
+            bxs = [silk_placer._box(g.GetBoundingBox(False, False)) for g in run]
+            box = (min(b[0] for b in bxs), min(b[1] for b in bxs), max(b[2] for b in bxs), max(b[3] for b in bxs))
+            if SK.label_near(box, set(refs), ref_ranges(refs), "bottom" if _flip else "top"):
+                GROUPED.update(refs)
+                NGROUP[0] += 1
+            else:
+                SK.failed.pop()
+        run = [f_]
+print("silk: %d parts labelled in %d row groups" % (len(GROUPED), NGROUP[0]), flush=True)
+
 for rf in sorted(FPS, key=order):
     f_ = FPS[rf]
-    if rf.startswith(("H", "HS")) or rf in ("REF**",):
+    if rf.startswith(("H", "HS")) or rf in ("REF**",) or rf in GROUPED:
         continue
     if rf.startswith("J") and f_.GetValue().startswith("CTRL"):
         ctrl_legend(f_)
@@ -1641,26 +1685,50 @@ def tp_label(d, last=False):
     f_ = [f for f in board2.GetFootprints() if f.GetReference() == d["ref"]][0]
     side_ = "bottom" if f_.IsFlipped() else "top"
     pads_ = sorted(f_.Pads(), key=lambda q: q.GetNumber())
+    tht_ = pads_[0].GetAttribute() == pcbnew.PAD_ATTRIB_PTH       # loop test point: a ring on both sides
     for p_ in pads_:
-        SK_TP.obst[side_].append(silk_placer._box(p_.GetBoundingBox(), silk_placer.CLR))
+        for sd_ in (("top", "bottom") if tht_ else (side_,)):
+            SK_TP.obst[sd_].append(silk_placer._box(p_.GetBoundingBox(), silk_placer.CLR))
+    if hasattr(SK_TP, "_bod"):                                    # the test points placed so far count as parts
+        del SK_TP._bod
     box_ = silk_placer._box(pads_[0].GetBoundingBox())
     names = [d["value"]]
     if d["value"][-1:].isdigit() and not d["value"].startswith(("VGS", "VDS")):
         names.append(d["value"][:-1].lstrip("+") or d["value"])   # GNDI1 -> GNDI, +12V2 -> 12V
-    for reach_ in ((1.6, 3.0, 4.5) if last else (1.6,)):   # right at the pad; last round: up to 4.5 mm (drilled
-    #                                                         holes are silk obstacles, so the near ring is often full)
-        for nm in names:
-            if SK_TP.put(nm, SK_TP.around(box_, nm, 0.8, rings=(0.15, 0.5), centre=False, reach=reach_, step=0.2),
-                         side_, 0.8):
+
+    def near(nm, sd_, reach_):                              # a net name: next to its pad, not over another part
+        return [c for c in SK_TP.around(box_, nm, 0.8, rings=(0.15, 0.5), centre=False, reach=reach_, step=0.2)
+                if SK_TP.near_ok(nm, 0.8, c[2], c[0], c[1], box_, {d["ref"]}, sd_, reach_, strict=False)]
+    for reach_ in ((1.6, 2.5, 4.0) if last else (1.6, 2.5)):   # right at the pad; last round further out, but always
+        for nm in names:                                    # closer to its own pad than to any other part
+            if SK_TP.put(nm, near(nm, side_, reach_), side_, 0.8):
+                if tht_:                                    # the same name next to the ring on the other side
+                    other_ = "top" if side_ == "bottom" else "bottom"
+                    if not SK_TP.put(nm, near(nm, other_, 3.5), other_, 0.8):
+                        SK_TP.failed.pop()
                 return nm
             SK_TP.failed.pop()
     return None
 
 
+# FET and connector labels are kept: test points may not cover them (moving them found no clear spot near the FETs)
+PROTECT = {"top": [], "bottom": []}
+for d_ in board2.GetDrawings():
+    if d_.GetClass() == "PCB_TEXT" and d_.GetLayer() in (pcbnew.F_SilkS, pcbnew.B_SilkS) and             re.match(r"^(Q|J)\d+(\s|$)", d_.GetText()):
+        PROTECT["top" if d_.GetLayer() == pcbnew.F_SilkS else "bottom"].append(silk_placer._box(d_.GetBoundingBox()))
 TPS = test_points.run(board2, OUTL, os.path.join(OUT, "testpoints_cache.json"), os.path.join(OUT, "fab", "testpoints.csv"),
                       os.path.join(OUT, "drc_tp_tmp.txt"), (OX, OY), log=lambda m: print(m, flush=True),
-                      lib_path=_lib, label_fn=tp_label)
+                      lib_path=_lib, label_fn=tp_label, protect=PROTECT)
 print("test points: %d placed (list: fab/testpoints.csv)" % len(TPS), flush=True)
+print("protected labels: %d top, %d bottom" % (len(PROTECT["top"]), len(PROTECT["bottom"])), flush=True)
+for f_ in board2.GetFootprints():                                  # diagnostics: a pad on a protected label
+    if f_.GetReference().startswith("TP"):
+        for p_ in f_.Pads():
+            pb_ = silk_placer._box(p_.GetBoundingBox())
+            sds_ = ("top", "bottom") if p_.GetAttribute() == pcbnew.PAD_ATTRIB_PTH else                 (("bottom",) if f_.IsFlipped() else ("top",))
+            for sd_ in sds_:
+                if any(silk_placer._hit(pb_, o) for o in PROTECT[sd_]):
+                    print("  protect violated:", f_.GetReference(), f_.GetValue(), sd_, pb_, flush=True)
 # silk labels covered by a test-point pad move away; every test point gets its name
 tp_boxes = [(silk_placer._box(p_.GetBoundingBox(), 0.25), sd_)
             for f_ in board2.GetFootprints() if f_.GetReference().startswith("TP") for p_ in f_.Pads()
@@ -1676,8 +1744,21 @@ for d_ in list(board2.GetDrawings()):
                           (pcbnew.ToMM(d_.GetPosition().x), pcbnew.ToMM(d_.GetPosition().y))))
             board2.Remove(d_)
 SK2 = silk_placer.Silk(board2, OUTL)
+FPS2 = {f.GetReference(): f for f in board2.GetFootprints()}
 for txt_, side_, size_, bb_, ang_, pos_ in moved:                  # no room: kept on the Fab layer
-    if not SK2.put(txt_, SK2.around(bb_, txt_, size_), side_, size_):
+    owner_ = txt_.split()[0]
+    grp_ = [r for r in re.findall(r"[A-Z]+\d+", txt_) if r in FPS2] if re.match(r"^[A-Z]+\d+([-,][A-Z]+\d+)+$",
+                                                                                 txt_) else []
+    if grp_ or owner_ in FPS2:                                   # a reference label: the proximity rule again
+        refs_ = set(grp_) if grp_ else {owner_}
+        if grp_:                                                 # C1-C5: every part of the range
+            pre_ = re.match(r"[A-Z]+", grp_[0]).group(0)
+            for a_, b_ in re.findall(r"%s(\d+)-%s(\d+)" % (pre_, pre_), txt_):
+                refs_ |= {"%s%d" % (pre_, n_) for n_ in range(int(a_), int(b_) + 1)}
+        bxs_ = [silk_placer._box(FPS2[r].GetBoundingBox(False, False)) for r in refs_ if r in FPS2]
+        box_ = (min(b[0] for b in bxs_), min(b[1] for b in bxs_), max(b[2] for b in bxs_), max(b[3] for b in bxs_))
+        SK2.label_near(box_, refs_, txt_, side_, size_, fab_at=pos_)
+    elif not SK2.put(txt_, SK2.around(bb_, txt_, size_), side_, size_):
         SK2.failed.pop()
         SK2.put(txt_, SK2.around(bb_, txt_, size_, reach=8.0, step=0.4), side_, size_, fab_at=pos_)
 print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join(SK2.failed) or "-"), flush=True)

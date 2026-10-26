@@ -59,4 +59,4 @@ Mechanical (not placed by the assembler)
 1,J21,"AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor",-,"Cu-ETP, tin plated"
 4,H1-H4,M2.5 standoff + screw (board mounting),-,nylon / insulated
 2,"J5, J14",Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return),-,"2.54 mm IDC, e.g. Wurth 61201021621"
-13,TP7 TP8 TP11 TP12 TP13 TP25 TP26 TP27 TP29 TP30 TP45 TP46 TP47,"Loop test point for a 1.0 mm hole, 0.1 in bushing (inserted in the lab, not by the assembler; see fab/testpoints.csv)",-,Keystone 5000 (red) / 5001 (black) or Adafruit 3825
+13,TP7 TP8 TP11 TP12 TP13 TP25 TP26 TP27 TP29 TP30 TP45 TP46 TP47,"Loop test point, red, 0.1 in bushing, 1.02 mm (0.040 in) hole (inserted in the lab, not by the assembler; see fab/testpoints.csv)",TestPoint_Keystone5000_Adafruit3825,"Adafruit 3825 (PiShop 1752), equivalent Keystone 5000 (red) / 5001 (black)"

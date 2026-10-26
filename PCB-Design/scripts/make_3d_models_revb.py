@@ -34,6 +34,7 @@ STEEL = (0.65, 0.66, 0.68)
 GOLD = (0.85, 0.70, 0.30)
 FERRITE = (0.15, 0.15, 0.15)
 WHITE = (0.92, 0.92, 0.90)
+RED = (0.80, 0.12, 0.10)
 
 # FET pair centres (board coordinates; the heatsink footprint is placed at the origin)
 PAIRS = [(-33.25, 7.05), (-14.25, 7.05), (14.25, 7.05), (33.25, 7.05)]
@@ -64,6 +65,15 @@ M = {
         (-1.75, -1.0, 0.65, 1.75, 1.0, 5.0, GOLD), (-1.0, -1.75, 0.65, 1.0, 1.75, 5.0, GOLD),
         (-1.45, -1.45, 0.65, 1.45, 1.45, 5.0, GOLD),
         (-0.9, -0.9, 5.0, 0.9, 0.9, 5.05, WHITE), (-0.3, -0.3, 5.0, 0.3, 0.3, 5.1, GOLD)],
+    # loop test point Adafruit 3825 / Keystone 5000 (red): nylon bushing 0.100 in (2.54 mm) diameter, about 2.2 mm
+    # high, silver-plated wire loop 1.8 mm wide on top (7.6 x 2.5 x 1.8 mm overall with the lead), lead through the
+    # 1.02 mm hole and 1 mm below the board
+    "TestPoint_Keystone5000_Adafruit3825": [
+        (-1.27, -0.75, 0.0, 1.27, 0.75, 2.2, RED), (-0.75, -1.27, 0.0, 0.75, 1.27, 2.2, RED),
+        (-1.05, -1.05, 0.0, 1.05, 1.05, 2.2, RED),
+        (-0.9, -0.2, 2.2, -0.5, 0.2, 5.6, SILVER), (0.5, -0.2, 2.2, 0.9, 0.2, 5.6, SILVER),
+        (-0.9, -0.2, 5.2, 0.9, 0.2, 5.6, SILVER),
+        (-0.25, -0.25, -2.6, 0.25, 0.25, 0.0, SILVER)],
 }
 
 if __name__ == "__main__":

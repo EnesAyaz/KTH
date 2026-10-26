@@ -96,7 +96,8 @@ CUSTOM = {
 STD = [("Device", "R"), ("Device", "C"), ("Device", "D_Schottky"), ("Device", "D_Zener"), ("Device", "LED"),
        ("Device", "Thermistor_NTC"), ("Mechanical", "MountingHole"), ("Connector_Generic", "Conn_01x01"),
        ("Connector_Generic", "Conn_02x03_Odd_Even"), ("Connector_Generic", "Conn_02x05_Odd_Even"),
-       ("Connector_Generic", "Conn_01x02"), ("Connector", "Conn_Coaxial"), ("Device", "FerriteBead")]
+       ("Connector_Generic", "Conn_01x02"), ("Connector", "Conn_Coaxial"), ("Device", "FerriteBead"),
+       ("Connector", "TestPoint")]
 LIB = {}
 for lib, nm in STD:
     LIB[lib + ":" + nm] = extract(lib, nm)
@@ -152,6 +153,8 @@ def with_pin(pin, net, pre):
 
 def lib_id(ref):
     val = PADS[ref][0]
+    if ref.startswith("TP"):
+        return "Connector:TestPoint"
     if ref.startswith("Q"):
         return "spb_fab:EPC2361"
     if ref.startswith("U"):
@@ -559,6 +562,16 @@ for i, j in enumerate(ufl):
     else:                                          # V_DS: centre pin directly on the power net
         plabel(j, "1")
     plabel(j, "2")
+
+# test points: loop test points (Adafruit 3825 / Keystone 5000, 1.02 mm hole, fitted in the lab); the SMD test pads
+# and the spring-probe pads are board-only and listed in fab/testpoints.csv
+tps = sorted((r for r in PADS if r.startswith("TP")), key=refkey)
+if tps:
+    T("TEST POINTS: loop test points Adafruit 3825 / Keystone 5000 (red), 1.02 mm hole, inserted in the lab; SMD test "
+      "pads and V_GS / V_DS spring pads: see fab/testpoints.csv", 660.4, YU - 12.7, 1.5, False)
+    for i, tp in enumerate(tps):
+        place(tp, 675.64 + 40.64 * (i % 4), YU + 7.62 + 12.7 * (i // 4))
+        plabel(tp, "1")
 
 # ================================================================== 5 mechanical, notes
 YM = 391.16

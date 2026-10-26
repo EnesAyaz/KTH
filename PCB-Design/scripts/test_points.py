@@ -41,7 +41,8 @@ def _pad(fp, num, shape, size, pos):
 
 
 MMCX_FP = ("Connector_Coaxial.pretty", "WR-MMCX_Wuerth_66012102111404_Vertical")
-TP_PAD, TP_DRILL = 1.8, 1.0                            # loop test point: 0.4 mm ring (JLC 2 oz PTH: >= 0.254 mm)
+TP_PAD, TP_DRILL = 1.8, 1.02                           # Keystone 5000 / Adafruit 3825: 0.040 in hole; ring 0.39 mm
+TP_FP = "TestPoint_Keystone5000_Adafruit3825"          # (JLC 2 oz PTH: >= 0.254 mm)
 CELL_BAND = (95.0, 121.0)                              # board y (mm) of the commutation cells: inner planes kept whole
 CU = (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu)
 
@@ -61,8 +62,7 @@ def make(board, kind, ref, value):
     fp.SetValue(value)
     fp.SetAttributes(pcbnew.FP_SMD | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM |
                      pcbnew.FP_EXCLUDE_FROM_POS_FILES)
-    fp.SetFPID(pcbnew.LIB_ID("spb_fab", "TestPoint_Spring_1.0_GND1.5-6.0" if kind == "SPRING" else
-                             "TestPoint_THT_Loop_D1.0mm"))
+    fp.SetFPID(pcbnew.LIB_ID("spb_fab", "TestPoint_Spring_1.0_GND1.5-6.0" if kind == "SPRING" else TP_FP))
     if kind == "SPRING":
         _pad(fp, "1", pcbnew.PAD_SHAPE_CIRCLE, (1.0, 1.0), (0.0, 0.0))
         _pad(fp, "2", pcbnew.PAD_SHAPE_OVAL, (4.5, 1.0), (3.75, 0.0))
@@ -72,8 +72,11 @@ def make(board, kind, ref, value):
         _pad(fp, "1", pcbnew.PAD_SHAPE_CIRCLE, (1.0, 1.0), (0.0, 0.0))
         x0, x1, h = -0.6, 0.6, 0.6
     else:
-        fp.SetAttributes(pcbnew.FP_THROUGH_HOLE | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM |
-                         pcbnew.FP_EXCLUDE_FROM_POS_FILES)
+        # a real part (schematic, BOM: Adafruit 3825 / Keystone 5000), inserted in the lab: not in the pick-and-place
+        fp.SetAttributes(pcbnew.FP_THROUGH_HOLE | pcbnew.FP_EXCLUDE_FROM_POS_FILES)
+        m3 = pcbnew.FP_3DMODEL()
+        m3.m_Filename = "${KIPRJMOD}/3d/" + TP_FP + ".wrl"
+        fp.Models().push_back(m3)
         q = pcbnew.PAD(fp)
         q.SetNumber("1")
         q.SetAttribute(pcbnew.PAD_ATTRIB_PTH)
@@ -114,6 +117,7 @@ class Placer:
         self.via_fallback = False                        # allow a via to the other outer layer for a connection
         self.zone_conn = True                            # False: a pour under a pad does not count as its connection
         self.removed_vias = []
+        self.protect = {"top": [], "bottom": []}         # silk boxes (mm) a pad must not cover (FET / connector labels)
 
     def req(self, a, b):
         if a == b:
@@ -292,6 +296,11 @@ class Placer:
         """every pad of fp clear of all foreign copper and all existing pads; fp clear of courtyards"""
         for p, net in zip(sorted(fp.Pads(), key=lambda q: q.GetNumber()), nets):
             tht = p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH
+            pb = p.GetBoundingBox()
+            pbm = (TO(pb.GetLeft()) - 0.3, TO(pb.GetTop()) - 0.3, TO(pb.GetRight()) + 0.3, TO(pb.GetBottom()) + 0.3)
+            for sd in (("top", "bottom") if tht else (side,)):
+                if any(pbm[0] < o[2] and o[0] < pbm[2] and pbm[1] < o[3] and o[1] < pbm[3] for o in self.protect[sd]):
+                    return False
             if tht:                                     # a hole: not in a via keep-out (1200 V barrier moats)
                 for z in self.b.Zones():
                     if z.GetIsRuleArea() and z.GetDoNotAllowVias() and \
@@ -596,6 +605,8 @@ def mmcx_vds(board, outline, cache_path, lib_path, log=print):
                 key=lambda r: TO(fps[r].GetPosition().x))
     nj = max(int(r[1:]) for r in fps if r.startswith("J") and r[1:].isdigit()) + 1
     P = Placer(board, dom_of, outline, log)
+    if protect:
+        P.protect = protect
     P.soft_vias = {"DCN"}                              # DC- via fields: the vias under the jack are removed
     P.via_fallback = True                              # shield to LSRC: through a via to the shunt IN land (top)
     P.zone_conn = False                                # explicit stub / via for every pin (pour fragments get dropped)
@@ -632,7 +643,8 @@ def mmcx_vds(board, outline, cache_path, lib_path, log=print):
     return out
 
 
-def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib_path=None, label_fn=None):
+def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib_path=None, label_fn=None,
+        protect=None):
     """place the planned points (cache first), drop and re-place those that end up unconnected after the fill,
     write the cache and the bring-up list. origin: (x, y) mm subtracted for the list coordinates."""
     import json
@@ -642,6 +654,8 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
     cache = json.load(open(cache_path)) if os.path.exists(cache_path) else {}
     base = _unconnected(board, tmp_report)               # what is open before the test points (should be nothing)
     P = Placer(board, dom_of, outline, log)
+    if protect:
+        P.protect = protect
 
     todo = plan(board)
     meta = {}
