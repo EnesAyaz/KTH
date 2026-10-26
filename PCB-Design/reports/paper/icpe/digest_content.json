@@ -655,7 +655,7 @@
    "t": "p",
    "runs": [
     [
-     "The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two identical pairs, each with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below (Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with common-mode chokes on the supply and disable pairs but none on the PWM lines (no added delay), keep 4.0 mm (outer) and 3.0 mm (inner layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell, MMCX jacks for ",
+     "The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two identical pairs, each with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below (Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with common-mode chokes on the supply and disable pairs but none on the PWM lines (no added delay), keep 4.0 mm (outer) and 3.0 mm (inner layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design is built twice: the DPT board carries a 1 mΩ coaxial shunt per cell, MMCX jacks for the low-side ",
      ""
     ],
     [
@@ -667,7 +667,7 @@
      "s"
     ],
     [
-     " and spring-probe pads for ",
+     ", spring-probe pads for ",
      ""
     ],
     [
@@ -679,7 +679,19 @@
      "s"
     ],
     [
-     " of every device; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. The cells hardly couple (at most 21 pH, ",
+     " of every device and the high-side ",
+     ""
+    ],
+    [
+     "v",
+     "i"
+    ],
+    [
+     "DS",
+     "s"
+    ],
+    [
+     "; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. The cells hardly couple (at most 21 pH, ",
      ""
     ],
     [
