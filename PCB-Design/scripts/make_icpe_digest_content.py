@@ -186,8 +186,8 @@ fig("boards.png", 16.0,
     "(red dc+, blue dc−, orange switch node).")
 p("The four-layer board (2 oz, 0.1 mm dielectric between L1 and L2) carries the cells as two identical pairs, each "
   "with its driver in the centre; every commutation loop closes vertically on the dc− plane directly below "
-  "(Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with one "
-  "common-mode choke per signal pair and a ferrite bead in the 12 V feed, keep 4.0 mm (outer) and 3.0 mm (inner "
+  "(Fig. 4). Vias removed for clearance are removed together with their mirror image. The driver inputs, with "
+  "common-mode chokes on the supply and disable pairs but none on the PWM lines (no added delay), keep 4.0 mm (outer) and 3.0 mm (inner "
   "layers) from all power copper, the IPC-2221B spacing for 1200 V, so the layout is ready for a reinforced isolated "
   "driver; the 2EDF7275K used here provides functional isolation for the 75 V tests. Measuring every cell current "
   "requires a shunt in each low-side source, which lengthens the loop and blocks the heatsink, so the same design "

@@ -2,7 +2,12 @@
 Bring-up test points and spring-tip probe pads for the Rev B leg boards (called by make_kicad_bb_revb.py on the
 filled board, before the final fill and DRC).
 
-  TP      single round SMD pad, 1.0 mm, mask opening only (board-only footprint: not in BOM / pick-and-place)
+  TP      through-hole loop test point: 1.0 mm plated hole, 1.8 mm pad (Keystone 5000-series / Adafruit 3825, 0.1 in
+          bushing), inserted in the lab (board-only footprint: not in the JLC BOM / pick-and-place). The pad is on
+          all four layers: clear of foreign copper on every layer, no hole through the inner planes of the cell band
+          (commutation-loop returns) or through a via keep-out of the 1200 V barrier. Where no hole fits (control
+          area, driver islands), or the fill would leave a copper neck at it, the point becomes:
+  TPSMD   single round SMD pad, 1.0 mm (the previous test pad), same label
   SPRING  signal pad 1.0 mm + ground pad 1.0 x 4.5 mm oval, 1.5 .. 6.0 mm from the signal pad centre: a probe tip on
           the signal pad and the ground spring anywhere on the ground pad (springs of about 2 .. 5.5 mm)
 
@@ -36,6 +41,9 @@ def _pad(fp, num, shape, size, pos):
 
 
 MMCX_FP = ("Connector_Coaxial.pretty", "WR-MMCX_Wuerth_66012102111404_Vertical")
+TP_PAD, TP_DRILL = 1.8, 1.0                            # loop test point: 0.4 mm ring (JLC 2 oz PTH: >= 0.254 mm)
+CELL_BAND = (95.0, 121.0)                              # board y (mm) of the commutation cells: inner planes kept whole
+CU = (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu)
 
 
 def make(board, kind, ref, value):
@@ -54,11 +62,29 @@ def make(board, kind, ref, value):
     fp.SetAttributes(pcbnew.FP_SMD | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM |
                      pcbnew.FP_EXCLUDE_FROM_POS_FILES)
     fp.SetFPID(pcbnew.LIB_ID("spb_fab", "TestPoint_Spring_1.0_GND1.5-6.0" if kind == "SPRING" else
-                             "TestPoint_Pad_D1.0mm"))
-    _pad(fp, "1", pcbnew.PAD_SHAPE_CIRCLE, (1.0, 1.0), (0.0, 0.0))
+                             "TestPoint_THT_Loop_D1.0mm"))
     if kind == "SPRING":
+        _pad(fp, "1", pcbnew.PAD_SHAPE_CIRCLE, (1.0, 1.0), (0.0, 0.0))
         _pad(fp, "2", pcbnew.PAD_SHAPE_OVAL, (4.5, 1.0), (3.75, 0.0))
-    x0, x1, h = -0.6, (6.6 if kind == "SPRING" else 0.6), 0.6     # courtyard 0.1 mm around the pads
+        x0, x1, h = -0.6, 6.6, 0.6                     # courtyard 0.1 mm around the pads
+    elif kind == "TPSMD":
+        fp.SetFPID(pcbnew.LIB_ID("spb_fab", "TestPoint_Pad_D1.0mm"))
+        _pad(fp, "1", pcbnew.PAD_SHAPE_CIRCLE, (1.0, 1.0), (0.0, 0.0))
+        x0, x1, h = -0.6, 0.6, 0.6
+    else:
+        fp.SetAttributes(pcbnew.FP_THROUGH_HOLE | pcbnew.FP_BOARD_ONLY | pcbnew.FP_EXCLUDE_FROM_BOM |
+                         pcbnew.FP_EXCLUDE_FROM_POS_FILES)
+        q = pcbnew.PAD(fp)
+        q.SetNumber("1")
+        q.SetAttribute(pcbnew.PAD_ATTRIB_PTH)
+        q.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+        q.SetSize(pcbnew.VECTOR2I(MM(TP_PAD), MM(TP_PAD)))
+        q.SetDrillSize(pcbnew.VECTOR2I(MM(TP_DRILL), MM(TP_DRILL)))
+        q.SetLayerSet(q.PTHMask())
+        q.SetPos0(pcbnew.VECTOR2I(0, 0))
+        q.SetPosition(pcbnew.VECTOR2I(0, 0))
+        fp.Add(q)
+        x0, x1, h = -1.4, 1.4, 1.4                     # 0.1 in bushing of the loop test point
     for (a, b), (c, d) in (((x0, -h), (x1, -h)), ((x1, -h), (x1, h)), ((x1, h), (x0, h)), ((x0, h), (x0, -h))):
         sh = pcbnew.FP_SHAPE(fp)
         sh.SetShape(pcbnew.SHAPE_T_SEGMENT)
@@ -265,29 +291,48 @@ class Placer:
     def _clear(self, items, fp, nets, layer, side):
         """every pad of fp clear of all foreign copper and all existing pads; fp clear of courtyards"""
         for p, net in zip(sorted(fp.Pads(), key=lambda q: q.GetNumber()), nets):
-            sh = p.GetEffectiveShape(layer)
-            for q in items["pads"]:
-                if not q.IsOnLayer(layer):
-                    continue
-                c = max(self.req(net, q.GetNetname()), 0.2)
-                if q.GetEffectiveShape(layer).Collide(sh, MM(c)):
-                    return False
-            for t in items["tracks"]:
-                if t.GetNetname() == net or not t.IsOnLayer(layer):
-                    continue
-                if t.GetClass() == "PCB_VIA" and t.GetNetname() in self.soft_vias:
-                    continue                            # may be removed under the part (see try_at)
-                if t.GetEffectiveShape(layer).Collide(sh, MM(self.req(net, t.GetNetname()))):
-                    return False
-            for z in items["zones"]:
-                if z.GetNetname() == net or not z.IsOnLayer(layer) or not self._hard_zone(net, z.GetNetname()):
-                    continue
-                if z.GetFilledPolysList(layer).Collide(sh, MM(self.req(net, z.GetNetname()))):
-                    return False
+            tht = p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH
+            if tht:                                     # a hole: not in a via keep-out (1200 V barrier moats)
+                for z in self.b.Zones():
+                    if z.GetIsRuleArea() and z.GetDoNotAllowVias() and \
+                            z.Outline().Collide(p.GetPosition(), MM(TP_PAD / 2 + 0.1)):
+                        return False
+            in_band = CELL_BAND[0] < TO(p.GetPosition().y) < CELL_BAND[1]
+            for lay in (CU if tht else (layer,)):
+                sh = p.GetEffectiveShape(lay)
+                inner = lay in (pcbnew.In1_Cu, pcbnew.In2_Cu)
+                for q in items["pads"]:
+                    if not q.IsOnLayer(lay):
+                        continue
+                    c = max(self.req(net, q.GetNetname()), 0.2)
+                    if q.GetEffectiveShape(lay).Collide(sh, MM(c)):
+                        return False
+                for t in items["tracks"]:
+                    if tht and t.GetClass() == "PCB_VIA" and t.GetNetname() == net and \
+                            t.GetEffectiveShape(lay).Collide(sh, MM(0.3)):
+                        return False                    # tangent to an own via: a copper neck after the fill
+                    if t.GetNetname() == net or not t.IsOnLayer(lay):
+                        continue
+                    if t.GetClass() == "PCB_VIA" and t.GetNetname() in self.soft_vias and not tht:
+                        continue                        # may be removed under the part (see try_at)
+                    if t.GetEffectiveShape(lay).Collide(sh, MM(max(self.req(net, t.GetNetname()), 0.25 if tht else 0))):
+                        return False
+                for z in items["zones"]:
+                    if z.GetNetname() == net or not z.IsOnLayer(lay):
+                        continue
+                    hard = self._hard_zone(net, z.GetNetname()) or (inner and in_band)
+                    if hard and z.GetFilledPolysList(lay).Collide(sh, MM(max(self.req(net, z.GetNetname()), 0.25))):
+                        return False
         cl = pcbnew.F_CrtYd if side == "top" else pcbnew.B_CrtYd
         fp.BuildCourtyardCaches()
         own = fp.GetCourtyard(cl)
+        other = pcbnew.B_CrtYd if cl == pcbnew.F_CrtYd else pcbnew.F_CrtYd
+        tht_fp = any(p.GetAttribute() == pcbnew.PAD_ATTRIB_PTH for p in fp.Pads())
         for f in items["crt"]:
+            if tht_fp:                                  # a hole is exposed on the other side too: not under a part there
+                oc = f.GetCourtyard(other)
+                if oc.OutlineCount() and any(oc.Collide(p.GetEffectiveShape(layer), MM(0.15)) for p in fp.Pads()):
+                    return False
             cy = f.GetCourtyard(cl)
             if cy.OutlineCount() == 0:
                 continue
@@ -464,7 +509,7 @@ def plan(board):
 
 
 def _unconnected(board, tmp_report):
-    """refill, DRC; [(text, [(x, y), ...])] of the unconnected-item entries"""
+    """refill, DRC; [(text, [(x, y), ...])] of the unconnected-item and too-narrow-connection entries"""
     import re
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     board.BuildConnectivity()
@@ -472,7 +517,7 @@ def _unconnected(board, tmp_report):
     txt = open(tmp_report, encoding="utf-8", errors="replace").read()
     out = []
     for blk in re.split(r"\n(?=\[)", txt):
-        if blk.startswith("[unconnected_items]"):
+        if blk.startswith(("[unconnected_items]", "[connection_width]")):     # open, or a neck the fill left
             pts = [(float(a), float(b)) for a, b in re.findall(r"@\(([-0-9.]+) mm, ([-0-9.]+) mm\)", blk)]
             out.append((blk, pts))
     return out
@@ -523,7 +568,7 @@ def _fallback(board, net, anchor):
 def save_footprints(board, lib_path):
     """the test-point footprints into the board's own library (library check of the DRC); the MMCX jack is placed
     and saved by the board generator (with its project 3D model)"""
-    for kind in ("TP", "SPRING"):
+    for kind in ("TP", "TPSMD", "SPRING"):
         fp = make(board, kind, "REF**", "TestPoint")
         pcbnew.FootprintSave(lib_path, fp)
 
@@ -600,14 +645,20 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
 
     todo = plan(board)
     meta = {}
-    for k, (kind, val, nets, anc, sides) in enumerate(todo):
+    # spring pads (V_GS / V_DS, the primary switching measurement) first, then the bulkier through-hole points;
+    # the references keep the plan order
+    order = sorted(range(len(todo)), key=lambda k_: (todo[k_][0] != "SPRING", k_))
+    meta = {"TP%d" % (k_ + 1): todo[k_] for k_ in range(len(todo))}     # list order = plan order
+    for k in order:
+        kind, val, nets, anc, sides = todo[k]
         ref = "TP%d" % (k + 1)
-        meta[ref] = (kind, val, nets, anc, sides)
         c = cache.get(val)
-        ok = bool(c) and not c.get("failed") and P.try_at(kind, ref, val, tuple(c["nets"]), c["side"], c["x"], c["y"],
-                                                          c["rot"])
+        ok = bool(c) and not c.get("failed") and P.try_at(c.get("kind", kind), ref, val, tuple(c["nets"]), c["side"],
+                                                          c["x"], c["y"], c["rot"])
         if not ok and not (c and c.get("failed")):
             ok = P.place(kind, ref, val, nets, anc, sides)
+            if not ok and kind == "TP":                  # no room for a hole: the SMD test pad
+                ok = P.place("TPSMD", ref, val, nets, anc, sides)
         if not ok:
             log("test point %s (%s): no spot, fallback pad listed" % (ref, val))
     for it in range(3):
@@ -621,7 +672,7 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
             P.remove(ref)
             if not last:
                 kind, val, nets, anc, sides = meta[ref]
-                P.place(kind, ref, val, nets, anc, sides)
+                P.place("TPSMD" if kind == "TP" else kind, ref, val, nets, anc, sides)
     labelled = {}
     if label_fn:                                         # name on the silk right at the pad, or the point moves
         for rnd in range(3):
@@ -638,9 +689,10 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
                 break
             log("test points moved for room for their silk label: %s" % " ".join(moved))
             for ref in moved:
+                was = next((d["kind"] for d in P.placed if d["ref"] == ref), None)
                 P.remove(ref)
                 kind, val, nets, anc, sides = meta[ref]
-                P.place(kind, ref, val, nets, anc, sides)
+                P.place(was or kind, ref, val, nets, anc, sides)
             if moved:                                    # the moves may split pours again
                 bad = _unconnected_tps(board, tmp_report, P.placed, base)
                 for ref in bad:
@@ -656,7 +708,7 @@ def run(board, outline, cache_path, csv_path, tmp_report, origin, log=print, lib
     for ref, (kind, val, nets, anc, sides) in meta.items():
         d = placed.get(val)
         if d:
-            new_cache[val] = {k: d[k] for k in ("nets", "side", "x", "y", "rot")}
+            new_cache[val] = {k: d[k] for k in ("kind", "nets", "side", "x", "y", "rot")}
             rows.append("%s,%s,%s,%s,%s,%s,%.2f,%.2f,%s" % (
                 ref, "spring pad" if kind == "SPRING" else "test point", val, d["nets"][0],
                 d["nets"][1] if len(d["nets"]) > 1 else "", d["side"], d["x"] - origin[0], d["y"] - origin[1],

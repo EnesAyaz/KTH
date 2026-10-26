@@ -370,15 +370,16 @@ T("DC link present LED, %s 100 k bleeder" % rbl, 627.38, 157.48, 1.5, False)
 
 # ================================================================== 2 driver blocks
 YD = 220.98
-T("GATE DRIVER BLOCKS: control header with common-mode chokes, 2EDF7275K input filters, R_ON / D + R_OFF, star, "
+T("GATE DRIVER BLOCKS: control header (chokes on DIS / 12 V / NTC), 2EDF7275K input filters, R_ON / D + R_OFF, star, "
   "R_G per transistor (block 1 drives Q1-Q4, block 2 drives Q5-Q8)", 25.4, YD - 38.1)
 for blk, dx in ((1, -15.24), (2, -15.24 + 406.4)):
     s = str(blk)
     X = lambda v: v + dx                                       # noqa: E731  (Rev A coordinates shifted)
     x0 = 45.72 + dx + 15.24
     T("BLOCK %s" % s, x0 - 15.24, YD - 30.48, 1.8)
-    # control header (2 x 5 SMT, every signal with its own return) and one common-mode choke per pair
-    jc = [r for r in PADS if r.startswith("J") and "C_PWMH" + s in PADS[r][1].values()][0]
+    # control header (2 x 5 SMT, every signal with its own return); common-mode chokes on DIS, 12 V and NTC (the
+    # PWM pairs run straight to the input filters since the PWM review of 2026-10-23)
+    jc = [r for r in PADS if r.startswith("J") and ({"C_PWMH" + s, "PWM_H" + s} & set(PADS[r][1].values()))][0]
     place(jc, x0, YD)
     for n in sorted(PADS[jc][1], key=int):
         plabel(jc, n)
@@ -573,9 +574,10 @@ notes = [
     ("LSRC1-LSRC4: LS power source of each cell = UFCS IN; the shunt SHLD side is DC-.  " if SHUNT else
      "LS power source = DC- directly (no shunt).  ") + "The LS gate drive and the LS supply are referenced to the "
     "Kelvin net KLx, not to DC-.",
-    "Block suffix 1/2 on every driver-side net (GNDI1, VDDA2, ...).  Control side (CTRLx 2 x 5 header): PWM_H, PWM_L, "
-    "DIS, 12 V and (block 1) NTC each with their own return C_RTN_* through one WE-CNSW common-mode choke per pair; "
-    "12 V then through a ferrite bead.  The control side is a top-layer-only area with a 1200 V barrier (4 mm outer, "
+    "Block suffix 1/2 on every driver-side net (GNDI1, VDDA2, ...).  Control side (CTRLx 2 x 5 header): PWM_H and "
+    "PWM_L straight to the 47 R / 100 pF input filters (returns to GNDI, no choke: no added delay); DIS, 12 V and "
+    "(block 1) NTC each with their own return C_RTN_* through one WE-CNSW common-mode choke per pair; 12 V then "
+    "through a ferrite bead.  The control side is a top-layer-only area with a 1200 V barrier (4 mm outer, "
     "3 mm L2) to all power copper; see reports/pcb-rules/PCB_rules_and_checklist.md.",
     "No short-circuit protection on this board.  Closed-loop control from a TI TMS320F28379D over the CTRL headers.",
 ]

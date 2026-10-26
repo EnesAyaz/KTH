@@ -2795,7 +2795,7 @@
      "paras": [
       [
        0,
-       "Per block a 2×3 control header (12 V, GND, PWM_H, PWM_L, DIS) with common-mode chokes on each pair"
+       "Per block a 2×5 control header (each signal next to its return); common-mode chokes on 12 V, DIS and NTC, none on PWM_H / PWM_L (no extra delay or LC ringing with the 100 pF input filter; removed after the PWM review)"
       ],
       [
        0,

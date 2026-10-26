@@ -631,7 +631,7 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -28.83,
+  "x": -23.75,
   "y": 30.0,
   "rot": 90,
   "side": "top",
@@ -642,28 +642,6 @@
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -26.29,
-  "y": 30.0,
-  "rot": 90,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "L5",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": -23.75,
-  "y": 30.0,
-  "rot": 90,
-  "side": "top",
-  "block": 1
- },
- {
-  "ref": "L6",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
   "x": -21.21,
   "y": 30.0,
   "rot": 90,
@@ -671,7 +649,7 @@
   "block": 1
  },
  {
-  "ref": "L7",
+  "ref": "L5",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
@@ -1375,7 +1353,7 @@
   "block": 2
  },
  {
-  "ref": "L8",
+  "ref": "L6",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
@@ -1452,7 +1430,7 @@
   "block": 2
  },
  {
-  "ref": "L9",
+  "ref": "L7",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
@@ -1518,29 +1496,7 @@
   "block": 2
  },
  {
-  "ref": "L10",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 18.67,
-  "y": 30.0,
-  "rot": 90,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "L11",
-  "value": "WE-CNSW 744232601",
-  "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
-  "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
-  "x": 21.21,
-  "y": 30.0,
-  "rot": 90,
-  "side": "top",
-  "block": 2
- },
- {
-  "ref": "L12",
+  "ref": "L8",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",
@@ -1551,7 +1507,7 @@
   "block": 2
  },
  {
-  "ref": "L13",
+  "ref": "L9",
   "value": "WE-CNSW 744232601",
   "footprint": "L_CommonMode_Wurth_WE-CNSW-1206",
   "mpn": "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",

@@ -87,3 +87,19 @@ eight devices.
                         │
                        DC− ── bench supply return / controller GND reference
 ```
+
+## Setup notes from the layer and PWM review (2026-10-23)
+
+- **SW bus:** the broad copper at the bottom of the board (all layers, below the cells) is the switch node, not a
+  ground plane. Route the PWM / control cables and any grounded metal (bench, heatsink brackets, probe bodies) away
+  from it and from its side columns: 10 pF to a nearby object carries 0.5 A at 50 V/ns.
+- **PWM inputs:** the PWM_H / PWM_L pairs have no common-mode choke (removed in this revision; DIS, 12 V and NTC keep
+  theirs). Each input has a 47 Ω / 100 pF filter at the driver (τ = 4.7 ns, about 10 ns rise). Measure at the
+  connector and at INA / INB against the local GNDI with the real controller, cable and grounding, for the shortest
+  planned pulses (the driver's typical minimum input pulse is 18 ns), and compare U1 against U2. Repeat during staged
+  power switching. If common-mode pickup appears, shorten the cable, use twisted pairs and a single ground point
+  before thinking about chokes.
+- **Return plane L2:** the via rows perforate the DC− plane; during staged tests watch the per-cell currents (UFCS)
+  and the board temperature around the via fields and the source-to-shunt transitions.
+- **Measurement routes:** keep the U.FL gate-sense links DNP and use the spring pads; never tie different source or
+  Kelvin references together through grounded instruments.

@@ -740,7 +740,8 @@ text(s, [X0 + 540, Y0, 360, 370], [
 s = slide("Driver block: input filters, turn-on / turn-off paths, star", 9)
 image(s, "img/sch_driver.png", [X0, Y0, W, 260])
 text(s, [X0, Y0 + 270, W, 110], [
-    "Per block a 2×3 control header (12 V, GND, PWM_H, PWM_L, DIS) with common-mode chokes on each pair",
+    "Per block a 2×5 control header (each signal next to its return); common-mode chokes on 12 V, DIS and NTC, none on "
+    "PWM_H / PWM_L (no extra delay or LC ringing with the 100 pF input filter; removed after the PWM review)",
     "47 Ω / 100 pF input filters, 10 k pull-downs, R_{ON} 1.5 Ω (shared by the pair), R_{OFF} 0 Ω + Schottky, "
     "R_{G} 0.5 Ω per transistor ⇒ R_{g,on} = 3.5 Ω per device",
 ], 15)

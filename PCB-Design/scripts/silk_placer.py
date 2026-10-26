@@ -4,6 +4,7 @@ Silkscreen placement for the generated Rev B boards (used by make_kicad_bb_revb.
 Every text is a board-level PCB_TEXT. A text is placed at the first candidate position whose bounding box
   - stays inside the board outline (margin EDGE),
   - keeps CLR from every pad of that side (THT pads on both sides) - silk is never printed on solder pads,
+  - keeps HOLE_CLR from every drilled via hole (both sides: the drill would cut the text),
   - does not overlap any silkscreen already on that side (footprint silk graphics and placed texts).
 Candidates around a footprint: above, below, left, right (also rotated 90 deg), the four corners, a second ring
 further out, and finally the centre of the part (under the body, between its pads). Texts that find no free spot go
@@ -16,6 +17,7 @@ import pcbnew
 
 MM = pcbnew.FromMM
 EDGE, CLR, GAP = 0.35, 0.18, 0.12
+HOLE_CLR = 0.12                              # mm around a drilled via hole
 SIZE, MIN_SIZE = 0.8, 0.8                    # mm text height (JLCPCB: >= 0.8 mm, line >= 0.153 mm)
 
 
@@ -35,6 +37,12 @@ class Silk:
         self.obst = {"top": [], "bottom": []}     # copper pads (+CLR)
         self.silk = {"top": [], "bottom": []}     # existing silk
         self.failed = []
+        for t in board.GetTracks():                 # drilled holes cut the silk on both sides (vias are tented,
+            if t.GetClass() == "PCB_VIA":           # so they are not pads, but the drill still removes the text)
+                r = pcbnew.ToMM(t.GetDrillValue()) / 2 + HOLE_CLR
+                x, y = pcbnew.ToMM(t.GetPosition().x), pcbnew.ToMM(t.GetPosition().y)
+                for side in ("top", "bottom"):
+                    self.obst[side].append((x - r, y - r, x + r, y + r))
         for fp in board.GetFootprints():
             for p in fp.Pads():
                 bb = _box(p.GetBoundingBox(), CLR)
@@ -156,7 +164,7 @@ class Silk:
             px, py = pcbnew.ToMM(p.GetPosition().x), pcbnew.ToMM(p.GetPosition().y)
             pb = _box(p.GetBoundingBox())
             ox, oy = px - fx, py - fy
-            c = self.around(pb, names[n], size, rings=(0.15,), centre=False, reach=3.0, step=0.25)
+            c = self.around(pb, names[n], size, rings=(0.15, 0.6), centre=False, reach=4.0, step=0.25)
             c.sort(key=lambda q: (((q[0] - px) * ox + (q[1] - py) * oy) < 0, abs(q[0] - px) + abs(q[1] - py)))
             self.put(names[n], c, side, size)
 

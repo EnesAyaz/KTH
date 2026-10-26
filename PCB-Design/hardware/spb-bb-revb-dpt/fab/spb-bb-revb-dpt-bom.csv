@@ -24,7 +24,7 @@ Qty,References,Value,Footprint,Manufacturer part / note,Fit
 2,R13 R32,3k 1% (RVDDI),R_0603_1608Metric,3.0k 0603 1%,fit
 4,RS1 RS2 RS3 RS4,UFCS-R001,PMK_UFCS_R001_short_IN,"PMK UFCS-R001 (1 mOhm, 50 A cont.)","NOT by the assembler: hand-soldered in the lab at the blade (short IN land), SMA cable to the scope"
 2,J3 J12,"V_ISO,HS in: 1 +, 2 -",PinHeader_1x02_P2.54mm_Vertical,2.54 mm header 1x2,fit
-13,L1 L2 L3 L4 L5 L6 L7 L8 L9 L10 L11 L12 L13,WE-CNSW 744232601,L_CommonMode_Wurth_WE-CNSW-1206,"Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",fit
+9,L1 L2 L3 L4 L5 L6 L7 L8 L9,WE-CNSW 744232601,L_CommonMode_Wurth_WE-CNSW-1206,"Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)",fit
 4,C20 C23 C53 C56,4.7uF 25V X7R 0805,C_0805_2012Metric,Murata GRM21BR71E475KA73,fit
 4,D3 D4 D7 D8,BZX384-C5V1,D_SOD-323,"Nexperia BZX384-C5V1 (5.1 V, 300 mW)",fit
 4,R14 R15 R33 R34,"150R 1% 0603 (bias, <= 82 mW)",R_0603_1608Metric,150R 0603 1% 0.1 W,fit
@@ -59,3 +59,4 @@ Mechanical (not placed by the assembler)
 1,J21,"AC bar 12 x 5 mm Cu, M6 hole, length to the load inductor",-,"Cu-ETP, tin plated"
 4,H1-H4,M2.5 standoff + screw (board mounting),-,nylon / insulated
 2,"J5, J14",Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return),-,"2.54 mm IDC, e.g. Wurth 61201021621"
+13,TP7 TP8 TP11 TP12 TP13 TP25 TP26 TP27 TP29 TP30 TP45 TP46 TP47,"Loop test point for a 1.0 mm hole, 0.1 in bushing (inserted in the lab, not by the assembler; see fab/testpoints.csv)",-,Keystone 5000 (red) / 5001 (black) or Adafruit 3825

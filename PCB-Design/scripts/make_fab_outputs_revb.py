@@ -159,6 +159,16 @@ for name in sys.argv[1:] or ("spb-bb-revb-dpt", "spb-bb-revb-load", "spb-busbar"
         ac = [p["ref"] for p in parts if p["value"] == "AC"]          # AC bolt reference from the board itself
         for row in MECH[name]:
             w.writerow([str(c).replace("{AC}", ac[0] if ac else "AC bolt") for c in row])
+        tpf = os.path.join(FAB, "testpoints.csv")
+        if os.path.exists(tpf):                                       # through-hole loop test points (lab-fitted)
+            kinds = json.load(open(os.path.join(D, "testpoints_cache.json"))) if os.path.exists(
+                os.path.join(D, "testpoints_cache.json")) else {}
+            tps = [r for r in csv.reader(open(tpf)) if len(r) > 2 and r[0].startswith("TP") and r[1] == "test point"
+                   and kinds.get(r[2], {}).get("kind") == "TP"]          # the SMD fallback pads need no part
+            if tps:
+                w.writerow([len(tps), " ".join(r[0] for r in tps), "Loop test point for a 1.0 mm hole, 0.1 in bushing "
+                            "(inserted in the lab, not by the assembler; see fab/testpoints.csv)", "-",
+                            "Keystone 5000 (red) / 5001 (black) or Adafruit 3825"])
     tp = os.path.join(FAB, "testpoints.csv")
     print("%s: BOM %d lines, %d placed parts, %d via-in-pad, test-point list %s -> %s"
           % (name, len(groups), sum(len(v[1]) for v in groups.values()), n_vip,

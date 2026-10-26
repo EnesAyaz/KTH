@@ -1,32 +1,36 @@
 {
  "GNDI1": {
+  "kind": "TPSMD",
   "nets": [
    "GNDI1"
   ],
   "side": "top",
-  "x": 121.05,
-  "y": 126.5,
+  "x": 124.45,
+  "y": 127.5,
   "rot": 0
  },
  "+12V1": {
+  "kind": "TPSMD",
   "nets": [
    "+12V1"
   ],
   "side": "top",
-  "x": 132.45,
-  "y": 123.89999999999999,
+  "x": 132.65,
+  "y": 123.69999999999999,
   "rot": 0
  },
  "VDDI1": {
+  "kind": "TPSMD",
   "nets": [
    "VDDI1"
   ],
   "side": "top",
   "x": 127.85,
-  "y": 123.5,
+  "y": 123.69999999999999,
   "rot": 0
  },
  "INA1": {
+  "kind": "TPSMD",
   "nets": [
    "INA1"
   ],
@@ -42,24 +46,27 @@
   "failed": true
  },
  "VDDA1": {
+  "kind": "TP",
   "nets": [
    "VDDA1"
   ],
   "side": "bottom",
-  "x": 114.2,
-  "y": 133.4,
+  "x": 112.8,
+  "y": 139.4,
   "rot": 0
  },
  "VEEA1": {
+  "kind": "TP",
   "nets": [
    "VEEA1"
   ],
-  "side": "bottom",
-  "x": 111.6,
-  "y": 134.20000000000002,
+  "side": "top",
+  "x": 111.39999999999999,
+  "y": 126.4,
   "rot": 0
  },
  "KH1": {
+  "kind": "TPSMD",
   "nets": [
    "KH1"
   ],
@@ -72,36 +79,40 @@
   "failed": true
  },
  "VDDB1": {
+  "kind": "TP",
   "nets": [
    "VDDB1"
   ],
-  "side": "bottom",
-  "x": 140.89999999999998,
-  "y": 134.20000000000002,
+  "side": "top",
+  "x": 141.43,
+  "y": 126.35,
   "rot": 0
  },
  "VEEB1": {
+  "kind": "TP",
   "nets": [
    "VEEB1"
   ],
   "side": "bottom",
-  "x": 138.29999999999998,
-  "y": 133.4,
+  "x": 138.03,
+  "y": 139.35,
   "rot": 0
  },
  "KL1": {
+  "kind": "TP",
   "nets": [
    "KL1"
   ],
   "side": "bottom",
-  "x": 139.7,
-  "y": 132.60000000000002,
+  "x": 140.89999999999998,
+  "y": 139.4,
   "rot": 0
  },
  "OUTB1": {
   "failed": true
  },
  "VGS Q1": {
+  "kind": "SPRING",
   "nets": [
    "GH_L1",
    "KH1"
@@ -112,6 +123,7 @@
   "rot": 0
  },
  "VGS Q2": {
+  "kind": "SPRING",
   "nets": [
    "GH_R1",
    "KH1"
@@ -122,6 +134,7 @@
   "rot": 180
  },
  "VGS Q3": {
+  "kind": "SPRING",
   "nets": [
    "GL_L1",
    "KL1"
@@ -132,6 +145,7 @@
   "rot": 180
  },
  "VGS Q4": {
+  "kind": "SPRING",
   "nets": [
    "GL_R1",
    "KL1"
@@ -142,15 +156,17 @@
   "rot": 0
  },
  "GNDI2": {
+  "kind": "TPSMD",
   "nets": [
    "GNDI2"
   ],
   "side": "top",
-  "x": 168.55,
-  "y": 126.5,
+  "x": 171.75,
+  "y": 127.69999999999999,
   "rot": 0
  },
  "+12V2": {
+  "kind": "TPSMD",
   "nets": [
    "+12V2"
   ],
@@ -160,9 +176,17 @@
   "rot": 0
  },
  "VDDI2": {
-  "failed": true
+  "kind": "TPSMD",
+  "nets": [
+   "VDDI2"
+  ],
+  "side": "top",
+  "x": 175.35,
+  "y": 123.5,
+  "rot": 0
  },
  "INA2": {
+  "kind": "TPSMD",
   "nets": [
    "INA2"
   ],
@@ -175,69 +199,83 @@
   "failed": true
  },
  "DIS2": {
-  "failed": true
+  "kind": "TPSMD",
+  "nets": [
+   "DIS2"
+  ],
+  "side": "top",
+  "x": 174.35,
+  "y": 125.89999999999999,
+  "rot": 0
  },
  "VDDA2": {
+  "kind": "TP",
   "nets": [
    "VDDA2"
   ],
   "side": "bottom",
-  "x": 161.70000000000002,
-  "y": 133.4,
+  "x": 160.3,
+  "y": 139.4,
   "rot": 0
  },
  "VEEA2": {
+  "kind": "TP",
   "nets": [
    "VEEA2"
   ],
-  "side": "bottom",
-  "x": 159.10000000000002,
-  "y": 134.20000000000002,
+  "side": "top",
+  "x": 157.20000000000002,
+  "y": 130.45,
   "rot": 0
  },
  "KH2": {
+  "kind": "TP",
   "nets": [
    "KH2"
   ],
-  "side": "bottom",
-  "x": 160.3,
-  "y": 132.60000000000002,
+  "side": "top",
+  "x": 157.8,
+  "y": 139.45,
   "rot": 0
  },
  "OUTA2": {
   "failed": true
  },
  "VDDB2": {
+  "kind": "TP",
   "nets": [
    "VDDB2"
   ],
   "side": "bottom",
-  "x": 188.33,
-  "y": 135.95,
+  "x": 187.93,
+  "y": 137.95,
   "rot": 0
  },
  "VEEB2": {
+  "kind": "TP",
   "nets": [
    "VEEB2"
   ],
   "side": "bottom",
-  "x": 185.79999999999998,
-  "y": 133.4,
+  "x": 186.93,
+  "y": 140.75,
   "rot": 0
  },
  "KL2": {
+  "kind": "TPSMD",
   "nets": [
    "KL2"
   ],
   "side": "bottom",
-  "x": 187.2,
-  "y": 132.60000000000002,
+  "x": 188.33,
+  "y": 135.75,
   "rot": 0
  },
  "OUTB2": {
   "failed": true
  },
  "VGS Q5": {
+  "kind": "SPRING",
   "nets": [
    "GH_L2",
    "KH2"
@@ -248,16 +286,18 @@
   "rot": 0
  },
  "VGS Q6": {
+  "kind": "SPRING",
   "nets": [
    "GH_R2",
    "KH2"
   ],
   "side": "bottom",
-  "x": 179.65,
+  "x": 179.45,
   "y": 103.9,
   "rot": 180
  },
  "VGS Q7": {
+  "kind": "SPRING",
   "nets": [
    "GL_L2",
    "KL2"
@@ -268,6 +308,7 @@
   "rot": 180
  },
  "VGS Q8": {
+  "kind": "SPRING",
   "nets": [
    "GL_R2",
    "KL2"
@@ -278,16 +319,18 @@
   "rot": 0
  },
  "VDS Q3": {
+  "kind": "SPRING",
   "nets": [
    "SW",
    "LSRC1"
   ],
   "side": "bottom",
-  "x": 118.75,
+  "x": 118.95,
   "y": 112.0,
   "rot": 180
  },
  "VDS Q1": {
+  "kind": "SPRING",
   "nets": [
    "DCP",
    "SW"
@@ -301,6 +344,7 @@
   "failed": true
  },
  "VDS Q2": {
+  "kind": "SPRING",
   "nets": [
    "DCP",
    "SW"
@@ -311,16 +355,18 @@
   "rot": 270
  },
  "VDS Q7": {
+  "kind": "SPRING",
   "nets": [
    "SW",
    "LSRC3"
   ],
   "side": "bottom",
-  "x": 166.25,
+  "x": 166.45,
   "y": 112.0,
   "rot": 180
  },
  "VDS Q5": {
+  "kind": "SPRING",
   "nets": [
    "DCP",
    "SW"
@@ -334,6 +380,7 @@
   "failed": true
  },
  "VDS Q6": {
+  "kind": "SPRING",
   "nets": [
    "DCP",
    "SW"
@@ -344,30 +391,33 @@
   "rot": 270
  },
  "DC+": {
+  "kind": "TP",
   "nets": [
    "DCP"
   ],
   "side": "bottom",
-  "x": 138.2,
-  "y": 81.000001,
+  "x": 137.4,
+  "y": 79.800001,
   "rot": 0
  },
  "DC-": {
+  "kind": "TP",
   "nets": [
    "DCN"
   ],
   "side": "bottom",
-  "x": 150.2,
+  "x": 162.6,
   "y": 81.200001,
   "rot": 0
  },
  "SW": {
+  "kind": "TP",
   "nets": [
    "SW"
   ],
   "side": "bottom",
-  "x": 143.4,
-  "y": 148.4,
+  "x": 148.8,
+  "y": 144.20000000000002,
   "rot": 0
  },
  "NTC": {

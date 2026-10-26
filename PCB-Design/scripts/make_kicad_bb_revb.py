@@ -861,8 +861,11 @@ def build_block(bi, xoff):
         text("HS ISO" if ch == "A" else "LS ISO", X(13.4), 39.4, 0.8, pcbnew.F_Fab)
 
     # ---- control domain of the block (primary side of the driver): TOP LAYER + a bottom GNDI plane only, all SMD,
-    # inside |x_r| <= CA_X, y CA_Y0 .. CA_Y1. Every signal leaves on its own pair (signal + its return) through a
-    # WE-CNSW common-mode choke; 12 V gets a ferrite bead after the choke. Barrier keepouts around it (see MOAT).
+    # inside |x_r| <= CA_X, y CA_Y0 .. CA_Y1. Every signal leaves on its own pair (signal + its return); DIS, 12 V
+    # and NTC through a WE-CNSW common-mode choke (12 V with a ferrite bead after it). PWM_H / PWM_L have no choke
+    # (layer-and-PWM review 2026-10-23): the driver input is isolated from both power domains, so the choke buys little
+    # common-mode rejection, while its leakage inductance with the 100 pF input capacitor rings and its delay can
+    # differ between U1 and U2; the 47 R / 100 pF input filter stays. Barrier keepouts around it (see MOAT).
     gi = bn("GNDI")
     rect_zone(F, gi, -CA_X, CA_X, CA_Y0, 28.6, 1)                            # board side of the chokes only
     rect_zone(Bl, gi, -6.0, 6.0, 21.9, 27.6, 1)       # bottom GNDI plane: >= 4 mm to L4 power, >= 3 mm to the
@@ -874,9 +877,11 @@ def build_block(bi, xoff):
         COLS.append(("NTC", "C_NTC", "C_RTN_NTC", True))
     YCH, YCON = 30.0, 36.4
     sig_top = {}
+    NO_CMC = ("PWM_H", "PWM_L")
     for k, (nb_, nc_, nr_, gnd_left) in enumerate(COLS):
         xk = -5.08 + 2.54 * k
-        L = place(FP + "Inductor_SMD.pretty", "L_CommonMode_Wurth_WE-CNSW-1206", ref("L"), "WE-CNSW 744232601",
+        L = place(FP + "Inductor_SMD.pretty", "L_CommonMode_Wurth_WE-CNSW-1206",
+                  "Ltmp" if nb_ in NO_CMC else ref("L"), "WE-CNSW 744232601",
                   xk, YCH, 90, False, None, "Wurth 744232601 (600 Ohm @ 100 MHz, 260 mA)")
         wind = {}
         for q in L.Pads():
@@ -884,11 +889,20 @@ def build_block(bi, xoff):
         a_left = rx(wind["a"][0].GetPosition().x) < rx(wind["b"][0].GetPosition().x)
         w_left, w_right = (wind["a"], wind["b"]) if a_left else (wind["b"], wind["a"])
         w_gnd, w_sig = (w_left, w_right) if gnd_left else (w_right, w_left)
-        for w, n_board, n_cable in ((w_sig, bn(nb_), bn(nc_)), (w_gnd, gi, bn(nr_))):
-            for q in w:
-                q.SetNet(net(n_board if pcbnew.ToMM(q.GetPosition().y) < YCH else n_cable))
+        if nb_ in NO_CMC:                       # no choke: straight traces where its windings were, same routing
+            nc_, nr_ = nb_, "GNDI"
+            for w, n_ in ((w_sig, bn(nb_)), (w_gnd, gi)):
+                ys_ = sorted(pcbnew.ToMM(q.GetPosition().y) for q in w)
+                seg(F, [(rx(w[0].GetPosition().x), ys_[0]), (rx(w[0].GetPosition().x), ys_[-1])], 0.25, n_)
+        else:
+            for w, n_board, n_cable in ((w_sig, bn(nb_), bn(nc_)), (w_gnd, gi, bn(nr_))):
+                for q in w:
+                    q.SetNet(net(n_board if pcbnew.ToMM(q.GetPosition().y) < YCH else n_cable))
         xs_ = rx(w_sig[0].GetPosition().x)
         xg_ = rx(w_gnd[0].GetPosition().x)
+        if nb_ in NO_CMC:                       # the footprint only gave the winding positions
+            board.Remove(L)
+            PARTS.pop()
         sig_top[nb_] = xs_
         COLS[k] = (nb_, nc_, nr_, gnd_left, xk, xs_, xg_)
     # control connector: 2 x 5 SMT header (rot 90): column k = pair (upper pin = signal, lower pin = its return)
@@ -924,7 +938,7 @@ def build_block(bi, xoff):
         nb_, nc_, nr_, gnd_left, xk, xs_, xg_ = COLS[k]
         upper = y_ < YCON
         q.SetNet(net(bn(nc_ if upper else nr_)))
-        pins[int(q.GetNumber())] = (nc_[2:] if upper else "RTN").replace("12V", "12V")
+        pins[int(q.GetNumber())] = ((nc_[2:] if nc_.startswith("C_") else nc_.replace("_", "")) if upper else "RTN")
         if upper:                                            # signal pin -> signal winding (cable side)
             seg(F, [(xk, y_ - 1.2), (xs_, YCH + 1.35)], 0.25, bn(nc_))
         else:                                                # return pin -> around the upper pin -> GND winding
@@ -1383,15 +1397,20 @@ def frange(a, b, st):
 
 BRD_NAME = {"dpt": "DPT BOARD", "load": "LOAD-TEST BOARD"}.get(BOARD, VARIANT.upper())
 XS_ALL = sorted(frange(-40.0, 40.0, 1.0), key=abs)
-SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "top", 1.2)
-SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0 + D_BUS, 40.0 + D_BUS, -0.5)), "top", 1.0)
-SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "top", 1.0)
-SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)), "bottom", 1.2)
-SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
-SK.put("VDS MMCX: SW / LSRC, 75 V - RATED PROBE ONLY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)), "bottom", 1.0)
+# board texts: the preferred band first, then anywhere on the board (the AC-bus via field blocks most of the band now
+# that drilled holes are silk obstacles)
+ANY = scan(XS_ALL, frange(Y1 - 1.0, Y0 + 1.0, -0.5))
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)) + ANY, "top", 1.2)
+SK.put("KTH 2026-10   4 x EPC2361 PER SWITCH", scan(XS_ALL, frange(54.0 + D_BUS, 40.0 + D_BUS, -0.5)) + ANY, "top", 1.0)
+SK.put("DESIGNED BY CLAUDE", scan(XS_ALL, frange(54.0 + D_BUS, 40.0 + D_BUS, -0.5)) + ANY, "top", 1.0)
+SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)) + ANY, "top", 1.0)
+SK.put("SPB LEG REV B - " + BRD_NAME, scan(XS_ALL, frange(53.5 + D_BUS, 40.0 + D_BUS, -0.5)) + ANY, "bottom", 1.2)
+SK.put("75 V DC - CHECK POLARITY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)) + ANY, "bottom", 1.0)
+SK.put("VDS MMCX: SW / LSRC, 75 V - RATED PROBE ONLY", scan(XS_ALL, frange(-22.5, -6.0, 0.5)) + ANY, "bottom", 1.0)
 for c, xc in enumerate((-33.25, -14.25, 14.25, 33.25)):
-    cc = sorted(scan(frange(xc - 6, xc + 6, 0.25), frange(2.5, -4.0, -0.25)),
-                key=lambda p: abs(p[0] - xc) + 2 * abs(p[1] - 0.0))
+    cc = sorted(scan(frange(xc - 9, xc + 9, 0.25), frange(3.0, -6.0, -0.25)) +
+                scan(frange(xc - 9, xc + 9, 0.25), frange(3.0, -6.0, -0.25), 90),
+                key=lambda p: abs(p[0] - xc) + 2 * abs(p[1] - 0.0) + (3 if p[2] else 0))
     if not SK.put("CELL %d" % (c + 1), cc, "top", 1.0):
         SK.put("%d" % (c + 1), cc, "top", 1.0)
 for r_, lab in (("J1", "DC+"), ("J2", "DC-")):                 # terminals are bottom parts: name them on top
@@ -1455,7 +1474,11 @@ def ctrl_legend(f_):
     for n in sig:
         name = pins[n]
         w, h = SK.size_of(name, 0.8, 90)
-        SK.put(name, [(pads[n][0], edge + away * (h / 2 + d), 90) for d in frange(0.15, 1.5, 0.05)], "top", 0.8)
+        far = bb[1] if away > 0 else bb[3]                # the other side of the header, if the via row blocks
+        SK.put(name, [(pads[n][0] + dx, edge + away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
+                      for d in frange(0.15, 1.5, 0.05)] +
+               [(pads[n][0] + dx, far - away * (h / 2 + d), 90) for dx in (0.0, -0.25, 0.25, -0.5, 0.5)
+                for d in frange(0.15, 1.5, 0.05)], "top", 0.8)            # sideways: clear of the via rows
     for lab, yy in (("SIG", y_sig), ("RTN", y_ret)):
         w, h = SK.size_of(lab, 0.8, 90)
         SK.put(lab, [(bb[0] - w / 2 - d, yy, 90) for d in frange(0.15, 1.5, 0.05)] +
@@ -1624,7 +1647,8 @@ def tp_label(d, last=False):
     names = [d["value"]]
     if d["value"][-1:].isdigit() and not d["value"].startswith(("VGS", "VDS")):
         names.append(d["value"][:-1].lstrip("+") or d["value"])   # GNDI1 -> GNDI, +12V2 -> 12V
-    for reach_ in ((1.6, 3.0) if last else (1.6,)):        # right at the pad; last round: up to 3 mm
+    for reach_ in ((1.6, 3.0, 4.5) if last else (1.6,)):   # right at the pad; last round: up to 4.5 mm (drilled
+    #                                                         holes are silk obstacles, so the near ring is often full)
         for nm in names:
             if SK_TP.put(nm, SK_TP.around(box_, nm, 0.8, rings=(0.15, 0.5), centre=False, reach=reach_, step=0.2),
                          side_, 0.8):
@@ -1638,8 +1662,10 @@ TPS = test_points.run(board2, OUTL, os.path.join(OUT, "testpoints_cache.json"), 
                       lib_path=_lib, label_fn=tp_label)
 print("test points: %d placed (list: fab/testpoints.csv)" % len(TPS), flush=True)
 # silk labels covered by a test-point pad move away; every test point gets its name
-tp_boxes = [(silk_placer._box(p_.GetBoundingBox(), 0.25), "bottom" if f_.IsFlipped() else "top")
-            for f_ in board2.GetFootprints() if f_.GetReference().startswith("TP") for p_ in f_.Pads()]
+tp_boxes = [(silk_placer._box(p_.GetBoundingBox(), 0.25), sd_)
+            for f_ in board2.GetFootprints() if f_.GetReference().startswith("TP") for p_ in f_.Pads()
+            for sd_ in (("top", "bottom") if p_.GetAttribute() == pcbnew.PAD_ATTRIB_PTH      # loop test point: a hole
+                        else (("bottom",) if f_.IsFlipped() else ("top",)))]               # exposed on both sides
 moved = []
 for d_ in list(board2.GetDrawings()):
     if d_.GetClass() == "PCB_TEXT" and d_.GetLayer() in (pcbnew.F_SilkS, pcbnew.B_SilkS):
