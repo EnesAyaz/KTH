@@ -1765,13 +1765,15 @@ print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join
 # via-in-pad list for the fab notes (fabrication review F1/F2): every via whose centre lies in an SMD pad is filled
 # and capped (the rest are tented); coordinates relative to the drill / pick-and-place origin
 VIP = []
+AUX = (pcbnew.ToMM(board2.GetDesignSettings().GetAuxOrigin().x),   # drill/place origin = board bottom-left,
+       pcbnew.ToMM(board2.GetDesignSettings().GetAuxOrigin().y))   # the origin of the Gerbers, drills and CPL too
 smd_pads = [q for f_ in board2.GetFootprints() for q in f_.Pads() if q.GetAttribute() == pcbnew.PAD_ATTRIB_SMD]
 for t_ in board2.GetTracks():
     if t_.GetClass() != "PCB_VIA":
         continue
     hit = next((q for q in smd_pads if q.HitTest(t_.GetPosition())), None)
     if hit is not None:
-        VIP.append(("%.3f" % (pcbnew.ToMM(t_.GetPosition().x) - OX), "%.3f" % -(pcbnew.ToMM(t_.GetPosition().y) - OY),
+        VIP.append(("%.3f" % (pcbnew.ToMM(t_.GetPosition().x) - AUX[0]), "%.3f" % -(pcbnew.ToMM(t_.GetPosition().y) - AUX[1]),
                     "%.2f" % pcbnew.ToMM(t_.GetDrillValue()), "%.2f" % pcbnew.ToMM(t_.GetWidth()), t_.GetNetname(),
                     "%s.%s" % (hit.GetParent().GetReference(), hit.GetNumber())))
 os.makedirs(os.path.join(OUT, "fab"), exist_ok=True)

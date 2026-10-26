@@ -35,10 +35,11 @@ Still tick "confirm production file": the engineering question can then be answe
 
 | Setting | Value |
 |---|---|
-| Assembly | Standard PCBA, **both sides** (38 of 174 placements on the bottom) |
+| Assembly | Standard PCBA, **both sides** (38 of 170 placements on the bottom) |
 | Tooling / fiducials | the board has no fiducials: let JLC add edge rails with fiducials |
-| Not assembled | RS1–RS4 (UFCS shunts, hand-soldered in the lab), R16–R19 and R35–R38 (DNP 0 Ω U.FL links); test points and spring pads are bare pads |
+| Not assembled | RS1–RS4 (UFCS shunts, hand-soldered in the lab), R16–R19 and R35–R38 (DNP 0 Ω U.FL links); spring pads and SMD test points are bare pads; the 13 loop test points (1.02 mm plated holes) get the Adafruit 3825 loops by hand in the lab |
 | BOM / CPL | `fab/jlc/spb-bb-revb-dpt-BOM-JLC.csv`, `fab/jlc/spb-bb-revb-dpt-CPL-JLC.csv` |
+| Coordinates | Gerbers, drills, CPL and the via-in-pad list share **one origin**: board bottom-left corner (x right, y up; outline 0..89.5 × 0..85.2 mm). In the preview, check that the parts sit on their pads (e.g. C13 at 18.0 / 45.4 mm, bottom) |
 | Part matching | the "Comment" column holds the manufacturer part number; confirm each match in JLC's BOM tool |
 | Parts JLC may not stock | EPC2361, 2EDF7275KXUMA1, Würth 74650174R (REDCUBE), 66012102111404 (WR-MMCX), 744232601 (WE-CNSW), Samtec TSM-105-01-T-DV: Global Sourcing, or consignment |
 | Rotations | check every part in JLC's placement preview, especially EPC2361, 2EDF7275K (LGA-13), SOD-323F diodes, MMCX, U.FL and the REDCUBE |
@@ -46,7 +47,7 @@ Still tick "confirm production file": the engineering question can then be answe
 Assembly checks before confirming:
 
 - **EPC2361:** the footprint uses copper-only pads with graphical mask and paste openings (EPC land pattern). Confirm
-  that JLC builds the stencil from `F_Paste` as supplied and ask for the stencil thickness EPC recommends.
+  that JLC builds the stencil from `F_Paste` as supplied and use the stencil EPC recommends: 4 mil (100 µm), laser cut (EPC2361 datasheet p. 11).
 - **REDCUBE J1 / J2:** through-hole-reflow parts on the bottom side; JLC places them as THT (hand or selective
   soldering). Confirm the M4 thread side and orientation in the preview.
 - **MMCX and U.FL:** bottom side, check the polarity and orientation of the shield pads.

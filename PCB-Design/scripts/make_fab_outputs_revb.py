@@ -83,7 +83,8 @@ RULES_TXT = ["Minimum track / space: 0.20 / 0.20 mm (functional clearance betwee
              "ALL vias covered both sides (the barrier relies on it); the via-in-pad list below needs IPC-4761 type VII "
              "(filled with non-conductive epoxy + copper capped, planarised). JLCPCB: order 'Epoxy Filled & Capped', "
              "which treats all vias this way (acceptable)",
-             "Drill files: PTH and NPTH separate (Excellon, mm, absolute origin = drill origin)"]
+             "Drill files: PTH and NPTH separate (Excellon, mm)",
+             "COORDINATES: Gerbers, drill files, pick-and-place (CPL) and the via-in-pad list below all use ONE origin, the drill/place origin = board bottom-left corner (KiCad aux origin 105.25 / 160.8 mm), x right, y up"]
 
 
 def fab_notes(name, D, GB):
@@ -126,11 +127,12 @@ for name in sys.argv[1:] or ("spb-bb-revb-dpt",):
     PCB = os.path.join(D, name + ".kicad_pcb")
     SCH = os.path.join(D, name + ".kicad_sch")
     out = lambda n: os.path.join(FAB, n)                       # noqa: E731
-    run("pcb", "export", "gerbers", "--layers", LAYERS, "--subtract-soldermask", "-o", GB + os.sep, PCB)
+    run("pcb", "export", "gerbers", "--layers", LAYERS, "--subtract-soldermask", "--use-drill-file-origin", "-o",
+        GB + os.sep, PCB)
     for f in glob.glob(os.path.join(GB, "*.drl")) + glob.glob(os.path.join(GB, "*drl_map.pdf")):
         os.remove(f)                                           # stale combined drill files from before the split
     run("pcb", "export", "drill", "--format", "excellon", "--excellon-units", "mm", "--excellon-separate-th",
-        "--generate-map", "--map-format", "pdf", "-o", GB + os.sep, PCB)
+        "--drill-origin", "plot", "--generate-map", "--map-format", "pdf", "-o", GB + os.sep, PCB)
     n_vip = fab_notes(name, D, GB) if name in NOTE else 0
     run("pcb", "export", "pos", "--format", "csv", "--units", "mm", "--side", "both", "--use-drill-file-origin",
         "-o", out(name + "-pos.csv"), PCB)
