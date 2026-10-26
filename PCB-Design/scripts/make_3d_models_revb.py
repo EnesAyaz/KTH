@@ -25,7 +25,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from make_3d_models import MODELS, write_step, write_wrl, BLACK, SILVER, DARK, ALU, PAD, FAN  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUTS = [os.path.join(ROOT, "hardware", b, "3d") for b in ("spb-bb-revb-dpt", "spb-bb-revb-load")]
+# DPT board only for now (the load board is frozen until the DPT board is tested)
+OUTS = [os.path.join(ROOT, "hardware", b, "3d") for b in ("spb-bb-revb-dpt",)]
 
 CERAMIC = (0.62, 0.52, 0.38)
 TIN = (0.80, 0.80, 0.78)

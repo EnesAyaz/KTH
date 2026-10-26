@@ -117,7 +117,8 @@ def run(*args):
     sys.exit("kicad-cli %s did not rewrite %s" % (args[:3], o))
 
 
-for name in sys.argv[1:] or ("spb-bb-revb-dpt", "spb-bb-revb-load", "spb-busbar"):
+# DPT board only by default: the load board and the busbar wait until the DPT board is tested (name them to build)
+for name in sys.argv[1:] or ("spb-bb-revb-dpt",):
     D = os.path.join(ROOT, "hardware", name)
     FAB = os.path.join(D, "fab")
     GB = os.path.join(FAB, "gerber")
