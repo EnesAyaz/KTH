@@ -315,6 +315,14 @@ if __name__ == "__main__":
     sc = Scene()
     sc.board(DPT)
     render(sc.mesh(), "r3d_dpt_top.png", [(0, -15, 260), (0, -15, 0), (0, 1, 0)], zoom=1.25, parallel=True, tex=sc.tex)
+    # FETs straight from above (heatsink and UFCS shunt bodies hidden): whole row and driver block 1 (Q1..Q4)
+    sc = Scene()
+    sc.board(DPT, skip=("HS", "RS"))
+    m, T_ = sc.mesh(), sc.tex
+    render(m, "r3d_dpt_fets_row.png", [(0, -7.05, 200), (0, -7.05, 0), (0, 1, 0)], size=(2600, 700), zoom=4.0,
+           parallel=True, tex=T_)
+    render(m, "r3d_dpt_fets_block1.png", [(-23.75, -7.05, 200), (-23.75, -7.05, 0), (0, 1, 0)], size=(2000, 1100),
+           zoom=6.0, parallel=True, tex=T_)
     sc = Scene()
     sc.board(LOAD, skip=("HS",))
     render(sc.mesh(), "r3d_load_top.png", [(0, -15, 260), (0, -15, 0), (0, 1, 0)], zoom=1.25, parallel=True, tex=sc.tex)

@@ -714,6 +714,16 @@ image(s, "img/r3d_load_top.png", [X0 + 460, Y0, 450, 360])
 label(s, [X0, Y0 + 365, 450, 20], "DPT board (UFCS shunts over the LS FETs)", 13, "gray", False, "center")
 label(s, [X0 + 460, Y0 + 365, 450, 20], "load-test board (heatsink removed for the view)", 13, "gray", False, "center")
 
+s = slide("DPT board: the eight EPC2361 from above", 8)
+image(s, "img/r3d_dpt_fets_row.png", [X0, Y0, W, 245])
+image(s, "img/r3d_dpt_fets_block1.png", [X0, Y0 + 255, 265, 146])
+text(s, [X0 + 280, Y0 + 255, W - 280, 146], [
+    "Heatsink and UFCS shunt bodies hidden; straight top view (parallel projection)",
+    "Land pattern = EPC2361 recommended copper drawing (datasheet p. 12): copper 0.3 mm beyond the 3.0 × 5.0 mm body "
+    "on the long sides, 0.4 mm at the ends, solder-mask defined; pin-1 circle at the gate pad",
+    "Cells of a driver block face each other with R_{G} between them (left: block 1, Q1–Q4)",
+], 13)
+
 s = slide("Bottom side and the load board without heatsink", 8)
 image(s, "img/r3d_dpt_bottom.png", [X0, Y0, 445, 300])
 image(s, "img/r3d_load_nohs.png", [X0 + 455, Y0, 445, 300])
