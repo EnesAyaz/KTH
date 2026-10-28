@@ -44,3 +44,4 @@ Result: one type scale (section 8.6, panel 6.8, body 6.4, chart 4.6 mm) and pale
 revb_flow_numbers / final_numbers / q3d_spice_numbers / gate_summary_dpt. Sections renumbered 1-8 (7 was missing).
 Changed from the hand version: power-loop +0.3 nH imbalance 2 % (deck table), not "~0 %".
 Checks: PDF A0 (2384 x 3370 pt); rasters: logo 554 dpi, DPT render 216 dpi, Q3D model 287 dpi; 150 dpi detail views.
+Commit: fa3f42f
