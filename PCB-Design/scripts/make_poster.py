@@ -275,27 +275,8 @@ k = 150 / 130.3
 S.append('<g transform="translate(%.2f,%.2f) scale(%.4f) translate(-321.0,-301.8)">%s</g>' % (mx, cy + 24, k, frag))
 cx1 = mx + 160
 ptitle(cx1 + 95, cy + 12, "Device voltage class and cell count", "middle")
-Ns = np.array([1, 2, 3, 4, 5, 8, 10, 12, 16, 20])
-fig, ax = chart(190, 160)
-ax.semilogy(Ns, 1200 / Ns, "o-", color=BLUE, ms=6)
-ax.set_xlabel("cell count N")
-ax.set_xticks([1, 4, 8, 12, 16, 20])
-ax.set_ylabel("V$_{cell}$ = 1200 V / N", color=BLUE)
-ax.set_yticks([50, 100, 200, 500, 1000])
-ax.set_yticklabels(["50", "100", "200", "500", "1000"])
-ax.axhline(100, color=RED, ls="--", lw=1.3)
-ax.text(20.5, 104, "100 V class", color=RED, ha="right", va="bottom", fontsize=12)
-ax.plot([16], [75], "o", color=TEAL, ms=11, zorder=5)
-ax.annotate("N = 16: 75 V", (16, 75), (9.5, 58), color=TEAL, fontsize=13, fontweight="bold",
-            arrowprops=dict(arrowstyle="-", color=TEAL, lw=1.2))
-a2 = ax.twinx()
-a2.plot(Ns, 6 * Ns, "s--", color=AMBER, ms=5)
-a2.set_ylabel("active switches 6N", color=AMBER)
-a2.spines["right"].set_visible(True)
-a2.grid(False)
-fig.tight_layout(pad=0.3)
-place(fig, cx1, cy + 18, 190, 160)
-caption(cx1 + 95, cy + 200, "1200 V link: lower cell voltage, more switches")
+pdf_figure("fig13", cx1, cy + 18, 190, 172)          # review Fig. 13 as published
+caption(cx1 + 95, cy + 200, "1200 V link: V_{cell} = V_{dc}/N versus active switches 6N")
 px = cx1 + 200
 note_box(px, cy + 6, W - M - 8 - px, 206)
 bullets(px + 7, cy + 17, [
@@ -316,18 +297,26 @@ x = M
 cy = section(x, y2, w2, h2, "2", "Voltage class, cell count, single cell")
 pw, ph = (w2 - 20) / 2, 82
 panels = [(x + 8, cy + 10), (x + 12 + pw, cy + 10), (x + 8, cy + 108), (x + 12 + pw, cy + 108)]
-# (a) lowest D-FoM per voltage class (device survey of the design-flow slides)
+# (a) lowest D-FoM per voltage class: tau = R_DS(on) * C_oss,tr (ps), device table of revb_flow_figures.py
 (ax_, ay_) = panels[0]
 ptitle(ax_, ay_, "(a) Lowest D-FoM per class (ps)")
-DF = [("100", 1.35), ("200", 4.14), ("350", 6.88), ("650", 4.90)]
-bx0, by0, bh0, bwid = ax_ + 8, ay_ + 66, 52, 18
+DF = {}
+for pn, d_ in RF["devices"].items():
+    tau = d_["R_pu"] * d_["C_pu"] * d_["V"] ** 2 / 1e3          # (mOhm/V * V) * (pF/V * V) = fs -> ps
+    if d_["V"] not in DF or tau < DF[d_["V"]][1]:
+        DF[d_["V"]] = (pn, tau)
+DF = sorted(DF.items())
+fmax = max(f for _, (_, f) in DF)
+bx0, by0, bh0, bwid = ax_ + 8, ay_ + 62, 46, 18
 line(bx0 - 2, by0, bx0 + 4 * (bwid + 4), by0, MUTED, 0.4)
-for i, (v, f) in enumerate(DF):
-    hh = bh0 * f / 7.0
-    rect(bx0 + i * (bwid + 4), by0 - hh, bwid, hh, TEAL if i == 0 else GREY)
-    text(bx0 + i * (bwid + 4) + bwid / 2, by0 - hh - 1.8, "%.2f" % f, C, TEAL if i == 0 else TXT, 700, "middle")
-    text(bx0 + i * (bwid + 4) + bwid / 2, by0 + 5, v, C, TXT, anchor="middle")
-text(bx0 + 2 * (bwid + 4), by0 + 11, "voltage class (V)", C, MUTED, anchor="middle")
+for i, (v, (pn, f)) in enumerate(DF):
+    hh = bh0 * f / fmax
+    col = TEAL if v == 100 else GREY
+    rect(bx0 + i * (bwid + 4), by0 - hh, bwid, hh, col)
+    text(bx0 + i * (bwid + 4) + bwid / 2, by0 - hh - 1.8, "%.2f" % f, C, TEAL if v == 100 else TXT, 700, "middle")
+    text(bx0 + i * (bwid + 4) + bwid / 2, by0 + 5, "%d V" % v, C, TXT, 700, "middle")
+    text(bx0 + i * (bwid + 4) + bwid / 2, by0 + 9.8, pn.replace("IGT65R140D2", "IGT65R140"), C - 1.0, MUTED, anchor="middle")
+text(bx0 + 2 * (bwid + 4) - 2, by0 + 15.5, "D-FoM = R_{DS(on)} · C_{oss,tr}", C - 0.4, MUTED, anchor="middle")
 # (b) cell voltage
 (ax_, ay_) = panels[1]
 ptitle(ax_, ay_, "(b) V_{cell} = 1200 V / N")

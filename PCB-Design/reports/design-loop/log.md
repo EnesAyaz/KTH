@@ -45,3 +45,10 @@ revb_flow_numbers / final_numbers / q3d_spice_numbers / gate_summary_dpt. Sectio
 Changed from the hand version: power-loop +0.3 nH imbalance 2 % (deck table), not "~0 %".
 Checks: PDF A0 (2384 x 3370 pt); rasters: logo 554 dpi, DPT render 216 dpi, Q3D model 287 dpi; 150 dpi detail views.
 Commit: fa3f42f
+
+## 2026-10-28 - Poster: D-FoM check, review Fig. 13 restored
+Comment (Enes): check the D-FoM values against our data; why was the voltage-class / cell-count graph changed?
+Checks: D-FoM = R_DS(on) * C_oss,tr (DEV table, revb_flow_figures.py): lowest per class 1.35 ps EPC2361 (100 V),
+4.14 ps EPC2215 (200 V), 6.88 ps EPC2050 (350 V), 4.90 ps IGT65R140D2 (650 V) - the pasted values were right.
+Now computed from revb_flow_numbers.json devices, device names under the bars. Section 1 uses review Fig. 13 again
+(vector), the redraw was a mistake.
