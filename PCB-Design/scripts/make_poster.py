@@ -5,6 +5,9 @@ numbered section bars, KPI cards, Segoe UI. Units: mm (viewBox 841 x 1189).
 
     python scripts/make_poster.py  ->  reports/poster/spb_project_poster_A0.svg
     "C:\\Program Files\\Inkscape\\bin\\inkscape.exe" <svg> --export-type=pdf  (and png for a preview)
+
+Superseded (2026-10-28): the SVG is now edited by hand in Inkscape (Enes's layout). Do not rerun this script; it
+would overwrite those edits. Print-resolution figures for the SVG come from scripts/make_poster_figs.py.
 """
 import base64
 import io
