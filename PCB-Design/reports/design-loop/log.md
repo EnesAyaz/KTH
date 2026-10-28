@@ -52,3 +52,4 @@ Checks: D-FoM = R_DS(on) * C_oss,tr (DEV table, revb_flow_figures.py): lowest pe
 4.14 ps EPC2215 (200 V), 6.88 ps EPC2050 (350 V), 4.90 ps IGT65R140D2 (650 V) - the pasted values were right.
 Now computed from revb_flow_numbers.json devices, device names under the bars. Section 1 uses review Fig. 13 again
 (vector), the redraw was a mistake.
+Commit: 89e4e1f
