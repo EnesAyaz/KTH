@@ -33,3 +33,4 @@ Fixes: review fig03/fig13/fig16 re-rendered from vector PDFs (113/137/156 -> 331
 chart redrawn at box size with A0 fonts; footer no longer covers the third bullets of cards 8/9; cards centred;
 header centred; typos (Department, dc current, D-FoM, "GaN ,", "and -1.9", stray "t", "/", "." objects).
 Checks: all rasters >= 227 dpi at print size; Inkscape PDF = A0 (2384 x 3370 pt); 150 dpi detail views checked.
+Commit: 5ce33cc
