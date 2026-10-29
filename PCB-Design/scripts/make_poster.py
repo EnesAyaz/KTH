@@ -227,7 +227,7 @@ rect(0, 146, W, 4, TEAL)
 image(Image.open(os.path.join(IMG, "kth_logo.png")), 24, 25, 86, 96, "PNG")
 CX = 407.5
 text(CX, 31, "Moore4Power General Assembly · November 2026", 7.5, "#cfe3ef", anchor="middle")
-text(CX, 62, "Stacked Polyphase Bridge Traction Drives:", 23, "#ffffff", 600, "middle")
+text(CX, 62, "Stacked Polyphase Bridge Propulsion Drives:", 23, "#ffffff", 600, "middle")
 text(CX, 88, "Iterative GaN Building Block Design", 23, "#ffffff", 600, "middle")
 text(CX, 110, "Enes Ayaz, Shahriar Sarmast Ghahfarokhi, Kevin Klarin, Staffan Norrga", 10, "#ffffff", 600, "middle")
 text(CX, 125, "Department of Electric Power and Energy Systems, KTH Royal Institute of Technology, Stockholm, Sweden",
@@ -248,8 +248,8 @@ text(728, 136, "16 × 75 V = 1200 V", 6.2, "#cfe3ef", anchor="middle")
 NP = RF["npar"]["0.5nH"]
 n4 = NP[3]
 LOOP = {b: [FQ[b]["loop"]["all_switching"]["cell%d" % c] for c in range(1, 5)] for b in ("dpt", "load")}
-KPI = [("1200 V", "dc link, 300 kW traction"), ("16 × 75 V", "series cells, own winding groups"),
-       ("4 × GaN", "EPC2361 100 V devices per switch"), ("%.2f nH" % np.mean(LOOP["load"]), "commutation loop per cell"),
+KPI = [("1200 V", "dc link, 300 kW power"), ("16 × 75 V", "series cells, own winding groups"),
+       ("4 × GaN", "100 V devices per switch"), ("%.2f nH" % np.mean(LOOP["load"]), "commutation loop per cell"),
        ("%.2f %%" % (100 * n4["eta"]), "semiconductor efficiency"), ("2.85 %", "shared-bus dc ripple, 50 kHz")]
 cw = (W - 2 * M - 5 * 10) / 6
 for i, (v, d) in enumerate(KPI):
@@ -297,26 +297,43 @@ x = M
 cy = section(x, y2, w2, h2, "2", "Voltage class, cell count, single cell")
 pw, ph = (w2 - 20) / 2, 82
 panels = [(x + 8, cy + 10), (x + 12 + pw, cy + 10), (x + 8, cy + 108), (x + 12 + pw, cy + 108)]
-# (a) lowest D-FoM per voltage class: tau = R_DS(on) * C_oss,tr (ps), device table of revb_flow_figures.py
+# (a) R_DS(on) versus C_oss,tr: D-FoM = R_DS(on) * C_oss,tr (ps) along the dashed lines; device table of
+#     revb_flow_figures.py via revb_flow_numbers.json (R_pu mOhm/V, C_pu pF/V)
 (ax_, ay_) = panels[0]
-ptitle(ax_, ay_, "(a) Lowest D-FoM per class (ps)")
-DF = {}
+ptitle(ax_, ay_, "(a) R_{DS(on)} vs C_{oss,tr}")
+KCOL = {100: TEAL, 200: BLUE, 350: AMBER, 650: RED}
+fig, ax = chart(pw, ph - 6)
+cc = np.logspace(1.2, 3.8, 50)
+for tau in (1, 2, 5, 10):
+    ax.loglog(cc, tau / cc * 1e3, color=GREY, lw=0.9, ls=(0, (4, 2)), zorder=1)
+    ax.text(3800, tau / 3800 * 1e3 * 1.15, "%g ps" % tau, color=MUTED, fontsize=10, ha="center", rotation=-24)
+best = {}
 for pn, d_ in RF["devices"].items():
-    tau = d_["R_pu"] * d_["C_pu"] * d_["V"] ** 2 / 1e3          # (mOhm/V * V) * (pF/V * V) = fs -> ps
-    if d_["V"] not in DF or tau < DF[d_["V"]][1]:
-        DF[d_["V"]] = (pn, tau)
-DF = sorted(DF.items())
-fmax = max(f for _, (_, f) in DF)
-bx0, by0, bh0, bwid = ax_ + 8, ay_ + 62, 46, 18
-line(bx0 - 2, by0, bx0 + 4 * (bwid + 4), by0, MUTED, 0.4)
-for i, (v, (pn, f)) in enumerate(DF):
-    hh = bh0 * f / fmax
-    col = TEAL if v == 100 else GREY
-    rect(bx0 + i * (bwid + 4), by0 - hh, bwid, hh, col)
-    text(bx0 + i * (bwid + 4) + bwid / 2, by0 - hh - 1.8, "%.2f" % f, C, TEAL if v == 100 else TXT, 700, "middle")
-    text(bx0 + i * (bwid + 4) + bwid / 2, by0 + 5, "%d V" % v, C, TXT, 700, "middle")
-    text(bx0 + i * (bwid + 4) + bwid / 2, by0 + 9.8, pn.replace("IGT65R140D2", "IGT65R140"), C - 1.0, MUTED, anchor="middle")
-text(bx0 + 2 * (bwid + 4) - 2, by0 + 15.5, "D-FoM = R_{DS(on)} · C_{oss,tr}", C - 0.4, MUTED, anchor="middle")
+    v = d_["V"]
+    r_, c_ = d_["R_pu"] * v, d_["C_pu"] * v                 # mOhm, pF
+    if v not in best or r_ * c_ < best[v][1] * best[v][2]:
+        best[v] = (pn, r_, c_)
+    ax.loglog(c_, r_, "o", color=KCOL[v], ms=6.5, mec="white", mew=0.6, zorder=3)
+for v, (pn, r_, c_) in best.items():
+    ax.loglog(c_, r_, "o", color=KCOL[v], ms=10, mec=TXT, mew=1.0, zorder=4)
+r_, c_ = best[100][1], best[100][2]
+ax.annotate("EPC2361\n%.2f ps" % (r_ * c_ / 1e3), (c_, r_), (c_ * 0.11, r_ * 0.45), color=TEAL, fontsize=11,
+            fontweight="bold", arrowprops=dict(arrowstyle="-", color=TEAL, lw=1.0))
+for v in (100, 200, 350, 650):
+    ax.plot([], [], "o", color=KCOL[v], ms=6.5, label="%d V" % v)
+ax.legend(loc="upper right", ncol=2, fontsize=10.5, handletextpad=0.1, columnspacing=0.6, borderaxespad=0.1)
+ax.set_xlim(20, 6000)
+ax.set_ylim(0.3, 400)
+ax.set_xticks([30, 100, 300, 1000, 3000])
+ax.set_xticklabels(["30", "100", "300", "1k", "3k"])
+ax.set_yticks([1, 10, 100])
+ax.set_yticklabels(["1", "10", "100"])
+ax.minorticks_off()
+ax.set_xlabel("C$_{oss,tr}$ (pF)")
+ax.set_ylabel("R$_{DS(on)}$ (mΩ)")
+ax.grid(False)
+fig.tight_layout(pad=0.2)
+place(fig, ax_, ay_ + 3, pw, ph - 6)
 # (b) cell voltage
 (ax_, ay_) = panels[1]
 ptitle(ax_, ay_, "(b) V_{cell} = 1200 V / N")
@@ -362,9 +379,10 @@ ax.set_ylim(0, 45)
 ax.legend(loc="upper right", handlelength=1.4)
 fig.tight_layout(pad=0.2)
 place(fig, ax_, ay_ + 3, pw, ph - 6)
-yy = cy + 206
-text(x + w2 / 2, yy, "Lower blocking voltage gives the best figure of merit (D-FoM).", B, TXT, anchor="middle", width=w2 - 16)
-text(x + w2 / 2, yy + 13, "Four devices: %.0f W per leg, the knee of the loss curve" % n4["tot"], B, TEAL, 700, "middle",
+yy = cy + 203
+yy = text(x + w2 / 2, yy, "(a) Dashed: D-FoM = R_{DS(on)}·C_{oss,tr}; circled: best per class.",
+          B, TXT, anchor="middle", width=w2 - 16)
+text(x + w2 / 2, yy + 11, "Four devices: %.0f W per leg, the knee of the loss curve" % n4["tot"], B, TEAL, 700, "middle",
      width=w2 - 16)
 
 # 3 why four devices per switch
@@ -410,7 +428,7 @@ text(x + w2 / 2, cy + 180, "Limits: T_{j} ≤ 125 °C, V_{DS} ≤ 90 V at 0.5 nH
 text(x + w2 / 2, cy + 193, "n = 4 is the smallest count that passes both.", B, TEAL, 700, "middle")
 note_box(x + 8, cy + 202, w2 - 16, 29)
 bullets(x + 15, cy + 211, ["n = 4: T_{j} %.0f °C, %.2f W per device, %d driver channels per leg" % (
-    n4["tj"], n4["pdev"], 8), "1 nH instead of 0.5 nH: %.0f V peak, still below the rating" % RF["npar"]["1nH"][3]["vpk"]],
+    n4["tj"], n4["pdev"], 8), "1 nH instead of 0.5 nH: needs slower switching"],
     w2 - 30, B - 0.3, 1.2)
 
 # 4 extracted parasitics
@@ -440,7 +458,7 @@ bullets(x + 150, cy + 22, [
     "Cells within %.1f %%" % (100 * spread),
     "Cell coupling k ≤ 0.034",
 ], w2 - 156, B, 1.6)
-ptitle(x + 8, cy + 104, "(a) Switching-energy imbalance, two devices")
+ptitle(x + 8, cy + 104, "(a) Switching-energy imbalance if parasitics are different")
 hbars(x + 8, cy + 110, [("Power loop +0.3 nH", 2, GREY, "2 %"), ("Gate loops 2 vs 8 nH", 19, AMBER, "19 %"),
                         ("No Kelvin, L_{CS} +0.2 nH", 29, AMBER, "29 %")], 82, w2 - 120, 29)
 gl = GS["gate_loop_nH"]
@@ -489,7 +507,7 @@ text(x6 + 15, yb + 19, "75 V, 322 A, four cells, extracted gate loops", 5.8, MUT
 bullets(x6 + 15, yb + 31, ["High-side v_{DS} peak **%.0f V** < 100 V rating at R_{g,on} %.1f Ω" % (
     QS["dpt"]["VHpk_max"], QS["dpt"]["RGON"]),
     "Four parallel high-side gate loops equal within 0.3 %",
-    "Turn-on energy shared within %.1f %%" % QS["dpt"]["share_Eon_pct"]], 182, B, 1.6)
+    "Turn-on energy shared within %.1f %% difference" % QS["dpt"]["share_Eon_pct"]], 182, B, 1.6)
 hx = x6 + 214
 ptitle(hx, yb + 6, "Peak high-side V_{DS} (V)")
 cases = [("Load board · 2.0 Ω", QS["load"]["VHpk_max"]), ("Load board · 3.0 Ω", QS["load_rg3"]["VHpk_max"]),
@@ -506,7 +524,7 @@ rect(M, y4, W - 2 * M, h4, CARD, rx=3, stroke=LINE, sw=0.4)
 rect(M, y4, W - 2 * M, 15, NAVY, rx=3)
 rect(M, y4 + 8, W - 2 * M, 7, NAVY)
 circle(M + 9, y4 + 7.5, 4.6, TEAL)
-text(M + 9, y4 + 10.1, "✓", 7.0, "#ffffff", 700, "middle")
+text(M + 9, y4 + 10.1, "7", 7.0, "#ffffff", 700, "middle")
 text(M + 17, y4 + 10.4, "Conclusions", T, "#ffffff", 600)
 cc = [("16 × 75 V cells let 100 V GaN serve a 1200 V, 300 kW drive",
        "The 100 V class has the lowest D-FoM; EPC2361 is the device."),
@@ -527,12 +545,12 @@ y5 = y4 + h4 + G
 h5 = 64
 w5_ = (W - 2 * M - G) / 2
 for i, (num, title, items) in enumerate((
-        ("7", "Project status and next steps", [
+        ("8", "Project status and next steps", [
             "DPT board: waiting for PCB manufacturing and assembly (JLCPCB).",
             "Double-pulse tests at 75 V up to 322 A: per-cell current sharing, overshoot, E_{on}/E_{off}, gate bump.",
             "Then three load-test legs + PCB busbar: one 75 V three-phase level, continuous and thermal tests."]),
-        ("8", "Open research questions", [
-            "Optimum N: device class versus component count shifts with SiC, GaN and cooling.",
+        ("9", "Open research questions", [
+            "Optimum N: device class versus component count shifts with GaN devices (different options).",
             "Joint battery–converter–machine design on vehicle energy, mass, cost and reliability.",
             "Stack-position common-mode voltage, bearing currents and insulation across the full stack."]))):
     x = M + i * (w5_ + G)
@@ -544,7 +562,7 @@ fy = y5 + h5 + 10
 rect(0, fy, W, H - fy, NAVY)
 rect(0, fy, W, 3, TEAL)
 text(M, fy + 14, "KTH Royal Institute of Technology · Division of Electric Power and Energy Systems", 7, "#cfe3ef")
-text(W - M, fy + 14, "Enes Ayaz · Moore4Power General Assembly 2026", 7, "#ffffff", 600, "end")
+text(W - M, fy + 14, "Moore4Power General Assembly 2026", 7, "#ffffff", 600, "end")
 print("footer at %.0f mm (page %d)" % (fy, H))
 assert fy + 18 < H, "content runs into the page bottom"
 

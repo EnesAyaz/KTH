@@ -72,3 +72,11 @@ caches, the 64 MB downloaded PCB-design thesis). 556 -> 419 changes, committed p
 Airgap Harmonics, PresentationOfMeetings, PCB-Design). Q3D .aedt models kept (convention, each < 20 MB).
 CLAUDE.md commit rule updated: the old do-not-commit list is lifted.
 Commits: e05324b, 2071d60, 25ec617, f4a8d26, a17e051
+
+## 2026-10-29 - Poster: R_DS(on) vs C_oss,tr panel
+Comment (Enes): show R_DS(on) versus output capacitance instead of the D-FoM bars.
+Done: panel 2(a) = log-log scatter of the ten surveyed devices (revb_flow_numbers.json), coloured by class, dashed
+lines of constant D-FoM 1/2/5/10 ps, best device per class circled, EPC2361 1.35 ps labelled. Enes's Inkscape edits
+(title "Propulsion", KPI texts, 2nd n=4 bullet, 4(a) title, Conclusions 7 / status 8 / questions 9, open question 1,
+footer) ported into make_poster.py so the script reproduces them.
+Checks: A0 PDF; 150 dpi detail view of section 2.
