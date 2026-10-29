@@ -1,0 +1,23 @@
+{
+  "author_checked": "Staffan Norrga",
+  "previous_self_citations": 3,
+  "previous_references": 11,
+  "previous_percent": 27.272727272727273,
+  "retained_self_citations": [
+    {
+      "new_reference": 1,
+      "title": "A novel inverter topology for compact EV and HEV drive systems"
+    },
+    {
+      "new_reference": 2,
+      "title": "Modulation and power losses of a stacked polyphase bridge converter"
+    }
+  ],
+  "removed_reference": "Control and modulation of the stacked polyphase bridges inverter",
+  "total_references": 10,
+  "self_citation_percent": 20,
+  "scholarly_references_excluding_datasheets": 8,
+  "self_citation_percent_excluding_datasheets": 25,
+  "count_basis": "Distinct bibliography entries sharing Staffan Norrga as author, verified from local PDF author lists. The DC-link stability paper does not list Norrga.",
+  "limit_percent": 25
+}
