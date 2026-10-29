@@ -53,3 +53,12 @@ Checks: D-FoM = R_DS(on) * C_oss,tr (DEV table, revb_flow_figures.py): lowest pe
 Now computed from revb_flow_numbers.json devices, device names under the bars. Section 1 uses review Fig. 13 again
 (vector), the redraw was a mistake.
 Commit: 89e4e1f
+
+## 2026-10-29 - Commit before push
+Comment (Enes): commit everything that is not committed, then push.
+Committed: Enes's Inkscape edits of the poster SVG (title "Propulsion", wording, Conclusions numbered 7) with PDF/PNG
+re-exported from it (A0); deck PPTX as saved on 28 Oct; DPT .kicad_pro re-saved by KiCad (rules unchanged apart from
+float rounding) and DPT plot PDFs (same size, re-plotted 26 Oct).
+Not committed: spb-bb-fab.kicad_pro and hardware/To-do.txt (standing rule), load-board plots and busbar Q3D results
+(frozen boards, changes predate these rounds), untracked notes/drafts of Enes's.
+Note: scripts/make_poster.py would now overwrite Enes's SVG edits; port them before regenerating.
