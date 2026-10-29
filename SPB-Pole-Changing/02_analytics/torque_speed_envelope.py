@@ -28,8 +28,19 @@ import sys
 import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT_JSON = os.path.join(ROOT, "02_analytics", "results", "torque_speed_envelope.json")
-OUT_PNG = os.path.join(ROOT, "02_analytics", "scratch", "torque_speed_envelope_quicklook.png")
+# Rated power: CLI flag --P_rated_kW <x> (when run as a script) or env SPB_P_RATED_KW (when imported).
+# Default 350 kW reproduces the T03 run (torque_speed_envelope.json, validated by the simulator).
+# Any other rating writes torque_speed_envelope_<x>kW.json, never the T03 file.
+def _rated_kw():
+    if "--P_rated_kW" in sys.argv:
+        return float(sys.argv[sys.argv.index("--P_rated_kW") + 1])
+    return float(os.environ.get("SPB_P_RATED_KW", "350"))
+
+
+P_RATED_KW = _rated_kw()
+_SUFFIX = "" if P_RATED_KW == 350.0 else f"_{P_RATED_KW:g}kW"
+OUT_JSON = os.path.join(ROOT, "02_analytics", "results", f"torque_speed_envelope{_SUFFIX}.json")
+OUT_PNG = os.path.join(ROOT, "02_analytics", "scratch", f"torque_speed_envelope_quicklook{_SUFFIX}.png")
 
 MU0 = 4e-7 * math.pi
 SQ2 = math.sqrt(2.0)
@@ -42,7 +53,7 @@ INV = dict(
     V_dc_V=1200.0,
     N_modules=16,
     m_margin=0.95,          # usable fraction of SVPWM linear limit (dead time, min pulse, control margin)
-    P_rated_W=350e3,        # D02 continuous drive power
+    P_rated_W=P_RATED_KW * 1e3,  # D02 drive power (T03: 350 kW provisional; D02 final: 300 kW)
     PF_ref=0.85,            # reference power factor used only to size the current limit
     eta_ref=0.95,           # reference machine efficiency used only to size the current limit
 )
@@ -75,6 +86,19 @@ def road_load(v_kmh, grade_pct=0.0):
     n_m = v / VEH["wheel_radius_m"] * VEH["gear_ratio"] / RPM
     T_m = F * VEH["wheel_radius_m"] / VEH["gear_ratio"] / VEH["eta_gear"]
     return F, n_m, T_m
+
+
+def max_start_grade(T_motor, G=None):
+    """Steepest grade (%) the motor torque can start on (quasi-static, v = 0)."""
+    G = VEH["gear_ratio"] if G is None else G
+    F = T_motor * G * VEH["eta_gear"] / VEH["wheel_radius_m"]
+    mg, c = VEH["mass_kg"] * VEH["g_m_s2"], VEH["Crr"]
+    # c*cos(a) + sin(a) = F/mg  ->  sqrt(1+c^2) sin(a + atan c) = F/mg
+    x = F / (mg * math.sqrt(1 + c * c))
+    if x >= 1:
+        return 100.0
+    a = math.asin(x) - math.atan(c)
+    return 100.0 * math.tan(max(a, 0.0))
 
 
 F_cr, N_CRUISE, T_CRUISE = road_load(VEH["v_cruise_kmh"])
@@ -530,9 +554,10 @@ def metrics(T, NG=None):
                 n_const_power_end_rpm=float(NG[icp]), CPSR=float(NG[icp] / NG[ib]),
                 CPSR_capped_by_eval_range=bool(icp == len(NG) - 1),
                 inverter_kVA_per_kW_base=(M_PH * VMAX * IMAX / 1e3) / (Pb / 1e3),
-                speed_range_P_ge_350kW_rpm=[float(NG[P350.min()]), float(NG[P350.max()])] if P350.size else None,
+                **{f"speed_range_P_ge_{P_RATED_KW:g}kW_rpm": [float(NG[P350.min()]), float(NG[P350.max()])] if P350.size else None},
                 T_at_vmax_Nm=T45, P_at_vmax_W=P45,
-                T_at_start_Nm=float(T[0]), meets_start_grade=bool(T[0] >= T_START))
+                T_at_start_Nm=float(T[0]), meets_start_grade=bool(T[0] >= T_START),
+                max_start_grade_pct=max_start_grade(float(T[0])))
 
 
 def crossover(T_hi_p, T_lo_p, NG=None):
@@ -837,7 +862,7 @@ def main():
             for p, T in env[key].items():
                 ax[0, j].plot(N_GRID, T, label=f"2p={2 * p}")
                 ax[1, j].plot(N_GRID, T * N_GRID * RPM / 1e3, label=f"2p={2 * p}")
-            ax[1, j].axhline(350, color="k", lw=0.5, ls="--")
+            ax[1, j].axhline(P_RATED_KW, color="k", lw=0.5, ls="--")
             ax[1, j].axvline(VEH["n_motor_at_vmax_rpm"], color="k", lw=0.5, ls=":")
             ax[0, j].set_title(key)
             ax[0, j].legend()

@@ -45,3 +45,20 @@ All under `C:\Github\KTH\`. Own-work: build on it, cite it, don't re-derive it.
   item is scaling to a traction rotor and integrating excitation into the SPB stator inverter (P3).
 - analyst: WRSM pole-change transition = free-wheel + blanking (tau_f) or the gradual k-transition (P4); take the 10 kW 4/2-pole PC-WFSM (P2) as the scaling seed, flagged draft.
 - simulator: P4 transition and P3 harmonic injection are simulation targets.
+
+## P5. OPT-Bipolar-Field-Excitation repo (C:\Github\OPT-Bipolar-Field-Excitation, with Nail Tosun)
+- Newer, fuller version of P2: IEEE Trans. Magn. drafts `IEEEtran/main.tex` (FEA) and `main_analytical.tex`;
+  README.md holds the scope, rating table and open decisions. Machine moved to **40 kW, 4-pole/2-pole,
+  10 000 / 20 000 r/min** (10 kW variant spends 6.3 % of power on excitation, which weakens the case).
+- Analytical design: MMF/pole 762 A (4p) / 467 A (2p), field time constant 251 ms, **field reversal to 95 % in 677 ms**;
+  2-pole field wave has a 3rd harmonic of 67 %; stator yoke carries 1.22x the 4-pole flux in 2-pole mode.
+- **Its open decision #1 is "how the stator changes between four and two poles" — assumed, not designed.
+  Load FEA is blocked on it. SPB electronic pole changing is exactly that missing piece.**
+- `analysis/4_design_studies/` (COMSOL-map based, 10 kW, 0.5 mm gap): with Dahlander series/parallel switching
+  the 2-pole mode gives more torque only from 19 000 to 20 000 r/min ("hybrid uses the 2-pole mode on 1.3 % of
+  its continuous operating area"); `results/torque_speed_inverter_cases.png`: switched machine needs a larger
+  inverter (15.6 vs 11.1 kVA) for about the same 20 krpm power; at quarter-load points 2-pole efficiency is lower
+  than 4-pole (e.g. 83.4 vs 86.1 %). **Independent agreement with T03: for a WRSM that can weaken its field via I_f,
+  pole changing adds little torque-speed range.** The value of WRSM pole changing must be argued elsewhere.
+- Data usable by the simulator: `analysis/3_fea/maps/*.csv`, `paper_fea_numbers*.mat`, `torque_speed_switching.m`
+  (dq per-unit model with k2, x2 scaling for the 2-pole mode — compare with the analyst's k_w^2/p^2).

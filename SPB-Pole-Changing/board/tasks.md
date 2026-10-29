@@ -11,4 +11,5 @@ Status: todo | doing | done | blocked
 | T04 | simulator | doing | T03 output | 03_simulation/results/*.json, validation.md | agrees with T03 within 5 % at 3 operating points |
 | T03b | analyst | doing | T03 results, review notes | 02_analytics/results/fair_baselines.json | fixed-pole IM baselines designed for their own pole count; T03 file left untouched |
 | T05 | figure-maker | todo | T03, T04 results | 04_figures/torque_speed_envelope.* | reads only results JSON |
+| T07 | analyst | todo | T03b, T04, data/vecto | 02_analytics/results/drive_cycle.json | energy and loss per machine over VECTO LongHaul + RegionalDelivery; same driver model for all |
 | T06 | writer | todo | T02-T05 | 05_reports/weekly/2026-W44.md | every number traceable to a file |
