@@ -129,7 +129,7 @@ def rotor_smooth():
     return KG * TAU * np.ones(Q), np.zeros(Q)
 
 
-def rotor_salient(theta, Fpole, arc=0.7, r_int=0.08):
+def rotor_salient(theta, Fpole, arc=0.7, r_int=0.08, gs=1.0):
     """8 salient poles; pole j centred at theta + j * 45 deg, arc*45 deg wide, MMF Fpole[j]."""
     npol = len(Fpole)
     pitch = 2 * math.pi / npol
@@ -143,7 +143,8 @@ def rotor_salient(theta, Fpole, arc=0.7, r_int=0.08):
         Pt += KG * ov; PF += KG * ov * Fpole[j]; cov += ov
     Pint = KG * r_int * np.maximum(TAU - cov, 0)
     Ptot = Pt + Pint
-    return Ptot, PF / Ptot
+    # gs > 1: larger effective air gap (g_eff*gs) with field MMF scaled by gs to keep the same no-load B0
+    return Ptot / gs, gs * PF / Ptot
 
 
 def _tooth_solve(U, P, Feff):

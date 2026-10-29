@@ -278,6 +278,32 @@ def realistic_point(d, n, Treq, T_N, n_psi=500):
     return res
 
 
+def efficiency_map(d_by_mode, T_N_by_mode, n_grid, T_grid):
+    """Machine-only loss/efficiency map over (motor speed, motor torque) with the realistic IM loss model.
+    For a pole-changing machine the lower-loss feasible mode is chosen per point. Infeasible -> NaN.
+    Designs can be rebuilt from the 'design' dicts in fair_baselines.json (all fields needed are stored),
+    so T07 can call realistic_point()/efficiency_map() directly."""
+    modes = list(d_by_mode)
+    eta = np.full((len(n_grid), len(T_grid)), np.nan)
+    loss = np.full_like(eta, np.nan)
+    mode_idx = np.full_like(eta, np.nan)
+    for i, n in enumerate(n_grid):
+        for j, T in enumerate(T_grid):
+            best = None
+            for k, mname in enumerate(modes):
+                r = realistic_point(d_by_mode[mname], n, T, T_N_by_mode[mname], n_psi=200)
+                if r is None:
+                    continue
+                fo = r["flux_optimised"]
+                if best is None or fo["P_loss_total_W"] < best[1]:
+                    best = (fo["eta"], fo["P_loss_total_W"], k)
+            if best:
+                eta[i, j], loss[i, j], mode_idx[i, j] = best
+    return dict(speed_rpm=list(map(float, n_grid)), torque_Nm=list(map(float, T_grid)), modes=modes,
+                eta=np.round(eta, 5).tolist(), loss_total_W=np.round(loss, 1).tolist(), mode_index=mode_idx.tolist(),
+                note="rows = speed, columns = torque (motor side); loss includes friction/windage; NaN = outside envelope")
+
+
 def wheel_points():
     """Part-load points defined at the wheel (each machine sees them through its own gear)."""
     pts = {}
@@ -544,6 +570,19 @@ def main():
                                                               PF_flux_opt=r["flux_optimised"]["PF"]))
             for pn, r in machines["pole_changing_2p8_4_T03"]["realistic_losses_gear_optimised"].items()}
     res["realistic_loss_summary"] = rs
+    # loss maps for T07 (drive cycle), motor side, per machine
+    maps = {}
+    for k in ("fixed_2p4", "fixed_2p6"):
+        d = machines[k]["design"]
+        Tm = np.array(machines[k]["torque_Nm"])
+        n_hi = min(d["n_tip_limit_rpm"], NG_FULL[-1])
+        maps[k] = dict(gear_ratio=machines[k]["metrics"]["gear_ratio"], **efficiency_map(
+            {f"2p{2 * d['p']}": d}, {f"2p{2 * d['p']}": machines[k]["realistic_losses"]["T_N_Nm"]},
+            np.linspace(100.0, n_hi, 36), np.linspace(0.02, 1.0, 26) * Tm.max()))
+    maps["pole_changing_2p8_4_T03"] = dict(gear_ratio=G_REF, **efficiency_map(
+        {"2p8": d8, "2p4": d4}, {"2p8": TN8, "2p4": TN4}, np.linspace(100.0, min(d8["n_tip_limit_rpm"], NG_FULL[-1]), 36),
+        np.linspace(0.02, 1.0, 26) * Tc.max()))
+    res["efficiency_maps"] = maps
     res["realistic_loss_model"] = dict(
         stray_load="IEC 60034-2-1 assumed allowance P_LL,N = P1,N (0.025 - 0.005 log10(P2,N/1 kW)), scaled (T/T_N)^2; T_N = P_rated / omega_base of the active mode; sensitivity x2",
         P_LL_rated_W=iec_stray_allowance_W(T3.INV["P_rated_W"]),

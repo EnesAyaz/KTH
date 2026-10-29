@@ -15,3 +15,20 @@ Only data files were taken; no VECTO executable is downloaded or run.
 Cycle format: distance-based. `<s>` distance (m), `<v>` target speed (km/h), `<grad>` road gradient (%),
 `<stop>` stop time at that point (s), `HW` highway flag. VECTO's driver model (acceleration limits,
 look-ahead coasting) turns target speed into an actual speed trace; we need our own simple driver model.
+
+## Added by analyst for T03d (2026-10-29), same repository and commit (stable, 68a719e7056b525fc715bac1987d2abc98a84148)
+
+| File | Source path | Used for |
+|---|---|---|
+| `EfficiencyMap_ASM_normalized.vmap` | `VectoCore/VectoCore/Resources/Declaration/GenericBusData/` | Generic induction-machine map (n/n_rated, T/T_rated, P_el/P_rated); no-load loss used only as an upper bound on friction + windage |
+| `EfficiencyMap_PSM_normalized.vmap` | same | Generic PMSM map, same use |
+
+Constants read from VECTO source code (code files were read, not copied here):
+- `VectoCore/VectoCore/Configuration/Constants.cs`, `GenericLossMapSettings`:
+  - Efficiency = 0.98
+  - T0 = 52.5 Nm, T1 = 15 Nm, Td_n = 150 rpm
+  - OutputSpeedStart/End = 50/5000 rpm, OutputTorqueStart/End = 250/500000 Nm
+  - FactorAngleDrive = 0.75
+- `VectoCore/VectoCore/Models/GenericModelData/GenericTransmissionComponentData.cs` (generic axle-gear loss map):
+  - T_loss,out = Td0/2 + (Td0/2)·n_out/150 + |T_out|(1/0.98 − 1)
+  - Td0 = T0 + T1·i_axle

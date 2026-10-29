@@ -117,3 +117,133 @@ Status: first-pass analytical model. No FEA. Numbers are for comparing the machi
 - IM breakdown at 6000 rpm: 161.9 Nm envelope vs 165.9 Nm Thevenin/Kloss (2.4 %, flux and slip grid resolution).
 - PMSM (R = 0): MTPA torque 3062.4 Nm matches the closed form, and the corner speed matches 1001.6 rpm.
 - WRSM I_d = 0 (R = 0) high-speed power: m V^2/(2 omega L_q) = 66.68 kW vs 66.68 kW numerical.
+
+## D02 final: 300 kW (rerun of T03 envelopes) {#t03-300kw}
+
+- Run with `python 02_analytics/torque_speed_envelope.py --P_rated_kW 300`, or set env `SPB_P_RATED_KW=300` when importing.
+  - Output: `results/torque_speed_envelope_300kW.json` and `scratch/torque_speed_envelope_quicklook_300kW.png`.
+  - The default (350) run and `torque_speed_envelope.json` are unchanged (md5 checked), because the simulator is validating them.
+- What changes at 300 kW. The voltage limit stays 29.09 V rms per coil.
+
+  | Quantity | 350 kW | 300 kW |
+  |---|---|---|
+  | I_max (A rms per leg) | 310.4 | **266.1** (376 A peak) |
+  | Inverter kVA | 433 | **372** |
+
+  - 266 A per leg is the SPB reference 2 x 150 kW blocks per leg, so the earlier 17 % current shortfall flag is gone.
+- What stays fixed and what scales:
+  - IM: the stator design is unchanged (N_c = 3 is set by voltage, not current).
+  - PMSM/WRSM: per-unit parameters stay on the SPB base, so the machines are re-matched to the inverter (L in H scales with 1/I_max and psi is unchanged).
+- Start/grade requirement: 2770 Nm at the motor (12 % grade at G = 9.80) is a vehicle requirement and does not depend on power. It is **no longer met at G = 9.80** by any machine:
+
+  | Machine (G = 9.80) | Peak torque (Nm) | Steepest start grade |
+  |---|---|---|
+  | IM with pole change | 2523 | **10.8 %** |
+  | PMSM | 2625 | 11.3 % |
+  | WRSM | 2513 | 10.8 % |
+
+  - The grade is solved from c*cos(a) + sin(a) = F/(mg) with v = 0 and eta_gear = 0.97 (`max_start_grade_pct`).
+  - Meeting 12 % needs G >= 10.9 for the IM (T03b: G = 10.875 gives 12.14 %) or about 10 % more current.
+- Other 300 kW numbers: IM with pole change CPSR 4.55, crossover 2252 rpm, 305 kW at 4500 rpm. Cruise efficiencies (simple T03 loss model) are unchanged at the same current: IM 97.05 %, WRSM 97.23 %, PMSM 96.29 %.
+- D04 (VECTO group 5 cycles in `data/vecto/`) replaces the `../Drive Cycle` constants from T07 on. T03, T03-300kW and T03b still use the `../Drive Cycle` vehicle constants (m = 40 t, r = 0.52 m, CdA = 7.35 m^2, Crr = 0.01).
+
+## T03b - fair fixed-pole IM baselines and realistic IM losses (300 kW) {#t03b}
+
+Script: `02_analytics/fair_baselines.py` -> `results/fair_baselines.json`. It imports the T03 module at 300 kW and does not write any T03 file.
+
+### Same constraints for all three IMs
+- R_out = 235 mm, L_stk = 360 mm, copper mass 62.9 kg, B_yoke <= 1.45 T, B_tooth <= 1.65 T, B_gap <= 0.90 T.
+- Inverter: 29.09 V rms and 266.1 A rms per leg (372 kVA).
+- Rotor surface speed <= 125 m/s (copper cage), which caps motor speed at 7.5-8.0k rpm.
+
+### Fixed-pole designs
+- Feeding: one coil-phase per SPB leg (k_d = 1, pitch 5/6). This is at least as good as a conventional 3-phase belt winding (k_d = 0.96), so the baseline is not handicapped.
+- 2p = 4: Q = 48.
+- **2p = 6 cannot be wound on 48 slots with 16 three-phase modules.** With p divisible by 3, a module's coils 120 deg mechanical apart fall in phase, and a balanced 3-phase 6-pole winding needs 9 | Q.
+  - It is modelled with Q = 144: each leg drives 3 coils in series, 120 deg mechanical apart and in phase.
+  - The resulting 3.3 mm slots are a practicality flag.
+- Search variables:
+  - bore R_gap = 120-190 mm;
+  - yoke sized for B_design = 0.5-0.88 T;
+  - slot depth = remainder; slot width from the fixed copper volume and the end-turn length (longer for low p);
+  - effective series turns per leg N_leg = 1.5-9 (continuous; rounding is a stack/turn detail);
+  - gear ratio G = 4-22.
+- Slot permeance is scaled by (h/3b + 0.33)/2.0, which equals 1 for the T03 slot.
+- The cage is scaled with the bore.
+- Objective: maximise P at 90 km/h subject to the 12 % start torque (at the chosen G) and the tip-speed limit.
+- Also reported:
+  - the same machine at G = 9.80, with the inverter kVA it would need for the 12 % start;
+  - a 2-speed gearbox (G_low just meets the start; G_high maximises P at 90 km/h);
+  - the pole-changing IM with its gear chosen by the same rule.
+- Check: the generic design code reproduces the T03 design (slot width 9.0 mm recovered, T_peak identical, P at 4500 rpm within 1 %).
+
+### Realistic IM loss model (leader request; applied to every IM case)
+- Stray load: IEC 60034-2-1 assumed allowance, P_LL,N = P1,N (0.025 - 0.005 log10(P2,N/1 kW)), giving 3.98 kW at 300 kW.
+  - Scaled as (T/T_N)^2, with T_N = 300 kW / omega_base of the active mode's envelope.
+  - Sensitivity at 2x, since inverter-fed machines often exceed the allowance.
+- Rotor-bar skin effect: deep rectangular bar with h = 25 mm (scaled with bore), k_R(xi) applied to the bar part of R_r.
+  - At slip frequency (1-3 Hz) k_R is about 1.00, i.e. negligible. At f_sw it is about 98.
+- Rotor copper at the actual slip: included as 48 I_r^2 (R_bar k_R + R_ring).
+- Magnetising-current copper: included through |I_s|. The magnetising share 48 I_m^2 R_s is reported (< 60 W at the part-load points).
+  - At cruise speeds all IMs are already voltage-limited, so loss-optimal flux and rated flux coincide.
+- SPB PWM ripple (upper-bound estimate):
+  - f_sw = 100 kHz at 75 V (default in `../Analytical Loss Calculations - GaN/LOSS_MODELING.md`).
+  - Ripple dI_pp = V_mod/(4 L_hf f_sw), with L_hf = 0.5 x total leakage, triangular rms.
+  - Stator copper k_ac = 5; cage k_R(f_sw) on bars and x5 on rings.
+  - Tooth eddy loss from the leakage ripple flux, with lamination skin correction (mu_r = 1000).
+  - Result: 0.1-0.45 kW, dominated by tooth eddy loss. It is small because the per-module voltage is 75 V and f_sw = 100 kHz.
+- Not included: gearbox loss dependence on ratio (eta_gear = 0.97 for all), inverter loss, rotor iron loss, thermal feedback.
+  - The friction/windage law 0.5 kW (n/4500) + 1.0 kW (n/4500)^3 drives the fixed-pole cruise results (high motor speed), so efficiency excluding friction/windage is reported too.
+- Part-load points are defined at the wheel and seen through each machine's own gear:
+  - 85 km/h flat (VECTO long-haul mean target 83.4 km/h);
+  - 60 km/h flat;
+  - 85 km/h on 1 %;
+  - 50 km/h on 3 %.
+  - The requested "30-40 % of rated torque at cruise" is not reachable at 85 km/h within 300 kW. Flat 85 km/h is 14 % of the low-speed peak torque but 0.36 T_N of the PC IM's 4-pole mode. The 50 km/h, 3 % point gives 0.36-0.37 T_N for the fixed machines.
+- Efficiency maps for T07: `efficiency_maps` in fair_baselines.json, 36 speeds x 26 torques on the motor side per IM case. They use the realistic loss model; for the PC IM the better mode is chosen per point.
+  - `realistic_point()` and `efficiency_map()` can be called on the stored design dicts.
+
+## T03d - drivetrain losses: gear/e-axle vs ratio and stages, motor friction + windage (300 kW) {#t03d}
+
+Script: `02_analytics/drivetrain_losses.py` -> `results/drivetrain_losses.json`. Public vectorised functions for T07:
+- `gear_topology()`
+- `gear_motor_point(T_wheel, n_wheel, stages, drag_scale)`
+- `mech_losses(n, T_motor, rotor)`
+- `rotor_from_design()`
+
+### Gear / e-axle
+- Per-stage loss uses the VECTO generic transmission loss (stable @68a719e, `GenericTransmissionComponentData.cs` + `Constants.GenericLossMapSettings`; provenance in `data/vecto/README.md`):
+  - T_loss,out = Td0/2 + Td0/2 · n/150 rpm + |T_out|(1/0.98 − 1), with Td0 = 52.5 + 15 i (Nm, output side).
+  - These values appear to be 0.75x the regulation standard values. That is unverified; lit-scout should check Reg. (EU) 2017/2400 Annex VI/VII.
+- Topologies (wheel side first):
+  - **single**: hypoid axle (i_axle = 3.0, raised up to 4.5 if needed) + 1 helical stage (i <= 5).
+  - **two_stage**: axle 3.0 + 2 equal helical stages.
+  - **two_speed**: axle + 1 helical stage with two selectable pairs.
+    - The unloaded pair adds its drag term.
+    - At each point the gear with the lower total loss is used.
+    - The axle ratio is raised so both pairs stay within i <= 5.
+- Mesh efficiency is 0.98 per stage (VECTO generic) for hypoid and helical. Sensitivity: helical 0.99. Assumed; source needed.
+- **Own assumption (flagged):**
+  - VECTO's drag speed law is defined for axle output speeds. Every stage is therefore evaluated at wheel-equivalent speed, and its drag torque is scaled with the stage's rated output torque relative to the axle (T_ref = 27.1 kNm, the 12 % start).
+  - In effect, each stage costs the drag power of an axle with the same torque-speed product.
+  - Applying VECTO's law directly at intermediate-shaft speeds gives 20+ kW per stage, which is unphysical.
+- Two drag variants:
+  - **VECTO_generic** (scale 1.0): deliberately conservative. A generic i = 3 axle at 85 km/h loses 11.7 kW (eta = 92.8 %).
+  - **certified_like** (drag x 0.3): own assumption. It stands in for certified axle data until lit-scout finds published heavy-duty axle or e-axle loss maps.
+- Inverter loss is excluded. eta_drivetrain = wheel power / motor electrical input.
+
+### Motor friction and windage (same model for every machine; replaces the T03 law 0.5 kW (n/4500) + 1.0 kW (n/4500)^3)
+- Air-gap windage (Couette): C_M = 1.03 (d/R)^0.3 Re^-0.5 (Re < 1e4) and 0.065 (d/R)^0.3 Re^-0.2 (Re > 1e4); P = k C_M pi rho w^3 R^4 L.
+  - Bilgen & Boulos 1973 as quoted by Saari 1998. Air at 60 C, k_rough = 1.0, gap = 1 mm.
+- Rotor end faces: free-disc C_M = 3.87 Re^-0.5 (laminar) and 0.146 Re^-0.2 (turbulent); P = 0.5 C_M rho w^3 (R^5 - r_shaft^5) per face.
+- Bearings (SKF): M = 0.5 mu F d with mu = 0.0015 and d = 70 mm. F = rotor weight + gear mesh force T/(r_pinion cos 20 deg), with r_pinion = 35 mm. Plus SKF no-load M0 = 1e-7 f0 (nu n)^(2/3) dm^3 for 2 bearings (f0 = 2, nu = 10 mm^2/s, dm = 100 mm).
+- One radial shaft seal: P = 7.69e-6 d^2 n (SKF estimate, d = 70 mm).
+- Result for R = 165 mm: 1.17 kW at 4500 rpm and 3.0 kW at 7500 rpm. The old T03 law gave 1.5 kW and 5.5 kW.
+- **Calibration status:**
+  - No measured traction-motor friction/windage value is available yet (lit-scout request).
+  - Upper-bound check: VECTO generic ASM no-load loss (iron + mechanical) is 0.55 % / 1.95 % / 5.75 % of P_rated at 1.0 / 2.2 / 3.8 x base speed. The model's friction/windage is 6 % / 5 % / 5 % of those totals, consistent with friction/windage being a minor part of no-load loss.
+  - Oil-spray churning in the end space is not modelled.
+- Electromagnetic losses: IMs use the T03b realistic model, with the best mode chosen per point.
+  - PMSM/WRSM use T03 at 300 kW plus the IEC stray allowance for parity.
+  - PWM ripple loss is not modelled for PMSM/WRSM; for the IM it is 0.1-0.45 kW.
+- The motor operating point is recomputed from wheel torque through the gear model. The T03/T03b constant eta_gear = 0.97 is no longer used in T03d.

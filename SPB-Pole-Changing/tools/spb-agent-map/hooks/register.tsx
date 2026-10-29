@@ -17,6 +17,7 @@ const ROLES: Role[] = [
   'simulator',
   'figure-maker',
   'writer',
+  'gap-critic',
 ]
 const SPECIALISTS = new Set<string>(ROLES.slice(1))
 
@@ -27,6 +28,7 @@ const OWNER_BY_FOLDER: [string, Role][] = [
   ['/03_simulation/', 'simulator'],
   ['/04_figures/', 'figure-maker'],
   ['/05_reports/', 'writer'],
+  ['/06_reviews/', 'gap-critic'],
   ['/board/', 'leader'],
 ]
 
@@ -37,11 +39,13 @@ const COLOR: Record<Role, string> = {
   simulator: '#2f9e44',
   'figure-maker': '#8a5cd6',
   writer: '#3b6fd6',
+  'gap-critic': '#d6336c',
 }
 
 // Node centres in the 440 x 340 drawing.
 const POS: Record<Role, [number, number]> = {
-  leader: [220, 46],
+  leader: [150, 46],
+  'gap-critic': [330, 46],
   'lit-scout': [78, 150],
   analyst: [220, 170],
   simulator: [362, 150],
@@ -60,6 +64,9 @@ const PLANNED: [Role, Role][] = [
   ['simulator', 'figure-maker'],
   ['lit-scout', 'writer'],
   ['figure-maker', 'writer'],
+  ['lit-scout', 'gap-critic'],
+  ['analyst', 'gap-critic'],
+  ['gap-critic', 'leader'],
 ]
 
 const idleNode = (): AgentNode => ({
@@ -81,7 +88,7 @@ const emptyTeam = (): Team => ({
 })
 
 const team = atom({ plugin: 'spb-agent-map', key: 'team' } as const, emptyTeam(), {
-  shape: 'team-1',
+  shape: 'team-2',
 })
 const now = atom({ plugin: 'spb-agent-map', key: 'now' } as const, 0, {
   shape: 'now-1',

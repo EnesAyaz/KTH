@@ -1,0 +1,15 @@
+# Hypothesis register
+
+Status: open | screening | promoted | refine | merged | killed. Scores: N/V/F/E/P (novelty, value,
+feasibility, Enes fit, paper fit) and weighted total, from `06_reviews/`.
+
+| id | Claim (falsifiable) | Screening metric | Evidence so far | Status | Scores |
+|---|---|---|---|---|---|
+| H01 | For a given DC link, there is a joint choice of cell count N, phase number m and slot count Q for which pole changing needs **zero extra hardware** in SPB, and design rules can be written for it. | feasible (N, m, Q, p1/p2) table + winding factors per mode | T03b found 2p=6 infeasible with Q=48, N=16; T08 running | screening (T08) | – |
+| H02 | Because pole changing cuts the required inverter kVA by 1.5–1.7x for the same start + top speed (single-stage gear), an SPB co-designed for pole changing needs fewer/smaller cells, so its **system** (inverter + machine + gear) cost and loss beat a fixed-pole SPB. | inverter kVA, device count/area, cycle energy (inverter+machine+gear) vs fixed-pole SPB | T03b kVA result; T03d gear-stage result; inverter loss missing | open | – |
+| H03 | SPB modules can transfer rotor excitation power by harmonic injection into their isolated coil groups, so a pole-changing WRSM/HESM needs **no exciter hardware** (no WPT/OPT/brushes). | power transferable per module vs field need (~1–4 kW), extra stator loss and torque ripple | P3 decks (airgap harmonics, harvesting coil); P1 future work names it | open | – |
+| H04 | **Pole-phase modulation** in a multiphase SPB (m = 5, 6, 7, 9 per module or across modules) gives more pole/phase states than 3-phase pole changing, improving low-speed torque per ampere and part-load efficiency. | torque per A and part-load efficiency vs m | Peretti group PPM/HPD work (Wu2023pole, Olson2024enabling) | open | – |
+| H05 | Pole changing lowers the voltage the machine needs at cruise, so SPB can **bypass/park cells** at part load; the combined pole-and-cell scheduling raises inverter efficiency where trucks spend their time. | inverter + machine loss at cruise with optimal (pole mode, active cells) vs fixed | idea only | open | – |
+| H06 | Independent per-module control makes the pole transition **torque-gap-free** (gradual coil-group handover), unlike Dahlander/contactor schemes with a torque interruption. | torque dip and duration vs Wu2025minimum (10 %) and P1 (0.29 s gap) | T04 transition study running; FE_MMF.m k-sweep (P4) | screening (T04) | – |
+| H07 | A **hybrid-excited** machine (PM + reversible field coils) is the machine type that turns SPB pole changing into a real benefit at truck scale, where pure WRSM gains nothing. | T03c metrics vs WRSM/PMSM, PM-share sweep | Conto2022hybrid (sub-kW); T03c running | screening (T03c) | – |
+| H08 | With pole changing, a module/cell fault is handled by re-assigning the remaining coil groups to another pole/phase pattern, giving better **fault-tolerant** torque than a fixed-pole SPB. | post-fault torque and loss vs fixed | Wu2024open (open-phase, PPM) | open | – |

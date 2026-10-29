@@ -19,8 +19,8 @@ Machine type: IM, PMSM, WRSM (includes EESM), SM-gen = synchronous generator. Ac
 | Kampker2022design | PMSM | gearbox (1/2-speed) | N | N | N | Y (41 t truck) | Y | N |
 | Gozen2022transmission | e-axle | gearbox (2-4 speed) | N | N | N | Y (27 t truck) | Y | N |
 | Rahman2015advances | PMSM | none | N | N | N | Y (rail, HEV) | N | N |
-| Mademlis2020performance (s) | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (250 kW truck) | Y | N |
-| Chen2025electromagnetic (s) | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (215 kW, 40 t class) | Y | N |
+| Mademlis2020performance | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (250 kW truck) | Y | N |
+| Chen2025electromagnetic | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (215 kW, 40 t class) | Y | N |
 | Dmitrievskii2023comparative (s) | WRSM vs IM | none (I_f weakening) | Y (9-ph, per review) | P | N | Y (370 kW mining) | Y | N |
 | Hussain2022wound | WRSM | none (I_f weakening) | N | N | N | Y (60 kW) | Y | N |
 | Prakht2025traction | WRSM | none | N | N | N | P | N | N |
@@ -73,6 +73,19 @@ Machine type: IM, PMSM, WRSM (includes EESM), SM-gen = synchronous generator. Ac
 | Haq2023online | IM | online stator reconfiguration | Y | P | Y | N | N | N |
 | Haq2024ripple | IM (9-ph) | ripple-free transition | Y | P | Y | N | N | N |
 | Wu2024open | IM (18-ph) | fault-tolerant transition | Y | P | Y | N | N | N |
+| **Conto2022hybrid (HESM, full text)** | HESM (NdFeB IPM + DC field coils) | rotor field coil reversal (half the coils) + stator two-inverter half-phase supply, 8 <-> 4 poles | Y (2 inverters, split phases) | P | Y (stator sign of inverter 2; no contactor) | N (0.5 kW) | N | N |
+| Conto2022dual | HESM-type (reluctance-PM) | rotor pole change with stator | N | N | N | N | N | N |
+| Bratke2022study | HESM with stator cage | pole changing (cage bars as phases) | Y (many bars) | P | Y | P (passenger cycles) | Y (drive-cycle energy) | N |
+| Cinti2025impact | HESM | none (flux weakening via I_f + I_d) | N | N | N | N | N | N |
+| Brown2022wound | WFSM/HESM | none | N | N | N | P | N | N |
+| Libbos2022inverter | IM | 6/4/2-pole by 18-leg GaN inverter | Y (18 legs) | P | Y | N (890 VA) | Y (partial-load loss -45 %) | Y (GaN) |
+| Libbos2020loss | IM | pole selection by torque and speed | Y | P | Y | N | Y (loss -1/3) | N |
+| Matsuyama2021design | IM | 8-phase harmonic operation, 8 <-> 12 poles | Y | N | Y | P (EV) | N | N |
+| Buyukdegirmenci2014evaluation | IM vs IPMSM | none | N | N | N | N (HEV) | Y | N |
+| Torrent2018permanent | IM vs PMSM | none | N | N | N | Y (rail) | P | N |
+| Yan2024power | e-axle gearbox | none | N | N | N | P (light-duty truck e-axle) | N (loss model) | N |
+| Uerlich2022experimental | HCV e-axle (2-speed) | gearbox | N | N | N | Y (HCV axle) | P (efficiency map model) | N |
+| EU2017regulation | HD truck axle / transmission defaults | none | N | N | N | Y | Y (VECTO) | N |
 
 ## Gaps SPB pole changing would fill
 
@@ -94,3 +107,12 @@ Still open beyond Enes's work:
 
 ### Common to both
 - No source combines multi-star isolated-neutral windings, low-voltage devices and traction-class pole changing. Thin coverage: bus and rail (only Rahman2015advances for rail; no bus-specific paper verified) and a numeric truck drive cycle with pole changing.
+
+### Hybrid-excited synchronous machine (HESM), added by D03 (T02c)
+Covered: Conto2022hybrid is the only hybrid-excited PM + field-coil machine found that changes poles on purpose. Mechanism (full text read): half the rotor field coils reverse (the other half are replaced by PMs), and the stator changes poles by feeding each phase's two halves from two inverters with equal or opposite currents. It was shown only as a sub-kW static FEA design (4.4 / 1.9 N m, 76 / 67 % efficiency against 89 % for an IPM). Bratke2022study is the only HESM pole-changing paper that computes drive-cycle energy, and it finds a benefit. Cinti2025impact shows HESM flux weakening by I_f.
+
+Open for SPB + HESM:
+1. **Scale and efficiency at traction power.** The 76 / 67 % efficiency of the only built-for-purpose machine is caused by the tiny size; no HESM pole-changing machine above 1 kW is published.
+2. **Transition dynamics.** Conto2022hybrid does not simulate the pole change in time; the PM fixes part of the rotor flux during the change, so the transition behaviour (rotor flux share that the field must cancel or reinforce) is unknown.
+3. **SPB supplies the stator side natively.** The two-inverter half-phase supply of Conto2022hybrid is a 2-module special case of SPB; N isolated-neutral modules give finer control, redundancy and low-voltage devices.
+4. **Drive-cycle study for a truck**, with PM share vs field share as the design variable (the PM carries the base flux, the field reverses it): not published.

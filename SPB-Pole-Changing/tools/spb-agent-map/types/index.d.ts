@@ -5,6 +5,7 @@ export type Role =
   | 'simulator'
   | 'figure-maker'
   | 'writer'
+  | 'gap-critic'
 
 export type NodeStatus = 'idle' | 'running' | 'done' | 'failed'
 

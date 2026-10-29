@@ -6,9 +6,9 @@ Every row has a bib key (see `refs.bib`). "Sec." = taken from the review Prakht2
 
 | Item | Value | Key | Note |
 |---|---|---|---|
-| 40 t long-distance truck, WRSM vs IPMSM | max 215 kW, 581 N m; rated speed 3000 rpm, max 8000 rpm; stack OD 258 mm, L 200 mm | Chen2025electromagnetic | Sec. Speed ratio 8000/3000 = 2.67 (derived), matches CPSR 2.67:1 in review table |
-| same, duty cycle | about 90 % of operation at high speed; efficiency at high speed 92.46 % (WRSM) vs 87.61 % (IPMSM); cycle-average +4.11 % for WRSM; power factor 0.96 vs 0.45 | Chen2025electromagnetic | Sec. |
-| Heavy truck EESM vs PMSM | max 250 kW, 800 N m; rated speed 5041 rpm, max 10 000 rpm; OD 300 mm, L 360 mm; EESM phase current 3.67x lower at max speed | Mademlis2020performance | Sec. 10 000/5041 = 1.98 (derived); review table lists CPSR 1.6:1, inconsistent, flagged |
+| 40 t LONGRUN truck, 2 machines, EESM vs PMSM | peak torque 581.33 N m (0-3000 r/min); 200 kW at 5000 r/min (6 % slope, 50 km/h, 20 min); cruise 80 km/h for 200 min; efficiency EESM vs PMSM: start-up 94.10 vs 96.30 %, 200 kW 94.19 vs 95.85 %, cruise 92.46 vs 87.61 %; weighted 92.65 vs 88.54 % | Chen2025electromagnetic | Full text read. Max speed 8000 rpm is from the review (not found in text) |
+| same, power factor and current at cruise | PF 0.96 vs 0.45; stator current 50.19 A vs 113.60 A | Chen2025electromagnetic | Full text; the 4.11 is percentage points |
+| Heavy truck EESM vs PMSM | 40 t, 2 motors each 250 kW peak / 800 N m, 10 000 rpm max, peak torque to 3000 rpm, 800 V dc, gear ratio 19, gearbox efficiency 0.94, wheel radius 0.5 m; CPSR = 10 000/3000 = 3.33 (relative to 200 kW point at 5041 rpm: 1.98); the review's 1.6 is not reproducible | Mademlis2020performance | Full text read |
 | 90 t mining dump truck, WRSM vs IM | 370 kW rated; 400 to 4000 rpm (CPSR 1:10); max torque 8833 N m; stator OD 668 mm; WRSM active mass -15 %, phase current 1.3-1.5x lower, losses 9-24 % lower | Dmitrievskii2023comparative | Sec. Mining, not on-road |
 | Typical road-vehicle CPSR | 1:3 to 1:4 | Prakht2025review | Statement in section 3.3 |
 | Produced WRSM passenger-car CPSR | about 2:1 to 3:1 | Prakht2025review | |
@@ -67,3 +67,66 @@ No parameters (resistances, inductances) of any pole-changing IM or WRSM were ex
 | Bipolar WPT exciter bench | 72 V in, 600 uH / 14.2 ohm load, +/-2.88 A, 118 W, 99 % rectifier efficiency (87 % at 0.61 A), 95 kHz resonance, 97-105 kHz detuning; pole-change gap = free-wheel (tau_f = L_f/R_f) + blanking | Ayaz2026primary |
 | 250 kW SiC inverter, 1.2 kV | efficiency ~99.12 %, 49.4 kW/L, loss model within ~10 % | Ayaz2026dclink |
 | Variable phase-pole IM configurations | 3ph/6-pole <-> 9ph/2-pole; 3ph/4-pole <-> 6ph/2-pole; 9-phase and 18-phase prototypes | Raj2022design, Tilahune2023performance, Tilahune2026speed, Wu2024open |
+
+## 7. HESM parameters (D03, T02c)
+Source for all of section 7: Conto2022hybrid (full text; sub-kW proof-of-concept; use for ratios, not absolute size).
+| Item | Value |
+|---|---|
+| Pole counts | 8 poles (positive field current) and 4 poles (negative field current); rotor only reverses half of the field coils, the other half keep direction (and can be PMs) |
+| PM flux share vs field share | design rule: no-load air-gap flux of the PM equals that of the field coils; field MMF N_e I_e = 450 A-turns (220 conductors x 2.05 A); field and PM flux each about 50 % of the 8-pole rotor flux. In the 4-pole mode PM and field flux add |
+| PM | NdFeB UH35, 25 x 4 mm per pole; rotor OD 95 mm; field current density 10 A/mm2 (water cooling needed); copper fill 0.44 |
+| Stator | 36 slots, OD 150 mm, ID 96 mm; each phase split in two halves, each half on its own inverter (each inverter half power); winding factor k_w 0.96 (8-pole) and 0.62 (4-pole) |
+| Torque (MTPA) | 4.4 N m (8-pole), 1.9 N m (4-pole): ratio 0.43; base speed 1010 and 2810 r/min: ratio 2.8 (so rated power rises 1.2x in the low-pole mode: 470 W to 560 W) |
+| Efficiency | 76 % (8-pole), 67 % (4-pole), IPM reference 89 % (all sub-kW; rotor Joule loss dominates) |
+| Power factor | 0.97 / 0.99 (HESM) vs 0.93 (IPM) |
+| Transition | not simulated |
+Related HESM-type data: Bratke2022study (stator-cage HESM, drive-cycle maps; numbers not read), Cinti2025impact (I_f in flux weakening; numbers not read). KTH variable-pole machine transition cost: torque dip 10 % (<7.5 % voltage-limited) with scheduled transition, Wu2025minimum.
+
+## 8. Drivetrain loss calibration data (T02d)
+Everything here is published; items marked "derived" are my own arithmetic from a published formula, not a published result.
+
+### 8.1 Regulatory default losses, Regulation (EU) 2017/2400 (key EU2017regulation; text from the legislation.gov.uk mirror because EUR-Lex returned a bot challenge)
+| Item | Value |
+|---|---|
+| Axle standard loss, wheel side | T_loss,std = T_d0 + T_out/eta - T_out; T_d0 = T_0 + T_1 * i_axle |
+| Single reduction axle (SR) | eta = 0.98, T_0 = 70 N m, T_1 = 20 N m |
+| SR tandem / single portal | eta = 0.96, T_0 = 80, T_1 = 20 |
+| Hub reduction (HR) | eta = 0.97, T_0 = 70, T_1 = 20 |
+| HR tandem | eta = 0.95, T_0 = 90, T_1 = 20 |
+| Transmission fallback loss at input shaft | T_l,in = (T_d0 + T_add0) + (T_d1000 + T_add1000) * n_in/1000 rpm + (f_T + f_T_add) * T_in, as printed in Annex VI Appendix 8 |
+| f_T | 0.01 direct gear, 0.04 indirect gears; f_T_add = 0.04 for an angle drive |
+| Drag torque T_dx = T_d0 = T_d1000 | 0.005 * T_max,in (10 N m per 2000 N m) for tooth-clutch transmissions; 0.015 * T_max,in with friction shift clutches; angle drive T_addx = 0.005 * T_max,in |
+| Certified-method gear mesh efficiency (App. 7) | 0.986 external-external, 0.993 external-internal, 0.97 angle (bevel) drive, constant |
+Note: with T_d0 = T_d1000 the printed formula gives a drag term that grows linearly with input speed (drag at 1000 rpm = T_d0 + T_d1000); VECTO may implement it differently, check before relying on speed dependence.
+
+### 8.2 Gear, bearing, seal, windage models (key Yan2024power, tested on a light-duty truck e-axle; formulas transcribed from the paper)
+| Loss | Model |
+|---|---|
+| Meshing (Ohlendorf) | P = P_in * H_V * mu_mZ; mu_mZ = 0.048 (F_bt/b / (v_Sigma,C * rho_redC))^0.2 * eta_oil^-0.05 * Ra^0.25 * X_L (exponents as in the paper's Eq. 3, check the original); lubricant factor X_L = 0.86 (mineral), 0.66 (PAO) |
+| Churning (Changenet; keys Changenet2006model, Changenet2011note) | C_ch = 0.5 * rho * omega^2 * R_p^3 * S_m * C_m; C_m = 0.373 Re^-0.3 Fr^-0.25 (h_p/R_p)^1.5 (p_b/R_p)^-0.124 (V_p/V_o)^-0.576 |
+| Gear windage (Ohlendorf) | P_w,p = 1.05e-4 (1 + 2.3 p_b) n_p^2.8 R_p^1.6 (0.028 mu_eq + 0.019) 0.2 D / R_p (as in the paper, check) |
+| Bearing (SKF; key SKF2006friction) | M_t = M_rr + M_sl + M_drag + M_seal; M_rr = phi_ish phi_rs G_rr (nu n)^0.6; M_sl = G_sl mu_sl; phi_ish = 1/(1 + 1.84e-9 (n d_m)^1.28 nu^0.64); M_seal = K_S1 d_s^beta + K_S2 |
+| Shaft seal (Freudenberg Simrit, via Yan2024power) | P = 7.69e-6 d_sh^2 n (d_sh mm, n rpm; units not stated in the paper, W assumed) |
+| Measured result | Light-duty truck e-axle gearbox, input 20-60 N m, 1000-12 000 rpm, oil 50/80 C: no-load loss is above 80 % of total almost always; best oil gains up to 1.04 % efficiency; model error under 8 % |
+| Mesh efficiency models | Xu2005frictional (helical), Mughal2023integrated (30 % asperity load share in mixed lubrication); Michaelis2011influence: gearbox losses can be cut by 50 % on average by oil and bearing choice |
+
+### 8.3 Heavy-duty axle / e-axle numbers
+| Item | Value | Key |
+|---|---|---|
+| Gearbox efficiency used in truck studies | constant 0.94, ratio 19, 2 motors | Mademlis2020performance, Filippini2024design |
+| Prototype HCV e-axle, two gears | ratios 14.847 and 46.128, planetary stage costs about 1 % efficiency over the map; model error 5 % at 100 N m, up to 10 % at zero torque; maps measured at 100-400 N m input, 2500-7500 rpm | Uerlich2022experimental |
+| Allison eGen Power marketing claim | large torque-speed area at 97 % efficiency, more than 65 % of the map at 95 % or higher; helical ground gears, oil shielding against churning, wheel torque 47 000 N m on 100D/130D, 550-850 V | brochure URL in traction_machine_survey.md |
+| Energy share, conventional HD truck (VECTO fleet data) | aero + rolling about 70 % of energy downstream of the engine | Tansini2019calculating |
+| Not found | published loss maps of ZF AxTrax 2, Meritor/Cummins 14Xe, Dana Spicer Electrified, Bosch eAxle. Manufacturers publish only peak power (AxTrax 2: 210 kW continuous, 250 kW peak per a distributor listing) and marketing efficiencies. The best open data is Uerlich2022experimental plus the VECTO defaults |
+
+### 8.4 Motor friction and windage
+| Item | Value | Key |
+|---|---|---|
+| Air-gap windage formula | P = k1 C_f pi rho omega^3 r^4 l; C_f = 0.515 (delta/r)^0.3 Re^-0.5 (500 < Re < 1e4), C_f = 0.0325 (delta/r)^0.3 Re^-0.2 (Re > 1e4); Re = rho omega r delta / mu; k1 = 1 smooth rotor | Bilgen1973functional, Saari1998thermal |
+| Derived example (air 1.2 kg/m3, mu 1.8e-5 Pa s) | rotor radius 0.169 m, stack 0.12 m, gap 1.1 mm (Filippini2024design geometry): 21 W at 3000 rpm, 118 W at 6000 rpm, about 460 W at 10 000 rpm (Re 3.9e3, 7.8e3, 1.3e4) | derived |
+| Measured mechanical loss (the only measured data found) | 2004 Prius motor + gear system: 2.4 kW at 6000 rpm with 30 kW load (7.4 % drop), falling at lower speed; 50 kW motor, not 100-400 kW | Hsu2004report |
+| Measurement method | windage and bearing loss separation by rotor pairs | Long2025loss |
+| Not found | a measured friction/windage loss for a 100-400 kW traction motor at known speed. Use the derived windage example plus bearing and seal models of 8.2 and flag the uncertainty |  |
+
+### 8.5 Updated truck cycle numbers (full texts now read)
+See section 1 above for corrected Chen2025electromagnetic and Mademlis2020performance values and the CPSR 3.33 vs 1.98 resolution.

@@ -5,9 +5,21 @@ The Stacked Polyphase Bridge (SPB) splits a high-voltage traction inverter into 
 series-stacked low-voltage modules so low-voltage GaN devices can be used. A side
 effect: every module drives its own coil group with an **isolated neutral point**,
 so the machine is inherently polyphase and the phase shift between coil groups is
-set by modulation, not by wiring. **Can SPB do electronic pole changing (no
-contactors) to extend the speed range and/or raise drive-cycle efficiency of
-heavy-truck (and other traction/propulsion) drives?**
+set by modulation, not by wiring.
+
+**Core argument (Enes, 2026-10-29):** published pole-changing drives show traction
+benefits but pay for them with extra inverters or Dahlander/contactor windings. SPB
+already has many inverters, for a different reason: low-voltage devices, higher
+efficiency and higher switching frequency. So if pole changing is promising, SPB gets it
+almost for free. **Co-design the SPB and the pole-changing machine together.** Free
+variables: number of cells N (D05), machine phase number m = 3, 5, 6, 7, 9 (D06), slot
+count, pole-count set, machine type (IM / PMSM / WRSM / HESM). Objective: find the research
+gap where this combination gives a defensible, quantified benefit for heavy-truck
+traction.
+
+**Working mode: the gap loop** (`board/gap_loop.md`). Hypotheses live in
+`board/hypotheses.md`; each loop iteration screens them on novelty, value and
+feasibility, and gap-critic tries to kill them.
 
 ## Fixed facts (do not re-derive)
 - SPB reference system: 1200 V DC link, 300 kW = 2 parallel 150 kW blocks per leg,
@@ -28,6 +40,7 @@ heavy-truck (and other traction/propulsion) drives?**
 | simulator | `03_simulation/` | models + `results/*.json`, `validation.md` |
 | figure-maker | `04_figures/` | `<name>.py` + `.svg/.pdf/.png` |
 | writer | `05_reports/` | paper (IEEE), slides, weekly notes |
+| gap-critic | `06_reviews/` | `H<id>_review.md`: novelty/value/feasibility scores, kill arguments |
 
 ## Leader protocol (one round per request from Enes)
 1. **Plan** — turn the request into tasks in `board/tasks.md`, one owner each, with a

@@ -2,11 +2,11 @@
 
 **A Hybrid-Excitation Synchronous Motor with a Change in Polarity** (2022), Machines. DOI: https://doi.org/10.3390/machines10100869
 
-Access: abstract record read.
+Access: abstract + full text read (MDPI open access, PDF read).
 
-- **Claim:** Hybrid-excitation PM motor whose rotor poles are changed by the excitation windings while the stator winding is designed to change polarity; low pole count = low torque at high speed, high pole count = high torque at low speed.
-- **Method:** FE electromagnetic and thermal simulations.
-- **Machine / inverter:** HEPM motor, rotor with PMs and excitation windings, polarity-changing stator winding.
-- **Power / voltage / speed numbers:** No numbers in abstract.
-- **Relevance to SPB:** Closest Bianchi precedent to the D01 WRSM mechanism: excitation windings reverse rotor poles, stator winding changes polarity too.
-- **Limitations:** Simulation only; stator switching presumably contactor-based (not read).
+- **Claim:** Hybrid-excitation PM (HE-IPM) motor that changes pole number 8 <-> 4 on both sides: the stator through a two-inverter supply, the rotor by reversing the current in the field coils while the PMs stay fixed.
+- **Method:** Magnetic equivalent circuits for PM and field-coil flux; 2D magnetostatic FEA (FEMM 4.2); winding MMF analysis; torque/power versus speed with dq flux linkages and a DC bus with PWM; comparison to two conventional IPM motors; thermal FEA. Pole TRANSITION in time is not simulated (static states only).
+- **Machine / inverter:** Rotor: interior NdFeB (UH35) PMs plus a DC field winding in the same rotor slots (parallel hybrid excitation), brush/slip-ring supply. Stator: 36 slots, 150 mm OD / 96 mm ID, each phase split into two halves, half fed by inverter 1 and half by inverter 2 (each inverter rated half power). Equal currents in both inverters give the 8-pole MMF (winding factor k_w = 0.96); reversing inverter 2's current gives the 4-pole MMF (k_w = 0.62). With the 4-pole stator pattern phases B and C swap sequence. Rotor: positive field current reinforces alternate PM poles = 8 poles; negative field current gives the same direction as the adjacent PM = 4 poles. Half the field coils reverse, the other half keep direction, so those can be replaced by PMs. PM flux and field-coil flux are made equal at no load: field MMF N_e I_e = 450 A-turns (220 conductors x 2.05 A), 10 A/mm2 (needs water cooling); rotor OD 95 mm, PM 25 x 4 mm.
+- **Power / voltage / speed numbers:** Small proof-of-concept machine. MTPA torque 4.4 N m (8-pole) and 1.9 N m (4-pole); base speed 1010 r/min (8-pole) and 2810 r/min (4-pole); torque ripple 34 % (8-pole) before skewing, 3.5 % after rotor skewing (4-pole ripple higher); output at rated speed 470 W (8-pole) and 560 W (4-pole); efficiency 76 % (8-pole) and 67 % (4-pole) against 89 % for the IPM reference, because the rotor Joule loss is large in so small a machine (authors state it is negligible at high power); power factor 0.97 / 0.99 versus 0.93 for the IPM. Extraction of the maximum-speed row is garbled.
+- **Relevance to SPB:** The two-inverter half-phase supply is a direct low-count analogue of SPB: two series/parallel stator groups driven by separate converters, with the pole count set by the relative sign of their currents. The rotor needs a bipolar DC supply: matches the own-work P1/P2 exciters. PM flux = field flux share is the design rule (about 50 % PM, 50 % field MMF at the 8-pole point).
+- **Limitations:** Sub-kW; efficiency far below the IPM reference; slip ring and brushes assumed; static FEA only (no transition, no drive cycle, no inverter loss); half-power inverters assumed with equal sharing.
