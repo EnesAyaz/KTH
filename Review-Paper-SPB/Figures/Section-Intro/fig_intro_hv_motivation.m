@@ -44,7 +44,7 @@ ang = deg2rad(90 - (0:nAx-1)*36);
 addpath(fullfile(fileparts(mfilename('fullpath')),'..','Style'));
 st=pes_style();
 fig=figure('Visible','off','Color','w','Units','centimeters', ...
- 'Position',[2 2 8.8 7.0],'Renderer','painters');
+ 'Position',[2 2 8.8 6.2],'Renderer','painters');
 ax=axes(fig,'Position',[0.02 0.02 0.96 0.96]);hold(ax,'on');axis(ax,'equal');axis(ax,'off');
 for r=ringFrac
  plot(ax,r*cos([ang ang(1)]),r*sin([ang ang(1)]),'Color',[.75 .75 .75],'LineWidth',.4);
@@ -66,10 +66,11 @@ for k=1:nAx
  text(ax,x,y,categories{k},'FontName',st.font,'FontSize',8.5, ...
  'HorizontalAlignment',ha,'VerticalAlignment',va);
 end
-xlim(ax,[-2.15 2.15]);ylim(ax,[-1.95 1.95]);
-lg=legend(ax,[h1 h2],{'HV','LV'},'Orientation','horizontal','Box','off', ...
- 'FontName',st.font,'FontSize',8.5,'Position',[.34 .91 .33 .05]);
+xlim(ax,[-2.15 2.75]);ylim(ax,[-1.85 1.85]);
+lg=legend(ax,[h1 h2],{'HV','LV'},'Orientation','vertical','Box','off', ...
+ 'FontName',st.font,'FontSize',8.5,'Position',[.83 .43 .15 .14]);
 out=fullfile(fileparts(mfilename('fullpath')),'fig_intro_hv_motivation');
-set(fig,'PaperUnits','centimeters','PaperPosition',[0 0 8.8 7],'PaperSize',[8.8 7]);
+set(fig,'PaperUnits','centimeters','PaperPosition',[0 0 8.8 6.2],'PaperSize',[8.8 6.2]);
 savefig(fig,[out '.fig']);print(fig,[out '.pdf'],'-dpdf','-painters');
 if usejava('desktop'),set(fig,'Visible','on');end
+

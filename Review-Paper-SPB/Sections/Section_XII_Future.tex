@@ -4,40 +4,9 @@
 % ============================================================================
 
 SPB competitiveness depends on joint battery, converter, and machine
-design. Voltage partitioning, winding constraints, modulation, balancing,
-common-mode excitation, and fault recovery must be evaluated together;
-improving one subsystem can increase losses or complexity elsewhere.
-The following framework translates these dependencies into application
-requirements, followed by priorities for validation.
-
-\subsection{Application-Based Design and Validation Boundary}
-A useful co-design starts from the battery voltage range, required
-shaft torque--speed trajectory, cooling boundary, and permitted
-post-fault operation. Let the candidate design be
-\begin{equation}
-\boldsymbol{x}=\{N,\mathcal D,n_{\parallel},\mathcal W,C_k,f_{sw},
-\mathcal M,\mathcal H\},
-\end{equation}
-where $\mathcal D$, $\mathcal W$, $\mathcal M$, and $\mathcal H$
-denote the device, winding, modulation/control, and cooling choices,
-and $n_{\parallel}$ is the number of parallel devices per switch.
-The proposed comparison minimizes the objective vector
-\begin{equation}
-\boldsymbol{J}(\boldsymbol{x})=
-[E_{\mathrm{mission}},\;\mathcal V_{\mathrm{drive}},\;
- m_{\mathrm{drive}},\;C_{\mathrm{life}}],
-\end{equation}
-subject to healthy and specified degraded-state constraints on device
-voltage, winding voltage/current, junction and winding temperature,
-capacitor ripple, insulation, and common-mode excitation. Mission energy
-is the signed battery-terminal energy $\int V_b i_b\,dt$ for the same
-shaft duty, including regeneration and drive/cooling auxiliaries within
-the declared boundary. Reliability is a service requirement or an
-additional objective when comparable failure data are available.
-These equations define a proposed evaluation framework, not a completed
-optimization or a universal optimum cell count.
-
-\subsection{Research Priorities}
+design. 
+Voltage partitioning, winding constraints, modulation, balancing,
+common-mode voltage, and fault tolerance must be evaluated together.
 
 The optimum cell count $N$ remains the central unresolved design
 question:

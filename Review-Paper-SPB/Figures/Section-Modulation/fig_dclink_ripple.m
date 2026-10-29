@@ -45,7 +45,8 @@ xlabel(ax,'$t/T_{\mathrm{sw}}$','Interpreter','latex','FontSize',8.5);
 ylabel(ax,'$i_{\mathrm{dc}}$ (p.u.)','Interpreter','latex','FontSize',8.5);
 ylim(ax,[min(y,[],'all')-.006,max(y,[],'all')+.006]);
 xlim(ax,[0 100]);
-legend(ax,'Location','northoutside','Box','off','FontSize',8.5);
+ylim(ax,[.94 1.10]);
+legend(ax,'Location','northeast','Box','on','Color','white','EdgeColor','none','FontSize',8.5);
 set(fig,'PaperUnits','centimeters','PaperPosition',[0 0 8.8 4.6], ...
     'PaperSize',[8.8 4.6]);
 out=fullfile(outdir,'fig_dclink_ripple');

@@ -21,7 +21,7 @@ power stage \cite{DriveCodesign800V2023,Post800V2026}.
 Raising the dc-link voltage therefore requires coordinated converter,
 machine, and thermal design.
 
-Figure~\ref{fig:intro_hv_motivation} summarizes these qualitative
+Fig.~\ref{fig:intro_hv_motivation} summarizes these qualitative
 tradeoffs between conventional low-voltage and higher-voltage traction
 architectures.
 
@@ -74,11 +74,11 @@ p{0.36\textwidth}}
 400~V, 150~kW
 \cite{Bertelshofer2019SiC150kW}
 &
-\textbf{Bosch Gen.~4}:400/800~V, 250/350~kW
+\textbf{Bosch Gen.~4}:400/800~V, 250/350~kW peak
 \cite{BoschInverterGen4}
 &
-\textbf{BMW i4 M50}:
-400~V, 400~kW
+\textbf{BMW i4 M50 (2022)}:
+400~V class, 400~kW max.
 \cite{BMWi4M50Specifications}
 \\
 
@@ -86,12 +86,12 @@ p{0.36\textwidth}}
 800~V, 100~kW
 \cite{Taha2024SixPhase100kW}
 &
-\textbf{Wolfspeed reference design}:
+\textbf{TI/Wolfspeed reference design}:
 800~V, 300~kW
 \cite{TIWolfspeed300kW}
 &
-\textbf{Hyundai IONIQ 5 N}:
-800~V, 478~kW
+\textbf{Hyundai IONIQ 5 N (MY2026)}:
+800~V class, 478~kW (10-s boost)
 \cite{HyundaiIoniq5N2026}
 \\
 
@@ -103,8 +103,8 @@ p{0.36\textwidth}}
 800~V, 250~kW
 \cite{InfineonCAV250kW}
 &
-\textbf{Volvo EX90 Performance}:
-800~V, 500~kW
+\textbf{Volvo EX90 Performance (MY2026)}:
+800~V class, 500~kW max.
 \cite{VolvoEX90Specifications2026}
 \\
 
@@ -117,7 +117,7 @@ p{0.36\textwidth}}
 \cite{AVLPI850e}
 &
 \textbf{Porsche Taycan Turbo S}:
-800~V, 700~kW
+800~V class, 700~kW (Launch Control)
 \cite{PorscheTaycanTurboS2026}
 \\
 
@@ -130,55 +130,65 @@ p{0.36\textwidth}}
 \cite{PunchIV5}
 &
 \textbf{Lucid Air Dream Performance}:
-900~V, 828~kW
+924~V architecture, 828~kW max.
 \cite{LucidAirDreamPerformance}
 \\
 
 \hline
 \end{tabular}
+\par\smallskip
+\parbox{0.96\textwidth}{\scriptsize Vehicle powers are combined motor-output ratings,
+including boost where indicated, and are not single-inverter continuous ratings.
+Voltage classes do not equal nominal battery voltage (BMW: 398.5~V;
+IONIQ~5~N: 697~V). Industrial values follow the respective platform specifications.}
 \end{table*}
 
 \subsection{Semiconductor Blocking-Voltage Tradeoff}
 
 \label{sec:semiconductor_limitations}
 
-In a conventional two-level voltage-source inverter, each active
-switch must block a voltage directly tied to the complete dc-link
-voltage. In unipolar power devices, a higher blocking-voltage rating
-imposes a fundamental tradeoff against both specific on-state
-resistance and switching performance, commonly captured by the device figure-of-merit (D-FOM), as shown in Fig.~\ref{fig:intro_ronsp_trend}
-\cite{Millan2014WBGSurvey,SpecificResistance}. This ideal scaling favors lower blocking voltage within a given
-material model; commercial-device comparisons must also account for
-structure, temperature, packaging, and switching conditions.
+In a conventional two-level voltage-source inverter, each switch must
+withstand the dc-link voltage. Increasing the blocking-voltage rating
+of a unipolar device generally increases its specific on-state resistance,
+linking system voltage to conduction loss
+\cite{Millan2014WBGSurvey,SpecificResistance}. Switching performance also
+depends on output charge. Following~\cite{AzurzaAnderson2020XFOM},
+these effects are represented by
+\[
+R_{\mathrm{on,sp}}=k_R U_B^{\alpha_R},\qquad
+C_{\mathrm{oss,Q,sp}}=k_C U_B^{\alpha_C},
+\]
+where $U_B$ is the device blocking voltage and the empirical coefficients
+are taken from~\cite{AzurzaAnderson2020XFOM}. The resulting device
+figure-of-merit is
+\[
+\mathrm{D\! -\! FOM}
+=\frac{1}{\sqrt{R_{\mathrm{on,sp}}C_{\mathrm{oss,Q,sp}}}}
+\propto U_B^{-(\alpha_R+\alpha_C)/2}.
+\]
+Here, $C_{\mathrm{oss,Q}}(U)=Q_{\mathrm{oss}}(U)/U$ is the
+charge-equivalent capacitance at the evaluated switching voltage.
+The resistance--capacitance product is independent of die area;
+a higher D-FOM indicates lower minimum hard-switching semiconductor
+losses under the model assumptions.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=210.933bp]{Figures/Exported/fig02.pdf}
-\caption{Ideal one-dimensional unipolar specific on-state
-    resistance $R_{\mathrm{on,sp}}$ (solid, left axis) and the
-    resulting high-frequency device figure-of-merit
-    $\text{D-FOM}=1/\sqrt{R_{\mathrm{on,sp}}C_{\mathrm{oss,sp}}}$
-    (dashed, right axis), in $\sqrt{\mathrm{MHz}}$ -- the product
-    $R_{\mathrm{on,sp}}C_{\mathrm{oss,sp}}$ is an area-independent $RC$
-    time constant, versus blocking voltage for Si, 4H-SiC, and GaN.}
-    \label{fig:intro_ronsp_trend}
+\caption{Specific on-state resistance and D-FOM versus blocking voltage,
+using empirical device fits from~\cite{AzurzaAnderson2020XFOM}.}
+\label{fig:intro_ronsp_trend}
 \end{figure}
 
-Furthermore, wide-bandgap (WBG) semiconductors shift this D-FOM favorably: SiC
-metal-oxide-semiconductor field-effect transistors (MOSFETs) now
-dominate high-voltage automotive drives, while GaN is particularly
-attractive at lower voltage owing to its fast switching behavior and
-superior D-FOM \cite{WideReview2018,WBGTractionReview2025,GaNComparison,
-Millan2014WBGSurvey}.
-Yet switching material does not remove the
-underlying coupling between dc-link voltage and device voltage class:
-a higher dc-link voltage can require a higher device voltage class,
-with conduction and switching losses determined by the selected
-technology and operating conditions.
-At this point, converter architectures that partition the dc-link voltage among multiple
-switching units, so each device blocks only a fraction of the total
-voltage, therefore become increasingly relevant as system voltage
-rises.
+Fig.~\ref{fig:intro_ronsp_trend} shows the fitted trends over the
+approximate voltage ranges of the source survey, with on-state resistance
+at 25~$^\circ$C. Lower blocking voltage improves D-FOM within each fitted
+technology, but comparisons across technologies require consistent
+voltage and operating conditions. Wide-bandgap devices expand the available
+design choices \cite{WideReview2018,WBGTractionReview2025,GaNComparison,Millan2014WBGSurvey}; their system benefit remains dependent on device
+selection, switching conditions, and converter implementation. Voltage
+partitioning therefore offers a route to exploiting lower-voltage devices,
+subject to the additional hardware and control requirements of the topology.
 
 \subsection{Multilevel Converters and Their Limitations}
 
@@ -188,8 +198,7 @@ NPC, T-type, flying-capacitor, and cascaded architectures all distribute
 the dc-link voltage among
 additional semiconductor positions or capacitor-voltage levels,
 reducing individual device voltage stress
-\cite{Poorfakhraei2021MultilevelReview,T_type_SiC,
-FlyingCap_Optimized3D,CascadedHBridge_control}.
+\cite{Poorfakhraei2021MultilevelReview,T_type_SiC,FlyingCap_Optimized3D,CascadedHBridge_control}.
 
 They require additional semiconductor positions, passive components,
 and gate drivers, which increases the number of potential failure points. Classical three-phase multilevel
@@ -242,9 +251,7 @@ how repeated power-electronic units can be physically associated with
 individual machine sections, wide-bandgap semiconductors amplify
 performance differences among voltage classes, and distributed
 control coordinates modular converter units
-\cite{Choi2011IMMD,Wang2025GaNIMMD,
-JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,
-Ebrahimian2025GaNIMMD}.
+\cite{Choi2011IMMD,Wang2025GaNIMMD,JahnsDai2017IMDReview,Bringezu2020SPB,Deng2026IMDReview,Ebrahimian2025GaNIMMD}.
 
 Despite more than a decade of SPB research, beginning with Norrga
 \textit{et al.} \cite{Norrga2013SPB}, the feasibility of electric-vehicle traction applications requires

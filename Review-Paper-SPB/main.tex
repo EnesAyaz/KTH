@@ -39,14 +39,15 @@
 \makeatother
 % Publication dates, DOI, volume, and issue are assigned by IEEE.
 \begin{document}
+\bstctlcite{SPBReferenceFormatting}
 
 \title{Stacked Polyphase Bridge Converters for High-Voltage Traction Drives:
 A Review and System-Level Design Perspectives}
 
 \author{ENES AYAZ\affilmark{1}, STUDENT MEMBER, IEEE,
 SHAHRIAR SARMAST GHAHFAROKHI\affilmark{1}, STUDENT MEMBER, IEEE,
-KEVIN KLARIN \affilmark{1}, STUDENT MEMBER, IEEE,
-STAFFAN NORRGA\affilmark{1}, MEMBER, IEEE, AND HANS-PETER NEE\affilmark{1}, FELLOW, IEEE}
+KEVIN KLARIN \affilmark{1}, STUDENT MEMBER, IEEE, AND
+STAFFAN NORRGA\affilmark{1}, MEMBER, IEEE, }
 \affil{Division of Electric Power and Energy Systems,
 KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden}
 \corresp{CORRESPONDING AUTHOR: Enes Ayaz (e-mail: enesa@kth.se).}
@@ -54,7 +55,15 @@ KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden}
 {Ayaz \textit{et al.}}
 
 \begin{abstract}
-Increasing dc-link voltages in electric traction drives intensify semiconductor voltage stress and insulation requirements. Stacked polyphase bridge (SPB) converters partition the dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. This architecture enables lower-voltage devices and modular converter--machine integration while introducing coupled control and design challenges. This paper reviews SPB topology evolution, operating principles, machine integration, modulation, dc-link balancing, semiconductor scaling, and fault-tolerant reconfiguration. The review synthesizes carrier-interleaving effects on capacitor ripple, conditions and limitations of common-mode cancellation, and balancing requirements under different control structures. It relates cell count and device voltage class to winding, insulation, gate-drive, cooling, and fault-management requirements. These relationships are consolidated into an iterative device-to-system design framework, supported by an illustrative high-voltage traction example. The synthesis indicates that semiconductor-level gains alone do not establish a system-level advantage and that the preferred cell count depends on application requirements and operating conditions. Remaining research priorities include joint battery--converter--machine design and validation against mission energy, volume, cost, and reliability. The review provides a basis for assessing the practical suitability of SPB architectures for high-voltage traction drives.
+Stacked polyphase bridge (SPB) converters partition a high dc-link voltage among series-connected three-phase bridges, each supplying an electrically separated machine winding group. 
+This architecture enables lower-voltage semiconductor devices and modular converter--machine integration, but requires coordinated modulation, voltage balancing, and fault management. 
+This paper reviews SPB topology evolution, operating principles, machine integration, semiconductor scaling, and control strategies for high-voltage traction drives. 
+It synthesizes the effects of carrier interleaving on dc-link ripple, the conditions and limitations of common-mode cancellation, and the balancing behavior of different control structures.
+ The review connects cell count and device voltage class with winding configuration, gate-drive complexity, cooling, and post-fault operation. 
+ These interdependencies inform an iterative system-design framework, illustrated by a high-voltage traction example. 
+ The synthesis shows that semiconductor-level benefits must be evaluated alongside the additional converter and machine requirements, 
+ and that the preferred cell count depends on the application and operating mission. Joint battery--converter--machine design 
+are identified as priorities for establishing the practical competitiveness of SPB traction drives.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -78,12 +87,12 @@ multiphase machines, stacked polyphase bridge (SPB) converters.
 \input{Sections/Section_XIII_Conclusion}
 
 \section*{Acknowledgment}
-The authors used Claude (Anthropic) and Codex (OpenAI) for language
-editing, structural organization, and drafting assistance. Codex also
-assisted with analytical exposition and figure code in the modulation,
-common-mode, fault-tolerance, and design-framework discussions. The
-authors are responsible for validating all technical content, references,
-and final editorial decisions.
+The authors used Codex (OpenAI, GPT-6 Astra) and Claude Code
+(Anthropic, Opus 5.5) for language editing, structural organization,
+and drafting assistance. Both tools also assisted with analytical
+formulation, computational scripts, and figure preparation. The authors
+are responsible for validating all technical content, calculations,
+references, and final editorial decisions.
 
 \bibliographystyle{jabbrv_IEEEtran}
 \bibliography{ref}

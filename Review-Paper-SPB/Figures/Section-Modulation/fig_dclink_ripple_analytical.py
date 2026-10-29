@@ -88,9 +88,10 @@ def main():
     ax.grid(color='.88',lw=.35)
     ax.set_ylabel(r'$i_{\mathrm{dc}}$ (p.u.)',labelpad=4)
     ax.set_xlim(0,100);ax.set_xlabel(r'$t/T_{\mathrm{sw}}$')
-    fig.legend(*ax.get_legend_handles_labels(),loc='upper center',
-               bbox_to_anchor=(.58,1.02),frameon=False,fontsize=8.5)
-    fig.subplots_adjust(left=.21,right=.94,bottom=.24,top=.73)
+    ax.set_ylim(.94,1.10)
+    ax.set_yticks([.95,1.00,1.05,1.10])
+    ax.legend(loc='upper right',frameon=True,facecolor='white',edgecolor='none',framealpha=1,fontsize=7.5,labelspacing=.2,handlelength=2)
+    fig.subplots_adjust(left=.21,right=.94,bottom=.24,top=.95)
     fig.savefig(OUT/'fig_dclink_ripple.pdf')
     fig.savefig(OUT/'fig_dclink_ripple.png',dpi=220)
     plt.close(fig)
