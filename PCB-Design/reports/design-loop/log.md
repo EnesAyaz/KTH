@@ -62,3 +62,4 @@ float rounding) and DPT plot PDFs (same size, re-plotted 26 Oct).
 Not committed: spb-bb-fab.kicad_pro and hardware/To-do.txt (standing rule), load-board plots and busbar Q3D results
 (frozen boards, changes predate these rounds), untracked notes/drafts of Enes's.
 Note: scripts/make_poster.py would now overwrite Enes's SVG edits; port them before regenerating.
+Commit: 80e2a07
