@@ -1,0 +1,7 @@
+{
+  "name": "spb-agent-map",
+  "version": "0.1.0",
+  "description": "Live map of the SPB-Pole-Changing agent team: who is working, on what, and the file handoffs between them",
+  "author": { "name": "Enes Ayaz" },
+  "types": "./types/index.d.ts"
+}
