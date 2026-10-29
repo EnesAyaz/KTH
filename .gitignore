@@ -99,3 +99,38 @@ Prototyping/Control/imperix_simulation.slx.autosave
 /Capacitor Sizing- Ripple Minimization/Journal Paper-Minimization/ACCESS Paper Draft/Modulation/Imperix/MultiPoint/slprj
 /Switching Function - Reduced CMV PWM/OJPEL-Paper/Common Mode Current/slprj
 /Switching Function - Reduced CMV PWM/OJPEL-Paper/Common Mode Current/MultiplePoints_build
+
+# ---- generated files (added 2026-10-29) ----
+# Office lock files
+~$*
+# LaTeX build files (keep .tex, .bib and the final .pdf)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.out
+*.toc
+# Python caches
+__pycache__/
+*.pyc
+# LTspice run outputs (keep .asc/.cir/.net inputs); *.log and *.raw are listed above
+*.op.raw
+*.plt.bak
+# Ansys Electronics Desktop autosave/lock/results (keep .aedt)
+*.aedt.auto
+*.aedt.temp
+*.aedt.lock
+*.aedtresults/
+# scratch and build folders
+Airgap Harmonics/OPT-Workspace/tmp/
+PCB-Design/tmp/
+PresentationOfMeetings/PhD Project Slide/.build/
+# KiCad generator caches and DRC scratch
+PCB-Design/hardware/**/drc_tp_tmp.txt
+PCB-Design/hardware/**/testpoints_cache.json
+*-backups/
+fp-info-cache
+# downloaded reference too large for the repo (64 MB)
+PCB-Design/Application Notes/PCB-design-toolkit-these.pdf
