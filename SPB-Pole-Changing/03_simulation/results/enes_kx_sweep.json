@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "script": "03_simulation/enes_port.py",
+  "task": "T04 item 2",
+  "note": "port of torque_speed_switching.m; x_q4 sweep"
+ },
+ "cases": [
+  {
+   "xq4": 0.31,
+   "turns_halved": true,
+   "x2_over_xq4": 1.186491477898706,
+   "T2_over_T4_low": 0.3739094421631026,
+   "crossover_speed_over_n4_base": null,
+   "T2_over_T4_at_2x": 0.6855180029751516,
+   "T2_over_T4_at_3x": 1.0003124138897916
+  },
+  {
+   "xq4": 0.31,
+   "turns_halved": false,
+   "x2_over_xq4": 4.745965911594824,
+   "T2_over_T4_low": 0.7478188843262052,
+   "crossover_speed_over_n4_base": 2.48,
+   "T2_over_T4_at_2x": 0.9763783591096189,
+   "T2_over_T4_at_3x": 1.0094057066592605
+  },
+  {
+   "xq4": 0.6,
+   "turns_halved": true,
+   "x2_over_xq4": 1.186491477898706,
+   "T2_over_T4_low": 0.360078372139499,
+   "crossover_speed_over_n4_base": null,
+   "T2_over_T4_at_2x": 0.6143043761090602,
+   "T2_over_T4_at_3x": 0.8793738905232772
+  },
+  {
+   "xq4": 0.6,
+   "turns_halved": false,
+   "x2_over_xq4": 4.745965911594824,
+   "T2_over_T4_low": 0.720156744278998,
+   "crossover_speed_over_n4_base": null,
+   "T2_over_T4_at_2x": 0.6185508323145285,
+   "T2_over_T4_at_3x": 0.6012696136359807
+  },
+  {
+   "xq4": 0.9,
+   "turns_halved": true,
+   "x2_over_xq4": 1.186491477898706,
+   "T2_over_T4_low": 0.3468074523059605,
+   "crossover_speed_over_n4_base": 2.92,
+   "T2_over_T4_at_2x": 0.6865325896820212,
+   "T2_over_T4_at_3x": 1.022193131726234
+  },
+  {
+   "xq4": 0.9,
+   "turns_halved": false,
+   "x2_over_xq4": 4.745965911594824,
+   "T2_over_T4_low": 0.693614904611921,
+   "crossover_speed_over_n4_base": null,
+   "T2_over_T4_at_2x": 0.5295535707523393,
+   "T2_over_T4_at_3x": 0.5639239724914445
+  },
+  {
+   "xq4": 1.2,
+   "turns_halved": true,
+   "x2_over_xq4": 1.186491477898706,
+   "T2_over_T4_low": 0.33447997775015365,
+   "crossover_speed_over_n4_base": 2.54,
+   "T2_over_T4_at_2x": 0.7621267564622282,
+   "T2_over_T4_at_3x": 1.1076454263971096
+  },
+  {
+   "xq4": 1.2,
+   "turns_halved": false,
+   "x2_over_xq4": 4.745965911594824,
+   "T2_over_T4_low": 0.6689599555003073,
+   "crossover_speed_over_n4_base": null,
+   "T2_over_T4_at_2x": 0.5000001398122942,
+   "T2_over_T4_at_3x": 0.3457832140708634
+  }
+ ]
+}

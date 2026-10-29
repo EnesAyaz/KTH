@@ -31,9 +31,18 @@
    "T_ref_axle_out_Nm": 27151.844647572507,
    "drag_scale_variants": {
     "VECTO_generic": 1.0,
-    "certified_like": 0.3
+    "certified_like": 0.3,
+    "EU2017": "EU2017"
    },
    "two_speed_idle_pair_drag_factor": 1.0
+  },
+  "EU2017": {
+   "axle_T0_Nm": 70.0,
+   "axle_T1_Nm": 20.0,
+   "axle_eta": 0.98,
+   "helical_eta": 0.986,
+   "source": "Regulation (EU) 2017/2400 Annex VII (SR axle standard loss) and Annex VI App. 7 (certified mesh efficiency 0.986 external-external) - key EU2017regulation, 01_literature/inputs_for_analyst.md section 8.1",
+   "helical_drag": "own assumption: helical-stage drag = axle-type T_d0(i) scaled by the stage's rated output torque, speed-independent like the EU axle term"
   }
  },
  "mech_model": {
@@ -91,13 +100,13 @@
       "P_stray_IEC_W": 109.83379063824603,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2386.714379254646,
+     "P_mech_W": 1967.834592887331,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 911.8506648534741,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2386.714379254646
+      "P_total_W": 1967.834592887331
      },
      "P_gear_W": 26942.03147943058,
      "gear_parts_W": {
@@ -116,9 +125,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9833237812088035,
-     "eta_motor_incl_fw": 0.9703743069505179,
-     "eta_drivetrain_wheel_over_elec": 0.824196303356404
+     "eta_motor_em_only": 0.9832857949242784,
+     "eta_motor_incl_fw": 0.9725846949875915,
+     "eta_drivetrain_wheel_over_elec": 0.8260737166762852
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -137,13 +146,13 @@
       "P_stray_IEC_W": 70.58287350322043,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1205.7711529710778,
+     "P_mech_W": 1030.4153206532305,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.7116646356946,
+      "P_windage_gap_W": 175.3558323178473,
       "P_windage_ends_W": 133.5077949785541,
       "P_bearings_W": 521.7438873194504,
       "P_seal_W": 199.8078060373787,
-      "P_total_W": 1205.7711529710778
+      "P_total_W": 1030.4153206532305
      },
      "P_gear_W": 14962.901911435994,
      "gear_parts_W": {
@@ -162,9 +171,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9843560641922803,
-     "eta_motor_incl_fw": 0.9727663738800135,
-     "eta_drivetrain_wheel_over_elec": 0.828945219344127
+     "eta_motor_em_only": 0.984329651917894,
+     "eta_motor_incl_fw": 0.9744087337500911,
+     "eta_drivetrain_wheel_over_elec": 0.8303447602814984
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -183,13 +192,13 @@
       "P_stray_IEC_W": 260.2584322959011,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2540.6911781179947,
+     "P_mech_W": 2121.81139175068,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 1065.8274637168229,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2540.6911781179947
+      "P_total_W": 2121.81139175068
      },
      "P_gear_W": 30761.87022736349,
      "gear_parts_W": {
@@ -208,9 +217,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9755034607895271,
-     "eta_motor_incl_fw": 0.9665833719671691,
-     "eta_drivetrain_wheel_over_elec": 0.8585818103711669
+     "eta_motor_em_only": 0.9754673821130694,
+     "eta_motor_incl_fw": 0.9680069628036946,
+     "eta_drivetrain_wheel_over_elec": 0.8598463357428007
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -229,13 +238,13 @@
       "P_stray_IEC_W": 609.7744305624311,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1134.9230014204543,
+     "P_mech_W": 1023.7582503202478,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.32950220041297,
+      "P_windage_gap_W": 111.16475110020649,
       "P_windage_ends_W": 80.13073645218206,
       "P_bearings_W": 665.9562577367104,
       "P_seal_W": 166.50650503114892,
-      "P_total_W": 1134.9230014204543
+      "P_total_W": 1023.7582503202478
      },
      "P_gear_W": 17924.56646429565,
      "gear_parts_W": {
@@ -254,9 +263,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9772619937040156,
-     "eta_motor_incl_fw": 0.9728081160383127,
-     "eta_drivetrain_wheel_over_elec": 0.9024651710607119
+     "eta_motor_em_only": 0.977252069838451,
+     "eta_motor_incl_fw": 0.9732326922671176,
+     "eta_drivetrain_wheel_over_elec": 0.9028590465358849
     }
    },
    "certified_like": {
@@ -277,13 +286,13 @@
       "P_stray_IEC_W": 92.77474928117731,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2363.6085434256647,
+     "P_mech_W": 1944.7287570583499,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 888.7448290244931,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2363.6085434256647
+      "P_total_W": 1944.7287570583499
      },
      "P_gear_W": 12467.10919570786,
      "gear_parts_W": {
@@ -302,9 +311,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9841965590676596,
-     "eta_motor_incl_fw": 0.9702450091240683,
-     "eta_drivetrain_wheel_over_elec": 0.8966560482616937
+     "eta_motor_em_only": 0.9841573882090934,
+     "eta_motor_incl_fw": 0.9726498860233269,
+     "eta_drivetrain_wheel_over_elec": 0.8988785254677262
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -323,13 +332,13 @@
       "P_stray_IEC_W": 59.884594417390744,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1193.0252345014371,
+     "P_mech_W": 1017.6694021835898,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.7116646356946,
+      "P_windage_gap_W": 175.3558323178473,
       "P_windage_ends_W": 133.5077949785541,
       "P_bearings_W": 508.9979688498097,
       "P_seal_W": 199.8078060373787,
-      "P_total_W": 1193.0252345014371
+      "P_total_W": 1017.6694021835898
      },
      "P_gear_W": 6978.071557395817,
      "gear_parts_W": {
@@ -348,9 +357,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9842409976571681,
-     "eta_motor_incl_fw": 0.9718039077385237,
-     "eta_drivetrain_wheel_over_elec": 0.8990586707491859
+     "eta_motor_em_only": 0.9842121365677424,
+     "eta_motor_incl_fw": 0.9735836726548099,
+     "eta_drivetrain_wheel_over_elec": 0.9007052097959428
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -369,13 +378,13 @@
       "P_stray_IEC_W": 233.6107545780597,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2517.585342289014,
+     "P_mech_W": 2098.7055559216988,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 1042.721627887842,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2517.585342289014
+      "P_total_W": 2098.7055559216988
      },
      "P_gear_W": 16286.947943640764,
      "gear_parts_W": {
@@ -394,9 +403,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9770052532510095,
-     "eta_motor_incl_fw": 0.9676653290789389,
-     "eta_drivetrain_wheel_over_elec": 0.9072428058647865
+     "eta_motor_em_only": 0.9769694640009671,
+     "eta_motor_incl_fw": 0.9691714129161695,
+     "eta_drivetrain_wheel_over_elec": 0.9086548474925021
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -415,13 +424,13 @@
       "P_stray_IEC_W": 581.0463518161137,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1125.4894304597515,
+     "P_mech_W": 1014.3246793595449,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.32950220041297,
+      "P_windage_gap_W": 111.16475110020649,
       "P_windage_ends_W": 80.13073645218206,
       "P_bearings_W": 656.5226867760075,
       "P_seal_W": 166.50650503114892,
-      "P_total_W": 1125.4894304597515
+      "P_total_W": 1014.3246793595449
      },
      "P_gear_W": 12014.795118007063,
      "gear_parts_W": {
@@ -440,9 +449,195 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.977766381486582,
-     "eta_motor_incl_fw": 0.9732396458819804,
-     "eta_drivetrain_wheel_over_elec": 0.924915957208636
+     "eta_motor_em_only": 0.9777564362486627,
+     "eta_motor_incl_fw": 0.9736749821195325,
+     "eta_drivetrain_wheel_over_elec": 0.9253296779551826
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 7512.036797137898,
+     "T_motor_Nm": 217.810308858136,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p4",
+     "PF": 0.9533637500670187,
+     "I_rms_A": 130.9308292958285,
+     "P_em_loss_W": 2848.369657547516,
+     "em_parts_W": {
+      "P_cu_stator_W": 953.2927813360495,
+      "P_cu_rotor_W": 1068.2346153025712,
+      "P_fe_W": 501.68477318815604,
+      "P_stray_IEC_W": 100.80690460785192,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1955.8512869650813,
+     "mech_parts_W": {
+      "P_windage_gap_W": 418.879786367315,
+      "P_windage_ends_W": 354.0430831135888,
+      "P_bearings_W": 899.8673589312247,
+      "P_seal_W": 283.0610585529531,
+      "P_total_W": 1955.8512869650813
+     },
+     "P_gear_W": 19434.94871425867,
+     "gear_parts_W": {
+      "axle_hypoid": 9425.20475851562,
+      "helical_1": 10009.74395574305
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4650000000000007,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 5.0,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9838295493913727,
+     "eta_motor_incl_fw": 0.9727260058081566,
+     "eta_drivetrain_wheel_over_elec": 0.8623920547943271
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 5302.614209744399,
+     "T_motor_Nm": 178.69709061910083,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p4",
+     "PF": 0.9587036487844955,
+     "I_rms_A": 76.14098893796567,
+     "P_em_loss_W": 1598.753931075158,
+     "em_parts_W": {
+      "P_cu_stator_W": 322.3884643818338,
+      "P_cu_rotor_W": 345.6868870662771,
+      "P_fe_W": 638.4751016142859,
+      "P_stray_IEC_W": 67.85289489987376,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1027.2603263093479,
+     "mech_parts_W": {
+      "P_windage_gap_W": 175.3558323178473,
+      "P_windage_ends_W": 133.5077949785541,
+      "P_bearings_W": 518.5888929755677,
+      "P_seal_W": 199.8078060373787,
+      "P_total_W": 1027.2603263093479
+     },
+     "P_gear_W": 12986.418642390652,
+     "gear_parts_W": {
+      "axle_hypoid": 6224.784689516836,
+      "helical_1": 6761.633952873816
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4650000000000007,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 5.0,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9843035431296153,
+     "eta_motor_incl_fw": 0.9742179714270779,
+     "eta_drivetrain_wheel_over_elec": 0.8467182004123087
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 7512.036797137898,
+     "T_motor_Nm": 339.68476201616147,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p4",
+     "PF": 0.9064190141971078,
+     "I_rms_A": 216.59492725930363,
+     "P_em_loss_W": 6484.612932212353,
+     "em_parts_W": {
+      "P_cu_stator_W": 2608.789448382591,
+      "P_cu_rotor_W": 2945.747967139613,
+      "P_fe_W": 460.54464710989515,
+      "P_stray_IEC_W": 245.18028646736585,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 2108.8911073363615,
+     "mech_parts_W": {
+      "P_windage_gap_W": 418.879786367315,
+      "P_windage_ends_W": 354.0430831135888,
+      "P_bearings_W": 1052.9071793025046,
+      "P_seal_W": 283.0610585529531,
+      "P_total_W": 2108.8911073363615
+     },
+     "P_gear_W": 22667.806278969972,
+     "gear_parts_W": {
+      "axle_hypoid": 11315.83201759352,
+      "helical_1": 11351.974261376452
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4650000000000007,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 5.0,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9764887944989205,
+     "eta_motor_incl_fw": 0.9688426060953408,
+     "eta_drivetrain_wheel_over_elec": 0.8866561352520148
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 4418.845174786999,
+     "T_motor_Nm": 532.2689267328288,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p4",
+     "PF": 0.9604667553138936,
+     "I_rms_A": 188.8124987351189,
+     "P_em_loss_W": 5731.661501877119,
+     "em_parts_W": {
+      "P_cu_stator_W": 1982.4577778668493,
+      "P_cu_rotor_W": 2213.838637060251,
+      "P_fe_W": 709.0156778659357,
+      "P_stray_IEC_W": 601.9988259711959,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1021.2272811201987,
+     "mech_parts_W": {
+      "P_windage_gap_W": 111.16475110020649,
+      "P_windage_ends_W": 80.13073645218206,
+      "P_bearings_W": 663.4252885366612,
+      "P_seal_W": 166.50650503114892,
+      "P_total_W": 1021.2272811201987
+     },
+     "P_gear_W": 16339.01107714724,
+     "gear_parts_W": {
+      "axle_hypoid": 8413.748572364972,
+      "helical_1": 7925.262504782267
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4650000000000007,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 5.0,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.977350154730777,
+     "eta_motor_incl_fw": 0.9733145640221306,
+     "eta_drivetrain_wheel_over_elec": 0.9087475841632701
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -463,13 +658,13 @@
       "P_stray_IEC_W": 90.9481160801444,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2361.01266009845,
+     "P_mech_W": 1942.1328737311346,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 886.148945697278,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2361.01266009845
+      "P_total_W": 1942.1328737311346
      },
      "P_gear_W": 10840.887591037783,
      "gear_parts_W": {
@@ -488,9 +683,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9842709598959134,
-     "eta_motor_incl_fw": 0.9701961865576803,
-     "eta_drivetrain_wheel_over_elec": 0.9055700885244914
+     "eta_motor_em_only": 0.984231584898219,
+     "eta_motor_incl_fw": 0.9726249089943987,
+     "eta_drivetrain_wheel_over_elec": 0.9078370304301528
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -509,13 +704,13 @@
       "P_stray_IEC_W": 58.70485996635592,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1191.5522133453892,
+     "P_mech_W": 1016.196381027542,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.7116646356946,
+      "P_windage_gap_W": 175.3558323178473,
       "P_windage_ends_W": 133.5077949785541,
       "P_bearings_W": 507.5249476937619,
       "P_seal_W": 199.8078060373787,
-      "P_total_W": 1191.5522133453892
+      "P_total_W": 1016.196381027542
      },
      "P_gear_W": 6055.280150329405,
      "gear_parts_W": {
@@ -534,9 +729,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.984225659122341,
-     "eta_motor_incl_fw": 0.9716813149618588,
-     "eta_drivetrain_wheel_over_elec": 0.9079329392355412
+     "eta_motor_em_only": 0.9841964842602884,
+     "eta_motor_incl_fw": 0.9734784530193484,
+     "eta_drivetrain_wheel_over_elec": 0.9096121737887061
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -555,13 +750,13 @@
       "P_stray_IEC_W": 228.97569762282131,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2513.434137761159,
+     "P_mech_W": 2094.5543513938437,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.75957273463,
+      "P_windage_gap_W": 418.879786367315,
       "P_windage_ends_W": 354.0430831135888,
       "P_bearings_W": 1038.570423359987,
       "P_seal_W": 283.0610585529531,
-      "P_total_W": 2513.434137761159
+      "P_total_W": 2094.5543513938437
      },
      "P_gear_W": 13686.377102175233,
      "gear_parts_W": {
@@ -580,9 +775,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9771994133492082,
-     "eta_motor_incl_fw": 0.9677798714260288,
-     "eta_drivetrain_wheel_over_elec": 0.9164877365124724
+     "eta_motor_em_only": 0.9771635641052216,
+     "eta_motor_incl_fw": 0.9693015066921532,
+     "eta_drivetrain_wheel_over_elec": 0.9179287254212344
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -601,13 +796,13 @@
       "P_stray_IEC_W": 569.4335663929114,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1121.6100394894286,
+     "P_mech_W": 1010.4452883892221,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.32950220041297,
+      "P_windage_gap_W": 111.16475110020649,
       "P_windage_ends_W": 80.13073645218206,
       "P_bearings_W": 652.6432958056847,
       "P_seal_W": 166.50650503114892,
-      "P_total_W": 1121.6100394894286
+      "P_total_W": 1010.4452883892221
      },
      "P_gear_W": 9584.505072703181,
      "gear_parts_W": {
@@ -626,9 +821,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9779125878663293,
-     "eta_motor_incl_fw": 0.9733551475317248,
-     "eta_drivetrain_wheel_over_elec": 0.9344104087476073
+     "eta_motor_em_only": 0.9779026065630481,
+     "eta_motor_incl_fw": 0.973795006799488,
+     "eta_drivetrain_wheel_over_elec": 0.9348326688848494
     }
    }
   },
@@ -660,13 +855,13 @@
       "P_stray_IEC_W": 119.00690266693624,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2398.397191904144,
+     "P_mech_W": 1979.517405536829,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 923.5334775029719,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2398.397191904144
+      "P_total_W": 1979.517405536829
      },
      "P_gear_W": 34260.86670393532,
      "gear_parts_W": {
@@ -691,9 +886,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9829356252497847,
-     "eta_motor_incl_fw": 0.9704335753163031,
-     "eta_drivetrain_wheel_over_elec": 0.7918430283698668
+     "eta_motor_em_only": 0.9828982839684478,
+     "eta_motor_incl_fw": 0.9725571358736117,
+     "eta_drivetrain_wheel_over_elec": 0.7935757864538788
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -712,13 +907,13 @@
       "P_stray_IEC_W": 76.4020153610459,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1212.298701710087,
+     "P_mech_W": 1036.9428693922396,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.71166463569483,
+      "P_windage_gap_W": 175.35583231784742,
       "P_windage_ends_W": 133.5077949785542,
       "P_bearings_W": 528.2714360584592,
       "P_seal_W": 199.80780603737873,
-      "P_total_W": 1212.298701710087
+      "P_total_W": 1036.9428693922396
      },
      "P_gear_W": 19052.161499347163,
      "gear_parts_W": {
@@ -743,9 +938,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9843905559956775,
-     "eta_motor_incl_fw": 0.9731858343747044,
-     "eta_drivetrain_wheel_over_elec": 0.797095432251138
+     "eta_motor_em_only": 0.9843652161756031,
+     "eta_motor_incl_fw": 0.9747656698855139,
+     "eta_drivetrain_wheel_over_elec": 0.7983894088226153
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -764,13 +959,13 @@
       "P_stray_IEC_W": 278.11393301484605,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2555.5163744177653,
+     "P_mech_W": 2136.6365880504504,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 1080.6526600165932,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2555.5163744177653
+      "P_total_W": 2136.6365880504504
      },
      "P_gear_W": 40049.28860376108,
      "gear_parts_W": {
@@ -795,9 +990,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9743216351861167,
-     "eta_motor_incl_fw": 0.9656506644094742,
-     "eta_drivetrain_wheel_over_elec": 0.8297618027356171
+     "eta_motor_em_only": 0.9742850871947265,
+     "eta_motor_incl_fw": 0.9670250740506102,
+     "eta_drivetrain_wheel_over_elec": 0.8309428018935512
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -816,13 +1011,13 @@
       "P_stray_IEC_W": 642.4591373224242,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1145.3894671238822,
+     "P_mech_W": 1034.224716023676,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.3295022004128,
+      "P_windage_gap_W": 111.1647511002064,
       "P_windage_ends_W": 80.13073645218199,
       "P_bearings_W": 676.4227234401386,
       "P_seal_W": 166.5065050311489,
-      "P_total_W": 1145.3894671238822
+      "P_total_W": 1034.224716023676
      },
      "P_gear_W": 24481.406855775822,
      "gear_parts_W": {
@@ -847,9 +1042,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9768529083092541,
-     "eta_motor_incl_fw": 0.9724752858009161,
-     "eta_drivetrain_wheel_over_elec": 0.8789085464832155
+     "eta_motor_em_only": 0.9768430697113459,
+     "eta_motor_incl_fw": 0.9728886333367704,
+     "eta_drivetrain_wheel_over_elec": 0.879282123773286
     }
    },
    "certified_like": {
@@ -870,13 +1065,13 @@
       "P_stray_IEC_W": 97.87207129791112,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2370.720288255901,
+     "P_mech_W": 1951.840501888586,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 895.8565738547287,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2370.720288255901
+      "P_total_W": 1951.840501888586
      },
      "P_gear_W": 16922.34528763085,
      "gear_parts_W": {
@@ -901,9 +1096,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9839882088480456,
-     "eta_motor_incl_fw": 0.9703623078372966,
-     "eta_drivetrain_wheel_over_elec": 0.873099799518101
+     "eta_motor_em_only": 0.9839495667162569,
+     "eta_motor_incl_fw": 0.9727041362952359,
+     "eta_drivetrain_wheel_over_elec": 0.8752068990422877
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -922,13 +1117,13 @@
       "P_stray_IEC_W": 63.152339452540375,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1197.0312359493312,
+     "P_mech_W": 1021.6754036314837,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.71166463569483,
+      "P_windage_gap_W": 175.35583231784742,
       "P_windage_ends_W": 133.5077949785542,
       "P_bearings_W": 513.0039702977034,
       "P_seal_W": 199.80780603737873,
-      "P_total_W": 1197.0312359493312
+      "P_total_W": 1021.6754036314837
      },
      "P_gear_W": 9487.678223691359,
      "gear_parts_W": {
@@ -953,9 +1148,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.98428027657729,
-     "eta_motor_incl_fw": 0.9721245552726997,
-     "eta_drivetrain_wheel_over_elec": 0.8757782203975204
+     "eta_motor_em_only": 0.9842522342268165,
+     "eta_motor_incl_fw": 0.9738587243003509,
+     "eta_drivetrain_wheel_over_elec": 0.8773405175915038
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -974,13 +1169,13 @@
       "P_stray_IEC_W": 245.25912917319812,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2527.8394707695224,
+     "P_mech_W": 2108.959684402207,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 1052.97575636835,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2527.8394707695224
+      "P_total_W": 2108.959684402207
      },
      "P_gear_W": 22710.76718745662,
      "gear_parts_W": {
@@ -1005,9 +1200,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9765211892213642,
-     "eta_motor_incl_fw": 0.9673714117287038,
-     "eta_drivetrain_wheel_over_elec": 0.8851674312719914
+     "eta_motor_em_only": 0.9764855370891026,
+     "eta_motor_incl_fw": 0.9688403470100628,
+     "eta_drivetrain_wheel_over_elec": 0.8865115413562266
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -1026,13 +1221,13 @@
       "P_stray_IEC_W": 607.2086696665369,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1134.0896363594502,
+     "P_mech_W": 1022.9248852592438,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.3295022004128,
+      "P_windage_gap_W": 111.1647511002064,
       "P_windage_ends_W": 80.13073645218199,
       "P_bearings_W": 665.1228926757065,
       "P_seal_W": 166.5065050311489,
-      "P_total_W": 1134.0896363594502
+      "P_total_W": 1022.9248852592438
      },
      "P_gear_W": 17402.495132131375,
      "gear_parts_W": {
@@ -1057,9 +1252,219 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9772943329955488,
-     "eta_motor_incl_fw": 0.9728342130207068,
-     "eta_drivetrain_wheel_over_elec": 0.904394105940573
+     "eta_motor_em_only": 0.9772844020538423,
+     "eta_motor_incl_fw": 0.973259708552625,
+     "eta_drivetrain_wheel_over_elec": 0.9047896673281356
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 7512.036797137899,
+     "T_motor_Nm": 224.12497016412573,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p4",
+     "PF": 0.9510732593920491,
+     "I_rms_A": 136.00396536796524,
+     "P_em_loss_W": 3006.1817604122016,
+     "em_parts_W": {
+      "P_cu_stator_W": 1028.5978424969594,
+      "P_cu_rotor_W": 1153.5993752786276,
+      "P_fe_W": 492.8972261658508,
+      "P_stray_IEC_W": 106.73673335787633,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1963.780714395793,
+     "mech_parts_W": {
+      "P_windage_gap_W": 418.8797863673151,
+      "P_windage_ends_W": 354.043083113589,
+      "P_bearings_W": 907.7967863619357,
+      "P_seal_W": 283.06105855295317,
+      "P_total_W": 1963.780714395793
+     },
+     "P_gear_W": 24402.431676722925,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 7645.473073214342,
+      "helical_2": 7754.029486018602
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9834168969849899,
+     "eta_motor_incl_fw": 0.9725840264265408,
+     "eta_drivetrain_wheel_over_elec": 0.8379720599643545
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 5302.6142097444,
+     "T_motor_Nm": 184.4563918283902,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p4",
+     "PF": 0.9592892360130626,
+     "I_rms_A": 78.03333991407962,
+     "P_em_loss_W": 1645.6242274067426,
+     "em_parts_W": {
+      "P_cu_stator_W": 338.6124002978341,
+      "P_cu_rotor_W": 363.7749666567923,
+      "P_fe_W": 646.5891841951945,
+      "P_stray_IEC_W": 72.29709314403465,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1032.365304422353,
+     "mech_parts_W": {
+      "P_windage_gap_W": 175.35583231784742,
+      "P_windage_ends_W": 133.5077949785542,
+      "P_bearings_W": 523.6938710885727,
+      "P_seal_W": 199.80780603737873,
+      "P_total_W": 1032.365304422353
+     },
+     "P_gear_W": 16184.492150433562,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 5092.736859324138,
+      "helical_2": 5165.047524669512
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9843429701225984,
+     "eta_motor_incl_fw": 0.9745206946926813,
+     "eta_drivetrain_wheel_over_elec": 0.8205359192319847
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 7512.036797137899,
+     "T_motor_Nm": 347.7298922310886,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p4",
+     "PF": 0.9001056011089856,
+     "I_rms_A": 224.3081486609767,
+     "P_em_loss_W": 6892.392206634443,
+     "em_parts_W": {
+      "P_cu_stator_W": 2797.902452412541,
+      "P_cu_rotor_W": 3160.981188848088,
+      "P_fe_W": 452.2264128914045,
+      "P_stray_IEC_W": 256.93156936952175,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 2118.9935139609856,
+     "mech_parts_W": {
+      "P_windage_gap_W": 418.8797863673151,
+      "P_windage_ends_W": 354.043083113589,
+      "P_bearings_W": 1063.0095859271285,
+      "P_seal_W": 283.06105855295317,
+      "P_total_W": 2118.9935139609856
+     },
+     "P_gear_W": 28996.57758386161,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 8987.703378847742,
+      "helical_2": 9115.317828445986
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9756069968073783,
+     "eta_motor_incl_fw": 0.9681076244557236,
+     "eta_drivetrain_wheel_over_elec": 0.8654852564341537
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.325000000000003,
+     "n_motor_rpm": 4418.8451747869985,
+     "T_motor_Nm": 543.0485177043822,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p4",
+     "PF": 0.9599025559654664,
+     "I_rms_A": 192.63645273523812,
+     "P_em_loss_W": 5929.268486992951,
+     "em_parts_W": {
+      "P_cu_stator_W": 2063.5709810027256,
+      "P_cu_rotor_W": 2305.5341156353425,
+      "P_fe_W": 709.1835287499925,
+      "P_stray_IEC_W": 626.6292784920025,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1029.1897019616029,
+     "mech_parts_W": {
+      "P_windage_gap_W": 111.1647511002064,
+      "P_windage_ends_W": 80.13073645218199,
+      "P_bearings_W": 671.3877093780656,
+      "P_seal_W": 166.5065050311489,
+      "P_total_W": 1029.1897019616029
+     },
+     "P_gear_W": 21327.16314932034,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 6534.514926824202,
+      "helical_2": 6627.297086028602
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.4031229681395834,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9770404922870828,
+     "eta_motor_incl_fw": 0.9730552302008609,
+     "eta_drivetrain_wheel_over_elec": 0.8904714902512136
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -1080,13 +1485,13 @@
       "P_stray_IEC_W": 94.05795494534887,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2365.416893213005,
+     "P_mech_W": 1946.53710684569,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 890.5531788118326,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2365.416893213005
+      "P_total_W": 1946.53710684569
      },
      "P_gear_W": 13599.971163016187,
      "gear_parts_W": {
@@ -1111,9 +1516,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9841441993568352,
-     "eta_motor_incl_fw": 0.9702770853087082,
-     "eta_drivetrain_wheel_over_elec": 0.8905480736026085
+     "eta_motor_em_only": 0.9841051670909519,
+     "eta_motor_incl_fw": 0.9726656189454882,
+     "eta_drivetrain_wheel_over_elec": 0.8927403381228952
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -1132,13 +1537,13 @@
       "P_stray_IEC_W": 60.68985078434902,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1194.0223634796807,
+     "P_mech_W": 1018.6665311618333,
      "mech_parts_W": {
-      "P_windage_gap_W": 350.71166463569483,
+      "P_windage_gap_W": 175.35583231784742,
       "P_windage_ends_W": 133.5077949785542,
       "P_bearings_W": 509.99509782805296,
       "P_seal_W": 199.80780603737873,
-      "P_total_W": 1194.0223634796807
+      "P_total_W": 1018.6665311618333
      },
      "P_gear_W": 7602.734719280408,
      "gear_parts_W": {
@@ -1163,9 +1568,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9842511307635752,
-     "eta_motor_incl_fw": 0.9718854630534735,
-     "eta_drivetrain_wheel_over_elec": 0.8931491729284728
+     "eta_motor_em_only": 0.9842224781583532,
+     "eta_motor_incl_fw": 0.9736536566981042,
+     "eta_drivetrain_wheel_over_elec": 0.8947741182037294
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -1184,13 +1589,13 @@
       "P_stray_IEC_W": 235.62669747563837,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2519.3779817611958,
+     "P_mech_W": 2100.4981953938805,
      "mech_parts_W": {
-      "P_windage_gap_W": 837.7595727346302,
+      "P_windage_gap_W": 418.8797863673151,
       "P_windage_ends_W": 354.043083113589,
       "P_bearings_W": 1044.5142673600235,
       "P_seal_W": 283.06105855295317,
-      "P_total_W": 2519.3779817611958
+      "P_total_W": 2100.4981953938805
      },
      "P_gear_W": 17409.967999466324,
      "gear_parts_W": {
@@ -1215,9 +1620,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9769210853447559,
-     "eta_motor_incl_fw": 0.9676150631037036,
-     "eta_drivetrain_wheel_over_elec": 0.903306511313558
+     "eta_motor_em_only": 0.9768853211852456,
+     "eta_motor_incl_fw": 0.9691145244075949,
+     "eta_drivetrain_wheel_over_elec": 0.9047063170947156
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -1236,13 +1641,13 @@
       "P_stray_IEC_W": 583.1838724308698,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1126.1992569438776,
+     "P_mech_W": 1015.0345058436711,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.3295022004128,
+      "P_windage_gap_W": 111.1647511002064,
       "P_windage_ends_W": 80.13073645218199,
       "P_bearings_W": 657.2325132601338,
       "P_seal_W": 166.5065050311489,
-      "P_total_W": 1126.1992569438776
+      "P_total_W": 1015.0345058436711
      },
      "P_gear_W": 12459.474257455055,
      "gear_parts_W": {
@@ -1267,9 +1672,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9777395406292624,
-     "eta_motor_incl_fw": 0.973218357672483,
-     "eta_drivetrain_wheel_over_elec": 0.9231991782813496
+     "eta_motor_em_only": 0.9777296018756072,
+     "eta_motor_incl_fw": 0.9736528759970375,
+     "eta_drivetrain_wheel_over_elec": 0.9236113642589511
     }
    }
   },
@@ -1301,13 +1706,13 @@
       "P_stray_IEC_W": 117.87897942342771,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2400.2680029057974,
+     "P_mech_W": 1980.6511947545923,
      "mech_parts_W": {
-      "P_windage_gap_W": 839.2336163024104,
+      "P_windage_gap_W": 419.6168081512052,
       "P_windage_ends_W": 354.740850843139,
       "P_bearings_W": 923.0333631371468,
       "P_seal_W": 283.26017262310154,
-      "P_total_W": 2400.2680029057974
+      "P_total_W": 1980.6511947545923
      },
      "P_gear_W": 33506.868326078045,
      "gear_parts_W": {
@@ -1333,9 +1738,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9829926715335722,
-     "eta_motor_incl_fw": 0.9704300355090298,
-     "eta_drivetrain_wheel_over_elec": 0.795060205726191
+     "eta_motor_em_only": 0.9829552376515106,
+     "eta_motor_incl_fw": 0.97256599493205,
+     "eta_drivetrain_wheel_over_elec": 0.7968101683985627
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -1354,13 +1759,13 @@
       "P_stray_IEC_W": 75.61810181024082,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1212.9730623275984,
+     "P_mech_W": 1037.308690250716,
      "mech_parts_W": {
-      "P_windage_gap_W": 351.3287441537648,
+      "P_windage_gap_W": 175.6643720768824,
       "P_windage_ends_W": 133.77091954000625,
       "P_bearings_W": 527.9250414881086,
       "P_seal_W": 199.94835714571872,
-      "P_total_W": 1212.9730623275984
+      "P_total_W": 1037.308690250716
      },
      "P_gear_W": 18584.276002085044,
      "gear_parts_W": {
@@ -1386,9 +1791,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9843928570309418,
-     "eta_motor_incl_fw": 0.9731324805904522,
-     "eta_drivetrain_wheel_over_elec": 0.8006093222806796
+     "eta_motor_em_only": 0.9843673642243969,
+     "eta_motor_incl_fw": 0.9747220013707458,
+     "eta_drivetrain_wheel_over_elec": 0.8019170426374082
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -1407,13 +1812,13 @@
       "P_stray_IEC_W": 272.43485669050006,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2554.2448017691468,
+     "P_mech_W": 2134.6279936179412,
      "mech_parts_W": {
-      "P_windage_gap_W": 839.2336163024104,
+      "P_windage_gap_W": 419.6168081512052,
       "P_windage_ends_W": 354.740850843139,
       "P_bearings_W": 1077.0101620004957,
       "P_seal_W": 283.26017262310154,
-      "P_total_W": 2554.2448017691468
+      "P_total_W": 2134.6279936179412
      },
      "P_gear_W": 37326.70707401095,
      "gear_parts_W": {
@@ -1439,9 +1844,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9750115423557418,
-     "eta_motor_incl_fw": 0.9662556937609112,
-     "eta_drivetrain_wheel_over_elec": 0.838301241056432
+     "eta_motor_em_only": 0.974975546441887,
+     "eta_motor_incl_fw": 0.9676475866584047,
+     "eta_drivetrain_wheel_over_elec": 0.839508815356817
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -1460,13 +1865,13 @@
       "P_stray_IEC_W": 622.1564012988051,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1140.1663340960827,
+     "P_mech_W": 1028.8059878732943,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.7206924455767,
+      "P_windage_gap_W": 111.36034622278835,
       "P_windage_ends_W": 80.2886625484913,
       "P_bearings_W": 670.5333481472491,
       "P_seal_W": 166.6236309547656,
-      "P_total_W": 1140.1663340960827
+      "P_total_W": 1028.8059878732943
      },
      "P_gear_W": 20604.835410057396,
      "gear_parts_W": {
@@ -1492,42 +1897,42 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9771197490845307,
-     "eta_motor_incl_fw": 0.9726936774761745,
-     "eta_drivetrain_wheel_over_elec": 0.8927066841085711
+     "eta_motor_em_only": 0.9771098537754919,
+     "eta_motor_incl_fw": 0.9731143505087501,
+     "eta_drivetrain_wheel_over_elec": 0.8930927641630636
     }
    },
    "certified_like": {
     "cruise_85kmh_flat": {
      "feasible": true,
-     "gear_ratio_engaged": 5.0359231411862995,
-     "n_motor_rpm": 2183.5520891284127,
-     "T_motor_Nm": 727.4696898459065,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 7517.321000586543,
+     "T_motor_Nm": 211.30771998650664,
      "wheel_power_W": 151907.41564589762,
      "mode": "2p4",
-     "PF": 0.9403124699762512,
-     "I_rms_A": 130.26630710619685,
-     "P_em_loss_W": 4528.312891724756,
+     "PF": 0.954726000830191,
+     "I_rms_A": 126.99747592730527,
+     "P_em_loss_W": 2722.575508969243,
      "em_parts_W": {
-      "P_cu_stator_W": 943.6407134929015,
-      "P_cu_rotor_W": 955.8304579918049,
-      "P_fe_W": 1279.9813908498288,
-      "P_stray_IEC_W": 1124.509746277334,
+      "P_cu_stator_W": 896.8765025947911,
+      "P_cu_rotor_W": 1004.4280992720752,
+      "P_fe_W": 502.04262450797614,
+      "P_stray_IEC_W": 94.87769948151336,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 483.5861043283195,
+     "P_mech_W": 1950.2098978008717,
      "mech_parts_W": {
-      "P_windage_gap_W": 38.162254539291524,
-      "P_windage_ends_W": 6.934232974397116,
-      "P_bearings_W": 356.2111905441831,
-      "P_seal_W": 82.27842627044772,
-      "P_total_W": 483.5861043283195
+      "P_windage_gap_W": 419.6168081512052,
+      "P_windage_ends_W": 354.740850843139,
+      "P_bearings_W": 892.592066183426,
+      "P_seal_W": 283.26017262310154,
+      "P_total_W": 1950.2098978008717
      },
-     "P_gear_W": 14436.560249702097,
+     "P_gear_W": 14436.5602497021,
      "gear_parts_W": {
       "axle_hypoid": 5869.573254769396,
-      "helical_1_engaged": 5188.401015665612,
-      "helical_1_idle_pair": 3378.5859792670885
+      "helical_1_engaged": 6598.524528260298,
+      "helical_1_idle_pair": 1968.462466672404
      },
      "stages": [
       {
@@ -1537,19 +1942,19 @@
       },
       {
        "name": "helical_1_engaged",
-       "i": 1.452347245087738,
+       "i": 5.0,
        "eta": 0.98
       },
       {
        "name": "helical_1_idle_pair",
-       "i": 5.0,
+       "i": 1.452347245087738,
        "eta": 1.0,
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9735736350178366,
-     "eta_motor_incl_fw": 0.9707515193206999,
-     "eta_drivetrain_wheel_over_elec": 0.8865025243047411
+     "eta_motor_em_only": 0.9840800662564557,
+     "eta_motor_incl_fw": 0.972676447786844,
+     "eta_drivetrain_wheel_over_elec": 0.8882603932448145
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -1568,13 +1973,13 @@
       "P_stray_IEC_W": 61.20241706199536,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1196.1806687542144,
+     "P_mech_W": 1020.5162966773319,
      "mech_parts_W": {
-      "P_windage_gap_W": 351.3287441537648,
+      "P_windage_gap_W": 175.6643720768824,
       "P_windage_ends_W": 133.77091954000625,
       "P_bearings_W": 511.13264791472454,
       "P_seal_W": 199.94835714571872,
-      "P_total_W": 1196.1806687542144
+      "P_total_W": 1020.5162966773319
      },
      "P_gear_W": 8064.48378459053,
      "gear_parts_W": {
@@ -1600,9 +2005,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9842627177487367,
-     "eta_motor_incl_fw": 0.9719347280380455,
-     "eta_drivetrain_wheel_over_elec": 0.8888211351541117
+     "eta_motor_em_only": 0.9842341749948341,
+     "eta_motor_incl_fw": 0.9736975288386517,
+     "eta_drivetrain_wheel_over_elec": 0.8904331925932034
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -1621,13 +2026,13 @@
       "P_stray_IEC_W": 236.81856849291137,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2523.803504815426,
+     "P_mech_W": 2104.1866966642206,
      "mech_parts_W": {
-      "P_windage_gap_W": 839.2336163024104,
+      "P_windage_gap_W": 419.6168081512052,
       "P_windage_ends_W": 354.740850843139,
       "P_bearings_W": 1046.568865046775,
       "P_seal_W": 283.26017262310154,
-      "P_total_W": 2523.803504815426
+      "P_total_W": 2104.1866966642206
      },
      "P_gear_W": 18256.398997635002,
      "gear_parts_W": {
@@ -1653,9 +2058,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9768858029430907,
-     "eta_motor_incl_fw": 0.9675936644378725,
-     "eta_drivetrain_wheel_over_elec": 0.9003772635695506
+     "eta_motor_em_only": 0.976850037525281,
+     "eta_motor_incl_fw": 0.969090856470694,
+     "eta_drivetrain_wheel_over_elec": 0.9017704492786913
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -1674,13 +2079,13 @@
       "P_stray_IEC_W": 584.0923144438337,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1127.7378663672255,
+     "P_mech_W": 1016.3775201444371,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.7206924455767,
+      "P_windage_gap_W": 111.36034622278835,
       "P_windage_ends_W": 80.2886625484913,
       "P_bearings_W": 658.1048804183919,
       "P_seal_W": 166.6236309547656,
-      "P_total_W": 1127.7378663672255
+      "P_total_W": 1016.3775201444371
      },
      "P_gear_W": 12818.875801735587,
      "gear_parts_W": {
@@ -1706,42 +2111,42 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9776001383653398,
-     "eta_motor_incl_fw": 0.9730801227509959,
-     "eta_drivetrain_wheel_over_elec": 0.9217015883325071
+     "eta_motor_em_only": 0.9775901360264485,
+     "eta_motor_incl_fw": 0.973514637808048,
+     "eta_drivetrain_wheel_over_elec": 0.9221131610374425
     }
    },
-   "certified_like_eta_helical_0.99": {
+   "EU2017": {
     "cruise_85kmh_flat": {
      "feasible": true,
-     "gear_ratio_engaged": 5.0359231411862995,
-     "n_motor_rpm": 2183.5520891284127,
-     "T_motor_Nm": 720.3577148896937,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 7517.321000586543,
+     "T_motor_Nm": 223.3730302826126,
      "wheel_power_W": 151907.41564589762,
      "mode": "2p4",
-     "PF": 0.9394163401383897,
-     "I_rms_A": 129.1229575751534,
-     "P_em_loss_W": 4471.238896889496,
+     "PF": 0.9512466860149384,
+     "I_rms_A": 135.5434095416734,
+     "P_em_loss_W": 2991.1119732126026,
      "em_parts_W": {
-      "P_cu_stator_W": 927.1487075316957,
-      "P_cu_rotor_W": 937.2114573067906,
-      "P_fe_W": 1279.8980556166807,
-      "P_stray_IEC_W": 1102.6300933214418,
+      "P_cu_stator_W": 1021.6432713146867,
+      "P_cu_rotor_W": 1145.7317785349414,
+      "P_fe_W": 493.36460951754714,
+      "P_stray_IEC_W": 106.02173073253925,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 480.9902050612157,
+     "P_mech_W": 1965.371170239925,
      "mech_parts_W": {
-      "P_windage_gap_W": 38.162254539291524,
-      "P_windage_ends_W": 6.934232974397116,
-      "P_bearings_W": 353.61529127707934,
-      "P_seal_W": 82.27842627044772,
-      "P_total_W": 480.9902050612157
+      "P_windage_gap_W": 419.6168081512052,
+      "P_windage_ends_W": 354.740850843139,
+      "P_bearings_W": 907.7533386224794,
+      "P_seal_W": 283.26017262310154,
+      "P_total_W": 1965.371170239925
      },
-     "P_gear_W": 12810.328659301496,
+     "P_gear_W": 23934.51747150421,
      "gear_parts_W": {
-      "axle_hypoid": 5869.573254769396,
-      "helical_1_engaged": 3562.1694252650104,
-      "helical_1_idle_pair": 3378.5859792670885
+      "axle_hypoid": 9427.418200480197,
+      "helical_1_engaged": 10009.775383925102,
+      "helical_1_idle_pair": 4497.323887098907
      },
      "stages": [
       {
@@ -1751,19 +2156,233 @@
       },
       {
        "name": "helical_1_engaged",
-       "i": 1.452347245087738,
-       "eta": 0.99
+       "i": 5.0,
+       "eta": 0.98
       },
       {
        "name": "helical_1_idle_pair",
-       "i": 5.0,
+       "i": 1.452347245087738,
        "eta": 1.0,
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9736474356239802,
-     "eta_motor_incl_fw": 0.9708125780743357,
-     "eta_drivetrain_wheel_over_elec": 0.8953111301630952
+     "eta_motor_em_only": 0.9834560941678989,
+     "eta_motor_incl_fw": 0.9725855831817611,
+     "eta_drivetrain_wheel_over_elec": 0.8402032428576528
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 5306.344235708148,
+     "T_motor_Nm": 184.2873061738254,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p4",
+     "PF": 0.9592603989420087,
+     "I_rms_A": 77.965106592094,
+     "P_em_loss_W": 1644.827447708371,
+     "em_parts_W": {
+      "P_cu_stator_W": 338.02048541972636,
+      "P_cu_rotor_W": 363.10659163903455,
+      "P_fe_W": 647.1851788062107,
+      "P_stray_IEC_W": 72.1646087305119,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1033.4430253653986,
+     "mech_parts_W": {
+      "P_windage_gap_W": 175.6643720768824,
+      "P_windage_ends_W": 133.77091954000625,
+      "P_bearings_W": 524.0593766027912,
+      "P_seal_W": 199.94835714571872,
+      "P_total_W": 1033.4430253653986
+     },
+     "P_gear_W": 16162.584823975734,
+     "gear_parts_W": {
+      "axle_hypoid": 6226.347119138891,
+      "helical_1_engaged": 6761.65613747291,
+      "helical_1_idle_pair": 3174.581567363934
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4674373902104065,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 5.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.452347245087738,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9843473302503956,
+     "eta_motor_incl_fw": 0.9745127774505783,
+     "eta_drivetrain_wheel_over_elec": 0.8207047881066929
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 7517.321000586543,
+     "T_motor_Nm": 345.1618133720552,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p4",
+     "PF": 0.9012457838006674,
+     "I_rms_A": 222.56585915110247,
+     "P_em_loss_W": 6796.488410280028,
+     "em_parts_W": {
+      "P_cu_stator_W": 2754.6064415572037,
+      "P_cu_rotor_W": 3111.7722867239772,
+      "P_fe_W": 452.60853350880507,
+      "P_stray_IEC_W": 253.1505653771552,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 2118.410990611205,
+     "mech_parts_W": {
+      "P_windage_gap_W": 419.6168081512052,
+      "P_windage_ends_W": 354.740850843139,
+      "P_bearings_W": 1060.793158993759,
+      "P_seal_W": 283.26017262310154,
+      "P_total_W": 2118.410990611205
+     },
+     "P_gear_W": 27167.37503621551,
+     "gear_parts_W": {
+      "axle_hypoid": 11318.0454595581,
+      "helical_1_engaged": 11352.005689558504,
+      "helical_1_idle_pair": 4497.323887098907
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4674373902104065,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 5.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.452347245087738,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9757813558831254,
+     "eta_motor_incl_fw": 0.9682325985281822,
+     "eta_drivetrain_wheel_over_elec": 0.8714242251634058
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 4421.95352975679,
+     "T_motor_Nm": 537.6106035440849,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p4",
+     "PF": 0.960188160909533,
+     "I_rms_A": 190.70696646042148,
+     "P_em_loss_W": 5829.702175259364,
+     "em_parts_W": {
+      "P_cu_stator_W": 2022.4397059263476,
+      "P_cu_rotor_W": 2259.0360395004095,
+      "P_fe_W": 709.7334640654321,
+      "P_stray_IEC_W": 614.1423826542858,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1026.221601533905,
+     "mech_parts_W": {
+      "P_windage_gap_W": 111.36034622278835,
+      "P_windage_ends_W": 80.2886625484913,
+      "P_bearings_W": 667.9489618078597,
+      "P_seal_W": 166.6236309547656,
+      "P_total_W": 1026.221601533905
+     },
+     "P_gear_W": 18985.81622846814,
+     "gear_parts_W": {
+      "axle_hypoid": 8415.050597050016,
+      "helical_1_engaged": 7925.280991948179,
+      "helical_1_idle_pair": 2645.4846394699453
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4674373902104065,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 5.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.452347245087738,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9772103716474123,
+     "eta_motor_incl_fw": 0.9731986385942887,
+     "eta_drivetrain_wheel_over_elec": 0.8989787757591743
+    }
+   },
+   "certified_like_eta_helical_0.99": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 17.337186951052033,
+     "n_motor_rpm": 7517.321000586543,
+     "T_motor_Nm": 209.241908539549,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p4",
+     "PF": 0.9551465511199434,
+     "I_rms_A": 125.74924447983464,
+     "P_em_loss_W": 2683.3029061353336,
+     "em_parts_W": {
+      "P_cu_stator_W": 879.3327248848842,
+      "P_cu_rotor_W": 984.5877544158335,
+      "P_fe_W": 502.00018527701457,
+      "P_stray_IEC_W": 93.03165844471391,
+      "P_pwm_W": 224.35058311288734
+     },
+     "P_mech_W": 1947.6139985337677,
+     "mech_parts_W": {
+      "P_windage_gap_W": 419.6168081512052,
+      "P_windage_ends_W": 354.740850843139,
+      "P_bearings_W": 889.9961669163222,
+      "P_seal_W": 283.26017262310154,
+      "P_total_W": 1947.6139985337677
+     },
+     "P_gear_W": 12810.328659301496,
+     "gear_parts_W": {
+      "axle_hypoid": 5869.573254769396,
+      "helical_1_engaged": 4972.2929378596955,
+      "helical_1_idle_pair": 1968.462466672404
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.4674373902104065,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 5.0,
+       "eta": 0.99
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.452347245087738,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9841551572538858,
+     "eta_motor_incl_fw": 0.9726545408060229,
+     "eta_drivetrain_wheel_over_elec": 0.8970098408846806
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -1782,13 +2401,13 @@
       "P_stray_IEC_W": 60.01053558957779,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1194.7076388052137,
+     "P_mech_W": 1019.0432667283314,
      "mech_parts_W": {
-      "P_windage_gap_W": 351.3287441537648,
+      "P_windage_gap_W": 175.6643720768824,
       "P_windage_ends_W": 133.77091954000625,
       "P_bearings_W": 509.659617965724,
       "P_seal_W": 199.94835714571872,
-      "P_total_W": 1194.7076388052137
+      "P_total_W": 1019.0432667283314
      },
      "P_gear_W": 7141.686869075601,
      "gear_parts_W": {
@@ -1814,9 +2433,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9842478612111052,
-     "eta_motor_incl_fw": 0.9718149131609162,
-     "eta_drivetrain_wheel_over_elec": 0.8974936156736647
+     "eta_motor_em_only": 0.9842190122386444,
+     "eta_motor_incl_fw": 0.9735947261782153,
+     "eta_drivetrain_wheel_over_elec": 0.8991373142817909
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -1835,13 +2454,13 @@
       "P_stray_IEC_W": 232.15488455228663,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 2519.6522843476823,
+     "P_mech_W": 2100.0354761964772,
      "mech_parts_W": {
-      "P_windage_gap_W": 839.2336163024104,
+      "P_windage_gap_W": 419.6168081512052,
       "P_windage_ends_W": 354.740850843139,
       "P_bearings_W": 1042.4176445790315,
       "P_seal_W": 283.26017262310154,
-      "P_total_W": 2519.6522843476823
+      "P_total_W": 2100.0354761964772
      },
      "P_gear_W": 15655.81817043895,
      "gear_parts_W": {
@@ -1867,9 +2486,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9770803962072158,
-     "eta_motor_incl_fw": 0.9677097014997138,
-     "eta_drivetrain_wheel_over_elec": 0.9094850435250016
+     "eta_motor_em_only": 0.9770445725899207,
+     "eta_motor_incl_fw": 0.9692222434403409,
+     "eta_drivetrain_wheel_over_elec": 0.9109065796226276
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -1888,13 +2507,13 @@
       "P_stray_IEC_W": 572.4571010402734,
       "P_pwm_W": 224.35058311288734
      },
-     "P_mech_W": 1123.8584688890198,
+     "P_mech_W": 1012.4981226662314,
      "mech_parts_W": {
-      "P_windage_gap_W": 222.7206924455767,
+      "P_windage_gap_W": 111.36034622278835,
       "P_windage_ends_W": 80.2886625484913,
       "P_bearings_W": 654.2254829401862,
       "P_seal_W": 166.6236309547656,
-      "P_total_W": 1123.8584688890198
+      "P_total_W": 1012.4981226662314
      },
      "P_gear_W": 10388.581679492085,
      "gear_parts_W": {
@@ -1920,9 +2539,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9778871679759269,
-     "eta_motor_incl_fw": 0.9733359584083694,
-     "eta_drivetrain_wheel_over_elec": 0.9312660593580061
+     "eta_motor_em_only": 0.9778771912958087,
+     "eta_motor_incl_fw": 0.9737750998758168,
+     "eta_drivetrain_wheel_over_elec": 0.9316862200849962
     }
    }
   },
@@ -1954,13 +2573,13 @@
       "P_stray_IEC_W": 103.28266329588887,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1963.4568423957728,
+     "P_mech_W": 1630.1543836887502,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 766.2255271104665,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1963.4568423957728
+      "P_total_W": 1630.1543836887502
      },
      "P_gear_W": 26114.622668181502,
      "gear_parts_W": {
@@ -1979,9 +2598,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.98193414782951,
-     "eta_motor_incl_fw": 0.9712222550758092,
-     "eta_drivetrain_wheel_over_elec": 0.8287505534907632
+     "eta_motor_em_only": 0.9819012374981781,
+     "eta_motor_incl_fw": 0.9729915182088074,
+     "eta_drivetrain_wheel_over_elec": 0.8302602777511784
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2000,13 +2619,13 @@
       "P_stray_IEC_W": 66.38842066510892,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 997.1560507701431,
+     "P_mech_W": 857.6254934065962,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 439.8383646243163,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 997.1560507701431
+      "P_total_W": 857.6254934065962
      },
      "P_gear_W": 14506.476732649968,
      "gear_parts_W": {
@@ -2025,9 +2644,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9814051530087387,
-     "eta_motor_incl_fw": 0.9717869126359444,
-     "eta_drivetrain_wheel_over_elec": 0.8318621936622066
+     "eta_motor_em_only": 0.9813800931088572,
+     "eta_motor_incl_fw": 0.9730965702388388,
+     "eta_drivetrain_wheel_over_elec": 0.8329832775462599
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -2046,13 +2665,13 @@
       "P_stray_IEC_W": 245.53282903720685,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2117.4336412591215,
+     "P_mech_W": 1784.131182552099,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 920.2023259738153,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2117.4336412591215
+      "P_total_W": 1784.131182552099
      },
      "P_gear_W": 29934.461416114413,
      "gear_parts_W": {
@@ -2071,9 +2690,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9744412392840208,
-     "eta_motor_incl_fw": 0.9669816792139526,
-     "eta_drivetrain_wheel_over_elec": 0.8615248144756251
+     "eta_motor_em_only": 0.97441119291725,
+     "eta_motor_incl_fw": 0.9681184434928282,
+     "eta_drivetrain_wheel_over_elec": 0.8625376057782038
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -2092,13 +2711,13 @@
       "P_stray_IEC_W": 577.170127364783,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 988.3546978021064,
+     "P_mech_W": 899.9009550598806,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.9074854844516,
+      "P_windage_gap_W": 88.4537427422258,
       "P_windage_ends_W": 66.29312717151109,
       "P_bearings_W": 605.3174532152221,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 988.3546978021064
+      "P_total_W": 899.9009550598806
      },
      "P_gear_W": 17586.754848554876,
      "gear_parts_W": {
@@ -2117,9 +2736,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9763852102807357,
-     "eta_motor_incl_fw": 0.9725024508875934,
-     "eta_drivetrain_wheel_over_elec": 0.9034127427747355
+     "eta_motor_em_only": 0.9763770014956692,
+     "eta_motor_incl_fw": 0.9728405044417803,
+     "eta_drivetrain_wheel_over_elec": 0.9037267799150163
     }
    },
    "certified_like": {
@@ -2140,13 +2759,13 @@
       "P_stray_IEC_W": 87.78822325372984,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1941.2755421357579,
+     "P_mech_W": 1607.9730834287354,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 744.0442268504515,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1941.2755421357579
+      "P_total_W": 1607.9730834287354
      },
      "P_gear_W": 12218.886552333133,
      "gear_parts_W": {
@@ -2165,9 +2784,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9824856184517736,
-     "eta_motor_incl_fw": 0.9710006836586472,
-     "eta_drivetrain_wheel_over_elec": 0.8987115560967954
+     "eta_motor_em_only": 0.9824510140061906,
+     "eta_motor_incl_fw": 0.9729191607813553,
+     "eta_drivetrain_wheel_over_elec": 0.9004872062990059
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2186,13 +2805,13 @@
       "P_stray_IEC_W": 56.67055389286538,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 984.9201357070676,
+     "P_mech_W": 845.389578343521,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 427.602449561241,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 984.9201357070676
+      "P_total_W": 845.389578343521
      },
      "P_gear_W": 6841.14400376001,
      "gear_parts_W": {
@@ -2211,9 +2830,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9811208875164433,
-     "eta_motor_incl_fw": 0.9708482664750476,
-     "eta_drivetrain_wheel_over_elec": 0.8994958011405955
+     "eta_motor_em_only": 0.9810933728888634,
+     "eta_motor_incl_fw": 0.9722631914887063,
+     "eta_drivetrain_wheel_over_elec": 0.9008067362811976
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -2232,13 +2851,13 @@
       "P_stray_IEC_W": 221.3018124277175,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2095.2523409991068,
+     "P_mech_W": 1761.9498822920843,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 898.0210257138004,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2095.2523409991068
+      "P_total_W": 1761.9498822920843
      },
      "P_gear_W": 16038.72530026604,
      "gear_parts_W": {
@@ -2257,9 +2876,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9760371111911961,
-     "eta_motor_incl_fw": 0.9682518688145986,
-     "eta_drivetrain_wheel_over_elec": 0.9086574412456994
+     "eta_motor_em_only": 0.976007397837443,
+     "eta_motor_incl_fw": 0.9694524757418286,
+     "eta_drivetrain_wheel_over_elec": 0.9097841526454659
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -2278,13 +2897,13 @@
       "P_stray_IEC_W": 551.0183319413827,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 979.2985930347967,
+     "P_mech_W": 890.8448502925709,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.9074854844516,
+      "P_windage_gap_W": 88.4537427422258,
       "P_windage_ends_W": 66.29312717151109,
       "P_bearings_W": 596.2613484479124,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 979.2985930347967
+      "P_total_W": 890.8448502925709
      },
      "P_gear_W": 11913.451633284832,
      "gear_parts_W": {
@@ -2303,9 +2922,195 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9768414741219017,
-     "eta_motor_incl_fw": 0.9729024352790725,
-     "eta_drivetrain_wheel_over_elec": 0.9249828844194612
+     "eta_motor_em_only": 0.9768332316627673,
+     "eta_motor_incl_fw": 0.9732487055299011,
+     "eta_drivetrain_wheel_over_elec": 0.9253120993990785
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 6308.8101240032565,
+     "T_motor_Nm": 258.4970139027949,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p6",
+     "PF": 0.9413602557420331,
+     "I_rms_A": 132.8634833000441,
+     "P_em_loss_W": 3124.354960039065,
+     "em_parts_W": {
+      "P_cu_stator_W": 972.7659601243662,
+      "P_cu_rotor_W": 1021.7675159681669,
+      "P_fe_W": 592.4750228519383,
+      "P_stray_IEC_W": 95.04802566916662,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1618.5907672726962,
+     "mech_parts_W": {
+      "P_windage_gap_W": 333.3024587070226,
+      "P_windage_ends_W": 292.90412358869435,
+      "P_bearings_W": 754.6619106944124,
+      "P_seal_W": 237.7222742825667,
+      "P_total_W": 1618.5907672726962
+     },
+     "P_gear_W": 18870.459324338244,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 9867.530206848267
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 4.8500000000000005,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9821995194209874,
+     "eta_motor_incl_fw": 0.9729778740296307,
+     "eta_drivetrain_wheel_over_elec": 0.8654666440265798
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 4453.277734590534,
+     "T_motor_Nm": 211.92405816456224,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p6",
+     "PF": 0.941334829496131,
+     "I_rms_A": 80.97137746834005,
+     "P_em_loss_W": 1898.2602455203703,
+     "em_parts_W": {
+      "P_cu_stator_W": 361.29350266890407,
+      "P_cu_rotor_W": 356.7783999729242,
+      "P_fe_W": 674.0058395753724,
+      "P_stray_IEC_W": 63.88406787774245,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 854.5630219985169,
+     "mech_parts_W": {
+      "P_windage_gap_W": 139.5305573635468,
+      "P_windage_ends_W": 110.45261310162721,
+      "P_bearings_W": 436.7758932162369,
+      "P_seal_W": 167.80395831710592,
+      "P_total_W": 854.5630219985169
+     },
+     "P_gear_W": 12587.955543623291,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 6661.24777718338
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 4.8500000000000005,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9813131713052442,
+     "eta_motor_incl_fw": 0.9729006931749963,
+     "eta_drivetrain_wheel_over_elec": 0.848982505763129
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 6308.8101240032565,
+     "T_motor_Nm": 403.6155637971448,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p6",
+     "PF": 0.8872344277893708,
+     "I_rms_A": 222.3947409398282,
+     "P_em_loss_W": 6857.889475536649,
+     "em_parts_W": {
+      "P_cu_stator_W": 2725.4996007140803,
+      "P_cu_rotor_W": 2904.7128547877905,
+      "P_fe_W": 553.6562750840565,
+      "P_stray_IEC_W": 231.7223095252939,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1771.6305876439758,
+     "mech_parts_W": {
+      "P_windage_gap_W": 333.3024587070226,
+      "P_windage_ends_W": 292.90412358869435,
+      "P_bearings_W": 907.7017310656921,
+      "P_seal_W": 237.7222742825667,
+      "P_total_W": 1771.6305876439758
+     },
+     "P_gear_W": 22103.31688904955,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 11209.76051248167
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 4.8500000000000005,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9750876748951558,
+     "eta_motor_incl_fw": 0.9686519577080368,
+     "eta_drivetrain_wheel_over_elec": 0.8883583020287424
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 3711.0647788254446,
+     "T_motor_Nm": 632.9296980731766,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p6",
+     "PF": 0.9478876031898988,
+     "I_rms_A": 191.2697809172106,
+     "P_em_loss_W": 5949.754612131753,
+     "em_parts_W": {
+      "P_cu_stator_W": 2015.9967024460097,
+      "P_cu_rotor_W": 2104.297018520949,
+      "P_fe_W": 817.3355037774995,
+      "P_stray_IEC_W": 569.826951961867,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 897.3791788128896,
+     "mech_parts_W": {
+      "P_windage_gap_W": 88.4537427422258,
+      "P_windage_ends_W": 66.29312717151109,
+      "P_bearings_W": 602.7956769682311,
+      "P_seal_W": 139.83663193092158,
+      "P_total_W": 897.3791788128896
+     },
+     "P_gear_W": 16006.958494841103,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 7841.60735837357
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 4.8500000000000005,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.976466198931105,
+     "eta_motor_incl_fw": 0.9729166839587581,
+     "eta_drivetrain_wheel_over_elec": 0.9096023791691894
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -2326,13 +3131,13 @@
       "P_stray_IEC_W": 86.05918599041844,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1938.6826997858195,
+     "P_mech_W": 1605.3802410787969,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 741.4513845005132,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1938.6826997858195
+      "P_total_W": 1605.3802410787969
      },
      "P_gear_W": 10594.570003601018,
      "gear_parts_W": {
@@ -2351,9 +3156,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9825437803316321,
-     "eta_motor_incl_fw": 0.9709600240271086,
-     "eta_drivetrain_wheel_over_elec": 0.9076567732751996
+     "eta_motor_em_only": 0.9825089468283201,
+     "eta_motor_incl_fw": 0.9728975534495914,
+     "eta_drivetrain_wheel_over_elec": 0.9094679824498497
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2372,13 +3177,13 @@
       "P_stray_IEC_W": 55.55376929025363,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 983.4487920514023,
+     "P_mech_W": 843.9182346878556,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 426.13110590557557,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 983.4487920514023
+      "P_total_W": 843.9182346878556
      },
      "P_gear_W": 5919.403486514035,
      "gear_parts_W": {
@@ -2397,9 +3202,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9810830234769101,
-     "eta_motor_incl_fw": 0.9707244824854406,
-     "eta_drivetrain_wheel_over_elec": 0.908376158754013
+     "eta_motor_em_only": 0.9810551810796768,
+     "eta_motor_incl_fw": 0.9721532148525015,
+     "eta_drivetrain_wheel_over_elec": 0.9097131255688968
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -2418,13 +3223,13 @@
       "P_stray_IEC_W": 216.91001836272818,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2091.1041774485284,
+     "P_mech_W": 1757.8017187415062,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 893.8728621632224,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2091.1041774485284
+      "P_total_W": 1757.8017187415062
      },
      "P_gear_W": 13440.059514738474,
      "gear_parts_W": {
@@ -2443,9 +3248,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9762420210500083,
-     "eta_motor_incl_fw": 0.9683927856421091,
-     "eta_drivetrain_wheel_over_elec": 0.9179437491163057
+     "eta_motor_em_only": 0.9762122603337713,
+     "eta_motor_incl_fw": 0.9696058544372377,
+     "eta_drivetrain_wheel_over_elec": 0.9190936223229695
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -2464,13 +3269,13 @@
       "P_stray_IEC_W": 540.0046034511228,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 975.4204436241881,
+     "P_mech_W": 886.9667008819623,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.9074854844516,
+      "P_windage_gap_W": 88.4537427422258,
       "P_windage_ends_W": 66.29312717151109,
       "P_bearings_W": 592.3831990373038,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 975.4204436241881
+      "P_total_W": 886.9667008819623
      },
      "P_gear_W": 9483.9393776488,
      "gear_parts_W": {
@@ -2489,9 +3294,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9769732931378273,
-     "eta_motor_incl_fw": 0.9730096082791378,
-     "eta_drivetrain_wheel_over_elec": 0.9344709994590844
+     "eta_motor_em_only": 0.9769650134980931,
+     "eta_motor_incl_fw": 0.9733594702486633,
+     "eta_drivetrain_wheel_over_elec": 0.9348070042236349
     }
    }
   },
@@ -2523,13 +3328,13 @@
       "P_stray_IEC_W": 112.29983673952381,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1975.6021692886245,
+     "P_mech_W": 1642.2997105816019,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 778.3708540033182,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1975.6021692886245
+      "P_total_W": 1642.2997105816019
      },
      "P_gear_W": 33723.20537367848,
      "gear_parts_W": {
@@ -2554,9 +3359,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9815949904958966,
-     "eta_motor_incl_fw": 0.9712582268234342,
-     "eta_drivetrain_wheel_over_elec": 0.7948113643707826
+     "eta_motor_em_only": 0.9815628377782212,
+     "eta_motor_incl_fw": 0.9729549709381263,
+     "eta_drivetrain_wheel_over_elec": 0.7961998638115515
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2575,13 +3380,13 @@
       "P_stray_IEC_W": 72.10640674684119,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1003.9387371670348,
+     "P_mech_W": 864.4081798034881,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 446.62105102120813,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 1003.9387371670348
+      "P_total_W": 864.4081798034881
      },
      "P_gear_W": 18755.570303492794,
      "gear_parts_W": {
@@ -2606,9 +3411,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9815421640584401,
-     "eta_motor_incl_fw": 0.9722459938391126,
-     "eta_drivetrain_wheel_over_elec": 0.7985750638839281
+     "eta_motor_em_only": 0.9815182854814504,
+     "eta_motor_incl_fw": 0.9735037713429484,
+     "eta_drivetrain_wheel_over_elec": 0.799608166367088
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -2627,13 +3432,13 @@
       "P_stray_IEC_W": 262.96586549541,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2132.721351802246,
+     "P_mech_W": 1799.4188930952234,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 935.4900365169397,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2132.721351802246
+      "P_total_W": 1799.4188930952234
      },
      "P_gear_W": 39511.62727350425,
      "gear_parts_W": {
@@ -2658,9 +3463,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9730595869768532,
-     "eta_motor_incl_fw": 0.9658082964714495,
-     "eta_drivetrain_wheel_over_elec": 0.8314680614195029
+     "eta_motor_em_only": 0.973029022540521,
+     "eta_motor_incl_fw": 0.9669040252622908,
+     "eta_drivetrain_wheel_over_elec": 0.8324113785321131
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -2679,13 +3484,13 @@
       "P_stray_IEC_W": 608.7163388705263,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 999.0099972256094,
+     "P_mech_W": 910.5562544833836,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.90748548445168,
+      "P_windage_gap_W": 88.45374274222584,
       "P_windage_ends_W": 66.2931271715111,
       "P_bearings_W": 615.972752638725,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 999.0099972256094
+      "P_total_W": 910.5562544833836
      },
      "P_gear_W": 24261.892342241452,
      "gear_parts_W": {
@@ -2710,9 +3515,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9760028471046488,
-     "eta_motor_incl_fw": 0.9721825333237966,
-     "eta_drivetrain_wheel_over_elec": 0.8794026393066924
+     "eta_motor_em_only": 0.9759947271788457,
+     "eta_motor_incl_fw": 0.9725114910994175,
+     "eta_drivetrain_wheel_over_elec": 0.8797002031140903
     }
    },
    "certified_like": {
@@ -2733,13 +3538,13 @@
       "P_stray_IEC_W": 92.71450034210001,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1948.5260412389996,
+     "P_mech_W": 1615.223582531977,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 751.2947259536932,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1948.5260412389996
+      "P_total_W": 1615.223582531977
      },
      "P_gear_W": 16761.0468885538,
      "gear_parts_W": {
@@ -2764,9 +3569,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.982315690547787,
-     "eta_motor_incl_fw": 0.9710971845846431,
-     "eta_drivetrain_wheel_over_elec": 0.8745965987632645
+     "eta_motor_em_only": 0.9822816897091489,
+     "eta_motor_incl_fw": 0.9729642701366269,
+     "eta_drivetrain_wheel_over_elec": 0.8762781469123959
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2785,13 +3590,13 @@
       "P_stray_IEC_W": 59.82750152729481,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 989.0026784523263,
+     "P_mech_W": 849.4721210887797,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 431.6849923064996,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 989.0026784523263
+      "P_total_W": 849.4721210887797
      },
      "P_gear_W": 9398.700864935046,
      "gear_parts_W": {
@@ -2816,9 +3621,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9812216075239495,
-     "eta_motor_incl_fw": 0.9711788295485652,
-     "eta_drivetrain_wheel_over_elec": 0.8757401941433466
+     "eta_motor_em_only": 0.9811949634945876,
+     "eta_motor_incl_fw": 0.9725568025184678,
+     "eta_drivetrain_wheel_over_elec": 0.8769827524441156
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -2837,13 +3642,13 @@
       "P_stray_IEC_W": 232.49837753570483,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2105.6452237526205,
+     "P_mech_W": 1772.3427650455983,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 908.4139084673145,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2105.6452237526205
+      "P_total_W": 1772.3427650455983
      },
      "P_gear_W": 22549.468788379567,
      "gear_parts_W": {
@@ -2868,9 +3673,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9750799123953872,
-     "eta_motor_incl_fw": 0.9674530644906215,
-     "eta_drivetrain_wheel_over_elec": 0.8857767370437146
+     "eta_motor_em_only": 0.9750497911732815,
+     "eta_motor_incl_fw": 0.9686224371306673,
+     "eta_drivetrain_wheel_over_elec": 0.8868473864834715
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -2889,13 +3694,13 @@
       "P_stray_IEC_W": 576.0044202237866,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 987.9554490505182,
+     "P_mech_W": 899.5017063082923,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.90748548445168,
+      "P_windage_gap_W": 88.45374274222584,
       "P_windage_ends_W": 66.2931271715111,
       "P_bearings_W": 604.9182044636337,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 987.9554490505182
+      "P_total_W": 899.5017063082923
      },
      "P_gear_W": 17336.640778071065,
      "gear_parts_W": {
@@ -2920,9 +3725,219 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9763993687166663,
-     "eta_motor_incl_fw": 0.9725142054599457,
-     "eta_drivetrain_wheel_over_elec": 0.9043373663011977
+     "eta_motor_em_only": 0.9763911564538429,
+     "eta_motor_incl_fw": 0.9728526092152879,
+     "eta_drivetrain_wheel_over_elec": 0.9046520467029178
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 6308.8101240032565,
+     "T_motor_Nm": 266.31436526718187,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p6",
+     "PF": 0.9398041336096331,
+     "I_rms_A": 136.97511169922373,
+     "P_em_loss_W": 3256.7971858641595,
+     "em_parts_W": {
+      "P_cu_stator_W": 1033.904494079478,
+      "P_cu_rotor_W": 1087.0686819214172,
+      "P_fe_W": 592.6418224746939,
+      "P_stray_IEC_W": 100.88375196314239,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1626.8348273839358,
+     "mech_parts_W": {
+      "P_windage_gap_W": 333.3024587070226,
+      "P_windage_ends_W": 292.90412358869435,
+      "P_bearings_W": 762.905970805652,
+      "P_seal_W": 237.7222742825667,
+      "P_total_W": 1626.8348273839358
+     },
+     "P_gear_W": 24035.047625569874,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 7463.075956176626,
+      "helical_2": 7569.042551903272
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9819893407489874,
+     "eta_motor_incl_fw": 0.9729926590210408,
+     "eta_drivetrain_wheel_over_elec": 0.8400746330706044
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 4453.277734590534,
+     "T_motor_Nm": 219.08013023854832,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p6",
+     "PF": 0.9408795045143484,
+     "I_rms_A": 82.08962006683711,
+     "P_em_loss_W": 1949.6534201260354,
+     "em_parts_W": {
+      "P_cu_stator_W": 371.34158589769135,
+      "P_cu_rotor_W": 366.3451499296515,
+      "P_fe_W": 701.3969728893329,
+      "P_stray_IEC_W": 68.27127598393226,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 859.8900937683657,
+     "mech_parts_W": {
+      "P_windage_gap_W": 139.5305573635468,
+      "P_windage_ends_W": 110.45261310162721,
+      "P_bearings_W": 442.10296498608574,
+      "P_seal_W": 167.80395831710592,
+      "P_total_W": 859.8900937683657
+     },
+     "P_gear_W": 15925.16223197259,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 4963.985953179869,
+      "helical_2": 5034.468512352808
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9814277543925031,
+     "eta_motor_incl_fw": 0.9732365087833798,
+     "eta_drivetrain_wheel_over_elec": 0.8215346620560215
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 6308.8101240032565,
+     "T_motor_Nm": 413.4934219551635,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p6",
+     "PF": 0.8826502297661657,
+     "I_rms_A": 228.54533314727493,
+     "P_em_loss_W": 7187.504936422176,
+     "em_parts_W": {
+      "P_cu_stator_W": 2878.338134262259,
+      "P_cu_rotor_W": 3069.739936747008,
+      "P_fe_W": 553.9252501542484,
+      "P_stray_IEC_W": 243.20317983323326,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1782.0476269491285,
+     "mech_parts_W": {
+      "P_windage_gap_W": 333.3024587070226,
+      "P_windage_ends_W": 292.90412358869435,
+      "P_bearings_W": 918.1187703708447,
+      "P_seal_W": 237.7222742825667,
+      "P_total_W": 1782.0476269491285
+     },
+     "P_gear_W": 28629.19353270857,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 8805.306261810028,
+      "helical_2": 8930.330894330658
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.974525663752754,
+     "eta_motor_incl_fw": 0.9682096360269897,
+     "eta_drivetrain_wheel_over_elec": 0.8667405297111137
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.55,
+     "n_motor_rpm": 3711.064778825445,
+     "T_motor_Nm": 646.063537853776,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p6",
+     "PF": 0.9473522837559382,
+     "I_rms_A": 195.26270492988994,
+     "P_em_loss_W": 6149.615580983248,
+     "em_parts_W": {
+      "P_cu_stator_W": 2101.046667940263,
+      "P_cu_rotor_W": 2195.0123992189815,
+      "P_fe_W": 817.5369536060688,
+      "P_stray_IEC_W": 593.7211247925067,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 905.5266777016641,
+     "mech_parts_W": {
+      "P_windage_gap_W": 88.45374274222584,
+      "P_windage_ends_W": 66.2931271715111,
+      "P_bearings_W": 610.9431758570055,
+      "P_seal_W": 139.83663193092158,
+      "P_total_W": 905.5266777016641
+     },
+     "P_gear_W": 21111.054883936195,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 6427.222505037311,
+      "helical_2": 6518.48124243135
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_2",
+       "i": 2.202271554554524,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9761762400312062,
+     "eta_motor_incl_fw": 0.9726682077110047,
+     "eta_drivetrain_wheel_over_elec": 0.8908834688733105
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -2943,13 +3958,13 @@
       "P_stray_IEC_W": 89.09884266923467,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1943.2239597113394,
+     "P_mech_W": 1609.921501004317,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 745.992644426033,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 1943.2239597113394
+      "P_total_W": 1609.921501004317
      },
      "P_gear_W": 13439.495630988811,
      "gear_parts_W": {
@@ -2974,9 +3989,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9824409950289846,
-     "eta_motor_incl_fw": 0.9710290676141198,
-     "eta_drivetrain_wheel_over_elec": 0.8921032454685242
+     "eta_motor_em_only": 0.982406558015977,
+     "eta_motor_incl_fw": 0.97293346599475,
+     "eta_drivetrain_wheel_over_elec": 0.8938528532121931
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -2995,13 +4010,13 @@
       "P_stray_IEC_W": 57.493065700736786,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 985.9945305597148,
+     "P_mech_W": 846.4639731961679,
      "mech_parts_W": {
-      "P_windage_gap_W": 279.0611147270936,
+      "P_windage_gap_W": 139.5305573635468,
       "P_windage_ends_W": 110.45261310162721,
       "P_bearings_W": 428.676844413888,
       "P_seal_W": 167.80395831710592,
-      "P_total_W": 985.9945305597148
+      "P_total_W": 846.4639731961679
      },
      "P_gear_W": 7514.211280321853,
      "gear_parts_W": {
@@ -3026,9 +4041,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9811478576773178,
-     "eta_motor_incl_fw": 0.9709369250603087,
-     "eta_drivetrain_wheel_over_elec": 0.8931199568365804
+     "eta_motor_em_only": 0.9811205773899034,
+     "eta_motor_incl_fw": 0.9723419345241405,
+     "eta_drivetrain_wheel_over_elec": 0.8944123600394089
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -3047,13 +4062,13 @@
       "P_stray_IEC_W": 223.36306316722766,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2097.1850482595305,
+     "P_mech_W": 1763.882589552508,
      "mech_parts_W": {
-      "P_windage_gap_W": 666.6049174140452,
+      "P_windage_gap_W": 333.3024587070226,
       "P_windage_ends_W": 292.90412358869435,
       "P_bearings_W": 899.9537329742242,
       "P_seal_W": 237.7222742825667,
-      "P_total_W": 2097.1850482595305
+      "P_total_W": 1763.882589552508
      },
      "P_gear_W": 17249.492467438948,
      "gear_parts_W": {
@@ -3078,9 +4093,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9759408155640878,
-     "eta_motor_incl_fw": 0.9681849664053276,
-     "eta_drivetrain_wheel_over_elec": 0.904392569185226
+     "eta_motor_em_only": 0.9759111230020409,
+     "eta_motor_incl_fw": 0.9693798486451894,
+     "eta_drivetrain_wheel_over_elec": 0.9055087222513025
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -3099,13 +4114,13 @@
       "P_stray_IEC_W": 553.2097753598102,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 980.0656059124159,
+     "P_mech_W": 891.61186317019,
      "mech_parts_W": {
-      "P_windage_gap_W": 176.90748548445168,
+      "P_windage_gap_W": 88.45374274222584,
       "P_windage_ends_W": 66.2931271715111,
       "P_bearings_W": 597.0283613255315,
       "P_seal_W": 139.83663193092158,
-      "P_total_W": 980.0656059124159
+      "P_total_W": 891.61186317019
      },
      "P_gear_W": 12393.955860715732,
      "gear_parts_W": {
@@ -3130,9 +4145,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9768152562669524,
-     "eta_motor_incl_fw": 0.9728810345695137,
-     "eta_drivetrain_wheel_over_elec": 0.9231286814921591
+     "eta_motor_em_only": 0.9768070210237549,
+     "eta_motor_incl_fw": 0.9732266028455401,
+     "eta_drivetrain_wheel_over_elec": 0.9234565776846827
     }
    }
   },
@@ -3164,13 +4179,13 @@
       "P_stray_IEC_W": 113.80755058436407,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1933.6889779974829,
+     "P_mech_W": 1610.0342787826755,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 768.0090630762664,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 1933.6889779974829
+      "P_total_W": 1610.0342787826755
      },
      "P_gear_W": 32782.402293316874,
      "gear_parts_W": {
@@ -3196,9 +4211,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9815595139315167,
-     "eta_motor_incl_fw": 0.9713891401951581,
-     "eta_drivetrain_wheel_over_elec": 0.7989677802492754
+     "eta_motor_em_only": 0.9815280694458882,
+     "eta_motor_incl_fw": 0.9730455407772873,
+     "eta_drivetrain_wheel_over_elec": 0.8003301700903246
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -3217,13 +4232,13 @@
       "P_stray_IEC_W": 73.02023447537893,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 984.3488496218015,
+     "P_mech_W": 848.8571381296006,
      "mech_parts_W": {
-      "P_windage_gap_W": 270.98342298440207,
+      "P_windage_gap_W": 135.49171149220103,
       "P_windage_ends_W": 106.87806994820149,
       "P_bearings_W": 440.6434341965618,
       "P_seal_W": 165.84392249263618,
-      "P_total_W": 984.3488496218015
+      "P_total_W": 848.8571381296006
      },
      "P_gear_W": 18184.637354258415,
      "gear_parts_W": {
@@ -3249,9 +4264,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9814526427188884,
-     "eta_motor_incl_fw": 0.9722876430607086,
-     "eta_drivetrain_wheel_over_elec": 0.8029755184009045
+     "eta_motor_em_only": 0.9814292151943617,
+     "eta_motor_incl_fw": 0.9735157583258425,
+     "eta_drivetrain_wheel_over_elec": 0.8039897722574819
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -3270,13 +4285,13 @@
       "P_stray_IEC_W": 263.7318358444571,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2087.665776860832,
+     "P_mech_W": 1764.011077646025,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 921.9858619396156,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 2087.665776860832
+      "P_total_W": 1764.011077646025
      },
      "P_gear_W": 36602.241041249785,
      "gear_parts_W": {
@@ -3302,9 +4317,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9737676863134893,
-     "eta_motor_incl_fw": 0.9665903264398042,
-     "eta_drivetrain_wheel_over_elec": 0.8407524365590586
+     "eta_motor_em_only": 0.9737384645930595,
+     "eta_motor_incl_fw": 0.9676670683782767,
+     "eta_drivetrain_wheel_over_elec": 0.8416890002547148
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -3323,13 +4338,13 @@
       "P_stray_IEC_W": 603.9609009475947,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 980.0122404916269,
+     "P_mech_W": 894.1188762100755,
      "mech_parts_W": {
-      "P_windage_gap_W": 171.7867285631028,
+      "P_windage_gap_W": 85.8933642815514,
       "P_windage_ends_W": 64.14770356227447,
       "P_bearings_W": 605.8745396223862,
       "P_seal_W": 138.20326874386345,
-      "P_total_W": 980.0122404916269
+      "P_total_W": 894.1188762100755
      },
      "P_gear_W": 20309.05291687013,
      "gear_parts_W": {
@@ -3355,9 +4370,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9762753800724538,
-     "eta_motor_incl_fw": 0.9724674089196409,
-     "eta_drivetrain_wheel_over_elec": 0.8935538153408545
+     "eta_motor_em_only": 0.9762674593280896,
+     "eta_motor_incl_fw": 0.9727920786413135,
+     "eta_drivetrain_wheel_over_elec": 0.8938521388279609
     }
    },
    "certified_like": {
@@ -3378,13 +4393,13 @@
       "P_stray_IEC_W": 92.0796610950923,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1904.0571897251891,
+     "P_mech_W": 1580.4024905103822,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 738.3772748039729,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 1904.0571897251891
+      "P_total_W": 1580.4024905103822
      },
      "P_gear_W": 14219.220439873745,
      "gear_parts_W": {
@@ -3410,9 +4425,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9823386499158536,
-     "eta_motor_incl_fw": 0.9712071778457447,
-     "eta_drivetrain_wheel_over_elec": 0.8880789734833431
+     "eta_motor_em_only": 0.9823051687204619,
+     "eta_motor_incl_fw": 0.9730483268594037,
+     "eta_drivetrain_wheel_over_elec": 0.8897625336581215
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -3431,13 +4446,13 @@
       "P_stray_IEC_W": 59.40169209039674,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 968.0030069427589,
+     "P_mech_W": 832.5112954505578,
      "mech_parts_W": {
-      "P_windage_gap_W": 270.98342298440207,
+      "P_windage_gap_W": 135.49171149220103,
       "P_windage_ends_W": 106.87806994820149,
       "P_bearings_W": 424.2975915175191,
       "P_seal_W": 165.84392249263618,
-      "P_total_W": 968.0030069427589
+      "P_total_W": 832.5112954505578
      },
      "P_gear_W": 7944.5921902425425,
      "gear_parts_W": {
@@ -3463,9 +4478,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9810944278210728,
-     "eta_motor_incl_fw": 0.971113804020007,
-     "eta_drivetrain_wheel_over_elec": 0.8892008498917714
+     "eta_motor_em_only": 0.9810679799533559,
+     "eta_motor_incl_fw": 0.9724723394392869,
+     "eta_drivetrain_wheel_over_elec": 0.8904447935412501
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -3484,13 +4499,13 @@
       "P_stray_IEC_W": 230.05533517964182,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2058.0339885885383,
+     "P_mech_W": 1734.379289373731,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 892.3540736673217,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 2058.0339885885383
+      "P_total_W": 1734.379289373731
      },
      "P_gear_W": 18039.05918780665,
      "gear_parts_W": {
@@ -3516,9 +4531,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9757927078928268,
-     "eta_motor_incl_fw": 0.9682043812545582,
-     "eta_drivetrain_wheel_over_elec": 0.901691255561227
+     "eta_motor_em_only": 0.9757637851027461,
+     "eta_motor_incl_fw": 0.9693611885484158,
+     "eta_drivetrain_wheel_over_elec": 0.902768593199267
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -3537,13 +4552,13 @@
       "P_stray_IEC_W": 567.9356774078194,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 967.9142761752444,
+     "P_mech_W": 882.020911893693,
      "mech_parts_W": {
-      "P_windage_gap_W": 171.7867285631028,
+      "P_windage_gap_W": 85.8933642815514,
       "P_windage_ends_W": 64.14770356227447,
       "P_bearings_W": 593.7765753060037,
       "P_seal_W": 138.20326874386345,
-      "P_total_W": 967.9142761752444
+      "P_total_W": 882.020911893693
      },
      "P_gear_W": 12730.14105377941,
      "gear_parts_W": {
@@ -3569,9 +4584,223 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.976696798448806,
-     "eta_motor_incl_fw": 0.9728169927723579,
-     "eta_drivetrain_wheel_over_elec": 0.9217892574261991
+     "eta_motor_em_only": 0.976688772473199,
+     "eta_motor_incl_fw": 0.9731520456807254,
+     "eta_drivetrain_wheel_over_elec": 0.9221067356095545
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.38004857851957,
+     "n_motor_rpm": 6235.120003836625,
+     "T_motor_Nm": 268.55139935401354,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p6",
+     "PF": 0.9403275200910933,
+     "I_rms_A": 136.83741333639466,
+     "P_em_loss_W": 3254.569955423713,
+     "em_parts_W": {
+      "P_cu_stator_W": 1031.8268115712824,
+      "P_cu_rotor_W": 1084.529742668259,
+      "P_fe_W": 593.3292534332363,
+      "P_stray_IEC_W": 102.5857123255076,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1595.1222704282218,
+     "mech_parts_W": {
+      "P_windage_gap_W": 323.6546992148072,
+      "P_windage_ends_W": 283.4249596270341,
+      "P_bearings_W": 753.0970547218126,
+      "P_seal_W": 234.94555686456786,
+      "P_total_W": 1595.1222704282218
+     },
+     "P_gear_W": 23440.59948546481,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1_engaged": 9816.084797924348,
+      "helical_1_idle_pair": 4621.585570050482
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 4.79334952617319,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.5891812865497075,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9819388936565546,
+     "eta_motor_incl_fw": 0.9730868261479145,
+     "eta_drivetrain_wheel_over_elec": 0.8430041529039234
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.38004857851957,
+     "n_motor_rpm": 4401.261179178795,
+     "T_motor_Nm": 221.42801849120366,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p6",
+     "PF": 0.9407479380546847,
+     "I_rms_A": 82.44061630452458,
+     "P_em_loss_W": 1955.2417773850952,
+     "em_parts_W": {
+      "P_cu_stator_W": 374.5239163853836,
+      "P_cu_rotor_W": 369.35136624801805,
+      "P_fe_W": 699.3256114850794,
+      "P_stray_IEC_W": 69.74244784118679,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 845.0728679310455,
+     "mech_parts_W": {
+      "P_windage_gap_W": 135.49171149220103,
+      "P_windage_ends_W": 106.87806994820149,
+      "P_bearings_W": 436.8591639980068,
+      "P_seal_W": 165.84392249263618,
+      "P_total_W": 845.0728679310455
+     },
+     "P_gear_W": 15813.936833830277,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1_engaged": 6624.933370884142,
+      "helical_1_idle_pair": 3262.295696506223
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 4.79334952617319,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.5891812865497075,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9813531240072075,
+     "eta_motor_incl_fw": 0.9732937785311416,
+     "eta_drivetrain_wheel_over_elec": 0.8224784049497452
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.38004857851957,
+     "n_motor_rpm": 6235.120003836625,
+     "T_motor_Nm": 415.3850410787599,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p6",
+     "PF": 0.8888835220523393,
+     "I_rms_A": 224.35550070518363,
+     "P_em_loss_W": 6982.098149511174,
+     "em_parts_W": {
+      "P_cu_stator_W": 2773.770598865758,
+      "P_cu_rotor_W": 2955.40713519045,
+      "P_fe_W": 565.1885345731966,
+      "P_stray_IEC_W": 245.43344545634255,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 1748.1620907995018,
+     "mech_parts_W": {
+      "P_windage_gap_W": 323.6546992148072,
+      "P_windage_ends_W": 283.4249596270341,
+      "P_bearings_W": 906.1368750930925,
+      "P_seal_W": 234.94555686456786,
+      "P_total_W": 1748.1620907995018
+     },
+     "P_gear_W": 26673.45705017611,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1_engaged": 11158.31510355775,
+      "helical_1_idle_pair": 4621.585570050482
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 4.79334952617319,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.5891812865497075,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.9750596479900296,
+     "eta_motor_incl_fw": 0.9688151385343615,
+     "eta_drivetrain_wheel_over_elec": 0.8735364137285814
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 14.38004857851957,
+     "n_motor_rpm": 3667.7176493156617,
+     "T_motor_Nm": 647.4093374848405,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p6",
+     "PF": 0.9481784213531324,
+     "I_rms_A": 192.5151332670207,
+     "P_em_loss_W": 6042.693432409381,
+     "em_parts_W": {
+      "P_cu_stator_W": 2042.334365699754,
+      "P_cu_rotor_W": 2130.889670659156,
+      "P_fe_W": 830.9737267698426,
+      "P_stray_IEC_W": 596.1972338552008,
+      "P_pwm_W": 442.29843542542733
+     },
+     "P_mech_W": 891.5428583008785,
+     "mech_parts_W": {
+      "P_windage_gap_W": 85.8933642815514,
+      "P_windage_ends_W": 64.14770356227447,
+      "P_bearings_W": 603.2985217131892,
+      "P_seal_W": 138.20326874386345,
+      "P_total_W": 891.5428583008785
+     },
+     "P_gear_W": 18695.27623668026,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1_engaged": 7811.345353124207,
+      "helical_1_idle_pair": 2718.579747088519
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_engaged",
+       "i": 4.79334952617319,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1_idle_pair",
+       "i": 1.5891812865497075,
+       "eta": 1.0,
+       "idle": true
+      }
+     ],
+     "eta_motor_em_only": 0.976358126132263,
+     "eta_motor_incl_fw": 0.9728699889233517,
+     "eta_drivetrain_wheel_over_elec": 0.8997252286183659
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -3592,13 +4821,13 @@
       "P_stray_IEC_W": 90.28783142228866,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 1901.464347375251,
+     "P_mech_W": 1577.8096481604439,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 735.7844324540347,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 1901.464347375251
+      "P_total_W": 1577.8096481604439
      },
      "P_gear_W": 12594.90389114163,
      "gear_parts_W": {
@@ -3624,9 +4853,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9823989927404894,
-     "eta_motor_incl_fw": 0.9711733065452108,
-     "eta_drivetrain_wheel_over_elec": 0.8968166987356472
+     "eta_motor_em_only": 0.9823652970176482,
+     "eta_motor_incl_fw": 0.9730325402859623,
+     "eta_drivetrain_wheel_over_elec": 0.8985335826886155
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -3645,13 +4874,13 @@
       "P_stray_IEC_W": 58.24473286528254,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 966.5316632870934,
+     "P_mech_W": 831.0399517948924,
      "mech_parts_W": {
-      "P_windage_gap_W": 270.98342298440207,
+      "P_windage_gap_W": 135.49171149220103,
       "P_windage_ends_W": 106.87806994820149,
       "P_bearings_W": 422.82624786185363,
       "P_seal_W": 165.84392249263618,
-      "P_total_W": 966.5316632870934
+      "P_total_W": 831.0399517948924
      },
      "P_gear_W": 7022.851672996569,
      "gear_parts_W": {
@@ -3677,9 +4906,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9810574832016099,
-     "eta_motor_incl_fw": 0.9709947742856713,
-     "eta_drivetrain_wheel_over_elec": 0.897878791820246
+     "eta_motor_em_only": 0.9810307246690536,
+     "eta_motor_incl_fw": 0.9723664185901908,
+     "eta_drivetrain_wheel_over_elec": 0.8991471512013304
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -3698,13 +4927,13 @@
       "P_stray_IEC_W": 225.52443123329746,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 2053.8858250379603,
+     "P_mech_W": 1730.231125823153,
      "mech_parts_W": {
-      "P_windage_gap_W": 647.3093984296144,
+      "P_windage_gap_W": 323.6546992148072,
       "P_windage_ends_W": 283.4249596270341,
       "P_bearings_W": 888.2059101167438,
       "P_seal_W": 234.94555686456786,
-      "P_total_W": 2053.8858250379603
+      "P_total_W": 1730.231125823153
      },
      "P_gear_W": 15440.393402279084,
      "gear_parts_W": {
@@ -3730,9 +4959,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9759994381418519,
-     "eta_motor_incl_fw": 0.9683495647724927,
-     "eta_drivetrain_wheel_over_elec": 0.9108404993411937
+     "eta_motor_em_only": 0.9759704710348683,
+     "eta_motor_incl_fw": 0.9695182993048767,
+     "eta_drivetrain_wheel_over_elec": 0.9119398241963911
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -3751,13 +4980,13 @@
       "P_stray_IEC_W": 556.6218139041576,
       "P_pwm_W": 442.29843542542733
      },
-     "P_mech_W": 964.0361267646358,
+     "P_mech_W": 878.1427624830844,
      "mech_parts_W": {
-      "P_windage_gap_W": 171.7867285631028,
+      "P_windage_gap_W": 85.8933642815514,
       "P_windage_ends_W": 64.14770356227447,
       "P_bearings_W": 589.8984258953951,
       "P_seal_W": 138.20326874386345,
-      "P_total_W": 964.0361267646358
+      "P_total_W": 878.1427624830844
      },
      "P_gear_W": 10300.628798143378,
      "gear_parts_W": {
@@ -3783,9 +5012,9 @@
        "idle": true
       }
      ],
-     "eta_motor_em_only": 0.9768294109071467,
-     "eta_motor_incl_fw": 0.972925639731536,
-     "eta_drivetrain_wheel_over_elec": 0.9312142383883009
+     "eta_motor_em_only": 0.9768213489810222,
+     "eta_motor_incl_fw": 0.9732641574360487,
+     "eta_drivetrain_wheel_over_elec": 0.9315382431153997
     }
    }
   },
@@ -3817,13 +5046,13 @@
       "P_stray_IEC_W": 643.6476280720204,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1089.0280015506005,
+     "P_mech_W": 951.948752444717,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 542.9670621047633,
       "P_seal_W": 160.14425,
-      "P_total_W": 1089.0280015506005
+      "P_total_W": 951.948752444717
      },
      "P_gear_W": 24017.58914983682,
      "gear_parts_W": {
@@ -3842,9 +5071,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.973023458090298,
-     "eta_motor_incl_fw": 0.9670372106991691,
-     "eta_drivetrain_wheel_over_elec": 0.835015600433225
+     "eta_motor_em_only": 0.9730031157471768,
+     "eta_motor_incl_fw": 0.9677664295448217,
+     "eta_drivetrain_wheel_over_elec": 0.8356452650474848
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -3863,13 +5092,13 @@
       "P_stray_IEC_W": 64.6516021919781,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 582.2629921703343,
+     "P_mech_W": 524.8774448061815,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 312.3054680287637,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 582.2629921703343
+      "P_total_W": 524.8774448061815
      },
      "P_gear_W": 13349.685935261874,
      "gear_parts_W": {
@@ -3888,9 +5117,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9797857212919042,
-     "eta_motor_incl_fw": 0.9740906988556726,
-     "eta_drivetrain_wheel_over_elec": 0.8435195275116367
+     "eta_motor_em_only": 0.979774369070357,
+     "eta_motor_incl_fw": 0.9746377425360447,
+     "eta_drivetrain_wheel_over_elec": 0.84399324318035
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -3909,13 +5138,13 @@
       "P_stray_IEC_W": 1542.9833956059085,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1243.0048004139494,
+     "P_mech_W": 1105.925551308066,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 696.9438609681122,
       "P_seal_W": 160.14425,
-      "P_total_W": 1243.0048004139494
+      "P_total_W": 1105.925551308066
      },
      "P_gear_W": 27837.427897769725,
      "gear_parts_W": {
@@ -3934,9 +5163,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9593727335309031,
-     "eta_motor_incl_fw": 0.9550146182508282,
-     "eta_drivetrain_wheel_over_elec": 0.8574134506295527
+     "eta_motor_em_only": 0.9593531980545187,
+     "eta_motor_incl_fw": 0.9554738336286543,
+     "eta_drivetrain_wheel_over_elec": 0.8578257348335423
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -3955,13 +5184,13 @@
       "P_stray_IEC_W": 3657.6967940021127,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 702.2475936631666,
+     "P_mech_W": 665.8687062023708,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 509.9930350928342,
       "P_seal_W": 94.2025,
-      "P_total_W": 702.2475936631666
+      "P_total_W": 665.8687062023708
      },
      "P_gear_W": 16730.585236310653,
      "gear_parts_W": {
@@ -3980,9 +5209,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9457106310829879,
-     "eta_motor_incl_fw": 0.9430261793808158,
-     "eta_drivetrain_wheel_over_elec": 0.8790708900765525
+     "eta_motor_em_only": 0.9457030803356102,
+     "eta_motor_incl_fw": 0.9431573386223582,
+     "eta_drivetrain_wheel_over_elec": 0.879193154202115
     }
    },
    "certified_like": {
@@ -4003,13 +5232,13 @@
       "P_stray_IEC_W": 555.9217006999226,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1069.189898571863,
+     "P_mech_W": 932.1106494659793,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 523.1289591260257,
       "P_seal_W": 160.14425,
-      "P_total_W": 1069.189898571863
+      "P_total_W": 932.1106494659793
      },
      "P_gear_W": 11589.776496829729,
      "gear_parts_W": {
@@ -4028,9 +5257,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9744069151503277,
-     "eta_motor_incl_fw": 0.9680761809028199,
-     "eta_drivetrain_wheel_over_elec": 0.8994524545774545
+     "eta_motor_em_only": 0.9743861255457371,
+     "eta_motor_incl_fw": 0.9688625621121505,
+     "eta_drivetrain_wheel_over_elec": 0.9001830918174972
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4049,13 +5278,13 @@
       "P_stray_IEC_W": 56.05712896995867,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 571.3196597139435,
+     "P_mech_W": 513.9341123497907,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 301.36213557237284,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 571.3196597139435
+      "P_total_W": 513.9341123497907
      },
      "P_gear_W": 6494.1067645435805,
      "gear_parts_W": {
@@ -4074,9 +5303,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9801630448477465,
-     "eta_motor_incl_fw": 0.9741615254044177,
-     "eta_drivetrain_wheel_over_elec": 0.9059431342606992
+     "eta_motor_em_only": 0.980151079606291,
+     "eta_motor_incl_fw": 0.9747491195073787,
+     "eta_drivetrain_wheel_over_elec": 0.9064895804397234
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -4095,13 +5324,13 @@
       "P_stray_IEC_W": 1405.3957124372696,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1223.166697435212,
+     "P_mech_W": 1086.0874483293283,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 677.1057579893746,
       "P_seal_W": 160.14425,
-      "P_total_W": 1223.166697435212
+      "P_total_W": 1086.0874483293283
      },
      "P_gear_W": 15409.615244762634,
      "gear_parts_W": {
@@ -4120,9 +5349,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9616731902881638,
-     "eta_motor_incl_fw": 0.9571694671205059,
-     "eta_drivetrain_wheel_over_elec": 0.9004309691479451
+     "eta_motor_em_only": 0.9616538358894832,
+     "eta_motor_incl_fw": 0.9576528217125241,
+     "eta_drivetrain_wheel_over_elec": 0.9008856717462659
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -4141,13 +5370,13 @@
       "P_stray_IEC_W": 3508.781596040915,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 694.1481614002176,
+     "P_mech_W": 657.7692739394219,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 501.8936028298852,
       "P_seal_W": 94.2025,
-      "P_total_W": 694.1481614002176
+      "P_total_W": 657.7692739394219
      },
      "P_gear_W": 11656.600749611567,
      "gear_parts_W": {
@@ -4166,9 +5395,195 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9466558405509692,
-     "eta_motor_incl_fw": 0.9439439905010167,
-     "eta_drivetrain_wheel_over_elec": 0.8984047885223698
+     "eta_motor_em_only": 0.946648258066819,
+     "eta_motor_incl_fw": 0.9440781652714259,
+     "eta_drivetrain_wheel_over_elec": 0.8985324902265467
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 380.4901594136175,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p4",
+     "PF": 0.9579716045408672,
+     "I_rms_A": 130.3123494853048,
+     "P_em_loss_W": 4591.476204377326,
+     "em_parts_W": {
+      "P_cu_stator_W": 1756.758884681837,
+      "P_cu_rotor_W": 1363.2877934694172,
+      "P_fe_W": 767.7289016267023,
+      "P_stray_IEC_W": 596.3688958926432,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 941.4382137430057,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 532.456523403052,
+      "P_seal_W": 160.14425,
+      "P_total_W": 941.4382137430057
+     },
+     "P_gear_W": 17433.13871084826,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 8430.209593358284
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9737440091024416,
+     "eta_motor_incl_fw": 0.9683604696762579,
+     "eta_drivetrain_wheel_over_elec": 0.8686704547587184
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 3000.0,
+     "T_motor_Nm": 311.3560571392369,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p8",
+     "PF": 0.8671824799544597,
+     "I_rms_A": 82.59845832039596,
+     "P_em_loss_W": 2019.2213052153493,
+     "em_parts_W": {
+      "P_cu_stator_W": 705.8052612266974,
+      "P_cu_rotor_W": 560.504257674397,
+      "P_fe_W": 584.907622816135,
+      "P_stray_IEC_W": 62.36592747995019,
+      "P_pwm_W": 105.63823601816992
+     },
+     "P_mech_W": 522.0419809391767,
+     "mech_parts_W": {
+      "P_windage_gap_W": 57.385547364152735,
+      "P_windage_ends_W": 42.143429413265125,
+      "P_bearings_W": 309.4700041617588,
+      "P_seal_W": 113.04299999999999,
+      "P_total_W": 522.0419809391767
+     },
+     "P_gear_W": 11573.376287042129,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 5646.668520602217
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9798795472392051,
+     "eta_motor_incl_fw": 0.9746776800691684,
+     "eta_drivetrain_wheel_over_elec": 0.8593552187496054
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 595.9078951204755,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p4",
+     "PF": 0.9155850615815283,
+     "I_rms_A": 216.01973165841648,
+     "P_em_loss_W": 10877.56632195623,
+     "em_parts_W": {
+      "P_cu_stator_W": 4827.561922006825,
+      "P_cu_rotor_W": 3775.5992896707853,
+      "P_fe_W": 704.2684867514704,
+      "P_stray_IEC_W": 1462.8048948204234,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 1094.4780341142855,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 685.4963437743319,
+      "P_seal_W": 160.14425,
+      "P_total_W": 1094.4780341142855
+     },
+     "P_gear_W": 20665.99627555957,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 9772.439898991688
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9607571854696085,
+     "eta_motor_incl_fw": 0.9568086553270122,
+     "eta_drivetrain_wheel_over_elec": 0.882252285370382
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 2500.0,
+     "T_motor_Nm": 936.3077379199277,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p4",
+     "PF": 0.956982475018997,
+     "I_rms_A": 227.26347632786778,
+     "P_em_loss_W": 14031.376271458343,
+     "em_parts_W": {
+      "P_cu_stator_W": 5343.186088028678,
+      "P_cu_rotor_W": 4161.353773904123,
+      "P_fe_W": 808.1898519435998,
+      "P_stray_IEC_W": 3611.3148288752154,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 663.3639890950233,
+     "mech_parts_W": {
+      "P_windage_gap_W": 36.3788874607958,
+      "P_windage_ends_W": 25.29428364874082,
+      "P_bearings_W": 507.4883179854866,
+      "P_seal_W": 94.2025,
+      "P_total_W": 663.3639890950233
+     },
+     "P_gear_W": 15161.475781023468,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 6996.124644555934
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9459956835496244,
+     "eta_motor_incl_fw": 0.9434425114233987,
+     "eta_drivetrain_wheel_over_elec": 0.8850886393518033
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -4189,13 +5604,13 @@
       "P_stray_IEC_W": 544.9305972183231,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1066.5970562219247,
+     "P_mech_W": 929.5178071160412,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 520.5361167760875,
       "P_seal_W": 160.14425,
-      "P_total_W": 1066.5970562219247
+      "P_total_W": 929.5178071160412
      },
      "P_gear_W": 9965.459948097614,
      "gear_parts_W": {
@@ -4214,9 +5629,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9745569304904766,
-     "eta_motor_incl_fw": 0.9681775091245243,
-     "eta_drivetrain_wheel_over_elec": 0.9085731179970754
+     "eta_motor_em_only": 0.974536052997493,
+     "eta_motor_incl_fw": 0.9689719541165513,
+     "eta_drivetrain_wheel_over_elec": 0.9093186541789021
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4235,13 +5650,13 @@
       "P_stray_IEC_W": 54.94831954587063,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 569.848316058278,
+     "P_mech_W": 512.4627686941253,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 299.8907919167074,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 569.848316058278
+      "P_total_W": 512.4627686941253
      },
      "P_gear_W": 5572.366247297607,
      "gear_parts_W": {
@@ -4260,9 +5675,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9802074157300699,
-     "eta_motor_incl_fw": 0.9741612587766635,
-     "eta_drivetrain_wheel_over_elec": 0.9150378043702818
+     "eta_motor_em_only": 0.9801953573300436,
+     "eta_motor_incl_fw": 0.9747547551078276,
+     "eta_drivetrain_wheel_over_elec": 0.9155952804296892
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -4281,13 +5696,13 @@
       "P_stray_IEC_W": 1377.4380988793487,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1219.0185338846338,
+     "P_mech_W": 1081.93928477875,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 672.9575944387965,
       "P_seal_W": 160.14425,
-      "P_total_W": 1219.0185338846338
+      "P_total_W": 1081.93928477875
      },
      "P_gear_W": 12810.949459235067,
      "gear_parts_W": {
@@ -4306,9 +5721,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9620064809392793,
-     "eta_motor_incl_fw": 0.9574712799988312,
-     "eta_drivetrain_wheel_over_elec": 0.9098097978961683
+     "eta_motor_em_only": 0.9619870949037861,
+     "eta_motor_incl_fw": 0.9579598257475972,
+     "eta_drivetrain_wheel_over_elec": 0.9102740245714045
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -4327,13 +5742,13 @@
       "P_stray_IEC_W": 3438.574056975439,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 690.2700119896091,
+     "P_mech_W": 653.8911245288133,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 498.01545341927664,
       "P_seal_W": 94.2025,
-      "P_total_W": 690.2700119896091
+      "P_total_W": 653.8911245288133
      },
      "P_gear_W": 9227.088493975534,
      "gear_parts_W": {
@@ -4352,9 +5767,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9471073715793514,
-     "eta_motor_incl_fw": 0.9443820173343417,
-     "eta_drivetrain_wheel_over_elec": 0.9079512230663794
+     "eta_motor_em_only": 0.9470997733762184,
+     "eta_motor_incl_fw": 0.9445176809724931,
+     "eta_drivetrain_wheel_over_elec": 0.9080816532989805
     }
    }
   },
@@ -4386,13 +5801,13 @@
       "P_stray_IEC_W": 525.697160223126,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1272.333240188279,
+     "P_mech_W": 1094.593838431546,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 589.6796827605697,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1272.333240188279
+      "P_total_W": 1094.593838431546
      },
      "P_gear_W": 24491.576462455152,
      "gear_parts_W": {
@@ -4411,9 +5826,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9737575911361889,
-     "eta_motor_incl_fw": 0.9667843547478309,
-     "eta_drivetrain_wheel_over_elec": 0.8325541493254117
+     "eta_motor_em_only": 0.9737320026736881,
+     "eta_motor_incl_fw": 0.9677270473693889,
+     "eta_drivetrain_wheel_over_elec": 0.8333659566842734
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4432,13 +5847,13 @@
       "P_stray_IEC_W": 52.79673747479729,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 669.7753026227233,
+     "P_mech_W": 595.368177368421,
      "mech_parts_W": {
-      "P_windage_gap_W": 148.81425050860446,
+      "P_windage_gap_W": 74.40712525430223,
       "P_windage_ends_W": 56.37405960059117,
       "P_bearings_W": 339.1665082043505,
       "P_seal_W": 125.42048430917708,
-      "P_total_W": 669.7753026227233
+      "P_total_W": 595.368177368421
      },
      "P_gear_W": 13611.152505309077,
      "gear_parts_W": {
@@ -4457,9 +5872,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9801926092852834,
-     "eta_motor_incl_fw": 0.9736616742526353,
-     "eta_drivetrain_wheel_over_elec": 0.8409402191862164
+     "eta_motor_em_only": 0.9801782278165829,
+     "eta_motor_incl_fw": 0.9743686166810854,
+     "eta_drivetrain_wheel_over_elec": 0.8415507971071244
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -4478,13 +5893,13 @@
       "P_stray_IEC_W": 1257.829575279843,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1426.3100390516279,
+     "P_mech_W": 1248.5706372948948,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 743.6564816239188,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1426.3100390516279
+      "P_total_W": 1248.5706372948948
      },
      "P_gear_W": 28311.415210388062,
      "gear_parts_W": {
@@ -4503,9 +5918,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9585623568375223,
-     "eta_motor_incl_fw": 0.9535777505223482,
-     "eta_drivetrain_wheel_over_elec": 0.85463624749328
+     "eta_motor_em_only": 0.9585366016015642,
+     "eta_motor_incl_fw": 0.954170439152656,
+     "eta_drivetrain_wheel_over_elec": 0.8551674398230724
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -4524,13 +5939,13 @@
       "P_stray_IEC_W": 2976.042968773805,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 762.841996510924,
+     "P_mech_W": 715.6724815330379,
      "mech_parts_W": {
-      "P_windage_gap_W": 94.33902995577228,
+      "P_windage_gap_W": 47.16951497788614,
       "P_windage_ends_W": 33.835439446215126,
       "P_bearings_W": 530.150456851289,
       "P_seal_W": 104.51707025764755,
-      "P_total_W": 762.841996510924
+      "P_total_W": 715.6724815330379
      },
      "P_gear_W": 16924.103141533957,
      "gear_parts_W": {
@@ -4549,9 +5964,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9544985075737176,
-     "eta_motor_incl_fw": 0.9515583469557077,
-     "eta_drivetrain_wheel_over_elec": 0.8863291359533456
+     "eta_motor_em_only": 0.9544902338221418,
+     "eta_motor_incl_fw": 0.9517313733105097,
+     "eta_drivetrain_wheel_over_elec": 0.8864903013721971
     }
    },
    "certified_like": {
@@ -4572,13 +5987,13 @@
       "P_stray_IEC_W": 452.3963863745445,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1251.965510108891,
+     "P_mech_W": 1074.226108352158,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 569.311952681182,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1251.965510108891
+      "P_total_W": 1074.226108352158
      },
      "P_gear_W": 11731.97269061523,
      "gear_parts_W": {
@@ -4597,9 +6012,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9752144703409389,
-     "eta_motor_incl_fw": 0.9678099894306684,
-     "eta_drivetrain_wheel_over_elec": 0.8984237586391192
+     "eta_motor_em_only": 0.9751883883378367,
+     "eta_motor_incl_fw": 0.9688284233109931,
+     "eta_drivetrain_wheel_over_elec": 0.8993691768562063
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4618,13 +6033,13 @@
       "P_stray_IEC_W": 45.61583515209364,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 658.5398109086382,
+     "P_mech_W": 584.1326856543359,
      "mech_parts_W": {
-      "P_windage_gap_W": 148.81425050860446,
+      "P_windage_gap_W": 74.40712525430223,
       "P_windage_ends_W": 56.37405960059117,
       "P_bearings_W": 327.9310164902654,
       "P_seal_W": 125.42048430917708,
-      "P_total_W": 658.5398109086382
+      "P_total_W": 584.1326856543359
      },
      "P_gear_W": 6572.546735557742,
      "gear_parts_W": {
@@ -4643,9 +6058,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9807244138257188,
-     "eta_motor_incl_fw": 0.9738149814111929,
-     "eta_drivetrain_wheel_over_elec": 0.9048554945154963
+     "eta_motor_em_only": 0.9807093539413634,
+     "eta_motor_incl_fw": 0.9745758164317745,
+     "eta_drivetrain_wheel_over_elec": 0.9055624519580644
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -4664,13 +6079,13 @@
       "P_stray_IEC_W": 1142.9415268225428,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1405.94230897224,
+     "P_mech_W": 1228.202907215507,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 723.2887515445308,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1405.94230897224
+      "P_total_W": 1228.202907215507
      },
      "P_gear_W": 15551.811438548135,
      "gear_parts_W": {
@@ -4689,9 +6104,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9614617611921705,
-     "eta_motor_incl_fw": 0.9562926245026455,
-     "eta_drivetrain_wheel_over_elec": 0.8991142903828483
+     "eta_motor_em_only": 0.9614365606438353,
+     "eta_motor_incl_fw": 0.9569179540260446,
+     "eta_drivetrain_wheel_over_elec": 0.8997022304090289
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -4710,13 +6125,13 @@
       "P_stray_IEC_W": 2851.7760295580347,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 754.5263299219944,
+     "P_mech_W": 707.3568149441082,
      "mech_parts_W": {
-      "P_windage_gap_W": 94.33902995577228,
+      "P_windage_gap_W": 47.16951497788614,
       "P_windage_ends_W": 33.835439446215126,
       "P_bearings_W": 521.8347902623594,
       "P_seal_W": 104.51707025764755,
-      "P_total_W": 754.5263299219944
+      "P_total_W": 707.3568149441082
      },
      "P_gear_W": 11714.65612117856,
      "gear_parts_W": {
@@ -4735,9 +6150,195 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9552723482833013,
-     "eta_motor_incl_fw": 0.9522992397221199,
-     "eta_drivetrain_wheel_over_elec": 0.9061392277729371
+     "eta_motor_em_only": 0.9552640334297623,
+     "eta_motor_incl_fw": 0.9524762717906454,
+     "eta_drivetrain_wheel_over_elec": 0.9063076787126979
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 10.875,
+     "n_motor_rpm": 4715.347773095217,
+     "T_motor_Nm": 343.598303658452,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p4",
+     "PF": 0.9517571877926003,
+     "I_rms_A": 131.20181312398367,
+     "P_em_loss_W": 4466.330183218654,
+     "em_parts_W": {
+      "P_cu_stator_W": 1780.8226964029639,
+      "P_cu_rotor_W": 1384.8760672772485,
+      "P_fe_W": 706.9707123950886,
+      "P_stray_IEC_W": 486.32897843662715,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 1083.8452751720804,
+     "mech_parts_W": {
+      "P_windage_gap_W": 177.739401756733,
+      "P_windage_ends_W": 149.4957344762423,
+      "P_bearings_W": 578.9311195011043,
+      "P_seal_W": 177.67901943800086,
+      "P_total_W": 1083.8452751720804
+     },
+     "P_gear_W": 17758.012743141662,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 8755.083625651685
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.625,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9745095180729011,
+     "eta_motor_incl_fw": 0.968323737518129,
+     "eta_drivetrain_wheel_over_elec": 0.8669742437903639
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 10.875,
+     "n_motor_rpm": 3328.4807810083885,
+     "T_motor_Nm": 281.2869008086787,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p8",
+     "PF": 0.8664227915659032,
+     "I_rms_A": 82.94559148159352,
+     "P_em_loss_W": 1982.0519608937009,
+     "em_parts_W": {
+      "P_cu_stator_W": 711.7502451870591,
+      "P_cu_rotor_W": 575.4807505644887,
+      "P_fe_W": 538.2810904660754,
+      "P_stray_IEC_W": 50.901638657907675,
+      "P_pwm_W": 105.63823601816992
+     },
+     "P_mech_W": 592.481403546951,
+     "mech_parts_W": {
+      "P_windage_gap_W": 74.40712525430223,
+      "P_windage_ends_W": 56.37405960059117,
+      "P_bearings_W": 336.2797343828806,
+      "P_seal_W": 125.42048430917708,
+      "P_total_W": 592.481403546951
+     },
+     "P_gear_W": 11802.699133366881,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 5875.99136692697
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.625,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9803014628704696,
+     "eta_motor_incl_fw": 0.9744131122335553,
+     "eta_drivetrain_wheel_over_elec": 0.8571125006983906
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 10.875,
+     "n_motor_rpm": 4715.347773095217,
+     "T_motor_Nm": 537.7569152412374,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p4",
+     "PF": 0.8916016554036035,
+     "I_rms_A": 222.66120079462138,
+     "P_em_loss_W": 11072.062080116335,
+     "em_parts_W": {
+      "P_cu_stator_W": 5128.969332119115,
+      "P_cu_rotor_W": 4018.2687650006187,
+      "P_fe_W": 626.249879064241,
+      "P_stray_IEC_W": 1191.242375225635,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 1236.8850955433604,
+     "mech_parts_W": {
+      "P_windage_gap_W": 177.739401756733,
+      "P_windage_ends_W": 149.4957344762423,
+      "P_bearings_W": 731.9709398723842,
+      "P_seal_W": 177.67901943800086,
+      "P_total_W": 1236.8850955433604
+     },
+     "P_gear_W": 20990.87030785297,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 10097.313931285087
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.625,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9601506459558796,
+     "eta_motor_incl_fw": 0.9556989844923193,
+     "eta_drivetrain_wheel_over_elec": 0.8801509414503623
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 10.875,
+     "n_motor_rpm": 2773.7339841736566,
+     "T_motor_Nm": 844.563412134687,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p4",
+     "PF": 0.9606055106623538,
+     "I_rms_A": 204.76811326174612,
+     "P_em_loss_W": 11667.458267285987,
+     "em_parts_W": {
+      "P_cu_stator_W": 4337.761461489797,
+      "P_cu_rotor_W": 3372.797471615579,
+      "P_fe_W": 911.2911681588382,
+      "P_stray_IEC_W": 2938.2764373150485,
+      "P_pwm_W": 107.33172870672658
+     },
+     "P_mech_W": 713.1639085904428,
+     "mech_parts_W": {
+      "P_windage_gap_W": 47.16951497788614,
+      "P_windage_ends_W": 33.835439446215126,
+      "P_bearings_W": 527.641883908694,
+      "P_seal_W": 104.51707025764755,
+      "P_total_W": 713.1639085904428
+     },
+     "P_gear_W": 15352.578152960763,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 7187.227016493228
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.625,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9547240358644723,
+     "eta_motor_incl_fw": 0.9519565793363758,
+     "eta_drivetrain_wheel_over_elec": 0.8923803835688439
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -4758,13 +6359,13 @@
       "P_stray_IEC_W": 443.45981081274385,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1249.372667758953,
+     "P_mech_W": 1071.63326600222,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 566.7191103312438,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1249.372667758953
+      "P_total_W": 1071.63326600222
      },
      "P_gear_W": 10107.656141883113,
      "gear_parts_W": {
@@ -4783,9 +6384,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9753653927487881,
-     "eta_motor_incl_fw": 0.9679014598217988,
-     "eta_drivetrain_wheel_over_elec": 0.9075168608634979
+     "eta_motor_em_only": 0.9753392069105483,
+     "eta_motor_incl_fw": 0.9689303096346061,
+     "eta_drivetrain_wheel_over_elec": 0.9084815236842264
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4804,13 +6405,13 @@
       "P_stray_IEC_W": 44.714313145744065,
       "P_pwm_W": 105.63823601816992
      },
-     "P_mech_W": 657.0684672529726,
+     "P_mech_W": 582.6613419986704,
      "mech_parts_W": {
-      "P_windage_gap_W": 148.81425050860446,
+      "P_windage_gap_W": 74.40712525430223,
       "P_windage_ends_W": 56.37405960059117,
       "P_bearings_W": 326.4596728346,
       "P_seal_W": 125.42048430917708,
-      "P_total_W": 657.0684672529726
+      "P_total_W": 582.6613419986704
      },
      "P_gear_W": 5650.806218311767,
      "gear_parts_W": {
@@ -4829,9 +6430,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9807746946117734,
-     "eta_motor_incl_fw": 0.9738115730431219,
-     "eta_drivetrain_wheel_over_elec": 0.9139285431611732
+     "eta_motor_em_only": 0.9807595232800019,
+     "eta_motor_incl_fw": 0.9745800403396918,
+     "eta_drivetrain_wheel_over_elec": 0.9146497547551435
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -4850,13 +6451,13 @@
       "P_stray_IEC_W": 1120.2172963452301,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 1401.794145421662,
+     "P_mech_W": 1224.054743664929,
      "mech_parts_W": {
-      "P_windage_gap_W": 355.478803513466,
+      "P_windage_gap_W": 177.739401756733,
       "P_windage_ends_W": 149.4957344762423,
       "P_bearings_W": 719.1405879939527,
       "P_seal_W": 177.67901943800086,
-      "P_total_W": 1401.794145421662
+      "P_total_W": 1224.054743664929
      },
      "P_gear_W": 12953.145653020569,
      "gear_parts_W": {
@@ -4875,9 +6476,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9618123791928256,
-     "eta_motor_incl_fw": 0.9566047821872653,
-     "eta_drivetrain_wheel_over_elec": 0.9084844766947878
+     "eta_motor_em_only": 0.9617871475052346,
+     "eta_motor_incl_fw": 0.9572368391864169,
+     "eta_drivetrain_wheel_over_elec": 0.9090847391885657
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -4896,13 +6497,13 @@
       "P_stray_IEC_W": 2794.7282142461904,
       "P_pwm_W": 107.33172870672658
      },
-     "P_mech_W": 750.6481805113859,
+     "P_mech_W": 703.4786655334998,
      "mech_parts_W": {
-      "P_windage_gap_W": 94.33902995577228,
+      "P_windage_gap_W": 47.16951497788614,
       "P_windage_ends_W": 33.835439446215126,
       "P_bearings_W": 517.956640851751,
       "P_seal_W": 104.51707025764755,
-      "P_total_W": 750.6481805113859
+      "P_total_W": 703.4786655334998
      },
      "P_gear_W": 9285.143865542526,
      "gear_parts_W": {
@@ -4921,9 +6522,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9556320089466086,
-     "eta_motor_incl_fw": 0.9526430668950768,
-     "eta_drivetrain_wheel_over_elec": 0.9156713434235885
+     "eta_motor_em_only": 0.9556236741729369,
+     "eta_motor_incl_fw": 0.9528220261890156,
+     "eta_drivetrain_wheel_over_elec": 0.9158433573738218
     }
    }
   },
@@ -4954,13 +6555,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 83.79824279933945
      },
-     "P_mech_W": 1089.0280015506005,
+     "P_mech_W": 951.948752444717,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 542.9670621047633,
       "P_seal_W": 160.14425,
-      "P_total_W": 1089.0280015506005
+      "P_total_W": 951.948752444717
      },
      "P_gear_W": 24017.58914983682,
      "gear_parts_W": {
@@ -4979,9 +6580,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9729615988050123,
-     "eta_motor_incl_fw": 0.9669757319853713,
-     "eta_drivetrain_wheel_over_elec": 0.834962514900892
+     "eta_motor_em_only": 0.972941211112527,
+     "eta_motor_incl_fw": 0.9677048580798616,
+     "eta_drivetrain_wheel_over_elec": 0.8355920994265404
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -4999,13 +6600,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 53.89660498477709
      },
-     "P_mech_W": 582.2629921703343,
+     "P_mech_W": 524.8774448061815,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 312.3054680287637,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 582.2629921703343
+      "P_total_W": 524.8774448061815
      },
      "P_gear_W": 13349.685935261874,
      "gear_parts_W": {
@@ -5024,9 +6625,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9715164576536337,
-     "eta_motor_incl_fw": 0.9658695004636365,
-     "eta_drivetrain_wheel_over_elec": 0.8364003327678862
+     "eta_motor_em_only": 0.9715005965425944,
+     "eta_motor_incl_fw": 0.9664073466068609,
+     "eta_drivetrain_wheel_over_elec": 0.8368660837756101
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5044,13 +6645,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 200.88522287829414
      },
-     "P_mech_W": 1243.0048004139494,
+     "P_mech_W": 1105.925551308066,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 696.9438609681122,
       "P_seal_W": 160.14425,
-      "P_total_W": 1243.0048004139494
+      "P_total_W": 1105.925551308066
      },
      "P_gear_W": 27837.427897769725,
      "gear_parts_W": {
@@ -5069,9 +6670,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9778282640511011,
-     "eta_motor_incl_fw": 0.9733863113564835,
-     "eta_drivetrain_wheel_over_elec": 0.8739075822151803
+     "eta_motor_em_only": 0.9778173976599536,
+     "eta_motor_incl_fw": 0.9738633690131885,
+     "eta_drivetrain_wheel_over_elec": 0.8743358852419274
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -5089,13 +6690,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 476.20553648006
      },
-     "P_mech_W": 702.2475936631666,
+     "P_mech_W": 665.8687062023708,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 509.9930350928342,
       "P_seal_W": 94.2025,
-      "P_total_W": 702.2475936631666
+      "P_total_W": 665.8687062023708
      },
      "P_gear_W": 16730.585236310653,
      "gear_parts_W": {
@@ -5114,9 +6715,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.980697977737448,
-     "eta_motor_incl_fw": 0.9779142125252084,
-     "eta_drivetrain_wheel_over_elec": 0.9115928444186882
+     "eta_motor_em_only": 0.9806951938145526,
+     "eta_motor_incl_fw": 0.9780552566981443,
+     "eta_drivetrain_wheel_over_elec": 0.9117243230874186
     }
    },
    "certified_like": {
@@ -5136,13 +6737,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 72.37696469451018
      },
-     "P_mech_W": 1069.189898571863,
+     "P_mech_W": 932.1106494659793,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 523.1289591260257,
       "P_seal_W": 160.14425,
-      "P_total_W": 1069.189898571863
+      "P_total_W": 932.1106494659793
      },
      "P_gear_W": 11589.776496829729,
      "gear_parts_W": {
@@ -5161,9 +6762,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9715723883192319,
-     "eta_motor_incl_fw": 0.9652600700289654,
-     "eta_drivetrain_wheel_over_elec": 0.8968359685117726
+     "eta_motor_em_only": 0.9715493634195119,
+     "eta_motor_incl_fw": 0.9660418809164101,
+     "eta_drivetrain_wheel_over_elec": 0.8975623594049684
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -5181,13 +6782,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 46.73184939335415
      },
-     "P_mech_W": 571.3196597139435,
+     "P_mech_W": 513.9341123497907,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 301.36213557237284,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 571.3196597139435
+      "P_total_W": 513.9341123497907
      },
      "P_gear_W": 6494.1067645435805,
      "gear_parts_W": {
@@ -5206,9 +6807,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9698161859443396,
-     "eta_motor_incl_fw": 0.9638780201187711,
-     "eta_drivetrain_wheel_over_elec": 0.8963797602547329
+     "eta_motor_em_only": 0.9697981719960866,
+     "eta_motor_incl_fw": 0.9644532704414964,
+     "eta_drivetrain_wheel_over_elec": 0.8969147270613288
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5226,13 +6827,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 182.97230659069754
      },
-     "P_mech_W": 1223.166697435212,
+     "P_mech_W": 1086.0874483293283,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 677.1057579893746,
       "P_seal_W": 160.14425,
-      "P_total_W": 1223.166697435212
+      "P_total_W": 1086.0874483293283
      },
      "P_gear_W": 15409.615244762634,
      "gear_parts_W": {
@@ -5251,9 +6852,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9774832054997121,
-     "eta_motor_incl_fw": 0.9729054406175629,
-     "eta_drivetrain_wheel_over_elec": 0.9152341553685285
+     "eta_motor_em_only": 0.9774716478646418,
+     "eta_motor_incl_fw": 0.9734048228027269,
+     "eta_drivetrain_wheel_over_elec": 0.9157039354862699
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -5271,13 +6872,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 456.8178601009156
      },
-     "P_mech_W": 694.1481614002176,
+     "P_mech_W": 657.7692739394219,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 501.8936028298852,
       "P_seal_W": 94.2025,
-      "P_total_W": 694.1481614002176
+      "P_total_W": 657.7692739394219
      },
      "P_gear_W": 11656.600749611567,
      "gear_parts_W": {
@@ -5296,9 +6897,191 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9807889088956919,
-     "eta_motor_incl_fw": 0.9779792791045382,
-     "eta_drivetrain_wheel_over_elec": 0.9307980942352596
+     "eta_motor_em_only": 0.9807860797043546,
+     "eta_motor_incl_fw": 0.9781233047868603,
+     "eta_drivetrain_wheel_over_elec": 0.9309351716084624
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 380.4901594136175,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p8",
+     "PF": 0.6547195125703831,
+     "I_rms_A": 191.13696239303096,
+     "P_em_loss_W": 4857.849884898195,
+     "em_parts_W": {
+      "P_cu_stator_W": 3779.4653503518475,
+      "P_fe_W": 1000.7416390296196,
+      "P_field_W": 0.0,
+      "P_stray_IEC_W": 77.64289551672805
+     },
+     "P_mech_W": 941.4382137430057,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 532.456523403052,
+      "P_seal_W": 160.14425,
+      "P_total_W": 941.4382137430057
+     },
+     "P_gear_W": 17433.13871084826,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 8430.209593358284
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.972263022412301,
+     "eta_motor_incl_fw": 0.9668876709186349,
+     "eta_drivetrain_wheel_over_elec": 0.8673492765336509
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 3000.0,
+     "T_motor_Nm": 311.3560571392369,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p8",
+     "PF": 0.5301941304831571,
+     "I_rms_A": 136.80204660513888,
+     "P_em_loss_W": 2938.506767283853,
+     "em_parts_W": {
+      "P_cu_stator_W": 1936.0929244807594,
+      "P_fe_W": 950.4226833587389,
+      "P_field_W": 0.0,
+      "P_stray_IEC_W": 51.99115944435476
+     },
+     "P_mech_W": 522.0419809391767,
+     "mech_parts_W": {
+      "P_windage_gap_W": 57.385547364152735,
+      "P_windage_ends_W": 42.143429413265125,
+      "P_bearings_W": 309.4700041617588,
+      "P_seal_W": 113.04299999999999,
+      "P_total_W": 522.0419809391767
+     },
+     "P_gear_W": 11573.376287042129,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 5646.668520602217
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9709851441665279,
+     "eta_motor_incl_fw": 0.9658304945381485,
+     "eta_drivetrain_wheel_over_elec": 0.8515548194865502
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 595.9078951204755,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p8",
+     "PF": 0.8917386260873528,
+     "I_rms_A": 219.52167161564583,
+     "P_em_loss_W": 6087.102506682361,
+     "em_parts_W": {
+      "P_cu_stator_W": 4985.351803571662,
+      "P_fe_W": 911.3041382543959,
+      "P_field_W": 0.0,
+      "P_stray_IEC_W": 190.44656485630372
+     },
+     "P_mech_W": 1094.4780341142855,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 685.4963437743319,
+      "P_seal_W": 160.14425,
+      "P_total_W": 1094.4780341142855
+     },
+     "P_gear_W": 20665.99627555957,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 9772.439898991688
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9776534582687275,
+     "eta_motor_incl_fw": 0.973635487643714,
+     "eta_drivetrain_wheel_over_elec": 0.8977679385621694
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 2500.0,
+     "T_motor_Nm": 936.3077379199277,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p8",
+     "PF": 0.9758374101338934,
+     "I_rms_A": 183.4437843074144,
+     "P_em_loss_W": 4831.060403455567,
+     "em_parts_W": {
+      "P_cu_stator_W": 3481.3445726864275,
+      "P_fe_W": 879.5488890196409,
+      "P_field_W": 0.0,
+      "P_stray_IEC_W": 470.16694174949833
+     },
+     "P_mech_W": 663.3639890950233,
+     "mech_parts_W": {
+      "P_windage_gap_W": 36.3788874607958,
+      "P_windage_ends_W": 25.29428364874082,
+      "P_bearings_W": 507.4883179854866,
+      "P_seal_W": 94.2025,
+      "P_total_W": 663.3639890950233
+     },
+     "P_gear_W": 15161.475781023468,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 6996.124644555934
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9807235037207735,
+     "eta_motor_incl_fw": 0.9780766037858407,
+     "eta_drivetrain_wheel_over_elec": 0.917580541415883
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -5318,13 +7101,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 70.94600291043183
      },
-     "P_mech_W": 1066.5970562219247,
+     "P_mech_W": 929.5178071160412,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 520.5361167760875,
       "P_seal_W": 160.14425,
-      "P_total_W": 1066.5970562219247
+      "P_total_W": 929.5178071160412
      },
      "P_gear_W": 9965.459948097614,
      "gear_parts_W": {
@@ -5343,9 +7126,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9712157330516358,
-     "eta_motor_incl_fw": 0.96485818306709,
-     "eta_drivetrain_wheel_over_elec": 0.9054581412523883
+     "eta_motor_em_only": 0.9711921949578609,
+     "eta_motor_incl_fw": 0.9656471877839107,
+     "eta_drivetrain_wheel_over_elec": 0.9061985720813633
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -5363,13 +7146,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 45.80749390165243
      },
-     "P_mech_W": 569.848316058278,
+     "P_mech_W": 512.4627686941253,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 299.8907919167074,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 569.848316058278
+      "P_total_W": 512.4627686941253
      },
      "P_gear_W": 5572.366247297607,
      "gear_parts_W": {
@@ -5388,9 +7171,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9697610079354131,
-     "eta_motor_incl_fw": 0.9637792869576096,
-     "eta_drivetrain_wheel_over_elec": 0.9052859315537924
+     "eta_motor_em_only": 0.9697427816397993,
+     "eta_motor_incl_fw": 0.964360196736379,
+     "eta_drivetrain_wheel_over_elec": 0.9058315849594409
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5408,13 +7191,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 179.33242851636302
      },
-     "P_mech_W": 1219.0185338846338,
+     "P_mech_W": 1081.93928477875,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 672.9575944387965,
       "P_seal_W": 160.14425,
-      "P_total_W": 1219.0185338846338
+      "P_total_W": 1081.93928477875
      },
      "P_gear_W": 12810.949459235067,
      "gear_parts_W": {
@@ -5433,9 +7216,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9774977436228998,
-     "eta_motor_incl_fw": 0.9728895120007635,
-     "eta_drivetrain_wheel_over_elec": 0.9244605334687397
+     "eta_motor_em_only": 0.9774860769536654,
+     "eta_motor_incl_fw": 0.9733939227561984,
+     "eta_drivetrain_wheel_over_elec": 0.9249398354144435
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -5453,13 +7236,13 @@
       "P_field_W": 0.0,
       "P_stray_IEC_W": 447.6773488205812
      },
-     "P_mech_W": 690.2700119896091,
+     "P_mech_W": 653.8911245288133,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 498.01545341927664,
       "P_seal_W": 94.2025,
-      "P_total_W": 690.2700119896091
+      "P_total_W": 653.8911245288133
      },
      "P_gear_W": 9227.088493975534,
      "gear_parts_W": {
@@ -5478,9 +7261,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9809009604767364,
-     "eta_motor_incl_fw": 0.9780783632963221,
-     "eta_drivetrain_wheel_over_elec": 0.940347687598186
+     "eta_motor_em_only": 0.9808981189257882,
+     "eta_motor_incl_fw": 0.9782238815825799,
+     "eta_drivetrain_wheel_over_elec": 0.9404875923227162
     }
    }
   },
@@ -5511,13 +7294,13 @@
       "P_field_W": 1441.9206400000003,
       "P_stray_IEC_W": 93.64891900349816
      },
-     "P_mech_W": 1089.0280015506005,
+     "P_mech_W": 951.948752444717,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 542.9670621047633,
       "P_seal_W": 160.14425,
-      "P_total_W": 1089.0280015506005
+      "P_total_W": 951.948752444717
      },
      "P_gear_W": 24017.58914983682,
      "gear_parts_W": {
@@ -5536,9 +7319,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9785841349736275,
-     "eta_motor_incl_fw": 0.9725636771148999,
-     "eta_drivetrain_wheel_over_elec": 0.8397875839943013
+     "eta_motor_em_only": 0.9785678934394313,
+     "eta_motor_incl_fw": 0.9733012576982839,
+     "eta_drivetrain_wheel_over_elec": 0.8404244687872421
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -5556,13 +7339,13 @@
       "P_field_W": 549.4663876,
       "P_stray_IEC_W": 60.23227488038341
      },
-     "P_mech_W": 582.2629921703343,
+     "P_mech_W": 524.8774448061815,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 312.3054680287637,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 582.2629921703343
+      "P_total_W": 524.8774448061815
      },
      "P_gear_W": 13349.685935261874,
      "gear_parts_W": {
@@ -5581,9 +7364,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9804953851262834,
-     "eta_motor_incl_fw": 0.9747962377560266,
-     "eta_drivetrain_wheel_over_elec": 0.8441304930414041
+     "eta_motor_em_only": 0.9804844235095603,
+     "eta_motor_incl_fw": 0.9753440743993282,
+     "eta_drivetrain_wheel_over_elec": 0.8446048953809955
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5601,13 +7384,13 @@
       "P_field_W": 3629.386959025001,
       "P_stray_IEC_W": 224.4997429287065
      },
-     "P_mech_W": 1243.0048004139494,
+     "P_mech_W": 1105.925551308066,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 696.9438609681122,
       "P_seal_W": 160.14425,
-      "P_total_W": 1243.0048004139494
+      "P_total_W": 1105.925551308066
      },
      "P_gear_W": 27837.427897769725,
      "gear_parts_W": {
@@ -5626,9 +7409,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9695241926227401,
-     "eta_motor_incl_fw": 0.9651199625976481,
-     "eta_drivetrain_wheel_over_elec": 0.8664860428188494
+     "eta_motor_em_only": 0.9695093833029046,
+     "eta_motor_incl_fw": 0.9655889500154,
+     "eta_drivetrain_wheel_over_elec": 0.8669071003738563
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -5646,13 +7429,13 @@
       "P_field_W": 2823.4753024,
       "P_stray_IEC_W": 532.1845927202432
      },
-     "P_mech_W": 702.2475936631666,
+     "P_mech_W": 665.8687062023708,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 509.9930350928342,
       "P_seal_W": 94.2025,
-      "P_total_W": 702.2475936631666
+      "P_total_W": 665.8687062023708
      },
      "P_gear_W": 16730.585236310653,
      "gear_parts_W": {
@@ -5671,9 +7454,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9693132572970098,
-     "eta_motor_incl_fw": 0.9665618082406433,
-     "eta_drivetrain_wheel_over_elec": 0.9010103512099694
+     "eta_motor_em_only": 0.9693088827475796,
+     "eta_motor_incl_fw": 0.966699596485172,
+     "eta_drivetrain_wheel_over_elec": 0.9011387947647809
     }
    },
    "certified_like": {
@@ -5693,13 +7476,13 @@
       "P_field_W": 1223.0037510250002,
       "P_stray_IEC_W": 80.88504338480777
      },
-     "P_mech_W": 1069.189898571863,
+     "P_mech_W": 932.1106494659793,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 523.1289591260257,
       "P_seal_W": 160.14425,
-      "P_total_W": 1069.189898571863
+      "P_total_W": 932.1106494659793
      },
      "P_gear_W": 11589.776496829729,
      "gear_parts_W": {
@@ -5718,9 +7501,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9796376979085857,
-     "eta_motor_incl_fw": 0.9732729791982891,
-     "eta_drivetrain_wheel_over_elec": 0.9042808689884407
+     "eta_motor_em_only": 0.9796210684735613,
+     "eta_motor_incl_fw": 0.9740678293923286,
+     "eta_drivetrain_wheel_over_elec": 0.9050193748748095
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -5738,13 +7521,13 @@
       "P_field_W": 505.93346410000015,
       "P_stray_IEC_W": 52.22528578793057
      },
-     "P_mech_W": 571.3196597139435,
+     "P_mech_W": 513.9341123497907,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 301.36213557237284,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 571.3196597139435
+      "P_total_W": 513.9341123497907
      },
      "P_gear_W": 6494.1067645435805,
      "gear_parts_W": {
@@ -5763,9 +7546,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9805409965199259,
-     "eta_motor_incl_fw": 0.9745371628857884,
-     "eta_drivetrain_wheel_over_elec": 0.9062924666746206
+     "eta_motor_em_only": 0.9805292547224779,
+     "eta_motor_incl_fw": 0.9751252103664234,
+     "eta_drivetrain_wheel_over_elec": 0.9068393344822764
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5783,13 +7566,13 @@
       "P_field_W": 3258.7289880250005,
       "P_stray_IEC_W": 204.48112212599446
      },
-     "P_mech_W": 1223.166697435212,
+     "P_mech_W": 1086.0874483293283,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 677.1057579893746,
       "P_seal_W": 160.14425,
-      "P_total_W": 1223.166697435212
+      "P_total_W": 1086.0874483293283
      },
      "P_gear_W": 15409.615244762634,
      "gear_parts_W": {
@@ -5808,9 +7591,9 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9707433485059321,
-     "eta_motor_incl_fw": 0.9661971478291659,
-     "eta_drivetrain_wheel_over_elec": 0.908923512599118
+     "eta_motor_em_only": 0.9707284349703815,
+     "eta_motor_incl_fw": 0.9666896654201084,
+     "eta_drivetrain_wheel_over_elec": 0.9093868350377964
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -5828,13 +7611,13 @@
       "P_field_W": 2740.1670690250003,
       "P_stray_IEC_W": 510.5178503847961
      },
-     "P_mech_W": 694.1481614002176,
+     "P_mech_W": 657.7692739394219,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 501.8936028298852,
       "P_seal_W": 94.2025,
-      "P_total_W": 694.1481614002176
+      "P_total_W": 657.7692739394219
      },
      "P_gear_W": 11656.600749611567,
      "gear_parts_W": {
@@ -5853,9 +7636,191 @@
        "eta": 0.98
       }
      ],
-     "eta_motor_em_only": 0.9697798479579703,
-     "eta_motor_incl_fw": 0.9670017554173939,
-     "eta_drivetrain_wheel_over_elec": 0.9203501651781408
+     "eta_motor_em_only": 0.9697754474397415,
+     "eta_motor_incl_fw": 0.9671425657232485,
+     "eta_drivetrain_wheel_over_elec": 0.9204841822960272
+    }
+   },
+   "EU2017": {
+    "cruise_85kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 380.4901594136175,
+     "wheel_power_W": 151907.41564589762,
+     "mode": "2p8",
+     "PF": 0.9605082970920434,
+     "I_rms_A": 128.003910270752,
+     "P_em_loss_W": 3634.0759072336136,
+     "em_parts_W": {
+      "P_cu_stator_W": 1695.0693924456716,
+      "P_fe_W": 493.06527107441826,
+      "P_field_W": 1359.1712472250003,
+      "P_stray_IEC_W": 86.76999648852362
+     },
+     "P_mech_W": 941.4382137430057,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 532.456523403052,
+      "P_seal_W": 160.14425,
+      "P_total_W": 941.4382137430057
+     },
+     "P_gear_W": 17433.13871084826,
+     "gear_parts_W": {
+      "axle_hypoid": 9002.929117489977,
+      "helical_1": 8430.209593358284
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9791044269857152,
+     "eta_motor_incl_fw": 0.9736912514120988,
+     "eta_drivetrain_wheel_over_elec": 0.8734524473531089
+    },
+    "cruise_60kmh_flat": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 3000.0,
+     "T_motor_Nm": 311.3560571392369,
+     "wheel_power_W": 86242.0138888889,
+     "mode": "2p8",
+     "PF": 0.8225357707980289,
+     "I_rms_A": 90.1674971875305,
+     "P_em_loss_W": 1956.1184188160262,
+     "em_parts_W": {
+      "P_cu_stator_W": 841.0872285605243,
+      "P_fe_W": 522.1725375219594,
+      "P_field_W": 534.7558129,
+      "P_stray_IEC_W": 58.10283983354262
+     },
+     "P_mech_W": 522.0419809391767,
+     "mech_parts_W": {
+      "P_windage_gap_W": 57.385547364152735,
+      "P_windage_ends_W": 42.143429413265125,
+      "P_bearings_W": 309.4700041617588,
+      "P_seal_W": 113.04299999999999,
+      "P_total_W": 522.0419809391767
+     },
+     "P_gear_W": 11573.376287042129,
+     "gear_parts_W": {
+      "axle_hypoid": 5926.707766439912,
+      "helical_1": 5646.668520602217
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9804960697114832,
+     "eta_motor_incl_fw": 0.9752909296207929,
+     "eta_drivetrain_wheel_over_elec": 0.8598959094962603
+    },
+    "cruise_85kmh_1pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 4250.0,
+     "T_motor_Nm": 595.9078951204755,
+     "wheel_power_W": 244548.1513407147,
+     "mode": "2p8",
+     "PF": 0.9842668974828044,
+     "I_rms_A": 196.35110078571333,
+     "P_em_loss_W": 8175.289618117003,
+     "em_parts_W": {
+      "P_cu_stator_W": 3988.482485483662,
+      "P_fe_W": 550.9181134894025,
+      "P_field_W": 3423.0550225000006,
+      "P_stray_IEC_W": 212.83399664393713
+     },
+     "P_mech_W": 1094.4780341142855,
+     "mech_parts_W": {
+      "P_windage_gap_W": 137.07924910588352,
+      "P_windage_ends_W": 111.75819123407018,
+      "P_bearings_W": 685.4963437743319,
+      "P_seal_W": 160.14425,
+      "P_total_W": 1094.4780341142855
+     },
+     "P_gear_W": 20665.99627555957,
+     "gear_parts_W": {
+      "axle_hypoid": 10893.556376567882,
+      "helical_1": 9772.439898991688
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9702157789095956,
+     "eta_motor_incl_fw": 0.9662283757386534,
+     "eta_drivetrain_wheel_over_elec": 0.8909380030574573
+    },
+    "part_load_50kmh_3pct_grade": {
+     "feasible": true,
+     "gear_ratio_engaged": 9.801769079200154,
+     "n_motor_rpm": 2500.0,
+     "T_motor_Nm": 936.3077379199277,
+     "wheel_power_W": 229963.31679801998,
+     "mode": "2p8",
+     "PF": 0.9485735851110396,
+     "I_rms_A": 188.37389233558721,
+     "P_em_loss_W": 7741.774064031324,
+     "em_parts_W": {
+      "P_cu_stator_W": 3670.983494273301,
+      "P_fe_W": 671.2953794446421,
+      "P_field_W": 2874.0590430250004,
+      "P_stray_IEC_W": 525.4361472883805
+     },
+     "P_mech_W": 663.3639890950233,
+     "mech_parts_W": {
+      "P_windage_gap_W": 36.3788874607958,
+      "P_windage_ends_W": 25.29428364874082,
+      "P_bearings_W": 507.4883179854866,
+      "P_seal_W": 94.2025,
+      "P_total_W": 663.3639890950233
+     },
+     "P_gear_W": 15161.475781023468,
+     "gear_parts_W": {
+      "axle_hypoid": 8165.351136467534,
+      "helical_1": 6996.124644555934
+     },
+     "stages": [
+      {
+       "name": "axle_hypoid",
+       "i": 3.0,
+       "eta": 0.98
+      },
+      {
+       "name": "helical_1",
+       "i": 3.2672563597333846,
+       "eta": 0.98
+      }
+     ],
+     "eta_motor_em_only": 0.9694640627056245,
+     "eta_motor_incl_fw": 0.9668475511661745,
+     "eta_drivetrain_wheel_over_elec": 0.907046028942669
     }
    },
    "certified_like_eta_helical_0.99": {
@@ -5875,13 +7840,13 @@
       "P_field_W": 1211.98081,
       "P_stray_IEC_W": 79.28586875133553
      },
-     "P_mech_W": 1066.5970562219247,
+     "P_mech_W": 929.5178071160412,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 520.5361167760875,
       "P_seal_W": 160.14425,
-      "P_total_W": 1066.5970562219247
+      "P_total_W": 929.5178071160412
      },
      "P_gear_W": 9965.459948097614,
      "gear_parts_W": {
@@ -5900,9 +7865,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9797771571395811,
-     "eta_motor_incl_fw": 0.9733635643215787,
-     "eta_drivetrain_wheel_over_elec": 0.9134399015115503
+     "eta_motor_em_only": 0.9797604741816844,
+     "eta_motor_incl_fw": 0.9741665465468705,
+     "eta_drivetrain_wheel_over_elec": 0.9141934493447255
     },
     "cruise_60kmh_flat": {
      "feasible": true,
@@ -5920,13 +7885,13 @@
       "P_field_W": 505.93346410000015,
       "P_stray_IEC_W": 51.19227018186231
      },
-     "P_mech_W": 569.848316058278,
+     "P_mech_W": 512.4627686941253,
      "mech_parts_W": {
-      "P_windage_gap_W": 114.77109472830547,
+      "P_windage_gap_W": 57.385547364152735,
       "P_windage_ends_W": 42.143429413265125,
       "P_bearings_W": 299.8907919167074,
       "P_seal_W": 113.04299999999999,
-      "P_total_W": 569.848316058278
+      "P_total_W": 512.4627686941253
      },
      "P_gear_W": 5572.366247297607,
      "gear_parts_W": {
@@ -5945,9 +7910,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9805474541522301,
-     "eta_motor_incl_fw": 0.9744991997594067,
-     "eta_drivetrain_wheel_over_elec": 0.9153552351570946
+     "eta_motor_em_only": 0.9805355988028744,
+     "eta_motor_incl_fw": 0.975093108060682,
+     "eta_drivetrain_wheel_over_elec": 0.9159130981834673
     },
     "cruise_85kmh_1pct_grade": {
      "feasible": true,
@@ -5965,13 +7930,13 @@
       "P_field_W": 3204.8518441,
       "P_stray_IEC_W": 200.41336801112357
      },
-     "P_mech_W": 1219.0185338846338,
+     "P_mech_W": 1081.93928477875,
      "mech_parts_W": {
-      "P_windage_gap_W": 274.15849821176704,
+      "P_windage_gap_W": 137.07924910588352,
       "P_windage_ends_W": 111.75819123407018,
       "P_bearings_W": 672.9575944387965,
       "P_seal_W": 160.14425,
-      "P_total_W": 1219.0185338846338
+      "P_total_W": 1081.93928477875
      },
      "P_gear_W": 12810.949459235067,
      "gear_parts_W": {
@@ -5990,9 +7955,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9709882214839335,
-     "eta_motor_incl_fw": 0.9664106777953104,
-     "eta_drivetrain_wheel_over_elec": 0.9183042058981904
+     "eta_motor_em_only": 0.9709732800641091,
+     "eta_motor_incl_fw": 0.9669083910827483,
+     "eta_drivetrain_wheel_over_elec": 0.9187771437657937
     },
     "part_load_50kmh_3pct_grade": {
      "feasible": true,
@@ -6010,13 +7975,13 @@
       "P_field_W": 2756.7289156000006,
       "P_stray_IEC_W": 500.30285097732224
      },
-     "P_mech_W": 690.2700119896091,
+     "P_mech_W": 653.8911245288133,
      "mech_parts_W": {
-      "P_windage_gap_W": 72.7577749215916,
+      "P_windage_gap_W": 36.3788874607958,
       "P_windage_ends_W": 25.29428364874082,
       "P_bearings_W": 498.01545341927664,
       "P_seal_W": 94.2025,
-      "P_total_W": 690.2700119896091
+      "P_total_W": 653.8911245288133
      },
      "P_gear_W": 9227.088493975534,
      "gear_parts_W": {
@@ -6035,9 +8000,9 @@
        "eta": 0.99
       }
      ],
-     "eta_motor_em_only": 0.9699952042317351,
-     "eta_motor_incl_fw": 0.9672039889727051,
-     "eta_drivetrain_wheel_over_elec": 0.9298928067491428
+     "eta_motor_em_only": 0.9699907897644396,
+     "eta_motor_incl_fw": 0.9673462892373137,
+     "eta_drivetrain_wheel_over_elec": 0.9300296175914953
     }
    }
   }
@@ -6047,211 +8012,253 @@
    "motor_em_only": [
     {
      "case": "fixed_2p4_G17.33_single",
-     "value": 0.9833237812088035
+     "value": 0.9832857949242784
     },
     {
      "case": "fixed_2p4_2speed_high_G5.04",
-     "value": 0.9829926715335722
+     "value": 0.9829552376515106
     },
     {
      "case": "fixed_2p4_G17.33_two_stage",
-     "value": 0.9829356252497847
+     "value": 0.9828982839684478
     },
     {
      "case": "fixed_2p6_G14.55_single",
-     "value": 0.98193414782951
+     "value": 0.9819012374981781
     },
     {
      "case": "fixed_2p6_G14.55_two_stage",
-     "value": 0.9815949904958966
+     "value": 0.9815628377782212
     },
     {
      "case": "fixed_2p6_2speed_high_G4.77",
-     "value": 0.9815595139315167
+     "value": 0.9815280694458882
     },
     {
      "case": "WRSM_G9.80_single_300kW",
-     "value": 0.9785841349736275
+     "value": 0.9785678934394313
     },
     {
      "case": "pole_changing_G10.88_single",
-     "value": 0.9737575911361889
+     "value": 0.9737320026736881
     },
     {
      "case": "pole_changing_G9.80_single",
-     "value": 0.973023458090298
+     "value": 0.9730031157471768
     },
     {
      "case": "PMSM_G9.80_single_300kW",
-     "value": 0.9729615988050123
+     "value": 0.972941211112527
     }
    ],
    "motor_incl_new_friction_windage": [
     {
      "case": "WRSM_G9.80_single_300kW",
-     "value": 0.9725636771148999
+     "value": 0.9733012576982839
     },
     {
      "case": "fixed_2p6_2speed_high_G4.77",
-     "value": 0.9713891401951581
-    },
-    {
-     "case": "fixed_2p6_G14.55_two_stage",
-     "value": 0.9712582268234342
+     "value": 0.9730455407772873
     },
     {
      "case": "fixed_2p6_G14.55_single",
-     "value": 0.9712222550758092
+     "value": 0.9729915182088074
     },
     {
-     "case": "fixed_2p4_G17.33_two_stage",
-     "value": 0.9704335753163031
-    },
-    {
-     "case": "fixed_2p4_2speed_high_G5.04",
-     "value": 0.9704300355090298
+     "case": "fixed_2p6_G14.55_two_stage",
+     "value": 0.9729549709381263
     },
     {
      "case": "fixed_2p4_G17.33_single",
-     "value": 0.9703743069505179
+     "value": 0.9725846949875915
+    },
+    {
+     "case": "fixed_2p4_2speed_high_G5.04",
+     "value": 0.97256599493205
+    },
+    {
+     "case": "fixed_2p4_G17.33_two_stage",
+     "value": 0.9725571358736117
     },
     {
      "case": "pole_changing_G9.80_single",
-     "value": 0.9670372106991691
-    },
-    {
-     "case": "PMSM_G9.80_single_300kW",
-     "value": 0.9669757319853713
+     "value": 0.9677664295448217
     },
     {
      "case": "pole_changing_G10.88_single",
-     "value": 0.9667843547478309
+     "value": 0.9677270473693889
+    },
+    {
+     "case": "PMSM_G9.80_single_300kW",
+     "value": 0.9677048580798616
     }
    ],
    "drivetrain_VECTO_generic_gear": [
     {
      "case": "WRSM_G9.80_single_300kW",
-     "value": 0.8397875839943013
+     "value": 0.8404244687872421
     },
     {
      "case": "pole_changing_G9.80_single",
-     "value": 0.835015600433225
+     "value": 0.8356452650474848
     },
     {
      "case": "PMSM_G9.80_single_300kW",
-     "value": 0.834962514900892
+     "value": 0.8355920994265404
     },
     {
      "case": "pole_changing_G10.88_single",
-     "value": 0.8325541493254117
+     "value": 0.8333659566842734
     },
     {
      "case": "fixed_2p6_G14.55_single",
-     "value": 0.8287505534907632
+     "value": 0.8302602777511784
     },
     {
      "case": "fixed_2p4_G17.33_single",
-     "value": 0.824196303356404
+     "value": 0.8260737166762852
     },
     {
      "case": "fixed_2p6_2speed_high_G4.77",
-     "value": 0.7989677802492754
+     "value": 0.8003301700903246
     },
     {
      "case": "fixed_2p4_2speed_high_G5.04",
-     "value": 0.795060205726191
+     "value": 0.7968101683985627
     },
     {
      "case": "fixed_2p6_G14.55_two_stage",
-     "value": 0.7948113643707826
+     "value": 0.7961998638115515
     },
     {
      "case": "fixed_2p4_G17.33_two_stage",
-     "value": 0.7918430283698668
+     "value": 0.7935757864538788
     }
    ],
    "drivetrain_certified_like_gear": [
     {
      "case": "WRSM_G9.80_single_300kW",
-     "value": 0.9042808689884407
-    },
-    {
-     "case": "pole_changing_G9.80_single",
-     "value": 0.8994524545774545
+     "value": 0.9050193748748095
     },
     {
      "case": "fixed_2p6_G14.55_single",
-     "value": 0.8987115560967954
+     "value": 0.9004872062990059
+    },
+    {
+     "case": "pole_changing_G9.80_single",
+     "value": 0.9001830918174972
     },
     {
      "case": "pole_changing_G10.88_single",
-     "value": 0.8984237586391192
-    },
-    {
-     "case": "PMSM_G9.80_single_300kW",
-     "value": 0.8968359685117726
+     "value": 0.8993691768562063
     },
     {
      "case": "fixed_2p4_G17.33_single",
-     "value": 0.8966560482616937
+     "value": 0.8988785254677262
+    },
+    {
+     "case": "PMSM_G9.80_single_300kW",
+     "value": 0.8975623594049684
     },
     {
      "case": "fixed_2p6_2speed_high_G4.77",
-     "value": 0.8880789734833431
+     "value": 0.8897625336581215
     },
     {
      "case": "fixed_2p4_2speed_high_G5.04",
-     "value": 0.8865025243047411
+     "value": 0.8882603932448145
     },
     {
      "case": "fixed_2p6_G14.55_two_stage",
-     "value": 0.8745965987632645
+     "value": 0.8762781469123959
     },
     {
      "case": "fixed_2p4_G17.33_two_stage",
-     "value": 0.873099799518101
+     "value": 0.8752068990422877
     }
    ],
    "drivetrain_certified_like_helical_0p99": [
     {
      "case": "WRSM_G9.80_single_300kW",
-     "value": 0.9134399015115503
-    },
-    {
-     "case": "pole_changing_G9.80_single",
-     "value": 0.9085731179970754
+     "value": 0.9141934493447255
     },
     {
      "case": "fixed_2p6_G14.55_single",
-     "value": 0.9076567732751996
+     "value": 0.9094679824498497
+    },
+    {
+     "case": "pole_changing_G9.80_single",
+     "value": 0.9093186541789021
     },
     {
      "case": "pole_changing_G10.88_single",
-     "value": 0.9075168608634979
+     "value": 0.9084815236842264
     },
     {
      "case": "fixed_2p4_G17.33_single",
-     "value": 0.9055700885244914
+     "value": 0.9078370304301528
     },
     {
      "case": "PMSM_G9.80_single_300kW",
-     "value": 0.9054581412523883
+     "value": 0.9061985720813633
     },
     {
      "case": "fixed_2p6_2speed_high_G4.77",
-     "value": 0.8968166987356472
+     "value": 0.8985335826886155
     },
     {
      "case": "fixed_2p4_2speed_high_G5.04",
-     "value": 0.8953111301630952
+     "value": 0.8970098408846806
     },
     {
      "case": "fixed_2p6_G14.55_two_stage",
-     "value": 0.8921032454685242
+     "value": 0.8938528532121931
     },
     {
      "case": "fixed_2p4_G17.33_two_stage",
-     "value": 0.8905480736026085
+     "value": 0.8927403381228952
+    }
+   ],
+   "drivetrain_EU2017_regulatory": [
+    {
+     "case": "WRSM_G9.80_single_300kW",
+     "value": 0.8734524473531089
+    },
+    {
+     "case": "pole_changing_G9.80_single",
+     "value": 0.8686704547587184
+    },
+    {
+     "case": "PMSM_G9.80_single_300kW",
+     "value": 0.8673492765336509
+    },
+    {
+     "case": "pole_changing_G10.88_single",
+     "value": 0.8669742437903639
+    },
+    {
+     "case": "fixed_2p6_G14.55_single",
+     "value": 0.8654666440265798
+    },
+    {
+     "case": "fixed_2p4_G17.33_single",
+     "value": 0.8623920547943271
+    },
+    {
+     "case": "fixed_2p6_2speed_high_G4.77",
+     "value": 0.8430041529039234
+    },
+    {
+     "case": "fixed_2p4_2speed_high_G5.04",
+     "value": 0.8402032428576528
+    },
+    {
+     "case": "fixed_2p6_G14.55_two_stage",
+     "value": 0.8400746330706044
+    },
+    {
+     "case": "fixed_2p4_G17.33_two_stage",
+     "value": 0.8379720599643545
     }
    ]
   }
@@ -6267,17 +8274,17 @@
    "points": {
     "n_1.0xbase": {
      "speed_rpm": 1151.0,
-     "model_fw_W": 92.74625666461694,
+     "model_fw_W": 87.51401613324504,
      "VECTO_generic_ASM_noload_total_W": 1650.0
     },
     "n_2.2xbase": {
      "speed_rpm": 2532.2000000000003,
-     "model_fw_W": 315.2337196687424,
+     "model_fw_W": 277.67209205387366,
      "VECTO_generic_ASM_noload_total_W": 5850.0
     },
     "n_3.8xbase": {
      "speed_rpm": 4373.8,
-     "model_fw_W": 854.5775016430592,
+     "model_fw_W": 707.2965124887395,
      "VECTO_generic_ASM_noload_total_W": 17250.0
     }
    },
@@ -6288,8 +8295,8 @@
    "7500.0": 5462.9629629629635
   },
   "new_fw_R165_W": {
-   "4500.0": 1166.7499848786492,
-   "7500.0": 3042.5389987763965
+   "4500.0": 1008.6140115195976,
+   "7500.0": 2475.448266132039
   }
  }
 }

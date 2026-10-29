@@ -620,8 +620,9 @@ def main():
                      spb_generalises_conto="Conto2022hybrid feeds each phase from two half-power inverters, coils under odd/even pole pairs; "
                                            "reversing inverter 2 (and swapping B/C) gives 4 poles. In SPB terms that is N = 2 with a fixed 0/180 deg "
                                            "group shift. SPB with N modules sets each leg phase freely (alpha_k = p 2 pi k/Q), so any p not "
-                                           "divisible by 3 is available, the low-pole winding factor rises (T03 stator: 0.793 SPB-16 vs Conto feed value in "
-                                           "mappings), and both harmonics can be carried at once during the rotor transition."),
+                                           "divisible by 3 is available, every module stays a balanced 3-phase set, the winding factors rise (T03 48-slot stator, y = 7: "
+                                           "SPB N = 16 k_w 0.966 / 0.793 for 2p = 8 / 4; Conto feed N = 2 k_w 0.933 / 0.507 with sigma_diff 0.18 in 4-pole), "
+                                           "and both rotor-field harmonics can be carried at once during the rotor transition."),
         rotor_model=dict(B0_T=B0, P8_fundamental=H8, P4_fundamental=H4, PM=PM, exciter=EXC, P_field_per_group_max_W=P_FIELD_GROUP_MAX_W,
                          rotors={f"s{s:.2f}": rotor(s) for s in S_GRID}),
         stators={k: {f"2p{2 * p}": {kk: (float(vv) if isinstance(vv, (float, np.floating)) else vv) for kk, vv in machine(k, mp16, rotor(0.0), p).items()

@@ -45,7 +45,7 @@ GEAR = dict(
     eta_mesh_hypoid=0.98,                                 # VECTO generic
     eta_mesh_helical=0.98,                                # VECTO generic (sensitivity: 0.99)
     T_ref_axle_out_Nm=FB.T_START_WHEEL,                   # drag scaling reference: axle rated output torque (12 % start)
-    drag_scale_variants={"VECTO_generic": 1.0, "certified_like": 0.3},
+    drag_scale_variants={"VECTO_generic": 1.0, "certified_like": 0.3, "EU2017": "EU2017"},
     two_speed_idle_pair_drag_factor=1.0,                  # idle (unloaded) gear pair: full drag term of that pair
 )
 
@@ -90,7 +90,47 @@ def _stage_loss_out(T_out, n_out_rpm, i, eta, scale):
     return Td0 / 2 + Td0 / 2 * np.abs(n_out_rpm) / VECTO_GEN["Td_n_rpm"] + np.abs(T_out) * (1 / eta - 1)
 
 
+EU2017 = dict(axle_T0_Nm=70.0, axle_T1_Nm=20.0, axle_eta=0.98, helical_eta=0.986,
+              source="Regulation (EU) 2017/2400 Annex VII (SR axle standard loss) and Annex VI App. 7 (certified mesh efficiency "
+                     "0.986 external-external) - key EU2017regulation, 01_literature/inputs_for_analyst.md section 8.1",
+              helical_drag="own assumption: helical-stage drag = axle-type T_d0(i) scaled by the stage's rated output torque, speed-independent like the EU axle term")
+
+
+def gear_motor_point_eu(T_wheel, n_wheel_rpm, stages):
+    """EU 2017/2400 regulatory baseline: T_loss,out = T_d0 + |T_out|(1/eta - 1), T_d0 = 70 + 20 i (speed-independent)."""
+    T = np.asarray(T_wheel, dtype=float)
+    n = np.asarray(n_wheel_rpm, dtype=float)
+    P_total = np.zeros(np.broadcast(T, n).shape)
+    T_cap = GEAR["T_ref_axle_out_Nm"]
+    parts = {}
+    for s in stages:
+        if s.get("idle"):
+            continue
+        eta = EU2017["axle_eta"] if s["name"].startswith("axle") else EU2017["helical_eta"]
+        Td0 = (EU2017["axle_T0_Nm"] + EU2017["axle_T1_Nm"] * s["i"]) * T_cap / GEAR["T_ref_axle_out_Nm"]
+        Tl = Td0 * (np.abs(n) > 0) + np.abs(T) * (1 / eta - 1)
+        P = Tl * np.abs(n) * RPM
+        parts[s["name"]] = P
+        P_total = P_total + P
+        T = (T + Tl) / s["i"]
+        n = n * s["i"]
+        T_cap = T_cap / s["i"]
+    engaged = [s for s in stages if not s.get("idle")]
+    for s in stages:   # idle pair of a 2-speed: drag only; it turns with the engaged stage's output shaft
+        if s.get("idle"):
+            i_axle, i_eng = engaged[0]["i"], engaged[1]["i"]
+            Td0 = (EU2017["axle_T0_Nm"] + EU2017["axle_T1_Nm"] * s["i"]) / i_axle     # scaled to that shaft's torque rating
+            n_out = np.abs(np.asarray(n_wheel_rpm, dtype=float)) * i_axle
+            P_i = Td0 * (n_out > 0) * n_out * RPM
+            parts[s["name"]] = P_i
+            P_total = P_total + P_i
+            T = T + Td0 * (n_out > 0) / i_eng
+    return dict(T_motor_Nm=T, n_motor_rpm=n, P_gear_loss_W=P_total, parts_W=parts)
+
+
 def gear_motor_point(T_wheel, n_wheel_rpm, stages, drag_scale=1.0):
+    if drag_scale == "EU2017":
+        return gear_motor_point_eu(T_wheel, n_wheel_rpm, stages)
     """Propagate wheel torque/speed to the motor through the stages (vectorised).
     Drag torque of a stage is scaled with its rated output torque relative to the axle (T_cap/T_ref)."""
     T = np.asarray(T_wheel, dtype=float)
@@ -157,7 +197,9 @@ def mech_losses(n_rpm, T_motor, rotor):
     R, L = rotor["R_m"], rotor["L_m"]
     # gap windage (Couette, Bilgen & Boulos as quoted by Saari)
     Re = np.maximum(rho * w * R * d / mu, 1e-9)
-    Cm = np.where(Re < 1e4, 1.03 * (d / R) ** 0.3 * Re ** -0.5, 0.065 * (d / R) ** 0.3 * Re ** -0.2)
+    # C_f = 0.515 / 0.0325 (Saari 1998 / Bilgen1973functional, P = k C_f pi rho w^3 r^4 l). Bug fix 2026-10-29:
+    # the first T03d run used 1.03 / 0.065 (2x), i.e. gap windage was overstated by 2x.
+    Cm = np.where(Re < 1e4, 0.515 * (d / R) ** 0.3 * Re ** -0.5, 0.0325 * (d / R) ** 0.3 * Re ** -0.2)
     P_gap = MECH["k_rough"] * Cm * math.pi * rho * w ** 3 * R ** 4 * L
     # rotor end faces (two free discs)
     Rer = np.maximum(rho * w * R ** 2 / mu, 1e-9)
@@ -306,7 +348,7 @@ def main():
                "rotor": c["rotor"]}
         for dv, ds in GEAR["drag_scale_variants"].items():
             out[dv] = {pn: evaluate(c, v, gr, ds) for pn, v, gr in POINTS}
-        out["certified_like_eta_helical_0.99"] = {pn: evaluate(c, v, gr, GEAR["drag_scale_variants"]["certified_like"], 0.99)
+        out["certified_like_eta_helical_0.99"] = {pn: evaluate(c, v, gr, 0.3, 0.99)
                                                   for pn, v, gr in POINTS}
         res["cases"][cname] = out
 
@@ -324,7 +366,9 @@ def main():
         motor_incl_new_friction_windage=rank("eta_motor_incl_fw", "VECTO_generic"),
         drivetrain_VECTO_generic_gear=rank("eta_drivetrain_wheel_over_elec", "VECTO_generic"),
         drivetrain_certified_like_gear=rank("eta_drivetrain_wheel_over_elec", "certified_like"),
-        drivetrain_certified_like_helical_0p99=rank("eta_drivetrain_wheel_over_elec", "certified_like_eta_helical_0.99"))
+        drivetrain_certified_like_helical_0p99=rank("eta_drivetrain_wheel_over_elec", "certified_like_eta_helical_0.99"),
+        drivetrain_EU2017_regulatory=rank("eta_drivetrain_wheel_over_elec", "EU2017"))
+    res["gear_model"]["EU2017"] = EU2017
 
     # sanity / plausibility checks
     Tw, nw, Pw = wheel_point(85.0, 0.0)
