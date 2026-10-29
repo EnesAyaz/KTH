@@ -71,3 +71,4 @@ LTspice .op.raw, Ansys .aedt.auto/.temp/.lock/.aedtresults, tmp/ and .build/ scr
 caches, the 64 MB downloaded PCB-design thesis). 556 -> 419 changes, committed per project (Review-Paper-SPB,
 Airgap Harmonics, PresentationOfMeetings, PCB-Design). Q3D .aedt models kept (convention, each < 20 MB).
 CLAUDE.md commit rule updated: the old do-not-commit list is lifted.
+Commits: e05324b, 2071d60, 25ec617, f4a8d26, a17e051
