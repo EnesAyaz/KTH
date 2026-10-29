@@ -1,0 +1,91 @@
+{
+  "reversal": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": -0.7828852534294128,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": -29.12417221069336,
+    "peak_absolute_voltage_V": 35.5543327331543,
+    "zero_crossing_ms": 122.91389237842931,
+    "decay_to_5percent_ms": 114.64734669874366,
+    "reversal_to_minus_95percent_initial_ms": 536.5154080733996,
+    "positive_group_one_branch_peak_W": 4.940556049346924,
+    "positive_group_six_branches_energy_J": 1.8604785517084244,
+    "positive_group_one_branch_peak_current_A": 0.1389579176902771
+  },
+  "reversal_fine": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": -0.7828852534294128,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": -29.12417221069336,
+    "peak_absolute_voltage_V": 35.5543327331543,
+    "zero_crossing_ms": 122.91388061900865,
+    "decay_to_5percent_ms": 114.6473347373349,
+    "reversal_to_minus_95percent_initial_ms": 536.5154064232352,
+    "positive_group_one_branch_peak_W": 4.940556049346924,
+    "positive_group_six_branches_energy_J": 1.8604778436366736,
+    "positive_group_one_branch_peak_current_A": 0.1389579176902771
+  },
+  "reference": {
+    "initial_current_A": 0.7828894257545471,
+    "final_current_A": -0.7828887701034546,
+    "initial_voltage_V": 29.124267578125,
+    "final_voltage_V": -29.12430191040039,
+    "peak_absolute_voltage_V": 38.84622573852539,
+    "zero_crossing_ms": 118.95359984645393,
+    "decay_to_5percent_ms": 110.79066448476004,
+    "reversal_to_minus_95percent_initial_ms": 532.4168805280527
+  },
+  "deexcitation": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": -2.240609047418393e-33,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": -1.3287270548022584e-29,
+    "peak_absolute_voltage_V": 35.505008697509766,
+    "zero_crossing_ms": 211.8763935390634,
+    "decay_to_5percent_ms": 116.73015271865994,
+    "reversal_to_minus_95percent_initial_ms": null,
+    "positive_group_one_branch_peak_W": 2.6801061630249023,
+    "positive_group_six_branches_energy_J": 0.49541834762412523,
+    "positive_group_one_branch_peak_current_A": 0.07548529654741287
+  },
+  "shaded_one": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": 0.6727551221847534,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": 25.027164459228516,
+    "peak_absolute_voltage_V": 33.28900909423828,
+    "zero_crossing_ms": null,
+    "decay_to_5percent_ms": null,
+    "reversal_to_minus_95percent_initial_ms": null,
+    "positive_group_one_branch_peak_W": 2.9124972570571117e-05,
+    "positive_group_six_branches_energy_J": 0.00022285959572633212,
+    "positive_group_one_branch_peak_current_A": 3.3298978158180503e-11,
+    "shaded_device_final_absorbed_W": 0.013369441032409668
+  },
+  "reversal_clamp37": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": -0.7828852534294128,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": -29.12417221069336,
+    "peak_absolute_voltage_V": 36.98432159423828,
+    "zero_crossing_ms": 120.03845721158723,
+    "decay_to_5percent_ms": 111.8755548599345,
+    "reversal_to_minus_95percent_initial_ms": 533.4966534653465,
+    "positive_group_one_branch_peak_W": 3.044956684112549,
+    "positive_group_six_branches_energy_J": 0.6219169775437571,
+    "positive_group_one_branch_peak_current_A": 0.08233101665973663
+  },
+  "reversal_clamp40": {
+    "initial_current_A": 0.7828859090805054,
+    "final_current_A": -0.7828852534294128,
+    "initial_voltage_V": 29.12413787841797,
+    "final_voltage_V": -29.124170303344727,
+    "peak_absolute_voltage_V": 38.84619903564453,
+    "zero_crossing_ms": 118.95322712873634,
+    "decay_to_5percent_ms": 110.79032185249338,
+    "reversal_to_minus_95percent_initial_ms": 532.4114349834983,
+    "positive_group_one_branch_peak_W": 2.9124972570571117e-05,
+    "positive_group_six_branches_energy_J": 8.662054020528221e-09,
+    "positive_group_one_branch_peak_current_A": 3.886668764607748e-11
+  }
+}

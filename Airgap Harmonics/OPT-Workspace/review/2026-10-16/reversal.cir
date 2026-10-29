@@ -1,0 +1,88 @@
+Motor-matched bipolar OPT review: Ns=1, Np=6; generic device models
+* Existing 25-device array fit scaled to one VMJ device; NOT independently measured cell data.
+* Vbr=150 V assumed; Zener model generic; constant temperature and inductance.
+.param iph=0.136 voc=35.8 avt=1.3 rser=16.75 rsh=50k
+.param vth=1.380649e-23*300.15/1.602176634e-19
+.param is0=(iph-voc/rsh)/(exp(voc/avt)-1)
+.model CELL D(Is={is0} N={avt/vth} BV=150 IBV=40n NBV={2/vth})
+.model ZENER D(Is=1e-14 BV=35.0272 IBV=1m Rs=0.2)
+.model BLOCK D(Is=1u N=1.2 Rs=0.03 BV=1k)
+Rf a w 37.2
+Lf w 0 7.63
+Ip1 0 jp1 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp1 jp1 a {rser}
+Rpp1 jp1 0 {rsh}
+Dp1 jp1 0 CELL
+Dbp1 0 zp1 BLOCK
+Dzp1 a zp1 ZENER
+Ip2 0 jp2 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp2 jp2 a {rser}
+Rpp2 jp2 0 {rsh}
+Dp2 jp2 0 CELL
+Dbp2 0 zp2 BLOCK
+Dzp2 a zp2 ZENER
+Ip3 0 jp3 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp3 jp3 a {rser}
+Rpp3 jp3 0 {rsh}
+Dp3 jp3 0 CELL
+Dbp3 0 zp3 BLOCK
+Dzp3 a zp3 ZENER
+Ip4 0 jp4 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp4 jp4 a {rser}
+Rpp4 jp4 0 {rsh}
+Dp4 jp4 0 CELL
+Dbp4 0 zp4 BLOCK
+Dzp4 a zp4 ZENER
+Ip5 0 jp5 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp5 jp5 a {rser}
+Rpp5 jp5 0 {rsh}
+Dp5 jp5 0 CELL
+Dbp5 0 zp5 BLOCK
+Dzp5 a zp5 ZENER
+Ip6 0 jp6 PWL(0 {1*iph} .5 {1*iph} .50001 {0*iph})
+Rsp6 jp6 a {rser}
+Rpp6 jp6 0 {rsh}
+Dp6 jp6 0 CELL
+Dbp6 0 zp6 BLOCK
+Dzp6 a zp6 ZENER
+In1 a jn1 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn1 jn1 0 {rser}
+Rpn1 jn1 a {rsh}
+Dn1 jn1 a CELL
+Dbn1 a zn1 BLOCK
+Dzn1 0 zn1 ZENER
+In2 a jn2 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn2 jn2 0 {rser}
+Rpn2 jn2 a {rsh}
+Dn2 jn2 a CELL
+Dbn2 a zn2 BLOCK
+Dzn2 0 zn2 ZENER
+In3 a jn3 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn3 jn3 0 {rser}
+Rpn3 jn3 a {rsh}
+Dn3 jn3 a CELL
+Dbn3 a zn3 BLOCK
+Dzn3 0 zn3 ZENER
+In4 a jn4 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn4 jn4 0 {rser}
+Rpn4 jn4 a {rsh}
+Dn4 jn4 a CELL
+Dbn4 a zn4 BLOCK
+Dzn4 0 zn4 ZENER
+In5 a jn5 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn5 jn5 0 {rser}
+Rpn5 jn5 a {rsh}
+Dn5 jn5 a CELL
+Dbn5 a zn5 BLOCK
+Dzn5 0 zn5 ZENER
+In6 a jn6 PWL(0 {0*iph} .5 {0*iph} .50001 {1*iph})
+Rsn6 jn6 0 {rser}
+Rpn6 jn6 a {rsh}
+Dn6 jn6 a CELL
+Dbn6 a zn6 BLOCK
+Dzn6 0 zn6 ZENER
+.options plotwinsize=0 reltol=1e-5
+.save V(a) I(Lf) V(jp1) I(Rsp1)
+.save I(Dbp1) I(Dbn1) V(zp1) V(zn1)
+.tran 0 2 0 100u
+.end
