@@ -1,0 +1,17 @@
+stack {'L2': (-0.34000000000000002, -0.27000000000000002), 'L1': (-0.070000000000000007, 0.0), 'L4': (-1.6, -1.53), 'L3': (-1.33, -1.26)}
+plane L1 DCP: 111 holes
+plane L2 DCN: 105 holes
+plane L3 DCP: 111 holes
+plane L4 DCN: 105 holes
+objects: {'DCP': 129, 'DCN': 135}
+lump DCN PL_L2 diag 275.89 mm bbox [-136.25, -48.05, -1.6, 136.25, -4.95, 0.035000000000000003]
+lump DCN PL_L2_Separate4 diag 0.00 mm bbox None
+lump DCN PL_L2_Separate3 diag 0.00 mm bbox None
+lump DCN PL_L2_Separate2 diag 0.00 mm bbox None
+lump DCN PL_L2_Separate1 diag 0.00 mm bbox None
+lump DCP PL_L1 diag 275.89 mm bbox [-136.25, -48.05, -1.6, 136.25, -4.95, 0.035000000000000003]
+lump DCP PL_L1_Separate1 diag 0.00 mm bbox None
+united {'DCP': 'PL_L1', 'DCN': 'PL_L2'}
+terminals assigned
+validate: 1
+BB_BUS_PCB: exported

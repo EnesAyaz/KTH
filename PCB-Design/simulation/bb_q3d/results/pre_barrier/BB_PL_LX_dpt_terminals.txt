@@ -1,0 +1,8 @@
+AC QH_S_1 QH_S_2 QH_S_3 QH_S_4 QL_D_1 QL_D_2 QL_D_3 QL_D_4
+DCN CapN_1 CapN_2 CapN_3 CapN_4 CapNb_1 CapNb_2 CapNb_3 CapNb_4 RSN_1 RSN_2 RSN_3 RSN_4
+DCP CapP_1 CapP_2 CapP_3 CapP_4 CapPb_1 CapPb_2 CapPb_3 CapPb_4 QH_D_1 QH_D_2 QH_D_3 QH_D_4
+LSRC1 RSI_1 QL_S_1
+LSRC2 RSI_2 QL_S_2
+LSRC3 RSI_3 QL_S_3
+LSRC4 RSI_4 QL_S_4
+# stack: h_23=1.2, h_34=0.1, h_diel=0.1, t_L1=0.07, t_L2=0.07, t_L3=0.07, t_L4=0.07, t_pad=0.035, z_L1=0.17, z_L3b=-1.27, z_L3t=-1.2, z_L4b=-1.44, z_L4t=-1.37, z_top=0.24

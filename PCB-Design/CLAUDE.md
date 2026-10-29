@@ -27,6 +27,7 @@ leader -> agent and agent -> leader (one or two lines each, with the numbers), c
 - The load board and busbar stay frozen until the DPT board is built and tested.
 - Never edit Enes's LTspice files; never kill WINWORD.EXE (it may hold Enes's own documents).
 - Loop inductance is quoted per cell.
-- Agents do not commit; the leader commits. Do not commit hardware/To-do.txt,
-  hardware/spb-bb-fab/spb-bb-fab.kicad_pro, reports/paper/ICPE_Template.docx or ../Review-Paper-SPB.
+- Agents do not commit; the leader commits all source changes (Enes, 2026-10-29: commit everything, keep
+  generated files out through the root .gitignore: LaTeX build files, Office locks, LTspice .log/.raw,
+  Ansys autosave/results, Python caches, tmp/ and .build/ folders).
 - Enes pushes from GitHub Desktop.

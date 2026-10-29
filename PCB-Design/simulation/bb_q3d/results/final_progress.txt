@@ -1,0 +1,50 @@
+[11:21:06,67] step loop_dpt 
+[12:04:54,02] done loop_dpt 
+[11:21:06,67] step loop_load 
+[12:32:31,18] done loop_load 
+[11:21:06,67] step dc_dpt 
+[12:58:14,35] done dc_dpt 
+[11:21:06,67] step dc_load 
+[13:19:57,64] done dc_load 
+[11:21:06,67] step bank 
+[13:26:05,18] done bank 
+[11:21:06,67] step bus 
+[14:08:54,79] done bus 
+[11:21:06,67] step lx_load 
+[16:02:14,45] done lx_load 
+[11:21:06,67] step lx_dpt 
+[18:20:34,16] done lx_dpt 
+[18:20:35,29] step dc_dpt 
+[14:49:16] stopped dc_dpt (old geometry) by request
+[14:50:09,37] step loop_dpt 
+[14:51:57,72] done loop_dpt 
+[14:50:09,37] step loop_load 
+[14:52:42] stopped: loop_dpt geometry error (V32_DCN NULL body)
+[14:59:19,07] step loop_dpt 
+[15:10:34] stopped: AC lumps disconnected in loop crop; fixed
+[15:10:35,54] step loop_dpt 
+[16:21:30,13] done loop_dpt 
+[15:10:35,54] step loop_load 
+[16:51:13,71] done loop_load 
+[23:55:01,90] step gate_dpt 
+[23:58:51,87] done gate_dpt 
+[23:59:12] stopped gate_dpt: gate traces dropped by MIN_AREA
+[23:59:57,81] step gate_dpt 
+[11:52:41] gate_dpt hung since 00:24 (solver idle), killed and restarted
+[11:53:01,88] step gate_dpt 
+[12:22:51] gate_dpt: DC solver exit 9999 on sliver faces (shallow-angle gate traces); geometry fixed, restarted
+[12:23:02,24] step gate_dpt 
+[13:40:57] gate_dpt stopped by request (solver running since ~13:35); resume: run_bb_q3d_final.cmd gate_dpt
+[12:30:23] new geometry (1f4c94c: gate re-layout, mirrored DC- vias): loop_dpt then gate_dpt
+[12:30:35,15] step loop_dpt 
+[13:05:25,21] done loop_dpt 
+[12:30:35,15] step gate_dpt 
+[13:22:41] stopped gate_dpt: export failed (GL nets without sink after the R_G renumbering), AEDT was solving the stale 10-17 gate geometry
+[13:23:27,76] step gate_dpt 
+[13:52:19,75] done gate_dpt 
+[10:31:27] gate re-layout round 2 (HS Kelvin on L2, Kelvin returns straight to the 1 uF caps): gate_dpt
+[10:31:30,07] step gate_dpt 
+[11:00:21,81] done gate_dpt 
+[11:03:52] gate round 3 (Kelvin on L2 under the L1 gate path to the 1 uF caps): gate_dpt
+[11:03:53,10] step gate_dpt 
+[11:32:06,07] done gate_dpt 

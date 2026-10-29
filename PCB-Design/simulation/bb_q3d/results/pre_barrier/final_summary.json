@@ -1,0 +1,82 @@
+{
+ "dpt": {
+  "loop": {
+   "all_switching": {
+    "cell1": 0.6438,
+    "cell2": 0.6458,
+    "cell3": 0.6422,
+    "cell4": 0.654
+   },
+   "all_switching_top_bypass_only": {
+    "cell1": 0.6621,
+    "cell2": 0.6643,
+    "cell3": 0.6607,
+    "cell4": 0.6722
+   },
+   "all_switching_shunt_0pH": {
+    "cell1": 0.5238,
+    "cell2": 0.5258,
+    "cell3": 0.5222,
+    "cell4": 0.534
+   },
+   "each_alone": {
+    "cell1": 0.6351,
+    "cell2": 0.6166,
+    "cell3": 0.613,
+    "cell4": 0.6451
+   },
+   "matrix": "Setup1:LastAdaptive",
+   "mean_nH": 0.6464,
+   "overshoot_30Apns_V": 94.4
+  }
+ },
+ "load": {
+  "loop": {
+   "all_switching": {
+    "cell1": 0.4049,
+    "cell2": 0.4055,
+    "cell3": 0.4067,
+    "cell4": 0.4102
+   },
+   "all_switching_top_bypass_only": {
+    "cell1": 0.4234,
+    "cell2": 0.4242,
+    "cell3": 0.4254,
+    "cell4": 0.4287
+   },
+   "all_switching_shunt_0pH": {
+    "cell1": 0.4049,
+    "cell2": 0.4055,
+    "cell3": 0.4067,
+    "cell4": 0.4102
+   },
+   "each_alone": {
+    "cell1": 0.3983,
+    "cell2": 0.3903,
+    "cell3": 0.3915,
+    "cell4": 0.4035
+   },
+   "matrix": "Setup1:LastAdaptive",
+   "mean_nH": 0.4068,
+   "overshoot_30Apns_V": 87.2
+  }
+ },
+ "level": {
+  "bus_dc": {
+   "L_leg12_nH": 7.4051678939886285,
+   "R_leg12_mOhm": 0.7698862499412211,
+   "L_leg23_nH": 7.417703667309326,
+   "R_leg23_mOhm": 0.7748235556721659,
+   "L_leg13_nH": 10.01094416743026,
+   "R_leg13_mOhm": 1.4599544391037593
+  },
+  "bus_ac": {
+   "L_leg12_nH": 1.459235020627554,
+   "R_leg12_mOhm": 1.37966548653347,
+   "L_leg23_nH": 1.4608495755024336,
+   "R_leg23_mOhm": 1.382986485626126,
+   "L_leg13_nH": 1.977264092943169,
+   "R_leg13_mOhm": 2.227119752333604
+  }
+ }
+}

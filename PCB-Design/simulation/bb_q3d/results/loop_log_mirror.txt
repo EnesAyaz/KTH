@@ -1,0 +1,95 @@
+geometry loaded: 39 polys, 249 vias (AC bus vias every 1)
+project new
+project renamed
+design ready
+poly 0 start DCN L1 pts 8 holes 0 first [[28.749, 15.5], [43.5816, 15.5048], [43.65, 15.599]]
+poly 0 ok (8 pts, 0 holes)
+poly 1 start DCN L1 pts 8 holes 0 first [[3.949, 15.5], [18.7816, 15.5048], [18.85, 15.599]]
+poly 1 ok (8 pts, 0 holes)
+poly 2 start DCN L1 pts 8 holes 0 first [[-18.751, 15.5], [-3.9184, 15.5048], [-3.85, 15.599]]
+poly 2 ok (8 pts, 0 holes)
+poly 3 start DCN L1 pts 8 holes 0 first [[-43.551, 15.5], [-28.7184, 15.5048], [-28.65, 15.599]]
+poly 3 ok (8 pts, 0 holes)
+poly 4 start DCN L1 pts 33 holes 0 first [[36.4525, 9.5], [37.7311, 9.540800000000001], [37.75, 11.2]]
+poly 4 ok (33 pts, 0 holes)
+poly 5 start DCN L1 pts 34 holes 0 first [[17.4525, 9.5], [18.651, 9.5], [18.75, 9.599]]
+poly 5 ok (34 pts, 0 holes)
+poly 6 start DCN L1 pts 33 holes 0 first [[-11.0475, 9.5], [-9.7689, 9.540800000000001], [-9.75, 11.2]]
+poly 6 ok (33 pts, 0 holes)
+poly 7 start DCN L1 pts 34 holes 0 first [[-30.0475, 9.5], [-28.849, 9.5], [-28.75, 9.599]]
+poly 7 ok (34 pts, 0 holes)
+poly 8 start DCN L1 pts 8 holes 0 first [[-39.651, -4.2], [39.651, -4.2], [39.75, -4.101]]
+poly 8 ok (8 pts, 0 holes)
+poly 9 start DCN L2 pts 51 holes 23 first [[-39.75, -4.6], [39.75, -4.6], [39.75, 11.9]]
+poly 9 ok (51 pts, 23 holes)
+poly 10 start DCN L4 pts 5 holes 0 first [[37.025, 12.025], [37.425, 12.025], [37.425, 16.575]]
+poly 10 ok (5 pts, 0 holes)
+poly 11 start DCN L4 pts 5 holes 0 first [[10.075, 12.025], [10.475, 12.025], [10.475, 16.575]]
+poly 11 ok (5 pts, 0 holes)
+poly 12 start DCN L4 pts 5 holes 0 first [[-10.475, 12.025], [-10.075, 12.025], [-10.075, 16.575]]
+poly 12 ok (5 pts, 0 holes)
+poly 13 start DCN L4 pts 5 holes 0 first [[-37.425, 12.025], [-37.025, 12.025], [-37.025, 16.575]]
+poly 13 ok (5 pts, 0 holes)
+poly 14 start DCN L4 pts 8 holes 0 first [[28.549, -1.2], [37.9816, -1.1952], [38.05, -1.101]]
+poly 14 ok (8 pts, 0 holes)
+poly 15 start DCN L4 pts 8 holes 0 first [[9.549, -1.2], [18.9816, -1.1952], [19.05, -1.101]]
+poly 15 ok (8 pts, 0 holes)
+poly 16 start DCN L4 pts 8 holes 0 first [[-18.951, -1.2], [-9.5184, -1.1952], [-9.449999999999999, -1.101]]
+poly 16 ok (8 pts, 0 holes)
+poly 17 start DCN L4 pts 8 holes 0 first [[-37.951, -1.2], [-28.5184, -1.1952], [-28.45, -1.101]]
+poly 17 ok (8 pts, 0 holes)
+poly 18 start DCP L1 pts 34 holes 0 first [[28.849, 1.5], [37.6816, 1.5048], [37.75, 1.599]]
+poly 18 ok (34 pts, 0 holes)
+poly 19 start DCP L1 pts 35 holes 0 first [[9.849, 1.5], [18.6816, 1.5048], [18.75, 1.599]]
+poly 19 ok (35 pts, 0 holes)
+poly 20 start DCP L1 pts 34 holes 0 first [[-18.651, 1.5], [-9.818400000000001, 1.5048], [-9.75, 1.599]]
+poly 20 ok (34 pts, 0 holes)
+poly 21 start DCP L1 pts 35 holes 0 first [[-37.651, 1.5], [-28.8184, 1.5048], [-28.75, 1.599]]
+poly 21 ok (35 pts, 0 holes)
+poly 22 start DCP L3 pts 61 holes 67 first [[-39.75, -4.6], [39.75, -4.6], [39.7358, -0.78620000000000001]]
+poly 22 ok (61 pts, 67 holes)
+poly 23 start DCP L4 pts 8 holes 0 first [[28.549, 1.45], [37.9816, 1.4548], [38.05, 1.549]]
+poly 23 ok (8 pts, 0 holes)
+poly 24 start DCP L4 pts 22 holes 0 first [[11.5341, 1.45], [18.9816, 1.4548], [19.05, 1.549]]
+poly 24 ok (22 pts, 0 holes)
+poly 25 start DCP L4 pts 8 holes 0 first [[-18.951, 1.45], [-9.5184, 1.4548], [-9.449999999999999, 1.549]]
+poly 25 ok (8 pts, 0 holes)
+poly 26 start DCP L4 pts 22 holes 0 first [[-35.9659, 1.45], [-28.5184, 1.4548], [-28.45, 1.549]]
+poly 26 ok (22 pts, 0 holes)
+poly 27 start AC1 L1 pts 52 holes 0 first [[36.4525, 5.2], [37.7311, 5.2408], [37.7092, 8.8811]]
+poly 27 ok (52 pts, 0 holes)
+poly 28 start AC2 L1 pts 56 holes 0 first [[17.4525, 5.2], [18.7311, 5.2408], [18.7092, 7.6006]]
+poly 28 ok (56 pts, 0 holes)
+poly 29 start AC3 L1 pts 52 holes 0 first [[-11.0475, 5.2], [-9.7689, 5.2408], [-9.790800000000001, 8.8811]]
+poly 29 ok (52 pts, 0 holes)
+poly 30 start AC4 L1 pts 56 holes 0 first [[-30.0475, 5.2], [-28.7689, 5.2408], [-28.7908, 7.6006]]
+poly 30 ok (56 pts, 0 holes)
+poly 31 start AC1 L3 pts 111 holes 2 first [[30.3251, 5.2], [43.6311, 5.2408], [43.65, 18.5474]]
+poly 31 ok (111 pts, 2 holes)
+poly 32 start AC2 L3 pts 104 holes 2 first [[3.949, 5.2], [18.3311, 5.2408], [18.3488, 7.4701]]
+poly 32 ok (104 pts, 2 holes)
+poly 33 start AC3 L3 pts 33 holes 3 first [[-17.1749, 5.2], [-3.8689, 5.2408], [-3.85, 18.5474]]
+poly 33 ok (33 pts, 3 holes)
+poly 34 start AC4 L3 pts 104 holes 2 first [[-43.551, 5.2], [-29.1689, 5.2408], [-29.1512, 7.4701]]
+poly 34 ok (104 pts, 2 holes)
+poly 35 start AC1 L4 pts 218 holes 1 first [[38.6245, 4.6], [43.6311, 4.6408], [43.6422, 18.5859]]
+poly 35 ok (218 pts, 1 holes)
+poly 36 start AC2 L4 pts 182 holes 2 first [[3.949, 4.6], [8.9049, 4.6], [8.997500000000001, 4.6705]]
+poly 36 ok (182 pts, 2 holes)
+poly 37 start AC3 L4 pts 140 holes 2 first [[-8.875500000000001, 4.6], [-3.949, 4.6], [-3.85, 4.699]]
+poly 37 ok (140 pts, 2 holes)
+poly 38 start AC4 L4 pts 182 holes 2 first [[-43.551, 4.6], [-38.5951, 4.6], [-38.5025, 4.6705]]
+poly 38 ok (182 pts, 2 holes)
+polys done
+vias done
+pads done
+net AC1: 1 lumps, 0 deleted
+net AC2: 1 lumps, 0 deleted
+net AC3: 1 lumps, 0 deleted
+net DCN: 1 lumps, 0 deleted
+net AC4: 1 lumps, 0 deleted
+net DCP: 1 lumps, 0 deleted
+united: {'AC1': 'P27_AC1_L1', 'AC2': 'P28_AC2_L1', 'AC3': 'P29_AC3_L1', 'DCN': 'P0_DCN_L1', 'AC4': 'P30_AC4_L1', 'DCP': 'P18_DCP_L1'}
+terminals assigned
+validate: 1
+BB_PL_LOOP_mirror: exported

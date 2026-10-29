@@ -1,0 +1,914 @@
+polys 39 (holes 111, points 4067), vias 339, pads 128, terminals 40
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+Traceback (most recent call last):
+  File "C:\Github\KTH\PCB-Design\simulation\bb_q3d\loop_post.py", line 23, in <module>
+    leg = load("BB_PL_LOOP" + SFX)
+  File "<string>", line 60, in load
+  File "<string>", line 50, in block
+  File "<string>", line 50, in <listcomp>
+  File "<string>", line 50, in <listcomp>
+ValueError: could not convert string to float: 'N/A'
+polys 39 (holes 104, points 3281), vias 235, pads 120, terminals 32
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 DCN 2 top
+Source QL_S_2 DCN 2 top
+Source QL_S_3 DCN 2 top
+Source QL_S_4 DCN 2 top
+{
+ "all_switching": {
+  "cell1": 0.4049,
+  "cell2": 0.4055,
+  "cell3": 0.4067,
+  "cell4": 0.4102
+ },
+ "all_switching_top_bypass_only": {
+  "cell1": 0.4234,
+  "cell2": 0.4242,
+  "cell3": 0.4254,
+  "cell4": 0.4287
+ },
+ "all_switching_shunt_0pH": {
+  "cell1": 0.4049,
+  "cell2": 0.4055,
+  "cell3": 0.4067,
+  "cell4": 0.4102
+ },
+ "each_alone": {
+  "cell1": 0.3983,
+  "cell2": 0.3903,
+  "cell3": 0.3915,
+  "cell4": 0.4035
+ },
+ "matrix": "Setup1:LastAdaptive",
+ "mean_nH": 0.4068,
+ "overshoot_30Apns_V": 87.2
+}
+polys 39 (holes 343, points 6836), vias 1256, pads 171, terminals 53
+Source BankN_1 DCN 4 top
+Source BankN_2 DCN 5 top
+Source BankN_3 DCN 5 top
+Source BankN_4 DCN 4 top
+Source BankN_C DCN 2 top
+Source BankP_1 DCP 4 top
+Source BankP_2 DCP 5 top
+Source BankP_3 DCP 5 top
+Source BankP_4 DCP 4 top
+Source BankP_C DCP 2 top
+Source CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Source CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Sink J_AC AC 1 bottom
+Sink J_DCN DCN 1 bottom
+Sink J_DCP DCP 1 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Source QH_S_1 AC 2 top
+Source QH_S_2 AC 2 top
+Source QH_S_3 AC 2 top
+Source QH_S_4 AC 2 top
+Source QL_D_1 AC 3 top
+Source QL_D_2 AC 3 top
+Source QL_D_3 AC 3 top
+Source QL_D_4 AC 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+polys 39 (holes 336, points 6044), vias 1152, pads 163, terminals 45
+Source BankN_1 DCN 4 top
+Source BankN_2 DCN 5 top
+Source BankN_3 DCN 5 top
+Source BankN_4 DCN 4 top
+Source BankN_C DCN 2 top
+Source BankP_1 DCP 4 top
+Source BankP_2 DCP 5 top
+Source BankP_3 DCP 5 top
+Source BankP_4 DCP 4 top
+Source BankP_C DCP 2 top
+Source CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Source CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Sink J_AC AC 1 bottom
+Sink J_DCN DCN 1 bottom
+Sink J_DCP DCP 1 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Source QH_S_1 AC 2 top
+Source QH_S_2 AC 2 top
+Source QH_S_3 AC 2 top
+Source QH_S_4 AC 2 top
+Source QL_D_1 AC 3 top
+Source QL_D_2 AC 3 top
+Source QL_D_3 AC 3 top
+Source QL_D_4 AC 3 top
+Source QL_S_1 DCN 2 top
+Source QL_S_2 DCN 2 top
+Source QL_S_3 DCN 2 top
+Source QL_S_4 DCN 2 top
+polys 19 (holes 265, points 3365), vias 305, pads 122, terminals 28
+Source BankN_1 DCN 4 top
+Source BankN_2 DCN 5 top
+Source BankN_3 DCN 5 top
+Source BankN_4 DCN 4 top
+Source BankN_C DCN 2 top
+Source BankP_1 DCP 4 top
+Source BankP_2 DCP 5 top
+Source BankP_3 DCP 5 top
+Source BankP_4 DCP 4 top
+Source BankP_C DCP 2 top
+Source CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Source CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Sink J_DCN DCN 1 bottom
+Sink J_DCP DCP 1 bottom
+outline [-149.3, -49.05, 149.3, -3.950000000000003] bolts 6 lugs 2 vias 396 pad vias 48 keepouts 4
+['L1_J1', 'DCP', -100.5, -18.8, 10.0, 4.3]
+['L1_J2', 'DCN', -88.5, -18.8, 10.0, 4.3]
+['L2_J1', 'DCP', -6.0, -18.8, 10.0, 4.3]
+['L2_J2', 'DCN', 6.0, -18.8, 10.0, 4.3]
+['L3_J1', 'DCP', 88.5, -18.8, 10.0, 4.3]
+['L3_J2', 'DCN', 100.5, -18.8, 10.0, 4.3]
+polys 35 (holes 144, points 4030), vias 929, pads 120, terminals 32
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC 2 top
+Source QH_S_2 AC 2 top
+Source QH_S_3 AC 2 top
+Source QH_S_4 AC 2 top
+Source QL_D_1 AC 3 top
+Source QL_D_2 AC 3 top
+Source QL_D_3 AC 3 top
+Source QL_D_4 AC 3 top
+Source QL_S_1 DCN 2 top
+Source QL_S_2 DCN 2 top
+Source QL_S_3 DCN 2 top
+Source QL_S_4 DCN 2 top
+polys 35 (holes 151, points 4818), vias 1033, pads 128, terminals 40
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC 2 top
+Source QH_S_2 AC 2 top
+Source QH_S_3 AC 2 top
+Source QH_S_4 AC 2 top
+Source QL_D_1 AC 3 top
+Source QL_D_2 AC 3 top
+Source QL_D_3 AC 3 top
+Source QL_D_4 AC 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+polys 40 (holes 343, points 6795), vias 1256, pads 171, terminals 53
+Source BankN_1 DCN 4 top
+Source BankN_2 DCN 5 top
+Source BankN_3 DCN 5 top
+Source BankN_4 DCN 4 top
+Source BankN_C DCN 2 top
+Source BankP_1 DCP 4 top
+Source BankP_2 DCP 5 top
+Source BankP_3 DCP 5 top
+Source BankP_4 DCP 4 top
+Source BankP_C DCP 2 top
+Source CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Source CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Sink J_AC AC 1 bottom
+Sink J_DCN DCN 1 bottom
+Sink J_DCP DCP 1 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Source QH_S_1 AC 2 top
+Source QH_S_2 AC 2 top
+Source QH_S_3 AC 2 top
+Source QH_S_4 AC 2 top
+Source QL_D_1 AC 3 top
+Source QL_D_2 AC 3 top
+Source QL_D_3 AC 3 top
+Source QL_D_4 AC 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+polys 4 (holes 0, points 20), vias 314, pads 128, terminals 40
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+{
+ "all_switching": {
+  "cell1": 0.6438,
+  "cell2": 0.6458,
+  "cell3": 0.6422,
+  "cell4": 0.654
+ },
+ "all_switching_top_bypass_only": {
+  "cell1": 0.6621,
+  "cell2": 0.6643,
+  "cell3": 0.6607,
+  "cell4": 0.6722
+ },
+ "all_switching_shunt_0pH": {
+  "cell1": 0.5238,
+  "cell2": 0.5258,
+  "cell3": 0.5222,
+  "cell4": 0.534
+ },
+ "each_alone": {
+  "cell1": 0.6351,
+  "cell2": 0.6166,
+  "cell3": 0.613,
+  "cell4": 0.6451
+ },
+ "matrix": "Setup1:LastAdaptive",
+ "mean_nH": 0.6464,
+ "overshoot_30Apns_V": 94.4
+}
+polys 39 (holes 111, points 3101), vias 170, pads 120, terminals 32
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 DCN 2 top
+Source QL_S_2 DCN 2 top
+Source QL_S_3 DCN 2 top
+Source QL_S_4 DCN 2 top
+polys 45 (holes 114, points 3810), vias 314, pads 128, terminals 40
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+polys 45 (holes 114, points 3810), vias 314, pads 128, terminals 40
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source QL_S_3 LSRC3 2 top
+Source QL_S_4 LSRC4 2 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Sink RSI_3 LSRC3 1 top
+Sink RSI_4 LSRC4 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Source RSN_3 DCN 1 top
+Source RSN_4 DCN 1 top
+{
+ "all_switching": {
+  "cell1": 0.6475,
+  "cell2": 0.6481,
+  "cell3": 0.6449,
+  "cell4": 0.658
+ },
+ "all_switching_top_bypass_only": {
+  "cell1": 0.666,
+  "cell2": 0.6668,
+  "cell3": 0.6636,
+  "cell4": 0.6765
+ },
+ "all_switching_shunt_0pH": {
+  "cell1": 0.5275,
+  "cell2": 0.5281,
+  "cell3": 0.5249,
+  "cell4": 0.538
+ },
+ "each_alone": {
+  "cell1": 0.6387,
+  "cell2": 0.6187,
+  "cell3": 0.6155,
+  "cell4": 0.6491
+ },
+ "matrix": "Setup1:LastAdaptive",
+ "mean_nH": 0.6496,
+ "overshoot_30Apns_V": 94.5
+}
+polys 39 (holes 109, points 3063), vias 170, pads 120, terminals 32
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapN_3 DCN 6 top
+Source CapN_4 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Source CapNb_3 DCN 4 bottom
+Source CapNb_4 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapP_3 DCP 6 top
+Source CapP_4 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source CapPb_3 DCP 4 bottom
+Source CapPb_4 DCP 4 bottom
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Source QH_D_3 DCP 3 top
+Source QH_D_4 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Sink QH_S_3 AC3 2 top
+Sink QH_S_4 AC4 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_D_3 AC3 3 top
+Source QL_D_4 AC4 3 top
+Source QL_S_1 DCN 2 top
+Source QL_S_2 DCN 2 top
+Source QL_S_3 DCN 2 top
+Source QL_S_4 DCN 2 top
+{
+ "all_switching": {
+  "cell1": 0.4084,
+  "cell2": 0.4077,
+  "cell3": 0.4059,
+  "cell4": 0.4125
+ },
+ "all_switching_top_bypass_only": {
+  "cell1": 0.4271,
+  "cell2": 0.4266,
+  "cell3": 0.4248,
+  "cell4": 0.4311
+ },
+ "all_switching_shunt_0pH": {
+  "cell1": 0.4084,
+  "cell2": 0.4077,
+  "cell3": 0.4059,
+  "cell4": 0.4125
+ },
+ "each_alone": {
+  "cell1": 0.4017,
+  "cell2": 0.392,
+  "cell3": 0.3902,
+  "cell4": 0.4058
+ },
+ "matrix": "Setup1:LastAdaptive",
+ "mean_nH": 0.4086,
+ "overshoot_30Apns_V": 87.3
+}
+polys 28 (holes 55, points 1826), vias 180, pads 106, terminals 62
+Sink C13_1 KH1 1 bottom
+Source C13_2 VDDA1 1 bottom
+Source C14_1 KH1 1 bottom
+Source C14_2 VEEA1 1 bottom
+Source C15_1 KL1 1 bottom
+Source C15_2 VEEB1 1 bottom
+Sink C16_1 KL1 1 bottom
+Source C16_2 VDDB1 1 bottom
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source D1_1 OUTA1 1 top
+Sink D1_2 OFFA1 1 top
+Source D2_1 OUTB1 1 top
+Sink D2_2 OFFB1 1 top
+Source G_Q1 GH_L1 1 top
+Source G_Q2 GH_R1 1 top
+Source G_Q3 GL_L1 1 top
+Source G_Q4 GL_R1 1 top
+Source K_Q1 KH1 1 top
+Source K_Q2 KH1 1 top
+Source K_Q3 KL1 1 top
+Source K_Q4 KL1 1 top
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source R10_1 OFFB1 1 top
+Source R10_2 GL_STAR1 1 top
+Sink R1_1 GH_L1 1 top
+Source R1_2 GH_STAR1 1 top
+Source R2_1 GH_STAR1 1 top
+Sink R2_2 GH_R1 1 top
+Sink R3_1 GL_L1 1 top
+Source R3_2 GL_STAR1 1 top
+Source R4_1 GL_STAR1 1 top
+Sink R4_2 GL_R1 1 top
+Source R7_1 OUTA1 1 top
+Sink R7_2 GH_STAR1 1 top
+Source R8_1 OFFA1 1 top
+Source R8_2 GH_STAR1 1 top
+Source R9_1 OUTB1 1 top
+Sink R9_2 GL_STAR1 1 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Sink U1_10 VDDB1 1 top
+Sink U1_11 VEEA1 1 top
+Sink U1_12 OUTA1 1 top
+Sink U1_13 VDDA1 1 top
+Sink U1_8 VEEB1 1 top
+Sink U1_9 OUTB1 1 top
+Traceback (most recent call last):
+  File "C:\Github\KTH\PCB-Design\simulation\bb_q3d\gate_post.py", line 32, in <module>
+    leg = load("BB_PL_GATE_" + TAGB)
+  File "<string>", line 55, in load
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Github\\KTH\\PCB-Design\\simulation\\bb_q3d\\results\\BB_PL_GATE_dpt_matrix.txt'
+polys 75 (holes 55, points 2191), vias 180, pads 106, terminals 62
+Sink C13_1 KH1 1 bottom
+Source C13_2 VDDA1 1 bottom
+Source C14_1 KH1 1 bottom
+Source C14_2 VEEA1 1 bottom
+Source C15_1 KL1 1 bottom
+Source C15_2 VEEB1 1 bottom
+Sink C16_1 KL1 1 bottom
+Source C16_2 VDDB1 1 bottom
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source D1_1 OUTA1 1 top
+Sink D1_2 OFFA1 1 top
+Source D2_1 OUTB1 1 top
+Sink D2_2 OFFB1 1 top
+Source G_Q1 GH_L1 1 top
+Source G_Q2 GH_R1 1 top
+Source G_Q3 GL_L1 1 top
+Source G_Q4 GL_R1 1 top
+Source K_Q1 KH1 1 top
+Source K_Q2 KH1 1 top
+Source K_Q3 KL1 1 top
+Source K_Q4 KL1 1 top
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source R10_1 OFFB1 1 top
+Source R10_2 GL_STAR1 1 top
+Sink R1_1 GH_L1 1 top
+Source R1_2 GH_STAR1 1 top
+Source R2_1 GH_STAR1 1 top
+Sink R2_2 GH_R1 1 top
+Sink R3_1 GL_L1 1 top
+Source R3_2 GL_STAR1 1 top
+Source R4_1 GL_STAR1 1 top
+Sink R4_2 GL_R1 1 top
+Source R7_1 OUTA1 1 top
+Sink R7_2 GH_STAR1 1 top
+Source R8_1 OFFA1 1 top
+Source R8_2 GH_STAR1 1 top
+Source R9_1 OUTB1 1 top
+Sink R9_2 GL_STAR1 1 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Sink U1_10 VDDB1 1 top
+Sink U1_11 VEEA1 1 top
+Sink U1_12 OUTA1 1 top
+Sink U1_13 VDDA1 1 top
+Sink U1_8 VEEB1 1 top
+Sink U1_9 OUTB1 1 top
+Traceback (most recent call last):
+  File "C:\Github\KTH\PCB-Design\simulation\bb_q3d\gate_post.py", line 34, in <module>
+    leg = load("BB_PL_GATE_" + TAGB)
+  File "<string>", line 55, in load
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Github\\KTH\\PCB-Design\\simulation\\bb_q3d\\results\\BB_PL_GATE_dpt_matrix.txt'
+results\bb_q3d_gate_dpt.aedtresults\BB_PL_~1.RES\DV691_~2.CME\current.msh - The process cannot access the file because it is being used by another process.
+polys 75 (holes 55, points 2191), vias 180, pads 106, terminals 62
+Sink C13_1 KH1 1 bottom
+Source C13_2 VDDA1 1 bottom
+Source C14_1 KH1 1 bottom
+Source C14_2 VEEA1 1 bottom
+Source C15_1 KL1 1 bottom
+Source C15_2 VEEB1 1 bottom
+Sink C16_1 KL1 1 bottom
+Source C16_2 VDDB1 1 bottom
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source D1_1 OUTA1 1 top
+Sink D1_2 OFFA1 1 top
+Source D2_1 OUTB1 1 top
+Sink D2_2 OFFB1 1 top
+Source G_Q1 GH_L1 1 top
+Source G_Q2 GH_R1 1 top
+Source G_Q3 GL_L1 1 top
+Source G_Q4 GL_R1 1 top
+Source K_Q1 KH1 1 top
+Source K_Q2 KH1 1 top
+Source K_Q3 KL1 1 top
+Source K_Q4 KL1 1 top
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source R10_1 OFFB1 1 top
+Source R10_2 GL_STAR1 1 top
+Sink R1_1 GH_L1 1 top
+Source R1_2 GH_STAR1 1 top
+Source R2_1 GH_STAR1 1 top
+Sink R2_2 GH_R1 1 top
+Sink R3_1 GL_L1 1 top
+Source R3_2 GL_STAR1 1 top
+Source R4_1 GL_STAR1 1 top
+Sink R4_2 GL_R1 1 top
+Source R7_1 OUTA1 1 top
+Sink R7_2 GH_STAR1 1 top
+Source R8_1 OFFA1 1 top
+Source R8_2 GH_STAR1 1 top
+Source R9_1 OUTB1 1 top
+Sink R9_2 GL_STAR1 1 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Sink U1_10 VDDB1 1 top
+Sink U1_11 VEEA1 1 top
+Sink U1_12 OUTA1 1 top
+Sink U1_13 VDDA1 1 top
+Sink U1_8 VEEB1 1 top
+Sink U1_9 OUTB1 1 top
+polys 75 (holes 55, points 2279), vias 180, pads 106, terminals 62
+Sink C13_1 KH1 1 bottom
+Source C13_2 VDDA1 1 bottom
+Source C14_1 KH1 1 bottom
+Source C14_2 VEEA1 1 bottom
+Source C15_1 KL1 1 bottom
+Source C15_2 VEEB1 1 bottom
+Sink C16_1 KL1 1 bottom
+Source C16_2 VDDB1 1 bottom
+Sink CapN_1 DCN 6 top
+Source CapN_2 DCN 6 top
+Source CapNb_1 DCN 4 bottom
+Source CapNb_2 DCN 4 bottom
+Sink CapP_1 DCP 6 top
+Source CapP_2 DCP 6 top
+Source CapPb_1 DCP 4 bottom
+Source CapPb_2 DCP 4 bottom
+Source D1_1 OUTA1 1 top
+Sink D1_2 OFFA1 1 top
+Source D2_1 OUTB1 1 top
+Sink D2_2 OFFB1 1 top
+Source G_Q1 GH_L1 1 top
+Source G_Q2 GH_R1 1 top
+Source G_Q3 GL_L1 1 top
+Source G_Q4 GL_R1 1 top
+Source K_Q1 KH1 1 top
+Source K_Q2 KH1 1 top
+Source K_Q3 KL1 1 top
+Source K_Q4 KL1 1 top
+Source QH_D_1 DCP 3 top
+Source QH_D_2 DCP 3 top
+Sink QH_S_1 AC1 2 top
+Sink QH_S_2 AC2 2 top
+Source QL_D_1 AC1 3 top
+Source QL_D_2 AC2 3 top
+Source QL_S_1 LSRC1 2 top
+Source QL_S_2 LSRC2 2 top
+Source R10_1 OFFB1 1 top
+Source R10_2 GL_STAR1 1 top
+Sink R1_1 GH_L1 1 top
+Source R1_2 GH_STAR1 1 top
+Source R2_1 GH_STAR1 1 top
+Sink R2_2 GH_R1 1 top
+Sink R3_1 GL_L1 1 top
+Source R3_2 GL_STAR1 1 top
+Source R4_1 GL_STAR1 1 top
+Sink R4_2 GL_R1 1 top
+Source R7_1 OUTA1 1 top
+Sink R7_2 GH_STAR1 1 top
+Source R8_1 OFFA1 1 top
+Source R8_2 GH_STAR1 1 top
+Source R9_1 OUTB1 1 top
+Sink R9_2 GL_STAR1 1 top
+Sink RSI_1 LSRC1 1 top
+Sink RSI_2 LSRC2 1 top
+Source RSN_1 DCN 1 top
+Source RSN_2 DCN 1 top
+Sink U1_10 VDDB1 1 top
+Sink U1_11 VEEA1 1 top
+Sink U1_12 OUTA1 1 top
+Sink U1_13 VDDA1 1 top
+Sink U1_8 VEEB1 1 top
+Sink U1_9 OUTB1 1 top

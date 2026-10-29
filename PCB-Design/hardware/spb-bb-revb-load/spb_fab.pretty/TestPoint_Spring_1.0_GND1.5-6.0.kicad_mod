@@ -1,0 +1,15 @@
+(footprint "TestPoint_Spring_1.0_GND1.5-6.0" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr smd board_only exclude_from_pos_files exclude_from_bom)
+  (fp_text reference "REF**" (at 0 0) (layer "F.Fab") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 30223940-bb54-4c40-82f4-06f2d405f0cc)
+  )
+  (fp_text value "TestPoint" (at 0 0) (layer "F.Fab") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 6a67832c-4905-463b-81f0-f43384ebd006)
+  )
+  (pad "1" smd circle (at 0 0) (size 1 1) (layers "F.Cu" "F.Mask") (tstamp 9f502a8a-e330-495b-bdfd-b645d72c5548))
+  (pad "2" smd oval (at 3.75 0) (size 4.5 1) (layers "F.Cu" "F.Mask")
+    (thermal_bridge_angle 45) (tstamp 18e03f8a-e260-4eb2-b0ad-318a83be42a6))
+)

@@ -1,0 +1,29 @@
+{
+ "all_switching": {
+  "cell1": 0.4052,
+  "cell2": 0.4054,
+  "cell3": 0.4061,
+  "cell4": 0.4101
+ },
+ "all_switching_top_bypass_only": {
+  "cell1": 0.4237,
+  "cell2": 0.4241,
+  "cell3": 0.4248,
+  "cell4": 0.4286
+ },
+ "all_switching_shunt_0pH": {
+  "cell1": 0.4052,
+  "cell2": 0.4054,
+  "cell3": 0.4061,
+  "cell4": 0.4101
+ },
+ "each_alone": {
+  "cell1": 0.3987,
+  "cell2": 0.3902,
+  "cell3": 0.3909,
+  "cell4": 0.4035
+ },
+ "matrix": "Setup1:LastAdaptive",
+ "mean_nH": 0.4067,
+ "overshoot_30Apns_V": 87.2
+}

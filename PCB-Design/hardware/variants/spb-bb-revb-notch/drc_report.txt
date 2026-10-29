@@ -1,0 +1,290 @@
+** Drc report for C:\Github\KTH\PCB-Design\hardware\variants\spb-bb-revb-notch\spb-bb-revb.kicad_pcb **
+** Created on 2026-10-13 21:55:15 **
+
+** Found 92 DRC violations **
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(161.3500 mm, 112.6500 mm): Footprint RS3
+    @(164.2500 mm, 109.2000 mm): Footprint Q7
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(138.6500 mm, 112.6500 mm): Footprint RS2
+    @(135.7500 mm, 109.2000 mm): Footprint Q4
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(186.1500 mm, 112.6500 mm): Footprint RS4
+    @(183.2500 mm, 109.2000 mm): Footprint Q8
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(116.7500 mm, 109.2000 mm): Footprint Q3
+    @(113.8500 mm, 112.6500 mm): Footprint RS1
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(123.0000 mm, 88.3000 mm): Footprint C73
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(165.0000 mm, 88.3000 mm): Footprint C70
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(180.8500 mm, 101.2000 mm): Footprint C42
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(161.3500 mm, 112.6500 mm): Footprint RS3
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(138.6500 mm, 112.6500 mm): Footprint RS2
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(184.0500 mm, 101.2000 mm): Footprint C44
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(123.0000 mm, 95.5000 mm): Footprint C85
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(164.2500 mm, 104.9000 mm): Footprint Q5
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(135.7500 mm, 104.9000 mm): Footprint Q2
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(177.0000 mm, 88.3000 mm): Footprint C74
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(150.0000 mm, 100.0000 mm): Footprint HS1
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(186.1500 mm, 112.6500 mm): Footprint RS4
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(171.0000 mm, 88.3000 mm): Footprint C72
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(129.0000 mm, 95.5000 mm): Footprint C83
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(139.7500 mm, 101.2000 mm): Footprint C12
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(136.5500 mm, 101.2000 mm): Footprint C10
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(135.0000 mm, 95.5000 mm): Footprint C81
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(171.0000 mm, 95.5000 mm): Footprint C84
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(119.1500 mm, 101.2000 mm): Footprint C5
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(163.4500 mm, 101.2000 mm): Footprint C37
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(120.7500 mm, 101.2000 mm): Footprint C6
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(117.0000 mm, 95.5000 mm): Footprint C87
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(126.2500 mm, 119.1000 mm): Footprint U1
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(116.7500 mm, 109.2000 mm): Footprint Q3
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(185.6500 mm, 101.2000 mm): Footprint C45
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(164.2500 mm, 109.2000 mm): Footprint Q7
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(141.0000 mm, 95.5000 mm): Footprint C79
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(138.1500 mm, 101.2000 mm): Footprint C11
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(117.5500 mm, 101.2000 mm): Footprint C4
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(173.7500 mm, 119.1000 mm): Footprint U2
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(177.0000 mm, 95.5000 mm): Footprint C86
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(135.7500 mm, 109.2000 mm): Footprint Q4
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(133.3500 mm, 101.2000 mm): Footprint C8
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(187.2500 mm, 101.2000 mm): Footprint C46
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(166.6500 mm, 101.2000 mm): Footprint C39
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(150.0000 mm, 147.2000 mm): Footprint J22
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(179.2500 mm, 101.2000 mm): Footprint C41
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(159.0000 mm, 95.5000 mm): Footprint C80
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(165.0500 mm, 101.2000 mm): Footprint C38
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(131.7500 mm, 101.2000 mm): Footprint C7
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(135.0000 mm, 88.3000 mm): Footprint C69
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(115.9500 mm, 101.2000 mm): Footprint C3
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(112.7500 mm, 101.2000 mm): Footprint C1
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(183.0000 mm, 88.3000 mm): Footprint C76
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(113.8500 mm, 112.6500 mm): Footprint RS1
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(165.0000 mm, 95.5000 mm): Footprint C82
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(183.0000 mm, 95.5000 mm): Footprint C88
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(161.8500 mm, 101.2000 mm): Footprint C36
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(160.2500 mm, 101.2000 mm): Footprint C35
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(183.2500 mm, 104.9000 mm): Footprint Q6
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(129.0000 mm, 88.3000 mm): Footprint C71
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(116.7500 mm, 104.9000 mm): Footprint Q1
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(147.0000 mm, 95.5000 mm): Footprint C77
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(168.2500 mm, 101.2000 mm): Footprint C40
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(117.0000 mm, 88.3000 mm): Footprint C75
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(114.3500 mm, 101.2000 mm): Footprint C2
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(134.9500 mm, 101.2000 mm): Footprint C9
+[lib_footprint_issues]: The current configuration does not include the library 'epc2361-cell'.
+    Local override; Severity: warning
+    @(183.2500 mm, 109.2000 mm): Footprint Q8
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(153.0000 mm, 95.5000 mm): Footprint C78
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(182.4500 mm, 101.2000 mm): Footprint C43
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(179.2500 mm, 101.2000 mm): Footprint C68
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(131.7500 mm, 101.2000 mm): Footprint C34
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(165.0500 mm, 101.2000 mm): Footprint C62
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(180.8500 mm, 101.2000 mm): Footprint C67
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(139.2500 mm, 103.6700 mm): Footprint J9
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(184.0500 mm, 101.2000 mm): Footprint C65
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(113.2500 mm, 114.9000 mm): Footprint J8
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(186.7500 mm, 114.9000 mm): Footprint J21
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(186.7500 mm, 103.6700 mm): Footprint J19
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(142.4500 mm, 107.9700 mm): Footprint J10
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(133.3500 mm, 101.2000 mm): Footprint C33
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(115.9500 mm, 101.2000 mm): Footprint C27
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(182.4500 mm, 101.2000 mm): Footprint C66
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(120.7500 mm, 101.2000 mm): Footprint C30
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(113.2500 mm, 106.1300 mm): Footprint J6
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(134.9500 mm, 101.2000 mm): Footprint C32
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(160.7500 mm, 106.1300 mm): Footprint J16
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(157.5500 mm, 110.4300 mm): Footprint J17
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(160.7500 mm, 114.9000 mm): Footprint J18
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(119.1500 mm, 101.2000 mm): Footprint C29
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(117.5500 mm, 101.2000 mm): Footprint C28
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(136.5500 mm, 101.2000 mm): Footprint C31
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(189.9500 mm, 107.9700 mm): Footprint J20
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(139.2500 mm, 114.9000 mm): Footprint J11
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(163.4500 mm, 101.2000 mm): Footprint C61
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(110.0500 mm, 110.4300 mm): Footprint J7
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(168.2500 mm, 101.2000 mm): Footprint C64
+[lib_footprint_issues]: The current configuration does not include the library 'spb_fab'.
+    Local override; Severity: warning
+    @(166.6500 mm, 101.2000 mm): Footprint C63
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

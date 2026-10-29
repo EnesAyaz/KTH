@@ -1,0 +1,58 @@
+geometry loaded: 19 polys, 305 vias (AC bus vias every 1)
+project new
+project renamed
+design ready
+poly 0 start DCN L1 pts 8 holes 0 first [[39.7092, -4.1811], [39.75, 0.80100000000000005], [39.651, 0.90000000000000002]]
+poly 0 ok (8 pts, 0 holes)
+poly 1 start DCN L1 pts 18 holes 0 first [[41.3621, -12.2], [41.0621, -11.9], [42.5621, -10.4]]
+poly 1 ok (18 pts, 0 holes)
+poly 2 start DCN L2 pts 101 holes 130 first [[-9.9519, -23.3811], [-9.915900000000001, -23.2704], [-10.4268, -22.7521]]
+poly 2 ok (101 pts, 130 holes)
+poly 3 start DCN L4 pts 8 holes 0 first [[-28.4908, -1.1811], [-28.45, 0.85099999999999998], [-28.5184, 0.94520000000000004]]
+poly 3 ok (8 pts, 0 holes)
+poly 4 start DCN L4 pts 8 holes 0 first [[-9.4908, -1.1811], [-9.449999999999999, 0.85099999999999998], [-9.5184, 0.94520000000000004]]
+poly 4 ok (8 pts, 0 holes)
+poly 5 start DCN L4 pts 8 holes 0 first [[19.0092, -1.1811], [19.05, 0.85099999999999998], [18.9816, 0.94520000000000004]]
+poly 5 ok (8 pts, 0 holes)
+poly 6 start DCN L4 pts 8 holes 0 first [[38.0092, -1.1811], [38.05, 0.85099999999999998], [37.9816, 0.94520000000000004]]
+poly 6 ok (8 pts, 0 holes)
+poly 7 start DCN L4 pts 62 holes 0 first [[-9.9519, -23.3811], [-9.915900000000001, -23.2704], [-10.2586, -22.9631]]
+poly 7 ok (62 pts, 0 holes)
+poly 8 start DCP L1 pts 27 holes 0 first [[-28.7908, 1.5189], [-28.75, 4.3], [-30.1465, 4.3]]
+poly 8 ok (27 pts, 0 holes)
+poly 9 start DCP L1 pts 29 holes 0 first [[-9.790800000000001, 1.5189], [-9.75, 4.3], [-12.4495, 4.3]]
+poly 9 ok (29 pts, 0 holes)
+poly 10 start DCP L1 pts 27 holes 0 first [[18.7092, 1.5189], [18.75, 4.3], [17.3535, 4.3]]
+poly 10 ok (27 pts, 0 holes)
+poly 11 start DCP L1 pts 29 holes 0 first [[37.7092, 1.5189], [37.75, 4.3], [35.0505, 4.3]]
+poly 11 ok (29 pts, 0 holes)
+poly 12 start DCP L1 pts 12 holes 0 first [[39.7092, -7.9756], [39.75, -7.25], [42.3, -7.25]]
+poly 12 ok (12 pts, 0 holes)
+poly 13 start DCP L1 pts 50 holes 2 first [[2.0481, -23.3811], [2.0841, -23.2704], [1.7414, -22.9631]]
+poly 13 ok (50 pts, 2 holes)
+poly 14 start DCP L3 pts 103 holes 133 first [[2.0481, -23.3811], [2.0841, -23.2704], [1.5732, -22.7521]]
+poly 14 ok (103 pts, 133 holes)
+poly 15 start DCP L4 pts 8 holes 0 first [[-28.4908, 1.4689], [-28.45, 3.201], [-28.5184, 3.2952]]
+poly 15 ok (8 pts, 0 holes)
+poly 16 start DCP L4 pts 22 holes 0 first [[-11.4759, 1.4689], [-11.44, 1.5796], [-11.5755, 1.8657]]
+poly 16 ok (22 pts, 0 holes)
+poly 17 start DCP L4 pts 8 holes 0 first [[19.0092, 1.4689], [19.05, 3.201], [18.9816, 3.2952]]
+poly 17 ok (8 pts, 0 holes)
+poly 18 start DCP L4 pts 22 holes 0 first [[36.0241, 1.4689], [36.06, 1.5796], [35.9245, 1.8657]]
+poly 18 ok (22 pts, 0 holes)
+polys done
+vias done
+pads done
+net DCP: 1 lumps, 0 deleted
+net DCN: 1 lumps, 0 deleted
+united: {'DCP': 'P8_DCP_L1', 'DCN': 'P0_DCN_L1'}
+terminals assigned
+setup: BANK, DC only False
+validate: 0
+FAILED Exception('Analyze(string simulationName, [bool isBlocking /*optional*/])(Setup1) - call failed. Logs or message window might have more details',)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Parts P8_DCP_L1 and P0_DCN_L1 intersect. (01:25:50 PM  Oct 15, 2026)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Error - Object 'P8_DCP_L1' in Net 'DCP' and object 'P0_DCN_L1' in Net 'DCN' are touching.   (01:25:50 PM  Oct 15, 2026)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Error - Net 'DCP' and Net 'DCN' overlap.   (01:25:50 PM  Oct 15, 2026)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Parts P8_DCP_L1 and P0_DCN_L1 intersect. (01:25:58 PM  Oct 15, 2026)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Simulation completed with execution error on server: Local Machine. (01:25:59 PM  Oct 15, 2026)
+MSG Project: bb_q3d_bank_load, Design: BB_PL_BANK_load, [error]  Script macro error: Simulation for bb_q3d_bank_load : BB_PL_BANK_load : Setup1 has failed with execution error.  (01:26:01 PM  Oct 15, 2026)

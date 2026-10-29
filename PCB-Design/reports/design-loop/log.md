@@ -63,3 +63,11 @@ Not committed: spb-bb-fab.kicad_pro and hardware/To-do.txt (standing rule), load
 (frozen boards, changes predate these rounds), untracked notes/drafts of Enes's.
 Note: scripts/make_poster.py would now overwrite Enes's SVG edits; port them before regenerating.
 Commit: 80e2a07
+
+## 2026-10-29 - Commit all, ignore generated files
+Comment (Enes): commit all 556 changes; generated files (e.g. LTspice run outputs) go to .gitignore.
+Done: root .gitignore extended (Office ~$ locks, LaTeX aux/bbl/blg/fls/fdb_latexmk/synctex, __pycache__/pyc,
+LTspice .op.raw, Ansys .aedt.auto/.temp/.lock/.aedtresults, tmp/ and .build/ scratch folders, KiCad generator
+caches, the 64 MB downloaded PCB-design thesis). 556 -> 419 changes, committed per project (Review-Paper-SPB,
+Airgap Harmonics, PresentationOfMeetings, PCB-Design). Q3D .aedt models kept (convention, each < 20 MB).
+CLAUDE.md commit rule updated: the old do-not-commit list is lifted.
