@@ -561,107 +561,30 @@
   "g_eff_1.30mm": {
    "Lm_H": 4.317923076923071e-05,
    "coupling_k": 0.7262143243544111,
-   "P_max_standstill_10pct_V_W": 2031.8256513217393,
-   "start_4kW": {
-    "nu": 8,
-    "speed_rpm": 1.0,
-    "f_inj_stator_Hz": 660.9718148945396,
-    "f_rotor_Hz": 661.105148227873,
-    "P_field_W": 4000.0,
-    "P_rotor_winding_W": 4165.364990107259,
-    "psi_rms_Wb": 0.0005584133263058669,
-    "B_nu_peak_T": 0.05013812132937081,
-    "V_inj_rms_V": 4.120208737410841,
-    "V_inj_over_Vmax": 0.14164784618124188,
-    "I_inj_rms_A": 39.58373416832431,
-    "I_inj_over_Imax": 0.14876080455535265,
-    "I_load_ref_A": 37.411544979882414,
-    "I_mag_A": 12.932451930194857,
-    "P_from_inverter_W": 4368.271992441506,
-    "P_from_shaft_W": 0.8400811885521762,
-    "exciter_torque_Nm": 0.0,
-    "P_cu_stator_extra_W": 162.09683356149534,
-    "P_fe_stator_W": 41.65024996130512,
-    "P_fe_rotor_W": 6.009705227281761,
-    "B_yoke_nu_T": 0.04136395009673092,
-    "rotor_iron_mass_kg": 41.221116024099686,
-    "P_harvest_winding_W": 124.96094970321785,
-    "P_rectifier_W": 40.40404040404064,
-    "P_chain_loss_W": 375.1217788573407,
-    "chain_efficiency": 0.9142602656981786
-   }
+   "start_torque_ratio_peak_rule": 0.8830348204418922,
+   "start_I_inj_over_Imax": 0.1169651795581078,
+   "start_B_nu_T": 0.08335064123210384
   },
   "g_eff_1.08mm": {
    "Lm_H": 5.2172479566597e-05,
    "coupling_k": 0.7474803784185017,
-   "P_max_standstill_10pct_V_W": 1932.438339689213,
-   "start_4kW": {
-    "nu": 8,
-    "speed_rpm": 1.0,
-    "f_inj_stator_Hz": 660.9718148945396,
-    "f_rotor_Hz": 661.105148227873,
-    "P_field_W": 4000.0,
-    "P_rotor_winding_W": 4165.364990107259,
-    "psi_rms_Wb": 0.00054441987438329,
-    "B_nu_peak_T": 0.048881694669655716,
-    "V_inj_rms_V": 4.1737685140251655,
-    "V_inj_over_Vmax": 0.14348916721201446,
-    "I_inj_rms_A": 39.7666676224194,
-    "I_inj_over_Imax": 0.14944829219094444,
-    "I_load_ref_A": 38.37314958077679,
-    "I_mag_A": 10.435000960388518,
-    "P_from_inverter_W": 4367.7123948837,
-    "P_from_shaft_W": 0.8400811885521762,
-    "exciter_torque_Nm": 0.0,
-    "P_cu_stator_extra_W": 163.59853388176137,
-    "P_fe_stator_W": 39.5889520832319,
-    "P_fe_rotor_W": 5.712281018679165,
-    "B_yoke_nu_T": 0.04032739810246597,
-    "rotor_iron_mass_kg": 41.221116024099686,
-    "P_harvest_winding_W": 124.96094970321785,
-    "P_rectifier_W": 40.40404040404064,
-    "P_chain_loss_W": 374.2647570909309,
-    "chain_efficiency": 0.9144393908749517
-   }
+   "start_torque_ratio_peak_rule": 0.8930589609382584,
+   "start_I_inj_over_Imax": 0.10694103906174152,
+   "start_B_nu_T": 0.10098160721712228
   },
   "g_eff_2.00mm": {
    "Lm_H": 2.8066499999999962e-05,
    "coupling_k": 0.6669416511672572,
-   "P_max_standstill_10pct_V_W": 2165.4354841613713,
-   "start_4kW": {
-    "nu": 8,
-    "speed_rpm": 1.0,
-    "f_inj_stator_Hz": 660.9718148945396,
-    "f_rotor_Hz": 661.105148227873,
-    "P_field_W": 4000.0,
-    "P_rotor_winding_W": 4165.364990107259,
-    "psi_rms_Wb": 0.0006420601123662173,
-    "B_nu_peak_T": 0.05764849493748309,
-    "V_inj_rms_V": 4.466875434629241,
-    "V_inj_over_Vmax": 0.15356583241283475,
-    "I_inj_rms_A": 39.77468441649644,
-    "I_inj_over_Imax": 0.14947842034236603,
-    "I_load_ref_A": 32.5376158276935,
-    "I_mag_A": 22.876386879953618,
-    "P_from_inverter_W": 4383.2521036353455,
-    "P_from_shaft_W": 0.8400811885521762,
-    "exciter_torque_Nm": 0.0,
-    "P_cu_stator_extra_W": 163.66450209262356,
-    "P_fe_stator_W": 55.06269262401621,
-    "P_fe_rotor_W": 7.944983571483707,
-    "B_yoke_nu_T": 0.04756000832342355,
-    "rotor_iron_mass_kg": 41.221116024099686,
-    "P_harvest_winding_W": 124.96094970321785,
-    "P_rectifier_W": 40.40404040404064,
-    "P_chain_loss_W": 392.03716839538197,
-    "chain_efficiency": 0.9107391050293385
-   }
+   "start_torque_ratio_peak_rule": 0.854998155578352,
+   "start_I_inj_over_Imax": 0.14500184442164812,
+   "start_B_nu_T": 0.06879796811775155
   },
   "g_eff_3.00mm": {
    "Lm_H": 1.8710999999999974e-05,
    "coupling_k": 0.5972978287687617,
-   "P_max_standstill_10pct_V_W": 2138.426671142035,
-   "start_4kW": null
+   "start_torque_ratio_peak_rule": 0.8223862670441101,
+   "start_I_inj_over_Imax": 0.17761373295588992,
+   "start_B_nu_T": 0.05678613082232786
   }
  },
  "tank_frequency_sensitivity_start_4kW": {
@@ -1436,6 +1359,42 @@
     }
    ],
    "P_at_90kmh_kW": 338.11621714593315
+  }
+ },
+ "alternative_order_5": {
+  "WRSM_s0": {
+   "order_params": {
+    "nu": 5,
+    "k_w": 0.7518398074789774,
+    "k_w_numeric": 0.7516712778450648,
+    "Lm_H": 0.00024993408688399023,
+    "L_sigma_H": 2.5897189079377683e-05,
+    "sigma_diff": 0.031737704669109565,
+    "coupling_k": 0.9061122093971062,
+    "psi_rms_per_T": 0.03789465954998613,
+    "module_current_sum_pu": 3.2826762290599817e-15,
+    "injectable_by_SPB": true
+   },
+   "f_r0_Hz": 413.19071764242057,
+   "start": {
+    "speed_rpm": 10.0,
+    "f_inj_Hz": 412.35738430908725,
+    "V_inj_over_Vmax": 0.2905309266270453,
+    "I_inj_over_Imax": 0.06147795230446928,
+    "B_nu_peak_T": 0.10955536509698957,
+    "T_envelope_Nm": 2512.972785661506,
+    "T_with_injection_Nm": 2358.4803646021787,
+    "torque_ratio": 0.9385220476955308
+   },
+   "start_grade_pct": 11.184136314310358,
+   "cruise": {
+    "eta_with_injection": 0.9688179238202732,
+    "delta_eta_vs_T03c_pts": -0.0582119536155945,
+    "B_nu_peak_T": 0.019068496511434583
+   },
+   "UMP_force_at_start_N": 6507.5886867611825,
+   "UMP_force_at_cruise_N": 1132.6686927792143,
+   "note": "order-1 rotating radial force (orders 4 and 5 differ by 1) at the slip frequency of the injected wave; bearing/NVH load"
   }
  },
  "torque_ripple_and_forces": {

@@ -97,8 +97,8 @@ def wrsm_design(gm_mm, quick=False):
 
 sweep = [wrsm_design(g) for g in (1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0)]
 D["wrsm_gap_sweep"] = sweep
-# selection rule: smallest gap with L_d(2p=8, full field) <= 1.5 pu and J_f <= 6 A/mm2
-chosen = next(s for s in sweep if s["2p8"]["L_d_pu"] <= 1.5 and s["rotor"]["J_f_A_mm2"] <= 6.0)
+# selection rule: smallest gap with L_d(2p=8, full field) <= 1.6 pu and J_f <= 6 A/mm2
+chosen = next(s for s in sweep if s["2p8"]["L_d_pu"] <= 1.6 and s["rotor"]["J_f_A_mm2"] <= 6.0)
 D["wrsm"] = dict(chosen_g_mech_mm=chosen["g_mech_mm"], g_eff_mm=chosen["g_eff_mm"], gs_vs_IM_geff=chosen["g_eff_mm"] * 1e-3 / c.GEFF, r_int=chosen["g_eff_mm"] * 1e-3 / G["interpolar_path_length_m"],
                  F_pole_At=chosen["F_pole_At"], P_field_full_W=chosen["rotor"]["P_field_full_W"], J_f_A_mm2=chosen["rotor"]["J_f_A_mm2"],
                  L_d_pu_2p8=chosen["2p8"]["L_d_pu"], L_q_pu_2p8=chosen["2p8"]["L_q_pu"], L_d_pu_2p4=chosen["2p4"]["L_d_pu"], L_q_pu_2p4=chosen["2p4"]["L_q_pu"],
@@ -106,7 +106,7 @@ D["wrsm"] = dict(chosen_g_mech_mm=chosen["g_mech_mm"], g_eff_mm=chosen["g_eff_mm
                  tau_f_s_2p8=chosen["2p8"]["tau_f_s"], tau_f_s_2p4=chosen["2p4"]["tau_f_s"], rotor=chosen["rotor"],
                  pu_base=dict(L_base_H=LB, psi_base_rms_Wb=PSIB, note="V_max/(I_max w_ref), w_ref = 4 pole pairs at 1200 rpm, 350 kW current (T03 base)"),
                  analyst=dict(L_d_pu=1.10, L_q_pu=0.65, psi_f_max_pu=0.85, P_field_W=4000.0, tau_f_s=0.0446, g_eff_mm_implied="about 1.3 mm for tau_f and F, about 5 mm for L_d"),
-                 selection_rule="smallest g with L_d(2p=8, full field) <= 1.5 pu and J_f <= 6 A/mm2; field fill 0.5 of half an interpolar slot 55 mm deep")
+                 selection_rule="smallest g with L_d(2p=8, full field) <= 1.6 pu and J_f <= 6 A/mm2; field fill 0.5 of half an interpolar slot 55 mm deep")
 D["wrsm"]["verdict"] = ("An analyst WRSM with L_d = 1.10 pu is not physical at the IM gap (g_eff 1.08 mm gives L_d = %.1f pu). A 300 kW, 8-pole WRSM in this stator needs a mechanical gap of about %.0f mm "
                         "(g_eff %.1f mm), %.0f A-turns per pole at B0 = 0.71 T, J_f = %.1f A/mm2 and %.1f kW of field copper. The analyst's 4 kW and 45 ms correspond to 737 A-turns, i.e. the IM gap."
                         % (sweep[0]["2p8"]["L_d_pu"], chosen["g_mech_mm"], chosen["g_eff_mm"], chosen["F_pole_At"], chosen["rotor"]["J_f_A_mm2"], chosen["rotor"]["P_field_full_W"] / 1e3))
