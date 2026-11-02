@@ -191,14 +191,26 @@ def rotor_salient(theta, Fpole, arc=0.7, r_int=0.08, gs=1.0):
 
 
 def _tooth_solve(U, P, Feff):
-    X = P * (np.abs(U) + np.abs(Feff)) + 1e-15
-    lo, hi = -X, X
-    for _ in range(55):
-        mid = 0.5 * (lo + hi)
-        f = mid / P + Feff + H_T * H_of_B(mid / AT) - U
-        pos = f > 0
-        hi = np.where(pos, mid, hi); lo = np.where(pos, lo, mid)
-    phi = 0.5 * (lo + hi)
+    # Newton from the iron-free guess (monotone from the right for a convex B-H), bisection fallback for entries that do not converge
+    phi = P * (U - Feff)
+    for _ in range(14):
+        B = phi / AT
+        f = phi / P + Feff + H_T * H_of_B(B) - U
+        df = 1.0 / P + H_T * dH_of_B(B) / AT
+        d = f / df
+        phi = phi - np.clip(d, -0.6 * np.abs(phi) - 1e-9, 0.6 * np.abs(phi) + 1e-9)
+    f = phi / P + Feff + H_T * H_of_B(phi / AT) - U
+    bad = np.abs(f) > 1e-7 * (np.abs(U) + np.abs(Feff) + 1.0)
+    if bad.any():
+        Ub, Pb, Fb = U[bad], P[bad], Feff[bad]
+        X = Pb * (np.abs(Ub) + np.abs(Fb)) + 1e-15
+        lo, hi = -X, X
+        for _ in range(60):
+            mid = 0.5 * (lo + hi)
+            fm = mid / Pb + Fb + H_T * H_of_B(mid / AT) - Ub
+            pos = fm > 0
+            hi = np.where(pos, mid, hi); lo = np.where(pos, lo, mid)
+        phi[bad] = 0.5 * (lo + hi)
     G = 1.0 / (1.0 / P + H_T * dH_of_B(phi / AT) / AT)
     return phi, G
 

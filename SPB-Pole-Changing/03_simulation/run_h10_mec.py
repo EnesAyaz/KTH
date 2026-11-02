@@ -19,7 +19,7 @@ NMOD = 16
 V0 = 75.0
 TAU = c.TAU
 ALPHA = np.arange(Q) * TAU
-NS_STEP = 2                       # replay sample = NS_STEP * dt = 0.2 ms
+NS_STEP = 4                       # replay sample = NS_STEP * dt = 0.4 ms (Nyquist 1.25 kHz, highest analysed pulsation 560 Hz)
 
 
 def modal(k_vals, p):

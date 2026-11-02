@@ -130,3 +130,17 @@ Note: with T_d0 = T_d1000 the printed formula gives a drag term that grows linea
 
 ### 8.5 Updated truck cycle numbers (full texts now read)
 See section 1 above for corrected Chen2025electromagnetic and Mademlis2020performance values and the CPSR 3.33 vs 1.98 resolution.
+
+
+## 9. Truck AMT gear-shift torque interruption (T02e, 2026-11-02)
+Purpose: set whether a 0.13-0.2 s pole-change torque gap is acceptable.
+
+**Result: I found no published absolute measurement of heavy-truck AMT torque-interruption time in sources I could open.** What exists:
+| Item | Value | Source | Status |
+|---|---|---|---|
+| Volvo I-Shift (2022 update) | up to 30 % faster gear changing, shorter torque interruption through faster clutch; no seconds given | Volvo2022ishift | read, OEM claim, relative only |
+| Clutchless-AMT design target, passenger-EV simulation | stage duration 200 ms chosen to keep total shift time below 1 s; 20 ms minimal; 400 ms maximal with peak jerk about 30 m/s3 | Walker2015dynamics | read, simulation |
+| Patent statements (US patents on AMT shift control, seen only through search-result summaries, not opened) | AMT shift times often in excess of one second; conventional shift strategies half a second to one second; range-box change about 0.15 s | USPTO 11124172 and 7247115 | UNVERIFIED, not read; do not cite without opening |
+| Regulation (EU) 2017/2400 | automatic transmissions shift 'normally without traction interruption'; AMT interruption defaults are in the VECTO tool, not in the regulation text I read | EU2017regulation | default values not found |
+| Single-motor AMT e-drive | 'cannot eliminate torque interruption' even with motor speed regulation | Xu et al., Automotive Innovation 2021 (DOI 10.1007/s42154-020-00129-7; abstract and introduction read) | qualitative |
+Judgement (mine): shifts of one second or longer, or at least several hundred ms, are reported qualitatively for truck AMTs, so a 0.13-0.2 s pole-change gap is within or below what drivers already accept at gear changes; but the quantitative basis is thin (one OEM relative claim, one simulation, unopened patents). Ask the VECTO user manual or an OEM for the default traction-interruption values before quoting a number.
