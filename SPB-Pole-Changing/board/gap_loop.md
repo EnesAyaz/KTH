@@ -37,3 +37,34 @@ to writer for a paper outline.
 - Cruise efficiency is not where pole changing wins at 300 kW (T03d); gear stages dominate.
 - Pure WRSM gains nothing from pole changing (T03, confirmed by Enes's OPT FEA, P5).
 - All verified on-road e-trucks use PMSM; IM is mining/rail only (T02c).
+
+## Iteration 1 result (2026-11-02)
+| H | Score | Decision |
+|---|---|---|
+| H01 | 2.9 | merged into H11 |
+| H02 | 2.5 | refine -> H02r (electronic gearbox vs 2-speed, needs T07 cycle) |
+| H03 | 2.9 | refine -> H03s (SPB self-excitation of fixed-pole WRSM/HESM) |
+| H04 | 2.0 | killed (rule -> H01/H11) |
+| H05 | 1.7 | killed (cell bypass already published, Verkroost 2024) |
+| H06 | 2.0 | killed as stated (done for IM by UIUC/KTH) |
+| H07 | 2.4 | killed (yoke-capped 4-pole flux) |
+| H08 | – | folded into H11 (post-bypass table) |
+| H09 | – | open (per-mode turns change; open-end feeding admissible per H10) |
+| H10 | – | screened, merged into H11 |
+| H11 | 2.8 | **refine — front-runner** |
+
+What iteration 1 established: pole changing pays only for the IM, and mainly as inverter sizing / single-ratio gearing, not
+cruise efficiency. The SPB-specific novelty concentrates in the series stack: cell power pulsation under multi-order
+operation (H11), which makes the phase number a design variable. Critic's framing: a design law with two positive
+designs (m = 3 + pulsation-constrained schedule / bulk C vs m = 5 with overlap and exciterless excitation), cost
+crossover, and a cheap Rev B cell experiment. Target TPEL Letter or ECCE 2027 -> TIE.
+
+## Iteration 2 plan
+- simulator: confirm_H10 with the nonlinear MEC + DC cells (m = 3 and m = 5, flat and 2 % grade): true crossfade
+  envelope, saturation residual for m = 5, V8·I4 term in the sequential handover.
+- analyst: cost table m = 3 + bulk C vs m = 5 (IM transient, continuous H03s excitation, post-bypass N−1);
+  H11s pulsation-constrained m = 3 handover (≤ ±10 % at 2.9 mF, gap ≤ 0.2 s, no torque reversal); post-bypass mode table.
+- lit-scout: full-text check of Zoric2018arbitrary, Subotic2019active, Sau2019modular for the law; AMT shift-interruption
+  numbers for trucks; Verkroost2024PowerDistribution vs module interleaving under eccentricity.
+- then gap-critic re-scores H11 (and H11s, H02r, H03s if evidence exists).
+

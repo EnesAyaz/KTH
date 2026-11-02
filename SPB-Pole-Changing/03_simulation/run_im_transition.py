@@ -43,7 +43,7 @@ class Mode:
 
 
 def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t_f2=0.03, tau_i=1e-3, Tc=0.015,
-             psi2_scale=1.0, label="", active_demag=True, torque_first=True):
+             psi2_scale=1.0, label="", active_demag=True, torque_first=True, seq_eps=None, full_log=False):
     # steady states before / after
     par4, par2 = c.im_params(4), c.im_params(2)
     T0 = T_req
@@ -123,7 +123,10 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
         T2 = c.M / 2 * m2.p * (m2.Lm / m2.Lr) * np.imag(np.conj(psi2) * i2)
         Tl = road_torque(Om / c.RPM, grade)
         dOm = (T4 + T2 - Tl) / J_EQ
-        return (di[0], dpsi[0], di[1], dpsi[1], dOm), dict(T4=T4, T2=T2, Tl=Tl, v4=abs(g * ff[0] + s * vd[0]), v2=abs(g * ff[1] + s * vd[1]), s=s, g=g)
+        va0, va1 = g * ff[0] + s * vd[0], g * ff[1] + s * vd[1]
+        return (di[0], dpsi[0], di[1], dpsi[1], dOm), dict(T4=T4, T2=T2, Tl=Tl, v4=abs(va0), v2=abs(va1), s=s, g=g, va0=va0, va1=va1)
+
+    trig = {"t": None}
 
     def ref(t):
         # mode 4: torque ramps down over t_d, flux ref ramps to 0 over t_f4 (starting at t_d if torque_first else 0)
@@ -131,14 +134,16 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
         t0f = 0.0
         f4 = max(0.0, 1.0 - max(0.0, t - t0f) / t_f4)
         # mode 2: flux ref ramps up over t_f2; torque = remaining demand
-        f2 = min(1.0, t / t_f2)
+        t2 = t if seq_eps is None else (-1.0 if trig["t"] is None else t - trig["t"])
+        f2 = min(1.0, max(t2, 0.0) / t_f2)
         return ({"on": True, "psi_ref": psi4_0 * f4, "T_ref": T0 * r4},
-                {"on": t > 0, "psi_ref": psi2_f * f2, "T_ref": 0.0})
+                {"on": t2 > 0, "psi_ref": psi2_f * f2, "T_ref": 0.0})
 
     # mode 2 torque reference: take what mode 4 no longer provides, resolved inside the loop
     nsteps = int(t_end / dt)
     state = (i4, psir4, i2, psir2 + 1e-9, Om)
     log = []
+    cplx = []
     t = 0.0
     T2req = {"v": 0.0}
 
@@ -148,12 +153,15 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
 
     for k in range(nsteps):
         # outer: T2 ref = T_req - T4 (mode 4 torque as currently produced)
+        if seq_eps is not None and trig["t"] is None and abs(state[1]) < seq_eps * psi4_0:
+            trig["t"] = t
         a, b = ref(t)
         T4now = c.M / 2 * m4.p * (m4.Lm / m4.Lr) * np.imag(np.conj(state[1]) * state[0])
         b["T_ref"] = max(0.0, T0 - T4now) * (1.0 if abs(state[3]) > 1e-3 else 0.0)
 
         def rf(tt, a=a, b=b):
             return (a, b)
+        st0, t0 = state, t
         k1, d1 = deriv(state, t, rf)
         s2 = tuple(x + 0.5 * dt * y for x, y in zip(state, k1))
         k2, _ = deriv(s2, t + dt / 2, rf)
@@ -163,6 +171,8 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
         k4, _ = deriv(s4, t + dt, rf)
         state = tuple(x + dt / 6 * (p1 + 2 * p2 + 2 * p3 + p4) for x, p1, p2, p3, p4 in zip(state, k1, k2, k3, k4))
         t += dt
+        if full_log:
+            cplx.append((t0, st0[0], st0[2], d1["va0"], d1["va1"]))
         if k % 20 == 0:
             i4s, p4s, i2s, p2s, Oms = state
             log.append((t, d1["T4"], d1["T2"], d1["Tl"], abs(i4s), abs(i2s), abs(p4s), abs(p2s), Oms / c.RPM, d1["v4"], d1["v2"],
@@ -191,6 +201,8 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
                ss_before=dict(psi=ss4["psi"], I=ss4["I"], V=ss4["V"]), ss_after=dict(psi=ss2["psi"], I=ss2["I"], V=ss2["V"]))
     series = dict(t=t.tolist(), T4=L[:, 1].tolist(), T2=L[:, 2].tolist(), T_load=L[:, 3].tolist(), I4_pk=L[:, 4].tolist(), I2_pk=L[:, 5].tolist(),
                   psi4=(L[:, 6] / c.SQ2).tolist(), psi2=(L[:, 7] / c.SQ2).tolist(), n_rpm=L[:, 8].tolist(), I_rms=irms.tolist())
+    if full_log:
+        series['cplx'] = cplx
     return res, series
 
 
