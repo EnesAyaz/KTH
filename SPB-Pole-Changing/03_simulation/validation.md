@@ -2,6 +2,8 @@
 
 Date 2026-10-29. Simulator: `03_simulation/`. Analyst file checked: `02_analytics/results/torque_speed_envelope.json` (350 kW; the 300 kW rerun is not validated here).
 
+> **R01 update (2026-11-02):** flag 3 below (flux caps) and the low-speed IM rows were numerical artifacts of my model (coarse magnetising-curve and slip grids). After the fix the IM agrees within 1.5 % at low speed and the remaining IM difference is stator slot leakage only. See `reconcile_R01.md` and `results/validation_points_T04_rerun.json`.
+
 ## FLAGS (read first)
 
 * **59 of 136 compared numbers differ by more than 5 %** (all rows in the appendix). The disagreement is not random. It has three identifiable causes:
