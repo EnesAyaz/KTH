@@ -50,6 +50,7 @@ DEVICE_CSV = os.path.join(KTH, "PCB-Design", "reports", "paper", "icpe", "GaN_de
 RES = os.path.join(ROOT, "02_analytics", "results")
 OUT = {k: os.path.join(RES, f) for k, f in (("master", "module_count_sweep.json"), ("H01", "screen_H01.json"),
                                              ("H02", "screen_H02.json"), ("H04", "screen_H04.json"), ("H05", "screen_H05.json"))}
+OUT = {k: v.replace(".json", f"{T3.GEOM_TAG}.json") for k, v in OUT.items()}
 
 V_DC = T3.INV["V_dc_V"]
 N_LIST = [2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24]
@@ -85,7 +86,7 @@ def apply_machine_inputs(over):
 
 def machine_inputs_from_argv(argv):
     over, tag = {}, []
-    if "--geometry" in argv:
+    if "--geometry" in argv and not T3.GEOMETRY_PATH:      # agreed-geometry files (with "derived") are applied by T3
         g = json.load(open(argv[argv.index("--geometry") + 1]))
         g = g.get("analyst_inputs", g)
         over.update({k: g[k] for k in MACHINE_INPUT_KEYS if k in g})

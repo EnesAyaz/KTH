@@ -1,0 +1,316 @@
+{
+ "meta": {
+  "task": "R01 (analyst side)",
+  "date": "2026-11-02",
+  "source": "compiled from the old and _R01 results files in 02_analytics/results (no new physics)",
+  "geometry": "data/machine_geometry.json (simulator, R01)",
+  "how_to_rerun": "SPB_GEOMETRY=data/machine_geometry.json (or --geometry for torque_speed_envelope.py / module_count_sweep.py); outputs get the suffix _R01",
+  "calibration": {
+   "source": "data/machine_geometry.json",
+   "lam_slot_self": 2.9277777777777776,
+   "lam_slot_mut": 2.2166666666666663,
+   "g_eff_m": 0.0010759120606554152,
+   "B_yoke_max_T": 1.3775,
+   "B_gap_max_T": 0.9143281135508616,
+   "lam_bar": 1.6870748299319724,
+   "note": "IM only. WRSM/PMSM per-unit inputs are NOT updated here (R01 WRSM reactances: see the T03c/H03 note).",
+   "diff_leak_factor": 1.1487744152710344,
+   "rotor_leak_factor": 1.024814425933348,
+   "check_vs_agreed": {
+    "2p8": {
+     "L_slot_H": {
+      "model": 3.94729667702784e-05,
+      "agreed": 3.94729667702784e-05,
+      "rel": 0.0
+     },
+     "L_diff_H": {
+      "model": 2.5694697631309426e-05,
+      "agreed": 2.5694697631309426e-05,
+      "rel": 0.0
+     },
+     "L_sigma_s_H": {
+      "model": 6.683811443071241e-05,
+      "agreed": 6.683811443071241e-05,
+      "rel": 0.0
+     },
+     "L_sigma_r_H": {
+      "model": 4.145168181088933e-05,
+      "agreed": 4.145168181088933e-05,
+      "rel": 0.0
+     },
+     "Lm_H": {
+      "model": 0.001112630539996511,
+      "agreed": 0.0011126305399965107,
+      "rel": 2.220446049250313e-16
+     },
+     "R_r_ohm": {
+      "model": 0.001998193461235798,
+      "agreed": 0.001998193461235797,
+      "rel": 4.440892098500626e-16
+     }
+    },
+    "2p4": {
+     "L_slot_H": {
+      "model": 2.851268873345855e-05,
+      "agreed": 2.8512688733458548e-05,
+      "rel": 2.220446049250313e-16
+     },
+     "L_diff_H": {
+      "model": 1.7138156062257383e-05,
+      "agreed": 1.715490240559005e-05,
+      "rel": -0.0009761841214095401
+     },
+     "L_sigma_s_H": {
+      "model": 4.732129482484051e-05,
+      "agreed": 4.733804116817317e-05,
+      "rel": -0.0003537608003925108
+     },
+     "L_sigma_r_H": {
+      "model": 3.126321941339875e-05,
+      "agreed": 3.1183315866101297e-05,
+      "rel": 0.0025623813593316225
+     },
+     "Lm_H": {
+      "model": 0.003002318212967064,
+      "agreed": 0.0030023182129670636,
+      "rel": 2.220446049250313e-16
+     },
+     "R_r_ohm": {
+      "model": 0.00172332220937315,
+      "agreed": 0.001723322209373149,
+      "rel": 4.440892098500626e-16
+     }
+    }
+   }
+  },
+  "CPSR_note": "'highest speed rule' = highest speed with P >= 0.95 P_base (T03 definition); 'contiguous' = band from n_base until P first drops below 0.95 P_base (the simulator's reading, 1.22 at 350 kW current). Both reported."
+ },
+ "T03_IM": {
+  "old": {
+   "T_peak_Nm": 2523.256318303034,
+   "start_grade_pct": 10.8259329798237,
+   "crossover_rpm": 2252.4944320712693,
+   "CPSR_highest_speed_rule": 4.547860403930977,
+   "CPSR_contiguous": 1.4000046904763352,
+   "P_base_kW": 304.2054441416024,
+   "P_at_4500_kW": 304.91549765049996,
+   "P_2p8_at_4500_kW": 134.0731688542461,
+   "cruise_eta_2p4": 0.97050205098221
+  },
+  "R01": {
+   "T_peak_Nm": 2390.0833570172604,
+   "start_grade_pct": 10.194430220924701,
+   "crossover_rpm": 1892.0935412026727,
+   "CPSR_highest_speed_rule": 3.6194948122772823,
+   "CPSR_contiguous": 1.1415941876530942,
+   "P_base_kW": 280.9480511613112,
+   "P_at_4500_kW": 248.88696062997627,
+   "P_2p8_at_4500_kW": 88.90708701839063,
+   "cruise_eta_2p4": 0.9697332829978523
+  }
+ },
+ "T03b": {
+  "old": {
+   "fixed_2p4": {
+    "G": 17.325000000000003,
+    "T_peak_Nm": 1566.1043930731169,
+    "start_grade": 11.990719248555584,
+    "P90_kW": 300.4390896109379,
+    "CPSR": 2.7512054925754432,
+    "cruise_eta": 0.9517061194522753,
+    "cruise_PF": 0.9553947083620025
+   },
+   "fixed_2p6": {
+    "G": 14.55,
+    "T_peak_Nm": 1888.1608430816439,
+    "start_grade": 12.156085545349757,
+    "P90_kW": 295.7785372680098,
+    "CPSR": 2.9766210449625308,
+    "cruise_eta": 0.9640915317820856,
+    "cruise_PF": 0.9424545779871771
+   },
+   "pole_changing_2p8_4_T03": {
+    "G": 9.801769079200154,
+    "T_peak_Nm": 2523.256318303034,
+    "start_grade": 10.8259329798237,
+    "P90_kW": 301.9334569079069,
+    "CPSR": 4.408728623384663,
+    "cruise_eta": 0.9704860320646891,
+    "cruise_PF": 0.95754460080784
+   },
+   "pole_changing_2p8_4_gear_optimised": {
+    "G": 10.875,
+    "T_peak_Nm": 2523.256318303034,
+    "start_grade": 12.140357049006498,
+    "P90_kW": 292.6083310377575,
+    "CPSR": 4.408728623384663,
+    "cruise_eta": 0.968413416078566,
+    "cruise_PF": 0.9530354875284467
+   },
+   "fixed_2p4_kVA_factor_start_G9.80": 1.7408350775949657,
+   "fixed_2p6_kVA_factor_start_G9.80": 1.4784360830672085,
+   "realistic_cruise_85": {
+    "fixed_2p4": 0.9498559876219506,
+    "fixed_2p6": 0.9609235025388553,
+    "pole_changing_2p8_4_T03": 0.966751702956458,
+    "pole_changing_2p8_4_gear_optimised": 0.9652603528187411
+   }
+  },
+  "R01": {
+   "fixed_2p4": {
+    "G": 18.775,
+    "T_peak_Nm": 1445.6964923758592,
+    "start_grade": 11.995675660902144,
+    "P90_kW": 194.104582235708,
+    "CPSR": 1.5291506215207804,
+    "cruise_eta": 0.9409775816673993,
+    "cruise_PF": 0.8854261845618954
+   },
+   "fixed_2p6": {
+    "G": 15.55,
+    "T_peak_Nm": 1745.515033607371,
+    "start_grade": 11.995581875241653,
+    "P90_kW": 203.18422838235995,
+    "CPSR": 1.8839833331284799,
+    "cruise_eta": 0.9592088273462765,
+    "cruise_PF": 0.8882275543613704
+   },
+   "pole_changing_2p8_4_T03": {
+    "G": 9.801769079200154,
+    "T_peak_Nm": 2390.0833570172604,
+    "start_grade": 10.194430220924701,
+    "P90_kW": 248.88696062997627,
+    "CPSR": 3.6194948122772823,
+    "cruise_eta": 0.9697511030016946,
+    "cruise_PF": 0.9320168299936095
+   },
+   "pole_changing_2p8_4_gear_optimised": {
+    "G": 11.350000000000001,
+    "T_peak_Nm": 2390.0833570172604,
+    "start_grade": 11.988136051386872,
+    "P90_kW": 216.8295339715075,
+    "CPSR": 3.6194948122772823,
+    "cruise_eta": 0.9662548447134385,
+    "cruise_PF": 0.914225600069745
+   },
+   "fixed_2p4_kVA_factor_start_G9.80": 1.8716809442266822,
+   "fixed_2p6_kVA_factor_start_G9.80": 1.6084943092428148,
+   "realistic_cruise_85": {
+    "fixed_2p4": 0.9379939155741054,
+    "fixed_2p6": 0.9528691366464183,
+    "pole_changing_2p8_4_T03": 0.965955261224705,
+    "pole_changing_2p8_4_gear_optimised": 0.9632365896540044
+   }
+  }
+ },
+ "H02_N16": {
+  "old": {
+   "kVA_ratio": 1.7408350775949657,
+   "PC_devices": 672,
+   "PC_start_inv_W": 1556.6237587440128,
+   "PC_cruise_sys_loss_W": 23743.345339970994,
+   "PC_eta_dc_wheel": 0.8648264020792875,
+   "PC_cruise_inv_W": 769.0084968821425,
+   "fixed_free_sys_loss_W": 25011.103874041775,
+   "fixed_G98_sys_loss_W": 22401.460398352578,
+   "fixed_G98_devices": 1152,
+   "fixed_free_G": 17.325000000000003
+  },
+  "R01": {
+   "kVA_ratio": 1.8716809442266822,
+   "PC_devices": 672,
+   "PC_start_inv_W": 1556.6237587440128,
+   "PC_cruise_sys_loss_W": 23937.420965737165,
+   "PC_eta_dc_wheel": 0.863871914427578,
+   "PC_cruise_inv_W": 788.8143205967472,
+   "fixed_free_sys_loss_W": 26148.200911023276,
+   "fixed_G98_sys_loss_W": 22925.505827230423,
+   "fixed_G98_devices": 1248,
+   "fixed_free_G": 18.775
+  }
+ },
+ "H05_N16": {
+  "old": {
+   "I85": 130.3123494853048,
+   "Pall85": 769.0084968821425,
+   "shed85": 740.5855578432736,
+   "park1_dP85": 157.6422683716312,
+   "Pall60": {
+    "2p8": 561.5158828571532,
+    "2p4": 538.6376402881097
+   },
+   "shed60": {
+    "2p8": 469.19413821485966,
+    "2p4": 436.5268924389723
+   }
+  },
+  "R01": {
+   "I85": 134.4745394326612,
+   "Pall85": 788.8143205967472,
+   "shed85": 763.8795617636522,
+   "park1_dP85": 166.55228850701246,
+   "Pall60": {
+    "2p8": 578.6792045805289,
+    "2p4": 550.7784916356433
+   },
+   "shed60": {
+    "2p8": 494.0139963646587,
+    "2p4": 453.8015145924014
+   }
+  }
+ },
+ "H01_identical_tables": true,
+ "H11s": {
+  "old": {
+   "flat_2.9mF_10pct": {
+    "gap": 0.1429,
+    "ripple_pct": 5.707075321731491,
+    "rev": false,
+    "v_sum": 27.09196868044055
+   },
+   "grade_2pct_2.9mF_10pct": {
+    "gap": 0.18130000000000002,
+    "ripple_pct": 5.707075321731491,
+    "rev": false,
+    "v_sum": 28.42414263187945
+   }
+  },
+  "R01": {
+   "flat_2.9mF_10pct": {
+    "gap": 0.1433,
+    "ripple_pct": 5.773426609902301,
+    "rev": false,
+    "v_sum": 27.711437906966374
+   },
+   "grade_2pct_2.9mF_10pct": {
+    "gap": 0.17,
+    "ripple_pct": 5.7871116976068375,
+    "rev": false,
+    "v_sum": 28.09828493050324
+   }
+  }
+ },
+ "H10_crossfade": {
+  "old": {
+   "env": 1.389207084825494,
+   "Px": 11604.857276897152,
+   "C10": 15.635728249685783,
+   "C5": 31.271456499371567
+  },
+  "R01": {
+   "env": 1.452289238271558,
+   "Px": 12093.634910281944,
+   "C10": 16.294279584508622,
+   "C5": 32.588559169017245
+  }
+ },
+ "WRSM_HESM_note": {
+  "status": "no rerun (leader). WRSM/PMSM rows inside torque_speed_envelope_300kW_R01.json still use the T03 per-unit inputs and are NOT R01-valid.",
+  "reactances": "R01 WRSM (5 mm gap): 2p8 L_d/L_q = 1.50/1.05 pu, 2p4 0.84/2.62 pu (inverse saliency), psi_f 48.3/47.6 mWb, field 2.3 kW, tau_f 0.29/0.26 s.",
+  "T03_WRSM_verdict": "Weakened, not reversed. Characteristic current psi_f/L_d falls from about 240 A to about 173 A at 2p8 (field-weakening power limit about -30 %), while 2p4 rises from about 91 A to about 303 A (> I_max, i.e. unlimited field-weakening range in 2p4). The simulator gets T(2p4)/T(2p8) = 0.77 at 4500 rpm (analyst 0.42): no crossover inside the vehicle speed range, but one is plausible above it, and a 2p4 mode with inverse saliency uses positive-d reluctance torque, which T03 did not model. 'WRSM gains nothing from pole changing' holds for 4500 rpm max motor speed; it must be re-checked if the gear ratio is raised (cf. T03b R01: higher G favours machines with a strong high-speed mode).",
+  "H09": "Turn halving in 2p4 (H09) acts on an already low L_d in 2p4; the benefit shrinks because 2p4 is no longer reactance-limited.",
+  "H03_harmonic_excitation": "At the R01 5 mm gap the order-8 magnetising inductance falls by about g_eff 1.3 -> 5.3 mm (x0.25) and the field needs 2990 A-turns per pole (2.3 kW) instead of 737; the other analyst's capability (6.6 kW at the 1.3 mm gap) should drop roughly 4x to about 1.6 kW, below the 2.3 kW field need -> H03s likely infeasible at 5 mm unless the injection current budget rises. Needs their rerun (their gap sweep stops at 3 mm).",
+  "T03c_HESM": "If T03c scaled the 8-pole inductances by k_w^2/p^2 for 2p4 (as T03 did), its 2p4 results are wrong in both axes (R01: inverse saliency); it should take L_d, L_q, field copper and tau_f from derived.wrsm, with the PM magnetic gap added. Not checked here.",
+  "H10_H11": "Pulsation magnitudes for the WRSM k-sweep scale with the stator current; tau_f 0.29 s (not 45 ms) makes a k-sweep about 6x slower, i.e. the pulsation lasts longer but its amplitude is unchanged. The IM-based H11s result holds."
+ }
+}

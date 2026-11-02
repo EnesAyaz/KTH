@@ -124,11 +124,13 @@ def analyze(t, i4, i2, im4, im2, v4lin, v2lin, Mo, x_defs, f_sum, tag, extra):
     return out
 
 
-def replay(grade, params, seq=None, tag="", t_end=1.3, n0=2100.0):
+def replay(grade, params, seq=None, tag="", t_end=1.3, n0=2100.0, h11s=None):
     Tld = r.road_torque(n0, grade)
     kw = dict(t_end=t_end, dt=1e-4, full_log=True, **params)
     if seq is not None:
         kw["seq_eps"] = seq
+    if h11s is not None:
+        kw["h11s"] = h11s
     res, ser = r.simulate(Tld, grade, **kw)
     Mo = ser["modes"]
     cp = ser["cplx"][::NS_STEP]
@@ -199,20 +201,22 @@ def brief(o):
 
 
 if __name__ == "__main__":
-    best = json.load(open("results/confirm_H10_handover_agreed.json"))
-    p_flat = best["flat_schedule_search"][0]["params"]
-    p_2 = dict(t_d=0.02, t_f4=0.15, t_f2=0.15)
+    sch = json.load(open(f"results/h10_schedule_search_Q{Q}.json"))
+    p_flat = sch["grade_0pct"][0]["params"]; p_2 = sch["grade_2pct"][0]["params"]
     RES = dict(meta=dict(script="03_simulation/run_h10_mec.py", task="H10 confirmation (nonlinear MEC)", date=str(datetime.date.today()), Q=Q, coils_per_module=MM,
                          geometry="agreed (data/machine_geometry.json)" + ("" if Q == 48 else "; Q=80, y=11, slot and conductor width x 48/80, coil current x 48/80"),
-                         note="cage reaction to saturation-generated orders neglected (upper bound for the combination-order pulsation)"), cases=[])
+                         schedules=dict(flat=p_flat, grade2=p_2), note="cage reaction to saturation-generated orders neglected (upper bound for the combination-order pulsation); controller includes active demagnetisation (fixed 2026-11-02)"), cases=[])
     outf = f"results/confirm_H10_mec_Q{Q}.json"
     def save(o):
         RES["cases"].append(o); print(brief(o), flush=True); json.dump(RES, open(outf, "w"), indent=1, default=float)
     for grade, p in ((0.0, p_flat), (0.02, p_2)):
-        o = replay(grade, p, None, tag=f"overlapped_{grade*100:.0f}pct"); save(o)
+        save(replay(grade, p, None, tag=f"overlapped_{grade*100:.0f}pct"))
     for law in ("linear_amplitude", "constant_torque"):
         save(ideal_crossfade(law))
     if Q == 48:
         for grade in (0.0, 0.02):
-            for eps in (0.05, 0.15, 0.30):
+            for eps in (0.02, 0.05, 0.15, 0.30):
                 save(replay(grade, dict(t_d=0.02, t_f4=0.05, t_f2=0.1), eps, tag=f"sequential_{grade*100:.0f}pct_eps{eps}"))
+            for C in (1.0e-3, 2.88e-3):
+                Pall = 0.10 * V0 * 2 * math.pi * 210.0 * C * V0
+                save(replay(grade, dict(t_d=0.02, t_f4=0.01, t_f2=0.01), None, tag=f"H11s_{grade*100:.0f}pct_C{C*1e3:.2f}mF", t_end=0.7, h11s=dict(eps=0.02, gate=0.05, P_allow=Pall)))

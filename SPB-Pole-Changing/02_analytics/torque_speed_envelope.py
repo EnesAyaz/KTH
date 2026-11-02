@@ -39,8 +39,26 @@ def _rated_kw():
 
 P_RATED_KW = _rated_kw()
 _SUFFIX = "" if P_RATED_KW == 350.0 else f"_{P_RATED_KW:g}kW"
-OUT_JSON = os.path.join(ROOT, "02_analytics", "results", f"torque_speed_envelope{_SUFFIX}.json")
-OUT_PNG = os.path.join(ROOT, "02_analytics", "scratch", f"torque_speed_envelope_quicklook{_SUFFIX}.png")
+# Agreed geometry (reconcile R01): CLI --geometry <data/machine_geometry.json> (a file with a "derived" section) or env
+# SPB_GEOMETRY. It overrides slot leakage, air gap, flux caps and rotor-bar permeance (see apply_agreed_geometry) and
+# adds the suffix _R01 to every output, so the pre-R01 files are kept.
+def _agreed_geometry_path():
+    if "--geometry" in sys.argv:
+        pth = sys.argv[sys.argv.index("--geometry") + 1]
+        try:
+            with open(pth) as fh:
+                if "derived" in json.load(fh):
+                    return pth
+        except (OSError, ValueError):
+            return None
+        return None
+    return os.environ.get("SPB_GEOMETRY") or None
+
+
+GEOMETRY_PATH = _agreed_geometry_path()
+GEOM_TAG = "_R01" if GEOMETRY_PATH else ""
+OUT_JSON = os.path.join(ROOT, "02_analytics", "results", f"torque_speed_envelope{_SUFFIX}{GEOM_TAG}.json")
+OUT_PNG = os.path.join(ROOT, "02_analytics", "scratch", f"torque_speed_envelope_quicklook{_SUFFIX}{GEOM_TAG}.png")
 
 MU0 = 4e-7 * math.pi
 SQ2 = math.sqrt(2.0)
@@ -127,6 +145,54 @@ ST["copper_mass_kg"] = ST["Q"] * ST["N_c"] * ST["A_turn_m2"] * ST["l_turn_m"] * 
 ST["m_teeth_kg"] = ST["Q"] * ST["tooth_w_m"] * ST["slot_h_m"] * ST["L_stk_m"] * ST["rho_fe_kg_m3"]
 ST["m_yoke_kg"] = math.pi * (ST["R_out_m"] ** 2 - (ST["R_out_m"] - ST["yoke_h_m"]) ** 2) * ST["L_stk_m"] * ST["rho_fe_kg_m3"]
 ST["J_at_Imax_A_mm2"] = IMAX / (ST["A_turn_m2"] * 1e6)
+
+ST["kc_carter"] = 1.05          # Carter part of kc_ksat (used for unsaturated harmonic leakage)
+ST["slot_model"] = "lambda"     # 'lambda' (T03 lam_slot_self/mut) or 'energy' (layered slot, R01)
+
+
+def slot_lambdas_energy(h_slot, b_slot, st=None):
+    """Energy-method slot permeances of the R01 layered slot (liner, bottom layer, separator, top layer, air, tip),
+    in units of mu0 L N_c^2 per coil side: returns (lambda_self_avg, lambda_mutual). Layers fill what the fixed
+    liner/separator/air/tip leave. Reproduces data/machine_geometry.json derived.slot_lambda for the T03 slot."""
+    st = st or ST
+    h_l = (h_slot - st["liner_m"] - st["separator_m"] - st["top_air_m"] - st["tip_h_m"]) / 2
+    if h_l <= 1e-3:
+        return None
+    t_tip = st["tip_h_m"] / st["opening_m"]
+    lt = h_l / (3 * b_slot) + st["top_air_m"] / b_slot + t_tip
+    lb = h_l / (3 * b_slot) + (st["separator_m"] + h_l + st["top_air_m"]) / b_slot + t_tip
+    lm = h_l / (2 * b_slot) + st["top_air_m"] / b_slot + t_tip
+    return (lt + lb) / 2, lm
+
+
+def apply_agreed_geometry(path):
+    """Adopt the R01 agreed IM geometry (simulator, data/machine_geometry.json)."""
+    with open(path) as fh:
+        g = json.load(fh)
+    w, a, lim = g["winding"], g["airgap"], g["limits"]
+    stt = g["stator"]
+    ST["g_m"] = a["g_mechanical_IM_m"]
+    ST["kc_ksat"] = a["g_eff_carter_IM_m"] / a["g_mechanical_IM_m"]
+    ST["kc_carter"] = ST["kc_ksat"]               # no saturation factor in g_eff (R01)
+    ST["g_eff_m"] = a["g_eff_carter_IM_m"]
+    ST["slot_model"] = "energy"
+    ST.update(liner_m=w["liner_per_side_m"], separator_m=w["layer_separator_m"], top_air_m=w["top_air_m"],
+              tip_h_m=stt["tooth_tip_height_m"], opening_m=stt["slot_opening_m"])
+    ls, lm = slot_lambdas_energy(ST["slot_h_m"], ST["slot_w_m"])
+    ST["lam_slot_self"], ST["lam_slot_mut"] = ls, lm
+    ST["lam_end"] = w["lambda_end_winding"]
+    k_st = stt["stacking_factor"]
+    ST["stacking_factor"] = k_st
+    ST["B_yoke_max_T"] = lim["B_yoke_max_T"] * k_st                    # apparent (gross) yoke flux density limit
+    ST["B_tooth_max_eff_T"] = lim["B_tooth_tip_max_T"] * k_st
+    ST["B_gap_max_T"] = ST["B_tooth_max_eff_T"] * stt["tooth_width_tip_m"] / stt["slot_pitch_at_bore_m"]
+    ST["B_gap_cap_for_FB_T"] = 10.0               # fair_baselines: tooth limit handled per design via B_tooth_max_eff_T
+    IMR["lam_bar"] = g["rotor_im"]["lambda_bar"]
+    IMR["lam_ring"] = g["rotor_im"]["lambda_ring"]
+    return dict(source=path, lam_slot_self=ls, lam_slot_mut=lm, g_eff_m=ST["g_eff_m"], B_yoke_max_T=ST["B_yoke_max_T"],
+                B_gap_max_T=ST["B_gap_max_T"], lam_bar=IMR["lam_bar"],
+                note="IM only. WRSM/PMSM per-unit inputs are NOT updated here (R01 WRSM reactances: see the T03c/H03 note).")
+
 
 # Iron loss: Bertotti-style two-term fit to M270-35A (2.7 W/kg @1.5T/50Hz, 17.5 W/kg @1.0T/400Hz)
 FE = dict(k_h=None, k_e=None, build_factor=1.5)
@@ -228,12 +294,12 @@ def stator_params(p):
     Nk = ST["N_c"] * kw
     RL = ST["R_gap_m"] * ST["L_stk_m"]
     Lm = 2 * M_PH * MU0 * RL * Nk ** 2 / (math.pi * ST["g_eff_m"] * p ** 2)  # synchronous magnetising, per coil
-    Lm_unsat = Lm * ST["kc_ksat"] / 1.05                                       # for harmonic leakage (k_c only)
+    Lm_unsat = Lm * ST["kc_ksat"] / ST["kc_carter"]                            # for harmonic leakage (k_c only)
     L_slot = 2 * MU0 * ST["N_c"] ** 2 * ST["L_stk_m"] * (
         ST["lam_slot_self"] - ST["lam_slot_mut"] * math.cos(2 * math.pi * p * ST["y_slots"] / ST["Q"]))
     L_end = MU0 * ST["N_c"] ** 2 * 2 * ST["l_end_half_m"] * ST["lam_end"]
     sig_d = differential_leakage_coeff(p)
-    L_diff = sig_d * Lm_unsat
+    L_diff = sig_d * Lm_unsat * ST.get("diff_leak_factor", 1.0)
     B_cap = min(ST["B_gap_max_T"], ST["B_yoke_max_T"] * ST["yoke_h_m"] * p / ST["R_gap_m"])
     # flux linkage per coil (rms) per tesla of fundamental airgap peak:  psi_pk = 2 N_c k_w B R L / p
     psi_per_T = 2 * Nk * RL / p / SQ2
@@ -256,6 +322,7 @@ def iron_loss(f_Hz, B_gap_T, p):
 # ----------------------------------------------------------------------------------
 IMR = dict(Q_r=58, bar_area_m2=150e-6, bar_len_m=0.38, ring_area_m2=600e-6, ring_diam_m=0.27,
            rho_cage_ohm_m=2.57e-8, lam_bar=1.5, lam_ring=0.3)
+GEOMETRY_APPLIED = apply_agreed_geometry(GEOMETRY_PATH) if GEOMETRY_PATH else None
 
 
 def im_params(p):
@@ -270,10 +337,32 @@ def im_params(p):
     L_bar = MU0 * ST["L_stk_m"] * IMR["lam_bar"]
     L_seg = MU0 * l_seg * IMR["lam_ring"]
     sig_dr = ((math.pi * p / Qr) / sin_a) ** 2 - 1.0
-    L_r = K * (L_bar + L_seg / (2 * sin_a ** 2)) + sig_dr * s["Lm_H"]
+    L_r = (K * (L_bar + L_seg / (2 * sin_a ** 2)) + sig_dr * s["Lm_H"]) * ST.get("rotor_leak_factor", 1.0)
     s.update(R_r_ohm=R_r, L_sigma_r_H=L_r, ring_share_of_Rr=(R_seg / (2 * sin_a ** 2)) / (R_bar + R_seg / (2 * sin_a ** 2)),
              sigma_diff_rotor=sig_dr, K_ref=K)
     return s
+
+
+def _calibrate_to_agreed():
+    """R01: match the agreed differential and rotor leakage of the T03 design with one factor each (applied to all designs)."""
+    with open(GEOMETRY_PATH) as fh:
+        lk = json.load(fh)["derived"]["im_leakage"]
+    ST["diff_leak_factor"], ST["rotor_leak_factor"] = 1.0, 1.0
+    s4 = im_params(4)
+    ST["diff_leak_factor"] = lk["2p8"]["L_diff_stator_H"]["agreed"] / s4["L_diff_H"]
+    ST["rotor_leak_factor"] = lk["2p8"]["L_sigma_r_referred_H"]["agreed"] / s4["L_sigma_r_H"]
+    chk = {}
+    for p, key in ((4, "2p8"), (2, "2p4")):
+        d = im_params(p)
+        chk[key] = {k: dict(model=d[mk], agreed=lk[key][ak]["agreed"], rel=d[mk] / lk[key][ak]["agreed"] - 1)
+                    for k, mk, ak in (("L_slot_H", "L_slot_H", "L_slot_H"), ("L_diff_H", "L_diff_H", "L_diff_stator_H"),
+                                      ("L_sigma_s_H", "L_sigma_s_H", "L_sigma_s_H"), ("L_sigma_r_H", "L_sigma_r_H", "L_sigma_r_referred_H"),
+                                      ("Lm_H", "Lm_H", "L_m_linear_H"), ("R_r_ohm", "R_r_ohm", "R_r_referred_ohm"))}
+    GEOMETRY_APPLIED.update(diff_leak_factor=ST["diff_leak_factor"], rotor_leak_factor=ST["rotor_leak_factor"], check_vs_agreed=chk)
+
+
+if GEOMETRY_PATH:
+    _calibrate_to_agreed()
 
 
 def im_state(par, n_rpm, psi, wsl, m=M_PH, Rs=None, Ls=None, Lm=None, Rr=None, Lr=None):
@@ -826,6 +915,7 @@ def main():
                          "Efficiency = machine only (no inverter, no gearbox). Inverter conduction loss scales with I_rms reported per point; f_sw is unchanged by pole changing.",
                          "Synchronous-machine inductances are saturated effective per-unit values (not FEA); WRSM 2p=4 values scaled from 2p=8 by k_w^2/p^2 on the magnetising part.",
                          "CPSR = n_const_power_end / n_base; n_base = highest speed with T >= 0.99 T_peak; constant power = P >= 0.95 P(n_base). Evaluated up to %.0f rpm." % N_EVAL_MAX]),
+        agreed_geometry=GEOMETRY_APPLIED,
         inverter=INV, vehicle=VEH, stator=ST, iron_loss_model=FE,
         per_unit_base=dict(n_ref_rpm=N_REF_RPM, p_ref=P_REF, L_base_H=L_BASE, psi_base_rms_Wb=PSI_BASE,
                            T_base_Nm=M_PH * P_REF * PSI_BASE * IMAX),

@@ -28,7 +28,7 @@ os.environ.setdefault("SPB_P_RATED_KW", "300")   # D02 final: 300 kW (must be se
 import torque_speed_envelope as T3  # noqa: E402  (constants and T03 design only; T03 outputs are not rewritten)
 
 ROOT = os.path.dirname(HERE)
-OUT_JSON = os.path.join(ROOT, "02_analytics", "results", "fair_baselines.json")
+OUT_JSON = os.path.join(ROOT, "02_analytics", "results", f"fair_baselines{T3.GEOM_TAG}.json")
 T03_JSON = T3.OUT_JSON   # T03 envelope at the same rating (torque_speed_envelope_300kW.json for 300 kW)
 
 MU0, SQ2, RPM, M_PH = T3.MU0, T3.SQ2, T3.RPM, T3.M_PH
@@ -37,7 +37,7 @@ S_INV_kVA = M_PH * VMAX * IMAX0 / 1e3
 ST = T3.ST
 V_CU = ST["copper_mass_kg"] / 8900.0        # same copper volume as T03
 R_OUT, L_STK = ST["R_out_m"], ST["L_stk_m"]  # same outer volume
-B_Y_MAX, B_T_MAX, B_G_MAX = ST["B_yoke_max_T"], 1.65, ST["B_gap_max_T"]
+B_Y_MAX, B_T_MAX, B_G_MAX = ST["B_yoke_max_T"], ST.get("B_tooth_max_eff_T", 1.65), ST.get("B_gap_cap_for_FB_T", ST["B_gap_max_T"])
 TIP_SPEED_MAX = 125.0                        # m/s, copper-cage rotor surface speed limit
 WHEEL_RPM_VMAX = T3.VEH["v_max_kmh"] / 3.6 / T3.VEH["wheel_radius_m"] / RPM
 G_REF = T3.VEH["gear_ratio"]
@@ -68,7 +68,21 @@ def mmf_sigma_d(p, Q, y):
     return float(np.sum(c ** 2) / Fp ** 2), float(Fp)
 
 
+def _diff_factor_fb():
+    """R01 calibration factor re-referred to this module's MMF sum (finer grid than T03's)."""
+    if "diff_leak_factor" not in ST:
+        return 1.0
+    sd_fb, _ = mmf_sigma_d(4, ST["Q"], ST["y_slots"])
+    return ST["diff_leak_factor"] * T3.differential_leakage_coeff(4) / sd_fb
+
+
+DIFF_FACTOR_FB = None
+
+
 def make_design(p, Q, y, cpl, R_gap, B_design, N_leg, name="", h_y=None):
+    global DIFF_FACTOR_FB
+    if DIFF_FACTOR_FB is None:
+        DIFF_FACTOR_FB = _diff_factor_fb()
     """cpl = coils in series per leg (Q = 48*cpl). Returns dict or None if geometrically infeasible."""
     if h_y is None:
         h_y = B_design * R_gap / (p * B_Y_MAX)
@@ -92,12 +106,18 @@ def make_design(p, Q, y, cpl, R_gap, B_design, N_leg, name="", h_y=None):
     g_eff = ST["g_eff_m"]
     Lm = 2 * M_PH * MU0 * RL * Nk ** 2 / (math.pi * g_eff * p ** 2)
     N_c = N_leg / cpl
-    lam_r = (h_s / (3 * b_s) + 0.33) / 2.0       # slot-permeance ratio to the T03 slot (=1 for T03)
-    L_slot = cpl * 2 * MU0 * N_c ** 2 * L_STK * lam_r * (
-        ST["lam_slot_self"] - ST["lam_slot_mut"] * math.cos(2 * math.pi * p * y / Q))
+    if ST.get("slot_model") == "energy":        # R01: energy-method permeances of the layered slot of THIS design
+        lam = T3.slot_lambdas_energy(h_s, b_s)
+        if lam is None:
+            return None
+        lam_s, lam_m = lam
+    else:
+        lam_r = (h_s / (3 * b_s) + 0.33) / 2.0   # slot-permeance ratio to the T03 slot (=1 for T03)
+        lam_s, lam_m = ST["lam_slot_self"] * lam_r, ST["lam_slot_mut"] * lam_r
+    L_slot = cpl * 2 * MU0 * N_c ** 2 * L_STK * (lam_s - lam_m * math.cos(2 * math.pi * p * y / Q))
     L_end = cpl * MU0 * N_c ** 2 * 2 * l_end * ST["lam_end"]
     sig_d, _ = mmf_sigma_d(p, Q, y)
-    L_diff = sig_d * Lm * ST["kc_ksat"] / 1.05
+    L_diff = sig_d * Lm * ST["kc_ksat"] / ST.get("kc_carter", 1.05) * DIFF_FACTOR_FB
     R_s = ST["rho_cu_ohm_m"] * N_leg ** 2 * l_turn / (cpl * A_side)
     # cage scaled with bore (T03 cage at R = 165 mm)
     sc = R_gap / ST["R_gap_m"]
@@ -110,7 +130,7 @@ def make_design(p, Q, y, cpl, R_gap, B_design, N_leg, name="", h_y=None):
     K = 4 * M_PH * Nk ** 2 / Qr
     R_r = K * (R_bar + R_seg / (2 * sin_a ** 2))
     sig_dr = ((math.pi * p / Qr) / sin_a) ** 2 - 1.0
-    L_r = K * (MU0 * L_STK * I["lam_bar"] + MU0 * l_seg * I["lam_ring"] / (2 * sin_a ** 2)) + sig_dr * Lm
+    L_r = (K * (MU0 * L_STK * I["lam_bar"] + MU0 * l_seg * I["lam_ring"] / (2 * sin_a ** 2)) + sig_dr * Lm) * ST.get("rotor_leak_factor", 1.0)
     m_teeth = Q * b_t * h_s * L_STK * ST["rho_fe_kg_m3"]
     m_yoke = math.pi * (R_OUT ** 2 - (R_OUT - h_y) ** 2) * L_STK * ST["rho_fe_kg_m3"]
     psi_per_T = 2 * Nk * RL / p / SQ2

@@ -430,3 +430,28 @@ Sensitivities:
 - Dead time: 100-1000 ns at f_sw = 20 kHz, V_sd = 1 V. A rejection fraction models how much of the dead-time error the current loop removes.
 - Asymmetric dead time: +/-20 / 50 % per leg.
 - Imperix PEB/B-Box specifics (dead time, f_sw, current-loop bandwidth) are not known here; Enes should replace them.
+
+## R01 - adoption of the agreed geometry (data/machine_geometry.json) {#r01}
+
+How to run: `SPB_GEOMETRY=data/machine_geometry.json` (or `--geometry` for torque_speed_envelope.py and module_count_sweep.py). The R01 values are applied once in `torque_speed_envelope.apply_agreed_geometry`, and every output gets the suffix `_R01`.
+
+Values adopted:
+- Slot leakage: the simulator's energy-method layered slot (liner 0.5, two layers, separator 1.0, top air 6.6, tip 1.5 mm over a 3 mm opening).
+  - In my coil formula this gives lam_self = (top + bottom)/2 = 2.928 and lam_mut = 2.217, reproducing 39.5 / 28.5 uH exactly.
+  - T03b candidate slots use the same layer stack, with layer height = (h_slot - 9.6 mm)/2.
+- Air gap: g_eff = 1.076 mm (Carter only, no saturation factor).
+- Flux caps:
+  - B_yoke 1.45 T x stacking 0.95, applied as apparent density;
+  - tooth tip 1.65 T x 0.95, i.e. an airgap equivalent of 0.914 T for the T03 slot.
+  - Resulting caps are 50.8 / 41.7 mWb against the agreed 51.7 / 42.2 (-1.7 / -1.0 %).
+- Rotor bar: lam_bar = 1.687.
+
+Calibration (one factor each, from the T03 design, applied to every design):
+- Differential leakage x1.149: the simulator's winding-function sum is about 15 % above my FFT sum, in both modes.
+- Rotor leakage x1.025.
+- After calibration the T03 design matches all agreed IM values within 0.3 %. fair_baselines re-refers the differential factor to its own finer MMF sum (x1.072).
+
+Other R01 notes:
+- H11s: the steady-state flux is now voltage-feasible including the R + j w sigma L drop (previously the 2 % grade case reached a 30.1 V peak-sum at R01 leakage).
+- Not adopted: the WRSM/PMSM per-unit inputs (R01 WRSM reactances). See the WRSM/HESM note in `results/R01_deltas.json`.
+- Iron masses with stacking factor and tapered teeth are not adopted (simulator: iron loss +/-5 %).

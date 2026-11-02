@@ -43,7 +43,9 @@ class Mode:
 
 
 def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t_f2=0.03, tau_i=1e-3, Tc=0.015,
-             psi2_scale=1.0, label="", active_demag=True, torque_first=True, seq_eps=None, full_log=False):
+             psi2_scale=1.0, label="", active_demag=True, torque_first=True, seq_eps=None, full_log=False, h11s=None):
+    if h11s is not None:
+        seq_eps = h11s['eps']
     # steady states before / after
     par4, par2 = c.im_params(4), c.im_params(2)
     T0 = T_req
@@ -85,7 +87,7 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
                 rho = psi / a if a > 1e-6 else 1.0 + 0j
                 a = max(a, 2e-3)
                 dsd = (a + m.tau_r * (cm["psi_ref"] - a) / Tc) / m.Lm
-                dsd = float(np.clip(dsd, -0.9 * IPK, 0.9 * IPK)) if cm["psi_ref"] > 0 or not active_demag else float(np.clip(dsd, 0, 0.9 * IPK))
+                dsd = float(np.clip(dsd, -0.9 * IPK, 0.9 * IPK)) if active_demag else float(np.clip(dsd, 0, 0.9 * IPK))   # R01-era fix: demagnetising d current was blocked when psi_ref = 0
                 isq = cm["T_ref"] / (c.M / 2 * m.p * (m.Lm / m.Lr) * a)
                 istar.append((dsd + 1j * isq) * rho)
                 wrho = np.imag(np.conj(psi) * dp) / (a * a) if abs(psi) > 2e-3 else 0.0
@@ -94,6 +96,10 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
                 wrho = 0.0
             ff.append(m.Rs * i + (m.Lm / m.Lr) * dp)
             dyn.append((istar[-1], wrho))
+        if h11s is not None and abs(istar[1]) > 0:
+            Pm = 1.5 * (abs(ff[0]) * abs(istar[1]) + abs(ff[1]) * abs(i4))
+            if Pm > h11s['P_allow']:
+                istar[1] = istar[1] * (h11s['P_allow'] / Pm)
         # current budget (common scaling of the commands)
         mag = math.sqrt(abs(istar[0]) ** 2 + abs(istar[1]) ** 2)
         if mag > IPK:
@@ -132,11 +138,11 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
         # mode 4: torque ramps down over t_d, flux ref ramps to 0 over t_f4 (starting at t_d if torque_first else 0)
         r4 = max(0.0, 1.0 - t / t_d)
         t0f = 0.0
-        f4 = max(0.0, 1.0 - max(0.0, t - t0f) / t_f4)
+        f4 = max(0.0, 1.0 - max(0.0, t - t0f) / t_f4) if h11s is None else (1.0 if t < t_d else 0.0)
         # mode 2: flux ref ramps up over t_f2; torque = remaining demand
         t2 = t if seq_eps is None else (-1.0 if trig["t"] is None else t - trig["t"])
         f2 = min(1.0, max(t2, 0.0) / t_f2)
-        return ({"on": True, "psi_ref": psi4_0 * f4, "T_ref": T0 * r4},
+        return ({"on": not (seq_eps is not None and trig["t"] is not None), "psi_ref": psi4_0 * f4, "T_ref": T0 * r4},
                 {"on": t2 > 0, "psi_ref": psi2_f * f2, "T_ref": 0.0})
 
     # mode 2 torque reference: take what mode 4 no longer provides, resolved inside the loop
@@ -157,7 +163,7 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
             trig["t"] = t
         a, b = ref(t)
         T4now = c.M / 2 * m4.p * (m4.Lm / m4.Lr) * np.imag(np.conj(state[1]) * state[0])
-        b["T_ref"] = max(0.0, T0 - T4now) * (1.0 if abs(state[3]) > 1e-3 else 0.0)
+        b["T_ref"] = max(0.0, T0 - T4now) * (1.0 if abs(state[3]) > (h11s['gate'] * psi2_f if h11s else 1e-3) else 0.0)
 
         def rf(tt, a=a, b=b):
             return (a, b)

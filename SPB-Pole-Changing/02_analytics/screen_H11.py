@@ -31,7 +31,7 @@ import module_count_sweep as MS     # noqa: E402
 import screen_H10 as H10            # noqa: E402
 
 RES = os.path.join(ROOT, "02_analytics", "results")
-OUT = os.path.join(RES, "screen_H11.json")
+OUT = os.path.join(RES, f"screen_H11{T3.GEOM_TAG}.json")
 H10_JSON = os.path.join(RES, "screen_H10.json")
 M_PH, RPM = T3.M_PH, T3.RPM
 V_MOD = 75.0
@@ -68,11 +68,16 @@ class Mode:
         return math.hypot(vd, vq), we
 
 
-def steady(mode, wm, T):
-    """Steady-state flux (voltage-limited, capped) and currents for torque T."""
+def steady(mode, wm, T, v_frac=0.97):
+    """Steady-state flux (voltage-limited incl. the R + j w sigma L drop at the torque current, capped) and currents."""
     psi = min(mode.psi_cap, 0.85 * T3.VMAX / (mode.p * wm) * mode.Lr / mode.Lm)
-    iq = T / (mode.kT * psi)
-    idd = psi / mode.Lm
+    for _ in range(60):
+        iq = T / (mode.kT * psi)
+        idd = psi / mode.Lm
+        v, _ = mode.volt(wm, psi, idd, iq)
+        if v <= v_frac * T3.VMAX:
+            break
+        psi *= 0.99
     return psi, idd, iq
 
 
@@ -305,6 +310,7 @@ def m5_extra_cost():
 def main():
     fb = json.load(open(FB.OUT_JSON))
     pc = fb["machines"]["pole_changing_2p8_4_T03"]["design"]
+    # (R01: FB.OUT_JSON is fair_baselines_R01.json, i.e. the agreed IM parameters)
     d8, d4 = pc["2p8"], pc["2p4"]
     h10 = json.load(open(H10_JSON))
     res = dict(meta=dict(script="02_analytics/screen_H11.py", date=_dt.date.today().isoformat(), P_rated_W=T3.INV["P_rated_W"],
@@ -348,7 +354,8 @@ def main():
     h10["admissible_mode_set"]["IM_handover_m3_corrected"] = (
         f"crossfade (factor {flat['envelope_factor']:.2f} in the model): C_req {c_req(flat['Px_max_W'], f, 0.10) * 1e3:.1f} mF at +-10 %, "
         f"{c_req(flat['Px_max_W'], f, 0.05) * 1e3:.1f} mF at +-5 % (flat). See screen_H11.json for the pulsation-constrained schedule.")
-    json.dump(h10, open(H10_JSON, "w"), indent=1, default=MS.fmt)
+    if not T3.GEOM_TAG:                     # R01 runs keep the H10 file untouched; the correction lives in screen_H11_R01.json
+        json.dump(h10, open(H10_JSON, "w"), indent=1, default=MS.fmt)
     res["H10_correction"] = corr
 
     # ---- 3. H11s schedules
