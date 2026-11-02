@@ -3,89 +3,112 @@
 Legend: Y = yes, N = no, P = partly / indirectly, - = not applicable. "Traction rating" means a traction-class power is stated (>= ~50 kW) in the paper or in the source it is cited from. "Low-voltage devices" means a stack or module of low-voltage (<= ~100 V) devices or a 48 V system.
 Machine type: IM, PMSM, WRSM (includes EESM), SM-gen = synchronous generator. Access level per paper is in `papers/<key>.md`; rows marked (s) rely on secondary numbers from Prakht2025review.
 
-| Paper (bib key) | Machine type | Pole change mechanism | Multiphase? | Isolated neutrals? | Electronic pole change? | Traction rating? | Efficiency over cycle? | Low-voltage devices? |
-|---|---|---|---|---|---|---|---|---|
-| Silverman2022software | any 3-ph | none | N (3-ph) | N | N | N (2.5 kW sim) | N | Y |
-| Chang2019improving | PMSM (car) | none | N | N | N | Y (car) | Y | Y (Si MOSFET stack) |
-| Josefsson2012evaluation | car | none | N | N | N | Y (car) | Y | P |
-| Siccardi2023integrated | PMSM | none | P (open winding) | P | N | N (1.63 kW) | N | Y |
-| Zhao1995space | IM | n/a (VSD theory) | Y (dual 3-ph) | Y | N | N | N | N |
-| Levi2007multiphase | IM | n/a | Y | P | N | N | N | N |
-| Levi2016advances | multiphase | n/a (lists uses) | Y | P | P | P | N | N |
-| Zhu2007electrical | IM/PM/SRM | none | N | N | N | P | P | N |
-| Chau2008overview | PMSM | none | N | N | N | P | N | N |
-| Soong2002field | IM/SynRM/IPM | none | N | N | N | N (2.2 kW) | N | N |
-| Popescu2018electrical | IM/PMSM/WRSM | none | N | N | N | Y (car) | N | N |
-| Kampker2022design | PMSM | gearbox (1/2-speed) | N | N | N | Y (41 t truck) | Y | N |
-| Gozen2022transmission | e-axle | gearbox (2-4 speed) | N | N | N | Y (27 t truck) | Y | N |
-| Rahman2015advances | PMSM | none | N | N | N | Y (rail, HEV) | N | N |
-| Mademlis2020performance | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (250 kW truck) | Y | N |
-| Chen2025electromagnetic | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (215 kW, 40 t class) | Y | N |
-| Dmitrievskii2023comparative (s) | WRSM vs IM | none (I_f weakening) | Y (9-ph, per review) | P | N | Y (370 kW mining) | Y | N |
-| Hussain2022wound | WRSM | none (I_f weakening) | N | N | N | Y (60 kW) | Y | N |
-| Prakht2025traction | WRSM | none | N | N | N | P | N | N |
-| Prakht2025review | WRSM | none (review) | P | N | N | Y | P | N |
-| Krupp2015rotary | WRSM | exciter only | N | N | N | Y | N | N |
-| Stella2024excitation | WRSM | exciter only | N | N | N | Y | N | P (800 V SiC) |
-| Margner2010control | WRSM | none | N | N | N | Y (car) | P | N |
-| Ran2024drive | WRSM vs IPM | none | N | N | N | Y | Y | N |
-| Graffeo2020cylindrical | WRSM | none | N | N | N | Y | N | N |
-| Baloch2019distributed | WRSM (vernier) | rotor field coil-group current reversal | N | N | N (field reversal) | N | N | N |
-| Gerber2024evaluation | SM-gen | rotor field MMF shaping | N | N | N | N | N | N |
-| Osama1997modeling | IM | stator coil-group reversal | Y | P | Y | N | N | N |
-| AbdelKhalik2019nine | IM | stator, 9-ph PAM | Y (9) | N (6 terminals) | Y | P (EV) | N | N |
-| Bitsi2019induction | IM | independent coils | Y | Y | Y | N | N | N |
-| Bitsi2022design | IM | independent coils, pole-phase | Y | Y | Y | N (20 kW) | P (maps, no cycle) | P (150 V machine limit) |
-| Mallampalli2021six | IM | stator, 6-ph | Y (6) | N | Y | N (1 kW) | N | N |
-| Mallampalli2020starter | IM | stator 8/4-pole | P | N | Y | N (48 V SG) | P | Y (48 V) |
-| Yang2012electronic | IM | stator, 9-ph | Y (9) | N | Y | N | N | N |
-| Latif2021loss | IM | stator 4/2-pole | P | N | Y | N | P (loss-optimal) | N |
-| Rohith2018pole | IM (2-ph) | stator 2/4-pole | P | N | Y | N | Y (WLTP-derived) | N |
-| vanderGiet2007induction | IM | Dahlander (contactor) | N | N | N | N | N | N |
-| Ostovic2002pole | PM memory | re-magnetisation | N | N | P (pulses) | N | N | N |
-| Sakai2013permanent | PM memory | re-magnetisation | N | N | P (pulses) | N | P | N |
-| Sakai2014permanent | PM memory | re-magnetisation | N | N | P (pulses) | N | P | N |
-| Du2022dual | PMSM | harmonic + switched winding | N | N | N (switches) | N (15 N m) | N | P (250 V) |
-| Wang2015design | PM memory | re-magnetisation | N | N | P (pulses) | N | N | N |
-| **Ayaz2026primary (own-work, P1)** | WRSM/EESM | rotor field coil-group reversal (2/4-pole), bipolar WPT exciter, anti-parallel rectifiers + self-driven switch | N | N | P (rotor side electronic, no contactor; stator side not described) | N (118 W bench) | N | N |
-| **Ayaz2026optical (own-work, P2, unpublished)** | WRSM | rotor coil-group reversal, 3-channel optical exciter | N (3-ph assumed) | N | P | P (10 kW, 4/2-pole FEA) | P (two operating points, FEA) | N |
-| Ayaz2023variable (own-work) | EESM | none (unipolar exciter) | N | N | N | N | N | P (inverter harmonics reused) |
-| Ayaz2023concurrent (own-work) | dc motor | none | N | N | N | N | N | P (GaN) |
-| Ayaz2024evaluation (own-work) | PMSM-type | none | P (2L-6Ph) | N | N | Y (HDV) | Y | N |
-| Ayaz2026dclink (own-work) | HDV | none | N | N | N | Y (250 kW, 1.2 kV) | P | N (SiC) |
-| Bocker2025minimizing | PMSM | none | N | N | N | Y (long-haul) | Y | N |
-| Baloch2020wound | WRSM (vernier) | rotor field-set reversal, prototype | N | N | N | N | N | N |
-| Conto2023pole | hybrid reluctance-PM | rotor + stator polarity change | N | N | N | N | N | N |
-| Conto2022hybrid | hybrid-excited PM | excitation windings change rotor poles, stator polarity change | N | N | N | N | N | N |
-| Mingardi2017geometry | line-start PM | stator winding rearranged | N | N | N | N | N | N |
-| Filippini2024design | EESM | none (I_f optimisation) | N | N | N | Y (truck cycle) | Y | N |
-| Dey2024novel | EESM/HESM | bipolar exciter, rotary transformer, frequency-selected | N | N | N | N | N | N |
-| Huang2024novel | PMSM | none | Y (6 stator windings) | P | N | N (0.725 N m) | N | N |
-| Raj2022design | IM | 3-ph/6-pole <-> 9-ph/2-pole | Y | P | Y | P (EV) | N | N |
-| Latif2023control | IM | 4/2-pole electronic | P | N | Y | P (traction) | N | N |
-| Libbos2023winding | IM | variable-pole windings, 18 legs | Y | P | Y | P (EV) | P | N |
-| Wu2023pole | IM (WICSC) | independent coils, HPD | Y | Y | Y | N | N | N |
-| Olson2024enabling | IM | HPD modelling | Y | Y | Y | N | N | N |
-| Wu2025minimum | IM | 9-ph, transition control | Y | P | Y | N | N | N |
-| Lin2025optimal | IM | transition current distribution | Y | P | Y | N | P (loss min.) | N |
-| Tilahune2026speed | IM (9-ph) | sensorless transition | Y | P | Y | N | N | N |
-| Tilahune2023performance | IM | 3-ph/4-pole <-> 6-ph/2-pole (FEM) | Y | P | Y | P (traction) | N | N |
-| Haq2023online | IM | online stator reconfiguration | Y | P | Y | N | N | N |
-| Haq2024ripple | IM (9-ph) | ripple-free transition | Y | P | Y | N | N | N |
-| Wu2024open | IM (18-ph) | fault-tolerant transition | Y | P | Y | N | N | N |
-| **Conto2022hybrid (HESM, full text)** | HESM (NdFeB IPM + DC field coils) | rotor field coil reversal (half the coils) + stator two-inverter half-phase supply, 8 <-> 4 poles | Y (2 inverters, split phases) | P | Y (stator sign of inverter 2; no contactor) | N (0.5 kW) | N | N |
-| Conto2022dual | HESM-type (reluctance-PM) | rotor pole change with stator | N | N | N | N | N | N |
-| Bratke2022study | HESM with stator cage | pole changing (cage bars as phases) | Y (many bars) | P | Y | P (passenger cycles) | Y (drive-cycle energy) | N |
-| Cinti2025impact | HESM | none (flux weakening via I_f + I_d) | N | N | N | N | N | N |
-| Brown2022wound | WFSM/HESM | none | N | N | N | P | N | N |
-| Libbos2022inverter | IM | 6/4/2-pole by 18-leg GaN inverter | Y (18 legs) | P | Y | N (890 VA) | Y (partial-load loss -45 %) | Y (GaN) |
-| Libbos2020loss | IM | pole selection by torque and speed | Y | P | Y | N | Y (loss -1/3) | N |
-| Matsuyama2021design | IM | 8-phase harmonic operation, 8 <-> 12 poles | Y | N | Y | P (EV) | N | N |
-| Buyukdegirmenci2014evaluation | IM vs IPMSM | none | N | N | N | N (HEV) | Y | N |
-| Torrent2018permanent | IM vs PMSM | none | N | N | N | Y (rail) | P | N |
-| Yan2024power | e-axle gearbox | none | N | N | N | P (light-duty truck e-axle) | N (loss model) | N |
-| Uerlich2022experimental | HCV e-axle (2-speed) | gearbox | N | N | N | Y (HCV axle) | P (efficiency map model) | N |
-| EU2017regulation | HD truck axle / transmission defaults | none | N | N | N | Y | Y (VECTO) | N |
+| Paper (bib key) | Machine type | Pole change mechanism | Multiphase? | Isolated neutrals? | Electronic pole change? | Traction rating? | Efficiency over cycle? | Low-voltage devices? | Series-stacked? | Isolated neutrals (stack)? | DC-bus shared? |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Silverman2022software | any 3-ph | none | N (3-ph) | N | N | N (2.5 kW sim) | N | Y | Y | - | - |
+| Chang2019improving | PMSM (car) | none | N | N | N | Y (car) | Y | Y (Si MOSFET stack) | Y (multilevel) | - | - |
+| Josefsson2012evaluation | car | none | N | N | N | Y (car) | Y | P | N | - | - |
+| Siccardi2023integrated | PMSM | none | P (open winding) | P | N | N (1.63 kW) | N | Y | N | - | - |
+| Zhao1995space | IM | n/a (VSD theory) | Y (dual 3-ph) | Y | N | N | N | N | N | - | - |
+| Levi2007multiphase | IM | n/a | Y | P | N | N | N | N | N | - | - |
+| Levi2016advances | multiphase | n/a (lists uses) | Y | P | P | P | N | N | N | - | - |
+| Zhu2007electrical | IM/PM/SRM | none | N | N | N | P | P | N | N | - | - |
+| Chau2008overview | PMSM | none | N | N | N | P | N | N | N | - | - |
+| Soong2002field | IM/SynRM/IPM | none | N | N | N | N (2.2 kW) | N | N | N | - | - |
+| Popescu2018electrical | IM/PMSM/WRSM | none | N | N | N | Y (car) | N | N | N | - | - |
+| Kampker2022design | PMSM | gearbox (1/2-speed) | N | N | N | Y (41 t truck) | Y | N | N | - | - |
+| Gozen2022transmission | e-axle | gearbox (2-4 speed) | N | N | N | Y (27 t truck) | Y | N | N | - | - |
+| Rahman2015advances | PMSM | none | N | N | N | Y (rail, HEV) | N | N | N | - | - |
+| Mademlis2020performance | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (250 kW truck) | Y | N | N | - | - |
+| Chen2025electromagnetic | WRSM vs PMSM | none (I_f weakening) | N | N | N | Y (215 kW, 40 t class) | Y | N | N | - | - |
+| Dmitrievskii2023comparative (s) | WRSM vs IM | none (I_f weakening) | Y (9-ph, per review) | P | N | Y (370 kW mining) | Y | N | N | - | - |
+| Hussain2022wound | WRSM | none (I_f weakening) | N | N | N | Y (60 kW) | Y | N | N | - | - |
+| Prakht2025traction | WRSM | none | N | N | N | P | N | N | N | - | - |
+| Prakht2025review | WRSM | none (review) | P | N | N | Y | P | N | N | - | - |
+| Krupp2015rotary | WRSM | exciter only | N | N | N | Y | N | N | N | - | - |
+| Stella2024excitation | WRSM | exciter only | N | N | N | Y | N | P (800 V SiC) | N | - | - |
+| Margner2010control | WRSM | none | N | N | N | Y (car) | P | N | N | - | - |
+| Ran2024drive | WRSM vs IPM | none | N | N | N | Y | Y | N | N | - | - |
+| Graffeo2020cylindrical | WRSM | none | N | N | N | Y | N | N | N | - | - |
+| Baloch2019distributed | WRSM (vernier) | rotor field coil-group current reversal | N | N | N (field reversal) | N | N | N | N | - | - |
+| Gerber2024evaluation | SM-gen | rotor field MMF shaping | N | N | N | N | N | N | N | - | - |
+| Osama1997modeling | IM | stator coil-group reversal | Y | P | Y | N | N | N | N | - | - |
+| AbdelKhalik2019nine | IM | stator, 9-ph PAM | Y (9) | N (6 terminals) | Y | P (EV) | N | N | N | - | - |
+| Bitsi2019induction | IM | independent coils | Y | Y | Y | N | N | N | N | - | - |
+| Bitsi2022design | IM | independent coils, pole-phase | Y | Y | Y | N (20 kW) | P (maps, no cycle) | P (150 V machine limit) | N | - | - |
+| Mallampalli2021six | IM | stator, 6-ph | Y (6) | N | Y | N (1 kW) | N | N | N | - | - |
+| Mallampalli2020starter | IM | stator 8/4-pole | P | N | Y | N (48 V SG) | P | Y (48 V) | N | - | - |
+| Yang2012electronic | IM | stator, 9-ph | Y (9) | N | Y | N | N | N | N | - | - |
+| Latif2021loss | IM | stator 4/2-pole | P | N | Y | N | P (loss-optimal) | N | N | - | - |
+| Rohith2018pole | IM (2-ph) | stator 2/4-pole | P | N | Y | N | Y (WLTP-derived) | N | N | - | - |
+| vanderGiet2007induction | IM | Dahlander (contactor) | N | N | N | N | N | N | N | - | - |
+| Ostovic2002pole | PM memory | re-magnetisation | N | N | P (pulses) | N | N | N | N | - | - |
+| Sakai2013permanent | PM memory | re-magnetisation | N | N | P (pulses) | N | P | N | N | - | - |
+| Sakai2014permanent | PM memory | re-magnetisation | N | N | P (pulses) | N | P | N | N | - | - |
+| Du2022dual | PMSM | harmonic + switched winding | N | N | N (switches) | N (15 N m) | N | P (250 V) | N | - | - |
+| Wang2015design | PM memory | re-magnetisation | N | N | P (pulses) | N | N | N | N | - | - |
+| **Ayaz2026primary (own-work, P1)** | WRSM/EESM | rotor field coil-group reversal (2/4-pole), bipolar WPT exciter, anti-parallel rectifiers + self-driven switch | N | N | P (rotor side electronic, no contactor; stator side not described) | N (118 W bench) | N | N | N | - | - |
+| **Ayaz2026optical (own-work, P2, unpublished)** | WRSM | rotor coil-group reversal, 3-channel optical exciter | N (3-ph assumed) | N | P | P (10 kW, 4/2-pole FEA) | P (two operating points, FEA) | N | N | - | - |
+| Ayaz2023variable (own-work) | EESM | none (unipolar exciter) | N | N | N | N | N | P (inverter harmonics reused) | N | - | - |
+| Ayaz2023concurrent (own-work) | dc motor | none | N | N | N | N | N | P (GaN) | N | - | - |
+| Ayaz2024evaluation (own-work) | PMSM-type | none | P (2L-6Ph) | N | N | Y (HDV) | Y | N | N | - | - |
+| Ayaz2026dclink (own-work) | HDV | none | N | N | N | Y (250 kW, 1.2 kV) | P | N (SiC) | N | - | - |
+| Bocker2025minimizing | PMSM | none | N | N | N | Y (long-haul) | Y | N | N | - | - |
+| Baloch2020wound | WRSM (vernier) | rotor field-set reversal, prototype | N | N | N | N | N | N | N | - | - |
+| Conto2023pole | hybrid reluctance-PM | rotor + stator polarity change | N | N | N | N | N | N | N | - | - |
+| Conto2022hybrid | hybrid-excited PM | excitation windings change rotor poles, stator polarity change | N | N | N | N | N | N | N | - | - |
+| Mingardi2017geometry | line-start PM | stator winding rearranged | N | N | N | N | N | N | N | - | - |
+| Filippini2024design | EESM | none (I_f optimisation) | N | N | N | Y (truck cycle) | Y | N | N | - | - |
+| Dey2024novel | EESM/HESM | bipolar exciter, rotary transformer, frequency-selected | N | N | N | N | N | N | N | - | - |
+| Huang2024novel | PMSM | none | Y (6 stator windings) | P | N | N (0.725 N m) | N | N | N | - | - |
+| Raj2022design | IM | 3-ph/6-pole <-> 9-ph/2-pole | Y | P | Y | P (EV) | N | N | N | - | - |
+| Latif2023control | IM | 4/2-pole electronic | P | N | Y | P (traction) | N | N | N | - | - |
+| Libbos2023winding | IM | variable-pole windings, 18 legs | Y | P | Y | P (EV) | P | N | N | - | - |
+| Wu2023pole | IM (WICSC) | independent coils, HPD | Y | Y | Y | N | N | N | N | - | - |
+| Olson2024enabling | IM | HPD modelling | Y | Y | Y | N | N | N | N | - | - |
+| Wu2025minimum | IM | 9-ph, transition control | Y | P | Y | N | N | N | N | - | - |
+| Lin2025optimal | IM | transition current distribution | Y | P | Y | N | P (loss min.) | N | N | - | - |
+| Tilahune2026speed | IM (9-ph) | sensorless transition | Y | P | Y | N | N | N | N | - | - |
+| Tilahune2023performance | IM | 3-ph/4-pole <-> 6-ph/2-pole (FEM) | Y | P | Y | P (traction) | N | N | N | - | - |
+| Haq2023online | IM | online stator reconfiguration | Y | P | Y | N | N | N | N | - | - |
+| Haq2024ripple | IM (9-ph) | ripple-free transition | Y | P | Y | N | N | N | N | - | - |
+| Wu2024open | IM (18-ph) | fault-tolerant transition | Y | P | Y | N | N | N | N | - | - |
+| **Conto2022hybrid (HESM, full text)** | HESM (NdFeB IPM + DC field coils) | rotor field coil reversal (half the coils) + stator two-inverter half-phase supply, 8 <-> 4 poles | Y (2 inverters, split phases) | P | Y (stator sign of inverter 2; no contactor) | N (0.5 kW) | N | N | N | - | - |
+| Conto2022dual | HESM-type (reluctance-PM) | rotor pole change with stator | N | N | N | N | N | N | N | - | - |
+| Bratke2022study | HESM with stator cage | pole changing (cage bars as phases) | Y (many bars) | P | Y | P (passenger cycles) | Y (drive-cycle energy) | N | N | - | - |
+| Cinti2025impact | HESM | none (flux weakening via I_f + I_d) | N | N | N | N | N | N | N | - | - |
+| Brown2022wound | WFSM/HESM | none | N | N | N | P | N | N | N | - | - |
+| Libbos2022inverter | IM | 6/4/2-pole by 18-leg GaN inverter | Y (18 legs) | P | Y | N (890 VA) | Y (partial-load loss -45 %) | Y (GaN) | N | - | - |
+| Libbos2020loss | IM | pole selection by torque and speed | Y | P | Y | N | Y (loss -1/3) | N | N | - | - |
+| Matsuyama2021design | IM | 8-phase harmonic operation, 8 <-> 12 poles | Y | N | Y | P (EV) | N | N | N | - | - |
+| Buyukdegirmenci2014evaluation | IM vs IPMSM | none | N | N | N | N (HEV) | Y | N | N | - | - |
+| Torrent2018permanent | IM vs PMSM | none | N | N | N | Y (rail) | P | N | N | - | - |
+| Yan2024power | e-axle gearbox | none | N | N | N | P (light-duty truck e-axle) | N (loss model) | N | N | - | - |
+| Uerlich2022experimental | HCV e-axle (2-speed) | gearbox | N | N | N | Y (HCV axle) | P (efficiency map model) | N | N | - | - |
+| EU2017regulation | HD truck axle / transmission defaults | none | N | N | N | Y | Y (VECTO) | N | N | - | - |
+| Magill2015dynamic | IM (PPM model) | pole-phase modulation | Y | Y (independent inputs) | Y | N | N | N | N | - | - |
+| Libbos2020modular | IM | variable pole, modular multiphase legs | Y | P | Y | N | N | Y (modular low-voltage legs) | N | N | Y (common DC bus) |
+| Libbos2019variable | IM | variable pole, 18 legs | Y | P | Y | N | N | N | N | N | Y |
+| Chaubal2024continuously | IM | continuously variable pole, 18 legs | Y | P | Y | N | P | N | N | N | Y |
+| Libbos2025bumpless | IM | bumpless electronic pole change | Y | P | Y | N | N | N | N | N | Y |
+| Maheshwari2025modulation | IM | high phase count, variable pole | Y | Y | Y | N | N | N | N | N | Y |
+| Reddy2020multilayer | IM | multilayer fractional-slot PPM, 15 phases | Y | P | Y | Y (traction) | N | N | N | N | Y |
+| Umesh2016dual | IM | dual-inverter PPM, 9 phases, 4/12 poles | Y | N | Y | N (5 hp) | N | N | N | N | Y (one DC link) |
+| Reddy2018multilevel | IM | open-end-winding PPM, dual inverter | Y | N | Y | N | N | N | N | Y (outputs add) | P |
+| Runde2019iscad | IM (stator cage) | ISCAD, one leg per bar | Y (many legs) | Y | P | Y (300 kW at 48 V) | P | Y (48 V) | N | N | Y (48 V bus, parallel) |
+| Bachheibl2015control | IM (stator cage) | ISCAD control, up to 60 bars, 18-phase proof | Y | Y | Y | P | P | Y (48 V) | N | N | Y |
+| Sarrazin2011cascaded | EV drive (cells) | none | N (3-ph) | N | N | P | P | Y (48 V cells) | N | Y | N (separate cell sources) |
+| Tarisciotti2020modular | motor drive (MMC) | none | N | N | N | N | N | Y | N | Y (MMC arms) | P |
+| Boxriker2017effects | PMSM | coil configuration switching, pole changing, phases | Y | N | N | N | N | N | Y (cost term) | N | Y |
+| Boxriker2016expanding | PMSM | optimum phase number | Y | N | N | N | N | N | N | N | Y |
+| Talebi2022asynchronously | WFSM | harmonic excitation (no pole change) | Y (9-ph) | N (common neutral) | N | P | N | N | N | N | Y |
+| Seyedi2025comparison | WFSM | PPM vs modulated rotational harmonic excitation, 9-ph | Y | N | P | N | N | N | N | N | Y |
+| Potter2021topology | WRSM | harmonic excitation | Y | N | N | N | N | N | N | N | Y |
+| Potter2022experimental | WRSM | harmonic excitation, experimental | Y | N | N | N | N | N | N | N | Y |
+| Potter2023harmonic | WRSM | harmonic-excited machine (thesis) | Y | N | N | N | N | N | N | N | Y |
+| Sirewal2020analysis | WRSM | stator harmonic winding | N | N | N | N | N | N | N | N | Y |
+| Bukhari2020dual | WRSM | dual-inverter open-winding brushless | Y (open winding) | P | N | N | N | N | N | N | N (two inverters, separate sources assumed) |
+| Wu2023openphase | IM | pole transition under open phase | Y | Y | Y | N | N | N | N | N | Y |
 
 ## Gaps SPB pole changing would fill
 
@@ -116,3 +139,6 @@ Open for SPB + HESM:
 2. **Transition dynamics.** Conto2022hybrid does not simulate the pole change in time; the PM fixes part of the rotor flux during the change, so the transition behaviour (rotor flux share that the field must cancel or reinforce) is unknown.
 3. **SPB supplies the stator side natively.** The two-inverter half-phase supply of Conto2022hybrid is a 2-module special case of SPB; N isolated-neutral modules give finer control, redundancy and low-voltage devices.
 4. **Drive-cycle study for a truck**, with PM share vs field share as the design variable (the PM carries the base flux, the field reverses it): not published.
+
+### Series-stacked and isolated-neutral coverage (added 2026-11-02, from novelty_H01..H09)
+No new paper combines series-stacked cells with isolated-neutral coil groups and pole changing. Closest: Sarrazin2011cascaded and Tarisciotti2020modular (stacked/cascaded cells, no pole changing, no isolated coil groups), Libbos2020modular / Chaubal2024continuously (many legs and pole changing but one common DC bus, full-voltage or 48 V devices), and Runde2019iscad / Bachheibl2015control (48 V ISCAD, parallel bus, stator cage). Reddy2018multilevel adds outputs of dual inverters into a multilevel voltage with PPM but still at full-voltage devices. Columns for rows added before this date were filled "N" for series-stacked where no stack is used and "-" (not assessed) for the other two new columns.
