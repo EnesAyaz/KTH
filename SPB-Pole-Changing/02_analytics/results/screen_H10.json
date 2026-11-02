@@ -723,12 +723,12 @@
     "5pct": 88.48953841504617,
     "10pct": 44.244769207523085
    },
-   "note": "linear 0.25 s crossfade in the two-mode RFOC model (this script); flux lags the d-current, so the factor is not exactly 0.25"
+   "note": "naive linear 0.25 s CURRENT crossfade (no flux forcing) in the two-mode RFOC model: the terminal voltage follows the rotor flux, which lags the current by tau_r (0.48 s for 2p8, 1.46 s for 2p4), so V8 stays high while I4 rises and the envelope factor exceeds 1. The ideal x(1-x) = 0.25 assumes the fluxes track the currents instantly. The true factor of a flux-forced overlapped schedule lies between; the simulator's MEC run (confirm_H10) decides."
   },
   "sequential_V8_I4_term": {
    "note": "'sequential' = drop all 2p8 current, then build 2p4 under the pulsation limit; the decaying 2p8 rotor flux still induces V8, so 3 V8 I4 limits the 2p4 build current until the flux has decayed",
    "tau_r_2p8_s": 0.4783853864380727,
-   "torque_gap_below90pct_s": 0.5846,
+   "torque_gap_below90pct_s": 0.5847,
    "Px_max_W": 2133.5257789233574,
    "within_10pct_at_2p9mF": true
   },

@@ -23,12 +23,14 @@ J = json.load(open(AN_JSON))
 INV, VEH, STJ = J["inverter"], J["vehicle"], J["stator"]
 GEOM = json.load(open(GEOM_JSON))
 VMAX, IMAX = INV["V_ph_rms_max_V"], INV["I_module_rms_max_A"]
+IMAX = IMAX * (48.0 / int(os.environ.get('SPB_Q', '48')))   # same total ampere-turns: coil current scales with 48/Q
 if os.environ.get("SPB_P_KW"):                                  # e.g. 300: use the 300 kW current rating (V limit unchanged)
     IMAX = IMAX * float(os.environ["SPB_P_KW"]) / (INV["P_rated_W"] / 1e3)
-M = 48
-Q = 48
+Q = int(os.environ.get('SPB_Q', '48'))           # 48 = T03 stator (3-leg modules); 80 = five-leg-module variant (m = 5), same pu machine
+M = Q
 NC = 3
-Y = 7
+Y = 7 if Q == 48 else int(os.environ.get('SPB_Y', '11'))
+QSCALE = 48.0 / Q
 TAU = 2 * math.pi / Q
 if LEGACY:
     R = STJ["R_gap_m"]; LST = STJ["L_stk_m"]; GEFF = STJ["g_eff_m"]
@@ -42,13 +44,23 @@ else:
     _s, _w, _a = GEOM["stator"], GEOM["winding"], GEOM["airgap"]
     R = _s["R_bore_m"]; LST = _s["L_stk_m"]; GEFF = _a["g_eff_carter_IM_m"]
     KST = _s["stacking_factor"]
-    SLOT_W, SLOT_H, YOKE_H = _s["slot_width_m"], _s["slot_depth_m"], _s["yoke_height_m"]
-    TOOTH_W = _s["tooth_width_equivalent_m"]; TOOTH_W_TIP = _s["tooth_width_tip_m"]
+    SLOT_W, SLOT_H, YOKE_H = _s["slot_width_m"] * QSCALE, _s["slot_depth_m"], _s["yoke_height_m"]
+    _tau = 2 * math.pi * R / Q
+    TOOTH_W_TIP = _tau - SLOT_W
+    _root = 2 * math.pi * (R + SLOT_H) / Q - SLOT_W
+    TOOTH_W = TOOTH_W_TIP + (_root - TOOTH_W_TIP) / 3
+    if Q != 48:
+        _gm = _a["g_mechanical_IM_m"]
+        _carter = lambda tau, b0, g: tau / (tau - ((b0 / g) ** 2 / (5 + b0 / g)) * g)
+        GEFF = _gm * _carter(_tau, _s["slot_opening_m"] * QSCALE, _gm) * _a["carter_rotor_IM"]
     RS = _w["R_coil_120C_ohm"]
     _rho = _s["rho_fe_kg_m3"]
-    M_TEETH = Q * 0.5 * (_s["tooth_width_tip_m"] + _s["tooth_width_root_m"]) * SLOT_H * LST * KST * _rho
+    M_TEETH = Q * 0.5 * (TOOTH_W_TIP + _root) * SLOT_H * LST * KST * _rho
     M_YOKE = math.pi * (_s["R_out_m"] ** 2 - _s["R_yoke_inner_m"] ** 2) * LST * KST * _rho
     L_END_HALF = _w["end_half_length_m"]
+    if Q != 48:
+        L_END_HALF = _w["end_winding_factor"] * math.pi * (2 * R + SLOT_H) * Y / Q + 2 * _w["end_winding_extension_m"]
+        RS = _w["rho_cu_120C_ohm_m"] * NC * 2 * (LST + L_END_HALF) / (_w["conductor_area_m2"] * QSCALE)
 KG = MU0 * R * LST / GEFF                   # gap permeance per radian
 RYM = R + SLOT_H + YOKE_H / 2
 LY = 2 * math.pi * RYM / Q                  # yoke segment length
@@ -108,7 +120,7 @@ def slot_lambdas():
         return (h2 / 3 + hw) / w, (h1 / 3 + h2 + hw) / w, (h2 / 2 + hw) / w
     wd, st = GEOM["winding"], GEOM["stator"]
     hA = hB = wd["layer_height_m"]; sep = wd["layer_separator_m"]; top = wd["top_air_m"]
-    w = st["slot_width_m"]; b0 = st["slot_opening_m"]; tip = st["tooth_tip_height_m"]
+    w = st["slot_width_m"] * QSCALE; b0 = st["slot_opening_m"] * QSCALE; tip = st["tooth_tip_height_m"]
     laa = (hA / 3 + top) / w + tip / b0
     lbb = (hB / 3 + sep + hA + top) / w + tip / b0
     lab = (hA / 2 + top) / w + tip / b0
@@ -152,7 +164,7 @@ def kw(p):
 
 # ---- the MEC -------------------------------------------------------------------------------------------------
 TOOTH_ANG = np.arange(Q) * TAU            # tooth i centre angle
-COIL_ANG = (np.arange(Q) + 4) * TAU       # coil k axis (middle of its 7 enclosed teeth)
+COIL_ANG = (np.arange(Q) + (Y + 1) / 2) * TAU   # coil k axis (middle of its Y enclosed teeth)
 H_T = SLOT_H - (0 if LEGACY else GEOM['stator']['tooth_tip_height_m'] * 0)
 
 

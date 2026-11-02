@@ -358,3 +358,75 @@ Script: `02_analytics/screen_H10.py` -> `results/screen_H10.json`. The short sum
 - WRSM steady space harmonics: simulator circulating-current table, with an assumed fundamental of 120 A.
 - H03 injection: the other analyst's `screen_H03.json` (order 8, I_inj = 0.15 I_max), with P_field = 4 kW spread over 48 legs.
 - Balancing knob: same-frequency order b with m | (p-b)/c. dP = m V I_b per module, with zero sum over modules. Copper loss uses R = 2.16 mOhm per leg.
+
+## H11 / H11s - iteration 2 (crossfade correction, cost table, post-bypass, pulsation-constrained handover) {#h11}
+
+Script: `02_analytics/screen_H11.py`.
+- Output: `results/screen_H11.json`.
+- It also writes an `iteration2_correction` block into `results/screen_H10.json`. Rerunning screen_H10.py drops that block; screen_H11.py reproduces it.
+
+### Two-mode transition model
+- Per mode: rotor-flux-oriented dynamics tau_r dpsi/dt = L_m i_d - psi.
+- Parameters: T03 pole-changing IM at 300 kW (fair_baselines.json), tau_r = 0.48 s (2p8) and 1.46 s (2p4), I_max = 266 A.
+- Current loops are first order with 1 ms. Linear magnetics: no saturation intermodulation (that is the simulator's MEC task).
+- Constraints: peak-sum current |i8| + |i4| <= I_max; peak-sum voltage checked against 29.09 V.
+- Cell pulsation: P_x = 3 (|v8||i4| + |v4||i8|) at f8 + f4 (210 Hz at 2100 rpm). Ripple = P_x / (2 pi f V C), V = 75 V.
+- Cases: 2100 rpm; flat 248 Nm and 2 % grade 677 Nm (as in the simulator); C = 2.9 / 1.0 mF; ripple limit +/-10 % or +/-5 %.
+
+### H11s schedule
+1. Ramp the 2p8 torque current to 0 in 20 ms.
+2. Demagnetise with i_d8 = -I_max until psi8 < 2 %. This is a single order, so there is no cross pulsation.
+3. Build 2p4 flux with i_d4 up to the remaining current budget. The 2p4 current magnitude is limited online by 3 (v8 i4 + v4 i8) <= P_allow(f, C, limit).
+4. Torque current starts once psi4 > 5 %.
+
+### Crossfade
+- Ideal x(1-x) envelope: factor 0.25, 2.12 kW.
+- Naive current crossfade in the model: factor 1.39 (flat) / 1.50 (grade), because the flux lags the current. This is reported separately and labelled.
+
+### Cost table (assumed, unverified prices; no web access in this run)
+Unit prices assumed:
+- EPC2361 6 EUR.
+- Gate-driver channel 3 EUR; isolated supply channel 6 EUR.
+- Current sensor 4 EUR per leg; PCB and assembly 15 EUR per leg; 60 g and 40 cm3 per leg.
+- m = 5 winding extra: 300 EUR.
+
+Capacitors (typical catalogue values, assumed):
+
+| Type | C | Price | Ripple rating | ESR | Rth | Life |
+|---|---|---|---|---|---|---|
+| Al electrolytic 100 V | 1 mF (18 x 40 mm) | 2 EUR | 2.5 A at 120 Hz, x1.3 at 400 Hz | 45 mOhm | 15 K/W | 5000 h at 105 C |
+| Hybrid polymer 100 V | 330 uF | 1.6 EUR | 1.2 A at low frequency | 60 mOhm | - | 10000 h at 125 C |
+| MLCC 22 uF 100 V X7S | 0.35 retention | 0.8 EUR | - | - | - | - |
+
+- Ambient 85 C; lifetime target 25,000 h. Life is Arrhenius x2 per 10 K below rating.
+- m = 5 extras come from module_count_sweep.inverter_design (N = 16): 80 vs 48 legs and 800 vs 672 devices.
+
+### Post-bypass
+- One or two module DC ports are bypassed and their coil groups left unpowered (fixed wiring, so the remaining coils cannot be regrouped). MMF is computed numerically with each pair's own coil pitch.
+- Cell voltage limit is 0.80 V_class.
+- First-order argument for power balance: the remaining modules are unchanged and balanced. The hole fields are at the same frequency and reactive with respect to the main current, so they cause no average imbalance and no pulsation.
+
+## E01-P - bench-test predictions for the pulsation law {#e01}
+
+Script: `02_analytics/E01_predictions.py` -> `results/E01_predictions.json`.
+- `pulsation_from_phasors()` takes measured complex peak FFT phasors per leg (pole voltage and current at f_a and f_b) and returns P and dV at f_a + f_b and |f_a - f_b|. No symmetry is assumed.
+- Pole voltages relative to DC- are fine: zero-sequence cancels because the currents sum to zero.
+
+Test conventions (assumed):
+- I_a and I_b are PEAK amplitudes (as in the plan's reference expression).
+- Signed orders: leg k lags k 2 pi a / m.
+- Load: star RL per leg, isolated neutral, 1-2 Ohm and 2-5 mH.
+- V_dc 48 / 75 / 100 V.
+- C = 1 mF film nominal, with 0.5 / 2 / 4.7 mF parametric.
+
+Ripple and current:
+- Ripple assumes the source is decoupled at f: dV = P / (2 pi f V_dc C).
+- Otherwise use |Z_C || Z_s|, or measure the capacitor current plus the source current against P / V_dc. This is a pitfall flagged to Enes.
+
+Modulation limit (linear): V_pk sum <= V_dc / (2 cos(pi/2m)) for odd m, i.e. 0.577 V_dc for m = 3 and 0.526 V_dc for m = 5.
+
+Sensitivities:
+- Load imbalance: +/-5 % per-leg R and L (40 random draws plus an alternating worst case).
+- Dead time: 100-1000 ns at f_sw = 20 kHz, V_sd = 1 V. A rejection fraction models how much of the dead-time error the current loop removes.
+- Asymmetric dead time: +/-20 / 50 % per leg.
+- Imperix PEB/B-Box specifics (dead time, f_sw, current-loop bandwidth) are not known here; Enes should replace them.

@@ -172,7 +172,7 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
         state = tuple(x + dt / 6 * (p1 + 2 * p2 + 2 * p3 + p4) for x, p1, p2, p3, p4 in zip(state, k1, k2, k3, k4))
         t += dt
         if full_log:
-            cplx.append((t0, st0[0], st0[2], d1["va0"], d1["va1"]))
+            cplx.append((t0, st0[0], st0[2], d1["va0"], d1["va1"], st0[1], st0[3]))
         if k % 20 == 0:
             i4s, p4s, i2s, p2s, Oms = state
             log.append((t, d1["T4"], d1["T2"], d1["Tl"], abs(i4s), abs(i2s), abs(p4s), abs(p2s), Oms / c.RPM, d1["v4"], d1["v2"],
@@ -203,6 +203,7 @@ def simulate(T_req, grade, n0=2100.0, t_end=0.5, dt=1e-4, t_d=0.02, t_f4=0.05, t
                   psi4=(L[:, 6] / c.SQ2).tolist(), psi2=(L[:, 7] / c.SQ2).tolist(), n_rpm=L[:, 8].tolist(), I_rms=irms.tolist())
     if full_log:
         series['cplx'] = cplx
+        series['modes'] = dict(Lm4=m4.Lm, Lr4=m4.Lr, Ls4=m4.Ls, Lm2=m2.Lm, Lr2=m2.Lr, Ls2=m2.Ls, Rs=m4.Rs, Lsig_s4=m4.Ls - m4.Lm, Lsig_s2=m2.Ls - m2.Lm, trigger_t=trig['t'])
     return res, series
 
 

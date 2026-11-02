@@ -24,14 +24,23 @@ different phase sequences (order mod m) and different frequencies.
 - **Load:** star RL per leg, isolated neutral; e.g. 2–5 mH and 1–2 Ω per leg. No machine.
 - **Control:** per-leg current control, reference i_k = I_a cos(2π f_a t − k·2π a/m) + I_b cos(2π f_b t − k·2π b/m).
 - **Points (3-leg):**
-  - (a, b) = (1, −1) [positive + negative sequence], f_a = 50 Hz, f_b = 30 Hz, I_a = I_b = 5 A, 10 A;
+  - (a, b) = (1, −1) [positive + negative sequence], f_a = 50 Hz, f_b = **31 Hz** (30 Hz would alias a −2f_a + 6f_b
+    order-10 product onto the 80 Hz bin), I_a = I_b = 5 A, 10 A. Use only the 66 "safe" points in
+    `02_analytics/results/E01_predictions.json`: many 10 A points exceed linear modulation below 100 V, and at 1 mF the
+    ripple reaches ±48 V.
   - (1, 1) at f_a ≠ f_b as a control case. The law predicts pulsation at |f_a − f_b| only.
 - **Points (5-leg):** (a, b) = (1, 2): neither (a+b) nor (a−b) is divisible by 5, so the prediction is zero cross-pulsation.
   Same frequencies and currents as the 3-leg points.
 - **Measure:** DC-link voltage (AC-coupled, high resolution) and source current; FFT at f_a ± f_b; leg currents for the
   actual I and phase.
 - **Predicted ripple:** ΔV ≈ P_pulse / (2π f_pulse · V_dc · C) per the analyst's E01-P table, with P_pulse taken from the
-  measured voltages and currents, not the references.
+  measured voltages and currents, not the references. `pulsation_from_phasors()` in `02_analytics/E01_predictions.py`
+  takes the per-leg complex phasors straight from scope data.
+- **Source:** a stiff lab supply absorbs part of the pulsating current. Decouple it (series choke or diode + R), or
+  measure capacitor + source current and compare with P/V_dc.
+- **Expected margins:** the 5-leg null survives ±5 % R/L imbalance (≤ 4.1 % residual) and asymmetric dead time (≤ 1.4 %),
+  so the 10 % pass criterion is robust. Replace the assumed Imperix values (20 kHz, 100–1000 ns dead time, loop
+  bandwidth) with the real ones.
 
 ## Phase B — Rev B GaN boards (after Rev B bring-up)
 - **Hardware:** three Rev B half-bridge boards for a 3-leg cell, five for a 5-leg cell. Common 75 V local bus with the
