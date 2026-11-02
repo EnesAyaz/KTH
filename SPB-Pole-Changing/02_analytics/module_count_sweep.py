@@ -60,6 +60,48 @@ P_MAX = 8                       # 2p <= 16
 RPM = T3.RPM
 GEAR_VARIANT = "EU2017"         # leader: EU 2017/2400 regulatory baseline in the screens (certified_like also reported)
 
+# ----------------------------------------------------------------------------------
+# Explicit machine inputs (reconcile R01): slot leakage and flux caps can be overridden without code changes.
+#   --geometry <json>          keys from {lam_slot_self, lam_slot_mut, lam_end, B_yoke_max_T, B_gap_max_T, g_m, kc_ksat}
+#                              (top level or under "analyst_inputs"); e.g. data/machine_geometry.json once R01 is agreed
+#   --slot_leakage_scale <k>   multiplies lam_slot_self and lam_slot_mut
+#   --B_cap_scale <k>          multiplies B_yoke_max_T and B_gap_max_T
+# Any override writes to results/ with a suffix and never overwrites the default screens.
+# ----------------------------------------------------------------------------------
+MACHINE_INPUT_KEYS = ("lam_slot_self", "lam_slot_mut", "lam_end", "B_yoke_max_T", "B_gap_max_T", "g_m", "kc_ksat")
+MACHINE_INPUTS_DEFAULT = {k: T3.ST[k] for k in MACHINE_INPUT_KEYS}
+
+
+def apply_machine_inputs(over):
+    """Set machine inputs in the shared T03 stator dict and in the constants fair_baselines copied at import."""
+    for k, v in over.items():
+        if k not in MACHINE_INPUT_KEYS:
+            raise KeyError(f"unknown machine input {k}")
+        T3.ST[k] = float(v)
+    T3.ST["g_eff_m"] = T3.ST["g_m"] * T3.ST["kc_ksat"]
+    FB.B_Y_MAX, FB.B_G_MAX = T3.ST["B_yoke_max_T"], T3.ST["B_gap_max_T"]
+    return {k: T3.ST[k] for k in MACHINE_INPUT_KEYS}
+
+
+def machine_inputs_from_argv(argv):
+    over, tag = {}, []
+    if "--geometry" in argv:
+        g = json.load(open(argv[argv.index("--geometry") + 1]))
+        g = g.get("analyst_inputs", g)
+        over.update({k: g[k] for k in MACHINE_INPUT_KEYS if k in g})
+        tag.append("geom")
+    if "--slot_leakage_scale" in argv:
+        k = float(argv[argv.index("--slot_leakage_scale") + 1])
+        over["lam_slot_self"] = over.get("lam_slot_self", MACHINE_INPUTS_DEFAULT["lam_slot_self"]) * k
+        over["lam_slot_mut"] = over.get("lam_slot_mut", MACHINE_INPUTS_DEFAULT["lam_slot_mut"]) * k
+        tag.append(f"leak{k:g}x")
+    if "--B_cap_scale" in argv:
+        k = float(argv[argv.index("--B_cap_scale") + 1])
+        over["B_yoke_max_T"] = MACHINE_INPUTS_DEFAULT["B_yoke_max_T"] * k
+        over["B_gap_max_T"] = MACHINE_INPUTS_DEFAULT["B_gap_max_T"] * k
+        tag.append(f"Bcap{k:g}x")
+    return over, ("_" + "_".join(tag)) if tag else ""
+
 
 # ----------------------------------------------------------------------------------
 # 1. Feasibility engine
@@ -506,6 +548,54 @@ def h05_screen(inv, designs, case):
 # ----------------------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------------------
+def sensitivity_leakage(k):
+    """Key conclusions at k x stator slot leakage (R01: simulator has ~2x). Writes results/sensitivity_slot_leakage_2x.json."""
+    fb = json.load(open(FB.OUT_JSON))
+    h01 = json.load(open(OUT["H01"]))
+    t = h01["feasible_table"]
+    picks = [("N16_m3_Q48", "8/4"), ("N16_m5_Q80", "12/4"), ("N16_m5_Q80", "8/4"), ("N8_m3_Q48", "8/4")]
+    res = dict(meta=dict(script="02_analytics/module_count_sweep.py --sens_leakage2x", date=_dt.date.today().isoformat(),
+                         slot_leakage_scale=k, note="lam_slot_self and lam_slot_mut x k; everything else unchanged. "
+                         "Winding feasibility (H01) does not depend on leakage."), designs={})
+    for scale in (1.0, k):
+        apply_machine_inputs({"lam_slot_self": MACHINE_INPUTS_DEFAULT["lam_slot_self"] * scale,
+                              "lam_slot_mut": MACHINE_INPUTS_DEFAULT["lam_slot_mut"] * scale})
+        for combo, pair in picks:
+            if combo not in t or pair not in t[combo]["pairs"]:
+                continue
+            pr = t[combo]["pairs"][pair]
+            N, m, Q = t[combo]["N"], t[combo]["m"], t[combo]["Q"]
+            inv = inverter_design(N, m)
+            des = pc_im_designs(Q, pr)
+            ev, _ = pc_im_eval(des, inv, points=(("cruise_85kmh_flat", 85.0, 0.0),))
+            c = ev["points"]["cruise_85kmh_flat"][GEAR_VARIANT]
+            res["designs"].setdefault(f"{combo}_{pair}", {})[f"leak_x{scale:g}"] = dict(
+                L_sigma_s_2phi_H=des[list(des)[0]]["L_sigma_s_H"], L_sigma_s_2plo_H=des[list(des)[1]]["L_sigma_s_H"],
+                T_peak_Nm=ev["T_peak_Nm"], crossover_rpm=ev["crossover_speed_rpm"], CPSR=ev["CPSR"],
+                P_at_90kmh_kW=ev["P_at_90kmh_kW"], max_start_grade_pct=ev["max_start_grade_pct"],
+                cruise_eta_dc_to_wheel=c["eta_dc_to_wheel"] if c else None, cruise_PF=c["PF"] if c else None)
+        # fixed 2p=4 baseline (T03b design): P at 90 km/h at its gear, and current factor needed for the start at G = 9.80
+        d = dict(fb["machines"]["fixed_2p4"]["design"])
+        d2 = FB.make_design(d["p"], d["Q"], d["y_slots"], d["coils_per_leg"], d["R_gap_m"], d["B_design_T"], d["N_leg_turns"], name="fixed_2p4")
+        T = FB.envelope(d2, FB.NG_FULL)
+        G = fb["machines"]["fixed_2p4"]["metrics"]["gear_ratio"]
+        mt = FB.metrics(T, FB.NG_FULL, G)
+        kst = FB.current_for_start(d2, FB.G_REF, T3.T_START)
+        res["designs"].setdefault("fixed_2p4_T03b", {})[f"leak_x{scale:g}"] = dict(
+            T_peak_Nm=mt["T_peak_Nm"], P_at_90kmh_kW=mt["P_at_vmax_W"] / 1e3, CPSR=mt["CPSR"],
+            current_factor_for_start_at_G9p80=kst)
+        print("leakage x", scale, "done")
+    apply_machine_inputs(MACHINE_INPUTS_DEFAULT)
+    for name, d in res["designs"].items():
+        a, b = d.get("leak_x1"), d.get(f"leak_x{k:g}")
+        if a and b:
+            d["relative_change"] = {kk: (b[kk] / a[kk] - 1) if isinstance(a.get(kk), (int, float)) and a.get(kk) and isinstance(b.get(kk), (int, float)) else None
+                                    for kk in a}
+    out = os.path.join(RES, "sensitivity_slot_leakage_2x.json")
+    json.dump(res, open(out, "w"), indent=1, default=fmt)
+    print(json.dumps({n: d.get("relative_change") for n, d in res["designs"].items()}, indent=1, default=fmt))
+
+
 def fmt(o):
     if isinstance(o, (np.floating,)):
         return float(o)
@@ -518,8 +608,16 @@ def fmt(o):
 
 def main():
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
+    over, suffix = machine_inputs_from_argv(sys.argv)
+    used_inputs = apply_machine_inputs(over)
+    if suffix:
+        for k in OUT:
+            OUT[k] = OUT[k].replace(".json", f"{suffix}.json")
+    if "--sens_leakage2x" in sys.argv:
+        return sensitivity_leakage(2.0)
     today = _dt.date.today().isoformat()
     meta = dict(script="02_analytics/module_count_sweep.py", task="T08 (+ gap-loop screens H01/H02/H04/H05)", date=today,
+                machine_inputs=used_inputs, machine_inputs_overridden=sorted(over),
                 P_rated_W=T3.INV["P_rated_W"], V_dc_V=V_DC, assumptions="02_analytics/assumptions.md#t08",
                 gear_variant_in_screens=GEAR_VARIANT)
     # ---- H01 feasibility
@@ -593,7 +691,9 @@ def main():
                 "with k_d < 1. Example: N = 16, m = 3, Q = 48 (c = 1): every p not divisible by 3 -> 8/4, 4/2, 16/8 yes; 6/x no.")
     h01 = dict(meta=dict(meta, screen="H01", metric="feasible (N, m, Q, p1/p2) table + winding factors per mode"),
                rule=rule_txt, rule_check=rule_check,
-               best_designs=[pack(c) for c in top], best_per_m={str(k): pack(v) for k, v in best_per_m.items()},
+               best_designs=[pack(c) for c in top],
+               best_ratio3_designs=[pack(c) for c in [c for c in cands if abs(c[1]["p"][0] / c[1]["p"][1] - 3) < 1e-9][:8]],
+               best_per_m={str(k): pack(v) for k, v in best_per_m.items()},
                best_per_N={str(k): pack(v) for k, v in sorted(best_per_N.items())},
                feasible_table=table)
     os.makedirs(RES, exist_ok=True)
@@ -636,13 +736,15 @@ def main():
     # m > 3: best design per m (H04) at the N of that design, plus N = 16 if available
     for m in M_LIST:
         sel = [c for c in cands if c[3] == m]
-        picks = sel[:1] + [c for c in sel if c[2] == 16][:1]
+        r3 = sorted([c for c in cands if c[3] == m and abs(c[1]["p"][0] / c[1]["p"][1] - 3) < 1e-9 and c[1]["const_power"]
+                     and Q_PRACTICAL[0] <= c[4] <= Q_PRACTICAL[1]], key=lambda c: (c[2] == 16, c[1]["kw"][0] ** 2 + c[1]["kw"][1] ** 2), reverse=True)
+        picks = sel[:1] + [c for c in sel if c[2] == 16][:1] + r3[:1]
         for c in picks:
             key, pr, N, m_, Q = c
-            if (N, m) in evals and evals[(N, m)][4] == key:
+            if (N, m, key) in evals or ((N, m) in evals and evals[(N, m)][4] == key):
                 continue
             inv, des, ev, case = run_design(N, m, Q, pr)
-            evals[(N, m)] = (inv, des, ev, case, key, Q, pr)
+            evals[(N, m, key) if (N, m) in evals else (N, m)] = (inv, des, ev, case, key, Q, pr)
             master["per_N_m"][f"N{N}_m{m}"] = dict(inverter=inv, pole_changing_IM=dict(pair_2p=key, Q=Q, winding={k: v for k, v in pr.items()}, **ev))
             print(f"  m={m} N={N} Q={Q} {key} kw {[round(x, 3) for x in pr['kw']]} T={ev['T_peak_Nm']:.0f} CPSR={ev['CPSR']:.2f}")
     json.dump(master, open(OUT["master"], "w"), indent=1, default=fmt)
@@ -656,7 +758,8 @@ def main():
                                                "Raj2022 ratio 1.51. With a free gear ratio the fixed IM needs the same kVA (T03b)."),
                device_area="not computed: package/die areas are not in the local data (request: EPC2361/EPC2304/EPC2050/IGT65R025D2 package areas)",
                designs={})
-    for (N, m), (inv, des, ev, case, key, Q, pr) in sorted(evals.items()):
+    for kk, (inv, des, ev, case, key, Q, pr) in sorted(evals.items(), key=lambda x: str(x[0])):
+        N, m = kk[0], kk[1]
         base = master["per_N"].get(str(N), {}).get("fixed_pole_baseline_same_N") if m == 3 else None
         h02["designs"][f"N{N}_m{m}_Q{Q}_{key}"] = dict(inverter=inv, start_inverter_loss_W=ev.get("start_inverter_loss_W"),
                                                      start_Tj_C=ev.get("start_inverter_Tj_C"),
@@ -670,7 +773,8 @@ def main():
                note="All m share the same total converter kVA (equivalence), so T_peak per kVA compares torque per ampere-turn across m. "
                     "Per-leg current scales as 1/(m k_m). Module voltage utilisation k_m: m=3 0.577, 5 0.526, 6 0.5, 7 0.513, 9 0.508.",
                per_m={})
-    for (N, m), (inv, des, ev, case, key, Q, pr) in sorted(evals.items(), key=lambda x: (x[0][1], x[0][0])):
+    for kk, (inv, des, ev, case, key, Q, pr) in sorted(evals.items(), key=lambda x: (x[0][1], x[0][0], str(x[0]))):
+        N, m = kk[0], kk[1]
         h04["per_m"].setdefault(str(m), []).append(dict(N=N, Q=Q, pair_2p=key, kw=pr["kw"], sigma_diff=pr["sigma_diff"],
                                                       pole_phase_states=table.get(f"N{N}_m{m}_Q{Q}", {}).get("pole_phase_states_best_wiring"),
                                                       k_m=k_m(m), I_leg_max_A=inv["I_leg_rms_max_A"], T_peak_Nm=ev["T_peak_Nm"],

@@ -1,0 +1,1421 @@
+{
+ "meta": {
+  "script": "02_analytics/module_count_sweep.py",
+  "task": "T08 (+ gap-loop screens H01/H02/H04/H05)",
+  "date": "2026-10-29",
+  "P_rated_W": 300000.0,
+  "V_dc_V": 1200.0,
+  "assumptions": "02_analytics/assumptions.md#t08",
+  "gear_variant_in_screens": "EU2017",
+  "screen": "H05",
+  "metric": "inverter (+ machine copper) loss at cruise, cells parked vs all active, per pole mode"
+ },
+ "cases": {
+  "N16_m3_Q48_8/4": {
+   "note": "SPB modules are in series on the 1200 V link: parking k modules raises the others to 1200/(N-k). The limit is the device rating (<= 0.80 V_class), not the machine voltage. Parked coil groups carry no current, so the active ones carry N/(N-k) more current for the same torque (stator copper x N/(N-k)). Alternative: shed parallel devices inside each switch position (no voltage penalty).",
+   "N": 16,
+   "m": 3,
+   "V_class_V": 100,
+   "k_max_parked_modules_by_device_rating": 1,
+   "points": {
+    "cruise_85kmh_flat": {
+     "2p8": null,
+     "2p4": {
+      "I_eq_rms_A": 130.3123494853048,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 769.0084968821425,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 75.0,
+        "P_inverter_W": 769.0084968821425,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 80.0,
+        "P_inverter_W": 809.5335062749846,
+        "dP_stator_cu_W": 117.1172589787891,
+        "dP_total_vs_all_active_W": 157.6422683716312
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 5,
+        "P_inverter_W": 740.5855578432736,
+        "Tj_C": 50.30575725186393
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1340.266118886266,
+         "Tj_C": 52.78940103391764
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 900.5291538973912,
+         "Tj_C": 50.93523118020728
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 783.978528326379,
+         "Tj_C": 50.541608660830185
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 746.547403178092,
+         "Tj_C": 50.38600657557528
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 740.5855578432736,
+         "Tj_C": 50.30575725186393
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 750.318886743123,
+         "Tj_C": 50.257707365251726
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 769.0084968821425,
+         "Tj_C": 50.2260515641519
+        }
+       ]
+      }
+     }
+    },
+    "cruise_60kmh_flat": {
+     "2p8": {
+      "I_eq_rms_A": 82.59845832039596,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 561.5158828571532,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 75.0,
+        "P_inverter_W": 561.5158828571532,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 80.0,
+        "P_inverter_W": 588.346673818202,
+        "dP_stator_cu_W": 47.05368408177982,
+        "dP_total_vs_all_active_W": 73.88447504282864
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 3,
+        "P_inverter_W": 469.19413821485966,
+        "Tj_C": 50.32300917857084
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 640.5407145523293,
+         "Tj_C": 51.33163969355846
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 491.162013446948,
+         "Tj_C": 50.508806427285954
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 469.19413821485966,
+         "Tj_C": 50.32300917857084
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 478.7881284495919,
+         "Tj_C": 50.24654879659062
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 500.9744546783919,
+         "Tj_C": 50.20591934916714
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 529.449561966019,
+         "Tj_C": 50.181016650514415
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 561.5158828571532,
+         "Tj_C": 50.16429782083556
+        }
+       ]
+      }
+     },
+     "2p4": {
+      "I_eq_rms_A": 76.77102708312029,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 538.6376402881097,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 75.0,
+        "P_inverter_W": 538.6376402881097,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 80.0,
+        "P_inverter_W": 563.9610398145695,
+        "dP_stator_cu_W": 40.64849318929632,
+        "dP_total_vs_all_active_W": 65.97189271575618
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 3,
+        "P_inverter_W": 436.5268924389723,
+        "Tj_C": 50.300323616961585
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 573.1239145572113,
+         "Tj_C": 51.19118808121865
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 449.8919098047908,
+         "Tj_C": 50.46581694817649
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 436.5268924389723,
+         "Tj_C": 50.300323616961585
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 450.4082048488603,
+         "Tj_C": 50.23176759244317
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 475.1632967507427,
+         "Tj_C": 50.1951647020644
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 505.3496073385064,
+         "Tj_C": 50.17264861156225
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 538.6376402881097,
+         "Tj_C": 50.157488820481795
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "N8_m3_Q48_8/4": {
+   "note": "SPB modules are in series on the 1200 V link: parking k modules raises the others to 1200/(N-k). The limit is the device rating (<= 0.80 V_class), not the machine voltage. Parked coil groups carry no current, so the active ones carry N/(N-k) more current for the same torque (stator copper x N/(N-k)). Alternative: shed parallel devices inside each switch position (no voltage penalty).",
+   "N": 8,
+   "m": 3,
+   "V_class_V": 200,
+   "k_max_parked_modules_by_device_rating": 0,
+   "points": {
+    "cruise_85kmh_flat": {
+     "2p8": null,
+     "2p4": {
+      "I_eq_rms_A": 130.3123494853048,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 1313.6592814029973,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1313.6592814029973,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 6,
+        "P_inverter_W": 1049.0100647371892,
+        "Tj_C": 50.72471920926808
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 2744.9204112596312,
+         "Tj_C": 61.433408130732644
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 1581.3342417896893,
+         "Tj_C": 53.290686234330394
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 1257.4922082621874,
+         "Tj_C": 51.74275659509736
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 1125.594268220105,
+         "Tj_C": 51.16873398621706
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 1068.728134552121,
+         "Tj_C": 50.88684677019406
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 1049.0100647371892,
+         "Tj_C": 50.72471920926808
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 1050.4081248624484,
+         "Tj_C": 50.621482195584
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 1064.9617886618594,
+         "Tj_C": 50.550907215788435
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 1088.267464684757,
+         "Tj_C": 50.50006731316797
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 1117.6905633944061,
+         "Tj_C": 50.46194427001232
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 1151.5579222078222,
+         "Tj_C": 50.43243609863038
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 1188.7557655305668,
+         "Tj_C": 50.40900236247135
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 1228.5138962707042,
+         "Tj_C": 50.38999441508283
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 1270.282664465626,
+         "Tj_C": 50.37430028908265
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 1313.6592814029973,
+         "Tj_C": 50.36114533564705
+        }
+       ]
+      }
+     }
+    },
+    "cruise_60kmh_flat": {
+     "2p8": {
+      "I_eq_rms_A": 82.59845832039596,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 1094.3221701326934,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1094.3221701326934,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 4,
+        "P_inverter_W": 664.0567356024806,
+        "Tj_C": 50.68796576460097
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1185.2599605134296,
+         "Tj_C": 54.934823146961776
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 779.0932860388114,
+         "Tj_C": 51.61935076477478
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 684.1097302458405,
+         "Tj_C": 50.9463923903668
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 664.0567356024806,
+         "Tj_C": 50.68796576460097
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 673.6812825716847,
+         "Tj_C": 50.55764065927403
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 698.0808149471973,
+         "Tj_C": 50.48101817330629
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 730.9035040923068,
+         "Tj_C": 50.43130152709119
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 768.9831181307941,
+         "Tj_C": 50.396751996209176
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 810.5639945531634,
+         "Tj_C": 50.37150108258396
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 854.5940941778306,
+         "Tj_C": 50.352320856392
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 900.4045543137136,
+         "Tj_C": 50.337302320597594
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 947.5497725083408,
+         "Tj_C": 50.325250330471775
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 995.7214176778953,
+         "Tj_C": 50.31538147495276
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 1044.6993452206316,
+         "Tj_C": 50.3071624205
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 1094.3221701326934,
+         "Tj_C": 50.30021837786833
+        }
+       ]
+      }
+     },
+     "2p4": {
+      "I_eq_rms_A": 76.77102708312029,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 1070.2183749793937,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1070.2183749793937,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 4,
+        "P_inverter_W": 617.8955447187379,
+        "Tj_C": 50.63988033646675
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1043.6051892477906,
+         "Tj_C": 54.34459445399469
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 702.3205999482032,
+         "Tj_C": 51.45940777247385
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 627.8313766761173,
+         "Tj_C": 50.86822801561646
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 617.8955447187379,
+         "Tj_C": 50.63988033646675
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 633.5587364198599,
+         "Tj_C": 50.52420532634655
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 661.9731062859582,
+         "Tj_C": 50.45594342548008
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 697.658893358194,
+         "Tj_C": 50.41151309207052
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 737.8835614307361,
+         "Tj_C": 50.38055432306823
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 781.1315865067552,
+         "Tj_C": 50.35787497505693
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 826.4946895417822,
+         "Tj_C": 50.34061277563368
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 873.3953458701508,
+         "Tj_C": 50.32707156274769
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 921.4487732046839,
+         "Tj_C": 50.316187485469044
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 970.3887086882578,
+         "Tj_C": 50.30726201832757
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 1020.0250351086206,
+         "Tj_C": 50.29981887682116
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 1070.2183749793937,
+         "Tj_C": 50.293522879951105
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "N12_m3_Q36_8/4": {
+   "note": "SPB modules are in series on the 1200 V link: parking k modules raises the others to 1200/(N-k). The limit is the device rating (<= 0.80 V_class), not the machine voltage. Parked coil groups carry no current, so the active ones carry N/(N-k) more current for the same torque (stator copper x N/(N-k)). Alternative: shed parallel devices inside each switch position (no voltage penalty).",
+   "N": 12,
+   "m": 3,
+   "V_class_V": 200,
+   "k_max_parked_modules_by_device_rating": 4,
+   "points": {
+    "cruise_85kmh_flat": {
+     "2p8": null,
+     "2p4": {
+      "I_eq_rms_A": 131.98274807346056,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 1229.9850298343074,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 100.0,
+        "P_inverter_W": 1229.9850298343074,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 109.0909090909091,
+        "P_inverter_W": 1312.970983698442,
+        "dP_stator_cu_W": 152.54025533281825,
+        "dP_total_vs_all_active_W": 235.52620919695292
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 120.0,
+        "P_inverter_W": 1413.068117792739,
+        "dP_stator_cu_W": 335.5885617322004,
+        "dP_total_vs_all_active_W": 518.671649690632
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 133.33333333333334,
+        "P_inverter_W": 1536.3113025671032,
+        "dP_stator_cu_W": 559.3142695536674,
+        "dP_total_vs_all_active_W": 865.6405422864632
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1691.9531236658333,
+        "dP_stator_cu_W": 838.9714043305012,
+        "dP_total_vs_all_active_W": 1300.9394981620271
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 9,
+        "P_inverter_W": 1113.9714110377531,
+        "Tj_C": 50.3407481541637
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 3962.9319278593653,
+         "Tj_C": 61.00507393748627
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 2139.2870011306377,
+         "Tj_C": 52.96816181630392
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 1603.9614077334209,
+         "Tj_C": 51.48207909329087
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 1363.1180979373667,
+         "Tj_C": 50.94353972546573
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 1237.4350609683943,
+         "Tj_C": 50.68439388845301
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 1168.785105720118,
+         "Tj_C": 50.538034186579765
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 1132.5619595719813,
+         "Tj_C": 50.44635876576059
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 1116.5446221028424,
+         "Tj_C": 50.38461879677616
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 1113.9714110377531,
+         "Tj_C": 50.3407481541637
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 1120.7963130663093,
+         "Tj_C": 50.30826218977237
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 1134.4494833052104,
+         "Tj_C": 50.283407057159764
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 1153.220072556776,
+         "Tj_C": 50.26387902562882
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 1175.9248918397939,
+         "Tj_C": 50.24819594936895
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 1201.7194966587342,
+         "Tj_C": 50.235366362579455
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 1229.9850298343074,
+         "Tj_C": 50.224704965090964
+        }
+       ]
+      }
+     }
+    },
+    "cruise_60kmh_flat": {
+     "2p8": {
+      "I_eq_rms_A": 86.45525397427214,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 984.2290789602595,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 100.0,
+        "P_inverter_W": 984.2290789602595,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 109.0909090909091,
+        "P_inverter_W": 1043.6565707956179,
+        "dP_stator_cu_W": 65.45350644604436,
+        "dP_total_vs_all_active_W": 124.88099828140277
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 120.0,
+        "P_inverter_W": 1114.8055867939038,
+        "dP_stator_cu_W": 143.99771418129768,
+        "dP_total_vs_all_active_W": 274.574222014942
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 133.33333333333334,
+        "P_inverter_W": 1201.7078353367226,
+        "dP_stator_cu_W": 239.9961903021628,
+        "dP_total_vs_all_active_W": 457.47494667862594
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1310.5105219946763,
+        "dP_stator_cu_W": 359.9942854532443,
+        "dP_total_vs_all_active_W": 686.2757284876611
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 6,
+        "P_inverter_W": 730.0597140613642,
+        "Tj_C": 50.33492043881391
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1750.8716428403943,
+         "Tj_C": 54.860462280192564
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 1039.1430808954663,
+         "Tj_C": 51.440183962221504
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 839.1975059013218,
+         "Tj_C": 50.773964686831405
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 762.261839808736,
+         "Tj_C": 50.5262784710617
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 734.0357803449008,
+         "Tj_C": 50.40472727187088
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 730.0597140613642,
+         "Tj_C": 50.33492043881391
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 739.9090096015955,
+         "Tj_C": 50.2905445925126
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 758.3871724883734,
+         "Tj_C": 50.26025881716894
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 782.6126667670541,
+         "Tj_C": 50.238477072191934
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 810.8587308843223,
+         "Tj_C": 50.222168496964954
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 842.0274856086077,
+         "Tj_C": 50.20956316840132
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 875.3874868177596,
+         "Tj_C": 50.19956595986875
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 910.4326005411529,
+         "Tj_C": 50.191466849617264
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 946.8014423489167,
+         "Tj_C": 50.18478739924118
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 984.2290789602595,
+         "Tj_C": 50.17919461515605
+        }
+       ]
+      }
+     },
+     "2p4": {
+      "I_eq_rms_A": 81.06207561851414,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 958.6575597231745,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 100.0,
+        "P_inverter_W": 958.6575597231745,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 109.0909090909091,
+        "P_inverter_W": 1015.617851310853,
+        "dP_stator_cu_W": 57.54208246047147,
+        "dP_total_vs_all_active_W": 114.50237404814999
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 120.0,
+        "P_inverter_W": 1083.7264914246625,
+        "dP_stator_cu_W": 126.59258141303732,
+        "dP_total_vs_all_active_W": 251.66151311452538
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 133.33333333333334,
+        "P_inverter_W": 1166.7999632116066,
+        "dP_stator_cu_W": 210.98763568839553,
+        "dP_total_vs_all_active_W": 419.13003917682767
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 150.0,
+        "P_inverter_W": 1270.6509514607178,
+        "dP_stator_cu_W": 316.4814535325934,
+        "dP_total_vs_all_active_W": 628.4748452701367
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 5,
+        "P_inverter_W": 685.1151955741046,
+        "Tj_C": 50.37754926873062
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1553.5921780364542,
+         "Tj_C": 54.312463033706216
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 936.7904353996963,
+         "Tj_C": 51.29802762229259
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 766.7296819099911,
+         "Tj_C": 50.70686485500231
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 704.5402558527124,
+         "Tj_C": 50.486193231103265
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 685.1151955741046,
+         "Tj_C": 50.37754926873062
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 686.9906289613941,
+         "Tj_C": 50.3149810864525
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 701.0129521425597,
+         "Tj_C": 50.275109666960034
+        },
+        {
+         "devices_active": 8,
+         "P_inverter_W": 722.6177024964286,
+         "Tj_C": 50.24783887155606
+        },
+        {
+         "devices_active": 9,
+         "P_inverter_W": 749.2732908022487,
+         "Tj_C": 50.22818714655715
+        },
+        {
+         "devices_active": 10,
+         "P_inverter_W": 779.4624537764736,
+         "Tj_C": 50.213447312032564
+        },
+        {
+         "devices_active": 11,
+         "P_inverter_W": 812.2204195876059,
+         "Tj_C": 50.20203613353851
+        },
+        {
+         "devices_active": 12,
+         "P_inverter_W": 846.9043800077868,
+         "Tj_C": 50.192972649447725
+        },
+        {
+         "devices_active": 13,
+         "P_inverter_W": 883.0695106897895,
+         "Tj_C": 50.18562003647311
+        },
+        {
+         "devices_active": 14,
+         "P_inverter_W": 920.3981899399893,
+         "Tj_C": 50.17954865934429
+        },
+        {
+         "devices_active": 15,
+         "P_inverter_W": 958.6575597231745,
+         "Tj_C": 50.174459149113765
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "N24_m3_Q72_8/4": {
+   "note": "SPB modules are in series on the 1200 V link: parking k modules raises the others to 1200/(N-k). The limit is the device rating (<= 0.80 V_class), not the machine voltage. Parked coil groups carry no current, so the active ones carry N/(N-k) more current for the same torque (stator copper x N/(N-k)). Alternative: shed parallel devices inside each switch position (no voltage penalty).",
+   "N": 24,
+   "m": 3,
+   "V_class_V": 100,
+   "k_max_parked_modules_by_device_rating": 9,
+   "points": {
+    "cruise_85kmh_flat": {
+     "2p8": {
+      "I_eq_rms_A": 161.30055262649728,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 1002.471226242995,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 50.0,
+        "P_inverter_W": 1002.471226242995,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 52.17391304347826,
+        "P_inverter_W": 1035.432886303689,
+        "dP_stator_cu_W": 108.96491771787151,
+        "dP_total_vs_all_active_W": 141.92657777856544
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 54.54545454545455,
+        "P_inverter_W": 1071.655631188062,
+        "dP_stator_cu_W": 227.83573704645858,
+        "dP_total_vs_all_active_W": 297.0201419915255
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 57.142857142857146,
+        "P_inverter_W": 1111.642453215221,
+        "dP_stator_cu_W": 358.0275867872922,
+        "dP_total_vs_all_active_W": 467.1988137595181
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 60.0,
+        "P_inverter_W": 1156.0041752632037,
+        "dP_stator_cu_W": 501.2386215022092,
+        "dP_total_vs_all_active_W": 654.7715705224178
+       },
+       {
+        "k_parked": 5,
+        "V_module_V": 63.1578947368421,
+        "P_inverter_W": 1205.4896911987835,
+        "dP_stator_cu_W": 659.524501976591,
+        "dP_total_vs_all_active_W": 862.5429669323794
+       },
+       {
+        "k_parked": 6,
+        "V_module_V": 66.66666666666667,
+        "P_inverter_W": 1261.0269015440256,
+        "dP_stator_cu_W": 835.397702503682,
+        "dP_total_vs_all_active_W": 1093.9533778047125
+       },
+       {
+        "k_parked": 7,
+        "V_module_V": 70.58823529411765,
+        "P_inverter_W": 1323.7790019609358,
+        "dP_stator_cu_W": 1031.9618677986664,
+        "dP_total_vs_all_active_W": 1353.2696435166072
+       },
+       {
+        "k_parked": 8,
+        "V_module_V": 75.0,
+        "P_inverter_W": 1395.2232394304801,
+        "dP_stator_cu_W": 1253.0965537555232,
+        "dP_total_vs_all_active_W": 1645.8485669430083
+       },
+       {
+        "k_parked": 9,
+        "V_module_V": 80.0,
+        "P_inverter_W": 1477.263261704224,
+        "dP_stator_cu_W": 1503.7158645066281,
+        "dP_total_vs_all_active_W": 1978.5078999678572
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 7,
+        "P_inverter_W": 1002.471226242995,
+        "Tj_C": 50.19660047561047
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 2688.7921190183447,
+         "Tj_C": 53.73213063317757
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 1607.165999065829,
+         "Tj_C": 51.113784885890205
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 1278.1315630816575,
+         "Tj_C": 50.58942505080642
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 1131.6696987717837,
+         "Tj_C": 50.39063787965326
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 1057.6670249831566,
+         "Tj_C": 50.29149373248998
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 1019.771542417909,
+         "Tj_C": 50.23375565174667
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 1002.471226242995,
+         "Tj_C": 50.19660047561047
+        }
+       ]
+      }
+     },
+     "2p4": {
+      "I_eq_rms_A": 128.08816601148726,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 794.7922717700237,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 50.0,
+        "P_inverter_W": 794.7922717700237,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 52.17391304347826,
+        "P_inverter_W": 819.7229120512739,
+        "dP_stator_cu_W": 68.71206481581082,
+        "dP_total_vs_all_active_W": 93.64270509706095
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 54.54545454545455,
+        "P_inverter_W": 847.1086700294442,
+        "dP_stator_cu_W": 143.6706809785135,
+        "dP_total_vs_all_active_W": 195.98707923793395
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 57.142857142857146,
+        "P_inverter_W": 877.3278656688027,
+        "dP_stator_cu_W": 225.76821296623558,
+        "dP_total_vs_all_active_W": 308.30380686501456
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 60.0,
+        "P_inverter_W": 910.8399422231079,
+        "dP_stator_cu_W": 316.0754981527299,
+        "dP_total_vs_all_active_W": 432.12316860581404
+       },
+       {
+        "k_parked": 5,
+        "V_module_V": 63.1578947368421,
+        "P_inverter_W": 948.2082291337351,
+        "dP_stator_cu_W": 415.8888133588551,
+        "dP_total_vs_all_active_W": 569.3047707225664
+       },
+       {
+        "k_parked": 6,
+        "V_module_V": 66.66666666666667,
+        "P_inverter_W": 990.1307596155298,
+        "dP_stator_cu_W": 526.7924969212165,
+        "dP_total_vs_all_active_W": 722.1309847667226
+       },
+       {
+        "k_parked": 7,
+        "V_module_V": 70.58823529411765,
+        "P_inverter_W": 1037.4826516838048,
+        "dP_stator_cu_W": 650.7436726673853,
+        "dP_total_vs_all_active_W": 893.4340525811664
+       },
+       {
+        "k_parked": 8,
+        "V_module_V": 75.0,
+        "P_inverter_W": 1091.3754126079623,
+        "dP_stator_cu_W": 790.1887453818249,
+        "dP_total_vs_all_active_W": 1086.7718862197635
+       },
+       {
+        "k_parked": 9,
+        "V_module_V": 80.0,
+        "P_inverter_W": 1153.2415479094489,
+        "dP_stator_cu_W": 948.22649445819,
+        "dP_total_vs_all_active_W": 1306.6757705976152
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 6,
+        "P_inverter_W": 793.0975909502238,
+        "Tj_C": 50.18128486789557
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 1772.6070863171894,
+         "Tj_C": 52.45965172999426
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 1111.8786011333102,
+         "Tj_C": 50.76983538093316
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 917.9000006467978,
+         "Tj_C": 50.422650547892516
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 838.3637258763652,
+         "Tj_C": 50.28879585804801
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 804.3703638213865,
+         "Tj_C": 50.2211336486717
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 793.0975909502238,
+         "Tj_C": 50.18128486789557
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 794.7922717700237,
+         "Tj_C": 50.155394351067734
+        }
+       ]
+      }
+     }
+    },
+    "cruise_60kmh_flat": {
+     "2p8": {
+      "I_eq_rms_A": 80.44075127701308,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 542.4850337085436,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 50.0,
+        "P_inverter_W": 542.4850337085436,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 52.17391304347826,
+        "P_inverter_W": 557.8889780071694,
+        "dP_stator_cu_W": 27.099870821135823,
+        "dP_total_vs_all_active_W": 42.50381511976161
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 54.54545454545455,
+        "P_inverter_W": 574.7746867707694,
+        "dP_stator_cu_W": 56.66336626237489,
+        "dP_total_vs_all_active_W": 88.95301932460075
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 57.142857142857146,
+        "P_inverter_W": 593.3680771787011,
+        "dP_stator_cu_W": 89.04243269801773,
+        "dP_total_vs_all_active_W": 139.92547616817527
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 60.0,
+        "P_inverter_W": 613.9432559252438,
+        "dP_stator_cu_W": 124.65940577722485,
+        "dP_total_vs_all_active_W": 196.117627993925
+       },
+       {
+        "k_parked": 5,
+        "V_module_V": 63.1578947368421,
+        "P_inverter_W": 636.8360024326005,
+        "dP_stator_cu_W": 164.0255339174011,
+        "dP_total_vs_all_active_W": 258.376502641458
+       },
+       {
+        "k_parked": 6,
+        "V_module_V": 66.66666666666667,
+        "P_inverter_W": 662.4620149347595,
+        "dP_stator_cu_W": 207.76567629537476,
+        "dP_total_vs_all_active_W": 327.7426575215907
+       },
+       {
+        "k_parked": 7,
+        "V_module_V": 70.58823529411765,
+        "P_inverter_W": 691.3419917429713,
+        "dP_stator_cu_W": 256.6517177766395,
+        "dP_total_vs_all_active_W": 405.50867581106723
+       },
+       {
+        "k_parked": 8,
+        "V_module_V": 75.0,
+        "P_inverter_W": 724.1367122571215,
+        "dP_stator_cu_W": 311.6485144430622,
+        "dP_total_vs_all_active_W": 493.30019299164013
+       },
+       {
+        "k_parked": 9,
+        "V_module_V": 80.0,
+        "P_inverter_W": 761.6970640760201,
+        "dP_stator_cu_W": 373.97821733167467,
+        "dP_total_vs_all_active_W": 593.1902476991511
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 4,
+        "P_inverter_W": 497.72271096979057,
+        "Tj_C": 50.17051785275934
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 800.1662336018799,
+         "Tj_C": 51.10903937948298
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 563.8412358480133,
+         "Tj_C": 50.389253432285486
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 508.36064912547147,
+         "Tj_C": 50.233049577445705
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 497.72271096979057,
+         "Tj_C": 50.17051785275934
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 504.98188224822707,
+         "Tj_C": 50.13797022052258
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 521.1806875783936,
+         "Tj_C": 50.118341155589476
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 542.4850337085436,
+         "Tj_C": 50.10533339819601
+        }
+       ]
+      }
+     },
+     "2p4": {
+      "I_eq_rms_A": 81.06207561851414,
+      "V_needed_fraction": null,
+      "P_inverter_all_active_W": 545.4293103272429,
+      "series_module_parking": [
+       {
+        "k_parked": 0,
+        "V_module_V": 50.0,
+        "P_inverter_W": 545.4293103272429,
+        "dP_stator_cu_W": 0.0,
+        "dP_total_vs_all_active_W": 0.0
+       },
+       {
+        "k_parked": 1,
+        "V_module_V": 52.17391304347826,
+        "P_inverter_W": 560.9423896154566,
+        "dP_stator_cu_W": 27.520126394138536,
+        "dP_total_vs_all_active_W": 43.03320568235224
+       },
+       {
+        "k_parked": 2,
+        "V_module_V": 54.54545454545455,
+        "P_inverter_W": 577.9485453983746,
+        "dP_stator_cu_W": 57.54208246047147,
+        "dP_total_vs_all_active_W": 90.06131753160315
+       },
+       {
+        "k_parked": 3,
+        "V_module_V": 57.142857142857146,
+        "P_inverter_W": 596.6754832246712,
+        "dP_stator_cu_W": 90.42327243788378,
+        "dP_total_vs_all_active_W": 141.6694453353121
+       },
+       {
+        "k_parked": 4,
+        "V_module_V": 60.0,
+        "P_inverter_W": 617.3994873377275,
+        "dP_stator_cu_W": 126.59258141303732,
+        "dP_total_vs_all_active_W": 198.5627584235219
+       },
+       {
+        "k_parked": 5,
+        "V_module_V": 63.1578947368421,
+        "P_inverter_W": 640.4590141262476,
+        "dP_stator_cu_W": 166.56918606978596,
+        "dP_total_vs_all_active_W": 261.5988898687906
+       },
+       {
+        "k_parked": 6,
+        "V_module_V": 66.66666666666667,
+        "P_inverter_W": 666.2730877069544,
+        "dP_stator_cu_W": 210.98763568839553,
+        "dP_total_vs_all_active_W": 331.831413068107
+       },
+       {
+        "k_parked": 7,
+        "V_module_V": 70.58823529411765,
+        "P_inverter_W": 695.3665871332478,
+        "dP_stator_cu_W": 260.6317852621358,
+        "dP_total_vs_all_active_W": 410.5690620681407
+       },
+       {
+        "k_parked": 8,
+        "V_module_V": 75.0,
+        "P_inverter_W": 728.4056160752069,
+        "dP_stator_cu_W": 316.4814535325934,
+        "dP_total_vs_all_active_W": 499.4577592805574
+       },
+       {
+        "k_parked": 9,
+        "V_module_V": 80.0,
+        "P_inverter_W": 766.247942468493,
+        "dP_stator_cu_W": 379.7777442391121,
+        "dP_total_vs_all_active_W": 600.5963763803622
+       }
+      ],
+      "parallel_device_shedding": {
+       "best": {
+        "devices_active": 4,
+        "P_inverter_W": 501.5580943081058,
+        "Tj_C": 50.171849582588486
+       },
+       "sweep": [
+        {
+         "devices_active": 1,
+         "P_inverter_W": 810.32013591405,
+         "Tj_C": 51.123142016061855
+        },
+        {
+         "devices_active": 2,
+         "P_inverter_W": 569.7637661165389,
+         "Tj_C": 50.39336628109764
+        },
+        {
+         "devices_active": 3,
+         "P_inverter_W": 512.8903249921918,
+         "Tj_C": 50.23514664739467
+        },
+        {
+         "devices_active": 4,
+         "P_inverter_W": 501.5580943081058,
+         "Tj_C": 50.171849582588486
+        },
+        {
+         "devices_active": 5,
+         "P_inverter_W": 508.40122598734575,
+         "Tj_C": 50.13892003806727
+        },
+        {
+         "devices_active": 6,
+         "P_inverter_W": 524.3228609484629,
+         "Tj_C": 50.11906851047112
+        },
+        {
+         "devices_active": 7,
+         "P_inverter_W": 545.4293103272429,
+         "Tj_C": 50.10591758003402
+        }
+       ]
+      }
+     }
+    }
+   }
+  }
+ }
+}

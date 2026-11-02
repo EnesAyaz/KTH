@@ -247,3 +247,73 @@ Script: `02_analytics/drivetrain_losses.py` -> `results/drivetrain_losses.json`.
   - PMSM/WRSM use T03 at 300 kW plus the IEC stray allowance for parity.
   - PWM ripple loss is not modelled for PMSM/WRSM; for the IM it is 0.1-0.45 kW.
 - The motor operating point is recomputed from wheel torque through the gear model. The T03/T03b constant eta_gear = 0.97 is no longer used in T03d.
+
+## T08 - module count N x phase number m x slots Q x pole sets; gap-loop screens H01/H02/H04/H05 (300 kW) {#t08}
+
+Script: `02_analytics/module_count_sweep.py`.
+- Outputs:
+  - `results/module_count_sweep.json` (master);
+  - `results/screen_H01.json`, `screen_H02.json`, `screen_H04.json`, `screen_H05.json`;
+  - `results/sensitivity_slot_leakage_2x.json`.
+- Inputs that can be overridden (R01):
+  - `--geometry <json>` (keys lam_slot_self, lam_slot_mut, lam_end, B_yoke_max_T, B_gap_max_T, g_m, kc_ksat);
+  - `--slot_leakage_scale k`;
+  - `--B_cap_scale k`.
+  - Any override writes suffixed files and never touches the default screens.
+- Not reconciled with the simulator yet; waiting for `reconcile_R01.md`.
+
+### Winding / module feasibility (H01)
+Stator and modules:
+- Q coils, double layer. N modules in series on 1200 V, each an m-leg bridge (m = 3, 5, 6, 7, 9) with an isolated neutral.
+- L = mN legs, and each leg drives c = Q/L coils in series. The wiring is fixed (coil polarity +/-1).
+- Electronic mode p: coil k gets angle p 2 pi k / Q.
+
+A mode is available with zero extra hardware iff, for the same wiring:
+- (i) all leg phasors have equal magnitude (equal module power);
+- (ii) the unit phasors of each module sum to zero (isolated neutral);
+- (iii) for constant module power (no 2nd-harmonic power pulsation in the series DC stack), their squares also sum to zero.
+
+Search space:
+- Wirings: "spaced" (coils of a leg mN slots apart) or "contiguous" (adjacent coils, belt-like), with all sign patterns for c <= 4 and +/alternating for c > 4.
+- Module partitions: interleaved {j + tN} or block {jm + t}. For m = 3 and L <= 72, also exact triple matching via signature classes.
+
+Coverage:
+- N = 2..24 (11 values), Q = 24..144 (multiples of mN), p <= min(8, Q/6), so 2p <= 16.
+- Q = 36-96 is flagged practical (slot pitch 29-11 mm at the 330 mm bore).
+
+Pitch and winding factor:
+- Coil pitch per pair maximises k_p(p_hi)^2 + k_p(p_lo)^2.
+- k_w = k_p * k_d, checked against the numerical MMF fundamental. sigma_diff comes from the same MMF.
+
+Closed-form rule (spaced wiring, interleaved modules; derived):
+- Mode p works with k_d = 1 iff c | p and m does not divide p/c.
+- Constant module power additionally needs m not dividing 2p/c.
+- Checked against the enumeration: 1221 agree, 0 disagree.
+
+### Inverter per (N, m)
+- V_module = 1200/N.
+- Device class: smallest class in Enes's ICPE comparison CSV with V_module <= 0.75 V_class. Devices used: EPC2361 (100 V), EPC2304 (200 V), EPC2050 (350 V), IGT65R025D2 (650 V).
+  - N = 2 (600 V) has no class with margin in that set (650 V at 0.92). This is flagged; SiC would be needed and is outside the data.
+- m-leg voltage utilisation k_m = 1/(2 cos(pi/2m)) for odd m and 0.5 for even m, times 0.95 margin.
+- The machine maps exactly onto the 48-leg T03 equivalent (same total VA, turns scaled). Per-leg current = I_eq x 48 VMAX / (L V_leg). For m = 3 this is 266.1 A for every N.
+- Loss: Enes's `calculate()` from `epc2361_loss.py`, reused with per-class parameters swapped:
+  - R_DS from the CSV (max/typ ratio as EPC2361);
+  - Q_oss scaled to V_module as V^0.5;
+  - **gate charges Q_g, Q_gd, Q_gs2, Q_gs(th) scaled with Q_oss (assumption, needs datasheets)**;
+  - EPC2361's R_DS(T) curve and thermal model kept.
+  - Paralleling: n_par = ceil(I_leg,max / I_dev,max), with I_dev,max = 40 A x sqrt(R_EPC2361 / R_dev), i.e. equal per-device conduction loss to Enes's default point. Leg loss = n_par x calculate(I_leg / n_par).
+- Device area is not computed: package dimensions are not in the local data.
+- "Start" = inverter loss at I_max. Cruise = loss at the cruise current from the T03b/T03d chain.
+
+### Pole-changing IM per design
+- T03 geometry: R = 165 mm, 25 mm yoke, same copper.
+- Q, pitch, k_w and sigma_diff come from the winding.
+- Turns are set so N_leg k_w in the high-pole mode equals T03 (same EMF per volt).
+- T03b realistic losses, T03d friction/windage (gap-windage bug fixed: coefficients 0.515/0.0325), single-stage gear at G = 9.80.
+- Gear model: the **EU 2017/2400** regulatory baseline (SR axle T_d0 = 70 + 20 i, eta 0.98; helical 0.986, EU2017regulation). certified_like is also reported.
+- Fixed-pole baseline with the same N: T03b fixed 2p=4, either (a) at its free gear 17.3 with the same inverter, or (b) at G = 9.80 with the inverter scaled x1.74 for the 12 % start.
+
+### H05 (cell parking)
+- SPB modules are in series on the DC side, so parking k modules raises the rest to 1200/(N - k). That is allowed only up to 0.80 V_class.
+- Active coil groups carry N/(N - k) more current for the same torque.
+- Also screened: shedding parallel devices inside each switch position.
