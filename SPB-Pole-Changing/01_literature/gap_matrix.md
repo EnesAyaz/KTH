@@ -109,6 +109,35 @@ Machine type: IM, PMSM, WRSM (includes EESM), SM-gen = synchronous generator. Ac
 | Sirewal2020analysis | WRSM | stator harmonic winding | N | N | N | N | N | N | N | N | Y |
 | Bukhari2020dual | WRSM | dual-inverter open-winding brushless | Y (open winding) | P | N | N | N | N | N | N | N (two inverters, separate sources assumed) |
 | Wu2023openphase | IM | pole transition under open phase | Y | Y | Y | N | N | N | N | N | Y |
+| Norrga2013SPB | SPB origin | none | Y | Y | N | N | N | Y | Y | Y | N |
+| Jin2017Modulation | SPB | none | Y | Y | N | N | N | P | Y | Y | N |
+| Nikouie2017Stability | SPB | none | Y | Y | N | N | N | N | Y | Y | N |
+| Nikouie2016operation | SPB | none (fault survival) | Y | Y | N | N | N | N | Y | Y | N |
+| Jin2018Distributed | SPB | none | Y | Y | N | N | N | N | Y | Y | N |
+| Verkroost2019Interleaving | 15-ph AFPMSM IMMD | none | Y | P | N | N | N | N | N | P | Y |
+| Verkroost2021Ripple | 15-ph IMMD | none | Y | P | N | N | N | N | N | P | Y |
+| Verkroost2024VoltageBalance | 15-ph AFPMSM, SPB | none | Y | Y | N | N | N | Y | Y | Y | N |
+| Verkroost2024PowerDistribution | 15-ph AFPMSM, SPB | none (unequal power sharing) | Y | Y | N | N | N | Y | Y | Y | N |
+| Verkroost2024Reconfiguration | 15-ph AFPMSM, SPB | none (online cell bypass) | Y | Y | N | N | N | Y | Y | Y | N |
+| Bringezu2020SPB | SPB, 6/9/12-ph non-aligned | none | Y | Y | N | N | N | P | Y | Y | N |
+| Rohner2024GaN | SPB, 7.5 kW IMD | none | Y | Y | N | N | N | Y | Y | Y | N |
+| Zoric2017voltage | 9-ph IM | none | Y | Y (3 neutrals) | N | N | N | N | Y | Y | N |
+| Zoric2018arbitrary | 9-ph IM gen | none (x-y power sharing) | Y | P | N | N | N | N | N | P | Y |
+| Subotic2019active | multi-3-ph IM | none | Y | P | N | N | N | N | N | P | Y |
+| Che2014SeriesConnected | 6-ph IM | none (DOF used for balance) | Y | Y | N | N | N | N | Y | Y | N |
+| OpenEndWindingDrive | 6-ph OEW PMSM | none | Y | Y | N | N | N | Y | Y | Y | N |
+| Ni2025SeriesDCLinkStability | multiphase | none | Y | Y | N | N | N | N | Y | Y | N |
+| Wu2020ActiveBalancing | IMMD | none | Y | P | N | Y | N | N | Y | P | N |
+| Wang2015GaNIMMD | IM IMMD | none | Y | P | N | N | N | Y | Y | P | N |
+| Wang2025GaNIMMD | IMMD aircraft | none | Y | P | N | Y | N | N | Y | P | N |
+| Ruseler2015InputSeries | OEW split-winding IM | none | Y | Y | N | N | N | N | Y | Y | N |
+| Gjerde2014SeriesFault | wind generator | none | Y | Y | N | Y | N | N | Y | Y | N |
+| CascadedHBridgefault | n-ph machine, CHB | none (post-bypass xy) | Y | Y | N | N | N | N | Y | Y (separate sources) | N |
+| Cengelci2000MMMI | MV motor groups | none | Y | Y | N | Y | N | N | N | Y | Y |
+| SPB1windturbine | wind generator | none | Y | Y | N | N | N | N | Y | Y | N |
+| SPB2BLDC | BLDC | none | Y | Y | N | N | N | Y | Y | Y | N |
+| Zhang2014SPBMachine | FSCW PM | none | Y | Y | N | N | N | N | Y | Y | N |
+| Mohamed2022IntegratedDCLink | 15-coil AFM IMMD | reconfigurable phase configurations | Y | P | P | N | N | N | N | P | Y |
 
 ## Gaps SPB pole changing would fill
 
@@ -142,3 +171,6 @@ Open for SPB + HESM:
 
 ### Series-stacked and isolated-neutral coverage (added 2026-11-02, from novelty_H01..H09)
 No new paper combines series-stacked cells with isolated-neutral coil groups and pole changing. Closest: Sarrazin2011cascaded and Tarisciotti2020modular (stacked/cascaded cells, no pole changing, no isolated coil groups), Libbos2020modular / Chaubal2024continuously (many legs and pole changing but one common DC bus, full-voltage or 48 V devices), and Runde2019iscad / Bachheibl2015control (48 V ISCAD, parallel bus, stator cage). Reddy2018multilevel adds outputs of dual inverters into a multilevel voltage with PPM but still at full-voltage devices. Columns for rows added before this date were filled "N" for series-stacked where no stack is used and "-" (not assessed) for the other two new columns.
+
+### Correction after importing the SPB lineage (2026-11-02)
+The earlier statement that no source combines series stacking with isolated neutrals is wrong at the topology level: Norrga2013SPB, Nikouie2017Stability, Verkroost2019-2024 (Ghent), Zoric2017voltage (9-phase, three isolated neutrals, cascaded VSIs), Che2014SeriesConnected and OpenEndWindingDrive all do. What remains not found is pole/phase mode change in such a stack, the mode-dependent power balance (H10), and the admissible mode set after cell bypass (H11). Online cell bypass in an SPB is published (Verkroost2024Reconfiguration).

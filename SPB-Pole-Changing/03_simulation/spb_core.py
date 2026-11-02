@@ -335,10 +335,10 @@ def psi_max(p):
     return float(ps_c[np.where(ok)[0].max()])
 
 
-def im_grid(par, n_rpm, n_psi=140, n_sl=500):
+def im_grid(par, n_rpm, n_psi=140, n_sl=700):
     p = par["p"]
     psi = np.linspace(0.04 * psi_max(p), psi_max(p), n_psi)[:, None]
-    wsl = np.linspace(1.0, 3000.0, n_sl)[None, :]
+    wsl = np.geomspace(0.3, 4000.0, n_sl)[None, :]
     return im_points(par, n_rpm, psi, wsl)
 
 

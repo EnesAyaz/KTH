@@ -1,11 +1,13 @@
 # novelty_H05.md  H05: pole changing lowers cruise voltage, SPB parks cells, joint pole-and-cell scheduling
 Gap-loop iteration 1, step 2. Author: lit-scout, 2026-11-02. Existing keys are in `refs.bib`; new keys are in the last section (not merged by me).
 
-## Verdict
-**New (no paper found), with a serious feasibility flag.** Pole scheduling for loss is published (Libbos); cell deactivation for motor-drive efficiency is not.
+## Verdict (CORRECTED 2026-11-02)
+**Not new in the SPB part: online cell bypass in a stacked polyphase bridge is published.** Verkroost2024Reconfiguration (IET Electric Power Applications, online 2023, DOI 10.1049/elp2.12376): decentralised dynamic DC-bus reconfiguration that isolates or reactivates one inverter of an SPB online, even in motoring mode, with two extra unidirectional switches per inverter, reconfiguration in 100 ms without torque interruption, for fault tolerance and extended speed range (4 kW modular axial-flux PMSM). Also Nikouie2016operation (KTH, fault survival of an SPB), Gjerde2014SeriesFault and CascadedHBridgefault (bypass of damaged cells). The remaining unpublished part, parking cells for efficiency under pole scheduling, was already killed by the screen. The text below was written before these papers were imported and is superseded where it says no cell deactivation exists.
+
+Original verdict (superseded): **New (no paper found), with a serious feasibility flag.** Pole scheduling for loss is published (Libbos); cell deactivation for motor-drive efficiency is not.
 
 ## 1. Closest papers
-1. **Libbos2022inverter / Libbos2020loss**: pole count as an efficiency variable (-45 % combined loss at partial load). Did not: deactivate legs or modules; all legs stay active.
+1. **Libbos2022inverter / Libbos2020loss**: pole count as an efficiency variable (-45 % combined loss at partial load). Did not: deactivate legs or modules; all legs stay active. (But see the correction above: bypass of a module in an SPB is published by Ghent.)
 2. **Chaubal2024continuously**: blending poles for loss; no module scheduling.
 3. **Sarrazin2011cascaded**: cascaded H-bridge EV, better cell management, spread losses, fault operation. Did not: pole changing or deliberate cell parking.
 4. **Tarisciotti2020modular**: MMC for low-voltage drives. No cell scheduling for efficiency.
