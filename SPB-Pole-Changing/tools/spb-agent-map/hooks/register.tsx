@@ -217,10 +217,14 @@ export const register: Register = on => {
 
   on('agent.spawn', async ($, e, next) => {
     const started = await next(e)
-    if (!SPECIALISTS.has(e.subagentType) || !('agentId' in started) || !started.agentId) {
+    // An agent type created mid-session may not be loadable; such a run is
+    // started as a general agent whose description begins "<role>:".
+    const prefixed = ROLES.find(r => r !== 'leader' && e.description.startsWith(`${r}:`))
+    const type = SPECIALISTS.has(e.subagentType) ? e.subagentType : prefixed
+    if (!type || !('agentId' in started) || !started.agentId) {
       return started
     }
-    const role = e.subagentType as Role
+    const role = type as Role
     const id = started.agentId
     const at = await $.clock.now()
     await update($, team, t => {
