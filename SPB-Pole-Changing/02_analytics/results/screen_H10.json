@@ -1,0 +1,669 @@
+{
+ "meta": {
+  "script": "02_analytics/screen_H10.py",
+  "screen": "H10",
+  "date": "2026-11-02",
+  "metric": "per-cell power imbalance (%), capacitor drift (V/s) / ripple, balancing headroom",
+  "inputs": [
+   "02_analytics/module_count_sweep.py (winding engine)",
+   "03_simulation/results/im_pole_transition.json",
+   "03_simulation/results/wrsm_pole_transition_ksweep.json",
+   "02_analytics/results/screen_H03.json (other analyst)",
+   "../PCB-Design/hardware/spb-bb-revb-load/fab/spb-bb-revb-load-bom.csv"
+  ],
+  "assumptions": "02_analytics/assumptions.md#h10"
+ },
+ "cell_capacitance": {
+  "board_bus_capacitors": [
+   {
+    "qty": 40,
+    "value": "1uF 100V X7S",
+    "part": "TDK C2012X7S2A105K125AB"
+   },
+   {
+    "qty": 20,
+    "value": "22uF 100V X7S 2220",
+    "part": "TDK C5750X7S2A226M280KB"
+   }
+  ],
+  "board_nominal_uF": 480.0,
+  "boards_per_module": 6,
+  "retention_assumed": [
+   0.35,
+   1.0
+  ],
+  "C_module_mF": {
+   "worst_retained": 1.0079999999999998,
+   "nominal": 2.88
+  },
+  "source": "Rev B load board BOM (100 V X7S MLCCs: 40 x 1 uF + 20 x 22 uF). PCB-Design/docs/capacitor-selection-p1.md: no DC-bias-retained value verified -> 0.35 retention assumed as worst case; no external bulk link defined yet. Boards per module = 3 legs x 2 parallel blocks (SPB reference) - assumption."
+ },
+ "limits": {
+  "V_module_V": 75.0,
+  "ripple_allowed_pk_V": 3.75,
+  "P_module_rated_W": 18750.0
+ },
+ "drift_per_1pct_imbalance": {
+  "rated_18.75kW_per_module": {
+   "worst_retained": {
+    "dP_W": 187.5,
+    "dVdt_V_per_s": 2480.1587301587306,
+    "t_to_5pct_ms": 1.5119999999999998
+   },
+   "nominal": {
+    "dP_W": 187.5,
+    "dVdt_V_per_s": 868.0555555555557,
+    "t_to_5pct_ms": 4.319999999999999
+   }
+  },
+  "cruise_9.7kW_per_module": {
+   "worst_retained": {
+    "dP_W": 96.875,
+    "dVdt_V_per_s": 1281.4153439153442,
+    "t_to_5pct_ms": 2.926451612903225
+   },
+   "nominal": {
+    "dP_W": 96.875,
+    "dVdt_V_per_s": 448.49537037037044,
+    "t_to_5pct_ms": 8.361290322580643
+   }
+  }
+ },
+ "steady_state": {
+  "n_modes": 5232,
+  "n_constant_power": 5079,
+  "n_pulsating": 153,
+  "average_imbalance_max_pct": 6.0190896215629354e-12,
+  "note": "Every mode that passes the T08 rule (i)+(ii) has zero average imbalance (equal leg magnitudes, symmetric machine). Modes failing (iii) pulsate at 2 f_e with the listed fraction of module power (unity PF; / PF otherwise).",
+  "eccentricity_10pct": {
+   "interleaved_max_pct": 4.440892098500626e-14,
+   "block_max_pct": 18.468763214166138,
+   "note": "interleaved modules (coils spread 360/m deg mech) cancel static eccentricity to first order; block modules do not -> DC drift",
+   "block_drift_V_per_s_rated": {
+    "worst_retained": 45805.46432084857,
+    "nominal": 16031.912512297
+   }
+  },
+  "pulsating_examples": [
+   {
+    "case": "N5_m6_Q90_2p6",
+    "P_pulse_amplitude_W": 60000.00000000002,
+    "f_Hz": 115.1,
+    "note": "steady state at rated power, 2 f_e at 1151 rpm",
+    "ripple_pk_V": {
+     "worst_retained": 1097.423517796088,
+     "nominal": 384.0982312286307
+    },
+    "C_required_mF_for_5pct": 294.98744158358835,
+    "C_available_mF": {
+     "worst_retained": 1.0079999999999998,
+     "nominal": 2.88
+    },
+    "P_pulse_over_module_mean": 1.0000000000000004,
+    "admissible_with_available_C": false,
+    "admissible_with_nominal_C": false,
+    "fraction": 1.0000000000000004
+   },
+   {
+    "case": "N2_m6_Q36_2p12",
+    "P_pulse_amplitude_W": 150000.00000000003,
+    "f_Hz": 230.2,
+    "note": "steady state at rated power, 2 f_e at 1151 rpm",
+    "ripple_pk_V": {
+     "worst_retained": 1371.7793972451095,
+     "nominal": 480.1227890357883
+    },
+    "C_required_mF_for_5pct": 368.7343019794854,
+    "C_available_mF": {
+     "worst_retained": 1.0079999999999998,
+     "nominal": 2.88
+    },
+    "P_pulse_over_module_mean": 1.0000000000000002,
+    "admissible_with_available_C": false,
+    "admissible_with_nominal_C": false,
+    "fraction": 1.0000000000000002
+   }
+  ]
+ },
+ "cross_mode_rule": {
+  "statement": "Two simultaneous spatial orders a, b (both injectable, m does not divide a, b; c = 1) give module power pulsation at f_a + f_b iff m | (a+b) and at |f_a - f_b| iff m | (a-b), amplitude m V_a I_b (+ m V_b I_a). For m = 3 one of the two always holds (a, b in {1, 2} mod 3) -> every overlap / injection pulsates every cell. For prime m >= 5 choose a != +-b (mod m) -> no pulsation.",
+  "table": {
+   "m3_8/4 overlap": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m3_12/4 overlap": {
+    "injectable": false
+   },
+   "m3_p=4 + inj. order 8 (H03)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m3_2p4 + nu=10 (WRSM)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m3_2p8 + nu=20 (WRSM)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m3_2p4 + nu=14 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": true
+   },
+   "m5_8/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m5_12/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m5_p=4 + inj. order 8 (H03)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m5_2p4 + nu=10 (WRSM)": {
+    "injectable": false
+   },
+   "m5_2p8 + nu=20 (WRSM)": {
+    "injectable": false
+   },
+   "m5_2p4 + nu=14 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m6_8/4 overlap": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m6_12/4 overlap": {
+    "injectable": false
+   },
+   "m6_p=4 + inj. order 8 (H03)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m6_2p4 + nu=10 (WRSM)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m6_2p8 + nu=20 (WRSM)": {
+    "injectable": true,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "m6_2p4 + nu=14 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": true
+   },
+   "m7_8/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m7_12/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m7_p=4 + inj. order 8 (H03)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m7_2p4 + nu=10 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m7_2p8 + nu=20 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m7_2p4 + nu=14 (WRSM)": {
+    "injectable": false
+   },
+   "m9_8/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m9_12/4 overlap": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m9_p=4 + inj. order 8 (H03)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m9_2p4 + nu=10 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m9_2p8 + nu=20 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   },
+   "m9_2p4 + nu=14 (WRSM)": {
+    "injectable": true,
+    "sum_term": false,
+    "difference_term": false
+   }
+  }
+ },
+ "transition_IM_handover": {
+  "source": "03_simulation/results/im_pole_transition.json best_schedule grade_0pct (ss_before = 2p8, ss_after = 2p4; rms per coil)",
+  "V8_rms_V": 22.298304761055423,
+  "I8_rms_A": 63.070200843458935,
+  "V4_rms_V": 14.291118607806794,
+  "I4_rms_A": 86.11181797937765,
+  "overlap_s": 0.25,
+  "m3": {
+   "case": "IM 8->4 handover, full overlap, m=3",
+   "P_pulse_amplitude_W": 8464.473845114288,
+   "f_Hz": 210.0,
+   "note": "sum-frequency term (2p8 positive, 2p4 negative sequence in each module); worst-case aligned",
+   "ripple_pk_V": {
+    "worst_retained": 84.85530694897966,
+    "nominal": 29.69935743214288
+   },
+   "C_required_mF_for_5pct": 22.80910650788573,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "P_pulse_over_module_mean": 2.481987261383946,
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false
+  },
+  "m5_or_7_or_9": "no pulsation (m does not divide 6 or 2): overlap admissible",
+  "max_overlap_product_for_5pct": {
+   "worst_retained": {
+    "P_allowed_W": 374.0694372629367,
+    "I_cross_allowed_A": 5.591896503215479
+   },
+   "nominal": {
+    "P_allowed_W": 1068.7698207512478,
+    "I_cross_allowed_A": 15.976847152044229
+   }
+  },
+  "torque_gap_without_overlap_s": 0.13400000000000134
+ },
+ "transition_WRSM_ksweep": {
+  "gs4_grade0": {
+   "case": "WRSM k-sweep gs4_grade0, m=3",
+   "P_pulse_amplitude_W": 11383.926275700434,
+   "f_Hz": 210.0,
+   "note": "E_other = 0.5 V_max (assumed), I = sim I_rms_max",
+   "ripple_pk_V": {
+    "worst_retained": 114.1224577079513,
+    "nominal": 39.94286019778295
+   },
+   "C_required_mF_for_5pct": 30.676116631897305,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "P_pulse_over_module_mean": 3.3380409128597135,
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false
+  },
+  "gs4_grade2": {
+   "case": "WRSM k-sweep gs4_grade2, m=3",
+   "P_pulse_amplitude_W": 11384.141229870882,
+   "f_Hz": 210.0,
+   "note": "E_other = 0.5 V_max (assumed), I = sim I_rms_max",
+   "ripple_pk_V": {
+    "worst_retained": 114.12461259701435,
+    "nominal": 39.94361440895502
+   },
+   "C_required_mF_for_5pct": 30.676695866077452,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "P_pulse_over_module_mean": 1.2230390389032764,
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false
+  },
+  "gs1_grade0": {
+   "case": "WRSM k-sweep gs1_grade0, m=3",
+   "P_pulse_amplitude_W": 4831.375331709231,
+   "f_Hz": 210.0,
+   "note": "E_other = 0.5 V_max (assumed), I = sim I_rms_max",
+   "ripple_pk_V": {
+    "worst_retained": 48.433942175218554,
+    "nominal": 16.95187976132649
+   },
+   "C_required_mF_for_5pct": 13.019043656698745,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "P_pulse_over_module_mean": 1.4166754186603598,
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false
+  },
+  "gs1_grade2": {
+   "case": "WRSM k-sweep gs1_grade2, m=3",
+   "P_pulse_amplitude_W": 4848.259058460948,
+   "f_Hz": 210.0,
+   "note": "E_other = 0.5 V_max (assumed), I = sim I_rms_max",
+   "ripple_pk_V": {
+    "worst_retained": 48.60319945478196,
+    "nominal": 17.01111980917368
+   },
+   "C_required_mF_for_5pct": 13.064540013445388,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "P_pulse_over_module_mean": 0.5208658237351677,
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false
+  }
+ },
+ "steady_WRSM_space_harmonics_m3": {
+  "2p4_nu10_2100rpm": {
+   "case": "WRSM 2p4 steady, nu=10",
+   "P_pulse_amplitude_W": 2938.4637797593027,
+   "f_Hz": 420.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 14.728868595527448,
+    "nominal": 5.1551040084346065
+   },
+   "C_required_mF_for_5pct": 3.959119878477778,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false,
+   "sum_term": true,
+   "difference_term": false
+  },
+  "2p4_nu10_4250rpm": {
+   "case": "WRSM 2p4 steady, nu=10",
+   "P_pulse_amplitude_W": 4915.790416107236,
+   "f_Hz": 850.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 12.17510650369175,
+    "nominal": 4.261287276292112
+   },
+   "C_required_mF_for_5pct": 3.272668628192341,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false,
+   "sum_term": true,
+   "difference_term": false
+  },
+  "2p4_nu14_2100rpm": {
+   "case": "WRSM 2p4 steady, nu=14",
+   "P_pulse_amplitude_W": 2693.9628627026896,
+   "f_Hz": 420.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 13.503322817621758,
+    "nominal": 4.726162986167615
+   },
+   "C_required_mF_for_5pct": 3.629693173376728,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": false,
+   "sum_term": false,
+   "difference_term": true
+  },
+  "2p4_nu14_4250rpm": {
+   "case": "WRSM 2p4 steady, nu=14",
+   "P_pulse_amplitude_W": 3016.5196678762622,
+   "f_Hz": 850.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 7.471117586001084,
+    "nominal": 2.6148911551003793
+   },
+   "C_required_mF_for_5pct": 2.008236407117091,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": true,
+   "sum_term": false,
+   "difference_term": true
+  },
+  "2p8_nu20_2100rpm": {
+   "case": "WRSM 2p8 steady, nu=20",
+   "P_pulse_amplitude_W": 3165.242357670047,
+   "f_Hz": 840.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 7.9327911203551436,
+    "nominal": 2.7764768921243
+   },
+   "C_required_mF_for_5pct": 2.132334253151462,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": true,
+   "sum_term": true,
+   "difference_term": false
+  },
+  "2p8_nu20_4250rpm": {
+   "case": "WRSM 2p8 steady, nu=20",
+   "P_pulse_amplitude_W": 3841.355723877383,
+   "f_Hz": 1700.0,
+   "note": "3 (V_max I_circ + E_nu I_fund), I_fund = 120 A assumed",
+   "ripple_pk_V": {
+    "worst_retained": 4.757008649466475,
+    "nominal": 1.6649530273132664
+   },
+   "C_required_mF_for_5pct": 1.2786839249765884,
+   "C_available_mF": {
+    "worst_retained": 1.0079999999999998,
+    "nominal": 2.88
+   },
+   "admissible_with_available_C": false,
+   "admissible_with_nominal_C": true,
+   "sum_term": true,
+   "difference_term": false
+  }
+ },
+ "harmonic_injection_H03": {
+  "source": "02_analytics/results/screen_H03.json (other analyst instance)",
+  "order": 8,
+  "I_inj_A": 39.913471448316415,
+  "points": {
+   "50kmh": {
+    "case": "H03 injection nu=8 at 50kmh, m=3",
+    "P_pulse_amplitude_W": 4234.598063795928,
+    "f_Hz": 477.46482927568604,
+    "note": "3 (V_fund I_inj + V_inj I_fund); I_inj = H03 budget 0.15 I_max; P_field 4 kW over 48 legs",
+    "ripple_pk_V": {
+     "worst_retained": 18.67106730068752,
+     "nominal": 6.53487355524063
+    },
+    "C_required_mF_for_5pct": 5.018782890424804,
+    "C_available_mF": {
+     "worst_retained": 1.0079999999999998,
+     "nominal": 2.88
+    },
+    "P_pulse_over_module_mean": 0.4371198001337732,
+    "admissible_with_available_C": false,
+    "admissible_with_nominal_C": false,
+    "f_e_Hz": 183.64031895218696,
+    "f_inj_Hz": 293.82451032349906,
+    "sum_term": true,
+    "difference_term": false
+   },
+   "85kmh": {
+    "case": "H03 injection nu=8 at 85kmh, m=3",
+    "P_pulse_amplitude_W": 4234.598063795928,
+    "f_Hz": 348.91660600915515,
+    "note": "3 (V_fund I_inj + V_inj I_fund); I_inj = H03 budget 0.15 I_max; P_field 4 kW over 48 legs",
+    "ripple_pk_V": {
+     "worst_retained": 25.549881569361872,
+     "nominal": 8.942458549276653
+    },
+    "C_required_mF_for_5pct": 6.86780816584447,
+    "C_available_mF": {
+     "worst_retained": 1.0079999999999998,
+     "nominal": 2.88
+    },
+    "P_pulse_over_module_mean": 0.4371198001337732,
+    "admissible_with_available_C": false,
+    "admissible_with_nominal_C": false,
+    "f_e_Hz": 312.1885422187178,
+    "f_inj_Hz": 36.72806379043732,
+    "sum_term": true,
+    "difference_term": false
+   }
+  },
+  "m5_alternative": "with m = 5 and p = 4, any injectable order nu = 2, 3 (mod 5) gives no pulsation (e.g. nu = 2, 3, 7, 8, 12, 13)"
+ },
+ "H09_turn_change": {
+  "open_end_two_modules": {
+   "average_imbalance": "share alpha of the coil voltage set by modulation: P_A = alpha P, P_B = (1 - alpha) P; alpha = 0.5 balanced, and alpha is itself a balancing knob (full +-100 % of the pair power)",
+   "isolated_neutral": "a module whose 3 legs all feed open-end coils to one partner module keeps zero current sum -> admissible",
+   "hardware": "switching between star (2p8) and open-end (2p4) connection needs contactors/extra legs - outside H10",
+   "pulsation": "none if both modules carry the same balanced set"
+  },
+  "dc_voltage_reallocation": {
+   "condition": "admissible iff P_j / V_j is equal for all cells (same I_dc); a 1 % mismatch drifts as in drift_per_1pct_imbalance",
+   "note": "per-mode reallocation must move module power in exact proportion to the new cell voltages, through the balancing knobs below"
+  },
+  "cell_to_coil_reassignment": {
+   "note": "reassigning coils to modules electronically is not possible without switches; any reassignment that leaves modules with unequal coil counts gives average imbalance = (coil-count spread)/(mean)"
+  }
+ },
+ "balancing_headroom": {
+  "zero_sequence_circulation": {
+   "headroom_W": 0.0,
+   "why": "isolated neutrals: no current path between modules"
+  },
+  "per_module_common_mode_voltage": {
+   "headroom_W": 0.0,
+   "why": "CM voltage drives no current in an isolated-neutral module; it only moves the neutral potential"
+  },
+  "same_frequency_balancing_order": {
+   "principle": "inject a current of order b with m | (p - b)/c (and m not dividing b) at f_e: the difference term is DC, dP_j = m V I_b cos(phi_j), phi_j varies with the module position -> zero-sum redistribution; orders b = p +- m, p +- 2m, ... give all spatial harmonics over the N modules (complete basis for zero-mean imbalance vectors)",
+   "m3_orders_for_p4": [
+    1,
+    7,
+    10,
+    13
+   ],
+   "m5_orders_for_p4": [
+    9,
+    14,
+    19
+   ],
+   "m5_note": "for m = 5 the balancing orders (b = 9, 14, 19 for p = 4) are high and have low winding factors -> weaker knob per ampere; the same property that removes cross-mode pulsation removes the low-order balancing knobs",
+   "numbers_m3": {
+    "cruise_85kmh": {
+     "module_power_W": 9687.5,
+     "shift_per_ampere_W_per_A": 87.26307208665072,
+     "I_b_for_1pct_A": 1.1101488600333116,
+     "I_b_for_10pct_A": 11.101488600333116,
+     "extra_cu_loss_for_10pct_W": 12.777839335180055
+    },
+    "base_speed_rated": {
+     "module_power_W": 18750.0,
+     "shift_per_ampere_W_per_A": 87.26307208665072,
+     "I_b_for_1pct_A": 2.1486752129677,
+     "I_b_for_10pct_A": 21.486752129677,
+     "extra_cu_loss_for_10pct_W": 47.86703601108034
+    },
+    "standstill_start": {
+     "module_power_W": 458.80853848000413,
+     "shift_per_ampere_W_per_A": 1.7242619665672692,
+     "I_b_for_1pct_A": 2.660898096554428,
+     "I_b_for_10pct_A": 26.60898096554428,
+     "extra_cu_loss_for_10pct_W": 73.40936615680067
+    }
+   },
+   "limits": "needs back-EMF (speed > 0): at standstill the knob is only I R; the b-order field induces rotor currents in an IM (extra loss, small torque ripple)"
+  },
+  "module_current_scaling": {
+   "principle": "scale module j currents by (1 + e_j), sum e_j = 0: dP_j = e_j P_j; equivalent to a set of b-orders; distorts MMF by |e|"
+  },
+  "dc_side": {
+   "note": "cell-to-cell DC-DC balancers or a bypass would be extra hardware (not zero-hardware)"
+  },
+  "verdict": "DC (average) imbalances are cheap to correct: 1 % costs about 1 A of balancing current at cruise. AC pulsations at f_a + f_b are not removable by these knobs within the module current budget at the 100s-of-W/A scale and must be avoided (mode/order choice, m >= 5) or absorbed by capacitance."
+ },
+ "admissible_mode_set": {
+  "steady_modes": "admissible iff T08 rule (i) equal leg magnitude, (ii) module unit-sum zero, (iii) module square-sum zero; 5079 of 5232 enumerated modes pass; (iii)-violators need C_required (see examples) or are excluded. Prefer interleaved module partitions (eccentricity cancels).",
+  "IM_handover_m3": {
+   "admissible": false,
+   "C_required_mF": 22.80910650788573,
+   "ripple_pk_V": {
+    "worst_retained": 84.85530694897966,
+    "nominal": 29.69935743214288
+   },
+   "rule": "overlapped 8->4 handover pulsates each cell at f8 + f4; admissible only as a sequential handover with cross product below max_overlap_product_for_5pct, i.e. essentially no overlap -> torque gap (simulator: ~0.13 s at t_d = 0.01 s)"
+  },
+  "IM_handover_m5plus": "admissible with full overlap (torque-gap-free) when m does not divide (p1 +- p2)/c",
+  "WRSM_ksweep_m3": {
+   "gs4_grade0": {
+    "admissible": false,
+    "C_required_mF": 30.676116631897305
+   },
+   "gs4_grade2": {
+    "admissible": false,
+    "C_required_mF": 30.676695866077452
+   },
+   "gs1_grade0": {
+    "admissible": false,
+    "C_required_mF": 13.019043656698745
+   },
+   "gs1_grade2": {
+    "admissible": false,
+    "C_required_mF": 13.064540013445388
+   }
+  },
+  "H03_injection_m3": {
+   "50kmh": {
+    "admissible": false,
+    "C_required_mF": 5.018782890424804
+   },
+   "85kmh": {
+    "admissible": false,
+    "C_required_mF": 6.86780816584447
+   }
+  },
+  "H03_injection_m5": "admissible with nu != +-p (mod 5)",
+  "H09_open_end": "admissible (alpha = 0.5), alpha doubles as a balancing knob; star/open-end switching is hardware",
+  "H05_series_parking": "inadmissible without DC bypass hardware: a parked cell (P_j = 0) still carries I_dc and charges at I_dc/C (e.g. I_dc = 250 A -> 248016 V/s)"
+ },
+ "summary_text": "H10 screen. Average (DC) imbalance is zero for every mode that passes the T08 winding rule and is cheap to trim with same-frequency balancing orders (about 1 A per 1 % at cruise). The binding constraint is AC power pulsation: in a 3-leg isolated-neutral module any two simultaneous spatial orders a, b give pulsation at f_a + f_b or |f_a - f_b| with amplitude 3 V I. This hits (1) the overlapped IM 8/4 handover (8.5 kW per cell at 210 Hz, 2.5x the cell mean, C needed 22.8 mF vs 1.0-2.9 mF available), (2) the WRSM k-sweep, (3) H03 harmonic excitation, (4) steady WRSM space harmonics. For prime m >= 5 the pulsation vanishes when a != +-b (mod m), so m = 5/7 makes overlapped (torque-gap-free) transitions and harmonic excitation admissible, at the cost of weaker low-order balancing knobs. Series-cell parking (H05) is inadmissible without bypass hardware. Admissible set: steady modes with rule (i)-(iii); m = 3 transitions sequential (torque gap) or with sized capacitance; m >= 5 overlapped transitions with m not dividing (p1 +- p2)/c."
+}

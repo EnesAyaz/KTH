@@ -1,0 +1,2104 @@
+{
+ "meta": {
+  "script": "03_simulation/run_validation.py",
+  "task": "T04",
+  "date": "2026-11-02",
+  "inputs": [
+   "02_analytics/results/torque_speed_envelope.json (350 kW, read-only)"
+  ],
+  "note": "IM sim uses the analyst's tooth/yoke flux caps (CAP_MODE=an_caps) in the primary table; soft MEC saturation in extra.IM_envelope[cap_mode=mec]. WRSM sim = config B (effective gap x4, field MMF x4)."
+ },
+ "rows": [
+  {
+   "machine": "IM 2p8",
+   "point": "1000 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 2947.76,
+   "sim": 2579.512219400076,
+   "err_pct": -12.492461414766609
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "1000 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 25.673570790150045,
+   "err_pct": -11.737335703732846
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "1000 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 309.89706520516467,
+   "err_pct": -0.17428467700516187
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "3000 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 625.7034809968536,
+   "sim": 404.26383254257615,
+   "err_pct": -35.39050927149804
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "3000 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 28.587608749923582,
+   "err_pct": -1.7192218896330567
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "3000 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 147.57052497542776,
+   "err_pct": -52.463785978388664
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "4500 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 284.516805014484,
+   "sim": 178.83809868389702,
+   "err_pct": -37.14322123264641
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "4500 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 28.31803250317688,
+   "err_pct": -2.645992768656262
+  },
+  {
+   "machine": "IM 2p8",
+   "point": "4500 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 98.17528009818538,
+   "err_pct": -68.37524887062595
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "2100 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 1262.63,
+   "sim": 1187.7744565952062,
+   "err_pct": -5.9285414891768715
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "2100 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 22.19457560066659,
+   "err_pct": -23.697704871215997
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "2100 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 309.7785148752254,
+   "err_pct": -0.21247274916430536
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "4500 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 704.5777719508541,
+   "sim": 524.4266595742413,
+   "err_pct": -25.56866247395309
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "4500 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 29.059496600189085,
+   "err_pct": -0.09692792616729674
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "4500 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 248.48598727115674,
+   "err_pct": -19.956352569322707
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "6000 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 426.9461229585976,
+   "sim": 296.9201879951081,
+   "err_pct": -30.454881300350518
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "6000 rpm, envelope",
+   "quantity": "V_rms_V (limit)",
+   "analyst": 29.08769069555024,
+   "sim": 28.91421968814766,
+   "err_pct": -0.5963725660391331
+  },
+  {
+   "machine": "IM 2p4",
+   "point": "6000 rpm, envelope",
+   "quantity": "I_rms_A (limit)",
+   "analyst": 310.43811126468324,
+   "sim": 186.9868550162314,
+   "err_pct": -39.76678499477013
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "1000 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 3060.0199800229734,
+   "sim": 3055.144200469166,
+   "err_pct": -0.15933816071915324
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "1000 rpm, envelope",
+   "quantity": "I_rms_A at max T",
+   "analyst": 310.43811126468324,
+   "sim": 310.2172767275663,
+   "err_pct": -0.071136413057439
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "2100 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 1873.1538101183637,
+   "sim": 1835.680302388112,
+   "err_pct": -2.0005568964933906
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "2100 rpm, envelope",
+   "quantity": "I_rms_A at max T",
+   "analyst": 310.43811126468324,
+   "sim": 308.5792997199469,
+   "err_pct": -0.5987704077839514
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "4500 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 897.3187693537109,
+   "sim": 855.8009302398036,
+   "err_pct": -4.626877374225691
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "4500 rpm, envelope",
+   "quantity": "I_rms_A at max T",
+   "analyst": 310.43811126468324,
+   "sim": 306.04040859211017,
+   "err_pct": -1.4166117216270335
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "6000 rpm, envelope",
+   "quantity": "torque_Nm",
+   "analyst": 665.6561918793387,
+   "sim": 616.0692393648385,
+   "err_pct": -7.449333923342924
+  },
+  {
+   "machine": "PMSM 2p8",
+   "point": "6000 rpm, envelope",
+   "quantity": "I_rms_A at max T",
+   "analyst": 310.43811126468324,
+   "sim": 308.2626650416442,
+   "err_pct": -0.7007664794044035
+  },
+  {
+   "machine": "WRSM 2p8",
+   "point": "1000 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 2931.8,
+   "sim": 2525.9096019407734,
+   "err_pct": -13.844409511536487
+  },
+  {
+   "machine": "WRSM 2p8",
+   "point": "2100 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 1622.4109748788892,
+   "sim": 1098.4446584276461,
+   "err_pct": -32.295535752915896
+  },
+  {
+   "machine": "WRSM 2p8",
+   "point": "4250 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 756.5714328522199,
+   "sim": 521.6385237844014,
+   "err_pct": -31.052310312872685
+  },
+  {
+   "machine": "WRSM 2p8",
+   "point": "4500 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 712.8615797622615,
+   "sim": 494.1696197251606,
+   "err_pct": -30.67803992326735
+  },
+  {
+   "machine": "WRSM 2p4",
+   "point": "1000 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 1309.06,
+   "sim": 1131.1488482038928,
+   "err_pct": -13.590756099499421
+  },
+  {
+   "machine": "WRSM 2p4",
+   "point": "2100 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 830.3710907456424,
+   "sim": 862.6501803229319,
+   "err_pct": 3.887308931757735
+  },
+  {
+   "machine": "WRSM 2p4",
+   "point": "4250 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 329.47571642610995,
+   "sim": 392.56760829654957,
+   "err_pct": 19.149178141202693
+  },
+  {
+   "machine": "WRSM 2p4",
+   "point": "4500 rpm, envelope (free I_d, I_f)",
+   "quantity": "torque_Nm",
+   "analyst": 307.48954949555485,
+   "sim": 366.4375291136307,
+   "err_pct": 19.170726196965607
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 211.87054684152062,
+   "sim": 217.83483746586785,
+   "err_pct": 2.815063591075037
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 7.987104823756392,
+   "sim": 8.245248635637443,
+   "err_pct": 3.2320073115009396
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4643.892775372214,
+   "sim": 5011.72695343761,
+   "err_pct": 7.9208154851489665
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 264.73146546692533,
+   "sim": 231.11005833567037,
+   "err_pct": -12.700193032193788
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 87.9026831026311,
+   "sim": 86.9991838519497,
+   "err_pct": -1.0278403557107836
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_cu_rotor_W",
+   "analyst": 3700.1445496646265,
+   "sim": 4107.8530872181855,
+   "err_pct": 11.018719190051987
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 221.68576521904433,
+   "sim": 221.66874771395416,
+   "err_pct": -0.007676408574700978
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 7.456338913483631,
+   "sim": 7.470621942466352,
+   "err_pct": 0.19155552273639675
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 5084.129722940168,
+   "sim": 5083.552837798872,
+   "err_pct": -0.011346782492446842
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 236.28730341952067,
+   "sim": 251.93796610823796,
+   "err_pct": 6.6235732780487275
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 92.1439936655401,
+   "sim": 92.12361795506241,
+   "err_pct": -0.022112901413453623
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 211.7729337728568,
+   "sim": 212.3548289599896,
+   "err_pct": 0.2747731623517714
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 7.379322200589993,
+   "sim": 9.087839151817793,
+   "err_pct": 23.152762608620076
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4639.614689458173,
+   "sim": 4665.5759058826225,
+   "err_pct": 0.5595554407446035
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 238.43021219546063,
+   "sim": 331.8230122875164,
+   "err_pct": 39.16986829483426
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 87.57260185395495,
+   "sim": 89.53578154938438,
+   "err_pct": 2.2417738583392
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "launch_300rpm_2000Nm (300 rpm, 2000 Nm)",
+   "quantity": "P_field_W",
+   "analyst": 4000.0,
+   "sim": 2308.3202247012914,
+   "err_pct": -42.29199438246772
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 211.87054684152062,
+   "sim": 217.83483746586785,
+   "err_pct": 2.815063591075037
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 24.710260795619206,
+   "sim": 25.477631223387732,
+   "err_pct": 3.1054727998037577
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4643.892775372214,
+   "sim": 5011.72695343761,
+   "err_pct": 7.9208154851489665
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 947.9028241459959,
+   "sim": 1031.9208626787945,
+   "err_pct": 8.863570863236314
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 95.6960806594237,
+   "sim": 95.32149066672339,
+   "err_pct": -0.3914371310915544
+  },
+  {
+   "machine": "IM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_cu_rotor_W",
+   "analyst": 3700.1445496646265,
+   "sim": 4107.8530872181855,
+   "err_pct": 11.018719190051987
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 222.16608671550742,
+   "sim": 222.78810131772366,
+   "err_pct": 0.2799772960005162
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 23.36844341575936,
+   "sim": 23.007812275162106,
+   "err_pct": -1.5432398905698954
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 5106.184926398054,
+   "sim": 5135.143599701187,
+   "err_pct": 0.5671293484382389
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 845.5205251785037,
+   "sim": 1095.216616914301,
+   "err_pct": 29.531641669264303
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.18011225290454,
+   "sim": 97.0545513607454,
+   "err_pct": -0.1292043086268159
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 212.3031609172476,
+   "sim": 213.35585878531452,
+   "err_pct": 0.49584653545372964
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 23.61184261624097,
+   "sim": 28.84197464208689,
+   "err_pct": 22.150461151424366
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4662.8766737210135,
+   "sim": 4709.418477805797,
+   "err_pct": 0.9981349999472058
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 885.183497004035,
+   "sim": 1510.1293094992595,
+   "err_pct": 70.60070760586896
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 95.59286876605371,
+   "sim": 96.03153777899574,
+   "err_pct": 0.45889303104355195
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "accel_1000rpm_2000Nm (1000 rpm, 2000 Nm)",
+   "quantity": "P_field_W",
+   "analyst": 3980.044950025,
+   "sim": 2308.3202247012914,
+   "err_pct": -42.00265942507026
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 242.9662982642372,
+   "sim": 255.4442838302465,
+   "err_pct": 5.135685753601474
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 20.13263809747741,
+   "sim": 20.549770451428664,
+   "err_pct": 2.071920986865198
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 6107.072595964616,
+   "sim": 6949.902428684763,
+   "err_pct": 13.800881182861097
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 626.7904553143477,
+   "sim": 651.6465475770254,
+   "err_pct": 3.9656143535580695
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 94.65967008423893,
+   "sim": 94.0135174216088,
+   "err_pct": -0.682606079289215
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_cu_rotor_W",
+   "analyst": 4754.39492979697,
+   "sim": 5405.140285758125,
+   "err_pct": 13.687238135872404
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 154.53725114450793,
+   "sim": 157.29113627817836,
+   "err_pct": 1.7820202658420927
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.078002512972407,
+   "sim": 28.665515111563877,
+   "err_pct": -1.4185548034962487
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 2470.628087171279,
+   "sim": 2559.6218278916335,
+   "err_pct": 3.602069497325565
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 960.7947666057182,
+   "sim": 1056.192801534683,
+   "err_pct": 9.929075203644745
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 98.24239198990976,
+   "sim": 98.15736670779481,
+   "err_pct": -0.08654642908500033
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 170.68477386818176,
+   "sim": 169.2200672344123,
+   "err_pct": -0.8581354977220356
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.080783336032514,
+   "sim": 28.94695375589093,
+   "err_pct": -0.4601993646290875
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 3013.9120215823355,
+   "sim": 2962.499895692347,
+   "err_pct": -1.7058270288525774
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 761.6687402937636,
+   "sim": 1091.7837023646498,
+   "err_pct": 43.34101488050647
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.25173555440736,
+   "sim": 97.10534248565855,
+   "err_pct": -0.15053003210097765
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "suburban_2000rpm_1000Nm (2000 rpm, 1000 Nm)",
+   "quantity": "P_field_W",
+   "analyst": 1824.2554225000003,
+   "sim": 1869.7393820080463,
+   "err_pct": 2.4932889850322435
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 170.61278608564692,
+   "sim": 178.9127747862516,
+   "err_pct": 4.864810481693976
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.015668115259885,
+   "sim": 29.01426139296885,
+   "err_pct": -0.004848147164647313
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 3011.3702706707404,
+   "sim": 3323.0691374977437,
+   "err_pct": 10.350732019333401
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 876.0889652016785,
+   "sim": 956.8037246835535,
+   "err_pct": 9.213077973570197
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 96.86680999705415,
+   "sim": 96.5942498082951,
+   "err_pct": -0.28137624101313263
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_cu_rotor_W",
+   "analyst": 2338.4588609471843,
+   "sim": 2584.1376014266316,
+   "err_pct": 10.506010799776735
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 210.57119588341908,
+   "sim": 211.59249076688525,
+   "err_pct": 0.48501167464119826
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 28.907813312450877,
+   "sim": 28.74467899096252,
+   "err_pct": -0.5643260516633184
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4587.107687112005,
+   "sim": 4631.733961734255,
+   "err_pct": 0.9728630253794266
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 999.4476484907382,
+   "sim": 712.9039436765238,
+   "err_pct": -28.670206513259885
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.1414599710028,
+   "sim": 97.24578660141707,
+   "err_pct": 0.10739660536850629
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 167.68789610547,
+   "sim": 164.80838592638003,
+   "err_pct": -1.7171842726673976
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.08383232595764,
+   "sim": 28.84823021208348,
+   "err_pct": -0.8100793294145224
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 2909.004816685578,
+   "sim": 2810.0691235030317,
+   "err_pct": -3.40101510369001
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 543.72183633713,
+   "sim": 1075.749882416756,
+   "err_pct": 97.8493064879864
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.33224499726572,
+   "sim": 96.97695351538144,
+   "err_pct": -0.36502957667755465
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "highway_3500rpm_600Nm (3500 rpm, 600 Nm)",
+   "quantity": "P_field_W",
+   "analyst": 1691.8204900000005,
+   "sim": 2083.259002792916,
+   "err_pct": 23.137118571776803
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 119.65267782738411,
+   "sim": 124.59297462010636,
+   "err_pct": 4.128864378488316
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.059173273523225,
+   "sim": 28.9644863422823,
+   "err_pct": -0.3258417930533417
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 1481.105019264329,
+   "sim": 1707.8914065421982,
+   "err_pct": 15.311972097057296
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 777.9047206739431,
+   "sim": 866.1013723783288,
+   "err_pct": 11.337719049702642
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.050205098221,
+   "sim": 96.75104372312484,
+   "err_pct": -0.3082542430419302
+  },
+  {
+   "machine": "IM_2p4",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_cu_rotor_W",
+   "analyst": 1146.34129149173,
+   "sim": 1326.1238824717113,
+   "err_pct": 15.683164543958002
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 215.14879982643785,
+   "sim": 217.81458473618022,
+   "err_pct": 1.2390424264011137
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 28.928577208214264,
+   "sim": 28.39144276873344,
+   "err_pct": -1.85676065440337
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 4788.7136031851005,
+   "sim": 4908.123404325276,
+   "err_pct": 2.493567396904944
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 1115.6348444740827,
+   "sim": 609.7754415879649,
+   "err_pct": -45.34273964207196
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 95.55781500602535,
+   "sim": 95.78559372814765,
+   "err_pct": 0.23836744499435514
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 119.81175625745365,
+   "sim": 125.70362060822535,
+   "err_pct": 4.917601189411792
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 29.078645401382566,
+   "sim": 29.081209276461994,
+   "err_pct": 0.008817037534031763
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 1485.0459002991768,
+   "sim": 1634.860620396677,
+   "err_pct": 10.088221520110494
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 482.8848865923705,
+   "sim": 789.4123419023036,
+   "err_pct": 63.478370067251596
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 97.39178499948335,
+   "sim": 97.05373080366631,
+   "err_pct": -0.3471075058526037
+  },
+  {
+   "machine": "WRSM_freeId_2p8",
+   "point": "cruise_85kmh_road_load (4250 rpm, 352 Nm)",
+   "quantity": "P_field_W",
+   "analyst": 876.217684225,
+   "sim": 975.2652949362957,
+   "err_pct": 11.303995855653351
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "grade_at_vmax_4500rpm_600Nm (4500 rpm, 600 Nm)",
+   "quantity": "I_rms_A",
+   "analyst": 251.9371770686362,
+   "sim": 254.68449268382074,
+   "err_pct": 1.0904764620888292
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "grade_at_vmax_4500rpm_600Nm (4500 rpm, 600 Nm)",
+   "quantity": "V_rms_V",
+   "analyst": 28.696605989280943,
+   "sim": 28.195136104526107,
+   "err_pct": -1.7474884832796984
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "grade_at_vmax_4500rpm_600Nm (4500 rpm, 600 Nm)",
+   "quantity": "P_cu_stator_W",
+   "analyst": 6566.372655332498,
+   "sim": 6710.374759211398,
+   "err_pct": 2.193023628684203
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "grade_at_vmax_4500rpm_600Nm (4500 rpm, 600 Nm)",
+   "quantity": "P_fe_W",
+   "analyst": 1049.18856205754,
+   "sim": 569.0835237800352,
+   "err_pct": -45.759652329413655
+  },
+  {
+   "machine": "PMSM_2p8",
+   "point": "grade_at_vmax_4500rpm_600Nm (4500 rpm, 600 Nm)",
+   "quantity": "eta_pct",
+   "analyst": 96.86058832151538,
+   "sim": 96.97283855938386,
+   "err_pct": 0.11588845351205258
+  }
+ ],
+ "extra": {
+  "IM_envelope": [
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p8",
+    "n_rpm": 1000,
+    "T_sim": 2579.512219400076,
+    "T_sim_with_analyst_leakage": 2590.6035556721804,
+    "T_analyst": 2947.76,
+    "V": 25.673570790150045,
+    "I": 309.89706520516467,
+    "psi": 0.047034964509832466,
+    "Bt": 1.3771034335612526
+   },
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p8",
+    "n_rpm": 3000,
+    "T_sim": 404.26383254257615,
+    "T_sim_with_analyst_leakage": 614.4059271266202,
+    "T_analyst": 625.7034809968536,
+    "V": 28.587608749923582,
+    "I": 147.57052497542776,
+    "psi": 0.01598564238004107,
+    "Bt": 0.4687149427073688
+   },
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p8",
+    "n_rpm": 4500,
+    "T_sim": 178.83809868389702,
+    "T_sim_with_analyst_leakage": 277.8106487147445,
+    "T_analyst": 284.516805014484,
+    "V": 28.31803250317688,
+    "I": 98.17528009818538,
+    "psi": 0.010632310978352898,
+    "Bt": 0.31177841334977974
+   },
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p4",
+    "n_rpm": 2100,
+    "T_sim": 1187.7744565952062,
+    "T_sim_with_analyst_leakage": 1187.203898747047,
+    "T_analyst": 1262.63,
+    "V": 22.19457560066659,
+    "I": 309.7785148752254,
+    "psi": 0.04157561793255476,
+    "Bt": 0.7581371792414454
+   },
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p4",
+    "n_rpm": 4500,
+    "T_sim": 524.4266595742413,
+    "T_sim_with_analyst_leakage": 665.8728658498408,
+    "T_analyst": 704.5777719508541,
+    "V": 29.059496600189085,
+    "I": 248.48598727115674,
+    "psi": 0.023523525874299293,
+    "Bt": 0.4227324423193587
+   },
+   {
+    "cap_mode": "an_caps",
+    "machine": "IM 2p4",
+    "n_rpm": 6000,
+    "T_sim": 296.9201879951081,
+    "T_sim_with_analyst_leakage": 424.56847113857526,
+    "T_analyst": 426.9461229585976,
+    "V": 28.91421968814766,
+    "I": 186.9868550162314,
+    "psi": 0.01770027037163624,
+    "Bt": 0.3178916881759595
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p8",
+    "n_rpm": 1000,
+    "T_sim": 2572.5232903943115,
+    "T_sim_with_analyst_leakage": 2637.8119132103566,
+    "T_analyst": 2947.76,
+    "V": 25.63859584738478,
+    "I": 309.47447957374044,
+    "psi": 0.04697120303807044,
+    "Bt": 1.375239053149305
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p8",
+    "n_rpm": 3000,
+    "T_sim": 402.9759601393083,
+    "T_sim_with_analyst_leakage": 630.5740292335854,
+    "T_analyst": 625.7034809968536,
+    "V": 28.54205992124739,
+    "I": 147.335414909135,
+    "psi": 0.01596015915761232,
+    "Bt": 0.4679682515518331
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p8",
+    "n_rpm": 4500,
+    "T_sim": 184.23857022379843,
+    "T_sim_with_analyst_leakage": 267.91227116893026,
+    "T_analyst": 284.516805014484,
+    "V": 28.74220365892774,
+    "I": 99.64574206218617,
+    "psi": 0.010791651844202634,
+    "Bt": 0.3164512321267539
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p4",
+    "n_rpm": 2100,
+    "T_sim": 1330.5031505534805,
+    "T_sim_with_analyst_leakage": 1432.3610147176123,
+    "T_analyst": 1262.63,
+    "V": 28.919243380312796,
+    "I": 249.16270018550046,
+    "psi": 0.058838554084202584,
+    "Bt": 1.3070215737100563
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p4",
+    "n_rpm": 4500,
+    "T_sim": 517.4213285140569,
+    "T_sim_with_analyst_leakage": 657.2503629049336,
+    "T_analyst": 704.5777719508541,
+    "V": 28.86478842537389,
+    "I": 246.8210485817318,
+    "psi": 0.023365883132810412,
+    "Bt": 0.41989118456882607
+   },
+   {
+    "cap_mode": "mec",
+    "machine": "IM 2p4",
+    "n_rpm": 6000,
+    "T_sim": 298.5950887586709,
+    "T_sim_with_analyst_leakage": 421.8653047261479,
+    "T_analyst": 426.9461229585976,
+    "V": 29.07209845092995,
+    "I": 215.05468644981667,
+    "psi": 0.016062686172229668,
+    "Bt": 0.2884551503748902
+   }
+  ],
+  "PMSM_fine_grid_4500": 893.0537089703057,
+  "WRSM_envelope": [
+   {
+    "config": "B",
+    "mode": "2p8",
+    "n_rpm": 1000,
+    "T_sim": 2525.9096019407734,
+    "T_analyst_freeId": 2931.8,
+    "T_analyst_Id0": 2931.8,
+    "I_f_pu": 1.0,
+    "id_A": -59.70750706300839,
+    "iq_A": 427.3184329019229,
+    "V": 29.08185992691497,
+    "I": 305.0950913218978
+   },
+   {
+    "config": "B",
+    "mode": "2p8",
+    "n_rpm": 2100,
+    "T_sim": 1098.4446584276461,
+    "T_analyst_freeId": 1622.4109748788892,
+    "T_analyst_Id0": 849.0675363332167,
+    "I_f_pu": 1.0,
+    "id_A": -207.22017157161739,
+    "iq_A": 228.29340935856155,
+    "V": 28.885708490876727,
+    "I": 218.0115596278398
+   },
+   {
+    "config": "B",
+    "mode": "2p8",
+    "n_rpm": 4250,
+    "T_sim": 521.6385237844014,
+    "T_analyst_freeId": 756.5714328522199,
+    "T_analyst_Id0": 209.42458272986065,
+    "I_f_pu": 1.0,
+    "id_A": -221.26899676291347,
+    "iq_A": 111.21986609776076,
+    "V": 28.69517770549329,
+    "I": 175.11400221465735
+   },
+   {
+    "config": "B",
+    "mode": "2p8",
+    "n_rpm": 4500,
+    "T_sim": 494.1696197251606,
+    "T_analyst_freeId": 712.8615797622615,
+    "T_analyst_Id0": 186.90704674857653,
+    "I_f_pu": 1.0,
+    "id_A": -221.26899676291347,
+    "iq_A": 105.36618893472071,
+    "V": 28.87400741655933,
+    "I": 173.29455083627627
+   },
+   {
+    "config": "B",
+    "mode": "2p4",
+    "n_rpm": 1000,
+    "T_sim": 1131.1488482038928,
+    "T_analyst_freeId": 1309.06,
+    "T_analyst_Id0": 1309.06,
+    "I_f_pu": 1.0,
+    "id_A": -80.7807448499525,
+    "iq_A": 427.3184329019229,
+    "V": 16.976185254880175,
+    "I": 307.5114403044774
+   },
+   {
+    "config": "B",
+    "mode": "2p4",
+    "n_rpm": 2100,
+    "T_sim": 862.6501803229319,
+    "T_analyst_freeId": 830.3710907456424,
+    "T_analyst_Id0": 806.1287799031113,
+    "I_f_pu": 1.0,
+    "id_A": -165.0736959977291,
+    "iq_A": 257.56179517376177,
+    "V": 28.98159616753106,
+    "I": 216.31851913726834
+   },
+   {
+    "config": "B",
+    "mode": "2p4",
+    "n_rpm": 4250,
+    "T_sim": 392.56760829654957,
+    "T_analyst_freeId": 329.47571642610995,
+    "T_analyst_Id0": 199.74335813814113,
+    "I_f_pu": 1.0,
+    "id_A": -172.09810859337716,
+    "iq_A": 87.8051574456006,
+    "V": 28.426965030602197,
+    "I": 136.6153444080579
+   },
+   {
+    "config": "B",
+    "mode": "2p4",
+    "n_rpm": 4500,
+    "T_sim": 366.4375291136307,
+    "T_analyst_freeId": 307.48954949555485,
+    "T_analyst_Id0": 178.25706872440315,
+    "I_f_pu": 1.0,
+    "id_A": -172.09810859337716,
+    "iq_A": 81.95148028256055,
+    "V": 28.141182930669387,
+    "I": 134.7846506504371
+   }
+  ],
+  "efficiency_points": [
+   {
+    "point": "launch_300rpm_2000Nm",
+    "machine": "IM_2p8",
+    "n_rpm": 300.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.879026831026311,
+     "PF": 0.8795165522456749,
+     "S_inverter_used_kVA": 81.22714880111108,
+     "P_shaft_W": 62798.22344216623,
+     "P_cu_stator_W": 4643.892775372214,
+     "P_cu_rotor_W": 3700.1445496646265,
+     "P_fe_W": 264.73146546692533,
+     "P_field_W": 0.0,
+     "P_mech_W": 33.62962962962963,
+     "I_rms_A": 211.87054684152062,
+     "V_rms_V": 7.987104823756392,
+     "B_gap_T": 0.8787878787878787,
+     "f_e_Hz": 21.177792590467316,
+     "slip": 0.05561451154250487
+    },
+    "sim": {
+     "I_rms_A": 217.83483746586785,
+     "V_rms_V": 8.245248635637443,
+     "P_cu_stator_W": 5011.72695343761,
+     "P_cu_rotor_W": 4107.8530872181855,
+     "P_fe_W": 231.11005833567037,
+     "P_field_W": null,
+     "eta": 0.869991838519497,
+     "PF": 0.8372590481092305,
+     "P_mech_W": 33.62962962962963
+    },
+    "sim_extra": {
+     "id": null,
+     "iq": null,
+     "If": null,
+     "psi": 0.051674518391295554,
+     "wsl": 8.024752172840582
+    }
+   },
+   {
+    "point": "launch_300rpm_2000Nm",
+    "machine": "IM_2p4",
+    "n_rpm": 300.0,
+    "T_Nm": 2000.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "launch_300rpm_2000Nm",
+    "machine": "PMSM_2p8",
+    "n_rpm": 300.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.9214399366554009,
+     "PF": 0.8589653437717025,
+     "S_inverter_used_kVA": 79.34228149287149,
+     "P_shaft_W": 62798.22344216623,
+     "P_cu_stator_W": 5084.129722940168,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 236.28730341952067,
+     "P_field_W": 0.0,
+     "P_mech_W": 33.62962962962963,
+     "I_rms_A": 221.68576521904433,
+     "V_rms_V": 7.456338913483631,
+     "B_gap_T": 0.8556040191643078,
+     "f_e_Hz": 20.0,
+     "I_d_A": -97.61510723905039,
+     "I_q_A": 199.03735664307325,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 221.66874771395416,
+     "V_rms_V": 7.470621942466352,
+     "P_cu_stator_W": 5083.552837798872,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 251.93796610823796,
+     "P_field_W": 0.0,
+     "eta": 0.9212361795506241,
+     "PF": 0.8575785462117066,
+     "P_mech_W": 33.62962962962963
+    },
+    "sim_extra": {
+     "id": -136.9760456151369,
+     "iq": 281.97644198310405,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "launch_300rpm_2000Nm",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 300.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.8757260185395495,
+     "PF": 0.9026595799988517,
+     "S_inverter_used_kVA": 75.01155416035759,
+     "P_shaft_W": 62798.22344216623,
+     "P_cu_stator_W": 4639.614689458173,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 238.43021219546063,
+     "P_field_W": 4000.0,
+     "P_mech_W": 33.62962962962963,
+     "I_rms_A": 211.7729337728568,
+     "V_rms_V": 7.379322200589993,
+     "B_gap_T": 0.8594750335627188,
+     "f_e_Hz": 20.0,
+     "I_d_A": 1.2967352274548674e-14,
+     "I_q_A": 211.7729337728568,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 212.3548289599896,
+     "V_rms_V": 9.087839151817793,
+     "P_cu_stator_W": 4665.5759058826225,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 331.8230122875164,
+     "P_field_W": 2308.3202247012914,
+     "eta": 0.8953578154938439,
+     "PF": 0.7322392715908947,
+     "P_mech_W": 33.62962962962963
+    },
+    "sim_extra": {
+     "id": 52.683094467360355,
+     "iq": 295.6575293469944,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "launch_300rpm_2000Nm",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 300.0,
+    "T_Nm": 2000.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "accel_1000rpm_2000Nm",
+    "machine": "IM_2p8",
+    "n_rpm": 1000.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.956960806594237,
+     "PF": 0.8704064062696049,
+     "S_inverter_used_kVA": 251.29807043349263,
+     "P_shaft_W": 209317.42519130855,
+     "P_cu_stator_W": 4643.892775372214,
+     "P_cu_rotor_W": 3700.1445496646265,
+     "P_fe_W": 947.9028241459959,
+     "P_field_W": 0.0,
+     "P_mech_W": 122.08504801097392,
+     "I_rms_A": 211.87054684152062,
+     "V_rms_V": 24.710260795619206,
+     "B_gap_T": 0.8787878787878787,
+     "f_e_Hz": 67.84445925713399,
+     "slip": 0.017360188339086386
+    },
+    "sim": {
+     "I_rms_A": 217.83483746586785,
+     "V_rms_V": 25.477631223387732,
+     "P_cu_stator_W": 5011.72695343761,
+     "P_cu_rotor_W": 4107.8530872181855,
+     "P_fe_W": 1031.9208626787945,
+     "P_field_W": null,
+     "eta": 0.9532149066672339,
+     "PF": 0.8243031093147446,
+     "P_mech_W": 122.08504801097392
+    },
+    "sim_extra": {
+     "id": null,
+     "iq": null,
+     "If": null,
+     "psi": 0.051674518391295554,
+     "wsl": 8.024752172840582
+    }
+   },
+   {
+    "point": "accel_1000rpm_2000Nm",
+    "machine": "IM_2p4",
+    "n_rpm": 1000.0,
+    "T_Nm": 2000.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "accel_1000rpm_2000Nm",
+    "machine": "PMSM_2p8",
+    "n_rpm": 1000.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.9718011225290454,
+     "PF": 0.8643292294337662,
+     "S_inverter_used_kVA": 249.20043006297703,
+     "P_shaft_W": 209317.42519130855,
+     "P_cu_stator_W": 5106.184926398054,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 845.5205251785037,
+     "P_field_W": 0.0,
+     "P_mech_W": 122.08504801097392,
+     "I_rms_A": 222.16608671550742,
+     "V_rms_V": 23.36844341575936,
+     "B_gap_T": 0.8383877640215679,
+     "f_e_Hz": 66.66666666666666,
+     "I_d_A": -106.00849450890018,
+     "I_q_A": 195.24335885873006,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 222.78810131772366,
+     "V_rms_V": 23.007812275162106,
+     "P_cu_stator_W": 5135.143599701187,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1095.216616914301,
+     "P_field_W": 0.0,
+     "eta": 0.9705455136074541,
+     "PF": 0.8765585345332177,
+     "P_mech_W": 122.08504801097392
+    },
+    "sim_extra": {
+     "id": -158.04928340208107,
+     "iq": 272.557100452191,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "accel_1000rpm_2000Nm",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 1000.0,
+    "T_Nm": 2000.0,
+    "analyst": {
+     "eta": 0.9559286876605371,
+     "PF": 0.8934819312974962,
+     "S_inverter_used_kVA": 240.6177034804095,
+     "P_shaft_W": 209317.42519130855,
+     "P_cu_stator_W": 4662.8766737210135,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 885.183497004035,
+     "P_field_W": 3980.044950025,
+     "P_mech_W": 122.08504801097392,
+     "I_rms_A": 212.3031609172476,
+     "V_rms_V": 23.61184261624097,
+     "B_gap_T": 0.8578265985629515,
+     "f_e_Hz": 66.66666666666666,
+     "I_d_A": 1.2999819323308636e-14,
+     "I_q_A": 212.3031609172476,
+     "I_f_pu": 0.9975025000000001
+    },
+    "sim": {
+     "I_rms_A": 213.35585878531452,
+     "V_rms_V": 28.84197464208689,
+     "P_cu_stator_W": 4709.418477805797,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1510.1293094992595,
+     "P_field_W": 2308.3202247012914,
+     "eta": 0.9603153777899575,
+     "PF": 0.7301244678637729,
+     "P_mech_W": 122.08504801097392
+    },
+    "sim_extra": {
+     "id": 38.63426927606429,
+     "iq": 299.247020393474,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "accel_1000rpm_2000Nm",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 1000.0,
+    "T_Nm": 2000.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "suburban_2000rpm_1000Nm",
+    "machine": "IM_2p8",
+    "n_rpm": 2000.0,
+    "T_Nm": 1000.0,
+    "analyst": {
+     "eta": 0.9661379107457809,
+     "PF": 0.8507380899584357,
+     "S_inverter_used_kVA": 254.4370139699508,
+     "P_shaft_W": 209129.4965218984,
+     "P_cu_stator_W": 3438.0540320703817,
+     "P_cu_rotor_W": 2862.5276065981398,
+     "P_fe_W": 719.1674015357343,
+     "P_field_W": 0.0,
+     "P_mech_W": 310.0137174211248,
+     "I_rms_A": 182.29965408594535,
+     "V_rms_V": 29.07724181349747,
+     "B_gap_T": 0.5053030303030301,
+     "f_e_Hz": 135.15567500664176,
+     "slip": 0.013483278990829427
+    },
+    "sim": null,
+    "note": "analyst reachable, sim not reachable"
+   },
+   {
+    "point": "suburban_2000rpm_1000Nm",
+    "machine": "IM_2p4",
+    "n_rpm": 2000.0,
+    "T_Nm": 1000.0,
+    "analyst": {
+     "eta": 0.9465967008423892,
+     "PF": 0.9409408951877359,
+     "S_inverter_used_kVA": 234.79452253620678,
+     "P_shaft_W": 209129.4965218984,
+     "P_cu_stator_W": 6107.072595964616,
+     "P_cu_rotor_W": 4754.39492979697,
+     "P_fe_W": 626.7904553143477,
+     "P_field_W": 0.0,
+     "P_mech_W": 310.0137174211248,
+     "I_rms_A": 242.9662982642372,
+     "V_rms_V": 20.13263809747741,
+     "B_gap_T": 0.43939393939393934,
+     "f_e_Hz": 68.18003757564313,
+     "slip": 0.022196686343820753
+    },
+    "sim": {
+     "I_rms_A": 255.4442838302465,
+     "V_rms_V": 20.549770451428664,
+     "P_cu_stator_W": 6949.902428684763,
+     "P_cu_rotor_W": 5405.140285758125,
+     "P_fe_W": 651.6465475770254,
+     "P_field_W": null,
+     "eta": 0.9401351742160879,
+     "PF": 0.8828371275982746,
+     "P_mech_W": 310.0137174211248
+    },
+    "sim_extra": {
+     "id": null,
+     "iq": null,
+     "If": null,
+     "psi": 0.042157943482821064,
+     "wsl": 10.497871188837415
+    }
+   },
+   {
+    "point": "suburban_2000rpm_1000Nm",
+    "machine": "PMSM_2p8",
+    "n_rpm": 2000.0,
+    "T_Nm": 1000.0,
+    "analyst": {
+     "eta": 0.9824239198990976,
+     "PF": 0.9869096006780171,
+     "S_inverter_used_kVA": 215.6944597021368,
+     "P_shaft_W": 209129.4965218984,
+     "P_cu_stator_W": 2470.628087171279,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 960.7947666057182,
+     "P_field_W": 0.0,
+     "P_mech_W": 310.0137174211248,
+     "I_rms_A": 154.53725114450793,
+     "V_rms_V": 29.078002512972407,
+     "B_gap_T": 0.5890831209381661,
+     "f_e_Hz": 133.33333333333331,
+     "I_d_A": -122.60264439492086,
+     "I_q_A": 94.07631784181024,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 157.29113627817836,
+     "V_rms_V": 28.665515111563877,
+     "P_cu_stator_W": 2559.6218278916335,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1056.192801534683,
+     "P_field_W": 0.0,
+     "eta": 0.981573667077948,
+     "PF": 0.9844352481705745,
+     "P_mech_W": 310.0137174211248
+    },
+    "sim_extra": {
+     "id": -179.12252118902518,
+     "iq": 131.8733587973199,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "suburban_2000rpm_1000Nm",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 2000.0,
+    "T_Nm": 1000.0,
+    "analyst": {
+     "eta": 0.9725173555440736,
+     "PF": 0.8949027050670001,
+     "S_inverter_used_kVA": 238.25505252577432,
+     "P_shaft_W": 209129.4965218984,
+     "P_cu_stator_W": 3013.9120215823355,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 761.6687402937636,
+     "P_field_W": 1824.2554225000003,
+     "P_mech_W": 310.0137174211248,
+     "I_rms_A": 170.68477386818176,
+     "V_rms_V": 29.080783336032514,
+     "B_gap_T": 0.5244985967792996,
+     "f_e_Hz": 133.33333333333331,
+     "I_d_A": -27.43630846108041,
+     "I_q_A": 168.46525163505024,
+     "I_f_pu": 0.6753250000000001
+    },
+    "sim": {
+     "I_rms_A": 169.2200672344123,
+     "V_rms_V": 28.94695375589093,
+     "P_cu_stator_W": 2962.499895692347,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1091.7837023646498,
+     "P_field_W": 1869.7393820080463,
+     "eta": 0.9710534248565855,
+     "PF": 0.9080071887072043,
+     "P_mech_W": 310.0137174211248
+    },
+    "sim_extra": {
+     "id": -122.92722042384082,
+     "iq": 205.32689231267165,
+     "If": 0.9,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "suburban_2000rpm_1000Nm",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 2000.0,
+    "T_Nm": 1000.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "highway_3500rpm_600Nm",
+    "machine": "IM_2p8",
+    "n_rpm": 3500.0,
+    "T_Nm": 600.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "highway_3500rpm_600Nm",
+    "machine": "IM_2p4",
+    "n_rpm": 3500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.9686680999705415,
+     "PF": 0.9516713925302962,
+     "S_inverter_used_kVA": 237.6213109094861,
+     "P_shaft_W": 219052.089317815,
+     "P_cu_stator_W": 3011.3702706707404,
+     "P_cu_rotor_W": 2338.4588609471843,
+     "P_fe_W": 876.0889652016785,
+     "P_field_W": 0.0,
+     "P_mech_W": 859.3964334705076,
+     "I_rms_A": 170.61278608564692,
+     "V_rms_V": 29.015668115259885,
+     "B_gap_T": 0.37458333333333327,
+     "f_e_Hz": 117.90725762312262,
+     "slip": 0.010521752277721258
+    },
+    "sim": {
+     "I_rms_A": 178.9127747862516,
+     "V_rms_V": 29.01426139296885,
+     "P_cu_stator_W": 3323.0691374977437,
+     "P_cu_rotor_W": 2584.1376014266316,
+     "P_fe_W": 956.8037246835535,
+     "P_field_W": null,
+     "eta": 0.9659424980829511,
+     "PF": 0.9101270407951544,
+     "P_mech_W": 859.3964334705076
+    },
+    "sim_extra": {
+     "id": null,
+     "iq": null,
+     "If": null,
+     "psi": 0.03585331836699818,
+     "wsl": 8.583542571371718
+    }
+   },
+   {
+    "point": "highway_3500rpm_600Nm",
+    "machine": "PMSM_2p8",
+    "n_rpm": 3500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.971414599710028,
+     "PF": 0.7717690018998055,
+     "S_inverter_used_kVA": 292.18333533971537,
+     "P_shaft_W": 219052.089317815,
+     "P_cu_stator_W": 4587.107687112005,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 999.4476484907382,
+     "P_field_W": 0.0,
+     "P_mech_W": 859.3964334705076,
+     "I_rms_A": 210.57119588341908,
+     "V_rms_V": 28.907813312450877,
+     "B_gap_T": 0.41519102976212574,
+     "f_e_Hz": 233.33333333333331,
+     "I_d_A": -205.07044016975988,
+     "I_q_A": 47.81572026388581,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 211.59249076688525,
+     "V_rms_V": 28.74467899096252,
+     "P_cu_stator_W": 4631.733961734255,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 712.9039436765238,
+     "P_field_W": 0.0,
+     "eta": 0.9724578660141706,
+     "PF": 0.7715741249549632,
+     "P_mech_W": 859.3964334705076
+    },
+    "sim_extra": {
+     "id": -291.51312271939395,
+     "iq": 67.48895329330497,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "highway_3500rpm_600Nm",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 3500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.9733224499726572,
+     "PF": 0.9541551657489135,
+     "S_inverter_used_kVA": 234.09631936435656,
+     "P_shaft_W": 219052.089317815,
+     "P_cu_stator_W": 2909.004816685578,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 543.72183633713,
+     "P_field_W": 1691.8204900000005,
+     "P_mech_W": 859.3964334705076,
+     "I_rms_A": 167.68789610547,
+     "V_rms_V": 29.08383232595764,
+     "B_gap_T": 0.30623605694313805,
+     "f_e_Hz": 233.33333333333331,
+     "I_d_A": -101.79144156599513,
+     "I_q_A": 133.258143931977,
+     "I_f_pu": 0.6503500000000001
+    },
+    "sim": {
+     "I_rms_A": 164.80838592638003,
+     "V_rms_V": 28.84823021208348,
+     "P_cu_stator_W": 2810.0691235030317,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1075.749882416756,
+     "P_field_W": 2083.259002792916,
+     "eta": 0.9697695351538144,
+     "PF": 0.9806524853695728,
+     "P_mech_W": 859.3964334705076
+    },
+    "sim_extra": {
+     "id": -193.1713463803213,
+     "iq": 130.3984707628121,
+     "If": 0.9500000000000002,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "highway_3500rpm_600Nm",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 3500.0,
+    "T_Nm": 600.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "cruise_85kmh_road_load",
+    "machine": "IM_2p8",
+    "n_rpm": 4249.999999999999,
+    "T_Nm": 351.8760377299173,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "cruise_85kmh_road_load",
+    "machine": "IM_2p4",
+    "n_rpm": 4249.999999999999,
+    "T_Nm": 351.8760377299173,
+    "analyst": {
+     "eta": 0.97050205098221,
+     "PF": 0.9587441923409636,
+     "S_inverter_used_kVA": 166.89637908609626,
+     "P_shaft_W": 155290.93979304988,
+     "P_cu_stator_W": 1481.105019264329,
+     "P_cu_rotor_W": 1146.34129149173,
+     "P_fe_W": 777.9047206739431,
+     "P_field_W": 0.0,
+     "P_mech_W": 1314.6433470507536,
+     "I_rms_A": 119.65267782738411,
+     "V_rms_V": 29.059173273523225,
+     "B_gap_T": 0.3130681818181818,
+     "f_e_Hz": 142.7036561939347,
+     "slip": 0.007266734118282186
+    },
+    "sim": {
+     "I_rms_A": 124.59297462010636,
+     "V_rms_V": 28.9644863422823,
+     "P_cu_stator_W": 1707.8914065421982,
+     "P_cu_rotor_W": 1326.1238824717113,
+     "P_fe_W": 866.1013723783288,
+     "P_field_W": null,
+     "eta": 0.9675104372312484,
+     "PF": 0.9265947525347518,
+     "P_mech_W": 1314.6433470507536
+    },
+    "sim_extra": {
+     "id": null,
+     "iq": null,
+     "If": null,
+     "psi": 0.03015881826238396,
+     "wsl": 7.08006839871831
+    }
+   },
+   {
+    "point": "cruise_85kmh_road_load",
+    "machine": "PMSM_2p8",
+    "n_rpm": 4249.999999999999,
+    "T_Nm": 351.8760377299173,
+    "analyst": {
+     "eta": 0.9555781500602535,
+     "PF": 0.543967143025706,
+     "S_inverter_used_kVA": 298.7495360176197,
+     "P_shaft_W": 155290.93979304988,
+     "P_cu_stator_W": 4788.7136031851005,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1115.6348444740827,
+     "P_field_W": 0.0,
+     "P_mech_W": 1314.6433470507536,
+     "I_rms_A": 215.14879982643785,
+     "V_rms_V": 28.928577208214264,
+     "B_gap_T": 0.38267050392149554,
+     "f_e_Hz": 283.33333333333326,
+     "I_d_A": -213.36893096228476,
+     "I_q_A": 27.617120899333052,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 217.81458473618022,
+     "V_rms_V": 28.39144276873344,
+     "P_cu_stator_W": 4908.123404325276,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 609.7754415879649,
+     "P_field_W": 0.0,
+     "eta": 0.9578559372814764,
+     "PF": 0.5461730492029399,
+     "P_mech_W": 1314.6433470507536
+    },
+    "sim_extra": {
+     "id": -305.56194791069004,
+     "iq": 38.86519261244449,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "cruise_85kmh_road_load",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 4249.999999999999,
+    "T_Nm": 351.8760377299173,
+    "analyst": {
+     "eta": 0.9739178499948334,
+     "PF": 0.9482346190597657,
+     "S_inverter_used_kVA": 167.2302516061139,
+     "P_shaft_W": 155290.93979304988,
+     "P_cu_stator_W": 1485.0459002991768,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 482.8848865923705,
+     "P_field_W": 876.217684225,
+     "P_mech_W": 1314.6433470507536,
+     "I_rms_A": 119.81175625745365,
+     "V_rms_V": 29.078645401382566,
+     "B_gap_T": 0.25175943760053643,
+     "f_e_Hz": 283.33333333333326,
+     "I_d_A": -61.707616294431574,
+     "I_q_A": 102.69871970358096,
+     "I_f_pu": 0.4680325
+    },
+    "sim": {
+     "I_rms_A": 125.70362060822535,
+     "V_rms_V": 29.081209276461994,
+     "P_cu_stator_W": 1634.860620396677,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 789.4123419023036,
+     "P_field_W": 975.2652949362957,
+     "eta": 0.9705373080366632,
+     "PF": 0.9063108519171408,
+     "P_mech_W": 1314.6433470507536
+    },
+    "sim_extra": {
+     "id": -136.9760456151369,
+     "iq": 113.29490506913129,
+     "If": 0.65,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "cruise_85kmh_road_load",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 4249.999999999999,
+    "T_Nm": 351.8760377299173,
+    "analyst": null,
+    "sim": {
+     "I_rms_A": 119.15589991358699,
+     "V_rms_V": 28.885554191168946,
+     "P_cu_stator_W": 1468.853453695148,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1661.2327057654404,
+     "P_field_W": 1869.7393820080463,
+     "eta": 0.9609266240527782,
+     "PF": 0.966861825196504,
+     "P_mech_W": 1314.6433470507536
+    },
+    "sim_extra": {
+     "id": -144.00045821078493,
+     "iq": 87.51530170553254,
+     "If": 0.9,
+     "psi": null,
+     "wsl": null
+    },
+    "note": "analyst NOT reachable, sim reachable"
+   },
+   {
+    "point": "grade_at_vmax_4500rpm_600Nm",
+    "machine": "IM_2p8",
+    "n_rpm": 4500.0,
+    "T_Nm": 600.0,
+    "analyst": null,
+    "sim": null
+   },
+   {
+    "point": "grade_at_vmax_4500rpm_600Nm",
+    "machine": "IM_2p4",
+    "n_rpm": 4500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.9575441468523503,
+     "PF": 0.8890274688288383,
+     "S_inverter_used_kVA": 330.375823996436,
+     "P_shaft_W": 281243.33882308134,
+     "P_cu_stator_W": 5793.9129392426685,
+     "P_cu_rotor_W": 4524.719106434474,
+     "P_fe_W": 651.2117010348322,
+     "P_field_W": 0.0,
+     "P_mech_W": 1500.0,
+     "I_rms_A": 236.65488757183635,
+     "V_rms_V": 29.083826398908165,
+     "B_gap_T": 0.2746212121212121,
+     "f_e_Hz": 152.40043803963798,
+     "slip": 0.0157508604995849
+    },
+    "sim": null,
+    "note": "analyst reachable, sim not reachable"
+   },
+   {
+    "point": "grade_at_vmax_4500rpm_600Nm",
+    "machine": "PMSM_2p8",
+    "n_rpm": 4500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.9686058832151537,
+     "PF": 0.8367025864602067,
+     "S_inverter_used_kVA": 347.0276114107373,
+     "P_shaft_W": 281243.33882308134,
+     "P_cu_stator_W": 6566.372655332498,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 1049.18856205754,
+     "P_field_W": 0.0,
+     "P_mech_W": 1500.0,
+     "I_rms_A": 251.9371770686362,
+     "V_rms_V": 28.696605989280943,
+     "B_gap_T": 0.356166072578621,
+     "f_e_Hz": 300.0,
+     "I_d_A": -248.01365059593286,
+     "I_q_A": 44.28961850582907,
+     "I_f_pu": 1.0
+    },
+    "sim": {
+     "I_rms_A": 254.68449268382074,
+     "V_rms_V": 28.195136104526107,
+     "P_cu_stator_W": 6710.374759211398,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 569.0835237800352,
+     "P_field_W": 0.0,
+     "eta": 0.9697283855938386,
+     "PF": 0.8414226562605528,
+     "P_mech_W": 1500.0
+    },
+    "sim_extra": {
+     "id": -354.7328360802264,
+     "iq": 62.33308810537375,
+     "If": 1.0,
+     "psi": null,
+     "wsl": null
+    }
+   },
+   {
+    "point": "grade_at_vmax_4500rpm_600Nm",
+    "machine": "WRSM_freeId_2p8",
+    "n_rpm": 4500.0,
+    "T_Nm": 600.0,
+    "analyst": {
+     "eta": 0.9674654788086143,
+     "PF": 0.9853727093565574,
+     "S_inverter_used_kVA": 292.0997305490509,
+     "P_shaft_W": 281243.33882308134,
+     "P_cu_stator_W": 4530.167339005841,
+     "P_cu_rotor_W": 0.0,
+     "P_fe_W": 553.5967313515107,
+     "P_field_W": 2874.0590430250004,
+     "P_mech_W": 1500.0,
+     "I_rms_A": 209.26019131404234,
+     "V_rms_V": 29.080595859595142,
+     "B_gap_T": 0.258715549808097,
+     "f_e_Hz": 300.0,
+     "I_d_A": -174.49910665984308,
+     "I_q_A": 115.4984391396971,
+     "I_f_pu": 0.8476525
+    },
+    "sim": null,
+    "note": "analyst reachable, sim not reachable"
+   },
+   {
+    "point": "grade_at_vmax_4500rpm_600Nm",
+    "machine": "WRSM_freeId_2p4",
+    "n_rpm": 4500.0,
+    "T_Nm": 600.0,
+    "analyst": null,
+    "sim": null
+   }
+  ]
+ }
+}
