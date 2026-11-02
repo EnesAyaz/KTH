@@ -2,7 +2,17 @@
  "meta": {
   "script": "02_analytics/module_count_sweep.py",
   "task": "T08 (+ gap-loop screens H01/H02/H04/H05)",
-  "date": "2026-10-29",
+  "date": "2026-11-02",
+  "machine_inputs": {
+   "lam_slot_self": 1.2,
+   "lam_slot_mut": 0.4,
+   "lam_end": 0.3,
+   "B_yoke_max_T": 1.45,
+   "B_gap_max_T": 0.9,
+   "g_m": 0.001,
+   "kc_ksat": 1.3
+  },
+  "machine_inputs_overridden": [],
   "P_rated_W": 300000.0,
   "V_dc_V": 1200.0,
   "assumptions": "02_analytics/assumptions.md#t08",

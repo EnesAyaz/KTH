@@ -593,6 +593,41 @@ def sensitivity_leakage(k):
                                     for kk in a}
     out = os.path.join(RES, "sensitivity_slot_leakage_2x.json")
     json.dump(res, open(out, "w"), indent=1, default=fmt)
+    # flags into the screens (leader request, R01): which conclusions move with a 2x slot-leakage change
+    rc = {n: d.get("relative_change", {}) for n, d in res["designs"].items()}
+
+    def big(n, key, thr=0.05):
+        v = rc.get(n, {}).get(key)
+        return None if v is None else bool(abs(v) > thr)
+    flags = dict(source="results/sensitivity_slot_leakage_2x.json", slot_leakage_scale=k, threshold="5 % relative change",
+                 relative_changes=rc)
+    per_screen = {
+        "H01": dict(sensitive=False, why="winding feasibility, mode sets and winding factors are pure winding geometry; leakage does not enter"),
+        "H02": dict(sensitive_items={
+            "PC_IM_T_peak_start (current-limited)": big("N16_m3_Q48_8/4", "T_peak_Nm"),
+            "PC_IM_P_at_90kmh (voltage/breakdown-limited)": big("N16_m3_Q48_8/4", "P_at_90kmh_kW"),
+            "PC_IM_crossover_speed": big("N16_m3_Q48_8/4", "crossover_rpm"),
+            "fixed_baseline_kVA_factor_for_start_at_G9.80": big("fixed_2p4_T03b", "current_factor_for_start_at_G9p80"),
+            "fixed_baseline_P_at_90kmh": big("fixed_2p4_T03b", "P_at_90kmh_kW"),
+            "cruise_eta_dc_to_wheel": big("N16_m3_Q48_8/4", "cruise_eta_dc_to_wheel", 0.01)},
+            why="voltage-limited torque (breakdown) scales ~1/L_sigma; low-speed torque is current-limited and nearly insensitive"),
+        "H04": dict(sensitive_items={
+            "m5_12/4_P_at_90kmh": big("N16_m5_Q80_12/4", "P_at_90kmh_kW"),
+            "m5_8/4_P_at_90kmh": big("N16_m5_Q80_8/4", "P_at_90kmh_kW"),
+            "m3_vs_m5_ranking": "compare relative_changes of N16_m3_Q48_8/4 and N16_m5_Q80_*: same-sign shifts keep the ranking"},
+            why="m changes winding factors and differential leakage; slot leakage scales all m alike"),
+        "H05": dict(sensitive_items={"cruise_current_via_PF": big("N16_m3_Q48_8/4", "cruise_PF", 0.03)},
+                    why="parking limits are set by device voltage rating (series stack), independent of leakage; loss deltas scale with cruise current"),
+    }
+    for scr, fl in per_screen.items():
+        fn = OUT[scr]
+        if os.path.exists(fn):
+            d = json.load(open(fn))
+            d["slot_leakage_2x_sensitivity"] = dict(flags, **fl)
+            json.dump(d, open(fn, "w"), indent=1, default=fmt)
+    m_ = json.load(open(OUT["master"]))
+    m_["slot_leakage_2x_sensitivity"] = dict(flags, per_screen=per_screen)
+    json.dump(m_, open(OUT["master"], "w"), indent=1, default=fmt)
     print(json.dumps({n: d.get("relative_change") for n, d in res["designs"].items()}, indent=1, default=fmt))
 
 
@@ -735,17 +770,21 @@ def main():
                   f"eta_dc_wheel={c85['eta_dc_to_wheel'] if c85 else None} Pinv={c85['P_inverter_W'] if c85 else None}")
     # m > 3: best design per m (H04) at the N of that design, plus N = 16 if available
     for m in M_LIST:
-        sel = [c for c in cands if c[3] == m]
-        r3 = sorted([c for c in cands if c[3] == m and abs(c[1]["p"][0] / c[1]["p"][1] - 3) < 1e-9 and c[1]["const_power"]
-                     and Q_PRACTICAL[0] <= c[4] <= Q_PRACTICAL[1]], key=lambda c: (c[2] == 16, c[1]["kw"][0] ** 2 + c[1]["kw"][1] ** 2), reverse=True)
-        picks = sel[:1] + [c for c in sel if c[2] == 16][:1] + r3[:1]
+        # like-for-like across m: the truck-relevant pairs 8/4 (2:1) and 12/4 (3:1), N closest to 16, practical Q,
+        # constant module power, best winding factors
+        picks = []
+        for pair in ("8/4", "12/4"):
+            sel = sorted([c for c in cands if c[3] == m and c[0] == pair and c[1]["const_power"]
+                          and Q_PRACTICAL[0] <= c[4] <= Q_PRACTICAL[1]],
+                         key=lambda c: (-abs(c[2] - 16), c[1]["kw"][0] ** 2 + c[1]["kw"][1] ** 2), reverse=True)
+            picks += sel[:1]
         for c in picks:
             key, pr, N, m_, Q = c
             if (N, m, key) in evals or ((N, m) in evals and evals[(N, m)][4] == key):
                 continue
             inv, des, ev, case = run_design(N, m, Q, pr)
             evals[(N, m, key) if (N, m) in evals else (N, m)] = (inv, des, ev, case, key, Q, pr)
-            master["per_N_m"][f"N{N}_m{m}"] = dict(inverter=inv, pole_changing_IM=dict(pair_2p=key, Q=Q, winding={k: v for k, v in pr.items()}, **ev))
+            master["per_N_m"][f"N{N}_m{m}_Q{Q}_{key}"] = dict(inverter=inv, pole_changing_IM=dict(pair_2p=key, Q=Q, winding={k: v for k, v in pr.items()}, **ev))
             print(f"  m={m} N={N} Q={Q} {key} kw {[round(x, 3) for x in pr['kw']]} T={ev['T_peak_Nm']:.0f} CPSR={ev['CPSR']:.2f}")
     json.dump(master, open(OUT["master"], "w"), indent=1, default=fmt)
 
