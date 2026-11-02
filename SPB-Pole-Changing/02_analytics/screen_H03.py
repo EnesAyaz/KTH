@@ -114,7 +114,7 @@ def rect_eta(P_out, P_rated):
     return P_out / (P_out + P_rated * (E["k0"] + E["k1"] * x)) if P_out > 0 else 1.0
 
 
-def transfer(op, P_field_W, n_rpm, f_r0, P_rated_ch=4000.0, psi_grid=None, objective="V"):
+def transfer(op, P_field_W, n_rpm, f_r0, P_rated_ch=4000.0, psi_grid=None, objective="V", V_budget=None, I_cap=None):
     """Stator-side injection needed to deliver P_field_W to the field (DC) at speed n.
     Rotor tank tuned at f_r0 (rotor leakage cancelled), rectifier = resistive load, referred to the stator.
     Returns the loss-/headroom-optimal operating point over the nu-wave flux linkage psi."""
@@ -135,7 +135,10 @@ def transfer(op, P_field_W, n_rpm, f_r0, P_rated_ch=4000.0, psi_grid=None, objec
     Is_c = I_m + 1j * I_L
     V = np.abs(1j * w_i * psi + (R_COIL + 1j * w_i * op["L_sigma_H"]) * Is_c)
     B = psi / op["psi_rms_per_T"] * math.sqrt(2)  # peak air-gap flux density of the nu-wave
-    ok = I_s <= I_INJ_CAP * IMAX
+    I_cap = I_INJ_CAP * IMAX if I_cap is None else I_cap
+    ok = I_s <= I_cap
+    if objective == "I" and V_budget is not None:
+        ok = ok & (V <= V_budget)
     if not np.any(ok):
         return None
     cost = np.where(ok, V if objective == "V" else I_s, np.inf)
@@ -230,18 +233,45 @@ def cost_at_point(case, op, f_r0, n, T, label):
 H_WPT_LINK = 0.94   # P1-type rotary WPT inverter+coils+compensation (excl. rectifier), assumed typical kW-class value
 
 
-def envelope_cost(case, op, f_r0, P_field_W, speeds):
-    """Envelope torque with V and I budgets reduced by the injection (peak-sum), relative to T03c."""
+def envelope_cost(case, op, f_r0, P_field_W, speeds, current_rule="peak"):
+    """Envelope torque when the injection (delivering P_field_W) shares the module V and I budgets, relative to T03c.
+    current_rule 'peak': I_fund + I_inj <= I_max (device peak, conservative); 'rms': I_fund^2 + I_inj^2 <= I_max^2 (thermal).
+    The nu-wave flux psi (V/I split of the injection) is chosen per speed to maximise the remaining torque."""
     par, rng = case["_pars"][4], case["_rng"][4]
     out = []
     for n in speeds:
-        r = transfer(op, P_field_W, n, f_r0)
         T0 = H.envelope(par, np.array([n]), *rng, n_g=241, n_f=41)[0]
-        T1 = H.envelope(par, np.array([n]), *rng, n_g=241, n_f=41, Vmax=VMAX - r["V_inj_rms_V"], Imax=IMAX - r["I_inj_rms_A"])[0]
+        best = None
+        for psi in np.geomspace(2e-4, 2e-2, 25):
+            r = transfer(op, P_field_W, n, f_r0, psi_grid=np.array([psi]), I_cap=IMAX)
+            if r is None or r["V_inj_rms_V"] >= VMAX:
+                continue
+            Ia = IMAX - r["I_inj_rms_A"] if current_rule == "peak" else math.sqrt(max(IMAX ** 2 - r["I_inj_rms_A"] ** 2, 0.0))
+            T1 = H.envelope(par, np.array([n]), *rng, n_g=241, n_f=41, Vmax=VMAX - r["V_inj_rms_V"], Imax=Ia)[0]
+            if best is None or T1 > best[0]:
+                best = (T1, r)
+        T1, r = best
         out.append(dict(speed_rpm=float(n), f_inj_Hz=r["f_inj_stator_Hz"], V_inj_over_Vmax=r["V_inj_over_Vmax"],
-                        I_inj_over_Imax=r["I_inj_over_Imax"], T_envelope_Nm=float(T0), T_with_injection_Nm=float(T1),
-                        torque_ratio=float(T1 / T0) if T0 > 0 else None))
+                        I_inj_over_Imax=r["I_inj_over_Imax"], B_nu_peak_T=r["B_nu_peak_T"], T_envelope_Nm=float(T0),
+                        T_with_injection_Nm=float(T1), torque_ratio=float(T1 / T0) if T0 > 0 else None))
     return out
+
+
+def tank_frequency_tradeoff(case, P_start_W, P_top_W, f_list):
+    """f_r0 choice: start torque (standstill, transformer mode) vs power at 90 km/h."""
+    rows = []
+    for fr in f_list:
+        o = order_params(8)
+        st = envelope_cost(case, o, fr, P_start_W, [10.0], "peak")[0]
+        st_rms = envelope_cost(case, o, fr, P_start_W, [10.0], "rms")[0]
+        top = envelope_cost(case, o, fr, P_top_W, [N_90], "peak")[0]
+        rows.append(dict(f_r0_Hz=fr, f_inj_at_90kmh_Hz=abs(fr - 8 * N_90 / 60),
+                         start_torque_ratio_peak_rule=st["torque_ratio"], start_torque_ratio_rms_rule=st_rms["torque_ratio"],
+                         start_grade_pct_peak_rule=T3.max_start_grade(st["T_with_injection_Nm"], G_RATIO),
+                         start_grade_pct_rms_rule=T3.max_start_grade(st_rms["T_with_injection_Nm"], G_RATIO),
+                         start_I_inj_over_Imax=st["I_inj_over_Imax"], start_B_nu_T=st["B_nu_peak_T"],
+                         P90_ratio=top["torque_ratio"], P90_V_inj_over_Vmax=top["V_inj_over_Vmax"]))
+    return rows
 
 
 # ----------------------------------------------------------------------------------
@@ -275,18 +305,36 @@ def main():
         cap[k] = dict(speed_rpm=n, f_inj_Hz=abs(f_r0 - NU * n / 60), P_max_full_voltage_budget_W=r_full,
                       P_max_10pct_voltage_budget_W=r_10)
 
-    # sensitivity: air gap (R01 WRSM gap open)
+    # sensitivity: air gap (R01 WRSM gap open) - start torque with the 4 kW WRSM field
     gap_sens = {}
     for g in [G_EFF_BASE] + G_EFF_SENS:
         o = order_params(NU, g)
-        gap_sens[f"g_eff_{g * 1e3:.2f}mm"] = dict(Lm_H=o["Lm_H"], coupling_k=o["coupling_k"],
-                                                  P_max_standstill_10pct_V_W=max_power(o, 1.0, f_r0, 0.10 * VMAX, I_INJ_CAP * IMAX),
-                                                  start_4kW=transfer(o, 4000.0, 1.0, f_r0))
+        stp = envelope_cost(cases["WRSM_s0"], o, f_r0, 4000.0, [10.0], "peak")[0]
+        gap_sens[f"g_eff_{g * 1e3:.2f}mm"] = dict(Lm_H=o["Lm_H"], coupling_k=o["coupling_k"], start_torque_ratio_peak_rule=stp["torque_ratio"],
+                                                  start_I_inj_over_Imax=stp["I_inj_over_Imax"], start_B_nu_T=stp["B_nu_peak_T"])
     # frequency sensitivity of the tank (standstill transformer mode)
     fr_sens = {}
     for fr in (300.0, f_r0, 1500.0, 3000.0):
         r = transfer(op, 4000.0, 1.0, fr)
         fr_sens[f"f_r0_{fr:.0f}Hz"] = None if r is None else {k: r[k] for k in ("V_inj_over_Vmax", "I_inj_over_Imax", "B_nu_peak_T", "P_chain_loss_W", "chain_efficiency")}
+
+    # alternative order nu = 5 (strong coupling, but order-1 radial force = unbalanced magnetic pull with the 8-pole field)
+    op5 = order_params(5)
+    f5 = 5 * N_90 / 60.0
+    alt5 = {}
+    for name in ("WRSM_s0",):
+        c = cases[name]
+        stp = envelope_cost(c, op5, f5, 4000.0, [10.0], "peak")[0]
+        n, T = wheel_point("cruise_85kmh_flat")
+        cr = cost_at_point(c, op5, f5, n, T, "cruise_85kmh_flat")
+        B4 = 0.8   # main 8-pole fundamental (peak), T
+        sigma1 = B4 * stp["B_nu_peak_T"] / (2 * MU0)
+        alt5[name] = dict(order_params=op5, f_r0_Hz=f5, start=stp, start_grade_pct=T3.max_start_grade(stp["T_with_injection_Nm"], G_RATIO),
+                          cruise=dict(eta_with_injection=cr["eta_with_injection"], delta_eta_vs_T03c_pts=cr["delta_eta_vs_T03c_pts"],
+                                      B_nu_peak_T=cr["injection"]["B_nu_peak_T"]),
+                          UMP_force_at_start_N=math.pi * R * L * sigma1,
+                          UMP_force_at_cruise_N=math.pi * R * L * B4 * cr["injection"]["B_nu_peak_T"] / (2 * MU0),
+                          note="order-1 rotating radial force (orders 4 and 5 differ by 1) at the slip frequency of the injected wave; bearing/NVH load")
 
     res_cases = {}
     for name, c in cases.items():
@@ -295,21 +343,25 @@ def main():
             n, T = wheel_point(pn)
             pts[pn] = cost_at_point(c, op, f_r0, n, T, pn)
         # start (peak torque, standstill): field peak through transformer mode; current taken from the torque current
-        st = transfer(op, need[name]["start_peak_W"], 1.0, f_r0)
         par, rng = c["_pars"][4], c["_rng"][4]
-        T0 = H.envelope(par, np.array([10.0]), *rng, n_g=481, n_f=81)[0]
-        T1 = H.envelope(par, np.array([10.0]), *rng, n_g=481, n_f=81, Imax=IMAX - st["I_inj_rms_A"])[0]
-        T1_rms = H.envelope(par, np.array([10.0]), *rng, n_g=481, n_f=81, Imax=math.sqrt(IMAX ** 2 - st["I_inj_rms_A"] ** 2))[0]
-        start = dict(injection=st, T_peak_Nm=float(T0), T_peak_peak_current_sum_Nm=float(T1), T_peak_rms_current_sum_Nm=float(T1_rms),
-                     start_grade_pct=[T3.max_start_grade(T0, G_RATIO), T3.max_start_grade(T1, G_RATIO), T3.max_start_grade(T1_rms, G_RATIO)])
+        st_pk = envelope_cost(c, op, f_r0, need[name]["start_peak_W"], [10.0], "peak")[0]
+        st_rms = envelope_cost(c, op, f_r0, need[name]["start_peak_W"], [10.0], "rms")[0]
+        st_inj = transfer(op, need[name]["start_peak_W"], 1.0, f_r0, objective="I", V_budget=0.9 * VMAX)
+        start = dict(peak_current_rule=st_pk, rms_current_rule=st_rms, min_current_injection=st_inj,
+                     start_grade_pct=dict(T03c=T3.max_start_grade(st_pk["T_envelope_Nm"], G_RATIO),
+                                          peak_rule=T3.max_start_grade(st_pk["T_with_injection_Nm"], G_RATIO),
+                                          rms_rule=T3.max_start_grade(st_rms["T_with_injection_Nm"], G_RATIO)))
+        tradeoff = tank_frequency_tradeoff(c, need[name]["start_peak_W"], need[name]["start_peak_W"], [661.1, 1500.0, 3000.0, 6000.0])
         # forcing transient (pole change / field build) at the T03c transition speed 2000 rpm, with 50 % of V and 15 % I
         forcing = max_power(op, 2000.0, f_r0, 0.5 * VMAX, I_INJ_CAP * IMAX)
         env = envelope_cost(c, op, f_r0, need[name]["start_peak_W"], [10.0, 1111.0, 1500.0, 2000.0, 3000.0, 4000.0, N_90 * 85 / 90, N_90])
+        env_rms = envelope_cost(c, op, f_r0, need[name]["start_peak_W"], [10.0, 1111.0, 2000.0, 3000.0, N_90], "rms")
         Penv = H.envelope(par, np.array([N_90]), *rng, n_g=481, n_f=81)[0] * N_90 * RPM
         res_cases[name] = dict(field_need_W=need[name], points=pts, start=start,
                                forcing_transient_max_W_at_2000rpm_half_voltage=forcing,
                                forcing_transient_needed_W=need[name]["forcing_transient_W"],
-                               envelope_with_peak_field_injection=env, P_at_90kmh_kW=float(Penv / 1e3))
+                               envelope_with_peak_field_injection=env, envelope_with_peak_field_injection_rms_rule=env_rms,
+                               tank_frequency_tradeoff=tradeoff, P_at_90kmh_kW=float(Penv / 1e3))
 
     # torque ripple / forces
     ripple = dict(
@@ -318,7 +370,7 @@ def main():
         rectifier_ripple_torque_Nm_estimate=0.25 * 4000.0 * NU / (2 * math.pi * f_r0),
         radial_force_orders=[NU - 4, NU + 4, NU - 2, NU + 2],
         radial_force_density_ratio_to_main=None)
-    st_w = res_cases["WRSM_s0"]["start"]["injection"]
+    st_w = res_cases["WRSM_s0"]["start"]["peak_current_rule"]
     ripple["radial_force_density_ratio_to_main"] = float(2 * st_w["B_nu_peak_T"] / 0.8)   # B_nu B_main / (B_main^2/2)
 
     bip = dict(channels=[dict(order=NU, k_w=op["k_w"], coupling_k=op["coupling_k"], Lm_H=op["Lm_H"]),
@@ -358,19 +410,21 @@ def main():
                               zero_sequence="not possible: an isolated-neutral module carries no zero-sequence current (orders divisible by 3 put a module's coils in phase); "
                                             "the SPB-specific freedom is an independent space order per module pattern, not a zero-sequence path"),
         capability=cap, gap_sensitivity=gap_sens, tank_frequency_sensitivity_start_4kW=fr_sens,
-        cases=res_cases, torque_ripple_and_forces=ripple, bipolar_for_pole_changing=bip, comparison=compare)
+        cases=res_cases, alternative_order_5=alt5, torque_ripple_and_forces=ripple, bipolar_for_pole_changing=bip, comparison=compare)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(res, f, indent=1, default=lambda o: o.tolist() if isinstance(o, np.ndarray) else (bool(o) if isinstance(o, np.bool_) else float(o)))
     print(json.dumps(dict(op=op, f_r0=f_r0, cap=cap, gap=gap_sens, fr=fr_sens, ripple=ripple, bip={k: v for k, v in bip.items() if k != "topology"}), indent=1, default=float))
     for nm, c in res_cases.items():
         print("==", nm, "P90", c["P_at_90kmh_kW"], "forcing max", c["forcing_transient_max_W_at_2000rpm_half_voltage"])
-        print(" start", {k: v for k, v in c["start"].items() if k != "injection"}, {k: c["start"]["injection"][k] for k in ("V_inj_over_Vmax", "I_inj_over_Imax", "B_nu_peak_T", "chain_efficiency", "P_chain_loss_W")})
+        print(" start", json.dumps({k: v for k, v in c["start"].items() if k != "min_current_injection"}, default=float))
+        for t in c["tank_frequency_tradeoff"]:
+            print("  tank", {k: round(v, 3) for k, v in t.items()})
         for pn, p in c["points"].items():
             if p:
                 print(" ", pn, {k: (round(v, 5) if isinstance(v, float) else v) for k, v in p.items() if k != "injection"},
                       {k: round(p["injection"][k], 4) for k in ("f_inj_stator_Hz", "V_inj_over_Vmax", "I_inj_rms_A", "P_chain_loss_W", "chain_efficiency", "P_from_shaft_W", "B_nu_peak_T")})
-        for e in c["envelope_with_peak_field_injection"]:
+        for e in c["envelope_with_peak_field_injection"] + c["envelope_with_peak_field_injection_rms_rule"]:
             print("  env", {k: (round(v, 3) if isinstance(v, float) else v) for k, v in e.items()})
 
 

@@ -8,7 +8,7 @@ VA = c.SQ2 * c.VMAX
 W_REF = 4 * 1200 * c.RPM
 L_BASE = c.VMAX / (c.IMAX * W_REF)
 PSI_BASE = c.VMAX / W_REF
-P_FIELD_MAX = 4000.0
+P_FIELD_MAX = float(c.GEOM.get('derived', {}).get('wrsm', {}).get('P_field_full_W', 4000.0))
 
 
 class Sync:

@@ -20,13 +20,14 @@ def dpos(mode, theta_d):
 
 
 GS = {'v': 1.0}
+RINT = {'v': 0.08}
 
 
 def solve_point(mode, id_, iq, If, U0=None, pat=None, rotor_kw=None):
     p = PMODE[mode] if pat is None or mode in PMODE else mode
     pattern = PAT[mode] if pat is None else pat
     th_d = 0.0
-    rot = c.rotor_salient(dpos(mode, th_d), -If * F_MAX * pattern, arc=ARC, gs=GS['v'], **(rotor_kw or {}))
+    rot = c.rotor_salient(dpos(mode, th_d), -If * F_MAX * pattern, arc=ARC, gs=GS['v'], **({'r_int': RINT['v']} | (rotor_kw or {})))
     r = c.mec_solve(c.dq_currents(p, th_d, id_, iq), rot, U0)
     pd, pq = c.dq_flux(p, th_d, r["psi"])
     Ls = c.L_sigma_mode(p) + c.L_diff(p)

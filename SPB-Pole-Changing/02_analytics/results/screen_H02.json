@@ -2,7 +2,17 @@
  "meta": {
   "script": "02_analytics/module_count_sweep.py",
   "task": "T08 (+ gap-loop screens H01/H02/H04/H05)",
-  "date": "2026-10-29",
+  "date": "2026-11-02",
+  "machine_inputs": {
+   "lam_slot_self": 1.2,
+   "lam_slot_mut": 0.4,
+   "lam_end": 0.3,
+   "B_yoke_max_T": 1.45,
+   "B_gap_max_T": 0.9,
+   "g_m": 0.001,
+   "kc_ksat": 1.3
+  },
+  "machine_inputs_overridden": [],
   "P_rated_W": 300000.0,
   "V_dc_V": 1200.0,
   "assumptions": "02_analytics/assumptions.md#t08",
@@ -178,6 +188,188 @@
     }
    }
   },
+  "N10_m9_Q90_8/4": {
+   "inverter": {
+    "N": 10,
+    "m": 9,
+    "V_module_V": 120.0,
+    "device": "EPC2304",
+    "V_class_V": 200,
+    "derating": 0.6,
+    "within_derating": true,
+    "legs": 90,
+    "V_leg_rms_max_V": 40.92685745451637,
+    "I_leg_rms_max_A": 100.86205570148557,
+    "I_scale_vs_48leg": 0.37905268086775257,
+    "devices_parallel": 6,
+    "I_device_max_A": 18.516401995451027,
+    "devices_total": 1080,
+    "converter_kVA": 371.5170278637771,
+    "installed_semiconductor_kVA": 3999.5428310174216
+   },
+   "start_inverter_loss_W": 2489.9742976218668,
+   "start_Tj_C": 50.4577429447239,
+   "cruise": {
+    "cruise_85kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 380.4901594136175,
+      "I_eq_rms_A": 128.15147516338544,
+      "PF": 0.9753124899153834,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 4622.504394311395,
+      "P_fw_W": 941.4382137430057,
+      "P_gear_W": 17433.13871084826,
+      "P_inverter_W": 1445.248187089496,
+      "eta_machine_gear": 0.868516351963604,
+      "P_system_loss_W": 24442.32950599219,
+      "eta_dc_to_wheel": 0.8613985549854919
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 367.36074792226526,
+      "I_eq_rms_A": 123.30605642423562,
+      "PF": 0.9759953123510418,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 4361.961768486111,
+      "P_fw_W": 932.1106494659793,
+      "P_gear_W": 11589.776496829729,
+      "P_inverter_W": 1416.5801295701096,
+      "eta_machine_gear": 0.8999720219009781,
+      "P_system_loss_W": 18300.429044351957,
+      "eta_dc_to_wheel": 0.8924818707524571
+     }
+    },
+    "cruise_60kmh_flat": {
+     "EU2017": {
+      "mode": "2p8",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 311.3560571392369,
+      "I_eq_rms_A": 80.03050124831255,
+      "PF": 0.8957609422207405,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2040.9433037792705,
+      "P_fw_W": 522.0419809391767,
+      "P_gear_W": 11573.376287042129,
+      "P_inverter_W": 1184.6625906664476,
+      "eta_machine_gear": 0.8591692532690732,
+      "P_system_loss_W": 15321.02416242705,
+      "eta_dc_to_wheel": 0.8491476381920959
+     },
+     "certified_like": {
+      "mode": "2p8",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 295.1882401032038,
+      "I_eq_rms_A": 76.21292088114333,
+      "PF": 0.8929356154031314,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 1919.9471963660185,
+      "P_fw_W": 513.9341123497907,
+      "P_gear_W": 6494.1067645435805,
+      "P_inverter_W": 1166.2855504952663,
+      "eta_machine_gear": 0.906189052335942,
+      "P_system_loss_W": 10094.273623754654,
+      "eta_dc_to_wheel": 0.8952183659513573
+     }
+    }
+   },
+   "T_peak_Nm": 2517.5945746803754,
+   "max_start_grade_pct": 10.799058768323269,
+   "fixed_pole_baseline_same_N": null
+  },
+  "N10_m9_Q90_12/4": {
+   "inverter": {
+    "N": 10,
+    "m": 9,
+    "V_module_V": 120.0,
+    "device": "EPC2304",
+    "V_class_V": 200,
+    "derating": 0.6,
+    "within_derating": true,
+    "legs": 90,
+    "V_leg_rms_max_V": 40.92685745451637,
+    "I_leg_rms_max_A": 100.86205570148557,
+    "I_scale_vs_48leg": 0.37905268086775257,
+    "devices_parallel": 6,
+    "I_device_max_A": 18.516401995451027,
+    "devices_total": 1080,
+    "converter_kVA": 371.5170278637771,
+    "installed_semiconductor_kVA": 3999.5428310174216
+   },
+   "start_inverter_loss_W": 2489.9742976218668,
+   "start_Tj_C": 50.4577429447239,
+   "cruise": {
+    "cruise_85kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 380.4901594136175,
+      "I_eq_rms_A": 131.2068340056575,
+      "PF": 0.9570629533764593,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 5689.787010481112,
+      "P_fw_W": 941.4382137430057,
+      "P_gear_W": 17433.13871084826,
+      "P_inverter_W": 1463.6050715711417,
+      "eta_machine_gear": 0.8632487323116508,
+      "P_system_loss_W": 25527.969006643554,
+      "eta_dc_to_wheel": 0.8561280825883004
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 367.36074792226526,
+      "I_eq_rms_A": 125.99989411068452,
+      "PF": 0.9595434240731427,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 5305.361732892925,
+      "P_fw_W": 932.1106494659793,
+      "P_gear_W": 11589.776496829729,
+      "P_inverter_W": 1432.4511272259879,
+      "eta_machine_gear": 0.894969899465917,
+      "P_system_loss_W": 19259.70000641466,
+      "eta_dc_to_wheel": 0.8874801393187203
+     }
+    },
+    "cruise_60kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 311.3560571392369,
+      "I_eq_rms_A": 73.77338796661653,
+      "PF": 0.9769605235932121,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2559.4598864345057,
+      "P_fw_W": 522.0419809391767,
+      "P_gear_W": 11573.376287042129,
+      "P_inverter_W": 1154.7188260916903,
+      "eta_machine_gear": 0.8547539189995468,
+      "P_system_loss_W": 15809.596980507516,
+      "eta_dc_to_wheel": 0.8450823377914111
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 295.1882401032038,
+      "I_eq_rms_A": 69.83794824314717,
+      "PF": 0.9761662811812353,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2383.448360951371,
+      "P_fw_W": 513.9341123497907,
+      "P_gear_W": 6494.1067645435805,
+      "P_inverter_W": 1136.3498251516478,
+      "eta_machine_gear": 0.901797080198985,
+      "P_system_loss_W": 10527.839062996389,
+      "eta_dc_to_wheel": 0.8912074500285652
+     }
+    }
+   },
+   "T_peak_Nm": 2354.291294370925,
+   "max_start_grade_pct": 10.02492061587078,
+   "fixed_pole_baseline_same_N": null
+  },
   "N12_m3_Q36_8/4": {
    "inverter": {
     "N": 12,
@@ -333,6 +525,188 @@
      }
     }
    }
+  },
+  "N12_m7_Q84_8/4": {
+   "inverter": {
+    "N": 12,
+    "m": 7,
+    "V_module_V": 100.0,
+    "device": "EPC2304",
+    "V_class_V": 200,
+    "derating": 0.5,
+    "within_derating": true,
+    "legs": 84,
+    "V_leg_rms_max_V": 34.45133910587734,
+    "I_leg_rms_max_A": 128.37880544180462,
+    "I_scale_vs_48leg": 0.48246419360456205,
+    "devices_parallel": 7,
+    "I_device_max_A": 18.516401995451027,
+    "devices_total": 1176,
+    "converter_kVA": 371.5170278637772,
+    "installed_semiconductor_kVA": 4355.057749330081
+   },
+   "start_inverter_loss_W": 2560.3249159444695,
+   "start_Tj_C": 50.432358898083216,
+   "cruise": {
+    "cruise_85kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 380.4901594136175,
+      "I_eq_rms_A": 128.02035416523182,
+      "PF": 0.9749376910418291,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 4561.027887419946,
+      "P_fw_W": 941.4382137430057,
+      "P_gear_W": 17433.13871084826,
+      "P_inverter_W": 1341.7390194727698,
+      "eta_machine_gear": 0.8688217307620084,
+      "P_system_loss_W": 24277.34383148401,
+      "eta_dc_to_wheel": 0.8622051992266635
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 367.36074792226526,
+      "I_eq_rms_A": 123.60765921829976,
+      "PF": 0.975471392703123,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 4319.311793183032,
+      "P_fw_W": 932.1106494659793,
+      "P_gear_W": 11589.776496829729,
+      "P_inverter_W": 1312.251773185239,
+      "eta_machine_gear": 0.9001994832321532,
+      "P_system_loss_W": 18153.45071266402,
+      "eta_dc_to_wheel": 0.8932532151495176
+     }
+    },
+    "cruise_60kmh_flat": {
+     "EU2017": {
+      "mode": "2p8",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 311.3560571392369,
+      "I_eq_rms_A": 80.03050124831255,
+      "PF": 0.894243799704696,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2021.5026867613396,
+      "P_fw_W": 522.0419809391767,
+      "P_gear_W": 11573.376287042129,
+      "P_inverter_W": 1052.4454341583241,
+      "eta_machine_gear": 0.8593356836963434,
+      "P_system_loss_W": 15169.366388900982,
+      "eta_dc_to_wheel": 0.850417513819963
+     },
+     "certified_like": {
+      "mode": "2p8",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 295.1882401032038,
+      "I_eq_rms_A": 76.21292088114333,
+      "PF": 0.8914678997155854,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 1901.5284466612384,
+      "P_fw_W": 513.9341123497907,
+      "P_gear_W": 6494.1067645435805,
+      "P_inverter_W": 1032.3998300087726,
+      "eta_machine_gear": 0.906364465805447,
+      "P_system_loss_W": 9941.96915356338,
+      "eta_dc_to_wheel": 0.896635917550063
+     }
+    }
+   },
+   "T_peak_Nm": 2517.5945746803754,
+   "max_start_grade_pct": 10.799058768323269,
+   "fixed_pole_baseline_same_N": null
+  },
+  "N12_m7_Q84_12/4": {
+   "inverter": {
+    "N": 12,
+    "m": 7,
+    "V_module_V": 100.0,
+    "device": "EPC2304",
+    "V_class_V": 200,
+    "derating": 0.5,
+    "within_derating": true,
+    "legs": 84,
+    "V_leg_rms_max_V": 34.45133910587734,
+    "I_leg_rms_max_A": 128.37880544180462,
+    "I_scale_vs_48leg": 0.48246419360456205,
+    "devices_parallel": 7,
+    "I_device_max_A": 18.516401995451027,
+    "devices_total": 1176,
+    "converter_kVA": 371.5170278637772,
+    "installed_semiconductor_kVA": 4355.057749330081
+   },
+   "start_inverter_loss_W": 2560.3249159444695,
+   "start_Tj_C": 50.432358898083216,
+   "cruise": {
+    "cruise_85kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 380.4901594136175,
+      "I_eq_rms_A": 131.25202766352112,
+      "PF": 0.9560307697454846,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 5694.048938704795,
+      "P_fw_W": 941.4382137430057,
+      "P_gear_W": 17433.13871084826,
+      "P_inverter_W": 1363.7052700770053,
+      "eta_machine_gear": 0.8632278254648735,
+      "P_system_loss_W": 25432.3311333731,
+      "eta_dc_to_wheel": 0.8565897854527336
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 4250.0,
+      "T_motor_Nm": 367.36074792226526,
+      "I_eq_rms_A": 126.61675822930572,
+      "PF": 0.9580667873735453,
+      "P_wheel_W": 151907.41564589762,
+      "P_em_W": 5343.840488753489,
+      "P_fw_W": 932.1106494659793,
+      "P_gear_W": 11589.776496829729,
+      "P_inverter_W": 1332.2962473948276,
+      "eta_machine_gear": 0.894767056262342,
+      "P_system_loss_W": 19198.02388244406,
+      "eta_dc_to_wheel": 0.8878000375945727
+     }
+    },
+    "cruise_60kmh_flat": {
+     "EU2017": {
+      "mode": "2p4",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 311.3560571392369,
+      "I_eq_rms_A": 73.71635932586797,
+      "PF": 0.9762410597531592,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2558.3456074260366,
+      "P_fw_W": 522.0419809391767,
+      "P_gear_W": 11573.376287042129,
+      "P_inverter_W": 1019.5271428587876,
+      "eta_machine_gear": 0.8547633587835541,
+      "P_system_loss_W": 15673.291018266144,
+      "eta_dc_to_wheel": 0.846212587672239
+     },
+     "certified_like": {
+      "mode": "2p4",
+      "n_motor_rpm": 3000.0,
+      "T_motor_Nm": 295.1882401032038,
+      "I_eq_rms_A": 69.98342358673212,
+      "PF": 0.9755044297880404,
+      "P_wheel_W": 86242.0138888889,
+      "P_em_W": 2385.952809565604,
+      "P_fw_W": 513.9341123497907,
+      "P_gear_W": 6494.1067645435805,
+      "P_inverter_W": 1000.6282478915489,
+      "eta_machine_gear": 0.9017734645702581,
+      "P_system_loss_W": 10394.621934350518,
+      "eta_dc_to_wheel": 0.8924360120175997
+     }
+    }
+   },
+   "T_peak_Nm": 2354.291294370925,
+   "max_start_grade_pct": 10.02492061587078,
+   "fixed_pole_baseline_same_N": null
   },
   "N16_m3_Q48_8/4": {
    "inverter": {
@@ -490,163 +864,7 @@
     }
    }
   },
-  "N16_m3_Q48_4/2": {
-   "inverter": {
-    "N": 16,
-    "m": 3,
-    "V_module_V": 75.0,
-    "device": "EPC2361",
-    "V_class_V": 100,
-    "derating": 0.75,
-    "within_derating": true,
-    "legs": 48,
-    "V_leg_rms_max_V": 29.08769069555023,
-    "I_leg_rms_max_A": 266.0898096554429,
-    "I_scale_vs_48leg": 1.0000000000000004,
-    "devices_parallel": 7,
-    "I_device_max_A": 40.0,
-    "devices_total": 672,
-    "converter_kVA": 371.5170278637771,
-    "installed_semiconductor_kVA": 2688.0
-   },
-   "start_inverter_loss_W": 1556.6237587440128,
-   "start_Tj_C": 50.46046044528817,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 137.50919679580673,
-      "PF": 0.9186580614825492,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6706.45310311641,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 803.4274141080864,
-      "eta_machine_gear": 0.858290014739374,
-      "P_system_loss_W": 25884.457441815804,
-      "eta_dc_to_wheel": 0.8544114700392085
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 131.99273275114854,
-      "PF": 0.9236575782859471,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6229.3022346667,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 776.971653172548,
-      "eta_machine_gear": 0.8901245596258612,
-      "P_system_loss_W": 19528.16103413501,
-      "eta_dc_to_wheel": 0.8860903820997297
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 74.55830908936372,
-      "PF": 0.9666571122341364,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2696.450247195895,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 530.0909924396351,
-      "eta_machine_gear": 0.8535949706849836,
-      "P_system_loss_W": 15321.959507616857,
-      "eta_dc_to_wheel": 0.8491398180356736
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 70.7770222347921,
-      "PF": 0.9663523036325948,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2502.6194549417223,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 515.6645632690602,
-      "eta_machine_gear": 0.9006747288340833,
-      "P_system_loss_W": 10026.324895104157,
-      "eta_dc_to_wheel": 0.8958502346487849
-     }
-    }
-   },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
-   "fixed_pole_baseline_same_N": {
-    "fixed_2p4_freeGear": {
-     "gear_ratio": 17.325000000000003,
-     "inverter": {
-      "device": "EPC2361",
-      "devices_parallel": 7,
-      "devices_total": 672,
-      "converter_kVA": 371.5170278637771
-     },
-     "start_inverter_loss_W": 1556.6237587440128,
-     "points": {
-      "cruise_85kmh_flat": {
-       "n_motor_rpm": 7512.036797137898,
-       "I_eq_rms_A": 130.9308292958285,
-       "P_em_W": 2848.369657547516,
-       "P_fw_W": 1955.8512869650813,
-       "P_gear_W": 19434.94871425867,
-       "P_inverter_W": 771.9342152705253,
-       "P_system_loss_W": 25011.103874041775,
-       "eta_dc_to_wheel": 0.8586292495443195
-      },
-      "cruise_60kmh_flat": {
-       "n_motor_rpm": 5302.614209744399,
-       "I_eq_rms_A": 76.14098893796567,
-       "P_em_W": 1598.753931075158,
-       "P_fw_W": 1027.2603263093479,
-       "P_gear_W": 12986.418642390652,
-       "P_inverter_W": 536.1962428089981,
-       "P_system_loss_W": 16148.62914258417,
-       "eta_dc_to_wheel": 0.8422841319824471
-      }
-     }
-    },
-    "fixed_2p4_G9.80_scaled_inverter": {
-     "gear_ratio": 9.801769079200154,
-     "inverter": {
-      "device": "EPC2361",
-      "devices_parallel": 12,
-      "devices_total": 1152,
-      "converter_kVA": 646.7498740290895
-     },
-     "start_inverter_loss_W": 2717.3207188990427,
-     "points": {
-      "cruise_85kmh_flat": {
-       "n_motor_rpm": 4250.0,
-       "I_eq_rms_A": 128.16025024051052,
-       "P_em_W": 3200.8793616835464,
-       "P_fw_W": 857.3839479101757,
-       "P_gear_W": 17433.13871084826,
-       "P_inverter_W": 910.0583779105707,
-       "P_system_loss_W": 22401.460398352578,
-       "eta_dc_to_wheel": 0.8714841096636655
-      },
-      "cruise_60kmh_flat": {
-       "n_motor_rpm": 3000.0,
-       "I_eq_rms_A": 86.44928586304319,
-       "P_em_W": 2039.2486116560767,
-       "P_fw_W": 486.2385354500064,
-       "P_gear_W": 11573.376287042129,
-       "P_inverter_W": 757.5509450996751,
-       "P_system_loss_W": 14856.4143792479,
-       "eta_dc_to_wheel": 0.8530499965850588
-      }
-     }
-    }
-   }
-  },
-  "N16_m5_Q80_4/2": {
+  "N16_m5_Q80_8/4": {
    "inverter": {
     "N": 16,
     "m": 5,
@@ -673,71 +891,71 @@
       "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 132.4524100879485,
-      "PF": 0.951865177840995,
+      "I_eq_rms_A": 128.5711247465593,
+      "PF": 0.9709465869231606,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6308.1910475952,
+      "P_em_W": 4686.569014429739,
       "P_fw_W": 941.4382137430057,
       "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 870.3808316861719,
-      "eta_machine_gear": 0.8602257075310114,
-      "P_system_loss_W": 25553.14880387267,
-      "eta_dc_to_wheel": 0.8560066069715144
+      "P_inverter_W": 850.9066998745499,
+      "eta_machine_gear": 0.8681983452905704,
+      "P_system_loss_W": 23912.052638895573,
+      "eta_dc_to_wheel": 0.8639965592424457
      },
      "certified_like": {
       "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 127.19010324157696,
-      "PF": 0.9546672032816417,
+      "I_eq_rms_A": 124.11516407566859,
+      "PF": 0.9718181443885625,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 5873.3438198860795,
+      "P_em_W": 4427.050139376056,
       "P_fw_W": 932.1106494659793,
       "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 844.0356702372026,
-      "eta_machine_gear": 0.8919850552406092,
-      "P_system_loss_W": 19239.266636419015,
-      "eta_dc_to_wheel": 0.8875860964416318
+      "P_inverter_W": 828.8465119366674,
+      "eta_machine_gear": 0.8996251133498039,
+      "P_system_loss_W": 17777.783797608463,
+      "eta_dc_to_wheel": 0.8952307929276573
      }
     },
     "cruise_60kmh_flat": {
      "EU2017": {
-      "mode": "2p4",
+      "mode": "2p8",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 73.9247753126626,
-      "PF": 0.9751765895888788,
+      "I_eq_rms_A": 80.44075127701308,
+      "PF": 0.8925274401809924,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2719.7921988607686,
+      "P_em_W": 2070.0206742564196,
       "P_fw_W": 522.0419809391767,
       "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 602.3080761040779,
-      "eta_machine_gear": 0.8533978093966726,
-      "P_system_loss_W": 15417.518542946173,
-      "eta_dc_to_wheel": 0.8483416343343507
+      "P_inverter_W": 629.443008045982,
+      "eta_machine_gear": 0.8589204432258398,
+      "P_system_loss_W": 14794.881950283725,
+      "eta_dc_to_wheel": 0.8535695121331345
      },
      "certified_like": {
-      "mode": "2p4",
+      "mode": "2p8",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 70.17985745420805,
-      "PF": 0.9744952736374191,
+      "I_eq_rms_A": 76.59371177101207,
+      "PF": 0.8899583389665525,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2529.9495297711433,
+      "P_em_W": 1943.3710091410203,
       "P_fw_W": 513.9341123497907,
       "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 587.0199643846892,
-      "eta_machine_gear": 0.9004177283472171,
-      "P_system_loss_W": 10125.0103710492,
-      "eta_dc_to_wheel": 0.89493283154891
+      "P_inverter_W": 613.3404497081727,
+      "eta_machine_gear": 0.9059660705225671,
+      "P_system_loss_W": 9564.75233574256,
+      "eta_dc_to_wheel": 0.9001662125479034
      }
     }
    },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
+   "T_peak_Nm": 2517.5945746803754,
+   "max_start_grade_pct": 10.799058768323269,
    "fixed_pole_baseline_same_N": null
   },
-  "N16_m5_Q80_6/2": {
+  "N16_m5_Q80_12/4": {
    "inverter": {
     "N": 16,
     "m": 5,
@@ -761,74 +979,74 @@
    "cruise": {
     "cruise_85kmh_flat": {
      "EU2017": {
-      "mode": "2p6",
+      "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 150.95410198085628,
-      "PF": 0.8539237239177739,
+      "I_eq_rms_A": 131.8491900059324,
+      "PF": 0.9542238800347754,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 10274.309968158863,
+      "P_em_W": 5726.438518237259,
       "P_fw_W": 941.4382137430057,
       "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 966.5275351602597,
-      "eta_machine_gear": 0.841329898264737,
-      "P_system_loss_W": 29615.414427910422,
-      "eta_dc_to_wheel": 0.8368501944583574
+      "P_inverter_W": 867.338380750224,
+      "eta_machine_gear": 0.8630689717887481,
+      "P_system_loss_W": 24968.353823578786,
+      "eta_dc_to_wheel": 0.8588367762386606
      },
      "certified_like": {
-      "mode": "2p6",
+      "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 142.93664301821045,
-      "PF": 0.8662093914387703,
+      "I_eq_rms_A": 126.61675822930572,
+      "PF": 0.9568733257828818,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 9279.89185308896,
+      "P_em_W": 5338.0681552977085,
       "P_fw_W": 932.1106494659793,
       "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 924.1905860732317,
-      "eta_machine_gear": 0.87449265973569,
-      "P_system_loss_W": 22725.96958545793,
-      "eta_dc_to_wheel": 0.8698646907900777
+      "P_inverter_W": 841.1920611810943,
+      "eta_machine_gear": 0.8947974796221735,
+      "P_system_loss_W": 18701.147362774558,
+      "eta_dc_to_wheel": 0.8903856463416554
      }
     },
     "cruise_60kmh_flat": {
      "EU2017": {
-      "mode": "2p6",
+      "mode": "2p4",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 77.86603685285472,
-      "PF": 0.9320604965157903,
+      "I_eq_rms_A": 73.71635932586797,
+      "PF": 0.9757740265302032,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 3352.7716716830746,
+      "P_em_W": 2552.573273970256,
       "P_fw_W": 522.0419809391767,
       "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 618.6398388932466,
-      "eta_machine_gear": 0.848085760888929,
-      "P_system_loss_W": 16066.829778557647,
-      "eta_dc_to_wheel": 0.842957566495594
+      "P_inverter_W": 601.4513560668739,
+      "eta_machine_gear": 0.8548122633218344,
+      "P_system_loss_W": 15249.44289801845,
+      "eta_dc_to_wheel": 0.8497465364987681
      },
      "certified_like": {
-      "mode": "2p6",
+      "mode": "2p4",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 74.01130528416998,
-      "PF": 0.9308581750765995,
+      "I_eq_rms_A": 69.98342358673212,
+      "PF": 0.9750495388599516,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 3095.55630125919,
+      "P_em_W": 2380.1804761098238,
       "P_fw_W": 513.9341123497907,
       "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 602.6639723676872,
-      "eta_machine_gear": 0.8951317339082313,
-      "P_system_loss_W": 10706.261150520246,
-      "eta_dc_to_wheel": 0.8895672857906116
+      "P_inverter_W": 586.2242373437005,
+      "eta_machine_gear": 0.9018278964884262,
+      "P_system_loss_W": 9974.445590346888,
+      "eta_dc_to_wheel": 0.8963332714139264
      }
     }
    },
-   "T_peak_Nm": 1916.0919867027733,
-   "max_start_grade_pct": 7.956338410279173,
+   "T_peak_Nm": 2354.291294370925,
+   "max_start_grade_pct": 10.02492061587078,
    "fixed_pole_baseline_same_N": null
   },
-  "N16_m6_Q96_4/2": {
+  "N16_m6_Q96_8/4": {
    "inverter": {
     "N": 16,
     "m": 6,
@@ -855,250 +1073,68 @@
       "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 131.8491900059324,
-      "PF": 0.9561802867700322,
+      "I_eq_rms_A": 128.03861701896017,
+      "PF": 0.9754840420499111,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6379.652770145912,
+      "P_em_W": 4639.581601864303,
       "P_fw_W": 941.4382137430057,
       "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 894.6222439826294,
-      "eta_machine_gear": 0.8598777360699507,
-      "P_system_loss_W": 25648.85193871984,
-      "eta_dc_to_wheel": 0.8555452179321328
+      "P_inverter_W": 873.7611824030569,
+      "eta_machine_gear": 0.8684315606273966,
+      "P_system_loss_W": 23887.919708858662,
+      "eta_dc_to_wheel": 0.8641151674437058
      },
      "certified_like": {
       "mode": "2p4",
       "n_motor_rpm": 4250.0,
       "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 126.61675822930572,
-      "PF": 0.9587095716082337,
+      "I_eq_rms_A": 123.18837399010704,
+      "PF": 0.9761983972167222,
       "P_wheel_W": 151907.41564589762,
-      "P_em_W": 5942.120968435615,
+      "P_em_W": 4376.556866993815,
       "P_fw_W": 932.1106494659793,
       "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 866.0457905445115,
-      "eta_machine_gear": 0.8916249702727541,
-      "P_system_loss_W": 19330.053905275887,
-      "eta_dc_to_wheel": 0.8871155130010889
+      "P_inverter_W": 847.5957661113052,
+      "eta_machine_gear": 0.899894209552874,
+      "P_system_loss_W": 17746.03977940086,
+      "eta_dc_to_wheel": 0.8953983004064732
      }
     },
     "cruise_60kmh_flat": {
      "EU2017": {
-      "mode": "2p4",
+      "mode": "2p8",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 73.9247753126626,
-      "PF": 0.9766287723426069,
+      "I_eq_rms_A": 80.03050124831255,
+      "PF": 0.8970168205293045,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2774.191528722576,
+      "P_em_W": 2060.088028966482,
       "P_fw_W": 522.0419809391767,
       "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 606.4008906492277,
-      "eta_machine_gear": 0.852938670602887,
-      "P_system_loss_W": 15476.010687353122,
-      "eta_dc_to_wheel": 0.8478538021965499
+      "P_inverter_W": 633.867544978855,
+      "eta_machine_gear": 0.8590054189511271,
+      "P_system_loss_W": 14789.373841926657,
+      "eta_dc_to_wheel": 0.8536160477045912
      },
      "certified_like": {
-      "mode": "2p4",
+      "mode": "2p8",
       "n_motor_rpm": 3000.0,
       "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 69.98342358673212,
-      "PF": 0.9758318778450984,
+      "I_eq_rms_A": 76.21292088114333,
+      "PF": 0.8941524646016412,
       "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2577.111461995008,
+      "P_em_W": 1938.1420892181663,
       "P_fw_W": 513.9341123497907,
       "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 589.0352252259869,
-      "eta_machine_gear": 0.8999745821961921,
-      "P_system_loss_W": 10174.187564114367,
-      "eta_dc_to_wheel": 0.8944763700416715
+      "P_inverter_W": 616.6137133403159,
+      "eta_machine_gear": 0.9060158374494771,
+      "P_system_loss_W": 9562.796679451849,
+      "eta_dc_to_wheel": 0.9001845875721409
      }
     }
    },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
-   "fixed_pole_baseline_same_N": null
-  },
-  "N16_m7_Q112_4/2": {
-   "inverter": {
-    "N": 16,
-    "m": 7,
-    "V_module_V": 75.0,
-    "device": "EPC2361",
-    "V_class_V": 100,
-    "derating": 0.75,
-    "within_derating": true,
-    "legs": 112,
-    "V_leg_rms_max_V": 25.838504329408003,
-    "I_leg_rms_max_A": 128.37880544180462,
-    "I_scale_vs_48leg": 0.48246419360456205,
-    "devices_parallel": 4,
-    "I_device_max_A": 40.0,
-    "devices_total": 896,
-    "converter_kVA": 371.5170278637772,
-    "installed_semiconductor_kVA": 3584.0
-   },
-   "start_inverter_loss_W": 1713.760833448088,
-   "start_Tj_C": 50.37971571785844,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 131.8491900059324,
-      "PF": 0.9586624907654222,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6482.892604980195,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 909.4891237637365,
-      "eta_machine_gear": 0.859375523001097,
-      "P_system_loss_W": 25766.958653335212,
-      "eta_dc_to_wheel": 0.8549765054473222
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 126.61675822930572,
-      "PF": 0.9610533525224725,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6039.637868406499,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 883.6266001905976,
-      "eta_machine_gear": 0.891114915463352,
-      "P_system_loss_W": 19445.151614892857,
-      "eta_dc_to_wheel": 0.8865196365263776
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 73.9247753126626,
-      "PF": 0.9777232241774033,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2828.747601515117,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 646.0865699218401,
-      "eta_machine_gear": 0.852478704789093,
-      "P_system_loss_W": 15570.252439418282,
-      "eta_dc_to_wheel": 0.8470689927556476
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 69.98342358673212,
-      "PF": 0.9769083812975182,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2629.0009765166465,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 629.9927179770181,
-      "eta_machine_gear": 0.8994875181154037,
-      "P_system_loss_W": 10267.034571387036,
-      "eta_dc_to_wheel": 0.893615834627019
-     }
-    }
-   },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
-   "fixed_pole_baseline_same_N": null
-  },
-  "N16_m9_Q144_4/2": {
-   "inverter": {
-    "N": 16,
-    "m": 9,
-    "V_module_V": 75.0,
-    "device": "EPC2361",
-    "V_class_V": 100,
-    "derating": 0.75,
-    "within_derating": true,
-    "legs": 144,
-    "V_leg_rms_max_V": 25.579285909072738,
-    "I_leg_rms_max_A": 100.86205570148556,
-    "I_scale_vs_48leg": 0.3790526808677525,
-    "devices_parallel": 3,
-    "I_device_max_A": 40.0,
-    "devices_total": 864,
-    "converter_kVA": 371.5170278637771,
-    "installed_semiconductor_kVA": 3456.0
-   },
-   "start_inverter_loss_W": 1739.1434680111124,
-   "start_Tj_C": 50.399759275180315,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 131.25202766352112,
-      "PF": 0.962354797105359,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6441.064510380805,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 904.3492597497966,
-      "eta_machine_gear": 0.8595789262313617,
-      "P_system_loss_W": 25719.990694721884,
-      "eta_dc_to_wheel": 0.8552025769863405
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 126.0490823872009,
-      "PF": 0.9645403092537536,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6007.293427408654,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 877.9351076788234,
-      "eta_machine_gear": 0.8912840259387125,
-      "P_system_loss_W": 19407.115681383213,
-      "eta_dc_to_wheel": 0.8867164651414907
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 73.71635932586797,
-      "PF": 0.9792989575639174,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2871.842987566258,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 636.1646054523062,
-      "eta_machine_gear": 0.852115715341428,
-      "P_system_loss_W": 15603.425860999885,
-      "eta_dc_to_wheel": 0.8467930827406839
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 69.98342358673212,
-      "PF": 0.9785546496746357,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2679.7790735628096,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 620.5800515952269,
-      "eta_machine_gear": 0.8990113965309218,
-      "P_system_loss_W": 10308.400002051405,
-      "eta_dc_to_wheel": 0.8932329796773799
-     }
-    }
-   },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
+   "T_peak_Nm": 2517.5945746803754,
+   "max_start_grade_pct": 10.799058768323269,
    "fixed_pole_baseline_same_N": null
   },
   "N2_m3_Q60_8/4": {
@@ -1200,188 +1236,6 @@
      }
     }
    }
-  },
-  "N2_m7_Q42_12/6": {
-   "inverter": {
-    "N": 2,
-    "m": 7,
-    "V_module_V": 600.0,
-    "device": "IGT65R025D2",
-    "V_class_V": 650,
-    "derating": 0.9230769230769231,
-    "within_derating": false,
-    "legs": 14,
-    "V_leg_rms_max_V": 206.70803463526403,
-    "I_leg_rms_max_A": 128.37880544180462,
-    "I_scale_vs_48leg": 0.48246419360456205,
-    "devices_parallel": 19,
-    "I_device_max_A": 6.928203230275509,
-    "devices_total": 532,
-    "converter_kVA": 371.5170278637772,
-    "installed_semiconductor_kVA": 2395.772677029271
-   },
-   "start_inverter_loss_W": 2581.866138187532,
-   "start_Tj_C": 50.968057033366506,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p6",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 139.927248586902,
-      "PF": 0.8885226482084556,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 3848.0329512813696,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 2004.1912948947515,
-      "eta_machine_gear": 0.8723792188665686,
-      "P_system_loss_W": 24226.801170767423,
-      "eta_dc_to_wheel": 0.8624526136452824
-     },
-     "certified_like": {
-      "mode": "2p6",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 134.32804214857566,
-      "PF": 0.8928545308998577,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 3617.635242358656,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 1983.4396109196373,
-      "eta_machine_gear": 0.9039582477525656,
-      "P_system_loss_W": 18122.96199957405,
-      "eta_dc_to_wheel": 0.8934133873573932
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p6",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 83.98927398197057,
-      "PF": 0.9032659201272982,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2121.4329834818373,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 1815.4789922439081,
-      "eta_machine_gear": 0.8584808694424264,
-      "P_system_loss_W": 16032.330243707067,
-      "eta_dc_to_wheel": 0.8432419158521166
-     },
-     "certified_like": {
-      "mode": "2p6",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 81.82843250038216,
-      "PF": 0.903325562059817,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2008.0802349449282,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 1809.01816872317,
-      "eta_machine_gear": 0.9053506442072432,
-      "P_system_loss_W": 10825.139280561463,
-      "eta_dc_to_wheel": 0.8884778328497593
-     }
-    }
-   },
-   "T_peak_Nm": 2267.959460118837,
-   "max_start_grade_pct": 9.61641770448174,
-   "fixed_pole_baseline_same_N": null
-  },
-  "N2_m9_Q36_12/4": {
-   "inverter": {
-    "N": 2,
-    "m": 9,
-    "V_module_V": 600.0,
-    "device": "IGT65R025D2",
-    "V_class_V": 650,
-    "derating": 0.9230769230769231,
-    "within_derating": false,
-    "legs": 18,
-    "V_leg_rms_max_V": 204.6342872725819,
-    "I_leg_rms_max_A": 100.86205570148556,
-    "I_scale_vs_48leg": 0.3790526808677525,
-    "devices_parallel": 15,
-    "I_device_max_A": 6.928203230275509,
-    "devices_total": 540,
-    "converter_kVA": 371.5170278637771,
-    "installed_semiconductor_kVA": 2431.7993338267033
-   },
-   "start_inverter_loss_W": 2613.6353190777345,
-   "start_Tj_C": 50.96544275496936,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 145.97026908140566,
-      "PF": 0.8654509866745201,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6574.362743163161,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 2054.801775576522,
-      "eta_machine_gear": 0.858931053828923,
-      "P_system_loss_W": 27003.74144333098,
-      "eta_dc_to_wheel": 0.8490661964146632
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 138.599703624272,
-      "PF": 0.8773883036900075,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 5995.929907844324,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 2026.7682259820124,
-      "eta_machine_gear": 0.8913434544828645,
-      "P_system_loss_W": 20544.585280122075,
-      "eta_dc_to_wheel": 0.8808678057093956
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 75.20453276064512,
-      "PF": 0.9569479681680974,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2477.5872458176264,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 1815.4439732110798,
-      "eta_machine_gear": 0.8554480711292665,
-      "P_system_loss_W": 16388.449487010035,
-      "eta_dc_to_wheel": 0.8403159359518337
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 71.1818013048917,
-      "PF": 0.9571761006573241,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2298.9459143801723,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 1803.8342815863014,
-      "eta_machine_gear": 0.9025946192527178,
-      "P_system_loss_W": 11110.821072859851,
-      "eta_dc_to_wheel": 0.88587059557921
-     }
-    }
-   },
-   "T_peak_Nm": 2354.291294370925,
-   "max_start_grade_pct": 10.02492061587078,
-   "fixed_pole_baseline_same_N": null
   },
   "N20_m3_Q60_8/4": {
    "inverter": {
@@ -1979,188 +1833,6 @@
     }
    }
   },
-  "N4_m6_Q48_8/4": {
-   "inverter": {
-    "N": 4,
-    "m": 6,
-    "V_module_V": 300.0,
-    "device": "IGT65R025D2",
-    "V_class_V": 650,
-    "derating": 0.46153846153846156,
-    "within_derating": true,
-    "legs": 24,
-    "V_leg_rms_max_V": 100.76271631908301,
-    "I_leg_rms_max_A": 153.62702323318618,
-    "I_scale_vs_48leg": 0.5773502691896258,
-    "devices_parallel": 23,
-    "I_device_max_A": 6.928203230275509,
-    "devices_total": 1104,
-    "converter_kVA": 371.5170278637772,
-    "installed_semiconductor_kVA": 4971.678638045705
-   },
-   "start_inverter_loss_W": 2544.5415155312594,
-   "start_Tj_C": 50.459150413080295,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 130.3123494853048,
-      "PF": 0.9579810603704614,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 4599.759918497551,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 1614.8885200963273,
-      "eta_machine_gear": 0.8686293079974956,
-      "P_system_loss_W": 24589.225363185178,
-      "eta_dc_to_wheel": 0.8606816241793531
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 125.36014291983045,
-      "PF": 0.9596024465635876,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 4330.110359316037,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 1590.3049873979044,
-      "eta_machine_gear": 0.9001418813273405,
-      "P_system_loss_W": 18442.3024930097,
-      "eta_dc_to_wheel": 0.8917385793502082
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p8",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 82.59845832039596,
-      "PF": 0.867102528438806,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2019.3015827307836,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 1405.2744692784975,
-      "eta_machine_gear": 0.8593545313328347,
-      "P_system_loss_W": 15519.994319990605,
-      "eta_dc_to_wheel": 0.8474873423475112
-     },
-     "certified_like": {
-      "mode": "2p8",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 78.59851555925451,
-      "PF": 0.8663151140941221,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 1888.4758037423699,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 1390.4633409268572,
-      "eta_machine_gear": 0.9064888155474042,
-      "P_system_loss_W": 10286.980021562602,
-      "eta_dc_to_wheel": 0.8934311898961086
-     }
-    }
-   },
-   "T_peak_Nm": 2517.5945746803754,
-   "max_start_grade_pct": 10.799058768323269,
-   "fixed_pole_baseline_same_N": null
-  },
-  "N4_m7_Q56_12/4": {
-   "inverter": {
-    "N": 4,
-    "m": 7,
-    "V_module_V": 300.0,
-    "device": "IGT65R025D2",
-    "V_class_V": 650,
-    "derating": 0.46153846153846156,
-    "within_derating": true,
-    "legs": 28,
-    "V_leg_rms_max_V": 103.35401731763201,
-    "I_leg_rms_max_A": 128.37880544180462,
-    "I_scale_vs_48leg": 0.48246419360456205,
-    "devices_parallel": 19,
-    "I_device_max_A": 6.928203230275509,
-    "devices_total": 1064,
-    "converter_kVA": 371.5170278637772,
-    "installed_semiconductor_kVA": 4791.545354058542
-   },
-   "start_inverter_loss_W": 2478.2064973754773,
-   "start_Tj_C": 50.46401100945121,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 134.29945989813746,
-      "PF": 0.9372097057125819,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 5837.364229218964,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 1583.6424932627842,
-      "eta_machine_gear": 0.8625253828212344,
-      "P_system_loss_W": 25795.583647073057,
-      "eta_dc_to_wheel": 0.8548387829709894
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 128.94510338504963,
-      "PF": 0.9409774200277282,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 5434.392002370209,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 1556.9884114447384,
-      "eta_machine_gear": 0.8942900708101126,
-      "P_system_loss_W": 19513.267560110693,
-      "eta_dc_to_wheel": 0.8861673679327237
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 74.1345641109863,
-      "PF": 0.9709850989479928,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2517.4456043279765,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 1327.5699460870328,
-      "eta_machine_gear": 0.8551099937188036,
-      "P_system_loss_W": 15940.433818396335,
-      "eta_dc_to_wheel": 0.8440002742539525
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 70.17985745420805,
-      "PF": 0.9704027358634701,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2340.67961182151,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 1314.0760243830648,
-      "eta_machine_gear": 0.9022005579349831,
-      "P_system_loss_W": 10662.796513097948,
-      "eta_dc_to_wheel": 0.8899662826967429
-     }
-    }
-   },
-   "T_peak_Nm": 2354.291294370925,
-   "max_start_grade_pct": 10.02492061587078,
-   "fixed_pole_baseline_same_N": null
-  },
   "N5_m3_Q45_8/4": {
    "inverter": {
     "N": 5,
@@ -2316,97 +1988,6 @@
      }
     }
    }
-  },
-  "N5_m9_Q45_4/2": {
-   "inverter": {
-    "N": 5,
-    "m": 9,
-    "V_module_V": 240.0,
-    "device": "EPC2050",
-    "V_class_V": 350,
-    "derating": 0.6857142857142857,
-    "within_derating": true,
-    "legs": 45,
-    "V_leg_rms_max_V": 81.85371490903275,
-    "I_leg_rms_max_A": 100.86205570148557,
-    "I_scale_vs_48leg": 0.37905268086775257,
-    "devices_parallel": 22,
-    "I_device_max_A": 4.670993664969138,
-    "devices_total": 1980,
-    "converter_kVA": 371.5170278637771,
-    "installed_semiconductor_kVA": 3236.9986098236127
-   },
-   "start_inverter_loss_W": 2776.200546776751,
-   "start_Tj_C": 50.279594994837176,
-   "cruise": {
-    "cruise_85kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 380.4901594136175,
-      "I_eq_rms_A": 138.84185612017498,
-      "PF": 0.9105509040043729,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6734.100502844594,
-      "P_fw_W": 941.4382137430057,
-      "P_gear_W": 17433.13871084826,
-      "P_inverter_W": 1382.3037737240513,
-      "eta_machine_gear": 0.8581559620286391,
-      "P_system_loss_W": 26490.981201159928,
-      "eta_dc_to_wheel": 0.8515066185047007
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 4250.0,
-      "T_motor_Nm": 367.36074792226526,
-      "I_eq_rms_A": 132.6216262248242,
-      "PF": 0.9171817213114137,
-      "P_wheel_W": 151907.41564589762,
-      "P_em_W": 6205.288123582787,
-      "P_fw_W": 932.1106494659793,
-      "P_gear_W": 11589.776496829729,
-      "P_inverter_W": 1334.7893564330561,
-      "eta_machine_gear": 0.8902498305333524,
-      "P_system_loss_W": 20061.964626311583,
-      "eta_dc_to_wheel": 0.88333990275155
-     }
-    },
-    "cruise_60kmh_flat": {
-     "EU2017": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 311.3560571392369,
-      "I_eq_rms_A": 74.77229014008076,
-      "PF": 0.9649522571432403,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2674.4562377865113,
-      "P_fw_W": 522.0419809391767,
-      "P_gear_W": 11573.376287042129,
-      "P_inverter_W": 984.7990680721346,
-      "eta_machine_gear": 0.8537808297567763,
-      "P_system_loss_W": 15754.673573839966,
-      "eta_dc_to_wheel": 0.8455373996376405
-     },
-     "certified_like": {
-      "mode": "2p4",
-      "n_motor_rpm": 3000.0,
-      "T_motor_Nm": 295.1882401032038,
-      "I_eq_rms_A": 70.7770222347921,
-      "PF": 0.9647157195645437,
-      "P_wheel_W": 86242.0138888889,
-      "P_em_W": 2477.186307677381,
-      "P_fw_W": 513.9341123497907,
-      "P_gear_W": 6494.1067645435805,
-      "P_inverter_W": 966.7515052994677,
-      "eta_machine_gear": 0.9009140232372107,
-      "P_system_loss_W": 10451.978689870226,
-      "eta_dc_to_wheel": 0.8919066385498883
-     }
-    }
-   },
-   "T_peak_Nm": 1297.9328546958525,
-   "max_start_grade_pct": 5.055504961206436,
-   "fixed_pole_baseline_same_N": null
   },
   "N6_m3_Q36_8/4": {
    "inverter": {
@@ -2720,5 +2301,71 @@
     }
    }
   }
+ },
+ "slot_leakage_2x_sensitivity": {
+  "source": "results/sensitivity_slot_leakage_2x.json",
+  "slot_leakage_scale": 2.0,
+  "threshold": "5 % relative change",
+  "relative_changes": {
+   "N16_m3_Q48_8/4": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003777250109754382,
+    "cruise_PF": -0.015881543017311373
+   },
+   "N16_m5_Q80_12/4": {
+    "L_sigma_s_2phi_H": 0.5829796715881419,
+    "L_sigma_s_2plo_H": 0.585342157982282,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.09944812497695399,
+    "CPSR": -0.0637923468568139,
+    "P_at_90kmh_kW": -0.129986679061313,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.001499533258021546,
+    "cruise_PF": -0.02305340572321235
+   },
+   "N16_m5_Q80_8/4": {
+    "L_sigma_s_2phi_H": 0.5622065335374824,
+    "L_sigma_s_2plo_H": 0.5973297790405716,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.06584392280367668,
+    "CPSR": -0.09064553933631347,
+    "P_at_90kmh_kW": -0.05809684134290616,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0007541166111485476,
+    "cruise_PF": -0.012953557244192782
+   },
+   "N8_m3_Q48_8/4": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003795844593511566,
+    "cruise_PF": -0.015881543017311373
+   },
+   "fixed_2p4_T03b": {
+    "T_peak_Nm": 0.0,
+    "P_at_90kmh_kW": -0.04377818986707949,
+    "CPSR": -0.10782629554828171,
+    "current_factor_for_start_at_G9p80": 0.0
+   }
+  },
+  "sensitive_items": {
+   "PC_IM_T_peak_start (current-limited)": false,
+   "PC_IM_P_at_90kmh (voltage/breakdown-limited)": true,
+   "PC_IM_crossover_speed": true,
+   "fixed_baseline_kVA_factor_for_start_at_G9.80": false,
+   "fixed_baseline_P_at_90kmh": false,
+   "cruise_eta_dc_to_wheel": false
+  },
+  "why": "voltage-limited torque (breakdown) scales ~1/L_sigma; low-speed torque is current-limited and nearly insensitive"
  }
 }

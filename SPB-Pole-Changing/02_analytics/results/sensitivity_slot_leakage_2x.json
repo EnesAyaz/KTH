@@ -1,0 +1,170 @@
+{
+ "meta": {
+  "script": "02_analytics/module_count_sweep.py --sens_leakage2x",
+  "date": "2026-11-02",
+  "slot_leakage_scale": 2.0,
+  "note": "lam_slot_self and lam_slot_mut x k; everything else unchanged. Winding feasibility (H01) does not depend on leakage."
+ },
+ "designs": {
+  "N16_m3_Q48_8/4": {
+   "leak_x1": {
+    "L_sigma_s_2phi_H": 3.8847982024223715e-05,
+    "L_sigma_s_2plo_H": 2.86836076516109e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2232.4721603563476,
+    "CPSR": 4.408728623384663,
+    "P_at_90kmh_kW": 298.9405268483291,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8648264020792875,
+    "cruise_PF": 0.9579810603704614
+   },
+   "leak_x2": {
+    "L_sigma_s_2phi_H": 5.141942520093817e-05,
+    "L_sigma_s_2plo_H": 3.9280552619586976e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2072.293986636971,
+    "CPSR": 4.06309375876859,
+    "P_at_90kmh_kW": 279.64378909615556,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8644997355170703,
+    "cruise_PF": 0.9427668429504183
+   },
+   "relative_change": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003777250109754382,
+    "cruise_PF": -0.015881543017311373
+   }
+  },
+  "N16_m5_Q80_12/4": {
+   "leak_x1": {
+    "L_sigma_s_2phi_H": 2.3662025320382236e-05,
+    "L_sigma_s_2plo_H": 2.3566523549127802e-05,
+    "T_peak_Nm": 2354.291294370925,
+    "crossover_rpm": 1812.0044543429844,
+    "CPSR": 4.567603319036357,
+    "P_at_90kmh_kW": 282.986232466188,
+    "max_start_grade_pct": 10.02492061587078,
+    "cruise_eta_dc_to_wheel": 0.8588367762386606,
+    "cruise_PF": 0.9542238800347754
+   },
+   "leak_x2": {
+    "L_sigma_s_2phi_H": 3.745650507076897e-05,
+    "L_sigma_s_2plo_H": 3.7361003299514535e-05,
+    "T_peak_Nm": 2354.291294370925,
+    "crossover_rpm": 1631.804008908686,
+    "CPSR": 4.276225183804056,
+    "P_at_90kmh_kW": 246.20179188783553,
+    "max_start_grade_pct": 10.02492061587078,
+    "cruise_eta_dc_to_wheel": 0.8575489219294787,
+    "cruise_PF": 0.9322257697775559
+   },
+   "relative_change": {
+    "L_sigma_s_2phi_H": 0.5829796715881419,
+    "L_sigma_s_2plo_H": 0.585342157982282,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.09944812497695399,
+    "CPSR": -0.0637923468568139,
+    "P_at_90kmh_kW": -0.129986679061313,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.001499533258021546,
+    "cruise_PF": -0.02305340572321235
+   }
+  },
+  "N16_m5_Q80_8/4": {
+   "leak_x1": {
+    "L_sigma_s_2phi_H": 2.1407397700512595e-05,
+    "L_sigma_s_2plo_H": 1.750377356617416e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2432.694877505568,
+    "CPSR": 4.71432043372593,
+    "P_at_90kmh_kW": 315.8147448382652,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8639965592424457,
+    "cruise_PF": 0.9709465869231606
+   },
+   "leak_x2": {
+    "L_sigma_s_2phi_H": 3.344277655377605e-05,
+    "L_sigma_s_2plo_H": 2.7959298762833166e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2272.5167037861916,
+    "CPSR": 4.2869883154066395,
+    "P_at_90kmh_kW": 297.4669057136461,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8633450050851458,
+    "cruise_PF": 0.9583693747283979
+   },
+   "relative_change": {
+    "L_sigma_s_2phi_H": 0.5622065335374824,
+    "L_sigma_s_2plo_H": 0.5973297790405716,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.06584392280367668,
+    "CPSR": -0.09064553933631347,
+    "P_at_90kmh_kW": -0.05809684134290616,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0007541166111485476,
+    "cruise_PF": -0.012953557244192782
+   }
+  },
+  "N8_m3_Q48_8/4": {
+   "leak_x1": {
+    "L_sigma_s_2phi_H": 3.88479820242237e-05,
+    "L_sigma_s_2plo_H": 2.86836076516109e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2232.4721603563476,
+    "CPSR": 4.408728623384663,
+    "P_at_90kmh_kW": 298.9405268483291,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8621530726569488,
+    "cruise_PF": 0.9579810603704614
+   },
+   "leak_x2": {
+    "L_sigma_s_2phi_H": 5.1419425200938156e-05,
+    "L_sigma_s_2plo_H": 3.9280552619586976e-05,
+    "T_peak_Nm": 2517.5945746803754,
+    "crossover_rpm": 2072.293986636971,
+    "CPSR": 4.06309375876859,
+    "P_at_90kmh_kW": 279.64378909615556,
+    "max_start_grade_pct": 10.799058768323269,
+    "cruise_eta_dc_to_wheel": 0.8618258127489864,
+    "cruise_PF": 0.9427668429504183
+   },
+   "relative_change": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003795844593511566,
+    "cruise_PF": -0.015881543017311373
+   }
+  },
+  "fixed_2p4_T03b": {
+   "leak_x1": {
+    "T_peak_Nm": 1566.1043930731169,
+    "P_at_90kmh_kW": 300.4390896109379,
+    "CPSR": 2.7512054925754432,
+    "current_factor_for_start_at_G9p80": 1.7408350775949657
+   },
+   "leak_x2": {
+    "T_peak_Nm": 1566.1043930731169,
+    "P_at_90kmh_kW": 287.28641010245775,
+    "CPSR": 2.4545531960189475,
+    "current_factor_for_start_at_G9p80": 1.7408350775949657
+   },
+   "relative_change": {
+    "T_peak_Nm": 0.0,
+    "P_at_90kmh_kW": -0.04377818986707949,
+    "CPSR": -0.10782629554828171,
+    "current_factor_for_start_at_G9p80": 0.0
+   }
+  }
+ }
+}

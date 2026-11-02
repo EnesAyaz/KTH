@@ -317,3 +317,14 @@ Closed-form rule (spaced wiring, interleaved modules; derived):
 - SPB modules are in series on the DC side, so parking k modules raises the rest to 1200/(N - k). That is allowed only up to 0.80 V_class.
 - Active coil groups carry N/(N - k) more current for the same torque.
 - Also screened: shedding parallel devices inside each switch position.
+- H04 comparison is like-for-like:
+  - Pairs 8/4 and 12/4 per m, N closest to 16, practical Q, constant module power.
+  - Turns are set so N_leg k_w in the high-pole mode equals T03. Peak torque per converter kVA (= per ampere-turn) is therefore equal by construction for 8/4.
+  - The m effect shows up through differential leakage, the extra 3:1 pairs and the pole-phase state count.
+- Slot-leakage sensitivity (R01 pending, simulator has 2.0-2.3x our slot leakage):
+  - Method: `--sens_leakage2x` reruns key designs with lam_slot_self and lam_slot_mut x2.
+  - Output: `results/sensitivity_slot_leakage_2x.json`; flags are written into every screen and the master (`slot_leakage_2x_sensitivity`).
+  - 2x slot leakage raises total stator leakage by +32-37 % (m = 3) and +56-60 % (m = 5).
+  - Not sensitive: peak torque, start grade and the fixed-baseline kVA factor (all current-limited, 0 %); cruise efficiency (< 0.15 pt).
+  - Sensitive (voltage/breakdown-limited): P at 90 km/h -6 % (m = 3) to -13 % (m = 5 12/4), crossover -7 to -10 %, CPSR -6 to -11 %.
+- The T03d gap-windage bug fix (2x) and the EU2017 gear variant were applied to `drivetrain_losses.py` and its JSON was regenerated before T08 ran.

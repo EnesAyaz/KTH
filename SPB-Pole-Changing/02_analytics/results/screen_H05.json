@@ -2,7 +2,17 @@
  "meta": {
   "script": "02_analytics/module_count_sweep.py",
   "task": "T08 (+ gap-loop screens H01/H02/H04/H05)",
-  "date": "2026-10-29",
+  "date": "2026-11-02",
+  "machine_inputs": {
+   "lam_slot_self": 1.2,
+   "lam_slot_mut": 0.4,
+   "lam_end": 0.3,
+   "B_yoke_max_T": 1.45,
+   "B_gap_max_T": 0.9,
+   "g_m": 0.001,
+   "kc_ksat": 1.3
+  },
+  "machine_inputs_overridden": [],
   "P_rated_W": 300000.0,
   "V_dc_V": 1200.0,
   "assumptions": "02_analytics/assumptions.md#t08",
@@ -1417,5 +1427,66 @@
     }
    }
   }
+ },
+ "slot_leakage_2x_sensitivity": {
+  "source": "results/sensitivity_slot_leakage_2x.json",
+  "slot_leakage_scale": 2.0,
+  "threshold": "5 % relative change",
+  "relative_changes": {
+   "N16_m3_Q48_8/4": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003777250109754382,
+    "cruise_PF": -0.015881543017311373
+   },
+   "N16_m5_Q80_12/4": {
+    "L_sigma_s_2phi_H": 0.5829796715881419,
+    "L_sigma_s_2plo_H": 0.585342157982282,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.09944812497695399,
+    "CPSR": -0.0637923468568139,
+    "P_at_90kmh_kW": -0.129986679061313,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.001499533258021546,
+    "cruise_PF": -0.02305340572321235
+   },
+   "N16_m5_Q80_8/4": {
+    "L_sigma_s_2phi_H": 0.5622065335374824,
+    "L_sigma_s_2plo_H": 0.5973297790405716,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.06584392280367668,
+    "CPSR": -0.09064553933631347,
+    "P_at_90kmh_kW": -0.05809684134290616,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0007541166111485476,
+    "cruise_PF": -0.012953557244192782
+   },
+   "N8_m3_Q48_8/4": {
+    "L_sigma_s_2phi_H": 0.32360607994710033,
+    "L_sigma_s_2plo_H": 0.369442543514255,
+    "T_peak_Nm": 0.0,
+    "crossover_rpm": -0.07174923681637702,
+    "CPSR": -0.07839785437977875,
+    "P_at_90kmh_kW": -0.06455042397768962,
+    "max_start_grade_pct": 0.0,
+    "cruise_eta_dc_to_wheel": -0.0003795844593511566,
+    "cruise_PF": -0.015881543017311373
+   },
+   "fixed_2p4_T03b": {
+    "T_peak_Nm": 0.0,
+    "P_at_90kmh_kW": -0.04377818986707949,
+    "CPSR": -0.10782629554828171,
+    "current_factor_for_start_at_G9p80": 0.0
+   }
+  },
+  "sensitive_items": {
+   "cruise_current_via_PF": false
+  },
+  "why": "parking limits are set by device voltage rating (series stack), independent of leakage; loss deltas scale with cruise current"
  }
 }
