@@ -663,7 +663,8 @@
   },
   "H03_injection_m5": "admissible with nu != +-p (mod 5)",
   "H09_open_end": "admissible (alpha = 0.5), alpha doubles as a balancing knob; star/open-end switching is hardware",
-  "H05_series_parking": "inadmissible without DC bypass hardware: a parked cell (P_j = 0) still carries I_dc and charges at I_dc/C (e.g. I_dc = 250 A -> 248016 V/s)"
+  "H05_series_parking": "inadmissible without DC bypass hardware: a parked cell (P_j = 0) still carries I_dc and charges at I_dc/C (e.g. I_dc = 250 A -> 248016 V/s)",
+  "IM_handover_m3_corrected": "crossfade (factor 1.39 in the model): C_req 15.6 mF at +-10 %, 31.3 mF at +-5 % (flat). See screen_H11.json for the pulsation-constrained schedule."
  },
  "summary_text": "H10 screen. Average (DC) imbalance is zero for every mode that passes the T08 winding rule and is cheap to trim with same-frequency balancing orders (about 1 A per 1 % at cruise). The binding constraint is AC power pulsation: in a 3-leg isolated-neutral module any two simultaneous spatial orders a, b give pulsation at f_a + f_b or |f_a - f_b| with amplitude 3 V I. This hits (1) the overlapped IM 8/4 handover (8.5 kW per cell at 210 Hz, 2.5x the cell mean, C needed 22.8 mF vs 1.0-2.9 mF available), (2) the WRSM k-sweep, (3) H03 harmonic excitation, (4) steady WRSM space harmonics. For prime m >= 5 the pulsation vanishes when a != +-b (mod m), so m = 5/7 makes overlapped (torque-gap-free) transitions and harmonic excitation admissible, at the cost of weaker low-order balancing knobs. Series-cell parking (H05) is inadmissible without bypass hardware. Admissible set: steady modes with rule (i)-(iii); m = 3 transitions sequential (torque gap) or with sized capacitance; m >= 5 overlapped transitions with m not dividing (p1 +- p2)/c.",
  "sanity_time_domain": {
@@ -700,5 +701,48 @@
    "mean_per_VI": 6.000149996250095
   },
   "expected": "m3 (4,2): 3; m5/m7 (4,2): 0; m3 (4,8): 3; m5 (4,8): 0; m6 (4,2): 6; one mode (4,4) m3 at one frequency: 0 pulsation, mean 3 cos; one mode p=3 in m6: pulsation 6 (fails rule iii)"
+ },
+ "iteration2_correction": {
+  "crossfade_analytic": {
+   "factor": 0.25,
+   "P_pulse_W": 2116.118461278572,
+   "C_required_mF": {
+    "5pct": 5.702276626971432,
+    "10pct": 2.851138313485716
+   }
+  },
+  "crossfade_model": {
+   "flat_envelope_factor": 1.389207084825494,
+   "flat_Px_max_W": 11604.857276897152,
+   "flat_C_required_mF": {
+    "5pct": 31.271456499371567,
+    "10pct": 15.635728249685783
+   },
+   "grade2_Px_max_W": 32838.523649378316,
+   "grade2_C_required_mF": {
+    "5pct": 88.48953841504617,
+    "10pct": 44.244769207523085
+   },
+   "note": "linear 0.25 s crossfade in the two-mode RFOC model (this script); flux lags the d-current, so the factor is not exactly 0.25"
+  },
+  "sequential_V8_I4_term": {
+   "note": "'sequential' = drop all 2p8 current, then build 2p4 under the pulsation limit; the decaying 2p8 rotor flux still induces V8, so 3 V8 I4 limits the 2p4 build current until the flux has decayed",
+   "tau_r_2p8_s": 0.4783853864380727,
+   "torque_gap_below90pct_s": 0.5846,
+   "Px_max_W": 2133.5257789233574,
+   "within_10pct_at_2p9mF": true
+  },
+  "balancing_knob_correction": {
+   "statement": "The power shift per ampere of a same-frequency balancing order b is m V_p (main-mode leg voltage x m), independent of the winding factor of b. Signed orders count: for p = 4, m = 5 the order b = -1 (counter-rotating 2-pole) satisfies 5 | (p - b). So m = 5 is NOT a weaker knob (H10 said so - corrected).",
+   "m3_W_per_A": 87.26307208665072,
+   "m5_W_per_A": 132.4352372764407,
+   "I_for_1pct_of_18p75kW_A": {
+    "m3": 2.1486752129677,
+    "m5": 1.4157863409767526
+   }
+  },
+  "date": "2026-11-02",
+  "by": "02_analytics/screen_H11.py",
+  "note": "screen_H10.py rerun would drop this block; the numbers are reproduced by screen_H11.py"
  }
 }

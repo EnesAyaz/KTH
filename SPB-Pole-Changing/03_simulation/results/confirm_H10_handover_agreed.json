@@ -1,0 +1,861 @@
+{
+ "meta": {
+  "script": "03_simulation/run_h10.py",
+  "task": "H10 confirmation",
+  "date": "2026-11-02",
+  "method": "coil-level P_j(t) from the two-mode IM model + 16 series cells with C_cell on a stiff link; see confirm_H10.md"
+ },
+ "cases": [
+  {
+   "label": "overlapped_flat_m3",
+   "mean_cell_power_W": 3484.0250204943495,
+   "peak_cell_power_W": 13427.148768825657,
+   "pulsation_amp_W_at_210Hz": 7217.8130235613435,
+   "pulsation_amp_W_at_70Hz": 601.1360681994913,
+   "pulsation_amp_max_W": 7217.8130235613435,
+   "pulsation_main_Hz": 210.0,
+   "pulsation_over_mean_cell_power": 2.0716880565160825,
+   "C_required_for_5V_pk_ripple_mF": 14.587309473179007,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 174.55538442697994,
+    "ripple_amp_est_V": 72.93654736589504,
+    "v_min_V": -38.49780038120342,
+    "v_max_V": 188.49780038120355,
+    "slow_drift_max_V": 31.331944015195276,
+    "end_minus_start_V": 28.78463310587223,
+    "exceeds_cell_rating_80V": true
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 60.609508481590254,
+    "ripple_amp_est_V": 25.325190057602438,
+    "v_min_V": 35.591041534304374,
+    "v_max_V": 114.40895846569566,
+    "slow_drift_max_V": 10.879147227498393,
+    "end_minus_start_V": 9.9946642728723,
+    "exceeds_cell_rating_80V": true
+   },
+   "torque_min_Nm": 196.0086069639939,
+   "torque_min_over_request": 0.7899555469833659,
+   "torque_gap_below90pct_s": 0.30199999999998284,
+   "t_recover95_s": 0.3060999999999826,
+   "torque_deficit_Nms": 1.2969749095662644,
+   "I_rms_peak_over_Imax": 0.6268545139635434,
+   "speed_drop_kmh": 0.0014382208867482404,
+   "params": {
+    "t_d": 0.25,
+    "t_f4": 0.06,
+    "t_f2": 0.3
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "overlapped_2pct_m3",
+   "mean_cell_power_W": 5093.00352253626,
+   "peak_cell_power_W": 11778.374800314305,
+   "pulsation_amp_W_at_210Hz": 7484.477766583869,
+   "pulsation_amp_W_at_70Hz": 1525.3726667418514,
+   "pulsation_amp_max_W": 7484.477766583869,
+   "pulsation_main_Hz": 210.0,
+   "pulsation_over_mean_cell_power": 1.4695606891818291,
+   "C_required_for_5V_pk_ripple_mF": 15.126242958897926,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 186.37881355691619,
+    "ripple_amp_est_V": 75.63121479448964,
+    "v_min_V": -58.66241961805636,
+    "v_max_V": 208.6624196180564,
+    "slow_drift_max_V": 54.228100249611884,
+    "end_minus_start_V": 38.06843096885686,
+    "exceeds_cell_rating_80V": true
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 64.71486581837365,
+    "ripple_amp_est_V": 26.260838470308897,
+    "v_min_V": 28.58943763261933,
+    "v_max_V": 121.41056236738069,
+    "slow_drift_max_V": 18.82920147555965,
+    "end_minus_start_V": 13.218205197519737,
+    "exceeds_cell_rating_80V": true
+   },
+   "torque_min_Nm": -78.30635570117596,
+   "torque_min_over_request": -0.11562852554975346,
+   "torque_gap_below90pct_s": 0.7939999999999287,
+   "t_recover95_s": 0.820099999999926,
+   "torque_deficit_Nms": 408.3101547242252,
+   "I_rms_peak_over_Imax": 0.5480156564545859,
+   "speed_drop_kmh": 0.6587909897985629,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.15,
+    "t_f2": 0.15
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.05_tf2_0.15",
+   "mean_cell_power_W": 92.78060457231147,
+   "peak_cell_power_W": 3534.149942474838,
+   "pulsation_amp_W_at_210Hz": 516.384627969637,
+   "pulsation_amp_W_at_70Hz": 894.2261701804391,
+   "pulsation_amp_max_W": 894.2261701804391,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 9.63807224907115,
+   "C_required_for_5V_pk_ripple_mF": 5.421733913384811,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 3.586008830325227e-06,
+    "ripple_amp_est_V": 27.108669566924057,
+    "v_min_V": 73.57368955533487,
+    "v_max_V": 76.42631044466512,
+    "slow_drift_max_V": 1.5634176975254377e-06,
+    "end_minus_start_V": 1.4263104210517952,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.2451419593162427e-06,
+    "ripple_amp_est_V": 9.412732488515298,
+    "v_min_V": 74.50475331782461,
+    "v_max_V": 75.49524668217539,
+    "slow_drift_max_V": 5.428534990414846e-07,
+    "end_minus_start_V": 0.49524667397631106,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -4.3682615801232565,
+   "torque_min_over_request": -0.017605004797195345,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 314.2276421090264,
+   "I_rms_peak_over_Imax": 0.6444376242727178,
+   "speed_drop_kmh": 0.5067953032260903,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.15
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.05_tf2_0.05",
+   "mean_cell_power_W": 123.74138679497091,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 718.6731761475803,
+   "pulsation_amp_W_at_70Hz": 987.7467012068279,
+   "pulsation_amp_max_W": 987.7467012068279,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 7.982347109487638,
+   "C_required_for_5V_pk_ripple_mF": 5.988753143610668,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.145094578689168e-06,
+    "ripple_amp_est_V": 29.94376571805334,
+    "v_min_V": 74.99999578836804,
+    "v_max_V": 75.00000421163185,
+    "slow_drift_max_V": 2.993928262640111e-06,
+    "end_minus_start_V": 1.7998291497178798e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.4392689564601824e-06,
+    "ripple_amp_est_V": 10.397140874324077,
+    "v_min_V": 74.99999853762779,
+    "v_max_V": 75.00000146237217,
+    "slow_drift_max_V": 1.0395584126854374e-06,
+    "end_minus_start_V": 6.249406681035907e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -25.947529255757274,
+   "torque_min_over_request": -0.03831457258656783,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 867.5297135713976,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.399441043049633,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.05
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "overlapped_flat_m5",
+   "mean_cell_power_W": 3484.0250204943486,
+   "peak_cell_power_W": 4288.786513575975,
+   "pulsation_amp_W_at_210Hz": 137.57569570655292,
+   "pulsation_amp_W_at_70Hz": 195.57282579232643,
+   "pulsation_amp_max_W": 195.57282579232643,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 0.05613416225253646,
+   "C_required_for_5V_pk_ripple_mF": 1.1857669317828141,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 2.984279490192421e-13,
+    "ripple_amp_est_V": 5.928834658914071,
+    "v_min_V": 74.99999999999739,
+    "v_max_V": 75.00000000000324,
+    "slow_drift_max_V": 3.268496584496461e-12,
+    "end_minus_start_V": 3.240074875066057e-12,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.1368683772161603e-13,
+    "ripple_amp_est_V": 2.0586231454562745,
+    "v_min_V": 74.99999999999909,
+    "v_max_V": 75.00000000000112,
+    "slow_drift_max_V": 9.663381206337363e-13,
+    "end_minus_start_V": 1.1226575225009583e-12,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": 196.0086069639939,
+   "torque_min_over_request": 0.7899555469833659,
+   "torque_gap_below90pct_s": 0.30199999999998284,
+   "t_recover95_s": 0.3060999999999826,
+   "torque_deficit_Nms": 1.2969749095662644,
+   "I_rms_peak_over_Imax": 0.6268545139635434,
+   "speed_drop_kmh": 0.0014382208867482404,
+   "params": {
+    "t_d": 0.25,
+    "t_f4": 0.06,
+    "t_f2": 0.3
+   },
+   "grade_pct": 0.0,
+   "m": 5,
+   "Q": 80
+  },
+  {
+   "label": "overlapped_2pct_m5",
+   "mean_cell_power_W": 5093.003522536259,
+   "peak_cell_power_W": 9896.023858917195,
+   "pulsation_amp_W_at_210Hz": 962.038070128196,
+   "pulsation_amp_W_at_70Hz": 723.6793982282172,
+   "pulsation_amp_max_W": 962.038070128196,
+   "pulsation_main_Hz": 210.0,
+   "pulsation_over_mean_cell_power": 0.18889405158885728,
+   "C_required_for_5V_pk_ripple_mF": 1.9442935149649505,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 3.836930773104541e-13,
+    "ripple_amp_est_V": 9.721467574824754,
+    "v_min_V": 74.99999999999613,
+    "v_max_V": 75.00000000000492,
+    "slow_drift_max_V": 4.675371201301459e-12,
+    "end_minus_start_V": 4.803268893738277e-12,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.2789769243681803e-13,
+    "ripple_amp_est_V": 3.375509574591928,
+    "v_min_V": 74.99999999999865,
+    "v_max_V": 75.0000000000017,
+    "slow_drift_max_V": 1.7621459846850485e-12,
+    "end_minus_start_V": 1.6626700016786344e-12,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -78.30635570117596,
+   "torque_min_over_request": -0.11562852554975346,
+   "torque_gap_below90pct_s": 0.7939999999999287,
+   "t_recover95_s": 0.820099999999926,
+   "torque_deficit_Nms": 408.3101547242252,
+   "I_rms_peak_over_Imax": 0.5480156564545859,
+   "speed_drop_kmh": 0.6587909897985629,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.15,
+    "t_f2": 0.15
+   },
+   "grade_pct": 2.0,
+   "m": 5,
+   "Q": 80
+  }
+ ],
+ "geometry": "agreed",
+ "flat_schedule_search": [
+  {
+   "min_over_request": 0.8189620501668723,
+   "I_over_Imax": 0.5937441631261523,
+   "params": {
+    "t_d": 0.25,
+    "t_f4": 0.06,
+    "t_f2": 0.3
+   }
+  },
+  {
+   "min_over_request": 0.7017348974872978,
+   "I_over_Imax": 0.8802691470180711,
+   "params": {
+    "t_d": 0.1,
+    "t_f4": 0.06,
+    "t_f2": 0.3
+   }
+  },
+  {
+   "min_over_request": 0.1801620192278993,
+   "I_over_Imax": 0.6351790857629139,
+   "params": {
+    "t_d": 0.1,
+    "t_f4": 0.15,
+    "t_f2": 0.3
+   }
+  },
+  {
+   "min_over_request": 0.12588054468381268,
+   "I_over_Imax": 0.6395840260881707,
+   "params": {
+    "t_d": 0.25,
+    "t_f4": 0.15,
+    "t_f2": 0.3
+   }
+  },
+  {
+   "min_over_request": 0.0672976886434386,
+   "I_over_Imax": 0.661076000561321,
+   "params": {
+    "t_d": 0.4,
+    "t_f4": 0.15,
+    "t_f2": 0.3
+   }
+  },
+  {
+   "min_over_request": -0.36720643438051886,
+   "I_over_Imax": 0.5449154155344303,
+   "params": {
+    "t_d": 0.4,
+    "t_f4": 0.06,
+    "t_f2": 0.3
+   }
+  }
+ ],
+ "sequential_all": [
+  {
+   "label": "sequential_0pct_tf4_0.02_tf2_0.05",
+   "mean_cell_power_W": 54.76968149655466,
+   "peak_cell_power_W": 4180.912368432484,
+   "pulsation_amp_W_at_210Hz": 274.7438654240035,
+   "pulsation_amp_W_at_70Hz": 1037.9809417537979,
+   "pulsation_amp_max_W": 1037.9809417537979,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 18.951743252680647,
+   "C_required_for_5V_pk_ripple_mF": 6.293325627249434,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 2.313812828447226e-06,
+    "ripple_amp_est_V": 31.466628136247166,
+    "v_min_V": 74.99999791100639,
+    "v_max_V": 75.00000208899364,
+    "slow_drift_max_V": 1.7496077191481163e-06,
+    "end_minus_start_V": 1.7648001175984973e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 8.034072180862495e-07,
+    "ripple_amp_est_V": 10.925912547308045,
+    "v_min_V": 74.999999274655,
+    "v_max_V": 75.00000072534502,
+    "slow_drift_max_V": 6.075026988128229e-07,
+    "end_minus_start_V": 6.127778249265248e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -6.590697078886437,
+   "torque_min_over_request": -0.02656188315704829,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 317.27444031833056,
+   "I_rms_peak_over_Imax": 0.4011370103124827,
+   "speed_drop_kmh": 0.5114364204717822,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.05
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.02_tf2_0.1",
+   "mean_cell_power_W": 54.76968149655466,
+   "peak_cell_power_W": 4180.912368432484,
+   "pulsation_amp_W_at_210Hz": 274.7438654240035,
+   "pulsation_amp_W_at_70Hz": 1037.9809417537979,
+   "pulsation_amp_max_W": 1037.9809417537979,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 18.951743252680647,
+   "C_required_for_5V_pk_ripple_mF": 6.293325627249434,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 2.313812828447226e-06,
+    "ripple_amp_est_V": 31.466628136247166,
+    "v_min_V": 74.99999791100639,
+    "v_max_V": 75.00000208899364,
+    "slow_drift_max_V": 1.7496077191481163e-06,
+    "end_minus_start_V": 1.7648001175984973e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 8.034072180862495e-07,
+    "ripple_amp_est_V": 10.925912547308045,
+    "v_min_V": 74.999999274655,
+    "v_max_V": 75.00000072534502,
+    "slow_drift_max_V": 6.075026988128229e-07,
+    "end_minus_start_V": 6.127778249265248e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -6.590697078886437,
+   "torque_min_over_request": -0.02656188315704829,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 317.27444031833056,
+   "I_rms_peak_over_Imax": 0.4011370103124827,
+   "speed_drop_kmh": 0.5114364204717822,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.1
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.02_tf2_0.15",
+   "mean_cell_power_W": 54.76968149655466,
+   "peak_cell_power_W": 4180.912368432484,
+   "pulsation_amp_W_at_210Hz": 274.7438654240035,
+   "pulsation_amp_W_at_70Hz": 1037.9809417537979,
+   "pulsation_amp_max_W": 1037.9809417537979,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 18.951743252680647,
+   "C_required_for_5V_pk_ripple_mF": 6.293325627249434,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 2.313812828447226e-06,
+    "ripple_amp_est_V": 31.466628136247166,
+    "v_min_V": 74.99999791100639,
+    "v_max_V": 75.00000208899364,
+    "slow_drift_max_V": 1.7496077191481163e-06,
+    "end_minus_start_V": 1.7648001175984973e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 8.034072180862495e-07,
+    "ripple_amp_est_V": 10.925912547308045,
+    "v_min_V": 74.999999274655,
+    "v_max_V": 75.00000072534502,
+    "slow_drift_max_V": 6.075026988128229e-07,
+    "end_minus_start_V": 6.127778249265248e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -6.590697078886437,
+   "torque_min_over_request": -0.02656188315704829,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 317.27444031833056,
+   "I_rms_peak_over_Imax": 0.4011370103124827,
+   "speed_drop_kmh": 0.5114364204717822,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.15
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.05_tf2_0.05",
+   "mean_cell_power_W": 97.2495799881858,
+   "peak_cell_power_W": 4624.991426642229,
+   "pulsation_amp_W_at_210Hz": 516.384627969637,
+   "pulsation_amp_W_at_70Hz": 894.2261701804391,
+   "pulsation_amp_max_W": 894.2261701804391,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 9.195167426831794,
+   "C_required_for_5V_pk_ripple_mF": 5.421733913384811,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 3.586008830325227e-06,
+    "ripple_amp_est_V": 27.108669566924057,
+    "v_min_V": 69.45308358599297,
+    "v_max_V": 80.54691641400699,
+    "slow_drift_max_V": 1.5634176975254377e-06,
+    "end_minus_start_V": 2.972539368636447,
+    "exceeds_cell_rating_80V": true
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.2451419593162427e-06,
+    "ripple_amp_est_V": 9.412732488515298,
+    "v_min_V": 73.07398735624756,
+    "v_max_V": 76.92601264375243,
+    "slow_drift_max_V": 5.428534990414846e-07,
+    "end_minus_start_V": 1.0321317252209923,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -4.3682615801232565,
+   "torque_min_over_request": -0.017605004797195345,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 314.2303694491897,
+   "I_rms_peak_over_Imax": 0.6444376242727178,
+   "speed_drop_kmh": 0.5067992819012489,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.05
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.05_tf2_0.1",
+   "mean_cell_power_W": 93.32292270600698,
+   "peak_cell_power_W": 3534.149942474838,
+   "pulsation_amp_W_at_210Hz": 516.384627969637,
+   "pulsation_amp_W_at_70Hz": 894.2261701804391,
+   "pulsation_amp_max_W": 894.2261701804391,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 9.58206348720452,
+   "C_required_for_5V_pk_ripple_mF": 5.421733913384811,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 3.586008830325227e-06,
+    "ripple_amp_est_V": 27.108669566924057,
+    "v_min_V": 72.25876884380065,
+    "v_max_V": 77.7412311561993,
+    "slow_drift_max_V": 1.5634176975254377e-06,
+    "end_minus_start_V": 2.6018063049789504,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.2451419593162427e-06,
+    "ripple_amp_est_V": 9.412732488515298,
+    "v_min_V": 74.04818362631967,
+    "v_max_V": 75.95181637368032,
+    "slow_drift_max_V": 5.428534990414846e-07,
+    "end_minus_start_V": 0.9034049670065798,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -4.3682615801232565,
+   "torque_min_over_request": -0.017605004797195345,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 314.22776867709,
+   "I_rms_peak_over_Imax": 0.6444376242727178,
+   "speed_drop_kmh": 0.5067954626748725,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.1
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_0pct_tf4_0.05_tf2_0.15",
+   "mean_cell_power_W": 92.78060457231147,
+   "peak_cell_power_W": 3534.149942474838,
+   "pulsation_amp_W_at_210Hz": 516.384627969637,
+   "pulsation_amp_W_at_70Hz": 894.2261701804391,
+   "pulsation_amp_max_W": 894.2261701804391,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 9.63807224907115,
+   "C_required_for_5V_pk_ripple_mF": 5.421733913384811,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 3.586008830325227e-06,
+    "ripple_amp_est_V": 27.108669566924057,
+    "v_min_V": 73.57368955533487,
+    "v_max_V": 76.42631044466512,
+    "slow_drift_max_V": 1.5634176975254377e-06,
+    "end_minus_start_V": 1.4263104210517952,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.2451419593162427e-06,
+    "ripple_amp_est_V": 9.412732488515298,
+    "v_min_V": 74.50475331782461,
+    "v_max_V": 75.49524668217539,
+    "slow_drift_max_V": 5.428534990414846e-07,
+    "end_minus_start_V": 0.49524667397631106,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -4.3682615801232565,
+   "torque_min_over_request": -0.017605004797195345,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 314.2276421090264,
+   "I_rms_peak_over_Imax": 0.6444376242727178,
+   "speed_drop_kmh": 0.5067953032260903,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.15
+   },
+   "grade_pct": 0.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.02_tf2_0.05",
+   "mean_cell_power_W": 51.27971753140301,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 869.7919424604569,
+   "pulsation_amp_W_at_70Hz": 882.1960326684945,
+   "pulsation_amp_max_W": 882.1960326684945,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 17.20360554108453,
+   "C_required_for_5V_pk_ripple_mF": 5.348794642866669,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.691393016287293e-06,
+    "ripple_amp_est_V": 26.743973214333348,
+    "v_min_V": 74.9999952420696,
+    "v_max_V": 75.00000475793034,
+    "slow_drift_max_V": 3.651869960208387e-06,
+    "end_minus_start_V": 3.712429588631494e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.6289559141569043e-06,
+    "ripple_amp_est_V": 9.286101810532413,
+    "v_min_V": 74.99999834794083,
+    "v_max_V": 75.00000165205915,
+    "slow_drift_max_V": 1.2680103651518948e-06,
+    "end_minus_start_V": 1.2890380531871415e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -57.58529107416315,
+   "torque_min_over_request": -0.08503144145372188,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 874.1107512073339,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.410080343047525,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.05
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.02_tf2_0.1",
+   "mean_cell_power_W": 51.27971753140301,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 869.7919424604569,
+   "pulsation_amp_W_at_70Hz": 882.1960326684945,
+   "pulsation_amp_max_W": 882.1960326684945,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 17.20360554108453,
+   "C_required_for_5V_pk_ripple_mF": 5.348794642866669,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.691393016287293e-06,
+    "ripple_amp_est_V": 26.743973214333348,
+    "v_min_V": 74.9999952420696,
+    "v_max_V": 75.00000475793034,
+    "slow_drift_max_V": 3.651869960208387e-06,
+    "end_minus_start_V": 3.712429588631494e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.6289559141569043e-06,
+    "ripple_amp_est_V": 9.286101810532413,
+    "v_min_V": 74.99999834794083,
+    "v_max_V": 75.00000165205915,
+    "slow_drift_max_V": 1.2680103651518948e-06,
+    "end_minus_start_V": 1.2890380531871415e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -57.58529107416315,
+   "torque_min_over_request": -0.08503144145372188,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 874.1107512073339,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.410080343047525,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.1
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.02_tf2_0.15",
+   "mean_cell_power_W": 51.27971753140301,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 869.7919424604569,
+   "pulsation_amp_W_at_70Hz": 882.1960326684945,
+   "pulsation_amp_max_W": 882.1960326684945,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 17.20360554108453,
+   "C_required_for_5V_pk_ripple_mF": 5.348794642866669,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.691393016287293e-06,
+    "ripple_amp_est_V": 26.743973214333348,
+    "v_min_V": 74.9999952420696,
+    "v_max_V": 75.00000475793034,
+    "slow_drift_max_V": 3.651869960208387e-06,
+    "end_minus_start_V": 3.712429588631494e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.6289559141569043e-06,
+    "ripple_amp_est_V": 9.286101810532413,
+    "v_min_V": 74.99999834794083,
+    "v_max_V": 75.00000165205915,
+    "slow_drift_max_V": 1.2680103651518948e-06,
+    "end_minus_start_V": 1.2890380531871415e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -57.58529107416315,
+   "torque_min_over_request": -0.08503144145372188,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 874.1107512073339,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.410080343047525,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.02,
+    "t_f2": 0.15
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.05_tf2_0.05",
+   "mean_cell_power_W": 123.74138679497091,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 718.6731761475803,
+   "pulsation_amp_W_at_70Hz": 987.7467012068279,
+   "pulsation_amp_max_W": 987.7467012068279,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 7.982347109487638,
+   "C_required_for_5V_pk_ripple_mF": 5.988753143610668,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.145094578689168e-06,
+    "ripple_amp_est_V": 29.94376571805334,
+    "v_min_V": 74.99999578836804,
+    "v_max_V": 75.00000421163185,
+    "slow_drift_max_V": 2.993928262640111e-06,
+    "end_minus_start_V": 1.7998291497178798e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.4392689564601824e-06,
+    "ripple_amp_est_V": 10.397140874324077,
+    "v_min_V": 74.99999853762779,
+    "v_max_V": 75.00000146237217,
+    "slow_drift_max_V": 1.0395584126854374e-06,
+    "end_minus_start_V": 6.249406681035907e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -25.947529255757274,
+   "torque_min_over_request": -0.03831457258656783,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 867.5297135713976,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.399441043049633,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.05
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.05_tf2_0.1",
+   "mean_cell_power_W": 123.74138679497091,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 718.6731761475803,
+   "pulsation_amp_W_at_70Hz": 987.7467012068279,
+   "pulsation_amp_max_W": 987.7467012068279,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 7.982347109487638,
+   "C_required_for_5V_pk_ripple_mF": 5.988753143610668,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.145094578689168e-06,
+    "ripple_amp_est_V": 29.94376571805334,
+    "v_min_V": 74.99999578836804,
+    "v_max_V": 75.00000421163185,
+    "slow_drift_max_V": 2.993928262640111e-06,
+    "end_minus_start_V": 1.7998291497178798e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.4392689564601824e-06,
+    "ripple_amp_est_V": 10.397140874324077,
+    "v_min_V": 74.99999853762779,
+    "v_max_V": 75.00000146237217,
+    "slow_drift_max_V": 1.0395584126854374e-06,
+    "end_minus_start_V": 6.249406681035907e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -25.947529255757274,
+   "torque_min_over_request": -0.03831457258656783,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 867.5297135713976,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.399441043049633,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.1
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  },
+  {
+   "label": "sequential_2pct_tf4_0.05_tf2_0.15",
+   "mean_cell_power_W": 123.74138679497091,
+   "peak_cell_power_W": 9896.02397515202,
+   "pulsation_amp_W_at_210Hz": 718.6731761475803,
+   "pulsation_amp_W_at_70Hz": 987.7467012068279,
+   "pulsation_amp_max_W": 987.7467012068279,
+   "pulsation_main_Hz": 70.0,
+   "pulsation_over_mean_cell_power": 7.982347109487638,
+   "C_required_for_5V_pk_ripple_mF": 5.988753143610668,
+   "C_1.00mF": {
+    "ripple_pp_V_10ms_window": 4.145094578689168e-06,
+    "ripple_amp_est_V": 29.94376571805334,
+    "v_min_V": 74.99999578836804,
+    "v_max_V": 75.00000421163185,
+    "slow_drift_max_V": 2.993928262640111e-06,
+    "end_minus_start_V": 1.7998291497178798e-06,
+    "exceeds_cell_rating_80V": false
+   },
+   "C_2.88mF": {
+    "ripple_pp_V_10ms_window": 1.4392689564601824e-06,
+    "ripple_amp_est_V": 10.397140874324077,
+    "v_min_V": 74.99999853762779,
+    "v_max_V": 75.00000146237217,
+    "slow_drift_max_V": 1.0395584126854374e-06,
+    "end_minus_start_V": 6.249406681035907e-07,
+    "exceeds_cell_rating_80V": false
+   },
+   "torque_min_Nm": -25.947529255757274,
+   "torque_min_over_request": -0.03831457258656783,
+   "torque_gap_below90pct_s": 1.2959999999998735,
+   "t_recover95_s": 1.2980999999998735,
+   "torque_deficit_Nms": 867.5297135713976,
+   "I_rms_peak_over_Imax": 0.4385535284054056,
+   "speed_drop_kmh": 1.399441043049633,
+   "params": {
+    "t_d": 0.02,
+    "t_f4": 0.05,
+    "t_f2": 0.15
+   },
+   "grade_pct": 2.0,
+   "m": 3,
+   "Q": 48
+  }
+ ]
+}

@@ -20,4 +20,5 @@ Status: todo | doing | done | blocked
 | G1-2 | lit-scout (2nd) | doing | H01-H08 | 01_literature/novelty_H*.md | closest papers + verdict per H; core-argument gap checked |
 | G1-3 | analyst / simulator | doing | H01,H02,H04,H05 (T08), H06 (T04), H07 (T03c) | 02_analytics/results/screen_H*.json | metric vs fair baseline |
 | G1-4 | gap-critic | doing (H04,H06,H07) | G1-2 + G1-3 | 06_reviews/H*_review.md | scores + kill argument per H |
+| E01-P | analyst | todo (after screen_H11) | board/experiments/E01_cell_pulsation.md | 02_analytics/results/E01_predictions.json | predicted DC ripple at f_a±f_b per test point (3-leg and 5-leg), from measured-quantity formula; sensitivity to C and load |
 | T06 | writer | todo | T02-T05 | 05_reports/weekly/2026-W44.md | every number traceable to a file |
