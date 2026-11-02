@@ -10,7 +10,7 @@ Status: todo | doing | done | blocked
 | T03 | analyst | done | D01, D02 | 02_analytics/results/torque_speed_envelope.json | IM, PMSM, WRSM envelopes, each pole count; crossover speed; same SPB V/I limits for all |
 | T04 | simulator | done (check FAILED: 59/136 >5 %) | T03 output | 03_simulation/results/*.json, validation.md | agrees with T03 within 5 % at 3 operating points |
 | T03b | analyst | done | T03 results, review notes | 02_analytics/results/fair_baselines.json | fixed-pole IM baselines designed for their own pole count; T03 file left untouched |
-| R01 | simulator -> analyst | doing | validation.md flags | data/machine_geometry.json (shared slot drawing), 03_simulation/reconcile_R01.md | one agreed slot geometry; IM slot leakage, flux caps and WRSM L_d/gap/tau_f consistent; analyst models re-run and agree within 5 %% at the T04 points |
+| R01 | simulator -> analyst | simulator half done (reconcile_R01.md); analyst rerun doing | validation.md flags | data/machine_geometry.json (shared slot drawing), 03_simulation/reconcile_R01.md | one agreed slot geometry; IM slot leakage, flux caps and WRSM L_d/gap/tau_f consistent; analyst models re-run and agree within 5 %% at the T04 points |
 | T05 | figure-maker | todo | T03, T04 results | 04_figures/torque_speed_envelope.* | reads only results JSON |
 | T03d | analyst | done | VECTO data, literature | 02_analytics/results/drivetrain_losses.json | ratio-dependent gearbox loss + motor friction/windage law, each sourced; same model for every machine |
 | T03c | analyst | done | inputs_for_analyst.md s7, Conto2022hybrid | 02_analytics/results/hesm_envelope.json, assumptions_hesm.md | HESM 8/4 pole at 300 kW, same SPB limits/gear rule as T03b; PM-share sweep; maps for T07 |
