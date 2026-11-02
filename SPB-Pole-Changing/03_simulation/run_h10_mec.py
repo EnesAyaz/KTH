@@ -206,17 +206,22 @@ if __name__ == "__main__":
     RES = dict(meta=dict(script="03_simulation/run_h10_mec.py", task="H10 confirmation (nonlinear MEC)", date=str(datetime.date.today()), Q=Q, coils_per_module=MM,
                          geometry="agreed (data/machine_geometry.json)" + ("" if Q == 48 else "; Q=80, y=11, slot and conductor width x 48/80, coil current x 48/80"),
                          schedules=dict(flat=p_flat, grade2=p_2), note="cage reaction to saturation-generated orders neglected (upper bound for the combination-order pulsation); controller includes active demagnetisation (fixed 2026-11-02)"), cases=[])
-    outf = f"results/confirm_H10_mec_Q{Q}.json"
+    ONLY = os.environ.get("SPB_JOBS", "")
+    outf = f"results/confirm_H10_mec_Q{Q}.json" if not ONLY else f"results/confirm_H10_mec_Q{Q}_{ONLY}_{os.environ.get('SPB_P_KW', '350')}kW.json"
+    RES["meta"]["I_max_A"] = c.IMAX
     def save(o):
         RES["cases"].append(o); print(brief(o), flush=True); json.dump(RES, open(outf, "w"), indent=1, default=float)
-    for grade, p in ((0.0, p_flat), (0.02, p_2)):
-        save(replay(grade, p, None, tag=f"overlapped_{grade*100:.0f}pct"))
-    for law in ("linear_amplitude", "constant_torque"):
-        save(ideal_crossfade(law))
-    if Q == 48:
+    if not ONLY:
+        for grade, p in ((0.0, p_flat), (0.02, p_2)):
+            save(replay(grade, p, None, tag=f"overlapped_{grade*100:.0f}pct"))
+        for law in ("linear_amplitude", "constant_torque"):
+            save(ideal_crossfade(law))
+    if Q == 48 and not ONLY:
         for grade in (0.0, 0.02):
             for eps in (0.02, 0.05, 0.15, 0.30):
                 save(replay(grade, dict(t_d=0.02, t_f4=0.05, t_f2=0.1), eps, tag=f"sequential_{grade*100:.0f}pct_eps{eps}"))
+    if Q == 48:
+        for grade in (0.0, 0.02):
             for C in (1.0e-3, 2.88e-3):
                 Pall = 0.10 * V0 * 2 * math.pi * 210.0 * C * V0
-                save(replay(grade, dict(t_d=0.02, t_f4=0.01, t_f2=0.01), None, tag=f"H11s_{grade*100:.0f}pct_C{C*1e3:.2f}mF", t_end=0.7, h11s=dict(eps=0.02, gate=0.05, P_allow=Pall)))
+                save(replay(grade, dict(t_d=0.02, t_f4=0.01, t_f2=0.01, **({"tau_i": 0.25e-3} if "fast" in ONLY else {})), None, tag=f"H11s_{grade*100:.0f}pct_C{C*1e3:.2f}mF", t_end=0.7, h11s=dict(eps=0.02, gate=0.05, P_allow=Pall)))

@@ -4,6 +4,8 @@ Date 2026-10-29. Simulator: `03_simulation/`. Analyst file checked: `02_analytic
 
 > **R01 update (2026-11-02):** flag 3 below (flux caps) and the low-speed IM rows were numerical artifacts of my model (coarse magnetising-curve and slip grids). After the fix the IM agrees within 1.5 % at low speed and the remaining IM difference is stator slot leakage only. See `reconcile_R01.md` and `results/validation_points_T04_rerun.json`.
 
+> **Transition numbers corrected (2026-11-02):** section 3 (IM 8 -> 4 pole) was computed with a controller error: the demagnetising d current was blocked when the 2p=8 flux reference reached zero, so the old flux decayed passively (tau_r about 0.5 s). With active demagnetisation the legacy-geometry best schedules are: flat road, gap below 90 % of the request 0.088 s (min torque 119 Nm = 48 %, speed drop 0.008 km/h, I_rms 0.84 I_max); 2 % grade, gap 0.276 s (min torque -75 Nm, speed drop 0.26 km/h, I_rms 0.53 I_max). Fast 10-50 ms schedules give 0.13-0.16 s (flat) and 0.30 s (2 %). Source: `results/im_pole_transition.json` (rerun). The WRSM sections are unaffected.
+
 ## FLAGS (read first)
 
 * **59 of 136 compared numbers differ by more than 5 %** (all rows in the appendix). The disagreement is not random. It has three identifiable causes:
