@@ -665,5 +665,40 @@
   "H09_open_end": "admissible (alpha = 0.5), alpha doubles as a balancing knob; star/open-end switching is hardware",
   "H05_series_parking": "inadmissible without DC bypass hardware: a parked cell (P_j = 0) still carries I_dc and charges at I_dc/C (e.g. I_dc = 250 A -> 248016 V/s)"
  },
- "summary_text": "H10 screen. Average (DC) imbalance is zero for every mode that passes the T08 winding rule and is cheap to trim with same-frequency balancing orders (about 1 A per 1 % at cruise). The binding constraint is AC power pulsation: in a 3-leg isolated-neutral module any two simultaneous spatial orders a, b give pulsation at f_a + f_b or |f_a - f_b| with amplitude 3 V I. This hits (1) the overlapped IM 8/4 handover (8.5 kW per cell at 210 Hz, 2.5x the cell mean, C needed 22.8 mF vs 1.0-2.9 mF available), (2) the WRSM k-sweep, (3) H03 harmonic excitation, (4) steady WRSM space harmonics. For prime m >= 5 the pulsation vanishes when a != +-b (mod m), so m = 5/7 makes overlapped (torque-gap-free) transitions and harmonic excitation admissible, at the cost of weaker low-order balancing knobs. Series-cell parking (H05) is inadmissible without bypass hardware. Admissible set: steady modes with rule (i)-(iii); m = 3 transitions sequential (torque gap) or with sized capacitance; m >= 5 overlapped transitions with m not dividing (p1 +- p2)/c."
+ "summary_text": "H10 screen. Average (DC) imbalance is zero for every mode that passes the T08 winding rule and is cheap to trim with same-frequency balancing orders (about 1 A per 1 % at cruise). The binding constraint is AC power pulsation: in a 3-leg isolated-neutral module any two simultaneous spatial orders a, b give pulsation at f_a + f_b or |f_a - f_b| with amplitude 3 V I. This hits (1) the overlapped IM 8/4 handover (8.5 kW per cell at 210 Hz, 2.5x the cell mean, C needed 22.8 mF vs 1.0-2.9 mF available), (2) the WRSM k-sweep, (3) H03 harmonic excitation, (4) steady WRSM space harmonics. For prime m >= 5 the pulsation vanishes when a != +-b (mod m), so m = 5/7 makes overlapped (torque-gap-free) transitions and harmonic excitation admissible, at the cost of weaker low-order balancing knobs. Series-cell parking (H05) is inadmissible without bypass hardware. Admissible set: steady modes with rule (i)-(iii); m = 3 transitions sequential (torque gap) or with sized capacitance; m >= 5 overlapped transitions with m not dividing (p1 +- p2)/c.",
+ "sanity_time_domain": {
+  "m3_orders_4_2": {
+   "pulsation_amp_per_VI": 3.0000000000000018,
+   "mean_per_VI": 7.499812504692498e-05
+  },
+  "m5_orders_4_2": {
+   "pulsation_amp_per_VI": 3.758104938356155e-14,
+   "mean_per_VI": -8.520191589057595e-20
+  },
+  "m7_orders_4_2": {
+   "pulsation_amp_per_VI": 3.007316617953393e-14,
+   "mean_per_VI": -6.424550409845732e-18
+  },
+  "m3_orders_4_8": {
+   "pulsation_amp_per_VI": 3.0000000000000013,
+   "mean_per_VI": 7.499812504686956e-05
+  },
+  "m5_orders_4_8": {
+   "pulsation_amp_per_VI": 5.4761750689635846e-14,
+   "mean_per_VI": 5.374360592525323e-18
+  },
+  "m6_orders_4_2": {
+   "pulsation_amp_per_VI": 6.0000000000000036,
+   "mean_per_VI": 0.00014999625009381586
+  },
+  "m3_orders_4_4_same_frequency": {
+   "pulsation_amp_per_VI": 3.3084646133829665e-14,
+   "mean_per_VI": 3.0
+  },
+  "m6_orders_3_3_same_frequency": {
+   "pulsation_amp_per_VI": 6.000000000000001,
+   "mean_per_VI": 6.000149996250095
+  },
+  "expected": "m3 (4,2): 3; m5/m7 (4,2): 0; m3 (4,8): 3; m5 (4,8): 0; m6 (4,2): 6; one mode (4,4) m3 at one frequency: 0 pulsation, mean 3 cos; one mode p=3 in m6: pulsation 6 (fails rule iii)"
+ }
 }

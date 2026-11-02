@@ -353,8 +353,10 @@ def main():
             P += v * i
         return float((P.max() - P.min()) / 2), float(P.mean())
     res["sanity_time_domain"] = {f"m{m}_orders_{a}_{b}": dict(zip(("pulsation_amp_per_VI", "mean_per_VI"), module_power_pp(m, a, b)))
-                                 for m, a, b in ((3, 4, 2), (5, 4, 2), (7, 4, 2), (3, 4, 8), (5, 4, 8), (3, 4, 4), (6, 4, 2))}
-    res["sanity_time_domain"]["expected"] = "m3 (4,2): 3; m5/m7 (4,2): 0; m3 (4,8): 3; m5 (4,8): 0; same order (4,4) m3: 0 (constant power); m6 (4,2): 6"
+                                 for m, a, b in ((3, 4, 2), (5, 4, 2), (7, 4, 2), (3, 4, 8), (5, 4, 8), (6, 4, 2))}
+    res["sanity_time_domain"]["m3_orders_4_4_same_frequency"] = dict(zip(("pulsation_amp_per_VI", "mean_per_VI"), module_power_pp(3, 4, 4, 140.0, 140.0)))
+    res["sanity_time_domain"]["m6_orders_3_3_same_frequency"] = dict(zip(("pulsation_amp_per_VI", "mean_per_VI"), module_power_pp(6, 3, 3, 105.0, 105.0)))
+    res["sanity_time_domain"]["expected"] = "m3 (4,2): 3; m5/m7 (4,2): 0; m3 (4,8): 3; m5 (4,8): 0; m6 (4,2): 6; one mode (4,4) m3 at one frequency: 0 pulsation, mean 3 cos; one mode p=3 in m6: pulsation 6 (fails rule iii)"
     json.dump(res, open(OUT, "w"), indent=1, default=MS.fmt)
     print(res["summary_text"])
     print(json.dumps(dict(C=res["cell_capacitance"]["C_module_mF"], drift=res["drift_per_1pct_imbalance"],

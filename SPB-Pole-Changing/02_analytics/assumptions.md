@@ -328,3 +328,33 @@ Closed-form rule (spaced wiring, interleaved modules; derived):
   - Not sensitive: peak torque, start grade and the fixed-baseline kVA factor (all current-limited, 0 %); cruise efficiency (< 0.15 pt).
   - Sensitive (voltage/breakdown-limited): P at 90 km/h -6 % (m = 3) to -13 % (m = 5 12/4), crossover -7 to -10 %, CPSR -6 to -11 %.
 - The T03d gap-windage bug fix (2x) and the EU2017 gear variant were applied to `drivetrain_losses.py` and its JSON was regenerated before T08 ran.
+
+## H10 - series-stack cell power balance (gap-loop screen) {#h10}
+
+Script: `02_analytics/screen_H10.py` -> `results/screen_H10.json`. The short summary is in the JSON field `summary_text`; no separate .md was written.
+
+### Model
+- Series stack: C dV_j/dt = I_dc - P_j/V_j.
+  - Average imbalance gives drift dP/(V C).
+  - Pulsation P~ at f gives ripple P~/(2 pi f V C).
+- Module power for spatial orders a (voltage) and b (current), m legs, c coils per leg, interleaved modules:
+  - The sum term (f_a + f_b) survives iff m | (a+b)/c.
+  - The difference term survives iff m | (a-b)/c.
+  - Amplitude is m V_a I_b. Checked in the time domain: m = 3 gives 3, m = 5/7 give 0, m = 6 gives 6.
+  - With a = b at one frequency this reduces to the T08 condition (iii).
+- Allowed ripple: +/-5 % of V_module (3.75 V at 75 V).
+
+### Cell capacitance (source)
+- Rev B load board BOM (`../PCB-Design/hardware/spb-bb-revb-load/fab/spb-bb-revb-load-bom.csv`): 40 x 1 uF + 20 x 22 uF, 100 V X7S, giving 480 uF nominal per board.
+- Boards per module = 6 (3 legs x 2 parallel blocks): assumption from the SPB reference "2 x 150 kW blocks per leg".
+- `PCB-Design/docs/capacitor-selection-p1.md` states that no DC-bias-retained value is verified, so the range used is:
+  - 0.35 retention (worst case) -> 1.0 mF per module;
+  - nominal -> 2.88 mF per module.
+- No external bulk link is defined yet.
+
+### Magnitudes used
+- IM handover: simulator best schedule (`03_simulation/results/im_pole_transition.json`), steady states before/after, rms per coil, worst-case alignment, 2100 rpm.
+- WRSM k-sweep: simulator I_rms_max. The non-loaded order's EMF is assumed to be 0.5 V_max at mid-sweep.
+- WRSM steady space harmonics: simulator circulating-current table, with an assumed fundamental of 120 A.
+- H03 injection: the other analyst's `screen_H03.json` (order 8, I_inj = 0.15 I_max), with P_field = 4 kW spread over 48 legs.
+- Balancing knob: same-frequency order b with m | (p-b)/c. dP = m V I_b per module, with zero sum over modules. Copper loss uses R = 2.16 mOhm per leg.
