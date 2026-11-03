@@ -22,10 +22,10 @@ RULES / PROCESS
   - Drill files: PTH and NPTH separate (Excellon, mm)
   - COORDINATES: Gerbers, drill files, pick-and-place (CPL) and the via-in-pad list below all use ONE origin, the drill/place origin = board bottom-left corner (KiCad aux origin 105.25 / 160.8 mm), x right, y up
 
-VIA-IN-PAD (filled + capped, type VII): 218 vias in 66 pads (190 in_pad, 28 near_pad)
+VIA-IN-PAD (filled + capped, type VII): 222 vias in 70 pads (190 in_pad, 32 near_pad)
   in_pad: every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill
-  reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to (within 0.02 mm
-  of) a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of
+  reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to or within 0.05 mm
+  of a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of
   the opening; all other vias are tented
   x mm     y mm     drill  dia    net      pad                    reason
   7.969    61.300   0.30   0.60   DCN      F:C1.2                 near_pad
@@ -39,6 +39,8 @@ VIA-IN-PAD (filled + capped, type VII): 218 vias in 66 pads (190 in_pad, 28 near
   21.500   44.650   0.25   0.45   VDDB1    B:C16.2                near_pad
   9.250    58.300   0.30   0.60   DCP      C2.1                   in_pad
   9.154    61.300   0.30   0.60   DCN      F:C2.2                 near_pad
+  7.550    24.200   0.30   0.60   KH1      F:C22.2                near_pad
+  34.450   24.200   0.30   0.60   KL1      F:C25.1                near_pad
   10.150   58.300   0.30   0.60   DCP      C3.1                   in_pad
   11.050   58.300   0.30   0.60   DCP      C3.1                   in_pad
   10.338   61.300   0.30   0.60   DCN      F:C3.2                 near_pad
@@ -78,6 +80,8 @@ VIA-IN-PAD (filled + capped, type VII): 218 vias in 66 pads (190 in_pad, 28 near
   13.750   58.300   0.30   0.60   DCP      C5.1                   in_pad
   14.650   58.300   0.30   0.60   DCP      F:C5.1 B:C28.2+C29.2   in_pad
   13.892   61.300   0.30   0.60   DCN      F:C5.2                 near_pad
+  55.050   24.200   0.30   0.60   KH2      F:C55.2                near_pad
+  81.950   24.200   0.30   0.60   KL2      F:C58.1                near_pad
   15.550   58.300   0.30   0.60   DCP      C6.1                   in_pad
   15.077   61.300   0.30   0.60   DCN      F:C6.2                 near_pad
   26.450   58.300   0.30   0.60   DCP      C7.1                   in_pad

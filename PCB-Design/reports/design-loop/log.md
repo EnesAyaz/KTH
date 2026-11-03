@@ -145,3 +145,9 @@ Plan: fab-release adds a 0.1 mm near-pad margin to scripts/via_in_pad_list.py, r
    column). Gerber copper/mask/paste/silk/drill byte-identical; only via_in_pad.csv, fab notes, zip changed. Independent
    Gerber check 218/218. Open: 4 Kelvin vias KH1/KH2/KL1/KL2 at 0.047 mm gap (NEAR 0.05 -> 222).
 Commit: d3053164
+Comment (Enes): add the 4 Kelvin vias too.
+-> fab-release (same agent): NEAR 0.05 mm, 218 -> 222 (190 in_pad + 32 near_pad), Gerber diff = none.
+Comment (Enes): also fix the RON subscript on slide 48.
+-> slides-builder (same agent): bold + subscript markup on slide 48 (renderer fix if general), rebuild, PNG check.
+<- fab-release: NEAR 0.05 mm; list 222 (190 in_pad + 32 near_pad), exactly KH1/KL1/KH2/KL2 added; Gerber/drill
+   byte-identical; independent Gerber check 222/222; DPT_JLC_order.md counts updated.

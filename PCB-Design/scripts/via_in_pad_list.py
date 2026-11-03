@@ -15,8 +15,9 @@ on the bottom) and vias at the edge of an SMD test pad (TP1, TP33). Vias found b
 by side, e.g. "F:C5.1 B:C28.2+C29.2", "(merged)" when only a merged gap between pads exposes the drill.
 NEAR-PAD (Enes, 2026-11-03): a drill whose edge only touches an opening edge, or stays within NEAR of it, is listed
 too, reason "near_pad" (all others "in_pad"): mask registration at the fab (~+-0.05 mm) can expose part of the hole.
-NEAR = 0.02 mm takes exactly the tangent drills (gap 0.000 mm: 24 DC- vias at y 61.3 next to the 0805s, VEEA/VDDB at
-y 44.65); the next-closest drills are 0.047 mm (KH/KL, y 24.2) and 0.068 / 0.093 mm (DC-, y 61.3) away, not listed.
+NEAR = 0.05 mm (= the registration; Enes approved the Kelvin vias too) takes the 28 tangent drills (gap 0.000 mm: 24
+DC- vias at y 61.3 next to the 0805s, VEEA/VDDB at y 44.65) and the 4 Kelvin vias KH1/KL1/KH2/KL2 at y 24.2 (gap
+0.047 mm); the next-closest drills are 0.068 / 0.093 mm (DC-, y 61.3) away and are not listed.
 An exposed annular ring alone (drill clear of every opening) is not listed.
 Coordinates: drill / place (aux) origin = board bottom-left, x right, y up (the origin of the Gerbers, drills and CPL).
 """
@@ -27,7 +28,7 @@ import pcbnew
 
 TOL = pcbnew.FromMM(0.005)        # numeric tolerance of the polygon approximation (drill tangent to an opening = out)
 ERR = pcbnew.FromMM(0.002)        # arc approximation error of the pad polygons
-NEAR = pcbnew.FromMM(0.02)        # near-pad margin: drill edge within this of an opening -> listed, "near_pad"
+NEAR = pcbnew.FromMM(0.05)        # near-pad margin: drill edge within this of an opening -> listed, "near_pad"
 
 
 def _mask_graphic(g, f):

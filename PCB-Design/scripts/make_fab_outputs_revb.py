@@ -98,8 +98,8 @@ def fab_notes(name, D, GB):
     L += ["", "VIA-IN-PAD (filled + capped, type VII): %d vias in %d pads (%d in_pad, %d near_pad)"
           % (len(rows), len(set(r[5] for r in rows)), len(rows) - near, near),
           "  in_pad: every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill",
-          "  reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to (within 0.02 mm",
-          "  of) a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of",
+          "  reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to or within 0.05 mm",
+          "  of a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of",
           "  the opening; all other vias are tented"]
     L += ["  %-8s %-8s %-6s %-6s %-8s %-22s %s" % ("x mm", "y mm", "drill", "dia", "net", "pad", "reason")]
     L += ["  %-8s %-8s %-6s %-6s %-8s %-22s %s" % tuple(r) for r in rows]

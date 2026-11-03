@@ -10,6 +10,8 @@ x_mm,y_mm,drill_mm,diameter_mm,net,in_pad,reason
 21.500,44.650,0.25,0.45,VDDB1,B:C16.2,near_pad
 9.250,58.300,0.30,0.60,DCP,C2.1,in_pad
 9.154,61.300,0.30,0.60,DCN,F:C2.2,near_pad
+7.550,24.200,0.30,0.60,KH1,F:C22.2,near_pad
+34.450,24.200,0.30,0.60,KL1,F:C25.1,near_pad
 10.150,58.300,0.30,0.60,DCP,C3.1,in_pad
 11.050,58.300,0.30,0.60,DCP,C3.1,in_pad
 10.338,61.300,0.30,0.60,DCN,F:C3.2,near_pad
@@ -49,6 +51,8 @@ x_mm,y_mm,drill_mm,diameter_mm,net,in_pad,reason
 13.750,58.300,0.30,0.60,DCP,C5.1,in_pad
 14.650,58.300,0.30,0.60,DCP,F:C5.1 B:C28.2+C29.2,in_pad
 13.892,61.300,0.30,0.60,DCN,F:C5.2,near_pad
+55.050,24.200,0.30,0.60,KH2,F:C55.2,near_pad
+81.950,24.200,0.30,0.60,KL2,F:C58.1,near_pad
 15.550,58.300,0.30,0.60,DCP,C6.1,in_pad
 15.077,61.300,0.30,0.60,DCN,F:C6.2,near_pad
 26.450,58.300,0.30,0.60,DCP,C7.1,in_pad
