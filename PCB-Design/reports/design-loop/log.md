@@ -153,3 +153,4 @@ Comment (Enes): also fix the RON subscript on slide 48.
    byte-identical; independent Gerber check 222/222; DPT_JLC_order.md counts updated.
 <- slides-builder: build_pptx.ps1 Parse-Markup keeps sub/superscripts inside bold/alert spans; rebuilt (55 slides).
    Changed render: slide 48 (bold R_ON) and slide 4 (bold A_rms). Checks (leader): slide 48 PNG viewed, subscript OK.
+Commits: 0485f0af (Kelvin vias), e3177f25 (deck)
