@@ -13,7 +13,7 @@ order page, which is binding.
 | Stack-up | **JLC04161H-3313** | prepreg 3313, 0.0994 mm L1–L2 and L3–L4 (design: 0.10 mm, sets the commutation loop) |
 | Outer / inner copper | **2 oz / 2 oz** | JLC: 2 oz inner only with 1.6 mm, JLC3313 and 2 oz outer, i.e. exactly this combination |
 | Surface finish | ENIG | |
-| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list: **190 vias** (bypass, shunt SHLD and test pads; `fab/via_in_pad.csv`, also in the fab notes); all other vias are then filled too, which is fine (design asks for tented vias). **Must stay selected:** the GH_L2 via in TP33 (0.57 mm off centre), the GNDI1 via on the TP1 pad edge and 28 DC- drills tangent to pad openings are only safe because every via is filled (2026-11-03) |
+| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list: **218 vias** = 190 in_pad (bypass, shunt SHLD and test pads) + 28 near_pad (drill tangent to a mask opening); `fab/via_in_pad.csv`, also in the fab notes; all other vias are then filled too, which is fine (design asks for tented vias). **Must stay selected:** the list relies on filled + capped vias, e.g. the GH_L2 via in TP33 (0.57 mm off centre), the GNDI1 via on the TP1 pad edge and the 28 near-pad drills (2026-11-03) |
 | Solder mask | green, both sides | 2 oz minimum web 0.20 mm: now the project rule; DRC clean. EPC2361 webs between different nets ≥ 0.28 mm |
 | Min track / space | 0.20 / 0.20 mm in the design | JLC 2 oz: 0.16 mm |
 | Remove order number | specify a location or "no" | keep it off the 1200 V barrier area |
@@ -35,6 +35,17 @@ either side, not only vias with their centre in a pad: 190 vias (was 184). The s
 (drill 0.06 mm into the top pad opening, 0.11 mm into the bottom ones), GNDI1 at (19.300, 33.800) at the edge of TP1
 and GH_L2 at (62.170, 54.670) at the edge of TP33 (bottom). Checked against the plotted mask Gerbers: 190 drills
 overlap an opening, all in the list, none extra. Rule and generator: `scripts/via_in_pad_list.py`.
+
+**Near-pad vias added (Enes, 2026-11-03): 190 -> 218.** Vias whose drill edge only touches (is tangent to) a
+solder-mask opening are now in the list too (column `reason` = `near_pad`, the others `in_pad`), because mask
+registration at the fab (~±0.05 mm) can expose part of these holes. Margin 0.02 mm (drill edge to merged opening):
+it takes exactly the 28 tangent drills, 24 DC- vias at y 61.3 next to the 0805 pads C1.2-C12.2 / C34.2-C45.2 (top)
+and VEEA1/VDDB1 (20.5 / 21.5, 44.65), VEEA2/VDDB2 (68.0 / 69.0, 44.65) at C14.2/C16.2/C47.2/C49.2 (bottom). Not
+listed (clear of the margin): the Kelvin vias KH1/KL1/KH2/KL2 at y 24.2 (0.047 mm from C22/C25/C55/C58), DC- at
+6.785/35.215/54.285/82.715, 61.3 (0.069 mm) and 16.262/25.738/63.762/73.238, 61.3 (0.093 mm); a 0.1 mm margin
+would add these 12. Checked on the plotted mask Gerbers and the PTH drill file: 190 drills overlap an opening
+(all in_pad), 28 are tangent (gap 0.000 mm, all near_pad), list = Gerber set. Gerbers and drills unchanged; only
+`via_in_pad.csv`, the fab notes and the Gerber zip changed.
 
 **SW island stitching (2026-11-03).** Each top SW island now reaches the inner/bottom SW planes through 15 vias
 instead of 1: +56 tented power vias 0.60 / 0.30 mm and 4 F.Cu SW zones (pre-fab layout review). PTH drill file
@@ -68,9 +79,10 @@ Assembly checks before confirming:
 The JLC-specific parts of this checklist (POFV naming, JLC PCBA, CPL format) do not carry over. Select / confirm:
 
 1. **Via filling: resin filled, IPC-4761 Type VII "filled and capped"** (not VIb "filled and covered", which is not
-   for via-in-pad). It must cover every via (all 0.3 and 0.25 mm drills), not only `fab/via_in_pad.csv`: the GH_L2 via
-   in TP33, the GNDI1 via on the TP1 edge and 28 DC- drills tangent to pad openings rely on it. Confirm in the order
-   whether Eurocircuits fills all vias or a selected set/diameter.
+   for via-in-pad). If Eurocircuits fills a selected set, give them `fab/via_in_pad.csv`: **218 vias** = 190 in_pad +
+   28 near_pad (drill tangent to a mask opening: 24 DC- at y 61.3 and VEEA/VDDB at 20.5/21.5 and 68/69, y 44.65;
+   included because their mask registration of ~±0.05 mm can expose part of these holes). Filling every via (all 0.3
+   and 0.25 mm drills) is also fine. Confirm in the order whether they fill all vias or the listed set.
 2. **Stack-up:** 4 layers, 1.6 mm, 70 um (2 oz) copper on all four layers, 0.10 mm prepreg L1-L2 and L3-L4. The Q3D loop
    (0.646 nH per cell) assumes the 0.10 mm prepreg; a standard pool build-up with thicker prepreg raises it. Ask
    Eurocircuits for their exact build-up before ordering.

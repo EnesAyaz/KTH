@@ -135,3 +135,12 @@ Done (leader): Eurocircuits section in DPT_JLC_order.md (Type VII filled+capped 
    Load-board images restored, unchanged. 12 slide PNGs checked.
 Checks (leader): slides 28 and 46 viewed; numbers match final_numbers.json.
 Commit: 7a7ba452
+
+## 2026-11-03 - Near-pad vias into the fill list
+Comment (Enes): yes, add the 28 DC- vias (drill tangent to a mask opening) to the via-in-pad list.
+Plan: fab-release adds a 0.1 mm near-pad margin to scripts/via_in_pad_list.py, regenerates only list-dependent files
+(Gerber/drill content unchanged), updates DPT_JLC_order.md counts.
+-> fab-release: margin rule + in_pad/near_pad column, report any extra vias beyond the 28, Gerber diff = none.
+<- fab-release: margin NEAR 0.02 mm (0.1 mm would add 12 more); list 190 -> 218 (190 in_pad + 28 near_pad, reason
+   column). Gerber copper/mask/paste/silk/drill byte-identical; only via_in_pad.csv, fab notes, zip changed. Independent
+   Gerber check 218/218. Open: 4 Kelvin vias KH1/KH2/KL1/KL2 at 0.047 mm gap (NEAR 0.05 -> 222).

@@ -94,11 +94,15 @@ def fab_notes(name, D, GB):
          "Board: " + NOTE[name], "", "STACK-UP (4 layers, 1.60 mm +-10 %, top to bottom)"]
     L += ["  %-10s %-8s %-38s %s" % r for r in STACK]
     L += ["", "RULES / PROCESS"] + ["  - " + r for r in RULES_TXT]
-    L += ["", "VIA-IN-PAD (filled + capped, type VII): %d vias in %d pads" % (len(rows), len(set(r[5] for r in rows))),
-          "  every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill reaching into",
-          "  a pad opening, or under a merged opening); 'F:' / 'B:' = side of the opening; all other vias are tented"]
-    L += ["  %-8s %-8s %-6s %-6s %-8s %s" % ("x mm", "y mm", "drill", "dia", "net", "pad")]
-    L += ["  %-8s %-8s %-6s %-6s %-8s %s" % tuple(r) for r in rows]
+    near = sum(len(r) > 6 and r[6] == "near_pad" for r in rows)
+    L += ["", "VIA-IN-PAD (filled + capped, type VII): %d vias in %d pads (%d in_pad, %d near_pad)"
+          % (len(rows), len(set(r[5] for r in rows)), len(rows) - near, near),
+          "  in_pad: every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill",
+          "  reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to (within 0.02 mm",
+          "  of) a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of",
+          "  the opening; all other vias are tented"]
+    L += ["  %-8s %-8s %-6s %-6s %-8s %-22s %s" % ("x mm", "y mm", "drill", "dia", "net", "pad", "reason")]
+    L += ["  %-8s %-8s %-6s %-6s %-8s %-22s %s" % tuple(r) for r in rows]
     txt = "\n".join(L) + "\n"
     with open(os.path.join(GB, name + "-fab-notes.txt"), "w") as f:
         f.write(txt)

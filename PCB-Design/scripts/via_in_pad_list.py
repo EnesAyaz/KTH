@@ -13,7 +13,11 @@ rule (via centre inside an SMD pad) missed vias whose centre is outside a pad bu
 between the 0805 pads of the cell rows (drill reaches 0.06 mm into C5.1 etc. on top and 0.11 mm into C28.2/C29.2
 on the bottom) and vias at the edge of an SMD test pad (TP1, TP33). Vias found by this extra rule are labelled
 by side, e.g. "F:C5.1 B:C28.2+C29.2", "(merged)" when only a merged gap between pads exposes the drill.
-A drill whose edge only touches an opening edge (within TOL) or an exposed annular ring alone is not listed.
+NEAR-PAD (Enes, 2026-11-03): a drill whose edge only touches an opening edge, or stays within NEAR of it, is listed
+too, reason "near_pad" (all others "in_pad"): mask registration at the fab (~+-0.05 mm) can expose part of the hole.
+NEAR = 0.02 mm takes exactly the tangent drills (gap 0.000 mm: 24 DC- vias at y 61.3 next to the 0805s, VEEA/VDDB at
+y 44.65); the next-closest drills are 0.047 mm (KH/KL, y 24.2) and 0.068 / 0.093 mm (DC-, y 61.3) away, not listed.
+An exposed annular ring alone (drill clear of every opening) is not listed.
 Coordinates: drill / place (aux) origin = board bottom-left, x right, y up (the origin of the Gerbers, drills and CPL).
 """
 import os
@@ -23,6 +27,7 @@ import pcbnew
 
 TOL = pcbnew.FromMM(0.005)        # numeric tolerance of the polygon approximation (drill tangent to an opening = out)
 ERR = pcbnew.FromMM(0.002)        # arc approximation error of the pad polygons
+NEAR = pcbnew.FromMM(0.02)        # near-pad margin: drill edge within this of an opening -> listed, "near_pad"
 
 
 def _mask_graphic(g, f):
@@ -85,15 +90,20 @@ def via_list(board):
             continue
         c, r = t.GetPosition(), t.GetDrillValue() // 2
         hit = next((q for q in smd if q.HitTest(c)), None)              # centre in an SMD pad (the original rule)
+        reason = "in_pad"
         if hit is not None:
             where = "%s.%s" % (hit.GetParent().GetReference(), hit.GetNumber())
         else:
-            exp = [L for L, ps in sides if ps.Collide(c, r - TOL)]     # drill overlaps a (merged) mask opening
+            clr = r - TOL
+            exp = [L for L, ps in sides if ps.Collide(c, clr)]         # drill overlaps a (merged) mask opening
+            if not exp:                                                 # drill tangent to / within NEAR of one
+                clr, reason = r + NEAR, "near_pad"
+                exp = [L for L, ps in sides if ps.Collide(c, clr)]
             if not exp:
                 continue
             names = []
             for L in exp:                                               # F:C5.1 B:C28.2+C29.2
-                own = [q for q in smd if q.IsOnLayer(L) and pad_opening(q, L).Collide(c, r - TOL)]
+                own = [q for q in smd if q.IsOnLayer(L) and pad_opening(q, L).Collide(c, clr)]
                 tag = ""
                 if not own:                                             # only the merged gap between pads covers it
                     own = [q for q in smd if q.IsOnLayer(L) and pad_opening(q, L).Collide(c, r + web)]
@@ -102,7 +112,8 @@ def via_list(board):
                     "%s.%s" % (q.GetParent().GetReference(), q.GetNumber()) for q in own)), tag))
             where = " ".join(names)
         rows.append(("%.3f" % pcbnew.ToMM(c.x - aux.x), "%.3f" % -pcbnew.ToMM(c.y - aux.y),
-                     "%.2f" % pcbnew.ToMM(t.GetDrillValue()), "%.2f" % pcbnew.ToMM(t.GetWidth()), t.GetNetname(), where))
+                     "%.2f" % pcbnew.ToMM(t.GetDrillValue()), "%.2f" % pcbnew.ToMM(t.GetWidth()), t.GetNetname(), where,
+                     reason))
     return sorted(rows, key=lambda r: (r[5].replace("F:", "").replace("B:", ""), float(r[0]), float(r[1])))
 
 
@@ -110,11 +121,12 @@ def write(board, path):
     rows = via_list(board)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", newline="") as f:
-        f.write("x_mm,y_mm,drill_mm,diameter_mm,net,in_pad\n")
+        f.write("x_mm,y_mm,drill_mm,diameter_mm,net,in_pad,reason\n")
         for r in rows:
             f.write(",".join(r) + "\n")
-    print("via-in-pad (filled + capped): %d vias in %d pads -> %s" % (len(rows), len(set(r[5] for r in rows)), path),
-          flush=True)
+    near = sum(r[6] == "near_pad" for r in rows)
+    print("via-in-pad (filled + capped): %d vias (%d in_pad, %d near_pad) in %d pads -> %s"
+          % (len(rows), len(rows) - near, near, len(set(r[5] for r in rows)), path), flush=True)
     return rows
 
 
