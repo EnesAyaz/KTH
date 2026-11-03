@@ -1,0 +1,74 @@
+{
+ "swv0": {
+  "terminals": [
+   "AC:QH_S_1",
+   "AC:QL_D_1"
+  ],
+  "matrix": "Setup1:LastAdaptive",
+  "Rdc_tied_mOhm": 2.9618,
+  "Rdc_diag_mOhm": [
+   3.0805,
+   2.963
+  ],
+  "Lac100MHz_tied_nH": 9.7292,
+  "Rac100MHz_tied_mOhm": 36.022,
+  "Lac_diag_nH": [
+   9.8574,
+   9.7359
+  ]
+ },
+ "swv1": {
+  "terminals": [
+   "AC:QH_S_1",
+   "AC:QL_D_1"
+  ],
+  "matrix": "Setup1:LastAdaptive",
+  "Rdc_tied_mOhm": 0.9331,
+  "Rdc_diag_mOhm": [
+   1.0703,
+   0.9332
+  ],
+  "Lac100MHz_tied_nH": 7.6084,
+  "Rac100MHz_tied_mOhm": 22.7561,
+  "Lac_diag_nH": [
+   7.7469,
+   7.6148
+  ]
+ },
+ "swv0_plated": {
+  "terminals": [
+   "AC:QH_S_1",
+   "AC:QL_D_1"
+  ],
+  "matrix": "Setup1:LastAdaptive",
+  "Rdc_tied_mOhm": 3.7648,
+  "Rdc_diag_mOhm": [
+   3.8835,
+   3.766
+  ],
+  "Lac100MHz_tied_nH": 9.7183,
+  "Rac100MHz_tied_mOhm": 35.2171,
+  "Lac_diag_nH": [
+   9.8429,
+   9.7247
+  ]
+ },
+ "swv1_plated": {
+  "terminals": [
+   "AC:QH_S_1",
+   "AC:QL_D_1"
+  ],
+  "matrix": "Setup1:LastAdaptive",
+  "Rdc_tied_mOhm": 1.0153,
+  "Rdc_diag_mOhm": [
+   1.1532,
+   1.0154
+  ],
+  "Lac100MHz_tied_nH": 7.5263,
+  "Rac100MHz_tied_mOhm": 19.6723,
+  "Lac_diag_nH": [
+   7.6436,
+   7.5316
+  ]
+ }
+}

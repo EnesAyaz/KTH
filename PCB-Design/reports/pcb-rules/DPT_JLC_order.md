@@ -13,7 +13,7 @@ order page, which is binding.
 | Stack-up | **JLC04161H-3313** | prepreg 3313, 0.0994 mm L1–L2 and L3–L4 (design: 0.10 mm, sets the commutation loop) |
 | Outer / inner copper | **2 oz / 2 oz** | JLC: 2 oz inner only with 1.6 mm, JLC3313 and 2 oz outer, i.e. exactly this combination |
 | Surface finish | ENIG | |
-| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list (bypass and shunt SHLD pads); all other vias are then filled too, which is fine (design asks for tented vias) |
+| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list: **190 vias** (bypass, shunt SHLD and test pads; `fab/via_in_pad.csv`, also in the fab notes); all other vias are then filled too, which is fine (design asks for tented vias) |
 | Solder mask | green, both sides | 2 oz minimum web 0.20 mm: now the project rule; DRC clean. EPC2361 webs between different nets ≥ 0.28 mm |
 | Min track / space | 0.20 / 0.20 mm in the design | JLC 2 oz: 0.16 mm |
 | Remove order number | specify a location or "no" | keep it off the 1200 V barrier area |
@@ -22,12 +22,23 @@ order page, which is binding.
 **Annular rings (resolved 2026-10-23).** JLC's capability page states separate rules:
 
 - vias: "Via diameter should be 0.1mm (0.15mm preferred) larger than Via hole size", multilayer minimum
-  0.15 / 0.25 mm. The board's 1050 power vias 0.60 / 0.30 mm (+0.30 mm) and 44 vias 0.45 / 0.25 mm (+0.20 mm) meet
+  0.15 / 0.25 mm. The board's 1106 power vias 0.60 / 0.30 mm (+0.30 mm) and 44 vias 0.45 / 0.25 mm (+0.20 mm), 1150 in all, meet
   it; 0.45 mm is not "less than 0.45 mm", so the via size carries no surcharge. Filled and capped via-in-pad is listed
   for via diameters 0.15–0.55 mm.
 - plated component holes: "Multilayer: 2 oz: 0.254 mm or above". The AC bolt stitching holes were 0.40 / 0.80 mm
   (ring 0.20 mm) and are now 0.40 / 0.92 mm (0.26 mm); REDCUBE 0.675 mm, headers 0.35 mm. A custom DRC rule now
   enforces 0.254 mm on every plated pad.
+
+**Via-in-pad list (2026-11-03).** The list now holds every via whose drill is exposed by a solder-mask opening on
+either side, not only vias with their centre in a pad: 190 vias (was 184). The six added vias are the DC+ vias at
+(14.650, 58.300), (27.350, 58.300), (62.150, 58.300), (74.850, 58.300) between the 0805 pads of the cell rows
+(drill 0.06 mm into the top pad opening, 0.11 mm into the bottom ones), GNDI1 at (19.300, 33.800) at the edge of TP1
+and GH_L2 at (62.170, 54.670) at the edge of TP33 (bottom). Checked against the plotted mask Gerbers: 190 drills
+overlap an opening, all in the list, none extra. Rule and generator: `scripts/via_in_pad_list.py`.
+
+**SW island stitching (2026-11-03).** Each top SW island now reaches the inner/bottom SW planes through 15 vias
+instead of 1: +56 tented power vias 0.60 / 0.30 mm and 4 F.Cu SW zones (pre-fab layout review). PTH drill file
+1140 -> 1196 holes, NPTH unchanged (4).
 
 Still tick "confirm production file": the engineering question can then be answered on the actual CAM data.
 

@@ -1,0 +1,169 @@
+{
+ "date": "2026-11-03",
+ "by": "sim-analyst",
+ "change": "DPT board, uncommitted: per cell 14 extra SW vias (0.6/0.3 mm) in a new F.Cu SW extension at the cell's outer edge (cell 1 x 106.35-112.3, y 105.6-110.6); cells 2/3: via antipads cut a ~1.9 x 5.4 mm slot in the In1 DC- plane 5.6 mm from the loop",
+ "boards": {
+  "before": "git HEAD 9d9bbe33 hardware/spb-bb-revb-dpt/spb-bb-revb-dpt.kicad_pcb",
+  "after": "working-tree board (with the SW vias)",
+  "committed_final_numbers": "BB_PL_LOOP_dpt_matrix.txt of 2026-10-22 (board 1f4c94c, before the 10-23..10-26 test-point / choke edits)"
+ },
+ "commutation_loop": {
+  "model": "Q3D BB_PL_LOOP (revb_export.py REVB_REGION=loop -> bb_q3d_revb.py), cell band y -4.6..20.6 mm, all 4 layers 70 um, vias solid Cu cylinders r 0.15 mm; AC matrix 100 MHz, LastAdaptive, 2 % convergence (same settings as the committed loop_dpt); loop_post.py: HS shorted, top 1 uF row ESL 0.48 nH/6 + bottom row ESL/n, UFCS shunt 120 pH, 1 A in the LS FETs; per cell. Full run, not QUICK. Solve times ~54 / ~40 min",
+  "unit": "nH per cell",
+  "committed_2026-10-22": {
+   "cell1": 0.6522,
+   "cell2": 0.6523,
+   "cell3": 0.6473,
+   "cell4": 0.6527
+  },
+  "before_HEAD": {
+   "cell1": 0.646,
+   "cell2": 0.6366,
+   "cell3": 0.6439,
+   "cell4": 0.6454
+  },
+  "after_sw_vias": {
+   "cell1": 0.646,
+   "cell2": 0.6439,
+   "cell3": 0.6445,
+   "cell4": 0.6484
+  },
+  "delta_after_minus_before": {
+   "cell1": 0.0,
+   "cell2": 0.0073,
+   "cell3": 0.0006,
+   "cell4": 0.003
+  },
+  "mean": {
+   "committed": 0.6511,
+   "before": 0.643,
+   "after": 0.6457
+  },
+  "each_alone": {
+   "before": {
+    "cell1": 0.6378,
+    "cell2": 0.6086,
+    "cell3": 0.6157,
+    "cell4": 0.637
+   },
+   "after": {
+    "cell1": 0.6376,
+    "cell2": 0.6154,
+    "cell3": 0.6158,
+    "cell4": 0.6399
+   }
+  },
+  "shunt_0pH": {
+   "before": {
+    "cell1": 0.526,
+    "cell2": 0.5166,
+    "cell3": 0.5239,
+    "cell4": 0.5254
+   },
+   "after": {
+    "cell1": 0.526,
+    "cell2": 0.5239,
+    "cell3": 0.5245,
+    "cell4": 0.5284
+   }
+  },
+  "top_bypass_only": {
+   "before": {
+    "cell1": 0.6646,
+    "cell2": 0.6552,
+    "cell3": 0.6626,
+    "cell4": 0.6637
+   },
+   "after": {
+    "cell1": 0.6646,
+    "cell2": 0.6626,
+    "cell3": 0.6632,
+    "cell4": 0.6666
+   }
+  },
+  "overshoot_30Apns_V": {
+   "before": 94.3,
+   "after": 94.4
+  },
+  "noise_note": "mesh noise at 2 % convergence ~0.005-0.007 nH: the mirror-symmetric cells 2/3 differ by 0.007 nH in the before model and 0.0006 nH in the after model"
+ },
+ "coupling_k": {
+  "before_max": 0.033,
+  "after_max": 0.0333,
+  "committed_max": 0.0338,
+  "before": {
+   "cell1": {
+    "cell1": 1.0,
+    "cell2": 0.0106,
+    "cell3": 0.0019,
+    "cell4": 0.0005
+   },
+   "cell2": {
+    "cell1": 0.0106,
+    "cell2": 1.0,
+    "cell3": 0.033,
+    "cell4": 0.0019
+   },
+   "cell3": {
+    "cell1": 0.0019,
+    "cell2": 0.033,
+    "cell3": 1.0,
+    "cell4": 0.0109
+   },
+   "cell4": {
+    "cell1": 0.0005,
+    "cell2": 0.0019,
+    "cell3": 0.0109,
+    "cell4": 1.0
+   }
+  },
+  "after": {
+   "cell1": {
+    "cell1": 1.0,
+    "cell2": 0.0109,
+    "cell3": 0.0019,
+    "cell4": 0.0006
+   },
+   "cell2": {
+    "cell1": 0.0109,
+    "cell2": 1.0,
+    "cell3": 0.0333,
+    "cell4": 0.0019
+   },
+   "cell3": {
+    "cell1": 0.0019,
+    "cell2": 0.0333,
+    "cell3": 1.0,
+    "cell4": 0.011
+   },
+   "cell4": {
+    "cell1": 0.0006,
+    "cell2": 0.0019,
+    "cell3": 0.011,
+    "cell4": 1.0
+   }
+  }
+ },
+ "sw_island_to_ac_column": {
+  "model": "Q3D sub-model (sw_vias_check/), cell 1 SW net only, x -46..-24 / y -4.6..30 mm, 70 um all layers; sources QH_S_1 + QL_D_1 FET pads tied, sink 3.2 x 2 mm face on the B.Cu AC column at y 27..29 mm (column via rows tie the layers); DC R (10 passes, 2 %) and AC 100 MHz; plated = hollow 25 um barrels, solid = as in the loop model. Excludes the AC column above y 29 mm, the AC bus and the M6 terminal; 20 C copper",
+  "before_vias_island_to_planes": 1,
+  "after_vias_island_to_planes": 15,
+  "Rdc_mOhm": {
+   "before_plated": 3.7648,
+   "after_plated": 1.0153,
+   "before_solid": 2.9618,
+   "after_solid": 0.9331
+  },
+  "L100MHz_nH": {
+   "before_plated": 9.7183,
+   "after_plated": 7.5263,
+   "before_solid": 9.7292,
+   "after_solid": 7.6084
+  },
+  "R100MHz_mOhm": {
+   "before_plated": 35.2171,
+   "after_plated": 19.6723
+  }
+ },
+ "stale": "final_numbers.json dpt.lx (HS 4.91 / LS 2.68 nH between driver pairs, 15 Oct geometry) includes each cell's island-to-column path and will drop with the SW vias; not re-run (lx_dpt ~2.3 h). Gate loops not re-run (no gate copper moved)."
+}

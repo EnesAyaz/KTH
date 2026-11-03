@@ -80,3 +80,33 @@ lines of constant D-FoM 1/2/5/10 ps, best device per class circled, EPC2361 1.35
 (title "Propulsion", KPI texts, 2nd n=4 bullet, 4(a) title, Conclusions 7 / status 8 / questions 9, open question 1,
 footer) ported into make_poster.py so the script reproduces them.
 Checks: A0 PDF; 150 dpi detail view of section 2.
+
+## 2026-11-03 - Pre-fab layout review: SW vias
+Comment (Enes): new review (reports/pcb-rules/spb-bb-revb-dpt-layout-review.pdf); fix the switch-node via issue
+without breaking anything else; do what the review suggests.
+Review: must-fix = one 0.6/0.3 mm via per cell from the F.Cu SW island to the inner/bottom SW planes (~1.2 mOhm, in the
+v_DS path); minor = 4 DC+ vias missing from the via-in-pad list; rest are judgement calls (prepreg with JLC, silk
+text, MLCC flex, shunt overhang).
+Plan: pcb-layout adds >= 15 SW vias per island at the geometry source (no antipads in the In1 DC- loop return) ->
+fab-release regenerates the package + via-in-pad list -> sim-analyst re-checks loop per cell in Q3D.
+-> pcb-layout: SW via array per island, DRC 0, nothing else moved, report what each layer under the vias is.
+<- pcb-layout: 15 SW vias per cell (14 new, 0.6/0.3 tented); none fit inside the original island (bottom U.FL J7/J8
+   + sense routing under it), so the F.Cu SW island was extended outward over the V_DS spring pad (44 mm2, was 27.5).
+   In1: cells 1/4 no copper under the vias; cells 2/3 a 1.9 x 5.4 mm antipad slot in DC-, 5.6 mm from the loop.
+   Island-to-plane 2.86 -> 0.44 mOhm. DRC 0/0, silk 0, sch 0, 3D 0 collisions; vias 1094 -> 1150. Side effects:
+   4 SW stubs gone (pad in pour), 5 bottom silk labels moved; TP3/24/37/41 0.2 mm (generator, not this change).
+-> fab-release: regenerate DPT package, complete via-in-pad list (4 DCP vias), order checklist.
+-> sim-analyst: Q3D re-export, loop per cell before/after (0.652/0.652/0.647/0.653 nH), k.
+<- fab-release: package regenerated (27 files rewritten). Gerbers: +56 SW via flashes on F/In2/B, 4 F.Cu SW pours, In1 DC-
+   -17.2 mm2 (inner-cell antipads), TP3/24/37/41 0.2 mm, 6 silk labels (incl. "VDS Q7"); PTH 1140 -> 1196, NPTH 4.
+   via_in_pad.csv 184 -> 190 (rule now = drill overlaps a mask opening, scripts/via_in_pad_list.py; geometric check
+   190/190, none extra); CPL/BOM 170 (38 bottom), C13 18.0/45.4. Findings (pre-existing): GH_L2 via 0.57 mm off TP33
+   centre (cell-1 twin 0.41), GNDI1 via on the TP1 edge, 28 DC- drills tangent to pad openings (rely on JLC POFV).
+<- sim-analyst: full Q3D (100 MHz, 2 %, same flow as loop_dpt) on HEAD board (swv0) and SW-via board (swv1). Loop per
+   cell all switching: before 0.646/0.637/0.644/0.645, after 0.646/0.644/0.645/0.648 nH (mean +0.003 nH, max cell +0.007,
+   mostly mesh noise: mirror cells 2/3 now agree); all below committed 0.652. k max 0.0330 -> 0.0333. Overshoot 30 A/ns
+   94.3 -> 94.4 V. SW island -> AC column (cell 1, plated barrels) 3.76 -> 1.02 mOhm, L 9.7 -> 7.5 nH. dpt.lx (HS 4.91 /
+   LS 2.68 nH) now stale-high, not re-run (2.3 h); final_numbers.json not overwritten.
+Checks: DRC 0/0, silk 0, sch 0, 3D 0; via-in-pad 190/190; Q3D loop change < 0.01 nH per cell. Pass.
+Open for Enes: prepreg/2 oz inner with JLC engineers; "DESIGNED BY CLAUDE" silk; MLCC flex near M4 bolts; RS1/RS4
+2.4 mm overhang; GH_L2/TP33 offset, GNDI1 on TP1 edge, 28 tangent DC- drills (POFV); paper numbers (after row) or keep.

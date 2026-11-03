@@ -1,0 +1,70 @@
+Setup1:LastAdaptive
+Problem Type:  C, DC RL, AC RL
+C Units:pF, G Units:mSie, R Units:ohm, L Units:nH
+Reduce Matrix:  Original
+Frequency:  100MHz
+
+Capacitance Matrix
+	AC	
+AC	7.916559076910091E-01
+
+Capacitance Matrix Coupling Coefficient
+	AC	
+AC	1.000000000000000E+00
+
+Spice Capacitance Matrix
+	AC	
+AC	7.916559076910091E-01
+
+Conductance Matrix
+	AC	
+AC	0.000000000000000E+00
+
+Conductance Matrix Coupling Coefficient
+	AC	
+AC	0.000000000000000E+00
+
+Spice Conductance Matrix
+	AC	
+AC	0.000000000000000E+00
+
+DC Inductance Matrix
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	N/A	N/A
+AC:QL_D_1	N/A	N/A
+
+DC Inductance Matrix Coupling Coefficient
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	N/A	N/A
+AC:QL_D_1	N/A	N/A
+
+DC Resistance Matrix
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	3.080455909915775E-03	2.950206603700613E-03
+AC:QL_D_1	2.950206603700635E-03	2.962951290707881E-03
+
+DC Resistance Matrix Coupling Coefficient
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	N/A	N/A
+AC:QL_D_1	N/A	N/A
+
+AC Inductance Matrix
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	9.857388486043234E+00	9.758434997296138E+00
+AC:QL_D_1	9.758434997296138E+00	9.735884920761240E+00
+
+AC Inductance Matrix Coupling Coefficient
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	1.000000000000000E+00	9.961196820210587E-01
+AC:QL_D_1	9.961196820210587E-01	1.000000000000000E+00
+
+AC Resistance Matrix
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	3.809000758602316E-02	3.629910487343051E-02
+AC:QL_D_1	3.629910487343051E-02	3.604092322775273E-02
+
+AC Resistance Matrix Coupling Coefficient
+	AC:QH_S_1	AC:QL_D_1	
+AC:QH_S_1	1.000000000000000E+00	9.796984756433399E-01
+AC:QL_D_1	9.796984756433399E-01	1.000000000000000E+00
+

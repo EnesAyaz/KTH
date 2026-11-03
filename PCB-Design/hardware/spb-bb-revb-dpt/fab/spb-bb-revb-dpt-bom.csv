@@ -1,4 +1,4 @@
-"# 4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; filled + capped via-in-pad (list in gerber/*-fab-notes.txt: shunt SHLD and bypass-capacitor pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)"
+"# 4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; filled + capped via-in-pad (list in gerber/*-fab-notes.txt: shunt SHLD, bypass-capacitor and test pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)"
 Qty,References,Value,Footprint,Manufacturer part / note,Fit
 1,J1,DC+,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit
 1,J2,DC-,Wuerth_REDCUBE-THR_WP-THRBU_74650174_THR,"Wuerth 74650174 (REDCUBE THR, M4)",fit

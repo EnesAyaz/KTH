@@ -48,3 +48,7 @@
 [11:03:52] gate round 3 (Kelvin on L2 under the L1 gate path to the 1 uF caps): gate_dpt
 [11:03:53,10] step gate_dpt 
 [11:32:06,07] done gate_dpt 
+[12:28:49] step loop dpt_swv1 (SW-via check, sim-analyst; same setup as loop_dpt)
+[13:22:58] done loop dpt_swv1
+[13:22:58] step loop dpt_swv0 (SW-via check, sim-analyst; same setup as loop_dpt)
+[14:03:50] done loop dpt_swv0

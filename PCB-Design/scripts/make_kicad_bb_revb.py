@@ -783,6 +783,23 @@ def build_block(bi, xoff):
                 k += 1
             yv += 1.2
 
+    # ---- SW island stitching (layout review 2026-10-30, Section 2; DPT board only, the frozen load board and the
+    # study variants are unchanged). The top-layer SW island between the HS and LS FET bars reached the In2/B.Cu SW
+    # planes through ONE via (the ac_via row of the Q3D geometry is pruned in the 0.7 mm gap between the FET bars, the
+    # gate/Kelvin column keeps one). Next to the island the bottom side is taken by the V_GS U.FL jacks and their
+    # Kelvin/gate sense routing, so the island is extended on L1 only, outwards over the spring V_DS test point, to
+    # |x_r| 19.9 where L3 and L4 are the SW column and L2 is either empty (outer cells) or the DC- area between the
+    # blocks (inner cells, >= 5 mm from the loop): 2 x 7 vias there cut no DC- return under a commutation loop.
+    # Outline: 0.6 mm below the spring-pad DC+ tip (>= 0.5 mm bare-pad rule), 0.6 mm above the shunt IN land,
+    # 0.3 mm from the LS source strip (|x_r| < 14.0, y > 9.5). Mirror images in both cells (the via prune keeps pairs).
+    if BOARD == "dpt" and not VARIANT:
+        for side, sgn in (("L", -1), ("R", 1)):
+            zone(F, sw, [(sgn * 19.9, 5.6), (sgn * 13.95, 5.6), (sgn * 13.95, 8.9), (sgn * 14.3, 8.9),
+                         (sgn * 14.3, 10.6), (sgn * 19.9, 10.6)], 2)
+            for xv in (18.4, 19.4):
+                for k in range(7):
+                    POWER_VIAS.append(via(sgn * xv, 5.8 + 0.75 * k, sw))
+
     # ---- external-supply islands (left: HS = channel A, ref KH; right: LS = channel B, ref KL), outside the barrier
     # (|x_r| 10.9 .. 16.0, y 20.8 .. 38.3). Header pins at y 21.6 (x 11.9 = near line, 14.44 = far line), WE-CNSW choke
     # below it, then a near bus (x 11.25), an S bus (x 13.45) and a far bus (x 15.7) with the parts between them; the
@@ -1762,26 +1779,13 @@ for txt_, side_, size_, bb_, ang_, pos_ in moved:                  # no room: ke
         SK2.failed.pop()
         SK2.put(txt_, SK2.around(bb_, txt_, size_, reach=8.0, step=0.4), side_, size_, fab_at=pos_)
 print("test-point silk: %d labels moved, not placed: %s" % (len(moved), " ".join(SK2.failed) or "-"), flush=True)
-# via-in-pad list for the fab notes (fabrication review F1/F2): every via whose centre lies in an SMD pad is filled
-# and capped (the rest are tented); coordinates relative to the drill / pick-and-place origin
-VIP = []
-AUX = (pcbnew.ToMM(board2.GetDesignSettings().GetAuxOrigin().x),   # drill/place origin = board bottom-left,
-       pcbnew.ToMM(board2.GetDesignSettings().GetAuxOrigin().y))   # the origin of the Gerbers, drills and CPL too
-smd_pads = [q for f_ in board2.GetFootprints() for q in f_.Pads() if q.GetAttribute() == pcbnew.PAD_ATTRIB_SMD]
-for t_ in board2.GetTracks():
-    if t_.GetClass() != "PCB_VIA":
-        continue
-    hit = next((q for q in smd_pads if q.HitTest(t_.GetPosition())), None)
-    if hit is not None:
-        VIP.append(("%.3f" % (pcbnew.ToMM(t_.GetPosition().x) - AUX[0]), "%.3f" % -(pcbnew.ToMM(t_.GetPosition().y) - AUX[1]),
-                    "%.2f" % pcbnew.ToMM(t_.GetDrillValue()), "%.2f" % pcbnew.ToMM(t_.GetWidth()), t_.GetNetname(),
-                    "%s.%s" % (hit.GetParent().GetReference(), hit.GetNumber())))
-os.makedirs(os.path.join(OUT, "fab"), exist_ok=True)
-with open(os.path.join(OUT, "fab", "via_in_pad.csv"), "w", newline="") as f_:
-    f_.write("x_mm,y_mm,drill_mm,diameter_mm,net,in_pad\n")
-    for r_ in sorted(VIP, key=lambda r: (r[5], float(r[0]), float(r[1]))):
-        f_.write(",".join(r_) + "\n")
-print("via-in-pad (filled + capped): %d vias in %d pads" % (len(VIP), len(set(r[5] for r in VIP))), flush=True)
+# via-in-pad list for the fab notes (fabrication review F1/F2): every via whose drill is exposed by a solder-mask
+# opening (centre in an SMD pad, drill reaching into a pad opening, or under a merged opening) is filled and capped,
+# the rest are tented; coordinates from the drill / place (aux) origin. The rule lives in via_in_pad_list.py, which
+# make_fab_outputs_revb.py also runs on the saved board (pre-fab review 2026-11-03: the old centre-in-pad rule here
+# missed the four DC+ vias between the 0805 pads of the cell rows)
+import via_in_pad_list  # noqa: E402
+via_in_pad_list.write(board2, os.path.join(OUT, "fab", "via_in_pad.csv"))
 pcbnew.ZONE_FILLER(board2).Fill(board2.Zones())
 pcbnew.SaveBoard(path, board2)
 pcbnew.WriteDRCReport(board2, os.path.join(OUT, "drc_report.txt"), pcbnew.EDA_UNITS_MILLIMETRES, True)

@@ -22,7 +22,7 @@ LAYERS = "F.Cu,In1.Cu,In2.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,
 ORIGIN = {"spb-bb-revb-dpt": "150x100mm", "spb-bb-revb-load": "150x100mm", "spb-busbar": "160x80mm"}
 NOTE = {
     "spb-bb-revb-dpt": "4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; "
-                       "filled + capped via-in-pad (list in gerber/*-fab-notes.txt: shunt SHLD and bypass-capacitor pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; "
+                       "filled + capped via-in-pad (list in gerber/*-fab-notes.txt: shunt SHLD, bypass-capacitor and test pads); double-pulse board (UFCS shunts, no heatsink); IPC class 2; "
                        "solder mask over all copper and ALL vias tented (the 1200 V control/power barrier relies on it)",
     "spb-bb-revb-load": "4 layers, 1.6 mm FR4, 2 oz (70 um) on all layers, L1-L2 and L3-L4 prepreg 0.1 mm, ENIG; "
                         "BLIND vias L1-L2 (0.25 mm drill) filled + capped in the LS source pads; load-test board; IPC class 2; "
@@ -94,7 +94,9 @@ def fab_notes(name, D, GB):
          "Board: " + NOTE[name], "", "STACK-UP (4 layers, 1.60 mm +-10 %, top to bottom)"]
     L += ["  %-10s %-8s %-38s %s" % r for r in STACK]
     L += ["", "RULES / PROCESS"] + ["  - " + r for r in RULES_TXT]
-    L += ["", "VIA-IN-PAD (filled + capped, type VII): %d vias in %d pads" % (len(rows), len(set(r[5] for r in rows)))]
+    L += ["", "VIA-IN-PAD (filled + capped, type VII): %d vias in %d pads" % (len(rows), len(set(r[5] for r in rows))),
+          "  every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill reaching into",
+          "  a pad opening, or under a merged opening); 'F:' / 'B:' = side of the opening; all other vias are tented"]
     L += ["  %-8s %-8s %-6s %-6s %-8s %s" % ("x mm", "y mm", "drill", "dia", "net", "pad")]
     L += ["  %-8s %-8s %-6s %-6s %-8s %s" % tuple(r) for r in rows]
     txt = "\n".join(L) + "\n"
@@ -133,6 +135,9 @@ for name in sys.argv[1:] or ("spb-bb-revb-dpt",):
         os.remove(f)                                           # stale combined drill files from before the split
     run("pcb", "export", "drill", "--format", "excellon", "--excellon-units", "mm", "--excellon-separate-th",
         "--drill-origin", "plot", "--generate-map", "--map-format", "pdf", "-o", GB + os.sep, PCB)
+    if name.startswith("spb-bb-revb-"):                         # via-in-pad list from the saved board itself (rule:
+        subprocess.run([os.path.join(os.path.dirname(CLI), "python.exe"),   # drill exposed by a mask opening, see
+                        os.path.join(ROOT, "scripts", "via_in_pad_list.py"), name], check=True)  # via_in_pad_list.py)
     n_vip = fab_notes(name, D, GB) if name in NOTE else 0
     run("pcb", "export", "pos", "--format", "csv", "--units", "mm", "--side", "both", "--use-drill-file-origin",
         "-o", out(name + "-pos.csv"), PCB)
