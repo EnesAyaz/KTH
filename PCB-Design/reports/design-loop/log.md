@@ -110,3 +110,4 @@ fab-release regenerates the package + via-in-pad list -> sim-analyst re-checks l
 Checks: DRC 0/0, silk 0, sch 0, 3D 0; via-in-pad 190/190; Q3D loop change < 0.01 nH per cell. Pass.
 Open for Enes: prepreg/2 oz inner with JLC engineers; "DESIGNED BY CLAUDE" silk; MLCC flex near M4 bolts; RS1/RS4
 2.4 mm overhang; GH_L2/TP33 offset, GNDI1 on TP1 edge, 28 tangent DC- drills (POFV); paper numbers (after row) or keep.
+Commit: 1b464f3e
