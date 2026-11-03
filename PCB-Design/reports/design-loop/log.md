@@ -154,3 +154,16 @@ Comment (Enes): also fix the RON subscript on slide 48.
 <- slides-builder: build_pptx.ps1 Parse-Markup keeps sub/superscripts inside bold/alert spans; rebuilt (55 slides).
    Changed render: slide 48 (bold R_ON) and slide 4 (bold A_rms). Checks (leader): slide 48 PNG viewed, subscript OK.
 Commits: 0485f0af (Kelvin vias), e3177f25 (deck)
+
+## 2026-11-03 - Paper on the SW-via loop numbers
+Comment (Enes): update the paper with the new loop numbers too.
+Plan: paper-writer updates the IEEE LaTeX paper and the current ICPE manuscript from final_numbers.json (DPT 0.646/
+0.644/0.645/0.648 nH, k 0.033, L_x upper bound); new dated docx, never WrittenByHand; page counts 6 / 5.
+-> paper-writer: identify current versions, update via generators, report old -> new and page counts.
+<- paper-writer: loop_breakdown.py -> LOOP_TAG dpt_swv1 (DPT copper 0.469 -> 0.464, total 0.6457). IEEE paper: Table II
+   cells 0.646/0.644/0.644/0.648 (%.3f), copper 0.47 -> 0.46, M/k 21 pH/0.034 -> 20 pH/0.033, abstract spread 0.8 -> 0.7 %,
+   Fig. 8 + Fig. 6(a) regenerated, one sentence on 15 SW vias per cell. Tracked ICPE digest: k text, boards.png, rebuilt.
+   Submission digest: new Submission-Files/Digest-ParasiticAwareSPB_revised_2026-11-03.docx (Enes's 11-02 copy, only
+   Fig. 7 swapped); Enes's copy is 6 pages (his edits). Full 13-page paper figure still has 0.47 hard-coded (not rebuilt).
+Checks (leader): IEEE paper 6 pages, tracked digest 5 pages (pdfinfo).
+-> slides-builder: rebuild loop_breakdown slide image from the new loop_breakdown.json.

@@ -17,11 +17,14 @@ exec(_src)                                       # load(), Net, ESL_0805, L_SHUN
 RES = os.path.join(HERE, "results")
 w = 2 * math.pi * F_LOOP
 out = {}
+# same loop tag as final_post.py: dpt -> dpt_swv1 (DPT board with the 15 SW vias per cell, commit 1b464f3e)
+LOOP_TAG = {"dpt": os.environ.get("FINAL_LOOP_TAG_DPT", "dpt_swv1"), "load": "load"}
 for b in ("dpt", "load"):
-    if not os.path.exists(os.path.join(RES, "BB_PL_LOOP_%s_matrix.txt" % b)):
+    t = LOOP_TAG[b]
+    if not os.path.exists(os.path.join(RES, "BB_PL_LOOP_%s_matrix.txt" % t)):
         continue
-    leg = load("BB_PL_LOOP_" + b)
-    geo = json.load(open(os.path.join(RES, "revb_loop_geometry_%s.json" % b)))
+    leg = load("BB_PL_LOOP_" + t)
+    geo = json.load(open(os.path.join(RES, "revb_loop_geometry_%s.json" % t)))
     NB = {t[1]: len(t[3]) for t in geo["terminals"]}
     shunt = any("RSI_%d" % c in NB for c in range(1, 5))
 

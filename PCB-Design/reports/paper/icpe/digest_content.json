@@ -691,7 +691,7 @@
      "s"
     ],
     [
-     "; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. The cells hardly couple (at most 21 pH, ",
+     "; the load-test board connects the sources through blind vias to the dc− plane and carries the heatsink. Q3D extraction with all four cells switching gives 0.41 nH per cell on the load-test board (0.35 nH copper, 0.06 nH capacitor ESL), equal in the four cells within 1.6 %, and 0.65 nH on the DPT board, where the shunt and its connection add 0.24 nH. The cells hardly couple (at most 20 pH, ",
      ""
     ],
     [
@@ -699,7 +699,7 @@
      "i"
     ],
     [
-     " ≤ 0.034). A second model adds the gate network of one driver block: gate and Kelvin return run on adjacent layers to the driver, and a device sees 20.6 nH (high side) and 12.3 nH (low side) when its pair is driven, equal within 0.3 % for all four paralleled devices, with at most 9 pH coupling from the commutation loops. This is about ten times the 1.7 nH of the lumped design, because the driver sits between two cells behind the isolation barrier. Three load-test boards form a level on a laminated PCB busbar with 1.46 nH between neighbouring legs.",
+     " ≤ 0.033). A second model adds the gate network of one driver block: gate and Kelvin return run on adjacent layers to the driver, and a device sees 20.6 nH (high side) and 12.3 nH (low side) when its pair is driven, equal within 0.3 % for all four paralleled devices, with at most 9 pH coupling from the commutation loops. This is about ten times the 1.7 nH of the lumped design, because the driver sits between two cells behind the isolation barrier. Three load-test boards form a level on a laminated PCB busbar with 1.46 nH between neighbouring legs.",
      ""
     ]
    ]
