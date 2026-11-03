@@ -134,3 +134,4 @@ Done (leader): Eurocircuits section in DPT_JLC_order.md (Type VII filled+capped 
    0.644/0.648 nH, chart), 47 (k 0.034 -> 0.033, 21 -> 20 pH), 48 (overshoot line now data-driven, same text), 53.
    Load-board images restored, unchanged. 12 slide PNGs checked.
 Checks (leader): slides 28 and 46 viewed; numbers match final_numbers.json.
+Commit: 7a7ba452
