@@ -103,3 +103,14 @@ eight devices.
   and the board temperature around the via fields and the source-to-shunt transitions.
 - **Measurement routes:** keep the U.FL gate-sense links DNP and use the spring pads; never tie different source or
   Kelvin references together through grounded instruments.
+
+## Bring-up checklist from the pre-fab review (2026-11-03)
+
+1. Incoming boards: the vias in TP33 (GH_L2), on the TP1 edge (GNDI1) and next to the 0805 bypass caps (y 61.3) are
+   filled and capped flat (POFV) before anything is soldered there.
+2. UFCS-R001 shunts RS1-RS4: preheat the board before hand soldering (pads tie into 2 oz planes on four layers).
+   RS1/RS4 overhang the edge by about 2.4 mm; check the fixture, heatsink and probe holders clear them.
+3. REDCUBE M4 bolts: torque wrench at the REDCUBE datasheet torque, board resting flat on a support. Twenty 2220
+   MLCCs (C67-C86) are within 10 mm of the bolts and crack invisibly when the board flexes.
+4. After the terminals are mounted: raise the DC link slowly with a current-limited supply and read the leakage once
+   before the first double pulse. A cracked MLCC shows up as leakage or a short.

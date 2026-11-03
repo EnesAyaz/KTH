@@ -676,15 +676,24 @@ table(s, [X0, Y0, W, 300], [
       size=13, colw=[170, 365, 365])
 decision(s, "Same copper, drivers, bank and terminals; only the LS source path and the cooling differ")
 
+# pre-fab SW vias (1b464f3e): sim-analyst check of the cell-1 SW island and the loop before / after
+_SWV = json.load(open(os.path.join(RES, "sw_vias_check.json")))
+_swr = _SWV["sw_island_to_ac_column"]
+_swd = max(abs(v_) for v_ in _SWV["commutation_loop"]["delta_after_minus_before"].values())
+_swd_txt = ("< %.2f" % (math.ceil(_swd * 100 + 1e-9) / 100)) if _swd > 0 else "0"
 s = slide("DPT board layout (UFCS shunts, no heatsink)", 8)
 image(s, "img/revb_dpt_top.png", [X0, Y0, 440, 390])
 image(s, "img/revb_dpt_bottom.png", [X0 + 450, Y0, 230, 390])
 text(s, [X0 + 690, Y0, 210, 400], [
     "89.5 × 85.2 mm, 4 layers",
     "UFCS-R001 per cell, IN land 1.2 mm (blade at the source edge), return vias in the SHLD pad",
+    "**%d SW vias per cell** (F.Cu island to the inner / bottom SW planes, was %d): %.2f → %.2f mΩ to the AC "
+    "column, loop change %s nH per cell" % (_swr["after_vias_island_to_planes"], _swr["before_vias_island_to_planes"],
+                                             _swr["Rdc_mOhm"]["before_plated"], _swr["Rdc_mOhm"]["after_plated"],
+                                             _swd_txt),
     "No heatsink, no spreader holes",
     "DRC 0 / 0 / 0, schematic = PCB",
-], 14)
+], 13)
 
 s = slide("Load-test board layout (no shunt, heatsink)", 8)
 image(s, "img/revb_load_top.png", [X0, Y0, 440, 390])
@@ -705,7 +714,7 @@ label(s, [X0 + 455, Y0 + 300, 445, 18], "Load-test board: LAM 4 K 50 12 + Al spr
 text(s, [X0, Y0 + 325, W, 70], [
     "Every footprint has a 3D model (KiCad library + box models: EPC2361, 2EDF7275K, UFCS, TDK 2220, WE-CNSW, M6 bolt "
     "+ bar, heatsink); board STEPs in hardware/spb-bb-revb-*/fab; rendered with pyvista (scripts/render_3d.py)",
-], 14)
+], 13)
 note(s, "Box models are dimensioned envelopes, not manufacturer CAD (UFCS SMA jack position approximate).")
 
 s = slide("Top view with the silkscreen: DPT and load-test boards", 8)
@@ -732,12 +741,15 @@ text(s, [X0, Y0 + 310, W, 80], [
     "Top without heatsink: 20 × 2220 bank in two rows, 8 EPC2361 under the spreader pedestals, 2 drivers",
 ], 14)
 
+# DPT L_x predates the 15 SW vias per cell (final_numbers.json dpt.lx.note): quoted as an upper bound
+LX_UB = " (upper bounds, pre SW vias)" if FQ.get("dpt", {}).get("lx", {}).get("note") else ""
 s = slide("Two driver pairs on one switch node: driver skew", 8)
 text(s, [X0, Y0, 520, 370], [
     "The four switch nodes are joined in copper; L_{x} = inductance between the switch nodes of the two driver pairs",
     "If driver 2 switches Δt later, pair 1 takes ΔI ≈ V_{m}·Δt / L_{x} until pair 2 follows",
     "Q3D (fast lx model, final boards): L_{x} = **%s nH** (HS on) / **%s nH** (LS on) on the load board, %s / %s nH on "
-    "the DPT board" % (q("load", "lx", "HS"), q("load", "lx", "LS"), q("dpt", "lx", "HS"), q("dpt", "lx", "LS")),
+    "the DPT board%s" % (q("load", "lx", "HS"), q("load", "lx", "LS"), q("dpt", "lx", "HS"), q("dpt", "lx", "LS"),
+                         LX_UB),
     "⇒ **≈ %s A per ns of skew** (load board)" % q("load", "lx", "dI_per_ns_A", fmt="%.0f"),
 ], 14)
 table(s, [X0 + 545, Y0 + 10, 355, 190], [
@@ -746,9 +758,9 @@ table(s, [X0 + 545, Y0 + 10, 355, 190], [
     ["Matched traces", "same PCB, same CMC per block"],
     ["Driver skew", "2EDF7275K part-to-part: check datasheet"],
     ["Verify", "U.FL V_{GS} of both blocks, UFCS per cell (DPT)"]], size=13, colw=[130, 225])
-image(s, "img/q3d_full_load.png", [X0 + 545, Y0 + 205, 365, 250])
+image(s, "img/q3d_full_load.png", [X0 + 575, Y0 + 212, 320, 200])         # 2400 x 1500 px
 decision(s, "Measure the per-cell current (UFCS) with both drivers switching; delay trim in the C2000 if needed",
-         [X0, 462, 530, 40])
+         [X0, 446, 540, 56])
 
 # ================================================================== 9 supplies, measurement
 s = slide("Gate supplies: two isolated supplies, Zener split", 9, "9  Supplies and measurement")
@@ -964,7 +976,8 @@ for k_, lab_ in (("dpt_lumpgate", "lumped 1.7 nH gate, R_{ON} 1.5 Ω"), ("dpt_rg
 table(s, [X0, Y0, W, 140], _rows, size=12, colw=[250, 80, 60, 95, 160, 90, 175])
 text(s, [X0, Y0 + 155, W, 250], [
     "Extracted gate network: Q3D copper + 0.4 nH per 0603 resistor body + 1 nH D_{OFF}; UFCS 120 pH as its own inductor",
-    "The larger gate loop **speeds up** the turn-on ⇒ HS overshoot ≈ 75 V + 0.65 nH × di/dt: R_{ON} 1.0 Ω gives 105 V",
+    "The larger gate loop **speeds up** the turn-on ⇒ HS overshoot ≈ 75 V + %s nH × di/dt: R_{ON} 1.0 Ω gives %.0f V" % (
+        q("dpt", "loop", "mean_nH"), _QS["dpt_rg2.5"]["VHpk_max"]),
     "−1.9 V off: bump of the held-off gate ≤ −0.5 V (≥ 1.3 V below V_{th,min} 0.8 V); with 0 V off it was +1.2 … +1.4 V",
     "Off-state ringing ≈ −3.4 V against the −4 V limit (EPC2361) ⇒ no larger negative bias",
     "Turn-on of the four cells within 0.2 %; turn-off current inner vs outer cells ±1.5 % (power side)",
@@ -1030,11 +1043,12 @@ table(s, [X0, Y0, W, 230], [
      "verify with the UFCS per cell"],
     ["Board copper loss at 228 A_{rms}", "%s W" % q("dpt", "dc", "P_copper_W", fmt="%.0f"),
      "%s W" % q("load", "dc", "P_copper_W", fmt="%.0f"), "heats the board, not the FETs"],
-    ["L_{x} between driver pairs (HS / LS)", "%s / %s nH" % (q("dpt", "lx", "HS"), q("dpt", "lx", "LS")),
+    ["L_{x} between driver pairs (HS / LS)", ("≤ %s / %s nH (pre SW vias)" if LX_UB else "%s / %s nH") % (
+        q("dpt", "lx", "HS"), q("dpt", "lx", "LS")),
      "%s / %s nH" % (q("load", "lx", "HS"), q("load", "lx", "LS")), "skew → ΔI = V_{m}Δt / L_{x}"],
     ["Bus leg-to-leg loop (1 MHz)", "–", "%s nH" % q("level", "bus_ac", "L_leg12_nH"), "target ≤ 5 nH"]],
       size=13, colw=[230, 180, 180, 310])
-image(s, "img/q3d_full_load.png", [X0 + 200, Y0 + 205, 510, 250])
+image(s, "img/q3d_full_load.png", [X0 + 310, Y0 + 190, 290, 181])         # 2400 x 1500 px
 note(s, "All values from the fast Q3D set on the final layouts (run_bb_q3d_final.cmd, final_post.py).")
 
 # ================================================================== 12 boards, status

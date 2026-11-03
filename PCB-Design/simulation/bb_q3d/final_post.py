@@ -76,10 +76,15 @@ def caps_of(leg, NC):
 
 S = {}
 # ================================================================== 1 loop
+# Loop result tag per board. dpt -> dpt_swv1: current DPT board with the 15 SW vias per cell (commit 1b464f3e, solved
+# 2026-11-03, see sw_vias_check.json). The untagged loop_summary_dpt.json is the 2026-10-22 matrix (board 1f4c94c).
+LOOP_TAG = {"dpt": os.environ.get("FINAL_LOOP_TAG_DPT", "dpt_swv1"), "load": "load"}
 for b in ("dpt", "load"):
-    p = os.path.join(RES, "loop_summary_%s.json" % b)
+    p = os.path.join(RES, "loop_summary_%s.json" % LOOP_TAG[b])
     if os.path.exists(p):
         S.setdefault(b, {})["loop"] = json.load(open(p))
+        if b == "dpt":
+            S[b]["loop"]["source"] ="BB_PL_LOOP_%s (loop_summary_%s.json)" % (LOOP_TAG[b], LOOP_TAG[b])
 
 # ================================================================== 2 DC sharing and copper loss
 for b in ("dpt", "load"):
@@ -160,6 +165,10 @@ for b in ("dpt", "load"):
         V, _, _ = net.solve(w, inj, sw % 1)
         lx[path] = float((((V[sw % 3] + V[sw % 4]) - (V[sw % 1] + V[sw % 2])) / 2 / w).imag * 1e9)
     lx["dI_per_ns_A"] = 75.0 / min(lx["HS"], lx["LS"])
+    if b == "dpt":                                 # BB_PL_LX_dpt not re-solved after the SW vias (~2.3 h)
+        lx["note"] = ("BB_PL_LX_dpt of 2026-10-15 geometry, before the 15 SW vias per cell (1b464f3e): L_x includes "
+                      "each cell's SW island-to-AC-column path (9.7 -> 7.5 nH at 100 MHz in the cell-1 sub-model), so "
+                      "HS/LS are upper bounds and dI_per_ns_A a lower bound; not re-run")
     S.setdefault(b, {})["lx"] = lx
 
 # ================================================================== 4 three legs on the busbar

@@ -13,7 +13,7 @@ order page, which is binding.
 | Stack-up | **JLC04161H-3313** | prepreg 3313, 0.0994 mm L1–L2 and L3–L4 (design: 0.10 mm, sets the commutation loop) |
 | Outer / inner copper | **2 oz / 2 oz** | JLC: 2 oz inner only with 1.6 mm, JLC3313 and 2 oz outer, i.e. exactly this combination |
 | Surface finish | ENIG | |
-| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list: **190 vias** (bypass, shunt SHLD and test pads; `fab/via_in_pad.csv`, also in the fab notes); all other vias are then filled too, which is fine (design asks for tented vias) |
+| Via covering | **Epoxy filled and capped (POFV)** | covers the via-in-pad list: **190 vias** (bypass, shunt SHLD and test pads; `fab/via_in_pad.csv`, also in the fab notes); all other vias are then filled too, which is fine (design asks for tented vias). **Must stay selected:** the GH_L2 via in TP33 (0.57 mm off centre), the GNDI1 via on the TP1 pad edge and 28 DC- drills tangent to pad openings are only safe because every via is filled (2026-11-03) |
 | Solder mask | green, both sides | 2 oz minimum web 0.20 mm: now the project rule; DRC clean. EPC2361 webs between different nets ≥ 0.28 mm |
 | Min track / space | 0.20 / 0.20 mm in the design | JLC 2 oz: 0.16 mm |
 | Remove order number | specify a location or "no" | keep it off the 1200 V barrier area |
@@ -62,3 +62,18 @@ Assembly checks before confirming:
 - **REDCUBE J1 / J2:** through-hole-reflow parts on the bottom side; JLC places them as THT (hand or selective
   soldering). Confirm the M4 thread side and orientation in the preview.
 - **MMCX and U.FL:** bottom side, check the polarity and orientation of the shield pads.
+
+## If the board is ordered at Eurocircuits instead (Enes, 2026-11-03: likely)
+
+The JLC-specific parts of this checklist (POFV naming, JLC PCBA, CPL format) do not carry over. Select / confirm:
+
+1. **Via filling: resin filled, IPC-4761 Type VII "filled and capped"** (not VIb "filled and covered", which is not
+   for via-in-pad). It must cover every via (all 0.3 and 0.25 mm drills), not only `fab/via_in_pad.csv`: the GH_L2 via
+   in TP33, the GNDI1 via on the TP1 edge and 28 DC- drills tangent to pad openings rely on it. Confirm in the order
+   whether Eurocircuits fills all vias or a selected set/diameter.
+2. **Stack-up:** 4 layers, 1.6 mm, 70 um (2 oz) copper on all four layers, 0.10 mm prepreg L1-L2 and L3-L4. The Q3D loop
+   (0.646 nH per cell) assumes the 0.10 mm prepreg; a standard pool build-up with thicker prepreg raises it. Ask
+   Eurocircuits for their exact build-up before ordering.
+3. Finish ENIG, both sides solder mask, other vias tented (filled covers this).
+4. Gerbers and drills are at the aux origin (board bottom-left); the pick-and-place file must be checked against
+   Eurocircuits' assembly format if they assemble it.

@@ -111,3 +111,26 @@ Checks: DRC 0/0, silk 0, sch 0, 3D 0; via-in-pad 190/190; Q3D loop change < 0.01
 Open for Enes: prepreg/2 oz inner with JLC engineers; "DESIGNED BY CLAUDE" silk; MLCC flex near M4 bolts; RS1/RS4
 2.4 mm overhang; GH_L2/TP33 offset, GNDI1 on TP1 edge, 28 tangent DC- drills (POFV); paper numbers (after row) or keep.
 Commit: 1b464f3e
+
+## 2026-11-03 - Answers + slides on the SW-via numbers
+Comment (Enes): keep the "DESIGNED BY CLAUDE" silk; explain the MLCC cracking, RS1/RS4 and the item-5 findings;
+update the slides to the new numbers.
+Plan: sim-analyst puts the swv1 loop per cell into final_numbers.json (lx kept, flagged stale) -> slides-builder
+rebuilds the deck (numbers + DPT board renders) and exports the changed slides for a visual check.
+-> sim-analyst: final_numbers.json DPT loop from swv1 (0.646/0.644/0.645/0.648 nH), no Q3D re-run, load unchanged.
+<- sim-analyst: final_post.py LOOP_TAG -> dpt_swv1; final_numbers.json dpt.loop 0.646/0.644/0.645/0.648 nH (mean
+   0.6511 -> 0.6457), k max 0.0338 -> 0.0333, overshoot 94.5 -> 94.4 V; dpt.lx unchanged + note (upper bound); load
+   and busbar keys identical. 10-22 matrix files kept.
+-> slides-builder: rebuild deck from final_numbers.json, re-render DPT board images, one line on 15 SW vias per cell,
+   L_x marked upper bound, export changed slides as PNG and check.
+Comment (Enes, same day): agreed torque limit + one DC-link leakage measurement after mounting; remind at test time.
+Done (leader): bring-up checklist added to reports/pcb-rules/DPT_measurement_setup.md (POFV check, shunt preheat and
+overhang, torque, leakage test); POFV must-stay note in DPT_JLC_order.md.
+Comment (Enes): likely ordering at Eurocircuits, not JLC; remind item 5 and what to select at ordering.
+Done (leader): Eurocircuits section in DPT_JLC_order.md (Type VII filled+capped on all vias, 2 oz all layers +
+0.10 mm prepreg build-up to confirm, ENIG, origin/CPL format); reminder memory extended to ordering.
+<- slides-builder: deck rebuilt (55 slides). Changed: 28 (15 SW vias line, DPT copper re-rendered), 30/31/33 (3D
+   re-render, slide 30 text 13 pt), 34 + 52 (L_x "upper bounds, pre SW vias", image boxes fixed), 46 (DPT 0.646/0.644/
+   0.644/0.648 nH, chart), 47 (k 0.034 -> 0.033, 21 -> 20 pH), 48 (overshoot line now data-driven, same text), 53.
+   Load-board images restored, unchanged. 12 slide PNGs checked.
+Checks (leader): slides 28 and 46 viewed; numbers match final_numbers.json.

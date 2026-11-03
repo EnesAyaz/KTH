@@ -2,89 +2,91 @@
  "dpt": {
   "loop": {
    "all_switching": {
-    "cell1": 0.6522,
-    "cell2": 0.6523,
-    "cell3": 0.6473,
-    "cell4": 0.6527
+    "cell1": 0.646,
+    "cell2": 0.6439,
+    "cell3": 0.6445,
+    "cell4": 0.6484
    },
    "all_switching_top_bypass_only": {
-    "cell1": 0.6707,
-    "cell2": 0.6709,
-    "cell3": 0.666,
-    "cell4": 0.6711
+    "cell1": 0.6646,
+    "cell2": 0.6626,
+    "cell3": 0.6632,
+    "cell4": 0.6666
    },
    "all_switching_shunt_0pH": {
-    "cell1": 0.5322,
-    "cell2": 0.5323,
-    "cell3": 0.5273,
-    "cell4": 0.5327
+    "cell1": 0.526,
+    "cell2": 0.5239,
+    "cell3": 0.5245,
+    "cell4": 0.5284
    },
    "each_alone": {
-    "cell1": 0.6437,
-    "cell2": 0.6232,
-    "cell3": 0.6182,
-    "cell4": 0.6443
+    "cell1": 0.6376,
+    "cell2": 0.6154,
+    "cell3": 0.6158,
+    "cell4": 0.6399
    },
    "matrix": "Setup1:LastAdaptive",
    "mutual_cell_nH": {
     "cell1": {
-     "cell1": 0.6437,
-     "cell2": 0.007,
+     "cell1": 0.6376,
+     "cell2": 0.0068,
      "cell3": 0.0012,
-     "cell4": 0.0003
+     "cell4": 0.0004
     },
     "cell2": {
-     "cell1": 0.007,
-     "cell2": 0.6232,
-     "cell3": 0.021,
-     "cell4": 0.0011
+     "cell1": 0.0068,
+     "cell2": 0.6154,
+     "cell3": 0.0205,
+     "cell4": 0.0012
     },
     "cell3": {
      "cell1": 0.0012,
-     "cell2": 0.021,
-     "cell3": 0.6182,
-     "cell4": 0.007
+     "cell2": 0.0205,
+     "cell3": 0.6158,
+     "cell4": 0.0069
     },
     "cell4": {
-     "cell1": 0.0003,
-     "cell2": 0.0011,
-     "cell3": 0.007,
-     "cell4": 0.6443
+     "cell1": 0.0004,
+     "cell2": 0.0012,
+     "cell3": 0.0069,
+     "cell4": 0.6399
     }
    },
    "coupling_k": {
     "cell1": {
      "cell1": 1.0,
-     "cell2": 0.0111,
+     "cell2": 0.0109,
      "cell3": 0.0019,
-     "cell4": 0.0005
+     "cell4": 0.0006
     },
     "cell2": {
-     "cell1": 0.0111,
+     "cell1": 0.0109,
      "cell2": 1.0,
-     "cell3": 0.0338,
-     "cell4": 0.0017
+     "cell3": 0.0333,
+     "cell4": 0.0019
     },
     "cell3": {
      "cell1": 0.0019,
-     "cell2": 0.0338,
+     "cell2": 0.0333,
      "cell3": 1.0,
-     "cell4": 0.0111
+     "cell4": 0.011
     },
     "cell4": {
-     "cell1": 0.0005,
-     "cell2": 0.0017,
-     "cell3": 0.0111,
+     "cell1": 0.0006,
+     "cell2": 0.0019,
+     "cell3": 0.011,
      "cell4": 1.0
     }
    },
-   "mean_nH": 0.6511,
-   "overshoot_30Apns_V": 94.5
+   "mean_nH": 0.6457,
+   "overshoot_30Apns_V": 94.4,
+   "source": "BB_PL_LOOP_dpt_swv1 (loop_summary_dpt_swv1.json)"
   },
   "lx": {
    "HS": 4.906193579649046,
    "LS": 2.6791977363246096,
-   "dI_per_ns_A": 27.99345452675952
+   "dI_per_ns_A": 27.99345452675952,
+   "note": "BB_PL_LX_dpt of 2026-10-15 geometry, before the 15 SW vias per cell (1b464f3e): L_x includes each cell's SW island-to-AC-column path (9.7 -> 7.5 nH at 100 MHz in the cell-1 sub-model), so HS/LS are upper bounds and dI_per_ns_A a lower bound; not re-run"
   }
  },
  "load": {
