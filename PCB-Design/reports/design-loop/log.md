@@ -169,3 +169,4 @@ Checks (leader): IEEE paper 6 pages, tracked digest 5 pages (pdfinfo).
 -> slides-builder: rebuild loop_breakdown slide image from the new loop_breakdown.json.
 <- slides-builder: slide 9 copper 0.47 -> 0.46 nH, loop_breakdown.png regenerated, "black stars" label moved
    (revb_flow_figures.py, also used for the paper figure). Checks (leader): slide 9 PNG viewed, OK.
+Commits: 9b5fa895 (paper), b50036c7 (deck)
