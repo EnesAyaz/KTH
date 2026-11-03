@@ -151,3 +151,5 @@ Comment (Enes): also fix the RON subscript on slide 48.
 -> slides-builder (same agent): bold + subscript markup on slide 48 (renderer fix if general), rebuild, PNG check.
 <- fab-release: NEAR 0.05 mm; list 222 (190 in_pad + 32 near_pad), exactly KH1/KL1/KH2/KL2 added; Gerber/drill
    byte-identical; independent Gerber check 222/222; DPT_JLC_order.md counts updated.
+<- slides-builder: build_pptx.ps1 Parse-Markup keeps sub/superscripts inside bold/alert spans; rebuilt (55 slides).
+   Changed render: slide 48 (bold R_ON) and slide 4 (bold A_rms). Checks (leader): slide 48 PNG viewed, subscript OK.

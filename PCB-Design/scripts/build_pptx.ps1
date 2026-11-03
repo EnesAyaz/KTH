@@ -27,10 +27,19 @@ function Parse-Markup([string]$s) {
     [void]$sb.Append($s.Substring($pos, $m.Index - $pos))
     $kind = if ($m.Groups[1].Success) { "b" } elseif ($m.Groups[2].Success) { "a" } elseif ($m.Groups[3].Success) { "sub" } else { "sup" }
     $inner = ($m.Groups[1..4] | Where-Object { $_.Success } | Select-Object -First 1).Value
-    # nested sub/sup inside bold/alert
-    $inner2 = [regex]::Replace($inner, '_\{(.+?)\}|\^\{(.+?)\}', { param($mm) if ($mm.Groups[1].Success) { $mm.Groups[1].Value } else { $mm.Groups[2].Value } })
-    [void]$runs.Add(@($sb.Length, $inner2.Length, $kind))
-    [void]$sb.Append($inner2)
+    # nested sub/sup inside bold/alert: strip the markup and keep their runs, so bold + subscript combine
+    $start = $sb.Length
+    $p2 = 0
+    foreach ($mm in ([regex]'_\{(.+?)\}|\^\{(.+?)\}').Matches($inner)) {
+      [void]$sb.Append($inner.Substring($p2, $mm.Index - $p2))
+      $k2 = if ($mm.Groups[1].Success) { "sub" } else { "sup" }
+      $v2 = if ($mm.Groups[1].Success) { $mm.Groups[1].Value } else { $mm.Groups[2].Value }
+      [void]$runs.Add(@($sb.Length, $v2.Length, $k2))
+      [void]$sb.Append($v2)
+      $p2 = $mm.Index + $mm.Length
+    }
+    [void]$sb.Append($inner.Substring($p2))
+    [void]$runs.Add(@($start, ($sb.Length - $start), $kind))
     $pos = $m.Index + $m.Length
   }
   [void]$sb.Append($s.Substring($pos))
