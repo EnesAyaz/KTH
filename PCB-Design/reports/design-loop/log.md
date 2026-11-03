@@ -167,3 +167,5 @@ Plan: paper-writer updates the IEEE LaTeX paper and the current ICPE manuscript 
    Fig. 7 swapped); Enes's copy is 6 pages (his edits). Full 13-page paper figure still has 0.47 hard-coded (not rebuilt).
 Checks (leader): IEEE paper 6 pages, tracked digest 5 pages (pdfinfo).
 -> slides-builder: rebuild loop_breakdown slide image from the new loop_breakdown.json.
+<- slides-builder: slide 9 copper 0.47 -> 0.46 nH, loop_breakdown.png regenerated, "black stars" label moved
+   (revb_flow_figures.py, also used for the paper figure). Checks (leader): slide 9 PNG viewed, OK.

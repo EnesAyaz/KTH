@@ -594,7 +594,7 @@ if os.path.exists(LBP):
     ax.set_xlim(0.5, 12.5)
     ax.set_ylim(0.3, 1.0)
     ax.legend(loc="upper right")
-    ax.text(1.0, 0.62, "black stars: as built (6 top + 4 bottom)", fontsize=8.5)
+    ax.text(6.4, 0.668, "black stars: as built (6 top + 4 bottom)", fontsize=8.5)
     panel(ax, "(a)")
     ax = axs[1]
     yy = 0
