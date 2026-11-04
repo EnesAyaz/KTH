@@ -110,7 +110,9 @@ eight devices.
    filled and capped flat (POFV) before anything is soldered there.
 2. UFCS-R001 shunts RS1-RS4: preheat the board before hand soldering (pads tie into 2 oz planes on four layers).
    RS1/RS4 overhang the edge by about 2.4 mm; check the fixture, heatsink and probe holders clear them.
-3. REDCUBE M4 bolts: torque wrench at the REDCUBE datasheet torque, board resting flat on a support. Twenty 2220
-   MLCCs (C67-C86) are within 10 mm of the bolts and crack invisibly when the board flexes.
+3. REDCUBE M4 bolts: torque wrench at 1.2 N m (74650174R p. 1), before the shunts are fitted, holding the terminal against
+   the reaction torque. J1/J2 are on the bottom, so do not rest the top parts on a flat support: use a block under J1/J2
+   in the part-free top area (x 33-56, y 74-85), relieved for the pin tips. C67 and C68 are the nearest MLCCs (7.63 mm).
+   M4 x 8 can bottom in the 4.0 mm thread: size the screw to the real stack (2026-11-04 reviews).
 4. After the terminals are mounted: raise the DC link slowly with a current-limited supply and read the leakage once
    before the first double pulse. A cracked MLCC shows up as leakage or a short.

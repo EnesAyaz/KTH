@@ -77,10 +77,12 @@ Assembly checks before confirming:
 
 ## If the board is ordered at Eurocircuits instead (Enes, 2026-11-03: likely)
 
+**Status 2026-11-04: the release as designed fails Eurocircuits rules (4 blockers).** See `independent-review-2026-11-04-manufacturability.md`; send its eight questions before ordering.
+
 The JLC-specific parts of this checklist (POFV naming, JLC PCBA, CPL format) do not carry over. Select / confirm:
 
 1. **Via filling: resin filled, IPC-4761 Type VII "filled and capped"** (not VIb "filled and covered", which is not
-   for via-in-pad). If Eurocircuits fills a selected set, give them `fab/via_in_pad.csv`: **222 vias** = 190 in_pad +
+   for via-in-pad). **Order ALL vias filled** (review 2026-11-04: Eurocircuits opens every unfilled hole, so a selected set would strip the tenting from the other 928 vias). `fab/via_in_pad.csv` is the must-have subset: **222 vias** = 190 in_pad +
    32 near_pad (drill edge within 0.05 mm of a mask opening: 24 DC- at y 61.3, VEEA/VDDB at 20.5/21.5 and 68/69,
    y 44.65, and the Kelvin vias KH1/KL1/KH2/KL2 at y 24.2; included because their mask registration of ~±0.05 mm can
    expose part of these holes). Filling every via (all 0.3

@@ -170,3 +170,22 @@ Checks (leader): IEEE paper 6 pages, tracked digest 5 pages (pdfinfo).
 <- slides-builder: slide 9 copper 0.47 -> 0.46 nH, loop_breakdown.png regenerated, "black stars" label moved
    (revb_flow_figures.py, also used for the paper figure). Checks (leader): slide 9 PNG viewed, OK.
 Commits: 9b5fa895 (paper), b50036c7 (deck)
+
+## 2026-11-04 - Independent board check before ordering
+Comment (Enes): is the PCB ready; create new agents to check the PCB. Paper full-version figure: do not update now.
+Plan: three fresh design-reviewer agents in parallel, read-only, one report each in reports/pcb-rules/:
+manufacturability at Eurocircuits, electrical, assembly + fab package. Findings go back to pcb-layout / fab-release.
+-> reviewers: measure from release files, severity + evidence per finding, list coverage and what was not checked.
+<- reviewer (assembly): 0 blockers, 14 should fix, 14 notes. Gerbers/drills match board (86 nets, 0 shorts/opens, 56 SW
+   vias, 222 list OK, EPC2361 land pattern OK). Top: Eurocircuits limits unconfirmed, no IN/SHLD mark at RS1-RS4, REDCUBE
+   paste 150 um, M4 x 8 vs 4.0 mm thread + 1.2 N.m, Wurth 61201021621 is a male header, no fiducials, U1/U2 pin-1 silk.
+<- reviewer (manufacturability): Eurocircuits cannot build the release as designed: 4 blockers, 8 should fix, 7 notes.
+   B1 44 vias 0.25/0.45 ring 0.05 on tool size; B2 0.30/0.60 ring 0.10 (70 um row ~ class 4, OAR 0.150); B3 KL1/KL2 drill
+   pairs 0.16 mm vs 0.25; B4 0.10 mm prepreg not listed, Special build-up. S1: fill ALL vias (928 would lose tenting).
+   Class 8/9 with 70 um unconfirmed; 8 questions in the report. Fetch tool cached one image + a 2010 PDF outside the repo.
+<- reviewer (electrical): 0 blockers, 3 should fix, 10 notes; no wrong pin, polarity, net, short, split. SW via change
+   confirmed. Should fix: DC link sags to ~61 V at 322 A without the 1 mF bulk the SPICE assumes (not in BOM/setup note);
+   M4 x 8 too long; V_DS ports not Kelvin to the die (transients only). Notes incl. shunt gain 0.957 mV/A.
+   Leftover scratch KiCad python PID 32932 hung; Stop-Process denied; surfaced to Enes.
+Done (leader): DPT_JLC_order.md order ALL vias filled + Eurocircuits status; setup checklist item 3 corrected (1.2 N m,
+no flat support, C67/C68). No board change until Enes decides.
