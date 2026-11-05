@@ -8,7 +8,7 @@ board. Not valid for a level inside a 1200 V stack (see section 4 of the review)
 
 | Port | Signal | Return / shield | Max. voltage signal–return | Return potential vs DC− | Instrument |
 |---|---|---|---|---|---|
-| MMCX V_DS L1–L4 (bottom, next to each LS FET) | SW (LS drain) | LSRC1–4 (LS source, device side of the shunt) | 75 V DC + overshoot, ≤ 100 V peak | ≈ 0 V (shunt drop only), but **four different nodes** | rated isolated probe with an MMCX tip, e.g. Tektronix IsoVu TIVP + TIVPMX50X (±250 V, 50×) |
+| MMCX V_DS L1–L4 (bottom, next to each LS FET) | SW (LS drain) | LSRC1–4 (LS source, device side of the shunt) | 75 V DC + overshoot, ≤ 100 V peak | ≈ 0 V (shunt drop only), but **four different nodes** | rated isolated probe with an MMCX tip, e.g. Tektronix IsoVu TIVP + TIVPMX50X (±250 V, 50×), or a high-voltage differential probe through a short cable (see "V_DS with a differential probe") |
 | U.FL V_GS H (bottom) | gate via 0 Ω | KH1 / KH2 (HS Kelvin = switch node) | +5.1 / −(V_ISO − 5.1) V | **0 … 100 V, 30–50 V/ns** | isolated probe only |
 | U.FL V_GS L (bottom) | gate via 0 Ω | KL1 / KL2 (LS Kelvin) | +5.1 / −(V_ISO − 5.1) V | ≈ 0 V (LS source of that block) | isolated probe preferred; a ground-referenced channel only if no other channel is tied elsewhere (see below) |
 | UFCS shunt RS1–RS4 (SMA cable) | shunt sense | DC− side of the shunt | mV | 0 V | scope channel, 50 Ω input per PMK |
@@ -63,8 +63,9 @@ eight devices.
    through the scope. LSRCx to DC− through a scope ground bypasses the shunt and corrupts the current measurement.
 2. **High side: isolated only.** KH1/KH2 move with the switch node (0 … 100 V at 30–50 V/ns). Never connect a
    ground-referenced probe or channel to a KH, SW or high-side V_GS port.
-3. **V_DS MMCX: isolated probe or none.** A plain MMCX-to-BNC cable connects LSRCx to protective earth (rule 1) and
-   puts up to 100 V on the scope input. An MMCX connector supplies no attenuation and no isolation.
+3. **V_DS MMCX: isolated or differential probe, or none.** A plain MMCX-to-BNC cable straight into the scope connects
+   LSRCx to protective earth (rule 1) and puts up to 100 V on the scope input. An MMCX connector supplies no attenuation
+   and no isolation. The same cable into the inputs of a differential probe is fine (see below).
 4. **Never 50 Ω termination on a V_DS port.** 75 V into 50 Ω is about 112 W.
 5. **Do not float the oscilloscope** (no protective-earth removal).
 6. **Before powering:** with the DUT unpowered, check with an ohmmeter that each probe shield connects only to the
@@ -87,6 +88,30 @@ eight devices.
                         │
                        DC− ── bench supply return / controller GND reference
 ```
+
+## V_DS with a differential probe (2026-11-05)
+
+Hands-free V_DS without an isolated probe and without a board change. Parts are in the BOM under "Mechanical (not placed
+by the assembler)".
+
+```text
+ MMCX V_DS Lx ── MMCX plug to BNC male, RG316, about 15 cm ── BNC to 4 mm adapter ──► differential probe + / − ──► scope
+  centre = SW   ─────────────────────────────────────────────────────────────────►  + input
+  shield = LSRCx ────────────────────────────────────────────────────────────────►  − input
+```
+
+- **Adapter:** the probe's input decides it. 4 mm sockets on the probe: BNC female to 4 mm plugs (Farnell CT3889, 1000 V
+  CAT II). Fixed leads with 4 mm plugs: 4 mm sockets to BNC socket (PMK 4MM-BNC-F, 750 V).
+- **Probe:** differential range above 100 V, inputs not earth-referenced. Set the scope input as the probe manual says
+  (often 1 MΩ). 100 to 200 MHz probes soften 2 ns edges, so a measured overshoot peak can read low.
+- **Polarity:** check with an ohmmeter which adapter plug is the shield, before powering (rule 6).
+- **No 50 Ω in the input path** (rule 4): no feed-through termination between the MMCX and the probe.
+- **Cable:** keep it short; it is unterminated at the probe and rings on fast edges. RG316 adds about 15 pF across
+  SW-LSRCx for 15 cm, on the cell being measured. Confirm the voltage rating of the cable assembly.
+- **Use:** switching transients only. The MMCX port is not Kelvin to the die (2026-11-04 electrical review, S3): do not
+  take R_DS(on) from it. Low-side FETs only; the port does not see the high-side V_DS.
+- **Not the U.FL:** a U.FL is rated 30 V, so U.FL-to-BNC cables are for the V_GS ports only (0 Ω links fitted, through a
+  differential or isolated probe, never straight into the scope).
 
 ## Setup notes from the layer and PWM review (2026-10-23)
 

@@ -189,3 +189,9 @@ manufacturability at Eurocircuits, electrical, assembly + fab package. Findings 
    Leftover scratch KiCad python PID 32932 hung; Stop-Process denied; surfaced to Enes.
 Done (leader): DPT_JLC_order.md order ALL vias filled + Eurocircuits status; setup checklist item 3 corrected (1.2 N m,
 no flat support, C67/C68). No board change until Enes decides.
+
+## 2026-11-05 - V_DS with a differential probe
+Comment (Enes): hands-free V_DS without fancy probes; no board change; add the differential probe connection to the
+setup note and the parts to the BOM.
+Done (leader): DPT_measurement_setup.md new section + port table + rule 3; make_fab_outputs_revb.py MECH rows (4 MMCX-BNC
+cables, 1 BNC-4 mm adapter, 1 probe), same 3 rows in fab BOM (5 columns, so skipped by make_jlc_files.py). No board change.
