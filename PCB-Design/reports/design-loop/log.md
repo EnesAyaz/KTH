@@ -227,3 +227,4 @@ Done (leader): Amphenol removed from the lab cable line (generator + BOM).
 <- procedure author: DPT_test_procedure.md final, 84 steps, 23 stop criteria; setup note intro corrected. Note: M0_skew1 at 80 V
    gives HS first turn-on 99.98 V, V_GS -3.72 V, so 1 ns skew has no V_DS margin even at 80 V; 84 V only near zero skew.
 Open: HS peak and gate unmeasured (optical probe), equipment choice, T1/T2/T3/T20, 15 proposals for Enes; stack-up decision.
+Commit: 4c4328f0
