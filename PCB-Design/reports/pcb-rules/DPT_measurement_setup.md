@@ -1,8 +1,9 @@
 # DPT board (Rev B): measurement ports, references and connection rules
 
 Answers section 5 of `spb-bb-revb-dpt-review-2026-10-19.md`. Valid for the double-pulse test of one board on the bench: 75 V
-local bus, up to about 100 V peak at the drains during the pulses, controller and bench supplies referenced to DC− of this
-board. Not valid for a level inside a 1200 V stack (see section 4 of the review).
+local bus (pre-charge up to 84 V for the 1 µH sequence), up to about 100 V peak at the drains during the pulses, controller,
+bus supply and low-side gate supply referenced to DC− of this board. The high-side gate supply (J3/J12) is not: it floats
+with the switch node and is live at bus potential. Not valid for a level inside a 1200 V stack (see section 4 of the review).
 
 ## Ports and what their returns are tied to
 
@@ -110,8 +111,8 @@ by the assembler)".
   SW-LSRCx for 15 cm, on the cell being measured. Confirm the voltage rating of the cable assembly.
 - **Use:** switching transients only. The MMCX port is not Kelvin to the die (2026-11-04 electrical review, S3): do not
   take R_DS(on) from it. Low-side FETs only; the port does not see the high-side V_DS.
-- **Not the U.FL:** a U.FL is rated 30 V, so U.FL-to-BNC cables are for the V_GS ports only (0 Ω links fitted, through a
-  differential or isolated probe, never straight into the scope).
+- **Not the U.FL:** a U.FL is rated 30 V, so U.FL-to-BNC cables are for the V_GS ports only (0 Ω links fitted, never
+  straight into the scope). Low-side V_GS: differential or isolated probe. High-side V_GS: isolated probe only (rule 2).
 
 ## Setup notes from the layer and PWM review (2026-10-23)
 

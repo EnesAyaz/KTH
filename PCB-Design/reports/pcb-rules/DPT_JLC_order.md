@@ -5,6 +5,8 @@ Gerber zip `spb-bb-revb-dpt-gerber.zip` (with the fab notes), JLC BOM and CPL in
 (`scripts/make_jlc_files.py`). JLC limits checked on 2026-10-23 against their public capability pages; confirm on the
 order page, which is binding.
 
+**Status 2026-11-05: do not order yet.** The stack-up in this file is not confirmed at either manufacturer (JLC04161H-3313 is a 1 oz / 0.5 oz build); see `fab-readiness-2026-11-05.md`.
+
 ## PCB order settings
 
 | Setting | Value | Note |
@@ -85,8 +87,7 @@ The JLC-specific parts of this checklist (POFV naming, JLC PCBA, CPL format) do 
    for via-in-pad). **Order ALL vias filled** (review 2026-11-04: Eurocircuits opens every unfilled hole, so a selected set would strip the tenting from the other 928 vias). `fab/via_in_pad.csv` is the must-have subset: **222 vias** = 190 in_pad +
    32 near_pad (drill edge within 0.05 mm of a mask opening: 24 DC- at y 61.3, VEEA/VDDB at 20.5/21.5 and 68/69,
    y 44.65, and the Kelvin vias KH1/KL1/KH2/KL2 at y 24.2; included because their mask registration of ~±0.05 mm can
-   expose part of these holes). Filling every via (all 0.3
-   and 0.25 mm drills) is also fine. Confirm in the order whether they fill all vias or the listed set.
+   expose part of these holes).
 2. **Stack-up:** 4 layers, 1.6 mm, 70 um (2 oz) copper on all four layers, 0.10 mm prepreg L1-L2 and L3-L4. The Q3D loop
    (0.646 nH per cell) assumes the 0.10 mm prepreg; a standard pool build-up with thicker prepreg raises it. Ask
    Eurocircuits for their exact build-up before ordering.

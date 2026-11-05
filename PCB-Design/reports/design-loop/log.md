@@ -195,3 +195,35 @@ Comment (Enes): hands-free V_DS without fancy probes; no board change; add the d
 setup note and the parts to the BOM.
 Done (leader): DPT_measurement_setup.md new section + port table + rule 3; make_fab_outputs_revb.py MECH rows (4 MMCX-BNC
 cables, 1 BNC-4 mm adapter, 1 probe), same 3 rows in fab BOM (5 columns, so skipped by make_jlc_files.py). No board change.
+
+## 2026-11-05 - DPT sequence on the board's own DC link
+Comment (Enes): no PCB change; discussed the 134 uF bank with lower L and precise timing (hand calc: 1 uH, 80 V, 4.1 us);
+run the simulation with 1 uH and 80 V pre-charge.
+Plan: sim-analyst runs a new deck copy, no Cbulk: reference, 1 uH / 80 V, sensitivities, 2.48 uH sag check.
+-> sim-analyst: bus, current, V_DS peaks, E_on/E_off, off-time decay, settle time, limits; new files only.
+
+## 2026-11-05 - Readiness check and test procedure
+Comment (Enes): several agents to check everything is OK to fabricate and test; report step by step to start the test.
+Plan: design-reviewer (fab readiness, go/no-go per manufacturer incl. JLC recheck) + design-reviewer (test readiness) +
+general-purpose (DPT_test_procedure.md) in parallel, read-only apart from own report; SPICE results relayed into the
+procedure when sim-analyst finishes.
+<- procedure author: DPT_test_procedure.md, 83 steps, 20 stop criteria, checklist. Holds H1 HS gate unmeasurable without
+   isolated probe, H2 probe not chosen, H3 pulse values, H4 MMCX sees LS peak 86.7 V not HS 92.9 V, H5 end-of-burst energy.
+   21 values T1-T21 to be set by Enes. Source contradictions listed, incl. my note allowing V_GS via differential probe.
+-> sim-analyst: extend run with end-of-burst energy (H5).
+<- test-readiness: 6 blockers for test, 16 should prepare, 13 notes; no board change needed. B5 HS not observable, B1 bus
+   source undefined (proposal >= 90 V, 100 mA, OVP 85 V, 1 kOhm 25 W series), B2 HS gate supply at bus potential, B3 pulse
+   source, B4 load inductor (3 turns 16 mm2 proposal), B6 scope/probe unidentified. Proposals for T1-T21 in section 5.
+-> sim-analyst: add first turn-on + second turn-off windows, 0-13 ns skew sweep, port-node and filtered V_DS outputs.
+<- fab readiness: no-go at both today. JLC: Gerbers pass, but JLC04161H-3313 is 1 oz/0.5 oz; 2/2 oz build JLC041622-3313 has
+   0.1835 mm L1-L2, so 0.10 mm + 70 um inner not on listed builds (hand est. loop 0.71-0.75 nH per cell, needs Q3D). Eurocircuits:
+   4 blockers stand. 37 open items F01-F37; 10-step list. Also XUMA2 order code, Amphenol lab cable is a female bulkhead BNC.
+Done (leader): Amphenol removed from the lab cable line (generator + BOM).
+<- sim-analyst: 33 cases, Q3D dpt_swv1. 1 uH / 80 V / 4.146 us: 74.9 V, 322.0 A; HS peak 95.9 V (first turn-on) / 90.9 V, LS 87.7 /
+   89.3 V; E_on 121, E_off 20.6 uJ; I end 339.5 A; V_GS min -3.43 V. D confirms 60.7 V sag. New: U1-U2 skew limit about 1 ns
+   (V_GS past -4 V at 2 ns, 18 nH estimate); pre-charge max 84 V; read limits 98/93/87 V at 500/200/100 MHz; 1.36 MHz row ring
+   sets off-time 0.75 us; tail 12.85 mJ per HS FET, 79 us, shots >= 1 s. Committed 92.9 V was at 79.4 V rows and 316 A.
+-> procedure author: fill section 8, stop rules, T proposals, B1-B6; two setup-note corrections.
+<- procedure author: DPT_test_procedure.md final, 84 steps, 23 stop criteria; setup note intro corrected. Note: M0_skew1 at 80 V
+   gives HS first turn-on 99.98 V, V_GS -3.72 V, so 1 ns skew has no V_DS margin even at 80 V; 84 V only near zero skew.
+Open: HS peak and gate unmeasured (optical probe), equipment choice, T1/T2/T3/T20, 15 proposals for Enes; stack-up decision.

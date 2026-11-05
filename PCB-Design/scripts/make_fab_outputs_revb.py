@@ -38,7 +38,7 @@ MECH = {
         (2, "J5, J14", "Control cable: 2 x 5 IDC socket + ribbon (each signal next to its own return)", "-",
          "2.54 mm IDC, e.g. Wurth 61201021621"),
         (4, "J6 J9 J15 J18", "V_DS lab cable: MMCX plug to BNC male, RG316, about 15 cm (to a differential probe, "
-         "never straight to the scope)", "-", "e.g. Amphenol 095-850-207-006 or Pasternack PE3C1904; confirm MMCX plug"),
+         "never straight to the scope)", "-", "e.g. Pasternack PE3C1904; confirm MMCX plug and BNC male"),
         (1, "lab", "BNC to 4 mm adapter at the differential probe input (type follows the probe input)", "-",
          "4 mm sockets on probe: Farnell CT3889; 4 mm plugs on probe: PMK 4MM-BNC-F"),
         (1, "lab", "High-voltage differential probe, above 100 V differential, BNC output", "-",

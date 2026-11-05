@@ -1,0 +1,46 @@
+{
+ "LS_off1": {
+  "die_as_simulated": 87.72931571704757,
+  "base_at_peak": 80.851212003451,
+  "ring_scale_to_100V": 2.784021409664971,
+  "read_as_simulated_100MHz": 84.17878879153797,
+  "read_when_die_100V_100MHz": 87.93985537491479,
+  "read_as_simulated_200MHz": 85.47086102231265,
+  "read_when_die_100V_200MHz": 93.66197089402561,
+  "read_as_simulated_500MHz": 87.07592259421781,
+  "read_when_die_100V_500MHz": 98.15978553285487
+ },
+ "LS_off2": {
+  "die_as_simulated": 89.24975441689726,
+  "base_at_peak": 79.3384869709347,
+  "ring_scale_to_100V": 2.08464892524739,
+  "read_as_simulated_100MHz": 84.44654120581721,
+  "read_when_die_100V_100MHz": 87.14643106261383,
+  "read_as_simulated_200MHz": 85.98132115941158,
+  "read_when_die_100V_200MHz": 93.14935571260683,
+  "read_as_simulated_500MHz": 88.32104327965486,
+  "read_when_die_100V_500MHz": 98.05502961637808
+ },
+ "HS_on1": {
+  "die_as_simulated": 95.92773394181992,
+  "base_at_peak": 79.78451972461107,
+  "ring_scale_to_100V": 1.2522586892168597,
+  "read_as_simulated_100MHz": 86.20016174626174,
+  "read_when_die_100V_100MHz": 87.7376814149507,
+  "read_as_simulated_200MHz": 90.6836182835326,
+  "read_when_die_100V_200MHz": 93.4167145016231,
+  "read_as_simulated_500MHz": 94.64179199559949,
+  "read_when_die_100V_500MHz": 98.38348692120057
+ },
+ "HS_on2": {
+  "die_as_simulated": 90.87725815188143,
+  "base_at_peak": 72.81189270753643,
+  "ring_scale_to_100V": 1.504985181518941,
+  "read_as_simulated_100MHz": 81.25654135761121,
+  "read_when_die_100V_100MHz": 85.00364970687737,
+  "read_as_simulated_200MHz": 85.56012603894636,
+  "read_when_die_100V_200MHz": 91.43345223166551,
+  "read_as_simulated_500MHz": 89.45459108967474,
+  "read_when_die_100V_500MHz": 97.85419866624325
+ }
+}
