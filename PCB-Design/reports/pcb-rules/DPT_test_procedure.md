@@ -266,7 +266,7 @@ No bus supply connected. Check TP45-TP46 with the meter first: at or below T11. 
 | 4.9 | **Bus at zero confirmed.** Static PWM_L1 and PWM_L2 high, 3.3 V, PWM_H low. M0 on Q3, Q4, Q7, Q8 pads. Then PWM_L low | Static V_GS,on, LS | 4.8 to 5.4 V plus the 12.7 mA shift (MS, ER N1). Margin = 6 V minus reading (MS: 0.6 V at best at 5 mA) | Above T6. Never at +6 V |
 | 4.10 | PWM_L low, static PWM_H1 and PWM_H2 high. M0 on Q1, Q2, Q5, Q6 pads. Then PWM_H low. **Never both high** | Static V_GS,on, HS | As 4.9 | Above T6 |
 | 4.11 | M1 on GNDI1, then GNDI2 (one return at a time). Real pulse source, real cable, shortest planned pulses (second pulse in section 8). Probe at J5 / J14 pin, then at INA, INB against the local GNDI | PWM logic | Filter 47 Ω, 100 pF: τ 4.7 ns, about 10 ns rise (MS); with a 50 Ω source τ is about 10 ns (TR B3). High level above V_INH max 2.35 V. Pulses well above the 18 ns typical driver minimum (MS, ER). U1 and U2 alike | Missing, double or short pulses |
-| 4.12 | M1 on Q3 (return KL1), trigger from the pulse source sync. Measure sync to V_GS edge. Repeat on Q4, then move the return, Q7, Q8 (KL2). Do not put KL1 and KL2 on two channels (rule 1). **Trim the delay between the two outputs** and repeat | U1 to U2 skew on channel B, by subtracting the readings | As close to 0 as the source allows; **1 ns or less is required before any full-voltage shot** (T7). Untrimmed it can be up to 13 ns: t_PD 31-44 ns between packages (TR S4). Channel A cannot be measured (H1) | Cannot reach 1 ns: no full-voltage shot |
+| 4.12 | M1 on Q3 (return KL1), trigger from the pulse source sync. Measure sync to V_GS edge. Repeat on Q4, then move the return, Q7, Q8 (KL2). Do not put KL1 and KL2 on two channels (rule 1). **Trim the delay between the two outputs** and repeat | U1 to U2 skew on channel B, by subtracting the readings | As close to 0 as the source allows; **as low as possible, 0.5 ns or less before 80 V is required before any full-voltage shot** (T7). Untrimmed it can be up to 13 ns: t_PD 31-44 ns between packages (TR S4). Channel A cannot be measured (H1) | Cannot reach 1 ns: no full-voltage shot |
 | 4.13 | Fit the arm line on both headers: pin 6 to 12 V through 10 kΩ, ARM switch shorts it to RTN pin 5 (TR S5, proposal, Enes to confirm). Run LS pulses, then open the switch (disarm) | LS V_GS | Armed: follows PWM. Disarmed: both outputs low within 100 ns (TR S5, 2EDF Table 16), whatever PWM does | Outputs still switch when disarmed |
 | 4.14 | PWM off. **Tie PWM_H1 to RTN at J5 (pin 2 to pin 1) and PWM_H2 at J14 (pin 2 to pin 1)** (ER N8). Run LS pulses, M0 on the HS pads | HS V_GS | Stays at V_GS,off | HS moves |
 | 4.15 | Fill the table. Switch off V_ISO, then 12 V | | | |
@@ -472,7 +472,7 @@ Stop means bus off, discharge, cause found before continuing.
 - [ ] 12 V, VDDI 3.3 V; V_ISO 7.0 V, polarity checked
 - [ ] Eight V_GS,off with meter; set to −1.7 to −1.9 V; V_ISO not above 7.1 V
 - [ ] Eight V_GS,on, margin to +6 V, never H and L high together
-- [ ] INA, INB at shortest pulse; U1 to U2 skew trimmed, **1 ns or less**
+- [ ] INA, INB at shortest pulse; U1 to U2 skew trimmed: **as low as possible; 3 ns at 40 V, 1.5 ns at 60 V, 0.5 ns at 80 V**
 - [ ] Arm line fitted and tested
 - [ ] **PWM_H tied to RTN on J5 and J14**
 
@@ -495,7 +495,7 @@ Stop means bus off, discharge, cause found before continuing.
 - [ ] INB again, INA flat; temperature
 
 **Full point (8)**
-- [ ] H1, H4 decided; skew 1 ns or less; L measured, t1 corrected
+- [ ] H1, H4 decided; skew 0.5 ns or less; L measured, t1 corrected
 - [ ] 80 V on TP45-46, 4.146 µs, 0.75 µs tuned, 300 ns
 - [ ] Do not compare with 92.9 V or 125 µJ (1 mF deck)
 
