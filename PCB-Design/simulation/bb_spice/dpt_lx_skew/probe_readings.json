@@ -1,0 +1,1839 @@
+{
+ "method": "Probe-filtered readings from the existing dpt_lx_skew raws (no new Q3D or SPICE). Same method as read_limits() of the 1 uH / 80 V study:\n0.05 ns grid, first-order low pass at 100 / 200 / 500 MHz, 200 ns lead-in, peak inside the event window.\n\nPort (MMCX): the Q3D model has no terminal there. Return = RSI_c (LSRC via in the shunt land, review S3); drain side bounded by the two AC-net\nnodes QL_D_c and QH_S_c. \"die\" = model pins V(dL, QL_S) / V(dH, QH_S); the deck has no package inductance. Cells 1-4 = J6, J9, J15, J18 (Q3, Q4, Q7, Q8).\nSolver-fault windows are removed before gridding. Spikes below the 1000 V fault seed are removed too: a grid sample more than 5 V from its 0.45 ns\nrunning median is replaced by the median (a real 211 MHz ring moves under 3 V in that span, and the median follows an edge); counts are in\n\"spikes\" of the output. Writes probe_readings.json.",
+ "missing_raw": [],
+ "missing_RSI": [],
+ "faults": {
+  "V80_R1p5_s0": [],
+  "V80_R1p5_s0p5": [
+   [
+    567,
+    1075
+   ]
+  ],
+  "DIE2_LOW_V10_R1p5_s0": [],
+  "DIE2_LOW_V20_R1p5_s0": [],
+  "V40_R3_s3": [],
+  "V60_R1p5_s1": []
+ },
+ "runs": {
+  "V80_R1p5_s0": {
+   "bus_T1": 74.9,
+   "bus_T3": 74.24,
+   "I_end1": [
+    67.8,
+    92.1,
+    92.3,
+    67.8
+   ],
+   "I_end2": [
+    78.8,
+    88.0,
+    87.8,
+    79.1
+   ]
+  },
+  "V80_R1p5_s0p5": {
+   "bus_T1": 74.9,
+   "bus_T3": 74.24,
+   "I_end1": [
+    68.1,
+    92.4,
+    92.0,
+    67.5
+   ],
+   "I_end2": [
+    78.8,
+    88.6,
+    87.1,
+    78.9
+   ]
+  },
+  "DIE2_LOW_V10_R1p5_s0": {
+   "bus_T1": 9.76,
+   "bus_T3": 9.7,
+   "I_end1": [
+    5.1,
+    7.2,
+    7.3,
+    5.1
+   ],
+   "I_end2": [
+    5.9,
+    6.7,
+    6.7,
+    5.9
+   ]
+  },
+  "DIE2_LOW_V20_R1p5_s0": {
+   "bus_T1": 19.51,
+   "bus_T3": 19.41,
+   "I_end1": [
+    10.3,
+    14.5,
+    14.5,
+    10.3
+   ],
+   "I_end2": [
+    12.2,
+    13.9,
+    13.9,
+    12.3
+   ]
+  },
+  "V40_R3_s3": {
+   "bus_T1": 39.03,
+   "bus_T3": 38.83,
+   "I_end1": [
+    21.6,
+    30.5,
+    27.4,
+    19.4
+   ],
+   "I_end2": [
+    26.0,
+    30.8,
+    25.7,
+    23.9
+   ]
+  },
+  "V60_R1p5_s1": {
+   "bus_T1": 57.4,
+   "bus_T3": 56.98,
+   "I_end1": [
+    42.2,
+    58.2,
+    57.0,
+    41.2
+   ],
+   "I_end2": [
+    48.9,
+    56.1,
+    53.7,
+    48.7
+   ]
+  }
+ },
+ "item1_LS": {
+  "V80_R1p5_s0": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 86.91,
+      "500MHz": 86.28,
+      "200MHz": 84.58,
+      "100MHz": 84.17
+     },
+     "port_QLD_RSI": {
+      "raw": 86.83,
+      "500MHz": 86.2,
+      "200MHz": 84.57,
+      "100MHz": 84.17
+     },
+     "port_QHS_RSI": {
+      "raw": 86.39,
+      "500MHz": 85.79,
+      "200MHz": 84.51,
+      "100MHz": 84.13
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 93.15,
+      "500MHz": 91.92,
+      "200MHz": 89.6,
+      "100MHz": 86.12
+     },
+     "port_QLD_RSI": {
+      "raw": 92.93,
+      "500MHz": 91.82,
+      "200MHz": 89.53,
+      "100MHz": 86.08
+     },
+     "port_QHS_RSI": {
+      "raw": 92.0,
+      "500MHz": 91.27,
+      "200MHz": 89.12,
+      "100MHz": 85.79
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 93.22,
+      "500MHz": 91.93,
+      "200MHz": 89.6,
+      "100MHz": 86.12
+     },
+     "port_QLD_RSI": {
+      "raw": 92.98,
+      "500MHz": 91.82,
+      "200MHz": 89.52,
+      "100MHz": 86.07
+     },
+     "port_QHS_RSI": {
+      "raw": 92.03,
+      "500MHz": 91.3,
+      "200MHz": 89.13,
+      "100MHz": 85.8
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 87.07,
+      "500MHz": 86.42,
+      "200MHz": 84.69,
+      "100MHz": 84.2
+     },
+     "port_QLD_RSI": {
+      "raw": 86.98,
+      "500MHz": 86.34,
+      "200MHz": 84.66,
+      "100MHz": 84.2
+     },
+     "port_QHS_RSI": {
+      "raw": 86.53,
+      "500MHz": 85.92,
+      "200MHz": 84.55,
+      "100MHz": 84.16
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 87.94,
+      "500MHz": 87.2,
+      "200MHz": 85.0,
+      "100MHz": 84.13
+     },
+     "port_QLD_RSI": {
+      "raw": 87.83,
+      "500MHz": 87.1,
+      "200MHz": 84.92,
+      "100MHz": 84.12
+     },
+     "port_QHS_RSI": {
+      "raw": 87.3,
+      "500MHz": 86.63,
+      "200MHz": 84.73,
+      "100MHz": 84.06
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 91.75,
+      "500MHz": 90.68,
+      "200MHz": 87.94,
+      "100MHz": 84.24
+     },
+     "port_QLD_RSI": {
+      "raw": 91.51,
+      "500MHz": 90.56,
+      "200MHz": 87.85,
+      "100MHz": 84.19
+     },
+     "port_QHS_RSI": {
+      "raw": 90.79,
+      "500MHz": 89.93,
+      "200MHz": 87.38,
+      "100MHz": 84.05
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 91.67,
+      "500MHz": 90.64,
+      "200MHz": 87.89,
+      "100MHz": 84.21
+     },
+     "port_QLD_RSI": {
+      "raw": 91.43,
+      "500MHz": 90.51,
+      "200MHz": 87.8,
+      "100MHz": 84.16
+     },
+     "port_QHS_RSI": {
+      "raw": 90.79,
+      "500MHz": 89.92,
+      "200MHz": 87.35,
+      "100MHz": 84.06
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 88.27,
+      "500MHz": 87.51,
+      "200MHz": 85.24,
+      "100MHz": 84.2
+     },
+     "port_QLD_RSI": {
+      "raw": 88.16,
+      "500MHz": 87.41,
+      "200MHz": 85.17,
+      "100MHz": 84.19
+     },
+     "port_QHS_RSI": {
+      "raw": 87.6,
+      "500MHz": 86.9,
+      "200MHz": 84.83,
+      "100MHz": 84.12
+     }
+    }
+   }
+  },
+  "V80_R1p5_s0p5": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 85.46,
+      "500MHz": 85.0,
+      "200MHz": 84.52,
+      "100MHz": 84.12
+     },
+     "port_QLD_RSI": {
+      "raw": 85.39,
+      "500MHz": 84.94,
+      "200MHz": 84.51,
+      "100MHz": 84.11
+     },
+     "port_QHS_RSI": {
+      "raw": 85.06,
+      "500MHz": 84.78,
+      "200MHz": 84.45,
+      "100MHz": 84.08
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 92.09,
+      "500MHz": 90.39,
+      "200MHz": 87.96,
+      "100MHz": 85.2
+     },
+     "port_QLD_RSI": {
+      "raw": 91.9,
+      "500MHz": 90.24,
+      "200MHz": 87.91,
+      "100MHz": 85.16
+     },
+     "port_QHS_RSI": {
+      "raw": 90.98,
+      "500MHz": 89.47,
+      "200MHz": 87.63,
+      "100MHz": 84.97
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 93.91,
+      "500MHz": 92.99,
+      "200MHz": 90.34,
+      "100MHz": 86.52
+     },
+     "port_QLD_RSI": {
+      "raw": 93.77,
+      "500MHz": 92.87,
+      "200MHz": 90.25,
+      "100MHz": 86.47
+     },
+     "port_QHS_RSI": {
+      "raw": 93.08,
+      "500MHz": 92.23,
+      "200MHz": 89.78,
+      "100MHz": 86.23
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 87.26,
+      "500MHz": 86.61,
+      "200MHz": 84.72,
+      "100MHz": 84.12
+     },
+     "port_QLD_RSI": {
+      "raw": 87.17,
+      "500MHz": 86.53,
+      "200MHz": 84.66,
+      "100MHz": 84.11
+     },
+     "port_QHS_RSI": {
+      "raw": 86.68,
+      "500MHz": 86.09,
+      "200MHz": 84.47,
+      "100MHz": 84.08
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 86.41,
+      "500MHz": 85.78,
+      "200MHz": 85.02,
+      "100MHz": 84.23
+     },
+     "port_QLD_RSI": {
+      "raw": 86.32,
+      "500MHz": 85.7,
+      "200MHz": 85.0,
+      "100MHz": 84.21
+     },
+     "port_QHS_RSI": {
+      "raw": 85.9,
+      "500MHz": 85.55,
+      "200MHz": 84.88,
+      "100MHz": 84.14
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 91.09,
+      "500MHz": 89.19,
+      "200MHz": 86.36,
+      "100MHz": 84.14
+     },
+     "port_QLD_RSI": {
+      "raw": 90.86,
+      "500MHz": 89.01,
+      "200MHz": 86.3,
+      "100MHz": 84.13
+     },
+     "port_QHS_RSI": {
+      "raw": 89.83,
+      "500MHz": 88.13,
+      "200MHz": 85.95,
+      "100MHz": 84.06
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 92.56,
+      "500MHz": 91.53,
+      "200MHz": 88.5,
+      "100MHz": 84.61
+     },
+     "port_QLD_RSI": {
+      "raw": 92.4,
+      "500MHz": 91.39,
+      "200MHz": 88.4,
+      "100MHz": 84.55
+     },
+     "port_QHS_RSI": {
+      "raw": 91.65,
+      "500MHz": 90.69,
+      "200MHz": 87.88,
+      "100MHz": 84.27
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 89.71,
+      "500MHz": 88.83,
+      "200MHz": 86.2,
+      "100MHz": 83.88
+     },
+     "port_QLD_RSI": {
+      "raw": 89.58,
+      "500MHz": 88.72,
+      "200MHz": 86.12,
+      "100MHz": 83.87
+     },
+     "port_QHS_RSI": {
+      "raw": 88.93,
+      "500MHz": 88.12,
+      "200MHz": 85.68,
+      "100MHz": 83.82
+     }
+    }
+   }
+  }
+ },
+ "item1_HS": {
+  "V80_R1p5_s0": {
+   "on1": {
+    "cell1": {
+     "raw": 95.85,
+     "500MHz": 94.58,
+     "200MHz": 90.11,
+     "100MHz": 86.05
+    },
+    "cell2": {
+     "raw": 95.41,
+     "500MHz": 94.19,
+     "200MHz": 89.82,
+     "100MHz": 85.97
+    },
+    "cell3": {
+     "raw": 95.76,
+     "500MHz": 94.49,
+     "200MHz": 90.06,
+     "100MHz": 86.06
+    },
+    "cell4": {
+     "raw": 95.79,
+     "500MHz": 94.93,
+     "200MHz": 90.85,
+     "100MHz": 86.14
+    }
+   },
+   "on2": {
+    "cell1": {
+     "raw": 89.69,
+     "500MHz": 88.37,
+     "200MHz": 84.9,
+     "100MHz": 81.05
+    },
+    "cell2": {
+     "raw": 91.19,
+     "500MHz": 89.74,
+     "200MHz": 85.84,
+     "100MHz": 81.38
+    },
+    "cell3": {
+     "raw": 91.53,
+     "500MHz": 90.01,
+     "200MHz": 85.78,
+     "100MHz": 81.35
+    },
+    "cell4": {
+     "raw": 90.05,
+     "500MHz": 88.84,
+     "200MHz": 85.28,
+     "100MHz": 81.28
+    }
+   }
+  },
+  "V80_R1p5_s0p5": {
+   "on1": {
+    "cell1": {
+     "raw": 94.42,
+     "500MHz": 92.88,
+     "200MHz": 89.31,
+     "100MHz": 84.71
+    },
+    "cell2": {
+     "raw": 93.43,
+     "500MHz": 91.45,
+     "200MHz": 88.18,
+     "100MHz": 84.65
+    },
+    "cell3": {
+     "raw": 97.68,
+     "500MHz": 96.22,
+     "200MHz": 91.78,
+     "100MHz": 87.05
+    },
+    "cell4": {
+     "raw": 98.02,
+     "500MHz": 96.56,
+     "200MHz": 92.29,
+     "100MHz": 87.58
+    }
+   },
+   "on2": {
+    "cell1": {
+     "raw": 89.53,
+     "500MHz": 87.1,
+     "200MHz": 82.82,
+     "100MHz": 79.59
+    },
+    "cell2": {
+     "raw": 89.8,
+     "500MHz": 88.39,
+     "200MHz": 84.17,
+     "100MHz": 80.22
+    },
+    "cell3": {
+     "raw": 92.15,
+     "500MHz": 90.73,
+     "200MHz": 86.61,
+     "100MHz": 82.08
+    },
+    "cell4": {
+     "raw": 93.71,
+     "500MHz": 92.14,
+     "200MHz": 87.63,
+     "100MHz": 82.59
+    }
+   }
+  }
+ },
+ "item2_LS_lower_stages": {
+  "DIE2_LOW_V10_R1p5_s0": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 15.73,
+      "500MHz": 15.67,
+      "200MHz": 15.38,
+      "100MHz": 14.77
+     },
+     "port_QLD_RSI": {
+      "raw": 15.71,
+      "500MHz": 15.65,
+      "200MHz": 15.36,
+      "100MHz": 14.76
+     },
+     "port_QHS_RSI": {
+      "raw": 15.61,
+      "500MHz": 15.55,
+      "200MHz": 15.27,
+      "100MHz": 14.71
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 15.89,
+      "500MHz": 15.84,
+      "200MHz": 15.61,
+      "100MHz": 15.07
+     },
+     "port_QLD_RSI": {
+      "raw": 15.88,
+      "500MHz": 15.83,
+      "200MHz": 15.6,
+      "100MHz": 15.06
+     },
+     "port_QHS_RSI": {
+      "raw": 15.81,
+      "500MHz": 15.76,
+      "200MHz": 15.53,
+      "100MHz": 15.02
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 15.9,
+      "500MHz": 15.85,
+      "200MHz": 15.62,
+      "100MHz": 15.08
+     },
+     "port_QLD_RSI": {
+      "raw": 15.89,
+      "500MHz": 15.84,
+      "200MHz": 15.61,
+      "100MHz": 15.07
+     },
+     "port_QHS_RSI": {
+      "raw": 15.82,
+      "500MHz": 15.77,
+      "200MHz": 15.55,
+      "100MHz": 15.03
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 15.78,
+      "500MHz": 15.71,
+      "200MHz": 15.42,
+      "100MHz": 14.79
+     },
+     "port_QLD_RSI": {
+      "raw": 15.76,
+      "500MHz": 15.69,
+      "200MHz": 15.41,
+      "100MHz": 14.78
+     },
+     "port_QHS_RSI": {
+      "raw": 15.65,
+      "500MHz": 15.59,
+      "200MHz": 15.31,
+      "100MHz": 14.73
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 16.31,
+      "500MHz": 16.22,
+      "200MHz": 15.89,
+      "100MHz": 15.17
+     },
+     "port_QLD_RSI": {
+      "raw": 16.28,
+      "500MHz": 16.2,
+      "200MHz": 15.87,
+      "100MHz": 15.15
+     },
+     "port_QHS_RSI": {
+      "raw": 16.16,
+      "500MHz": 16.08,
+      "200MHz": 15.76,
+      "100MHz": 15.07
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 16.37,
+      "500MHz": 16.3,
+      "200MHz": 16.0,
+      "100MHz": 15.32
+     },
+     "port_QLD_RSI": {
+      "raw": 16.35,
+      "500MHz": 16.28,
+      "200MHz": 15.98,
+      "100MHz": 15.31
+     },
+     "port_QHS_RSI": {
+      "raw": 16.24,
+      "500MHz": 16.17,
+      "200MHz": 15.88,
+      "100MHz": 15.23
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 16.38,
+      "500MHz": 16.31,
+      "200MHz": 16.0,
+      "100MHz": 15.32
+     },
+     "port_QLD_RSI": {
+      "raw": 16.36,
+      "500MHz": 16.29,
+      "200MHz": 15.98,
+      "100MHz": 15.31
+     },
+     "port_QHS_RSI": {
+      "raw": 16.25,
+      "500MHz": 16.18,
+      "200MHz": 15.88,
+      "100MHz": 15.24
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 16.36,
+      "500MHz": 16.27,
+      "200MHz": 15.93,
+      "100MHz": 15.21
+     },
+     "port_QLD_RSI": {
+      "raw": 16.33,
+      "500MHz": 16.25,
+      "200MHz": 15.91,
+      "100MHz": 15.19
+     },
+     "port_QHS_RSI": {
+      "raw": 16.2,
+      "500MHz": 16.12,
+      "200MHz": 15.8,
+      "100MHz": 15.11
+     }
+    }
+   }
+  },
+  "DIE2_LOW_V20_R1p5_s0": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 26.57,
+      "500MHz": 26.42,
+      "200MHz": 25.9,
+      "100MHz": 25.12
+     },
+     "port_QLD_RSI": {
+      "raw": 26.53,
+      "500MHz": 26.38,
+      "200MHz": 25.87,
+      "100MHz": 25.1
+     },
+     "port_QHS_RSI": {
+      "raw": 26.36,
+      "500MHz": 26.22,
+      "200MHz": 25.73,
+      "100MHz": 25.01
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 29.62,
+      "500MHz": 29.41,
+      "200MHz": 28.7,
+      "100MHz": 27.37
+     },
+     "port_QLD_RSI": {
+      "raw": 29.57,
+      "500MHz": 29.37,
+      "200MHz": 28.66,
+      "100MHz": 27.34
+     },
+     "port_QHS_RSI": {
+      "raw": 29.33,
+      "500MHz": 29.15,
+      "200MHz": 28.48,
+      "100MHz": 27.21
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 29.58,
+      "500MHz": 29.38,
+      "200MHz": 28.67,
+      "100MHz": 27.35
+     },
+     "port_QLD_RSI": {
+      "raw": 29.54,
+      "500MHz": 29.34,
+      "200MHz": 28.63,
+      "100MHz": 27.32
+     },
+     "port_QHS_RSI": {
+      "raw": 29.32,
+      "500MHz": 29.13,
+      "200MHz": 28.46,
+      "100MHz": 27.2
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 26.56,
+      "500MHz": 26.42,
+      "200MHz": 25.9,
+      "100MHz": 25.13
+     },
+     "port_QLD_RSI": {
+      "raw": 26.53,
+      "500MHz": 26.39,
+      "200MHz": 25.87,
+      "100MHz": 25.11
+     },
+     "port_QHS_RSI": {
+      "raw": 26.35,
+      "500MHz": 26.22,
+      "200MHz": 25.73,
+      "100MHz": 25.02
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 25.24,
+      "500MHz": 25.18,
+      "200MHz": 24.91,
+      "100MHz": 24.36
+     },
+     "port_QLD_RSI": {
+      "raw": 25.23,
+      "500MHz": 25.16,
+      "200MHz": 24.9,
+      "100MHz": 24.35
+     },
+     "port_QHS_RSI": {
+      "raw": 25.14,
+      "500MHz": 25.08,
+      "200MHz": 24.83,
+      "100MHz": 24.3
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 26.45,
+      "500MHz": 26.37,
+      "200MHz": 26.07,
+      "100MHz": 25.36
+     },
+     "port_QLD_RSI": {
+      "raw": 26.43,
+      "500MHz": 26.35,
+      "200MHz": 26.06,
+      "100MHz": 25.35
+     },
+     "port_QHS_RSI": {
+      "raw": 26.32,
+      "500MHz": 26.25,
+      "200MHz": 25.97,
+      "100MHz": 25.28
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 26.39,
+      "500MHz": 26.31,
+      "200MHz": 26.02,
+      "100MHz": 25.31
+     },
+     "port_QLD_RSI": {
+      "raw": 26.37,
+      "500MHz": 26.29,
+      "200MHz": 26.0,
+      "100MHz": 25.3
+     },
+     "port_QHS_RSI": {
+      "raw": 26.27,
+      "500MHz": 26.2,
+      "200MHz": 25.92,
+      "100MHz": 25.24
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 25.24,
+      "500MHz": 25.18,
+      "200MHz": 24.92,
+      "100MHz": 24.37
+     },
+     "port_QLD_RSI": {
+      "raw": 25.23,
+      "500MHz": 25.16,
+      "200MHz": 24.91,
+      "100MHz": 24.37
+     },
+     "port_QHS_RSI": {
+      "raw": 25.14,
+      "500MHz": 25.08,
+      "200MHz": 24.84,
+      "100MHz": 24.32
+     }
+    }
+   }
+  },
+  "V40_R3_s3": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 47.08,
+      "500MHz": 46.81,
+      "200MHz": 45.96,
+      "100MHz": 45.04
+     },
+     "port_QLD_RSI": {
+      "raw": 47.03,
+      "500MHz": 46.76,
+      "200MHz": 45.93,
+      "100MHz": 45.03
+     },
+     "port_QHS_RSI": {
+      "raw": 46.79,
+      "500MHz": 46.54,
+      "200MHz": 45.76,
+      "100MHz": 44.97
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 50.46,
+      "500MHz": 50.16,
+      "200MHz": 49.11,
+      "100MHz": 47.12
+     },
+     "port_QLD_RSI": {
+      "raw": 50.41,
+      "500MHz": 50.11,
+      "200MHz": 49.07,
+      "100MHz": 47.1
+     },
+     "port_QHS_RSI": {
+      "raw": 50.12,
+      "500MHz": 49.85,
+      "200MHz": 48.86,
+      "100MHz": 47.0
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 51.59,
+      "500MHz": 51.23,
+      "200MHz": 49.96,
+      "100MHz": 48.22
+     },
+     "port_QLD_RSI": {
+      "raw": 51.52,
+      "500MHz": 51.17,
+      "200MHz": 49.91,
+      "100MHz": 48.2
+     },
+     "port_QHS_RSI": {
+      "raw": 51.18,
+      "500MHz": 50.85,
+      "200MHz": 49.66,
+      "100MHz": 48.08
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 46.66,
+      "500MHz": 46.39,
+      "200MHz": 45.63,
+      "100MHz": 45.16
+     },
+     "port_QLD_RSI": {
+      "raw": 46.61,
+      "500MHz": 46.34,
+      "200MHz": 45.62,
+      "100MHz": 45.15
+     },
+     "port_QHS_RSI": {
+      "raw": 46.36,
+      "500MHz": 46.11,
+      "200MHz": 45.53,
+      "100MHz": 45.1
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 46.36,
+      "500MHz": 46.15,
+      "200MHz": 45.46,
+      "100MHz": 44.62
+     },
+     "port_QLD_RSI": {
+      "raw": 46.32,
+      "500MHz": 46.11,
+      "200MHz": 45.44,
+      "100MHz": 44.6
+     },
+     "port_QHS_RSI": {
+      "raw": 46.13,
+      "500MHz": 45.93,
+      "200MHz": 45.3,
+      "100MHz": 44.51
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 48.39,
+      "500MHz": 48.14,
+      "200MHz": 47.21,
+      "100MHz": 45.8
+     },
+     "port_QLD_RSI": {
+      "raw": 48.35,
+      "500MHz": 48.1,
+      "200MHz": 47.18,
+      "100MHz": 45.78
+     },
+     "port_QHS_RSI": {
+      "raw": 48.11,
+      "500MHz": 47.87,
+      "200MHz": 46.99,
+      "100MHz": 45.67
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 48.45,
+      "500MHz": 48.18,
+      "200MHz": 47.17,
+      "100MHz": 45.82
+     },
+     "port_QLD_RSI": {
+      "raw": 48.4,
+      "500MHz": 48.13,
+      "200MHz": 47.13,
+      "100MHz": 45.8
+     },
+     "port_QHS_RSI": {
+      "raw": 48.13,
+      "500MHz": 47.88,
+      "200MHz": 46.93,
+      "100MHz": 45.71
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 46.33,
+      "500MHz": 46.09,
+      "200MHz": 45.35,
+      "100MHz": 44.48
+     },
+     "port_QLD_RSI": {
+      "raw": 46.29,
+      "500MHz": 46.06,
+      "200MHz": 45.32,
+      "100MHz": 44.47
+     },
+     "port_QHS_RSI": {
+      "raw": 46.07,
+      "500MHz": 45.85,
+      "200MHz": 45.16,
+      "100MHz": 44.45
+     }
+    }
+   }
+  },
+  "V60_R1p5_s1": {
+   "off1": {
+    "cell1_J6": {
+     "die": {
+      "raw": 66.11,
+      "500MHz": 65.92,
+      "200MHz": 65.44,
+      "100MHz": 64.91
+     },
+     "port_QLD_RSI": {
+      "raw": 66.05,
+      "500MHz": 65.89,
+      "200MHz": 65.43,
+      "100MHz": 64.9
+     },
+     "port_QHS_RSI": {
+      "raw": 65.93,
+      "500MHz": 65.79,
+      "200MHz": 65.35,
+      "100MHz": 64.85
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 70.39,
+      "500MHz": 69.97,
+      "200MHz": 68.48,
+      "100MHz": 66.42
+     },
+     "port_QLD_RSI": {
+      "raw": 70.32,
+      "500MHz": 69.91,
+      "200MHz": 68.44,
+      "100MHz": 66.4
+     },
+     "port_QHS_RSI": {
+      "raw": 69.98,
+      "500MHz": 69.59,
+      "200MHz": 68.2,
+      "100MHz": 66.31
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 71.49,
+      "500MHz": 70.99,
+      "200MHz": 69.54,
+      "100MHz": 67.84
+     },
+     "port_QLD_RSI": {
+      "raw": 71.41,
+      "500MHz": 70.91,
+      "200MHz": 69.49,
+      "100MHz": 67.8
+     },
+     "port_QHS_RSI": {
+      "raw": 71.0,
+      "500MHz": 70.54,
+      "200MHz": 69.21,
+      "100MHz": 67.63
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 67.86,
+      "500MHz": 67.39,
+      "200MHz": 66.0,
+      "100MHz": 64.86
+     },
+     "port_QLD_RSI": {
+      "raw": 67.79,
+      "500MHz": 67.33,
+      "200MHz": 65.96,
+      "100MHz": 64.84
+     },
+     "port_QHS_RSI": {
+      "raw": 67.44,
+      "500MHz": 67.01,
+      "200MHz": 65.73,
+      "100MHz": 64.75
+     }
+    }
+   },
+   "off2": {
+    "cell1_J6": {
+     "die": {
+      "raw": 65.69,
+      "500MHz": 65.32,
+      "200MHz": 64.76,
+      "100MHz": 64.41
+     },
+     "port_QLD_RSI": {
+      "raw": 65.63,
+      "500MHz": 65.27,
+      "200MHz": 64.75,
+      "100MHz": 64.41
+     },
+     "port_QHS_RSI": {
+      "raw": 65.38,
+      "500MHz": 65.03,
+      "200MHz": 64.7,
+      "100MHz": 64.38
+     }
+    },
+    "cell2_J9": {
+     "die": {
+      "raw": 67.29,
+      "500MHz": 66.93,
+      "200MHz": 65.51,
+      "100MHz": 64.29
+     },
+     "port_QLD_RSI": {
+      "raw": 67.23,
+      "500MHz": 66.88,
+      "200MHz": 65.47,
+      "100MHz": 64.29
+     },
+     "port_QHS_RSI": {
+      "raw": 66.93,
+      "500MHz": 66.61,
+      "200MHz": 65.25,
+      "100MHz": 64.26
+     }
+    },
+    "cell3_J15": {
+     "die": {
+      "raw": 66.33,
+      "500MHz": 66.03,
+      "200MHz": 65.13,
+      "100MHz": 64.17
+     },
+     "port_QLD_RSI": {
+      "raw": 66.28,
+      "500MHz": 65.98,
+      "200MHz": 65.1,
+      "100MHz": 64.15
+     },
+     "port_QHS_RSI": {
+      "raw": 66.03,
+      "500MHz": 65.75,
+      "200MHz": 64.94,
+      "100MHz": 64.13
+     }
+    },
+    "cell4_J18": {
+     "die": {
+      "raw": 65.43,
+      "500MHz": 65.17,
+      "200MHz": 64.52,
+      "100MHz": 64.06
+     },
+     "port_QLD_RSI": {
+      "raw": 65.39,
+      "500MHz": 65.14,
+      "200MHz": 64.5,
+      "100MHz": 64.06
+     },
+     "port_QHS_RSI": {
+      "raw": 65.2,
+      "500MHz": 64.99,
+      "200MHz": 64.39,
+      "100MHz": 64.05
+     }
+    }
+   }
+  }
+ },
+ "item3_HS_VGS": {
+  "DIE2_LOW_V10_R1p5_s0": {
+   "cell1": {
+    "pin_min_V": -2.45,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -2.47,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   },
+   "cell2": {
+    "pin_min_V": -3.13,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -3.16,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   },
+   "cell3": {
+    "pin_min_V": -3.14,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -3.17,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   },
+   "cell4": {
+    "pin_min_V": -2.47,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -2.48,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   }
+  },
+  "DIE2_LOW_V20_R1p5_s0": {
+   "cell1": {
+    "pin_min_V": -2.36,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -2.43,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   },
+   "cell2": {
+    "pin_min_V": -4.25,
+    "pin_ns_below_m3p7": 7.8,
+    "pin_ns_below_m4p0": 4.5,
+    "die_min_V": -4.23,
+    "die_ns_below_m3p7": 8.6,
+    "die_ns_below_m4p0": 5.3
+   },
+   "cell3": {
+    "pin_min_V": -4.25,
+    "pin_ns_below_m3p7": 7.7,
+    "pin_ns_below_m4p0": 4.4,
+    "die_min_V": -4.23,
+    "die_ns_below_m3p7": 8.5,
+    "die_ns_below_m4p0": 5.2
+   },
+   "cell4": {
+    "pin_min_V": -2.4,
+    "pin_ns_below_m3p7": 0.0,
+    "pin_ns_below_m4p0": 0.0,
+    "die_min_V": -2.47,
+    "die_ns_below_m3p7": 0.0,
+    "die_ns_below_m4p0": 0.0
+   }
+  }
+ },
+ "item3_interpolation_ESTIMATE_ONLY": {
+  "note": "straight line through the 10 V and 20 V runs, inner HS cells, 2.56 us pulse, R_ON 1.5, zero skew; not simulated at that bus",
+  "pin": {
+   "V_at_10V": -3.14,
+   "V_at_20V": -4.25,
+   "bus_at_m3p7_V": 15.0,
+   "bus_at_m4p0_V": 17.7
+  },
+  "die": {
+   "V_at_10V": -3.17,
+   "V_at_20V": -4.23,
+   "bus_at_m3p7_V": 15.0,
+   "bus_at_m4p0_V": 17.8
+  }
+ },
+ "item4_T15_margin": {
+  "V80_R1p5_s0": {
+   "off1_die_500MHz": {
+    "worst": "cell3_J15",
+    "read": 91.93,
+    "T15": 98.0,
+    "margin": 6.07
+   },
+   "off1_die_200MHz": {
+    "worst": "cell2_J9",
+    "read": 89.6,
+    "T15": 93.0,
+    "margin": 3.4
+   },
+   "off1_die_100MHz": {
+    "worst": "cell2_J9",
+    "read": 86.12,
+    "T15": 87.0,
+    "margin": 0.88
+   },
+   "off1_port_QLD_RSI_500MHz": {
+    "worst": "cell2_J9",
+    "read": 91.82,
+    "T15": 98.0,
+    "margin": 6.18
+   },
+   "off1_port_QLD_RSI_200MHz": {
+    "worst": "cell2_J9",
+    "read": 89.53,
+    "T15": 93.0,
+    "margin": 3.47
+   },
+   "off1_port_QLD_RSI_100MHz": {
+    "worst": "cell2_J9",
+    "read": 86.08,
+    "T15": 87.0,
+    "margin": 0.92
+   },
+   "off2_die_500MHz": {
+    "worst": "cell2_J9",
+    "read": 90.68,
+    "T15": 98.0,
+    "margin": 7.32
+   },
+   "off2_die_200MHz": {
+    "worst": "cell2_J9",
+    "read": 87.94,
+    "T15": 93.0,
+    "margin": 5.06
+   },
+   "off2_die_100MHz": {
+    "worst": "cell2_J9",
+    "read": 84.24,
+    "T15": 87.0,
+    "margin": 2.76
+   },
+   "off2_port_QLD_RSI_500MHz": {
+    "worst": "cell2_J9",
+    "read": 90.56,
+    "T15": 98.0,
+    "margin": 7.44
+   },
+   "off2_port_QLD_RSI_200MHz": {
+    "worst": "cell2_J9",
+    "read": 87.85,
+    "T15": 93.0,
+    "margin": 5.15
+   },
+   "off2_port_QLD_RSI_100MHz": {
+    "worst": "cell2_J9",
+    "read": 84.19,
+    "T15": 87.0,
+    "margin": 2.81
+   }
+  },
+  "V80_R1p5_s0p5": {
+   "off1_die_500MHz": {
+    "worst": "cell3_J15",
+    "read": 92.99,
+    "T15": 98.0,
+    "margin": 5.01
+   },
+   "off1_die_200MHz": {
+    "worst": "cell3_J15",
+    "read": 90.34,
+    "T15": 93.0,
+    "margin": 2.66
+   },
+   "off1_die_100MHz": {
+    "worst": "cell3_J15",
+    "read": 86.52,
+    "T15": 87.0,
+    "margin": 0.48
+   },
+   "off1_port_QLD_RSI_500MHz": {
+    "worst": "cell3_J15",
+    "read": 92.87,
+    "T15": 98.0,
+    "margin": 5.13
+   },
+   "off1_port_QLD_RSI_200MHz": {
+    "worst": "cell3_J15",
+    "read": 90.25,
+    "T15": 93.0,
+    "margin": 2.75
+   },
+   "off1_port_QLD_RSI_100MHz": {
+    "worst": "cell3_J15",
+    "read": 86.47,
+    "T15": 87.0,
+    "margin": 0.53
+   },
+   "off2_die_500MHz": {
+    "worst": "cell3_J15",
+    "read": 91.53,
+    "T15": 98.0,
+    "margin": 6.47
+   },
+   "off2_die_200MHz": {
+    "worst": "cell3_J15",
+    "read": 88.5,
+    "T15": 93.0,
+    "margin": 4.5
+   },
+   "off2_die_100MHz": {
+    "worst": "cell3_J15",
+    "read": 84.61,
+    "T15": 87.0,
+    "margin": 2.39
+   },
+   "off2_port_QLD_RSI_500MHz": {
+    "worst": "cell3_J15",
+    "read": 91.39,
+    "T15": 98.0,
+    "margin": 6.61
+   },
+   "off2_port_QLD_RSI_200MHz": {
+    "worst": "cell3_J15",
+    "read": 88.4,
+    "T15": 93.0,
+    "margin": 4.6
+   },
+   "off2_port_QLD_RSI_100MHz": {
+    "worst": "cell3_J15",
+    "read": 84.55,
+    "T15": 87.0,
+    "margin": 2.45
+   }
+  }
+ },
+ "item4_read_when_worst_die_100V": {
+  "V80_R1p5_s0": [
+   {
+    "event": "off1",
+    "worst_cell": 3,
+    "worst_port": "J15",
+    "die_as_simulated": 93.22,
+    "base_at_peak": 83.43,
+    "ring_scale": 1.693,
+    "cells": {
+     "cell1_J6": {
+      "die": {
+       "raw": 91.74,
+       "500MHz": 90.68,
+       "200MHz": 87.74,
+       "100MHz": 84.65
+      },
+      "port_QLD_RSI": {
+       "raw": 91.59,
+       "500MHz": 90.55,
+       "200MHz": 87.64,
+       "100MHz": 84.64
+      },
+      "port_QHS_RSI": {
+       "raw": 90.87,
+       "500MHz": 89.88,
+       "200MHz": 87.16,
+       "100MHz": 84.58
+      }
+     },
+     "cell2_J9": {
+      "die": {
+       "raw": 99.88,
+       "500MHz": 97.96,
+       "200MHz": 94.02,
+       "100MHz": 88.79
+      },
+      "port_QLD_RSI": {
+       "raw": 99.52,
+       "500MHz": 97.81,
+       "200MHz": 93.92,
+       "100MHz": 88.72
+      },
+      "port_QHS_RSI": {
+       "raw": 98.22,
+       "500MHz": 96.97,
+       "200MHz": 93.32,
+       "100MHz": 88.36
+      }
+     },
+     "cell3_J15": {
+      "die": {
+       "raw": 100.0,
+       "500MHz": 97.99,
+       "200MHz": 94.03,
+       "100MHz": 88.79
+      },
+      "port_QLD_RSI": {
+       "raw": 99.62,
+       "500MHz": 97.83,
+       "200MHz": 93.92,
+       "100MHz": 88.72
+      },
+      "port_QHS_RSI": {
+       "raw": 98.29,
+       "500MHz": 97.04,
+       "200MHz": 93.36,
+       "100MHz": 88.38
+      }
+     },
+     "cell4_J18": {
+      "die": {
+       "raw": 91.99,
+       "500MHz": 90.92,
+       "200MHz": 87.93,
+       "100MHz": 84.72
+      },
+      "port_QLD_RSI": {
+       "raw": 91.85,
+       "500MHz": 90.79,
+       "200MHz": 87.83,
+       "100MHz": 84.7
+      },
+      "port_QHS_RSI": {
+       "raw": 91.09,
+       "500MHz": 90.09,
+       "200MHz": 87.32,
+       "100MHz": 84.63
+      }
+     }
+    }
+   },
+   {
+    "event": "off2",
+    "worst_cell": 2,
+    "worst_port": "J9",
+    "die_as_simulated": 91.75,
+    "base_at_peak": 80.41,
+    "ring_scale": 1.728,
+    "cells": {
+     "cell1_J6": {
+      "die": {
+       "raw": 94.44,
+       "500MHz": 93.17,
+       "200MHz": 89.42,
+       "100MHz": 85.28
+      },
+      "port_QLD_RSI": {
+       "raw": 94.26,
+       "500MHz": 93.0,
+       "200MHz": 89.29,
+       "100MHz": 85.2
+      },
+      "port_QHS_RSI": {
+       "raw": 93.36,
+       "500MHz": 92.18,
+       "200MHz": 88.68,
+       "100MHz": 84.91
+      }
+     },
+     "cell2_J9": {
+      "die": {
+       "raw": 100.0,
+       "500MHz": 98.26,
+       "200MHz": 93.51,
+       "100MHz": 87.37
+      },
+      "port_QLD_RSI": {
+       "raw": 99.67,
+       "500MHz": 98.07,
+       "200MHz": 93.38,
+       "100MHz": 87.29
+      },
+      "port_QHS_RSI": {
+       "raw": 98.59,
+       "500MHz": 97.09,
+       "200MHz": 92.67,
+       "100MHz": 86.85
+      }
+     },
+     "cell3_J15": {
+      "die": {
+       "raw": 99.92,
+       "500MHz": 98.25,
+       "200MHz": 93.48,
+       "100MHz": 87.33
+      },
+      "port_QLD_RSI": {
+       "raw": 99.65,
+       "500MHz": 98.06,
+       "200MHz": 93.34,
+       "100MHz": 87.25
+      },
+      "port_QHS_RSI": {
+       "raw": 98.64,
+       "500MHz": 97.13,
+       "200MHz": 92.67,
+       "100MHz": 86.83
+      }
+     },
+     "cell4_J18": {
+      "die": {
+       "raw": 94.92,
+       "500MHz": 93.62,
+       "200MHz": 89.77,
+       "100MHz": 85.53
+      },
+      "port_QLD_RSI": {
+       "raw": 94.74,
+       "500MHz": 93.46,
+       "200MHz": 89.65,
+       "100MHz": 85.45
+      },
+      "port_QHS_RSI": {
+       "raw": 93.79,
+       "500MHz": 92.58,
+       "200MHz": 89.0,
+       "100MHz": 85.06
+      }
+     }
+    }
+   }
+  ],
+  "V80_R1p5_s0p5": [
+   {
+    "event": "off1",
+    "worst_cell": 3,
+    "worst_port": "J15",
+    "die_as_simulated": 93.91,
+    "base_at_peak": 83.27,
+    "ring_scale": 1.573,
+    "cells": {
+     "cell1_J6": {
+      "die": {
+       "raw": 88.56,
+       "500MHz": 87.82,
+       "200MHz": 85.71,
+       "100MHz": 84.48
+      },
+      "port_QLD_RSI": {
+       "raw": 88.45,
+       "500MHz": 87.73,
+       "200MHz": 85.64,
+       "100MHz": 84.47
+      },
+      "port_QHS_RSI": {
+       "raw": 87.92,
+       "500MHz": 87.25,
+       "200MHz": 85.29,
+       "100MHz": 84.41
+      }
+     },
+     "cell2_J9": {
+      "die": {
+       "raw": 97.07,
+       "500MHz": 94.6,
+       "200MHz": 90.7,
+       "100MHz": 86.83
+      },
+      "port_QLD_RSI": {
+       "raw": 96.78,
+       "500MHz": 94.37,
+       "200MHz": 90.63,
+       "100MHz": 86.79
+      },
+      "port_QHS_RSI": {
+       "raw": 95.4,
+       "500MHz": 93.21,
+       "200MHz": 90.27,
+       "100MHz": 86.57
+      }
+     },
+     "cell3_J15": {
+      "die": {
+       "raw": 100.0,
+       "500MHz": 98.56,
+       "200MHz": 94.41,
+       "100MHz": 88.92
+      },
+      "port_QLD_RSI": {
+       "raw": 99.81,
+       "500MHz": 98.39,
+       "200MHz": 94.29,
+       "100MHz": 88.84
+      },
+      "port_QHS_RSI": {
+       "raw": 98.8,
+       "500MHz": 97.48,
+       "200MHz": 93.64,
+       "100MHz": 88.43
+      }
+     },
+     "cell4_J18": {
+      "die": {
+       "raw": 91.44,
+       "500MHz": 90.45,
+       "200MHz": 87.54,
+       "100MHz": 84.5
+      },
+      "port_QLD_RSI": {
+       "raw": 91.31,
+       "500MHz": 90.33,
+       "200MHz": 87.45,
+       "100MHz": 84.48
+      },
+      "port_QHS_RSI": {
+       "raw": 90.56,
+       "500MHz": 89.65,
+       "200MHz": 86.95,
+       "100MHz": 84.38
+      }
+     }
+    }
+   },
+   {
+    "event": "off2",
+    "worst_cell": 3,
+    "worst_port": "J15",
+    "die_as_simulated": 92.56,
+    "base_at_peak": 80.23,
+    "ring_scale": 1.604,
+    "cells": {
+     "cell1_J6": {
+      "die": {
+       "raw": 91.34,
+       "500MHz": 90.31,
+       "200MHz": 87.21,
+       "100MHz": 84.99
+      },
+      "port_QLD_RSI": {
+       "raw": 91.2,
+       "500MHz": 90.18,
+       "200MHz": 87.12,
+       "100MHz": 84.97
+      },
+      "port_QHS_RSI": {
+       "raw": 90.59,
+       "500MHz": 89.62,
+       "200MHz": 86.71,
+       "100MHz": 84.86
+      }
+     },
+     "cell2_J9": {
+      "die": {
+       "raw": 97.53,
+       "500MHz": 94.72,
+       "200MHz": 90.02,
+       "100MHz": 85.3
+      },
+      "port_QLD_RSI": {
+       "raw": 97.18,
+       "500MHz": 94.43,
+       "200MHz": 89.93,
+       "100MHz": 85.25
+      },
+      "port_QHS_RSI": {
+       "raw": 95.6,
+       "500MHz": 93.06,
+       "200MHz": 89.45,
+       "100MHz": 84.95
+      }
+     },
+     "cell3_J15": {
+      "die": {
+       "raw": 100.0,
+       "500MHz": 98.35,
+       "200MHz": 93.5,
+       "100MHz": 87.28
+      },
+      "port_QLD_RSI": {
+       "raw": 99.77,
+       "500MHz": 98.14,
+       "200MHz": 93.35,
+       "100MHz": 87.2
+      },
+      "port_QHS_RSI": {
+       "raw": 98.64,
+       "500MHz": 97.11,
+       "200MHz": 92.61,
+       "100MHz": 86.8
+      }
+     },
+     "cell4_J18": {
+      "die": {
+       "raw": 96.01,
+       "500MHz": 94.63,
+       "200MHz": 90.5,
+       "100MHz": 85.98
+      },
+      "port_QLD_RSI": {
+       "raw": 95.82,
+       "500MHz": 94.45,
+       "200MHz": 90.37,
+       "100MHz": 85.9
+      },
+      "port_QHS_RSI": {
+       "raw": 94.78,
+       "500MHz": 93.51,
+       "200MHz": 89.67,
+       "100MHz": 85.47
+      }
+     }
+    }
+   }
+  ]
+ },
+ "spikes": {
+  "V80_R1p5_s0 @ 500.0 ns": {
+   "samples": 4,
+   "largest_V": 223.2,
+   "first_ns_after_event": 27.38
+  },
+  "V80_R1p5_s0p5 @ 500.0 ns": {
+   "samples": 3,
+   "largest_V": 391.1,
+   "first_ns_after_event": 56.38
+  }
+ }
+}

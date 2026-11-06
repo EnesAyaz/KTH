@@ -237,3 +237,19 @@ Plan: sim-analyst sweeps R_ON 1.5/2/3/5 Ohm x skew 0-3 ns at 40/60/80 V on the 1
    R_ON 5 Ohm unstable at 0.5 ns at 80 V. Turn-off peak independent of R_ON (87.3-87.5 V). Zero skew HS on1 95.8/89.3/83.0/80.4 V,
    E_on 121/145/187/262 uJ at R_ON 1.5/2/3/5. Option R_G 1.5 / R_ON 1: crossing about 1.5 ns, E_off +27 %.
 Done (leader): procedure T7, gates and section 8 updated to staged skew limits.
+
+## 2026-11-06 - Q3D for the skew limit
+Comment (Enes): run the Q3D extraction for the skew limit.
+-> sim-analyst: L_x on the SW-via board (new tag), replace the 18 nH Lac estimate, rerun skew limits and the R_G 1.5 / R_ON 1 option.
+<- sim-analyst: Q3D BB_PL_LX_dpt_swv1, 1 h 37 min, converged; 52 SPICE cases, 0 failed. Pair to pair 17.49 nH (18 estimated), L_x HS/LS
+   4.58/2.70 nH (4.91/2.68), node to bolt outer/inner 29.6/14.75 nH. Network is not a star: 92/68 A inner/outer at first turn-off.
+   Skew limits unchanged (80 V crossing 1.1-1.3 ns; R_G 1.5 / R_ON 1 >= 2 ns, E_off +30 %). NEW: inner HS V_GS -6.0 V pin, -5.6 V die at
+   zero skew, about 20 ns; -4.25 V at 20 V, -3.14 V at 10 V; not set by skew or R_ON. Earlier "inside EPC limits" withdrawn.
+Check (leader): limits.csv, die_vgs.json and results.csv match the report; bolt on the centreline, load J21 to J1 as in the deck.
+   Found: stage table 80/161/241 A never simulated (runs 50/100/200 A); T17 +/-10 % would trip on the predicted split; LS peak rose.
+-> sim-analyst: per-cell probe-filtered readings, last stage inside V_GS, T15 check.
+<- sim-analyst: inner J9/J15 93 V, outer J6/J18 87 V raw; 10 V last stage inside (20 V outside, -3.7 V about 15 V by 2-point
+   interpolation, not a limit). T15 proposal 97.5/93 V at 500/200 MHz on J9/J15, no 100 MHz line. Two solver spikes removed, counted in JSON.
+Done (leader): procedure: hold H6, S0 10 V stage, stages at simulated currents, H1 gate moved to before S1, T7 basis, T14, T15, T17, 7.4-7.7,
+   section 8 values, stops 10, 12, 13, checklist. Setup note warning. Own slip fixed before commit: an unsupported "2.8 ns" sentence.
+Open: H6 (measure, then decide), T17 proposal, paper sharing text 77-81 A (symmetric model), L_x in final_numbers.json, stack-up.

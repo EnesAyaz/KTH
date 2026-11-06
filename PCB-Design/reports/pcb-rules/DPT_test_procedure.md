@@ -25,6 +25,7 @@ confirm" marks a suggestion from the readiness audit (TR section 5) that no desi
 | SIM | `reports/slides/data/q3d_spice_numbers.json`, case `dpt` (committed results of DECK) |
 | SP | `simulation/bb_spice/dpt_1uH_80V/results.json` (case B unless named), no bulk capacitor |
 | RL | `simulation/bb_spice/dpt_1uH_80V/read_limits.json` |
+| LX | `simulation/bb_spice/dpt_lx_skew/` (results.csv, limits.csv, die_vgs.json): Q3D network `BB_PL_LX_dpt_swv1`, 2026-11-06. Replaces SP where both give a value. Assumes 0.10 mm prepreg, 70 µm copper (stack-up undecided) |
 | TR | `reports/pcb-rules/test-readiness-2026-11-05.md` |
 
 Coordinates are board mm, origin bottom-left, x right, y up. `testpoints.csv` uses another origin (AR N2): board x = csv x + 44.75,
@@ -32,13 +33,14 @@ board y = 60.8 − csv y (derived from the origin (150, 100), y down, and the au
 
 ## Holds: read these first
 
-H1 and H4 are the main measurement gap of this test. They are not solved by this procedure. (H3 and H5 of the earlier draft are closed: see section 8.)
+H1, H4 and H6 are the main measurement gaps of this test. They are not solved by this procedure. (H3 and H5 of the earlier draft are closed: see section 8.)
 
 | Hold | Issue | Blocks |
 |---|---|---|
-| H1 | **The high-side gates cannot be measured while switching with the kit you have.** High-side V_GS is isolated only (MS port table, rule 2). In this test the high side is the held-off device, so the required record of the minimum V_GS of the held-off device (MS tolerance procedure) and the bump measurement cannot be made on Q1, Q2, Q5, Q6. A differential probe is no way round: about 4 V of common-mode error against a 0.3 V margin (TR B5). Enes decides: borrow an optically isolated probe for one session (first choice, TR B5), or record a decision to accept the risk at a reduced level. Allowing S1 at all is a judgement of this procedure, not a source: its HS gates go unrecorded. | Any switching above stage S1 of section 7 |
+| H1 | **The high-side gates cannot be measured while switching with the kit you have.** High-side V_GS is isolated only (MS port table, rule 2). In this test the high side is the held-off device, so the required record of the minimum V_GS of the held-off device (MS tolerance procedure) and the bump measurement cannot be made on Q1, Q2, Q5, Q6. A differential probe is no way round: about 4 V of common-mode error against a 0.3 V margin (TR B5). Enes decides: borrow an optically isolated probe for one session (first choice, TR B5), or record a decision to accept the risk at a reduced level. Allowing S0 at all is a judgement of this procedure, not a source: its HS gates go unrecorded. | Any switching above stage S0 of section 7 |
 | H2 | The differential probe is "not chosen yet" (BOM). V_DS is not measured without it. See B6 below. | Section 7 |
-| H4 | The high-side V_DS peak is not visible on the V_DS ports: they are low side only (MS). The highest peak of the shot is the high-side one, 95.9 V at the first turn-on (section 8), while the V_DS ports see 87.7 to 89.3 V. Spring pads TP38, TP40, TP42, TP44 exist, but their return is SW (TP), and rule 2 applies. TR B5 gives an unvalidated two-shot workaround for V_DS. Enes decides whether the gap is acceptable. | Section 8 |
+| H4 | The high-side V_DS peak is not visible on the V_DS ports: they are low side only (MS). The highest peak of the shot is the high-side one, 95.8 V at the first turn-on (section 8), while the V_DS ports see at most 93 V, on J9 and J15. Spring pads TP38, TP40, TP42, TP44 exist, but their return is SW (TP), and rule 2 applies. TR B5 gives an unvalidated two-shot workaround for V_DS. Enes decides whether the gap is acceptable. | Section 8 |
+| H6 | **Model result, 2026-11-06, not measured: the inner high-side gates (Q2, Q5) pass −4 V at the first turn-off.** With the extracted network the bolt at the board centre gives inner cells 92 A and outer cells 68 A at 322 A. That split drives an anti-phase V_GS step through the shared gate and Kelvin network: −6.0 V at the pin, −5.6 V at the die, below −3.7 V for about 20 ns, at zero skew. Same size at 40, 60 and 80 V; −4.25 V at 20 V; −3.14 V at 10 V. Not changed by skew or R_ON. So stop 8 is expected to trip from S1 upward. Off level 0 V clears −4 V (−3.4 V) but the bump reaches +1.59 V; R_G 1.5 Ω / R_ON 1 Ω gives −5.0 V. No single setting tested clears both. Enes decides after the S0 and S1 measurements (LX). | Stage S1 and above |
 
 **Must be solved first.** None of these needs a board change (TR). Each section repeats its own item.
 
@@ -161,17 +163,17 @@ Proposals come from TR section 5, except T7 and T15, which are from the SPICE ru
 | T4 | Current limit, 12 V supply | 50 mA (proposal, Enes to confirm) | Draw 2.9 mA per driver (ER) |
 | T5 | Current limit, each V_ISO supply | 60 mA (proposal, Enes to confirm) | 2 x 13.4 mA plus I_GSS maximum (TR) |
 | T6 | Limit for static V_GS,on | 5.7 V, that is 0.3 V to +6 V (proposal, Enes to confirm) | Absolute +6 V (MS) |
-| T7 | U1 to U2 skew at the gates | **Per stage (model values): 3 ns or less at 40 V, 1.5 ns at 60 V, 0.5 ns at 80 V** (see section 8) | SP: V_GS passes −4 V at 2 ns; threshold not resolved between 1 and 2 ns; based on an estimated 18 nH inter-cell path, not an extraction |
+| T7 | U1 to U2 skew at the gates | **Per stage (model values): 3 ns or less at 40 V, 1.5 ns at 60 V, 0.5 ns at 80 V** (see section 8) | LX: extracted network, limits unchanged. 80 V crossing 1.1 ns (R_ON 1.5), set by V_DS. Excludes the turn-off dip (H6), which no skew passes |
 | T8 | Bus ramp | 10 V steps of 30 s (proposal, Enes to confirm) | "Slowly" (MS bring-up 4) |
 | T9 | Bus supply current limit | 100 mA (proposal, Enes to confirm) | TR B1 |
 | T10 | Leakage above the bleeder baseline | 0.6 mA (proposal, Enes to confirm) | I_DSS maximum 4 x 0.15 mA at 80 V (TR) |
 | T11 | Safe-to-touch bus voltage | Below 5 V (proposal, Enes to confirm); the lab rule decides | TR |
 | T12 | L measurement | 20 V, 1 µs gives 20 A total, 5 A per cell. Target 1.0 µH ±5 % with leads. Stop if the slope is off by over 10 % (proposal, Enes to confirm) | TR section 5 |
 | T13 | Shunt gain check | 10 A per cell; off by over 3 %: use the measured gain (proposal, Enes to confirm) | TR S7, section 5 |
-| T14 | Stage table of section 7 | 20, 40, 60, 80 V at fixed 4.1 µs (proposal, Enes to confirm) | TR section 5 |
-| T15 | V_DS stop | Reading limits 98 V at 500 MHz, 93 V at 200 MHz, 87 V at 100 MHz (model value) | RL; first-order filter model. Replace with the measured probe factor (TR S1) |
+| T14 | Stage table of section 7 | 10, 20, 40, 60, 80 V at the simulated currents 25, 50, 100, 200, 322 A (proposal, Enes to confirm) | LX. Replaces fixed 4.1 µs (TR section 5), which gave 80, 161, 241 A, never simulated |
+| T15 | V_DS stop | Read on J9 or J15, the inner cells: **97.5 V at 500 MHz, 93 V at 200 MHz. 100 MHz is not usable as a stop line: 200 MHz or better for 80 V shots** (model value) | LX, `probe_readings.json`. Normal 80 V shot reads 91.8 to 92.9 V and 89.5 to 90.2 V; at 100 MHz 86.1 to 86.5 V, under the 1.5 V scatter from 87 V. J6 and J18 would not fire. Replace with the measured probe factor (TR S1) |
 | T16 | Bump limit | +0.3 V, that is 0.5 V below V_th,min 0.8 V (proposal, Enes to confirm) | TR section 5 |
-| T17 | Current sharing limit | ±10 % of the mean at turn-off (proposal, Enes to confirm) | About 4 % expected (ER N7) |
+| T17 | Current sharing limit | ±25 % of the mean at turn-off of pulse 1, and cells 1 and 4 within 10 % of each other, cells 2 and 3 likewise (proposal, Enes to confirm) | LX: ±14 to 18 % expected in this short pulse, inner high, inductive. Replaces ±10 % and the 4 % of ER N7 |
 | T18 | Board temperature limit | +10 K above room (proposal, Enes to confirm) | A rise means a fault (TR) |
 | T19 | Time between shots | 5 s (proposal, Enes to confirm); never under 1 s (SP) | TR, SP |
 | T20 | Damping values | **open:** to be set by Enes. Spares R_ON 2.2 and 3.3 Ω proposed, values not simulation-checked (TR S14) | MS names the remedy only |
@@ -317,19 +319,20 @@ ER S1: neither the BOM nor MS names the inductor. L is whatever the bench gives,
 
 **Must be solved before this section (B6, H2):** scope and differential probe. On a scope with 1 MΩ-only inputs or below 500 MHz the shunts read with the wrong gain and edges are filtered, with no visible sign (TR B6).
 
-**Before stage S1.** Section 8 settings read. PWM_H tied to RTN. V_ISO as set in 4.8. **Before S2:** H1 closed or a recorded decision. **Before Full:** skew 0.5 ns or less (T7), H4 decided.
+**Before stage S0.** Section 8 settings read. PWM_H tied to RTN. V_ISO as set in 4.8. **Before S1:** H1 closed or a recorded decision, and H6 reviewed with the S0 current split. **Before Full:** skew 0.5 ns or less (T7), H4 decided.
 
 **Every shot:** read the bus on TP45-TP46 (84 V maximum), wait at least T19 since the last shot (5 s, floor 1 s), arm, fire, disarm.
 
-Fixed first pulse 4.1 µs at the low stages (T14, proposal, Enes to confirm); at another L, t1 = L × I / V (DECK uses the same relation). Off-time and second pulse as in section 8.
+First pulse per stage as in the table (T14, proposal, Enes to confirm); at another L, t1 = L × I / V (DECK uses the same relation). Off-time and second pulse as in section 8.
 
 Raise one stage at a time. Do not take a step if the overshoot of the next stage (scaled by the current ratio) would pass a limit (TR section 5, proposal, Enes to confirm).
 
 | Stage | Bus (V) | I at turn-off, total (A) | Per cell (A) | Shunt (mV) | t1 | Status |
 |---|---|---|---|---|---|---|
-| S1 | 20 | 80 (TR, hand) | 20 | 19.1 (derived) | 4.1 µs | proposal, Enes to confirm |
-| S2 | 40 | 161 (TR, hand) | 40 | 38.5 (derived) | 4.1 µs | proposal, Enes to confirm |
-| S3 | 60 | 241 (TR, hand) | 60 | 57.7 (derived) | 4.1 µs | proposal, Enes to confirm |
+| S0 | 10 | 25 (LX) | 6.3 | 6.0 (derived) | 2.56 µs | proposal, Enes to confirm. Last stage the model keeps inside the HS gate limit (−3.14 V) |
+| S1 | 20 | 50 (LX) | 12.5 | 12.0 (derived) | 2.56 µs | proposal, Enes to confirm |
+| S2 | 40 | 100 (LX) | 25 | 23.9 (derived) | 2.56 µs | proposal, Enes to confirm |
+| S3 | 60 | 200 (LX) | 50 | 47.9 (derived) | 3.43 µs | proposal, Enes to confirm |
 | Full | 80 at the board | 322.0 (SP) | 80.5 (ER) | 77.0 (derived; ER N5 "77 mV") | 4.146 µs (SP) | section 8 |
 
 A lower bus has more capacitance, so slightly more current (TR). On the first shots measure C = Q / ΔV with Q = I t / 2 and adjust the pre-charge (TR S12).
@@ -346,17 +349,17 @@ A lower bus has more capacitance, so slightly more current (TR). On the first sh
 | Step | Setup | Do and record | Expected | Stop if |
 |---|---|---|---|---|
 | 7.3 | | Idle check. Bus at the stage value, meter across the 1 kΩ, as in step 5.3 | Baseline | Above baseline plus T10 |
-| 7.4 | M2 Plan A | Single shot. Each cell current at turn-off of pulse 1 and just after turn-on of pulse 2 (shunts see LS current only and read zero in the off-time, TR N9). Sum and L check (6.7) | Outer cells lower than inner by about 4 % late in the pulse: not a fault (ER N7). KL path moves about 0.7 A, under 1 % (ER N6) | A channel inverted. Spread above T17 (±10 %) |
-| 7.5 | M2 Plan B, per cell | Bus discharged, cable on J6, shot; repeat J9, J15, J18, one cable fitted at a time (TR N11). Use MMCX on all four for like-for-like data, not the spring pads (ER N2). Record V_DS peak at both LS turn-offs and ringing, cell current, and **V(DC+, DC−) at the end of pulse 1** in every test (ER S1) | **V_DS through the differential probe: switching transients only, LS only, not R_DS(on).** The port reads V_DS plus about 99 mV in conduction (ER S3). The peak reads low: compare like with like, see section 8 | Reading at T15 for your probe: 98 V at 500 MHz, 93 V at 200 MHz, 87 V at 100 MHz |
-| 7.6 | M1 on KL1 or KL2 | **Unplug all SMA and the TP45 probe.** Bus discharged, move the probe, shot. Same probe on Q3, Q4, Q7, Q8. Record minimum V_GS, V_GS,on overshoot and off-state bump | At the full point: LS minimum −3.36 V, HS −3.43 V (SP). Tolerance excursion 1.55 V below the off level (MS) | Minimum within 0.3 V of −4 V, that is at or below −3.7 V: **stop and add damping (T20), not more negative bias** (MS). Bump above +0.3 V (T16). Any peak above T6 |
-| 7.7 | | HS held-off V_GS, Q1, Q2, Q5, Q6: H1. Enter "not measured" unless Enes has closed H1 | | Do not go above S1 with this open |
+| 7.4 | M2 Plan A | Single shot. Each cell current at turn-off of pulse 1 and just after turn-on of pulse 2 (shunts see LS current only and read zero in the off-time, TR N9). Sum and L check (6.7) | Inner cells (RS2, RS3) above outer (RS1, RS4) at the end of pulse 1, about 40 % at S0 (7.2 / 5.1 A), 36 % at Full (92 / 68 A) (LX): the split is inductive, not a fault. **This is the first test of the H6 cause: record it at S0.** Per-cell column of the stage table is the mean. KL path moves about 0.7 A, under 1 % (ER N6) | A channel inverted. Spread above T17 |
+| 7.5 | M2 Plan B, per cell | Bus discharged, cable on J6, shot; repeat J9, J15, J18, one cable fitted at a time (TR N11). Use MMCX on all four for like-for-like data, not the spring pads (ER N2). Record V_DS peak at both LS turn-offs and ringing, cell current, and **V(DC+, DC−) at the end of pulse 1** in every test (ER S1) | **V_DS through the differential probe: switching transients only, LS only, not R_DS(on).** The port reads V_DS plus about 99 mV in conduction (ER S3). The peak reads low: compare like with like, see section 8 | On J9 or J15, reading at T15: 97.5 V at 500 MHz, 93 V at 200 MHz. With skew the late pair's port is the higher one. J6 and J18 read 5 to 6 V lower and are no stop line |
+| 7.6 | M1 on KL1 or KL2 | **Unplug all SMA and the TP45 probe.** Bus discharged, move the probe, shot. Same probe on Q3, Q4, Q7, Q8. Record minimum V_GS, V_GS,on overshoot and off-state bump | At the full point: LS minimum −3.58 V (LX). HS: step 7.7. Tolerance excursion 1.55 V below the off level (MS) | Minimum within 0.3 V of −4 V, that is at or below −3.7 V: **stop and add damping (T20), not more negative bias** (MS). Bump above +0.3 V (T16). Any peak above T6 |
+| 7.7 | | HS held-off V_GS, Q1, Q2, Q5, Q6: H1. Measure inner cells first (Q2, Q5). Enter "not measured" unless Enes has closed H1 | Model minimum: 10 V −3.14 V, 20 V −4.25 V, 40 to 80 V about −6 V, inner cells (LX, H6). Outer cells about −2.3 V | Do not go above S0 with this open |
 | 7.8 | M1 on GNDI | Repeat 4.11 during switching (MS): INB on U1 and U2, and INA, which is tied low and must stay low: a pulse there can turn the high side on. If pickup appears, shorten the cable, twist pairs, single ground point (MS) | Same as 4.11; INA flat | Extra or missing pulses; any pulse on INA |
 | 7.9 | M0 | Board around the via fields and source-to-shunt transitions (MS), IR camera or thermocouple if you have one. RT1 is a room reference only: 20 mm from the FETs, slow (TR N7) | Adiabatic rise under 1 K per pulse in the copper (ER) | Above T18 (+10 K) |
 | 7.10 | | Compare with the previous stage | Everything scales with no new feature. Go on only if every row passed | Any item of section 10 |
 
 ## 8. Full point
 
-**Status: SPICE model values, no bulk capacitor (SP case B). Tune them on the bench; they are not measurements.**
+**Status: SPICE model values, no bulk capacitor. Settings from SP case B; expected values from LX case V80_R1p5_s0 (zero skew). Tune them on the bench; they are not measurements.**
 
 | Setting | Model value | Note |
 |---|---|---|
@@ -370,20 +373,20 @@ Expected at the full point. Reading = die peak through a first-order probe filte
 
 | Quantity | Model | Reads at 100 / 200 / 500 MHz | Measurable? |
 |---|---|---|---|
-| LS peak, first turn-off | 87.7 V | 84.2 / 85.5 / 87.1 V | Yes, MMCX |
-| LS peak, second turn-off | 89.3 V; scatters 89 to 91.5 V, quote a range | 84.4 / 86.0 / 88.3 V | Yes, MMCX |
-| HS peak, first turn-on | 95.9 V, from the 80 V bus | 86.2 / 90.7 / 94.6 V | **No (H4)** |
-| HS peak, second turn-on | 90.9 V | 81.3 / 85.6 / 89.5 V | **No (H4)** |
+| LS peak, first turn-off | Inner 93.0 V (J9, J15), outer 87 V (J6, J18) | Inner 86.1 / 89.5 / 91.8 V, outer 84.2 / 84.7 / 86.3 V | Yes, MMCX |
+| LS peak, second turn-off | Inner 91.5 V, outer 88 V; ring phase scatters by about 1.5 V | Inner 84.2 / 87.8 / 90.6 V, outer 84.2 / 85.2 / 87.4 V | Yes, MMCX |
+| HS peak, first turn-on | 95.8 V, from the 80 V bus; 98 V at 0.5 ns skew | 86.1 / 90.8 / 94.9 V | **No (H4)** |
+| HS peak, second turn-on | 91.5 V | 81.4 / 85.8 / 90.0 V | **No (H4)** |
 | E_on, sum of four cells | 121 µJ. Bank ±20 %: 119 to 123 µJ (SP) | | Deskewed, with its error |
-| E_off, sum of four cells | 20.6 µJ | | Only with a 500 MHz or better probe (TR S2) |
-| Minimum V_GS | HS −3.43 V, LS −3.36 V (SP) | | LS only (H1) |
+| E_off, sum of four cells | 21.4 µJ | | Only with a 500 MHz or better probe (TR S2) |
+| Minimum V_GS | HS inner −6.0 V at the pin, −5.6 V at the die (H6), HS outer −2.3 V, LS −3.58 V (LX) | | LS only (H1) |
 | Bus at first turn-off | 74.9 V. Bank ±20 %: 73.7 to 75.8 V (SP) | | Yes, TP45 |
 
 **Stop lines from the same run**
 
-- **Pre-charge never above 84 V** on TP45-TP46: the HS peak tracks it 1:1 against the 100 V limit. This headroom assumes zero skew: at 1 ns skew and 80 V the model already puts the HS first turn-on peak at about 100 V, with V_GS −3.72 V (SP case M0_skew1, 99.98 V raw). So do not use the margin up to 84 V unless the skew is near zero.
-- **U1 to U2 skew at the gates, by stage (SPICE sweep 2026-11-06, `simulation/bb_spice/dpt_ron_skew/`):** 40 V / 100 A: 3 ns or less (limit not reached); 60 V / 200 A: 1.5 ns; 80 V / 322 A: 0.5 ns (V_GS -3.7 V crossing at 0.9-1.0 ns). Higher R_ON does **not** relax this: the limit comes from the LS turn-off, which does not pass through R_ON. Do not use R_ON 5 Ω at 80 V (unstable at 0.5 ns). R_ON 2 Ω gives 9.3 V V_DS margin at 80 V and 0.5 ns, against 2.2 V at 1.5 Ω, for 20 % more E_on. Check LS V_GS at the first low-voltage stage before relying on R_ON above 1.5 Ω: with an ideal D_OFF the model passes -3.7 V at R_ON 3 Ω. Model limits: estimated 18 nH inter-cell path, identical FETs, so a real spread acts like extra skew; treat these as upper bounds.
-- **V_DS reading limits:** 98 V at 500 MHz, 93 V at 200 MHz, 87 V at 100 MHz. At 100 MHz this is a poor stop line, only 3 V above the normal reading.
+- **Pre-charge never above 84 V** on TP45-TP46: the HS peak tracks it 1:1 against the 100 V limit. This headroom assumes zero skew: at 1 ns skew and 80 V the model already puts the HS first turn-on peak at 99.5 V (LX). So do not use the margin up to 84 V unless the skew is near zero.
+- **U1 to U2 skew at the gates, by stage (LX, extracted network; the 18 nH estimate of `simulation/bb_spice/dpt_ron_skew/` held at 17.5 nH):** 40 V / 100 A: 3 ns or less (one point, R_ON 3 Ω); 60 V / 200 A: 1.5 ns; 80 V / 322 A: 0.5 ns (crossing 1.1 ns at R_ON 1.5 Ω, 1.3 ns at 2 Ω, set by V_DS). These limits leave out the HS turn-off dip (H6), which no skew passes. At 80 V, R_ON 1.5 Ω, the HS peak at the second turn-on climbs fast with skew: 97.2 V at 1 ns, 101.9 V at 1.5 ns, 111.8 V at 2 ns, 190 V at 3 ns. Read the 3 ns figure as a threshold, not a peak value. Higher R_ON does **not** relax skew much. Do not use R_ON 5 Ω at 80 V (unstable at 0.5 ns, star model). R_G 1.5 Ω with R_ON 1 Ω holds to 2 ns or more and lifts the dip by 1 V, for 30 % more E_off. Model limits: identical FETs, 27 °C, ideal capacitor bank, stack-up undecided.
+- **V_DS reading limits, on J9 or J15:** 97.5 V at 500 MHz, 93 V at 200 MHz. No stop line at 100 MHz. The limits cover V_DS only, not the gate dip (H6).
 - **Shots at least 1 s apart, bus read before firing.** The current must reach zero first (79 µs).
 
 **End of burst.** After the last pulse 57.6 mJ of inductor energy goes into the HS FETs in reverse conduction: 12.85 mJ per FET, about 10 K junction rise (hand, 7 to 13 K). The current is at zero after 79 µs, and the bus does not rise (SP).
@@ -427,10 +430,10 @@ Stop means bus off, discharge, cause found before continuing.
 | 7 | Static V_GS,on | Above 5.7 V (T6, proposal, Enes to confirm); never +6 V | MS, TR |
 | 8 | Any V_GS, dynamic | Within 0.3 V of −4 V (at or below −3.7 V): add damping, not more bias | MS procedure |
 | 9 | Bump on held-off gate | Above +0.3 V (T16, proposal, Enes to confirm) | MS, TR |
-| 10 | Held-off HS gate not measured | No stage above S1 until H1 is closed or a decision is recorded | MS, H1 |
+| 10 | Held-off HS gate not measured | No stage above S0 until H1 is closed or a decision is recorded | MS, H1, H6 |
 | 11 | **Pre-charge on TP45-TP46** | **Above 84 V: never** | SP |
-| 12 | **U1 to U2 skew at the gates** | **Above 1 ns: no full-voltage shot** | SP (estimated 18 nH path) |
-| 13 | V_DS peak reading | 98 V at 500 MHz, 93 V at 200 MHz, 87 V at 100 MHz probe; true limit 100 V | RL, EPC rating |
+| 12 | **U1 to U2 skew at the gates** | **Above T7: 3 ns at 40 V, 1.5 ns at 60 V, 0.5 ns at 80 V** | LX |
+| 13 | V_DS peak reading, J9 or J15 | 97.5 V at 500 MHz, 93 V at 200 MHz; below 200 MHz no 80 V shot; true limit 100 V | LX, EPC rating |
 | 14 | Shot interval | Under 1 s, or bus not read before firing | SP |
 | 15 | Leakage | Over 0.6 mA above baseline (T10, proposal, Enes to confirm), or rising | MS bring-up 4, TR |
 | 16 | Shunt channel inverted | Any: reversed shunt or wrong cable | AR S4 |
@@ -489,9 +492,10 @@ Stop means bus off, discharge, cause found before continuing.
 - [ ] Each shot: bus on TP45-46, at most 84 V; at least 1 s since last shot; arm, fire, disarm
 - [ ] Idle current; deskew valid
 - [ ] Plan A: four currents, same sign, sum, L
-- [ ] Plan B: V_DS each cell, **V(DC+, DC−) at end of pulse 1**; LS only, transients only, no 50 Ω; reading below 98 / 93 / 87 V at 500 / 200 / 100 MHz
+- [ ] Plan B: V_DS each cell, **V(DC+, DC−) at end of pulse 1**; LS only, transients only, no 50 Ω; on J9 or J15 reading below 97.5 / 93 V at 500 / 200 MHz; 200 MHz or better for 80 V
 - [ ] M1 (SMA unplugged): minimum V_GS above −3.7 V, bump, same probe
-- [ ] HS gates: H1 status
+- [ ] S0 (10 V): RS1-4 split recorded, inner above outer? H6 reviewed before S1
+- [ ] HS gates: H1 status; inner Q2, Q5 first
 - [ ] INB again, INA flat; temperature
 
 **Full point (8)**

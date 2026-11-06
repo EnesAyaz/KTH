@@ -33,6 +33,10 @@ above the 1.1 V typical threshold). The simulated off-state ringing reaches abou
 without checking the EPC2361 minimum V_GS. At bring-up, measure on all eight V_GS spring pads: the on/off levels,
 the bump on the held-off FET at the other FET's turn-on, and the delay between U1 and U2.
 
+**Update 2026-11-06 (model, not measured).** With the extracted network the inner high-side gates (Q2, Q5) reach −6.0 V at the
+first turn-off, past the −4 V limit, from about 20 V bus upward. The −3.4 V figures in this section come from the older symmetric
+model and hold for the other gates only. See hold H6 in `DPT_test_procedure.md`.
+
 ### Tolerance of the gate levels (review 2026-10-23, F2)
 
 EPC2361 limits: V_GS −4 / +6 V, V_GS(th) 0.8 V minimum. Simulated excursions around the static levels (75 V, 322 A):
