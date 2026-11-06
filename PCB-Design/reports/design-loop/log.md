@@ -253,3 +253,4 @@ Check (leader): limits.csv, die_vgs.json and results.csv match the report; bolt 
 Done (leader): procedure: hold H6, S0 10 V stage, stages at simulated currents, H1 gate moved to before S1, T7 basis, T14, T15, T17, 7.4-7.7,
    section 8 values, stops 10, 12, 13, checklist. Setup note warning. Own slip fixed before commit: an unsupported "2.8 ns" sentence.
 Open: H6 (measure, then decide), T17 proposal, paper sharing text 77-81 A (symmetric model), L_x in final_numbers.json, stack-up.
+Commit: 38ed893d
