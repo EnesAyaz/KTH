@@ -228,3 +228,12 @@ Done (leader): Amphenol removed from the lab cable line (generator + BOM).
    gives HS first turn-on 99.98 V, V_GS -3.72 V, so 1 ns skew has no V_DS margin even at 80 V; 84 V only near zero skew.
 Open: HS peak and gate unmeasured (optical probe), equipment choice, T1/T2/T3/T20, 15 proposals for Enes; stack-up decision.
 Commit: 4c4328f0
+
+## 2026-11-05 - R_ON staging against skew
+Comment (Enes): start with more gate resistance and lower bus to see current sharing, then lower R_ON and raise the bus.
+Plan: sim-analyst sweeps R_ON 1.5/2/3/5 Ohm x skew 0-3 ns at 40/60/80 V on the 1 uH deck; results go into the procedure.
+-> sim-analyst: allowed skew per R_ON and stage, turn-off peak vs R_ON, new files only.
+<- sim-analyst: 86 runs. Higher R_ON does not relax skew; lower bus does: 40 V >= 3 ns, 60 V about 1.5 ns, 80 V 0.5 ns (crossing 0.9-1.0).
+   R_ON 5 Ohm unstable at 0.5 ns at 80 V. Turn-off peak independent of R_ON (87.3-87.5 V). Zero skew HS on1 95.8/89.3/83.0/80.4 V,
+   E_on 121/145/187/262 uJ at R_ON 1.5/2/3/5. Option R_G 1.5 / R_ON 1: crossing about 1.5 ns, E_off +27 %.
+Done (leader): procedure T7, gates and section 8 updated to staged skew limits.

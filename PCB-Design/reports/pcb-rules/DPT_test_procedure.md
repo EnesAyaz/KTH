@@ -161,7 +161,7 @@ Proposals come from TR section 5, except T7 and T15, which are from the SPICE ru
 | T4 | Current limit, 12 V supply | 50 mA (proposal, Enes to confirm) | Draw 2.9 mA per driver (ER) |
 | T5 | Current limit, each V_ISO supply | 60 mA (proposal, Enes to confirm) | 2 x 13.4 mA plus I_GSS maximum (TR) |
 | T6 | Limit for static V_GS,on | 5.7 V, that is 0.3 V to +6 V (proposal, Enes to confirm) | Absolute +6 V (MS) |
-| T7 | U1 to U2 skew at the gates | **1 ns or less before any full-voltage shot** (model value) | SP: V_GS passes −4 V at 2 ns; threshold not resolved between 1 and 2 ns; based on an estimated 18 nH inter-cell path, not an extraction |
+| T7 | U1 to U2 skew at the gates | **Per stage (model values): 3 ns or less at 40 V, 1.5 ns at 60 V, 0.5 ns at 80 V** (see section 8) | SP: V_GS passes −4 V at 2 ns; threshold not resolved between 1 and 2 ns; based on an estimated 18 nH inter-cell path, not an extraction |
 | T8 | Bus ramp | 10 V steps of 30 s (proposal, Enes to confirm) | "Slowly" (MS bring-up 4) |
 | T9 | Bus supply current limit | 100 mA (proposal, Enes to confirm) | TR B1 |
 | T10 | Leakage above the bleeder baseline | 0.6 mA (proposal, Enes to confirm) | I_DSS maximum 4 x 0.15 mA at 80 V (TR) |
@@ -317,7 +317,7 @@ ER S1: neither the BOM nor MS names the inductor. L is whatever the bench gives,
 
 **Must be solved before this section (B6, H2):** scope and differential probe. On a scope with 1 MΩ-only inputs or below 500 MHz the shunts read with the wrong gain and edges are filtered, with no visible sign (TR B6).
 
-**Before stage S1.** Section 8 settings read. PWM_H tied to RTN. V_ISO as set in 4.8. **Before S2:** H1 closed or a recorded decision. **Before Full:** skew 1 ns or less (T7), H4 decided.
+**Before stage S1.** Section 8 settings read. PWM_H tied to RTN. V_ISO as set in 4.8. **Before S2:** H1 closed or a recorded decision. **Before Full:** skew 0.5 ns or less (T7), H4 decided.
 
 **Every shot:** read the bus on TP45-TP46 (84 V maximum), wait at least T19 since the last shot (5 s, floor 1 s), arm, fire, disarm.
 
@@ -382,7 +382,7 @@ Expected at the full point. Reading = die peak through a first-order probe filte
 **Stop lines from the same run**
 
 - **Pre-charge never above 84 V** on TP45-TP46: the HS peak tracks it 1:1 against the 100 V limit. This headroom assumes zero skew: at 1 ns skew and 80 V the model already puts the HS first turn-on peak at about 100 V, with V_GS −3.72 V (SP case M0_skew1, 99.98 V raw). So do not use the margin up to 84 V unless the skew is near zero.
-- **U1 to U2 skew 1 ns or less at the gates before any full-voltage shot.** Model: V_GS passes −4 V at 2 ns; the threshold is not resolved between 1 and 2 ns; it rests on an estimated 18 nH inter-cell path, not an extraction.
+- **U1 to U2 skew at the gates, by stage (SPICE sweep 2026-11-06, `simulation/bb_spice/dpt_ron_skew/`):** 40 V / 100 A: 3 ns or less (limit not reached); 60 V / 200 A: 1.5 ns; 80 V / 322 A: 0.5 ns (V_GS -3.7 V crossing at 0.9-1.0 ns). Higher R_ON does **not** relax this: the limit comes from the LS turn-off, which does not pass through R_ON. Do not use R_ON 5 Ω at 80 V (unstable at 0.5 ns). R_ON 2 Ω gives 9.3 V V_DS margin at 80 V and 0.5 ns, against 2.2 V at 1.5 Ω, for 20 % more E_on. Check LS V_GS at the first low-voltage stage before relying on R_ON above 1.5 Ω: with an ideal D_OFF the model passes -3.7 V at R_ON 3 Ω. Model limits: estimated 18 nH inter-cell path, identical FETs, so a real spread acts like extra skew; treat these as upper bounds.
 - **V_DS reading limits:** 98 V at 500 MHz, 93 V at 200 MHz, 87 V at 100 MHz. At 100 MHz this is a poor stop line, only 3 V above the normal reading.
 - **Shots at least 1 s apart, bus read before firing.** The current must reach zero first (79 µs).
 
@@ -392,7 +392,7 @@ Expected at the full point. Reading = die peak through a first-order probe filte
 
 | Step | Do | Record | Expected | Stop if |
 |---|---|---|---|---|
-| 8.1 | Confirm: H1 and H4 decided, skew 1 ns or less, every stage of section 7 passed, leakage at baseline, L measured in section 6 | | | Any open |
+| 8.1 | Confirm: H1 and H4 decided, skew 0.5 ns or less, every stage of section 7 passed, leakage at baseline, L measured in section 6 | | | Any open |
 | 8.2 | Set the table values; correct t1 for the measured L. Check PWM_H tied to RTN, cover on, cable routing, bus on TP45-TP46 | | | Bus above 84 V |
 | 8.3 | Tune the off-time at a lower stage first. The row is not probed directly: in the off-time the V_DS port reads the row voltage plus the 4.15 V freewheel drop (derived, SP) | Port voltage just before the second turn-on | Row 74.4 V at 0.75 µs, so about 78.6 V at the port. The row swings 70.9 to 79.7 V at the full point (SP). 0.5 µs: row 71.8 V, E_on −8 %. 1 µs: row 78.1 V, E_on +2 % (SP) | |
 | 8.4 | Run 7.3 to 7.10 at the full point, single shots | Same as a stage. Bus at turn-off is the point that counts: off plan by over 1 V, relabel the shot (TR, proposal, Enes to confirm) | Tables above | As section 10 |
