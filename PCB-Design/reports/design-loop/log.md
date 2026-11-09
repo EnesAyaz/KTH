@@ -254,3 +254,16 @@ Done (leader): procedure: hold H6, S0 10 V stage, stages at simulated currents, 
    section 8 values, stops 10, 12, 13, checklist. Setup note warning. Own slip fixed before commit: an unsupported "2.8 ns" sentence.
 Open: H6 (measure, then decide), T17 proposal, paper sharing text 77-81 A (symmetric model), L_x in final_numbers.json, stack-up.
 Commit: 38ed893d
+
+## 2026-11-09 - Gate spike before ordering
+Comment (Enes): run the off-level and R_G combination in SPICE; yes, look at the gate spike before ordering.
+Plan: sim-analyst, dpt_lx_skew deck. A: off level x R_G x R_ON grid at 80 V, survivors at 20/40 V and 0.5 ns skew. B: what-if gate networks
+   (deck only, no board change) to rank layout options if A fails. Done check: pass/fail table vs -3.7 V and +0.3 V, V_DS, E_on, E_off.
+-> sim-analyst: A and B as above, new folder simulation/bb_spice/dpt_gate_dip/.
+<- sim-analyst: 94 runs, 0 failed. A: 0/48 settings pass at 80 V; off level trades dip vs bump 1:1, window < 0.1 V (Zener +/-0.3 V);
+   settings carry only the 20 V stage (best 3 pass at 20 V, fail at 40/80 V). Coupling path: Kelvin legs LkbH1/2 (3.7 nH), +/-15.5 A
+   circulating, 4.4 V across a leg. B: SW-node tie per pair (1-2, 3-4) 1 nH + off -1.5 V passes all corners (Zener +/-0.3, 0.5 ns, Bm on/off,
+   40/80 V), worst margin 0.21 V dip / 0.11 V bump; 2 nH marginal (0.03 V); 5 nH fails. Cost none (E_on 120 vs 121, E_off 21.3 vs 21.4 uJ,
+   LS V_DS 89.9 vs 92.9 V, split +/-4 %). C_gs, per-FET R_OFF, Kelvin resistor fail (Kelvin R worse).
+Check (leader): pass_fail.csv 94 rows, counts and tie rows match the report.
+Open: Enes to decide on the tie (board change, needs pcb-layout trial + Q3D re-extraction); load board has the same layout (frozen).
