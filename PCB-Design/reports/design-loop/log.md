@@ -267,3 +267,4 @@ Plan: sim-analyst, dpt_lx_skew deck. A: off level x R_G x R_ON grid at 80 V, sur
    LS V_DS 89.9 vs 92.9 V, split +/-4 %). C_gs, per-FET R_OFF, Kelvin resistor fail (Kelvin R worse).
 Check (leader): pass_fail.csv 94 rows, counts and tie rows match the report.
 Open: Enes to decide on the tie (board change, needs pcb-layout trial + Q3D re-extraction); load board has the same layout (frozen).
+Commit: 442683b1
