@@ -268,3 +268,81 @@ Plan: sim-analyst, dpt_lx_skew deck. A: off level x R_G x R_ON grid at 80 V, sur
 Check (leader): pass_fail.csv 94 rows, counts and tie rows match the report.
 Open: Enes to decide on the tie (board change, needs pcb-layout trial + Q3D re-extraction); load board has the same layout (frozen).
 Commit: 442683b1
+
+## 2026-11-09 - Switch-node tie trial on the DPT board
+Comment (Enes): yes, try the switch-node tie on the DPT board.
+Plan: pcb-layout trial in a worktree (tie cells 1-2 and 3-4, DRC 0, silk audit 0, loop copper untouched) -> sim-analyst Q3D
+   re-extraction of loop + LX on the trial board, gate check -> if it passes, merge, fab-release, procedure update. Ordering on hold.
+-> pcb-layout (worktree): SW tie per pair, target <= 1 nH, options and geometry for Q3D.
+
+### 2026-11-10 - trial status, and a three-agent review round (Fable)
+
+**Trial status (leader check).** The SW-tie worktree (`.claude/worktrees/agent-a226540339b516abb`) was branched from
+`cd53a52b`, before `1b464f3e` (15 SW vias per cell): its board has 1125 vias against 1179 on main, and the last
+generator run (started 2026-11-09 22:53) hung and left a board with 0 filled zones. Process 10936 stopped by the
+leader. The trial is not usable for Q3D or a merge; the tie is a 21-line generator change (L3 SW band, block-local
+y 4.8..7.3, |x| <= 5.6; L4 keepout opened over the same rows) and will be ported to current main. No Q3D check was run.
+
+**Enes:** "check my PCB with Fable agent then. One agent is just a reviewer, and it does not have any knowledge about
+our project. Then one agent who knows project requirements like high speed switching and dynamic current sharing.
+Then one agent redraws the PCB regarding these revisions."
+
+**Plan.** (1) Blind reviewer, general-purpose on Fable, hardware folder + datasheets only -> 
+`reports/pcb-rules/independent-review-2026-11-10-blind.md`. (2) Requirements reviewer, design-reviewer on Fable, with
+the sharing / gate-dip numbers -> `independent-review-2026-11-10-requirements.md` and a ranked revision list.
+(3) After both: pcb-layout on Fable in a fresh worktree from current main redraws (SW tie + accepted revisions);
+then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits for the leader's merged brief.
+
+- leader -> blind reviewer: cold review of board + fab package, no reports/simulation/scripts; findings with
+  coordinates and evidence; first three or four changes it would make.
+- leader -> requirements reviewer: six questions (source of the 29.6 / 14.75 nH asymmetry and how to reduce it, DC-side
+  symmetry, Kelvin bridge at the root, SW tie geometry and added SW capacitance, what RS1-RS4 and J6/J9/J15/J18 read
+  after a tie, anything missed); ranked revision list with estimates, risks and verification.
+
+- Both reviewers were cut off by the usage limit; Enes: run them one after the other. Old tie-trial agent stopped
+  (worktree kept for the diff). Blind reviewer resumed first.
+- blind reviewer -> leader: report written, no blocker for a first build. 5 major: F1 Kelvin nets KH1/KL1 hard-link the
+  two cells of a pair (about 15 mm of 0.3 mm track, no resistor; LS link bridges two shunts, est. 1/7 of a current
+  difference bypasses them); F2 7.15 mm slot in the In1 DC- plane at y 102.5 under every cell (merged antipads, 8 DC+
+  vias at 0.9 mm pitch, est. 0.3-1 nH); F3 pair cells rotated 180 deg, not mirrored; F4 bulk caps / DC input / bolt
+  favour the inner cells (bulk vias 13/20/19/14); F5 SW strip 0.45-0.9 mm between HS and LS FET. Minor: barrier
+  3.35 mm at the driver pads vs "4.0 mm" in the fab notes, no fiducials, RS2/RS4 silk labels far from the parts,
+  BOM dates differ (Nov 5 vs Nov 3). Not checked by it: 2EDF7275K, shunt and capacitor datasheets (web lookups failed).
+- leader check: F1 found the H6 mechanism independently; its Kelvin-resistor fix contradicts our SPICE (worse). F2-F4
+  are unverified inferences -> passed to the requirements reviewer.
+- leader -> requirements reviewer (resumed): continue; verify F1-F5 from the copper, say whether Q3D 0.646 nH already
+  contains the slot, check the 1/7 shunt-bypass estimate.
+- requirements reviewer -> leader: report written, no blocker; all nH/pF are hand estimates. Asymmetry = sideways run
+  in the AC bus only (outer necks 42.0 mm from the bolt, inner 5.5 mm; strip estimate 15.0 nH vs Q3D difference
+  14.85 nH). Trial L3 tie estimated 6-8 nH (single band, no plane next to it, one via per island) -> cannot reach
+  1 nH. HS gate legs in the decks have no K (LS has K = -0.58) -> the -6.0 V dip may be 20-40 % pessimistic. J1/J2
+  and the bank are not in the L_x terminals; DC-side estimate +5 / +1.5 / +6 / +10 nH for cells 1-4. Revisions:
+  S1 two AC bolts at (-23.75, 52.4) / (+23.75, 52.4) with the AC bus split (about 20 nH equal for all cells);
+  M1 three model checks first (equal node-to-bolt what-if without tie; HS legs with K; J1/J2 as terminals);
+  G1 HS Kelvin under the gate row (XKV["H"] = 4.0); T1 cuttable L1 strap 0.95-2.0 mm (1.5-1.8 / 0.9-1.0 nH) only if
+  M1(a) fails or S1 is rejected; L1 via pitch 0.9 -> 1.2 mm (at most 0.05-0.15 nH). Blind F2 slot real and already in
+  the 0.646 nH; F3 gate pads only; F1 1/7 shunt bypass confirmed (multiply in-pair differences by 1.17); Kelvin
+  resistors: do not fit.
+- leader check: reports exist; estimates not verified by Q3D/SPICE. Redraw not started: S1 changes the AC terminal
+  (new centre-fed bar, differs from the frozen load board) -> Enes's decision. Proposed order: M1 (sim-analyst, no
+  copper) -> decision S1 / T1 -> pcb-layout on Fable from current main -> Q3D + gate check.
+- **Enes:** "yes, run M1 first, two bolts are ok". Plan: sim-analyst runs M1 (a) equal take-off what-if without tie,
+  (b) HS gate legs with K, (c) J1/J2 as L_x terminals; then one redraw brief for pcb-layout (S1 two bolts, G1, and T1
+  only if (a) fails). Done check: per-check table with pass/fail against the dpt_gate_dip criteria, files in
+  `simulation/bb_spice/dpt_m1_checks/`.
+- leader -> sim-analyst: M1 (a)-(c) as above; 20 nH equal take-off + ideal centre-fed bar, one 25 nH bar case; pass =
+  in-pair SW difference < 1 V and HS V_GS min > -4 V at 80 V over the corners; old L3 tie dropped.
+- sim-analyst -> leader (2026-11-11): M1 done, files in `simulation/bb_spice/dpt_m1_checks/` (51 cases) and Q3D tag
+  `BB_PL_LX_dpt_swv1dc`. (a) equal 20 nH take-off, no tie, 80 V: HS V_GS min -3.4 V (was -6.0 V), split +-0.7 % (was
+  +-15.3 %), V_DS <= 97.8 V, E_on/E_off 121 / 20.7 uJ; in-pair SW difference 1.6 V at the second turn-on (2.3 V with
+  0.5 ns skew) -> the "< 1 V" criterion fails at 80 V, the V_GS criterion passes. Passing off-level window about
+  -2.05 .. -1.29 V (interpolated) -> -1.7 V +-0.3 V, V_ISO about 6.8 V. 9 of 23 runs with uncoupled HS legs had LTspice
+  solver faults (marked valid = no); the verdict rests on 12 clean runs with the extracted coupling. (b) HS
+  gate-Kelvin mutual exists in BB_PL_GATE_dpt and was never mapped (k 0.32-0.37); today's board restated: -3.9 / -4.8 /
+  -4.9 V at 20 / 40 / 80 V (deck: -4.25 / -5.6 / -6.0 V) -> H6 stands. G1 alone: -4.28 V at 80 V, fails; G1 on two
+  bolts gains 0.04 V. (c) DC side 0.5-1.2 nH per cell, difference between cells < 0.1 nH at 100 MHz -> review estimate
+  (+5 / +1.5 / +6 / +10 nH) not confirmed; split unchanged. By-product: bank-to-bypass loop 0.60-0.68 nH per cell vs
+  4 + 4 nH in the deck (not changed).
+- leader check: pass_fail.csv rows match the report (e.g. eq20, off -1.9, 0.5 ns: HS -3.51 V, split +-1.1 %, V_DS
+  97.8 V; off -2.2: FAIL HS -3.81 / LS -3.78); m1b_hs_gate_k.json Q1 K 0.347, Q2 K 0.376. The 20 nH equal take-off is
+  an assumption until the two-bolt board is extracted. Decision from M1: redraw = S1 two bolts, no strap (T1), no G1.

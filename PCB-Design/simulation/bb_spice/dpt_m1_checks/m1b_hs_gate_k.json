@@ -1,0 +1,97 @@
+{
+ "model": "BB_PL_GATE_dpt Setup1:LastAdaptive, AC L at 100 MHz, driver block 1 (cells 1 + 2), bypass ESL 0.4 nH",
+ "fets": {
+  "Q1": {
+   "off": {
+    "L_t_nH": 2.5352,
+    "kelvin_pad_to_pad_nH": 7.4451,
+    "L_kb_nH": 3.7226,
+    "branch_nH": 4.4869,
+    "M_nH": 1.1873,
+    "L_gb_nH": 3.139,
+    "K": 0.3473,
+    "k_review": 0.319
+   },
+   "on": {
+    "L_t_nH": 2.5245,
+    "kelvin_pad_to_pad_nH": 7.4451,
+    "L_kb_nH": 3.7226,
+    "branch_nH": 4.4869,
+    "M_nH": 1.1981,
+    "L_gb_nH": 3.1605,
+    "K": 0.3493,
+    "k_review": 0.3218
+   },
+   "deck_L_t_nH": 3.723
+  },
+  "Q2": {
+   "off": {
+    "L_t_nH": 2.3635,
+    "kelvin_pad_to_pad_nH": 7.4451,
+    "L_kb_nH": 3.7226,
+    "branch_nH": 4.5225,
+    "M_nH": 1.359,
+    "L_gb_nH": 3.518,
+    "K": 0.3755,
+    "k_review": 0.3651
+   },
+   "on": {
+    "L_t_nH": 2.3743,
+    "kelvin_pad_to_pad_nH": 7.4451,
+    "L_kb_nH": 3.7226,
+    "branch_nH": 4.5225,
+    "M_nH": 1.3483,
+    "L_gb_nH": 3.4965,
+    "K": 0.3737,
+    "k_review": 0.3622
+   },
+   "deck_L_t_nH": 3.723
+  },
+  "Q3": {
+   "off": {
+    "L_t_nH": 2.1592,
+    "kelvin_pad_to_pad_nH": 7.0095,
+    "L_kb_nH": 3.5048,
+    "branch_nH": 2.9437,
+    "M_nH": 1.3455,
+    "L_gb_nH": 2.13,
+    "K": 0.4925,
+    "k_review": 0.3839
+   },
+   "on": {
+    "L_t_nH": 2.1901,
+    "kelvin_pad_to_pad_nH": 7.01,
+    "L_kb_nH": 3.5048,
+    "branch_nH": 2.9437,
+    "M_nH": 1.3147,
+    "L_gb_nH": 2.0683,
+    "K": 0.4883,
+    "k_review": 0.3751
+   },
+   "deck_L_t_nH": 1.4721
+  },
+  "Q4": {
+   "off": {
+    "L_t_nH": 1.8485,
+    "kelvin_pad_to_pad_nH": 7.0095,
+    "L_kb_nH": 3.5048,
+    "branch_nH": 2.9541,
+    "M_nH": 1.6563,
+    "L_gb_nH": 2.7619,
+    "K": 0.5324,
+    "k_review": 0.4726
+   },
+   "on": {
+    "L_t_nH": 1.8177,
+    "kelvin_pad_to_pad_nH": 7.01,
+    "L_kb_nH": 3.5048,
+    "branch_nH": 2.9541,
+    "M_nH": 1.6871,
+    "L_gb_nH": 2.8235,
+    "K": 0.5363,
+    "k_review": 0.4814
+   },
+   "deck_L_t_nH": 1.477
+  }
+ }
+}
