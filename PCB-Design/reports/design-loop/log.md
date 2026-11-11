@@ -346,3 +346,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - leader check: pass_fail.csv rows match the report (e.g. eq20, off -1.9, 0.5 ns: HS -3.51 V, split +-1.1 %, V_DS
   97.8 V; off -2.2: FAIL HS -3.81 / LS -3.78); m1b_hs_gate_k.json Q1 K 0.347, Q2 K 0.376. The 20 nH equal take-off is
   an assumption until the two-bolt board is extracted. Decision from M1: redraw = S1 two bolts, no strap (T1), no G1.
+- commit f5fee398 (reviews, M1 files, Q3D dpt_swv1dc).
