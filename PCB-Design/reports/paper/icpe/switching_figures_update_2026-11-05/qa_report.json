@@ -1,0 +1,21 @@
+{
+  "pages": 6,
+  "figures": 8,
+  "native_equations": 4,
+  "unrelated_paragraph_text_preserved": true,
+  "all_table_values_preserved": true,
+  "source_file_preserved": true,
+  "legacy_gate_mismatch_absent": true,
+  "no_DPT_or_load_board": true,
+  "figure3": "LS turn-off and HS peak at LS turn-on separated; low-side Eon/Eoff both shown.",
+  "figure4": "Only LS turn-off voltage; original loss data unchanged.",
+  "figure5": "Peak-current metric correctly identified; nominal10/10nH, gate mismatch10/20nH. Other perturbations rerun.",
+  "sharing_results_pct": {
+    "power_mismatch": 7.6198065697253625,
+    "gate_mismatch": 55.69588389553432,
+    "source_mismatch_without_Kelvin": 24.84633446614792
+  },
+  "fine_time_step_gate_case_pct": 56.01805478138539,
+  "visual_qa": "All three standalone plots and all six compact Word-export pages inspected. No clipping, overlapping labels or broken equations.",
+  "render_method": "Packaged renderer lacks soffice; Word PDF export and bundled Poppler used."
+}

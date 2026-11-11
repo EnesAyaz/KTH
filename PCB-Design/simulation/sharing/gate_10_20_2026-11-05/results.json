@@ -1,0 +1,103 @@
+{
+  "conditions": {
+    "Vbus": 75,
+    "nominal_total_current_A": 120,
+    "Vgate": [
+      0,
+      5
+    ],
+    "gate_resistors_ohm": [
+      2,
+      2
+    ],
+    "max_step_ns": 0.1,
+    "energy_window_ns": 100
+  },
+  "cases": [
+    {
+      "case": 0,
+      "gate_loops_nH": [
+        10,
+        10
+      ],
+      "peak_currents_A": [
+        126.57201385498047,
+        126.57201385498047
+      ],
+      "peak_current_imbalance_pct": 0.0,
+      "eon1_uJ": 8.834793315654224,
+      "eoff1_uJ": 6.601609113609747,
+      "eon2_uJ": 8.834793315654224,
+      "eoff2_uJ": 6.601609113609747,
+      "total_energy_imbalance_pct": 0.0
+    },
+    {
+      "case": 1,
+      "gate_loops_nH": [
+        10,
+        10
+      ],
+      "peak_currents_A": [
+        135.95816040039062,
+        116.7056655883789
+      ],
+      "peak_current_imbalance_pct": 7.6198065697253625,
+      "eon1_uJ": 10.36657665148148,
+      "eoff1_uJ": 6.541162486748832,
+      "eon2_uJ": 5.774871797796648,
+      "eoff2_uJ": 6.605129844709177,
+      "total_energy_imbalance_pct": 15.459497301692126
+    },
+    {
+      "case": 2,
+      "gate_loops_nH": [
+        10,
+        20
+      ],
+      "peak_currents_A": [
+        172.33595275878906,
+        49.03913879394531
+      ],
+      "peak_current_imbalance_pct": 55.69588389553432,
+      "eon1_uJ": 22.981978505574233,
+      "eoff1_uJ": 4.599903048791852,
+      "eon2_uJ": 1.4220294305765615,
+      "eoff2_uJ": 9.297064724812724,
+      "total_energy_imbalance_pct": 44.02704392379696
+    },
+    {
+      "case": 3,
+      "gate_loops_nH": [
+        10,
+        10
+      ],
+      "peak_currents_A": [
+        118.702880859375,
+        118.702880859375
+      ],
+      "peak_current_imbalance_pct": 0.0,
+      "eon1_uJ": 10.201854211619043,
+      "eoff1_uJ": 6.45113782823693,
+      "eon2_uJ": 10.201854339946408,
+      "eoff2_uJ": 6.45113782823693,
+      "total_energy_imbalance_pct": 3.85298221283562e-07
+    },
+    {
+      "case": 4,
+      "gate_loops_nH": [
+        10,
+        10
+      ],
+      "peak_currents_A": [
+        135.06076049804688,
+        81.30243682861328
+      ],
+      "peak_current_imbalance_pct": 24.84633446614792,
+      "eon1_uJ": 16.423346747461196,
+      "eoff1_uJ": 6.424674302997997,
+      "eon2_uJ": 8.239618290111157,
+      "eoff2_uJ": 9.50329940415079,
+      "total_energy_imbalance_pct": 12.576953167561724
+    }
+  ]
+}

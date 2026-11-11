@@ -1,0 +1,24 @@
+{
+  "source_files_unchanged": {
+    "ICPE_Digest.pdf": true,
+    "ICPE_Template.docx": true
+  },
+  "word_inline_figures": 8,
+  "native_equations": 4,
+  "paragraph_run_colors": {
+    "000000": 7,
+    "0057B8": 63,
+    "None": 4
+  },
+  "controlled_cases_used": 21,
+  "benchmark": {
+    "inductive_peak_V": 90.05843162536621,
+    "controlled_peak_V": 90.84384536743164,
+    "voltage_difference_pct": 0.872115722970479,
+    "inductive_energy_uJ": 35.35906786135135,
+    "controlled_energy_uJ": 35.91739083684462,
+    "energy_difference_pct": 1.5790093157504792
+  },
+  "simulation_evidence": "results_complete_windows.json; sharing_final_conditions.json; single_and_sizing.json",
+  "scope": "Positive-current sampled commutation points. No experimental validation or complete operating-envelope claim."
+}

@@ -1,0 +1,15 @@
+{
+  "pages": 6,
+  "figures": 8,
+  "tables": 2,
+  "native_equations": 4,
+  "heading_count": 24,
+  "all_figures_referred_to": true,
+  "references_preserved": true,
+  "source_digest_preserved": true,
+  "no_DPT_or_obsolete_gate_assumption": true,
+  "experimental_plan_red": true,
+  "visual_qa": "All six final rendered pages inspected; no clipping, overlaps or split results table.",
+  "numerical_basis": "Existing load-board simulations only; preliminary single-cell, loss and sharing studies retained. No new simulations or experiments claimed.",
+  "render_method": "Packaged renderer lacks soffice; Word PDF export and bundled Poppler used."
+}

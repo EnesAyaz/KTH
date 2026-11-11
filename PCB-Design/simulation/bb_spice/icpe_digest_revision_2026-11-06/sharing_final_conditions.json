@@ -1,0 +1,59 @@
+{
+  "conditions": {
+    "gate_resistors_ohm": 3,
+    "gate_loops_nominal_nH": [
+      10,
+      10
+    ],
+    "gate_mismatch_nH": [
+      10,
+      15
+    ],
+    "power_mismatch_nH": 0.1,
+    "source_mismatch_nH": 0.05,
+    "Vbus": 75,
+    "nominal_current_A": 120
+  },
+  "cases": [
+    {
+      "case": 0,
+      "peak_currents_A": [
+        109.97563171386719,
+        109.97563171386719
+      ],
+      "imbalance_pct": 0.0
+    },
+    {
+      "case": 1,
+      "peak_currents_A": [
+        109.70540618896484,
+        114.06103515625
+      ],
+      "imbalance_pct": 1.946506786764118
+    },
+    {
+      "case": 2,
+      "peak_currents_A": [
+        124.84712982177734,
+        88.69841766357422
+      ],
+      "imbalance_pct": 16.92786976075106
+    },
+    {
+      "case": 3,
+      "peak_currents_A": [
+        99.65510559082031,
+        99.65510559082031
+      ],
+      "imbalance_pct": 0.0
+    },
+    {
+      "case": 4,
+      "peak_currents_A": [
+        104.195068359375,
+        86.89009094238281
+      ],
+      "imbalance_pct": 9.056159819122593
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "replacement_after_source_paragraph": 21,
+    "text": "The full paper will expand the relationship between voltage partitioning, winding-set voltage, and the phase-current requirement."
+  },
+  {
+    "replacement_after_source_paragraph": 35,
+    "text": "The full paper will document the device-data comparison underlying the EPC2361 selection, including charge-equivalent capacitance, datasheet test conditions, and the limits of the screening criterion."
+  },
+  {
+    "replacement_after_source_paragraph": 42,
+    "text": "The full paper will specify the gate-drive model and the complete simulation parameters used for these switching sweeps."
+  },
+  {
+    "replacement_after_source_paragraph": 51,
+    "text": "The full paper will detail the switching-energy integration and electrothermal model, including cooling assumptions and temperature-dependent conduction losses."
+  },
+  {
+    "replacement_after_source_paragraph": 61,
+    "text": "The full paper will present the detailed loss, temperature, and voltage-stress comparison supporting the four-device candidate, together with its sensitivity to gate drive and commutation-loop inductance."
+  },
+  {
+    "replacement_after_source_paragraph": 64,
+    "text": "The full paper will detail the current-sharing perturbation cases and their relationship to the routed gate network."
+  },
+  {
+    "replacement_after_source_paragraph": 70,
+    "text": "The full paper will assess gate-driver loading, sink-current requirements, and the resulting gate-voltage margins."
+  },
+  {
+    "replacement_after_source_paragraph": 74,
+    "text": "The full paper will detail the symmetric cell layout, individual gate resistors, and Kelvin-source returns illustrated in Fig. 5(c). It will explain the matching of the power and gate paths within each transistor pair."
+  },
+  {
+    "replacement_after_source_paragraph": 77,
+    "text": "The full paper will assess inter-driver timing and current sharing using the routed networks. Extracted parasitics will be used to revisit the initial current and switching-margin assumptions."
+  },
+  {
+    "replacement_after_source_paragraph": 87,
+    "text": "The full paper will compare the lumped and extracted gate networks, including shared-path inductance and mutual coupling."
+  },
+  {
+    "replacement_after_source_paragraph": 94,
+    "text": "The full paper will detail the simulation configurations underlying Table III, including the assumed operating-board gate paths and the extracted DPT gate network."
+  },
+  {
+    "replacement_after_source_paragraph": 98,
+    "text": "The full paper will expand the voltage-stress and switching-energy tradeoff in Fig. 9 and assess gate-bias and resistance settings across the evaluated networks."
+  },
+  {
+    "replacement_after_source_paragraph": 104,
+    "text": "The full paper will use the routed-network results to refine the shared gate paths and drive settings. The corresponding switching energies will update the loss and thermal assessment."
+  },
+  {
+    "replacement_after_source_paragraph": 109,
+    "text": "Experimental DPT measurements are planned for the full paper to validate the parasitic model and switching-loss estimates, including voltage overshoot, gate disturbance, and current sharing."
+  },
+  {
+    "replacement_after_source_paragraph": 112,
+    "text": "The full paper will discuss integration constraints, including inter-driver timing, submodule balancing, auxiliary power, and insulation across the series stack."
+  },
+  {
+    "replacement_after_source_paragraph": 114,
+    "text": "This digest links SPB voltage selection to the current-sharing and parasitic constraints of a high-current phase-leg building block. The full paper will refine the gate network and validate the resulting switching and loss estimates experimentally."
+  },
+  {
+    "source_paragraph": 2,
+    "removed_red_text": "Experimental double-pulse tests are planned for the full paper."
+  },
+  {
+    "source_paragraph": 21,
+    "removed_red_text": "Increasing the number of series-connected submodules reduces the voltage supplied to each winding set while increasing the number of winding sets contributing to the total power. Consequently, voltage partitioning does not reduce the phase-current requirement under the stated operating conditions. The selected devices must therefore provide both an appropriate blocking-voltage rating and sufficient current-handling capability."
+  },
+  {
+    "source_paragraph": 26,
+    "removed_red_text": "The latter is calculated as"
+  },
+  {
+    "source_paragraph": 27,
+    "removed_red_text": "     (2)"
+  },
+  {
+    "source_paragraph": 28,
+    "removed_red_text": "where Qoss is the output charge at the datasheet test voltage Vtest. This quantity accounts for the charge accumulated over the voltage excursion, whereas differential output capacitance describes the capacitance at a particular voltage. "
+  },
+  {
+    "source_paragraph": 33,
+    "removed_red_text": "Dashed lines indicate constant resistance\u2013capacitance products \u03c4 = RDS(on) Coss,Q. Lower \u03c4 corresponds to higher D-FOM. Charge-equivalent capacitance is calculated at the respective datasheet test voltage."
+  },
+  {
+    "source_paragraph": 34,
+    "removed_red_text": "Among the surveyed devices, EPC2361 has the highest D-FOM and is selected for further investigation. Its typical on-state resistance is 0.75 m\u03a9 [9]. The quotient of the rounded output charge of 90 nC and its 50 V test voltage gives 1800 pF, consistent with the datasheet time-related capacitance of 1796 pF. This is distinct from the differential output capacitance of 1019 pF at the same voltage"
+  },
+  {
+    "source_paragraph": 35,
+    "removed_red_text": "The comparison is an initial screening rather than a direct prediction of converter efficiency. Output-charge values are specified at different test voltages, and the simplified criterion does not capture temperature, gate-drive, parasitic, and current-sharing effects. The candidate is subsequently evaluated at the intended submodule voltage and traction current."
+  },
+  {
+    "source_paragraph": 42,
+    "removed_red_text": "The lumped gate-loop value includes the outgoing gate path and its return; it is distinct from the power-loop inductance. The gate drive uses +5 V on-state bias, \u22121 V off-state bias, 3 \u03a9 external turn-on resistance, and 1 \u03a9 external turn-off resistance. The pulsed driver model uses source and sink resistances of 0.85 \u03a9 and 0.35 \u03a9; driver current limiting and propagation-delay spread are outside this preliminary model. Switching maps are evaluated at the device model\u2019s nominal temperature of 27 \u00b0C."
+  },
+  {
+    "source_paragraph": 46,
+    "removed_red_text": "Teal and wine distinguish the 10 nH and 20 nH gate cases; solid and dashed lines distinguish 0.5 nH and 1 nH power loops. Markers denote simulated operating points, with connecting lines guiding the eye. The dashed grey line denotes the 90 V target. Cases exceeding the constraints are sensitivity results, not recommended operating points."
+  },
+  {
+    "source_paragraph": 50,
+    "removed_red_text": "The measured current at the first turn-off, rather than the programmed current parameter, is used for interpolation. Turn-on and turn-off energies are obtained by integrating terminal voltage multiplied by drain current over 150 ns windows, and piecewise-linear interpolation supplies intermediate current points. The phase-leg switching estimate includes the complementary-device output-energy contribution in addition to the hard-switching energy maps. Conduction losses use temperature-dependent on-state resistance, with resistance and junction temperature solved iteratively. Switching-energy temperature dependence is not included in these first-pass thermal estimates."
+  },
+  {
+    "source_paragraph": 51,
+    "removed_red_text": "The thermal assessment assumes an ambient temperature of 40 \u00b0C, a heatsink-to-ambient thermal resistance of 0.65 K/W for the complete phase leg, and a junction-to-heatsink thermal resistance of 7.6 K/W per transistor. The same per-device thermal path is used for each parallel-count candidate. The resulting junction temperatures are estimates conditional on these cooling assumptions"
+  },
+  {
+    "source_paragraph": 54,
+    "removed_red_text": "Voltage-panel legend entries give gate-loop / commutation-loop inductance in nH, using the encoding of Fig. 3. The grey line denotes the 90 V target. The loss components are identified by the shared legend above the panels."
+  },
+  {
+    "source_paragraph": 56,
+    "removed_red_text": "Table II compares the candidate parallel counts for both gate-loop cases. Two devices exceed the thermal limit, while three fail the compact-loop drain-voltage target. Four are the smallest tested count passing the peak-current voltage screen and thermal estimate for both gate-loop cases at the compact power-loop assumption. This establishes an implementation candidate; it does not demonstrate voltage compliance over the entire current waveform. The assumed gate bias and resistances are part of the selection."
+  },
+  {
+    "source_paragraph": 57,
+    "removed_red_text": "TABLE II\nPRELIMINARY PARALLEL COUNT COMPARISON"
+  },
+  {
+    "source_paragraph": 59,
+    "removed_red_text": "Loss and junction-temperature estimates in Table II use the 0.5 nH commutation-loop case and the cooling assumptions stated above. The voltage columns show the larger of the evaluated low-side turn-off and high-side turn-on peaks. Values are interpolated at the required peak current per device. Gate-loop inductance is a screening parameter; final acceptance requires the routed network."
+  },
+  {
+    "source_paragraph": 60,
+    "removed_red_text": "Four devices are selected as the implementation candidate and arranged as two identical transistor pairs. This is not the absolute minimum-loss count: further devices can reduce calculated conduction loss but increase the device count and gate-drive burden. Moreover, the higher gate-loop case demonstrates that a lower per-device current does not guarantee a lower drain-voltage peak. The selected arrangement must consequently be verified with the complete power and gate networks."
+  },
+  {
+    "source_paragraph": 61,
+    "removed_red_text": "The higher commutation-inductance cases fail the voltage target, including at the selected parallel count. The design therefore requires a compact power path and controlled gate-drive dynamics; paralleling alone does not recover the available blocking-voltage margin. Current sharing is still assumed equal in the first-pass comparison. The following stage translates the selected count into a symmetric arrangement and evaluates whether the routed geometry preserves those conditions."
+  },
+  {
+    "source_paragraph": 64,
+    "removed_red_text": "Although these results depend on the investigated operating point and perturbations, they demonstrate that matching the power paths alone is insufficient. The gate branches and source-reference connections must also be considered when translating the selected parallel count into a physical layout. These perturbation cases isolate mismatch mechanisms; their branch values do not replace the 10 nH and 20 nH gate-loop cases used for preliminary sizing. The complete routed network is subsequently used to account for shared paths and coupling."
+  },
+  {
+    "source_paragraph": 70,
+    "removed_red_text": "The selected driver provides a peak sink-current capability of 8 A per channel [10]. Driving two gates from each channel limits the charge handled by one output and permits short, matched branches about the driver. A low-impedance turn-off path is needed to remove displacement current coupled through the gate\u2013drain capacitance, but its damping and bias must also control negative ringing. The nominal current capability alone does not establish gate-voltage margin; both the driven and held-off gate waveforms must be checked with the complete network."
+  },
+  {
+    "source_paragraph": 72,
+    "removed_red_text": "Each local switching cell contains one high-side transistor, one low-side transistor, and local dc-link decoupling capacitors. Four cells form the phase leg and are arranged as two identical pairs. Within each pair, symmetric device placement and matched gate branches are used to reduce differences in transient loading. Local decoupling limits the extent of the high-frequency commutation path, while symmetric connections to the shared power terminals reduce differences between the parallel branches."
+  },
+  {
+    "source_paragraph": 73,
+    "removed_red_text": "Fig. 5(c) illustrates the role of the dedicated Kelvin-source connection. The gate-drive return is taken from the Kelvin pad rather than through the power-source conductors. This separates the gate-reference path from the inductance carrying the main source current and reduces the associated inductive feedback into the gate voltage. The Kelvin connection does not eliminate gate-loop inductance; both the outgoing gate branch and its return must remain short and closely coupled."
+  },
+  {
+    "source_paragraph": 74,
+    "removed_red_text": "Individual gate resistors and separate Kelvin-return branches are retained for each transistor. The branches are connected to the corresponding driver channel in a star arrangement, avoiding unnecessary shared impedance between the devices. The layout objective is therefore to minimize both the magnitude and mismatch of the relevant loop impedances."
+  },
+  {
+    "source_paragraph": 76,
+    "removed_red_text": "Symmetry within each transistor pair does not eliminate timing differences between the two driver ICs. Input routing and inter-driver propagation-delay differences must therefore be assessed separately from the matching of the local gate branches. The paired configuration establishes the intended circuit arrangement, while its current-sharing performance remains subject to verification with the routed geometry."
+  },
+  {
+    "source_paragraph": 77,
+    "removed_red_text": "The paired configuration is translated into a routed board and evaluated through the extraction-based workflow in Section V. The 10 nH and 20 nH lumped gate-loop cases provide an initial design basis. Extraction then replaces them with individual and shared branches, allowing the current capability, switching margin, and loss estimate to be reassessed for the physical building block."
+  },
+  {
+    "source_paragraph": 87,
+    "removed_red_text": "The DPT gate-network extraction in Fig. 7(d) places the individual and pair-driven paths in the same order of magnitude as the preliminary gate-loop cases. The pair-driven paths include the effect of shared routing, so matching the individual branches does not eliminate common inductance. The 20 nH screening case is representative rather than a guaranteed upper bound. A scalar loop estimate cannot reproduce every shared-path and mutual-coupling effect; the extracted network is therefore used for the final switching assessment"
+  },
+  {
+    "source_paragraph": 94,
+    "removed_red_text": "Switching simulations near the required phase-current peak compare the routed power paths with the assumed and extracted gate networks. Table III reports the complete drive configurations and their results. For the operating board, the assumed gate and Kelvin-return inductances are split in a fixed 70:30 ratio, with their sum equal to the stated gate-loop value. This split is a modeling assumption, not an extraction result. The 10 nH and 20 nH cases assess sensitivity until the operating-board gate network is extracted. The DPT cases use either the same lumped branch representation or the extracted gate network. Shared paths make these network models more informative than an isolated scalar inductance."
+  },
+  {
+    "source_paragraph": 97,
+    "removed_red_text": "Fig. 9(a) shows the high-side drain-voltage transients for the revised operating-board drive and two extracted-network DPT resistance settings. Increasing turn-on resistance reduces voltage stress at the cost of greater switching energy. The extracted-network DPT configuration remains above the project drain-voltage target, so additional gate-network or drive optimization is required before accepting it."
+  },
+  {
+    "source_paragraph": 98,
+    "removed_red_text": "Fig. 9(b) compares the held-off high-side gate voltage. On the same operating-board gate model, negative turn-off bias and the revised turn-off resistance suppress the positive disturbance observed with zero bias. The operating-board drain-voltage peak approaches the target in the larger gate-loop case, leaving no useful design margin. The lumped DPT cases also show why negative bias cannot be selected from the positive gate bump alone: their minimum gate voltage violates the negative rating. The extracted DPT trace represents its complete network and separate drive settings. Positive disturbance, negative ringing, and driven-gate overshoot must all be assessed against their respective limits."
+  },
+  {
+    "source_paragraph": 103,
+    "removed_red_text": "The routed power-network results support a compact commutation path, while the gate-network results show why that result alone is insufficient. The operating-board gate model remains an assumed network, and the extracted-network DPT case still requires refinement to meet the drain-voltage target. Shorter shared gate paths and driver outputs closer to each pair are the next layout objectives. Symmetry and absolute loop impedance must be addressed together."
+  },
+  {
+    "source_paragraph": 104,
+    "removed_red_text": "The initial gate-loop range makes the loss and voltage assessment realistic before layout, while extraction checks the network topology that those scalar values cannot represent. Updated switching energies from the accepted routed configuration must feed back into the loss and thermal estimates. The operating-board gate network must also be extracted before its final margin is established. This feedback links the physical building block to the SPB voltage choice: the usefulness of low-voltage devices depends on the achievable power and gate paths at the required traction current."
+  },
+  {
+    "source_paragraph": 107,
+    "removed_red_text": "The instrumented board provides the basis for experimental DPT correlation. The planned assessment starts at reduced voltage and current before progressing toward the candidate submodule operating point. Measurements will include drain\u2013source voltage, gate\u2013source voltage referenced to the Kelvin terminal, total commutating current, and individual branch currents where the sensing arrangement permits."
+  },
+  {
+    "source_paragraph": 108,
+    "removed_red_text": "The measured voltage and current waveforms will be used to assess overshoot, ringing, transient current sharing, and switching energy. Probe delay and channel skew must be accounted for before voltage\u2013current integration. The effects of the shunts, connections, and probe loading will be considered when comparing measurements with the instrumented-board model. Turn-on resistance and turn-off bias will be varied to examine the voltage-stress and loss tradeoff identified by simulation."
+  },
+  {
+    "source_paragraph": 109,
+    "removed_red_text": "Experimental results are not available in this manuscript. The full paper is intended to report correlation of the DPT model and measurements, including whether the voltage and gate-drive margins predicted by the revised layout are retained in hardware. Operating-board loss and temperature validation will require a subsequent continuous-current assessment under a defined cooling condition."
+  },
+  {
+    "source_paragraph": 111,
+    "removed_red_text": "The present study addresses one phase-leg building block. It does not establish a globally optimum SPB submodule count or a complete traction-drive efficiency advantage. Submodule-voltage balancing, winding design, common-mode behavior, auxiliary-power overhead, and insulation across the series stack remain system-level constraints. The voltage-class comparison and preliminary loss model do not replace those evaluations."
+  },
+  {
+    "source_paragraph": 112,
+    "removed_red_text": "Inter-driver timing and the common interconnections between cell pairs must also be evaluated. The gate driver provides functional isolation [10]; it does not by itself establish the insulation architecture required for a submodule positioned within the full dc-link stack. These integration requirements bound the conclusions that can be drawn from the local DPT model."
+  },
+  {
+    "source_paragraph": 114,
+    "removed_red_text": "A hardware-constrained design procedure has been presented for a phase-leg building block of an SPB traction inverter. Charge-based screening selects the 100 V EPC2361. Switching maps with representative gate- and power-loop inductances and an electrothermal comparison identify four parallel devices as the smallest tested count passing the peak-current screen for a compact commutation path. Current-sharing sensitivity motivates symmetric transistor pairs, paired gate drive, and dedicated Kelvin returns. Low-current resonance remains a separate drive-optimization requirement. The routed-network assessment shows why device selection and voltage partitioning cannot be finalized independently of implementation. A compact power loop is achievable in the evaluated geometry, but gate-network topology and drive settings determine the remaining voltage and gate-disturbance margins. The extracted DPT case remains above the voltage target and requires further refinement, followed by updated loss estimates and experimental correlation. The contribution is the traceable connection between SPB voltage choice and the switching constraints that determine the practical use of low-voltage devices at traction-current levels."
+  },
+  {
+    "removed_red_table": 1,
+    "rows": 11
+  }
+]

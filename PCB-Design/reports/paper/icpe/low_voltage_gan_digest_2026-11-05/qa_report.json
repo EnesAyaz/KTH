@@ -1,0 +1,14 @@
+{
+  "pages": 5,
+  "figures": 6,
+  "tables": 2,
+  "native_equations": 2,
+  "measurement_board_mentions": false,
+  "figure_references": true,
+  "source_digest_sha256": "cc794e4dd3059d87ce2a54ead02531b60f30dd2b7008c3c2c60d0615710bed5e",
+  "source_preserved": true,
+  "experimental_plan_red": true,
+  "simulation_source": "Existing completed load-board LTspice results; no rerun during this edit.",
+  "visual_qa": "All five final page images inspected. No clipping or overlap.",
+  "render_method": "Word PDF export and bundled Poppler; packaged renderer unavailable because soffice.exe is absent."
+}

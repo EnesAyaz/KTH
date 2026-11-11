@@ -1,0 +1,55 @@
+{
+  "source_sha256": "5148c79a8db5e90646d2f3a76af3dbfdfd726a85168e283eb39b715274521772",
+  "output": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\Submission-Final\\ICPE_Digest_vector_figures_2026-11-07.docx",
+  "figures": [
+    {
+      "figure": 1,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\latest_digest_figures\\fig01_topology.svg",
+      "width_in": 4.434027777777778,
+      "height_in": 1.3465277777777778
+    },
+    {
+      "figure": 2,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\latest_digest_figures\\fig02_devices.svg",
+      "width_in": 2.6473917322834644,
+      "height_in": 1.5329669728783901
+    },
+    {
+      "figure": 3,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\revised_blue_2026-11-06\\fig03_complete_switching_maps.svg",
+      "width_in": 5.364413823272091,
+      "height_in": 1.3956047681539807
+    },
+    {
+      "figure": 4,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\revised_blue_2026-11-06\\fig04_sizing_remeasured.svg",
+      "width_in": 5.746528871391076,
+      "height_in": 1.3681321084864393
+    },
+    {
+      "figure": 5,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\source_label_ai_ack_2026-11-06\\fig05_source_terminal_corrected.svg",
+      "width_in": 4.390110454943132,
+      "height_in": 1.1311832895888014
+    },
+    {
+      "figure": 6,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\minimal_original_revision_2026-11-06\\fig06_compact.svg",
+      "width_in": 6.944444444444445,
+      "height_in": 0.7911111111111111
+    },
+    {
+      "figure": 7,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\prototype_board_update_2026-11-05\\prototype_layout_q3d.svg",
+      "width_in": 4.252823709536308,
+      "height_in": 1.3296708223972002
+    },
+    {
+      "figure": 8,
+      "svg_source": "C:\\Github\\KTH\\PCB-Design\\reports\\paper\\icpe\\revised_blue_2026-11-06\\fig08_routed_margin_map.svg",
+      "width_in": 4.857142388451444,
+      "height_in": 1.282286745406824
+    }
+  ],
+  "verification": "Body XML unchanged except SVG alternatives; original Word file unchanged."
+}

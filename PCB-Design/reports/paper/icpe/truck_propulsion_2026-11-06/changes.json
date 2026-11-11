@@ -1,0 +1,47 @@
+{
+  "source_sha256": "56bae8163cf62370ece55c9c0e4b8f8e2eab996ede7525d4fdb758fcbc13a570",
+  "source": "reports\\paper\\Submission-Final\\ICPE_Digest_revised_blue_2026-11-06.docx",
+  "output": "reports\\paper\\Submission-Final\\ICPE_Digest_truck_propulsion_blue_2026-11-06.docx",
+  "changes": [
+    {
+      "paragraph": 0,
+      "before": "Low-Voltage GaN Utilization for High-Voltage Stacked Polyphase Bridge Traction Drives",
+      "after": "Low-Voltage GaN Utilization in High-Voltage Stacked Polyphase Bridge Inverters for Truck Propulsion"
+    },
+    {
+      "paragraph": 2,
+      "before": "Abstract—The stacked polyphase bridge (SPB) partitions a high-voltage traction dc link among series-connected submodules, enabling the use of low-voltage gallium nitride (GaN) devices. Retaining their loss advantages at traction current requires sufficient drain- and gate-voltage margins in the physical building block. This paper evaluates a phase leg for a 300-kW, 1200-V drive, starting with a charge-based device comparison and a preliminary four-device parallel arrangement using the 100-V EPC2361. A KiCad–Ansys Q3D–LTspice workflow connects the routed prototype to a coupled parasitic network. Despite an estimated local commutation-loop inductance of 0.41 nH, the simulated voltage margin depends on gate-loop inductance, drive settings, and operating current. With a 10-nH gate loop and revised drive settings, sampled positive-current points from 1 A to 322 A remain below the 90-V drain–source target at a 75-V local bus; a 5% bus increase exceeds that target at rated current. The contribution is a quantified assessment of how implementation constraints feed back into SPB voltage partitioning. Experimental validation of one building block is planned for the full paper.",
+      "after": "Abstract—The stacked polyphase bridge (SPB) partitions a high-voltage dc link for truck propulsion among series-connected submodules, enabling the use of low-voltage gallium nitride (GaN) devices. Retaining their loss advantages at the required phase current requires sufficient drain- and gate-voltage margins in the physical building block. This paper evaluates a phase leg for a 300-kW, 1200-V truck propulsion system, starting with a charge-based device comparison and a preliminary four-device parallel arrangement using the 100-V EPC2361. A KiCad–Ansys Q3D–LTspice workflow connects the routed prototype to a coupled parasitic network. Despite an estimated local commutation-loop inductance of 0.41 nH, the simulated voltage margin depends on gate-loop inductance, drive settings, and operating current. With a 10-nH gate loop and revised drive settings, sampled positive-current points from 1 A to 322 A remain below the 90-V drain–source target at a 75-V local bus; a 5% bus increase exceeds that target at rated current. The contribution is a quantified assessment of how implementation constraints feed back into SPB voltage partitioning. Experimental validation of one building block is planned for the full paper."
+    },
+    {
+      "paragraph": 3,
+      "before": "Index Terms—Electrification of transportation, Gallium nitride, stacked polyphase bridge, traction inverter.",
+      "after": "Index Terms—Electrification of transportation, Gallium nitride, stacked polyphase bridge, truck propulsion."
+    },
+    {
+      "paragraph": 5,
+      "before": "High dc-link voltages support traction power levels of several hundred kilowatts while requiring substantial phase current [1]. In a conventional two-level bridge, the switches block the full dc-link voltage. The stacked polyphase bridge (SPB) instead connects three-phase bridges in series on the dc side, each supplying an isolated winding set of a common machine [2], [3]. With suitable bypass hardware and winding control, its modular structure can support operation after a submodule fault at reduced capability. This benefit is conditional on the remaining submodules’ voltage and current margins; bypass operation is not evaluated here. Fig. 1 shows the topology and the building block considered.",
+      "after": "High dc-link voltages support truck propulsion power levels of several hundred kilowatts while requiring substantial phase current [1]. In a conventional two-level bridge, the switches block the full dc-link voltage. The stacked polyphase bridge (SPB) instead connects three-phase bridges in series on the dc side, each supplying an isolated winding set of a common machine [2], [3]. With suitable bypass hardware and winding control, its modular structure can support operation after a submodule fault at reduced capability. This benefit is conditional on the remaining submodules’ voltage and current margins; bypass operation is not evaluated here. Fig. 1 shows the topology and the building block considered."
+    },
+    {
+      "paragraph": 8,
+      "before": "Voltage partitioning enables each SPB submodule to use a lower semiconductor voltage class, creating an opportunity to exploit the favorable on-state resistance and switching characteristics of low-voltage gallium nitride (GaN) devices in high-voltage traction drives [4]. Increasing the submodule count reduces the voltage across each bridge but leaves the phase-current requirement unchanged for fixed total power, dc-link voltage, modulation index, and power factor. Several devices may therefore be required in parallel, making current sharing, gate-drive impedance, and commutation paths central to realizing the expected device benefits.",
+      "after": "Voltage partitioning enables each SPB submodule to use a lower semiconductor voltage class, creating an opportunity to exploit the favorable on-state resistance and switching characteristics of low-voltage gallium nitride (GaN) devices in high-voltage truck propulsion systems [4]. Increasing the submodule count reduces the voltage across each bridge but leaves the phase-current requirement unchanged for fixed total power, dc-link voltage, modulation index, and power factor. Several devices may therefore be required in parallel, making current sharing, gate-drive impedance, and commutation paths central to realizing the expected device benefits."
+    },
+    {
+      "paragraph": 10,
+      "before": "II. TRACTION REQUIREMENTS AND LOW-VOLTAGE DEVICE SELECTION",
+      "after": "II. TRUCK PROPULSION REQUIREMENTS AND DEVICE SELECTION"
+    },
+    {
+      "paragraph": 11,
+      "before": "A. Traction Drive Requirements",
+      "after": "A. Truck Propulsion Requirements"
+    },
+    {
+      "paragraph": 12,
+      "before": "The building block is designed for the traction operating point and constraints summarized in Table I. For balanced operation with equal submodule voltages, the total active power is expressed as",
+      "after": "The building block is designed for the truck propulsion operating point and constraints summarized in Table I. For balanced operation with equal submodule voltages, the total active power is expressed as"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+* Two parallel EPC2361; nominal gate loop 10 nH, mismatch 10/15 nH; RG=3 ohm
+Vbus N001 0 {VBUS}
+Lloop DH N001 {LLOOP} Rser={RLOOP}
+XQH P001 DH SW EPC2361
+Rgh P001 SW 1
+Lload DH SW {LLOAD}
+LD1 SW D1 {LD1}
+XQL1 G1 D1 S1 EPC2361
+LS1 S1 0 {LS1}
+LG1 G1 N002 {LG1}
+RG1 N002 P002 {RG1}
+VTH1 P002 DRV {-DVTH1}
+RK1 S1 KRET {if(KELVIN,RKS,1G)}
+LD2 SW D2 {LD2}
+XQL2 G2 D2 S2 EPC2361
+LS2 S2 0 {LS2}
+LG2 G2 N003 {LG2}
+RG2 N003 P003 {RG2}
+VTH2 P003 DRV {-DVTH2}
+RK2 S2 KRET {if(KELVIN,RKS,1G)}
+Vdrv DRV KRET PULSE(0 {VDRV} {TSTART} 1n 1n {TON1} {TON1+TOFF})
+Rp KRET 0 {if(KELVIN,1G,1m)}
+.param VBUS=75 IPK=120 LLOAD=5u VDRV=5
+.param TSTART=0.5u TON1={LLOAD*IPK/VBUS} TOFF=1u TON2=0.5u
+.param T1={TSTART+TON1} T2={T1+TOFF}
+.param LLOOP=0.1n RLOOP=8m RKS=0.1
+.param LD1=0.15n LD2={if(CASE==1,0.25n,0.15n)}
+.param LG1=10n LG2={if(CASE==2,15n,10n)}
+.param LS1=0.05n LS2={if(CASE==4,0.10n,0.05n)}
+.param KELVIN={if(CASE==3|CASE==4,0,1)}
+.param RG1=3 RG2=3 DVTH1=0 DVTH2={if(CASE==5,0.3,0)}
+.step param CASE list 0 1 2 3 4
+.include "C:/Github/KTH/PCB-Design/simulation/LMG1210-EPC2361/EPC2361.lib"
+.tran 0 {T2+TON2+0.5u} {T1-200n} 0.1n
+.options plotwinsize=0
+.save V(D1) V(S1) V(D2) V(S2) V(G1) V(G2) V(SW) V(DH) I(LD1) I(LD2) I(Lload)
+.end
