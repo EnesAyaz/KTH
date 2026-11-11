@@ -1,0 +1,7 @@
+from pathlib import Path
+import json
+root=Path(__file__).resolve().parent
+p=root/'build_digest.py';s=p.read_text(encoding='utf-8')
+s=s.replace('Reducing the lower pole count does not simply multiply mechanical speed by the pole ratio: both linked flux and reactance change.', 'A lower-mode inductance sweep of 135, 270 and 405 µH gives approximately 300, 156 and 104 kW at 9000 rpm. About 140 µH is therefore a candidate full-power design target, not a freely selectable parameter. Reducing pole count alone does not multiply mechanical speed: linked flux and reactance change.')
+s=s.replace('A 3 kW field-loss allowance is recorded for the hybrid model, but it is not subtracted from the plotted electromagnetic output; no shaft-efficiency advantage is claimed. The model also excludes iron loss, thermal duty and transition dynamics. A practical design must provide a bipolar field supply and insulation and balancing provisions for the DC stack. Three-wire operation permits no zero-sequence current. A later phase-count study may examine other modal choices, but it is outside the present comparison.', 'The hybrid model records an assumed 3 kW field loss, excluded from the electromagnetic curves; no shaft-efficiency gain is claimed. Iron loss, thermal duty and transitions are omitted. A practical design needs a bipolar field supply and DC-stack insulation and balancing. Other phase counts remain future work.')
+p.write_text(s,encoding='utf-8')

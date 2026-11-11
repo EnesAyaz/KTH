@@ -1,0 +1,25 @@
+{
+  "pages": 5,
+  "editable_numbered_equations": 12,
+  "figures": 5,
+  "tables": 3,
+  "scope": "Discrete device class and balanced winding selection",
+  "all_final_page_images_visually_inspected": true,
+  "visual_defects_remaining": [],
+  "anonymous": true,
+  "page_numbers_verified": true,
+  "official_template_unchanged": true,
+  "preserve_only_parts_unchanged": true,
+  "registered_original_research_inputs_unchanged": true,
+  "minimum_control_result": "Two cells suffice for the demonstrated36-slot12/6 winding; not a universal minimum theorem",
+  "voltage_floors_100_150_200_650V": [
+    20,
+    14,
+    10,
+    4
+  ],
+  "voltage_floor_assumptions": "1320V maximum,1.10 imbalance,1.10 overshoot,0.80 rating utilization",
+  "ratio_result": "2:1 and5:2 supported in tested family;3:1 not demonstrated, not generally impossible",
+  "status": "Preliminary feasibility shortlist, not validated efficiency/cost optimum or magnetic motor design",
+  "qa_pdf": "digest_equations_final.pdf"
+}

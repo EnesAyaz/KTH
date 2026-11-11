@@ -1,0 +1,208 @@
+{
+  "scope": "Three controlled nonlinear no-load cases, same coarse mesh, fixed PMs and field-current densities; not rated-load optimization",
+  "display": "Identical 0-2 T discrete palette, steel only; white nonsteel; colorbar extension marks values >2 T",
+  "saturation_caveat": "Area above 1.5 or 2 T is a flux-density diagnostic, not a universal saturation criterion; material law is synthetic",
+  "cases": {
+    "baseline": {
+      "stator_outer_radius_mm": 140,
+      "yoke_thickness_mm": 25,
+      "slot_half_angle_deg": 2.4,
+      "tooth_angle_deg": 5.2,
+      "angular_divisions": 360,
+      "stats": {
+        "12_pole": {
+          "yoke": {
+            "mean_T": 0.19570639943235885,
+            "area_weighted_p95_T": 0.4011748416708013,
+            "maximum_T": 0.9598135943897725,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 20026.636386782837
+          },
+          "teeth": {
+            "mean_T": 0.4745073151558504,
+            "area_weighted_p95_T": 1.0072352910055644,
+            "maximum_T": 1.8380871924888544,
+            "area_above_1p5T_percent": 0.24450405162064914,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 10467.25528482516
+          },
+          "rotor": {
+            "mean_T": 0.6977731727997111,
+            "area_weighted_p95_T": 1.7075480800172453,
+            "maximum_T": 2.9096493038365154,
+            "area_above_1p5T_percent": 12.48990727882282,
+            "area_above_2T_percent": 1.6407650549173047,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.5070859300890561,
+          "alternate_harmonic_ratio": 0.08601075292306085,
+          "nonlinear_residual": 8.449964112454766e-09
+        },
+        "6_pole": {
+          "yoke": {
+            "mean_T": 0.3575881211219821,
+            "area_weighted_p95_T": 0.6831760434532368,
+            "maximum_T": 1.320125493799429,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 20026.636386782837
+          },
+          "teeth": {
+            "mean_T": 0.5833801584863122,
+            "area_weighted_p95_T": 1.078885891619909,
+            "maximum_T": 1.937613611642596,
+            "area_above_1p5T_percent": 0.29036614645858444,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 10467.25528482516
+          },
+          "rotor": {
+            "mean_T": 0.7518364226827223,
+            "area_weighted_p95_T": 1.6975922819248161,
+            "maximum_T": 2.9248727446307505,
+            "area_above_1p5T_percent": 11.179920815273043,
+            "area_above_2T_percent": 1.6519869825639264,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.5108224076352398,
+          "alternate_harmonic_ratio": 0.09245150315696678,
+          "nonlinear_residual": 7.435859978408852e-11
+        }
+      }
+    },
+    "thinner_yoke": {
+      "stator_outer_radius_mm": 125,
+      "yoke_thickness_mm": 10,
+      "slot_half_angle_deg": 2.4,
+      "tooth_angle_deg": 5.2,
+      "angular_divisions": 360,
+      "stats": {
+        "12_pole": {
+          "yoke": {
+            "mean_T": 0.4108667967621189,
+            "area_weighted_p95_T": 0.7219035472097676,
+            "maximum_T": 1.1631322879828614,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 7539.4395809064745
+          },
+          "teeth": {
+            "mean_T": 0.4766642432923372,
+            "area_weighted_p95_T": 0.9985722257764089,
+            "maximum_T": 1.8272941587692626,
+            "area_above_1p5T_percent": 0.24450405162064914,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 10467.25528482516
+          },
+          "rotor": {
+            "mean_T": 0.6960704830269555,
+            "area_weighted_p95_T": 1.7016592450879047,
+            "maximum_T": 2.9103146624712646,
+            "area_above_1p5T_percent": 11.994450406093506,
+            "area_above_2T_percent": 1.6407650549173047,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.5045290568450099,
+          "alternate_harmonic_ratio": 0.08344725499510418,
+          "nonlinear_residual": 8.177218947281016e-09
+        },
+        "6_pole": {
+          "yoke": {
+            "mean_T": 0.7865268672045688,
+            "area_weighted_p95_T": 1.4626172344933153,
+            "maximum_T": 1.8099945414954393,
+            "area_above_1p5T_percent": 2.0160590277777715,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 7539.4395809064745
+          },
+          "teeth": {
+            "mean_T": 0.578900133487445,
+            "area_weighted_p95_T": 1.0558719596553228,
+            "maximum_T": 1.907074609226889,
+            "area_above_1p5T_percent": 0.27503188775510296,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 10467.25528482516
+          },
+          "rotor": {
+            "mean_T": 0.7423978445978916,
+            "area_weighted_p95_T": 1.6714058845503132,
+            "maximum_T": 2.9269094095414534,
+            "area_above_1p5T_percent": 10.794102175651222,
+            "area_above_2T_percent": 1.6279895916621034,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.4992591660682251,
+          "alternate_harmonic_ratio": 0.08489811997112279,
+          "nonlinear_residual": 5.131934367697057e-11
+        }
+      }
+    },
+    "thinner_yoke_narrower_teeth": {
+      "stator_outer_radius_mm": 125,
+      "yoke_thickness_mm": 10,
+      "slot_half_angle_deg": 3.2,
+      "tooth_angle_deg": 3.5999999999999996,
+      "angular_divisions": 360,
+      "stats": {
+        "12_pole": {
+          "yoke": {
+            "mean_T": 0.3823687172059766,
+            "area_weighted_p95_T": 0.6328023707509907,
+            "maximum_T": 1.219472877584835,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 7539.4395809064745
+          },
+          "teeth": {
+            "mean_T": 0.5181977991754888,
+            "area_weighted_p95_T": 0.8609927738555937,
+            "maximum_T": 0.8983936324136843,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 8373.804227860128
+          },
+          "rotor": {
+            "mean_T": 0.6506344655152151,
+            "area_weighted_p95_T": 1.5664690431928363,
+            "maximum_T": 2.9355929841395523,
+            "area_above_1p5T_percent": 7.5565620221913585,
+            "area_above_2T_percent": 1.511558585476015,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.4548783700025799,
+          "alternate_harmonic_ratio": 0.03780672789768027,
+          "nonlinear_residual": 3.97412667359749e-09
+        },
+        "6_pole": {
+          "yoke": {
+            "mean_T": 0.7238651538135716,
+            "area_weighted_p95_T": 1.327499675699989,
+            "maximum_T": 1.792942237768873,
+            "area_above_1p5T_percent": 0.9027777777777749,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 7539.4395809064745
+          },
+          "teeth": {
+            "mean_T": 0.6301217254485302,
+            "area_weighted_p95_T": 0.9091549415354419,
+            "maximum_T": 1.2511183735062328,
+            "area_above_1p5T_percent": 0.0,
+            "area_above_2T_percent": 0.0,
+            "steel_area_mm2": 8373.804227860128
+          },
+          "rotor": {
+            "mean_T": 0.6844314829875652,
+            "area_weighted_p95_T": 1.5095098205097959,
+            "maximum_T": 2.9382506204203738,
+            "area_above_1p5T_percent": 5.5032227973460115,
+            "area_above_2T_percent": 1.4989830128070196,
+            "steel_area_mm2": 14929.975230090053
+          },
+          "selected_airgap_harmonic_T": 0.4490952359296047,
+          "alternate_harmonic_ratio": 0.03155741087674052,
+          "nonlinear_residual": 8.064947483353388e-12
+        }
+      }
+    }
+  }
+}

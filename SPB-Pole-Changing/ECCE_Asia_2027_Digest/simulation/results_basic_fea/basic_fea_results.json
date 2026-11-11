@@ -1,0 +1,185 @@
+{
+  "parameters": {
+    "slots": 36,
+    "rotor_pole_sites": 12,
+    "shaft_radius_mm": 25,
+    "rotor_radius_mm": 80,
+    "airgap_mm": 1,
+    "stator_outer_radius_mm": 140,
+    "slot_outer_radius_mm": 115,
+    "PM_remanence_T": 0.7,
+    "steel_initial_mu_r": 1000,
+    "synthetic_BH_knee_T": 1.5,
+    "synthetic_BH_extra_H_at_knee_A_m": 300,
+    "PM_mu_r": 1.05,
+    "coil_basis_J_A_m2": 1000000.0,
+    "stator_current_A": 0,
+    "outer_boundary": "Az = 0 at r = 150 mm",
+    "interface": "polar mesh, centroid-classified material interfaces",
+    "material_model": "nonlinear isotropic synthetic B-H curve; no losses"
+  },
+  "fixed_PM_sites_zero_based": [
+    0,
+    3,
+    4,
+    7,
+    8,
+    11
+  ],
+  "wound_sites_zero_based": [
+    1,
+    2,
+    5,
+    6,
+    9,
+    10
+  ],
+  "source_pattern": "12-pole +-+-; 6-pole ++--; reverse wound sites; PM polarities fixed",
+  "excitation_choice": "Fixed +6.2 and -6.7 A/mm2 excitations on both meshes, selected after the preliminary linear screen; nonlinear residual harmonics are reported, not forced to zero",
+  "coarse": {
+    "nodes": 27721,
+    "elements": 55080,
+    "relative_linear_residual": 1.575236212080988e-13,
+    "cases": {
+      "12_pole": {
+        "alpha": 6.2,
+        "linear_screen_alpha": 6.159265313564327,
+        "nonlinear_residual": 8.449964112454766e-09,
+        "Newton_iterations": 9,
+        "harmonics_T": {
+          "1": 1.1082977434492425e-15,
+          "2": 1.1053367503319964e-15,
+          "3": 0.04361484264365031,
+          "4": 7.241945921135336e-16,
+          "5": 3.1758707946115686e-16,
+          "6": 0.5070859300890561,
+          "7": 8.410672200088598e-16,
+          "8": 2.3227811311590586e-16,
+          "9": 0.022244438267375273,
+          "10": 8.80543056188839e-17,
+          "11": 1.4339826964875265e-16,
+          "12": 2.05840971082189e-05,
+          "13": 3.0268346070888075e-16,
+          "14": 1.7870230543970883e-16,
+          "15": 0.00047407225992996093,
+          "16": 4.3786908457812756e-16,
+          "17": 8.496254289962285e-16,
+          "18": 0.114472935546114
+        },
+        "selected_airgap_amplitude_T": 0.5070859300890561,
+        "alternate_ratio": 0.08601075292306085,
+        "Bmax_T": 2.9096493038365154,
+        "Jpeak_A_m2": 6200000.0
+      },
+      "6_pole": {
+        "alpha": -6.7,
+        "linear_screen_alpha": -6.626225753389531,
+        "nonlinear_residual": 7.435859978408852e-11,
+        "Newton_iterations": 11,
+        "harmonics_T": {
+          "1": 1.6423351932886064e-15,
+          "2": 1.0830455358058801e-15,
+          "3": 0.5108224076352398,
+          "4": 1.1039821633780377e-15,
+          "5": 5.908484457202451e-16,
+          "6": 0.04722629943213874,
+          "7": 1.716467022957616e-16,
+          "8": 3.8801715999852193e-16,
+          "9": 0.22522358028879583,
+          "10": 3.922930532378729e-16,
+          "11": 1.730316016078905e-16,
+          "12": 0.0011576735336226594,
+          "13": 2.49104267700671e-16,
+          "14": 5.391632209189382e-16,
+          "15": 0.04105471458094128,
+          "16": 2.23449622528746e-16,
+          "17": 5.741155075161874e-18,
+          "18": 0.007678786890305973
+        },
+        "selected_airgap_amplitude_T": 0.5108224076352398,
+        "alternate_ratio": 0.09245150315696678,
+        "Bmax_T": 2.9248727446307505,
+        "Jpeak_A_m2": 6700000.0
+      }
+    }
+  },
+  "fine": {
+    "nodes": 55441,
+    "elements": 110160,
+    "relative_linear_residual": 2.9484655620208914e-13,
+    "cases": {
+      "12_pole": {
+        "alpha": 6.2,
+        "linear_screen_alpha": 6.208853054139017,
+        "nonlinear_residual": 2.3561369902501287e-11,
+        "Newton_iterations": 9,
+        "harmonics_T": {
+          "1": 1.7207034354015173e-15,
+          "2": 8.170567138108578e-16,
+          "3": 0.04234304085669143,
+          "4": 1.0898219895501255e-15,
+          "5": 2.0903957730253743e-16,
+          "6": 0.5021057148180087,
+          "7": 5.953817626755317e-16,
+          "8": 5.34184991038509e-16,
+          "9": 0.02130602918735318,
+          "10": 5.421532989049384e-16,
+          "11": 3.3738030318740266e-16,
+          "12": 1.7511725975942457e-05,
+          "13": 2.786283988907426e-16,
+          "14": 4.4243632543823966e-16,
+          "15": 0.000474596147558275,
+          "16": 3.123285193503757e-16,
+          "17": 8.363260919477549e-16,
+          "18": 0.1112247869964561
+        },
+        "selected_airgap_amplitude_T": 0.5021057148180087,
+        "alternate_ratio": 0.08433092794420578,
+        "Bmax_T": 2.935014298811628,
+        "Jpeak_A_m2": 6200000.0
+      },
+      "6_pole": {
+        "alpha": -6.7,
+        "linear_screen_alpha": -6.682185060998418,
+        "nonlinear_residual": 8.50420551774409e-09,
+        "Newton_iterations": 11,
+        "harmonics_T": {
+          "1": 2.0532165370278416e-15,
+          "2": 1.3623621854955207e-15,
+          "3": 0.5071750038758327,
+          "4": 1.0792824369061187e-15,
+          "5": 6.205802003251544e-16,
+          "6": 0.04552776371599773,
+          "7": 2.2732986913791743e-16,
+          "8": 7.181943744968329e-16,
+          "9": 0.22236819247770637,
+          "10": 4.0248949267379577e-16,
+          "11": 4.59974122934622e-16,
+          "12": 0.0009770772018682613,
+          "13": 4.05202775583947e-16,
+          "14": 3.890331479633507e-16,
+          "15": 0.0402750693212615,
+          "16": 3.5373580912360406e-17,
+          "17": 8.717385965102031e-16,
+          "18": 0.00740178409849069
+        },
+        "selected_airgap_amplitude_T": 0.5071750038758327,
+        "alternate_ratio": 0.0897673650477142,
+        "Bmax_T": 2.949821095174589,
+        "Jpeak_A_m2": 6700000.0
+      }
+    }
+  },
+  "mesh_sensitivity": {
+    "12_pole": 0.00982124522794936,
+    "6_pole": 0.007140257954407425
+  },
+  "limits": [
+    "Exploratory geometry, not copied dimensions from Conto/Bianchi",
+    "Synthetic monotone B-H law; no measured steel curve or loss coefficients",
+    "Only no-load magnetostatics; no torque, losses, back-EMF or speed curves derived",
+    "Centroid-classified geometry and one angular mesh refinement are not a complete convergence study",
+    "No demagnetization, coil insulation, centrifugal stress, cooling, end winding or field supply feasibility",
+    "Rotor excitation amplitude is tuned per mode; fixed magnitude reversal is not demonstrated"
+  ]
+}

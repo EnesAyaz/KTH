@@ -1,0 +1,22 @@
+{
+  "pages": 5,
+  "figures": 3,
+  "tables": 4,
+  "scope": "three wire three phase cell count and pole ratio",
+  "neutral_lead": false,
+  "phase_count_comparison": "future work only",
+  "numerical_checks": [
+    "coil coverage",
+    "three wire phasor balance",
+    "Fourier pitch factors",
+    "dq voltage and current constraints",
+    "analytic feasible interval versus brute current grid"
+  ],
+  "all_five_page_images_visually_inspected": true,
+  "visual_defects_remaining": [],
+  "template_reference_unchanged": true,
+  "preserve_only_package_parts_unchanged": true,
+  "registered_research_sources_unchanged": true,
+  "model_status": "Preliminary desired-order electrical model, not validated motor or safe-speed performance",
+  "qa_pdf": "digest_three_phase_final2.pdf"
+}

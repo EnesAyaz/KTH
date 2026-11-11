@@ -1,0 +1,304 @@
+{
+  "model": "Ideal phase-domain superposition and nominal-recharge energy-buffer sizing",
+  "not_modelled": [
+    "rotor dynamics",
+    "PWM",
+    "saturation",
+    "thermal limits",
+    "end winding loss",
+    "closed-loop series-cell balancing",
+    "motor efficiency or drive-cycle benefit"
+  ],
+  "parameters": {
+    "N": 16,
+    "Vdc_V": 1200.0,
+    "Vcell_V": 75.0,
+    "rpm": 2100.0,
+    "duration_s": 0.2,
+    "dt_s": 1e-05,
+    "power_factor_per_mode": 1,
+    "equal_mean_cell_power_W": 9600,
+    "equal_sum_phase_Irms_squared_A2": 120000
+  },
+  "verification": {
+    "phase_sum_cross_identity": "passed",
+    "neutral_voltage_and_current_sums": "passed",
+    "total_stack_output_power_constant": "passed",
+    "spatial_rule_matches_phase_sum": "passed",
+    "energy_integral_relative_error": 3.6270822473292816e-06
+  },
+  "cases": [
+    {
+      "case": "A",
+      "m": 3,
+      "poles": [
+        4,
+        2
+      ],
+      "Q": 48,
+      "N": 16,
+      "Vrms_total_V": 16.0,
+      "Irms_total_A": 200.0,
+      "cell_mean_power_W": 9600.0,
+      "sum_phase_Irms_squared_A2": 120000.0,
+      "cross_power_peak_W": 9600.000000000022,
+      "cross_power_expected_W": 9600.0,
+      "frequency_Hz": 105.0,
+      "buffer_energy_amplitude_J": 14.551256303892757,
+      "C_min_exact_energy_mF": 27.230421153483523,
+      "C_min_linearized_mF": 25.868993924777907,
+      "buffer_voltage": {
+        "5": {
+          "min_V": null,
+          "max_V": 106.98365539444379,
+          "energy_positive": false,
+          "within_10_percent": false
+        },
+        "10": {
+          "min_V": 52.103250754837255,
+          "max_V": 92.38642357391345,
+          "energy_positive": true,
+          "within_10_percent": false
+        },
+        "20": {
+          "min_V": 64.57456441673241,
+          "max_V": 84.14348239994156,
+          "energy_positive": true,
+          "within_10_percent": false
+        },
+        "30": {
+          "min_V": 68.22694662966495,
+          "max_V": 81.2101210046682,
+          "energy_positive": true,
+          "within_10_percent": true
+        }
+      },
+      "max_phase_voltage_V": 32.0,
+      "neutral_current_max_A": 2.6005864128819667e-12
+    },
+    {
+      "case": "B",
+      "m": 5,
+      "poles": [
+        6,
+        2
+      ],
+      "Q": 80,
+      "N": 16,
+      "Vrms_total_V": 12.393546707863734,
+      "Irms_total_A": 154.91933384829667,
+      "cell_mean_power_W": 9600.0,
+      "sum_phase_Irms_squared_A2": 120000.0,
+      "cross_power_peak_W": 8.185452315956354e-11,
+      "cross_power_expected_W": 0.0,
+      "frequency_Hz": null,
+      "buffer_energy_amplitude_J": 2.1004780137445744e-14,
+      "C_min_exact_energy_mF": 3.930719090048326e-14,
+      "C_min_linearized_mF": 0.0,
+      "buffer_voltage": {
+        "5": {
+          "min_V": 74.99999999999994,
+          "max_V": 75.00000000000006,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "10": {
+          "min_V": 74.99999999999997,
+          "max_V": 75.00000000000003,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "20": {
+          "min_V": 74.99999999999999,
+          "max_V": 75.00000000000001,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "30": {
+          "min_V": 74.99999999999999,
+          "max_V": 75.00000000000001,
+          "energy_positive": true,
+          "within_10_percent": true
+        }
+      },
+      "max_phase_voltage_V": 24.78709341572747,
+      "neutral_current_max_A": 3.296918293926865e-12
+    },
+    {
+      "case": "C",
+      "m": 5,
+      "poles": [
+        4,
+        2
+      ],
+      "Q": 80,
+      "N": 16,
+      "Vrms_total_V": 12.393546707863734,
+      "Irms_total_A": 154.91933384829667,
+      "cell_mean_power_W": 9600.0,
+      "sum_phase_Irms_squared_A2": 120000.0,
+      "cross_power_peak_W": 8.731149137020111e-11,
+      "cross_power_expected_W": 0.0,
+      "frequency_Hz": null,
+      "buffer_energy_amplitude_J": 1.6534613678231455e-14,
+      "C_min_exact_energy_mF": 3.094196711715828e-14,
+      "C_min_linearized_mF": 0.0,
+      "buffer_voltage": {
+        "5": {
+          "min_V": 74.99999999999996,
+          "max_V": 75.00000000000004,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "10": {
+          "min_V": 74.99999999999997,
+          "max_V": 75.00000000000003,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "20": {
+          "min_V": 74.99999999999999,
+          "max_V": 75.00000000000001,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "30": {
+          "min_V": 75.0,
+          "max_V": 75.0,
+          "energy_positive": true,
+          "within_10_percent": true
+        }
+      },
+      "max_phase_voltage_V": 24.78709341572747,
+      "neutral_current_max_A": 4.149569576838985e-12
+    },
+    {
+      "case": "E3",
+      "m": 3,
+      "poles": [
+        8,
+        4
+      ],
+      "Q": 48,
+      "N": 16,
+      "Vrms_total_V": 16.0,
+      "Irms_total_A": 200.0,
+      "cell_mean_power_W": 9600.0,
+      "sum_phase_Irms_squared_A2": 120000.0,
+      "cross_power_peak_W": 9600.000000000044,
+      "cross_power_expected_W": 9600.0,
+      "frequency_Hz": 210.0,
+      "buffer_energy_amplitude_J": 7.275548983524349,
+      "C_min_exact_energy_mF": 13.615062425308723,
+      "C_min_linearized_mF": 12.934496962388954,
+      "buffer_voltage": {
+        "5": {
+          "min_V": 52.103554644479495,
+          "max_V": 92.38625218835182,
+          "energy_positive": true,
+          "within_10_percent": false
+        },
+        "10": {
+          "min_V": 64.5746870166254,
+          "max_V": 84.14338831248044,
+          "energy_positive": true,
+          "within_10_percent": false
+        },
+        "20": {
+          "min_V": 69.9817483466051,
+          "max_V": 79.70291649840948,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "30": {
+          "min_V": 71.69353807072417,
+          "max_V": 78.16672309174552,
+          "energy_positive": true,
+          "within_10_percent": true
+        }
+      },
+      "max_phase_voltage_V": 32.0,
+      "neutral_current_max_A": 5.144329406903125e-12
+    },
+    {
+      "case": "E5",
+      "m": 5,
+      "poles": [
+        8,
+        4
+      ],
+      "Q": 80,
+      "N": 16,
+      "Vrms_total_V": 12.393546707863734,
+      "Irms_total_A": 154.91933384829667,
+      "cell_mean_power_W": 9600.0,
+      "sum_phase_Irms_squared_A2": 120000.0,
+      "cross_power_peak_W": 1.709850039333105e-10,
+      "cross_power_expected_W": 0.0,
+      "frequency_Hz": null,
+      "buffer_energy_amplitude_J": 1.7676029528956735e-14,
+      "C_min_exact_energy_mF": 3.307794999570851e-14,
+      "C_min_linearized_mF": 0.0,
+      "buffer_voltage": {
+        "5": {
+          "min_V": 74.99999999999996,
+          "max_V": 75.00000000000004,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "10": {
+          "min_V": 74.99999999999997,
+          "max_V": 75.00000000000003,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "20": {
+          "min_V": 74.99999999999999,
+          "max_V": 75.00000000000001,
+          "energy_positive": true,
+          "within_10_percent": true
+        },
+        "30": {
+          "min_V": 75.0,
+          "max_V": 75.0,
+          "energy_positive": true,
+          "within_10_percent": true
+        }
+      },
+      "max_phase_voltage_V": 24.78709341572747,
+      "neutral_current_max_A": 6.224354365258478e-12
+    }
+  ],
+  "winding_pitch": [
+    {
+      "case": "A",
+      "Q": 48,
+      "best_y_slots": 16,
+      "best_span_mech_deg": 120.0,
+      "best_min_pitch_factor": 0.8660254037844386,
+      "high_pole_full_pitch_max_slots": 12.0,
+      "short_y_slots": 12,
+      "short_min_pitch_factor": 0.7071067811865476
+    },
+    {
+      "case": "B",
+      "Q": 80,
+      "best_y_slots": 40,
+      "best_span_mech_deg": 180.0,
+      "best_min_pitch_factor": 1.0,
+      "high_pole_full_pitch_max_slots": 13.333333333333334,
+      "short_y_slots": 13,
+      "short_min_pitch_factor": 0.4886212414969549
+    },
+    {
+      "case": "C",
+      "Q": 80,
+      "best_y_slots": 27,
+      "best_span_mech_deg": 121.5,
+      "best_min_pitch_factor": 0.8526401643540923,
+      "high_pole_full_pitch_max_slots": 20.0,
+      "short_y_slots": 20,
+      "short_min_pitch_factor": 0.7071067811865476
+    }
+  ]
+}

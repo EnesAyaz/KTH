@@ -1,0 +1,16 @@
+{
+  "purpose": "Conceptual normalized high-torque/low-speed versus lower-torque/higher-speed illustration",
+  "not_FEA_or_dq_prediction": true,
+  "high": [
+    1,
+    1,
+    1.45
+  ],
+  "low": [
+    0.45,
+    2,
+    2.9
+  ],
+  "formula": "constant torque to base; cosine roll-off to stop; P = T omega; reference scales arbitrary",
+  "numerical_speed_or_torque_claim": null
+}

@@ -1,0 +1,19 @@
+{
+  "template_sha256": "042705e6589d2d7afbf7bc627dc4e2b6d9e28a6b8176393f4e1d581219954c24",
+  "reference_unchanged": true,
+  "changed_original_parts": [
+    "[Content_Types].xml",
+    "word/document.xml",
+    "word/_rels/document.xml.rels",
+    "word/settings.xml",
+    "word/styles.xml",
+    "docProps/core.xml"
+  ],
+  "preserve_only_parts_unchanged": true,
+  "figures": 5,
+  "tables": 3,
+  "heading_page_breaks": 4,
+  "body_word_count": 1868,
+  "expected_pages": 5,
+  "study": "ieee_device_winding_codesign"
+}

@@ -1,0 +1,9 @@
+{
+  "benchmark": "uniform-current circular domain, Az(R)=0",
+  "analytic_Az": "mu J (R^2-r^2)/4",
+  "relative_nodal_L2_error": 5.5648180227545114e-05,
+  "relative_linear_residual": 2.8720541353307074e-11,
+  "nonlinear_case_residuals_passed": true,
+  "selected_harmonic_angular_mesh_change_below_1_percent": true,
+  "scope": "Assembly and numerical consistency checks, not physical motor validation"
+}

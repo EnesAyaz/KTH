@@ -1,0 +1,12 @@
+from pathlib import Path
+root=Path(__file__).resolve().parent.parent
+p=root/'simulation/run_design_selection.py';s=p.read_text(encoding='utf-8');s=s.replace("figsize=(6.3,3.6)","figsize=(6.3,3.0)");p.write_text(s,encoding='utf-8')
+p=root/'build_digest.py';s=p.read_text(encoding='utf-8')
+s=s.replace("'Total pole pair'","'Total poles H/L'")
+s=s.replace('Six N switch positions and three N leg commands','6N switch positions and 3N leg commands')
+s=s.replace('Higher-pole variants are included in the numerical screen without describing them as the dominant production choices.', 'Higher-pole variants are also screened. At 12000 rpm, 8 total poles gives 800 Hz electrical frequency, whereas 24 total poles gives 2400 Hz; allowable frequency is another design constraint.')
+s=s.replace('For the 200 V, 12-cell/36-slot 12/6 illustration, a terminal-equivalent linear model uses a 54.85 V peak phase limit and 376.31 A peak current. High-mode flux linkage is 0.052 Wb, with Ld/Lq = 90/180 µH; the six-pole values are 0.0862 Wb and 540/540 µH. These analyst-selected equivalents preserve the earlier illustrative machine envelope; they are not identified magnetic parameters for a manufactured 36-slot motor. All models permit negative d-axis current and share a 300 kW electromagnetic output ceiling.', 'The 200 V, 12-cell/36-slot 12/6 illustration uses a linear dq model: phase limits 54.85 V peak and 376.31 A peak; high-mode flux 0.052 Wb and Ld/Lq = 90/180 µH; low-mode flux 0.0862 Wb and Ld/Lq = 540/540 µH. These are illustrative terminal equivalents, not identified geometry. Every model permits negative d-axis current and has a 300 kW electromagnetic output ceiling.')
+s=s.replace('The proposed contribution is the intersection of discrete device classes, balanced three-wire winding layouts, slot capacity and pole ratio. The present evidence supports a 150–200 V versus 100 V shortlist and a 2:1 starting ratio, followed by magnetic, loss and drive-cycle optimization. Neither 24 cells nor 12/6 poles is fixed in advance.', 'The contribution is a device, winding and pole-ratio selection method. A 150–200 V versus 100 V shortlist and 2:1 starting ratio merit magnetic, loss and drive-cycle optimization. Neither 24 cells nor 12/6 poles is fixed in advance.')
+s=s.replace('2017, slide 18, energy.gov/sites/prod/files/2017/06/f34/edt087_burress_2017_o.pdf.', '2017, slide 18, DOE project EDT087.')
+s=s.replace(' Retained source copies accompany the calculations.', '')
+p.write_text(s,encoding='utf-8')

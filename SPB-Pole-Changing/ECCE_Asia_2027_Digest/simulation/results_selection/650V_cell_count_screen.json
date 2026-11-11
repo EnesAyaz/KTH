@@ -1,0 +1,54 @@
+{
+  "source": "Infineon IGLT65R025D2 rev1.1, 2026-03-03",
+  "device_Rmax_mohm_25C": 30,
+  "assumptions": "1200V nominal,1320V maximum,1.10 imbalance,1.10 overshoot,0.80 rating utilization",
+  "cases": [
+    {
+      "device_rating_V": 650,
+      "N": 2,
+      "nominal_cell_V": 600.0,
+      "stress_estimate_V": 798.6000000000001,
+      "chosen_allowance_V": 520,
+      "below_continuous_rating": false,
+      "meets_chosen_allowance": false,
+      "Q": 36,
+      "winding_factors": [
+        0.75,
+        0.8365163037378078
+      ],
+      "other_selected_order_residual": 6.954889178761974e-16
+    },
+    {
+      "device_rating_V": 650,
+      "N": 3,
+      "nominal_cell_V": 400.0,
+      "stress_estimate_V": 532.4000000000001,
+      "chosen_allowance_V": 520,
+      "below_continuous_rating": true,
+      "meets_chosen_allowance": false,
+      "Q": 54,
+      "winding_factors": [
+        0.8137976813493737,
+        0.8528685319524433
+      ],
+      "other_selected_order_residual": 8.174728969669348e-17
+    },
+    {
+      "device_rating_V": 650,
+      "N": 4,
+      "nominal_cell_V": 300.0,
+      "stress_estimate_V": 399.30000000000007,
+      "chosen_allowance_V": 520,
+      "below_continuous_rating": true,
+      "meets_chosen_allowance": true,
+      "Q": 36,
+      "winding_factors": [
+        0.8660254037844387,
+        0.8660254037844386
+      ],
+      "other_selected_order_residual": 6.490090656484971e-16
+    }
+  ],
+  "scope": "Chosen voltage and selected-order winding constraints only; not electrothermal validation",
+  "three_cell_note": "Below continuous rating but fails this chosen allowance; could be reconsidered with justified different margins or bus envelope"
+}

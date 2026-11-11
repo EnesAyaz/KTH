@@ -1,0 +1,8 @@
+{
+  "winding_balance_and_other_mode_rejection": "passed in generator",
+  "two_cell_control_example": "passed",
+  "one_cell_specific_layout_rejected": true,
+  "voltage_floors": "passed",
+  "terminal_equivalent_scaling": "passed",
+  "limitations": "Constructive exact balanced family, not universal winding feasibility or a validated magnetic motor model"
+}
