@@ -419,3 +419,31 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Check: overflow script over all 16 slides at 1400x860 -> all fit, 9 images load, no console errors.
   Published as artifact https://claude.ai/artifact/CLFPgq86tUqu6JJ1crKvkc (version 1).
 - Open for Enes: the dates on the next-steps slide (Q1/Q2 2027) and the rail sizing slide are leader proposals.
+- Q3D BB_PL_LX_dpt_2bolt done 13:27 (1 h 18 min). Node-to-bolt 19.12 / 17.53 / 17.51 / 19.15 nH (was 29.58 / 14.77 /
+  14.74 / 29.60), spread 9.35 % -> 5 % check FAILS; node-to-load (board + T-bar) 29.10 / 24.90 / 24.96 / 29.14 nH
+  (17 %); bolt-to-load 8.99 / 9.02 nH, bolt-to-bolt 8.73 nH; node-to-node 1-2 / 3-4 / 2-3 = 34.67 / 34.67 / 25.63 nH;
+  L_x HS / LS 4.49 / 2.58 nH; purely inductive split +6.7 / -6.2 / -6.8 / +6.3 % (was -26.9 / +26.6 / +27.0 / -26.8 %,
+  sign reversed: outer cells now high). SPICE step failed at once: my switch of the chain to the project venv broke
+  it (no scipy there); rerun with the system python started 13:28.
+- 32 gate corners on BB_PL_LX_dpt_2bolt done 15:09 (kmap2 HS/LS gate coupling, `dpt_2bolt/pass_fail.csv`). 17 of 32
+  runs invalid (node voltage 1.2-162 kV, fault windows ~0.55-1.1 us), mostly Bm on at 80 V -> the M1 solver faults
+  also occur with the extracted network; not resolved. Valid runs: 20 V 4/4 pass, 40 V 3/3 pass; 80 V Bm off: -2.3 /
+  -2.2 V fail (HS -4.03 / -3.92 V, outer cells), -1.9 / -1.7 / -1.6 / -1.4 V pass; 80 V Bm on: -2.0 V fail (HS -3.72,
+  outer), -1.7 V pass. -1.1 V fails on the HS bump (0.38-0.42 V; those runs invalid). Worst HS cell is now the OUTER
+  one (e.g. -1.9 V: outer -3.60, inner -3.26 V). Split at 322 A +-2.2..3.4 % (pass +-5 %), V_DS <= 98.3 V, E_on /
+  E_off 120-123 / 20.4-21.2 uJ. Passing window from valid runs about -1.4 .. -1.9 V (ends -2.0 fail, -1.1 fail): a
+  +-0.3 V Zener band fits only centred at -1.65 V with its ends (-1.35 / -1.95) not run.
+
+## 2026-11-17 - Alstom deck: both SiC prototypes
+- **Enes:** two 2-level prototypes exist, one with a 2 kV module and one with a 1.7 kV module; put both in. Source:
+  PresentationOfMeetings/Hemizero-2026-10-14/ResearchUpdates.pptx ("Second Prototype with eTruck Power Modules").
+- Prototype 1 (IEEE Access manuscript): Infineon FF3MR20KM1H 2 kV 62 mm, 1.2 kV, 250 kW, 99.12 % full load,
+  49.4 kW/L component sum, 20.83 kW/L box. Prototype 2 (ResearchUpdates s6-s9): 1.7 kV eTruck modules, 4.14 L,
+  ~72 kW/L, ~50 kW/L box, calorimetric loss 0-200 A at 5-20 kHz, efficiency map 99.3-99.7 % at 1190 V.
+- Deck: new slide 5 "two prototypes" (prototype switch, 4-5 pictures each, comparison table, power-density bars);
+  slide 4 now shows the back-to-back calorimetric schematic; timeline, device-bottleneck bullet, benchmark labels and
+  summary name both prototypes. 17 slides.
+- Assumptions for Enes: prototype 2 rated power ~300 kW is 72 kW/L x 4.14 L; ResearchUpdates s7-s9 (loss analysis,
+  efficiency map) read as prototype 2 results; module part number of prototype 2 not in the repo.
+- Check: overflow script over 17 slides and all 5 prototype-2 pictures -> all fit, no console errors.
+  Republished as version 2 of https://claude.ai/artifact/CLFPgq86tUqu6JJ1crKvkc.

@@ -240,9 +240,8 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">B · Finished work · 1.2 kV two-level SiC</div><h2>At 1.2 kV the two-level inverter keeps its efficiency and gains power density</h2></div><div class="pageno"></div></div>
   <div class="body cols-45">
     <div class="stack">
-      <div class="seg" id="b2bSeg" role="group" aria-label="Choose a picture"><button aria-pressed="true" data-v="setup">Back-to-back test bench</button><button aria-pressed="false" data-v="inv">Inverter</button><button aria-pressed="false" data-v="scope">Measured currents</button></div>
-      <div class="fig photo" style="height:380px"><img id="b2bImg" src="img/b2b_setup.jpg" alt=""></div>
-      <p class="small muted" id="b2bCap"></p>
+      <div class="fig" style="height:400px"><img src="img/b2b_schematic.png" alt="Back-to-back inverter test circuit: two three-phase inverters on one DC supply, joined through interphase inductors, on a liquid cold plate with inlet and outlet temperature sensors, flow meter, pump and heat exchanger."></div>
+      <p class="small muted">Test method for both prototypes: two inverters back to back on one 1.2 kV supply. The supply only covers the losses, which are measured from the coolant temperature rise and flow (calorimetry) and then separated into conduction and switching loss.</p>
     </div>
     <div class="stack">
       <table class="t">
@@ -259,10 +258,42 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
       <div class="readout">
         <div class="ro good"><b>&lt; 10 %</b><span>total-loss model error vs calorimetric measurement</span></div>
         <div class="ro"><b>8–20 %</b><span>switching-loss parameters vs analytical model</span></div>
-        <div class="ro"><b>99.12 %</b><span>measured inverter, 1.2 kV, 250 kW</span></div>
+        <div class="ro"><b>99.12 %</b><span>measured full load, prototype 1 (2 kV), 250 kW</span></div>
       </div>
-      <div class="note"><b>What it left open</b>Only the two-level topology, only the rated point, no lifetime. A two-level 1.2 kV inverter needs 1.7–2 kV devices. That is the starting point for SPB.</div>
+      <div class="note"><b>What it left open</b>Only the two-level topology, only the rated point, no lifetime. A two-level 1.2 kV inverter needs 1.7–2 kV devices; we built one with each (next slide). That is the starting point for SPB.</div>
       <p class="tiny muted">Ayaz et al., 1.2 kV DC-link study for heavy-duty EVs (IEEE Access, accepted); HEMIZERO meeting, Oct 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4b TWO PROTOTYPES -->
+<section class="slide" id="s4b" data-title="SiC prototypes">
+  <div class="slide-head"><div><div class="eyebrow">B · Finished work · two 1.2 kV SiC prototypes</div><h2>Two two-level inverters: 2 kV modules, then 1.7 kV eTruck modules</h2></div><div class="pageno"></div></div>
+  <div class="body cols-45">
+    <div class="stack">
+      <div class="seg" id="protoSeg" role="group" aria-label="Choose a prototype"><button aria-pressed="true" data-v="p1">Prototype 1 · 2 kV, 62 mm</button><button aria-pressed="false" data-v="p2">Prototype 2 · 1.7 kV eTruck</button></div>
+      <div class="seg" id="picSeg" role="group" aria-label="Choose a picture"></div>
+      <div class="fig photo" style="height:360px"><img id="protoImg" src="img/b2b_setup.jpg" alt=""></div>
+      <p class="small muted" id="protoCap"></p>
+    </div>
+    <div class="stack">
+      <table class="t" id="protoTable">
+        <thead><tr><th></th><th>Prototype 1</th><th>Prototype 2</th></tr></thead>
+        <tbody>
+          <tr><td>SiC modules</td><td>Infineon FF3MR20KM1H, 62 mm</td><td>eTruck half-bridge modules</td></tr>
+          <tr><td>Device voltage</td><td>2.0 kV</td><td>1.7 kV</td></tr>
+          <tr><td>DC link</td><td>1.2 kV</td><td>1.2 kV</td></tr>
+          <tr><td>Rated power</td><td>250 kW</td><td>≈ 300 kW</td></tr>
+          <tr><td>Inverter volume (components)</td><td>5.1 L</td><td>4.14 L</td></tr>
+          <tr><td>Efficiency</td><td>99.12 % measured, full load</td><td>99.3–99.7 % map, 5–20 kHz</td></tr>
+        </tbody>
+      </table>
+      <div class="card stack" style="gap:6px">
+        <div class="legend"><span><i style="background:var(--ch2)"></i>component sum</span><span><i style="background:var(--ch1)"></i>bounding box</span><span>power density, kW/L</span></div>
+        <div class="chartbox" style="height:120px"><svg class="chart" id="pdChart" viewBox="0 0 560 120" aria-label="Power density of the two prototypes"></svg></div>
+      </div>
+      <p class="small" id="protoTxt"></p>
+      <p class="tiny muted">Prototype 1: IEEE Access paper (accepted). Prototype 2: HEMIZERO WP4 update; rated power estimated from 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
     </div>
   </div>
 </section>
@@ -285,7 +316,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <div class="readout" id="dfRo"></div>
       </div>
       <ul class="clean small">
-        <li>Two-level at 1200 V needs 1700–2000 V SiC (the SiC study used 2 kV modules).</li>
+        <li>Two-level at 1200 V needs 1700–2000 V SiC: our two prototypes use 2 kV and 1.7 kV modules.</li>
         <li>Lower blocking voltage gives lower loss in every technology; 100 V GaN is the best point in the fits.</li>
         <li>The gain is paid in device count: 6·N switch positions.</li>
       </ul>
@@ -367,7 +398,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
       <h3>Inverter loss at rated power</h3>
       <div class="chartbox" style="height:250px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the SiC two-level inverter and the SPB GaN design"></svg></div>
       <div class="readout">
-        <div class="ro"><b>99.12 %</b><span>two-level SiC, 1.2 kV, 250 kW, measured inverter</span></div>
+        <div class="ro"><b>99.12 %</b><span>two-level SiC prototype 1, 1.2 kV, 250 kW, measured</span></div>
         <div class="ro good"><b>99.71 %</b><span>SPB GaN, 1.2 kV, 300 kW, semiconductors only (model)</span></div>
         <div class="ro"><b>68.8 °C</b><span>SPB junction, 40 °C ambient, 0.65 K/W per leg</span></div>
       </div>
@@ -545,7 +576,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
     <div class="stack">
       <h3>Summary</h3>
       <ul class="clean small">
-        <li>1.2 kV helps the vehicle; the two-level study showed it keeps efficiency and gains 11 % power density.</li>
+        <li>1.2 kV helps the vehicle. Two two-level SiC prototypes (2 kV and 1.7 kV modules) run at 1.2 kV with 99.1–99.7 % efficiency, the second at about 72 kW/L.</li>
         <li>SPB lets a 1.2 kV drive use 100 V GaN: lower semiconductor loss for many more, but identical, parts.</li>
         <li>The cell is designed and verified in simulation; the first test board is released.</li>
         <li>The machine side, pole changing with separate winding sets, is in early study.</li>
@@ -624,14 +655,15 @@ function fillSeg(id,items,sel){$("#"+id).innerHTML=items.map(it=>`<button data-v
 
 /* ---------- slide 2: timeline ---------- */
 const TL=[
- {x:6,s:"done",d:"2025",t:"1.2 kV study starts",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
- {x:17,s:"done",d:"2025",t:"Back-to-back SiC bench",up:0,txt:"Two 2 kV SiC inverters run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; switching parameters within 8–20 %."},
- {x:31,s:"done",d:"2026",t:"IEEE Access paper accepted",up:1,txt:"The 1.2 kV system study and its experimental validation are accepted for publication in IEEE Access.",out:"Result: 1.2 kV keeps inverter efficiency near 99.2 %, cuts charging current by a third and raises inverter power density by 11 %."},
- {x:44,s:"done",d:"2026",t:"SPB building block, Rev A",up:0,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and the first building-block layout with two EPC2361 per switch and a centre gate driver.",out:"0.374 nH loop per cell in Q3D; the layout rules for the next board."},
- {x:56,s:"done",d:"Oct 2026",t:"HEMIZERO meeting",up:1,txt:"Presentation of the 1.2 kV results and the SPB plan to the HEMIZERO partners (14 Oct 2026).",out:"Decision to continue with the GaN building block and its double-pulse test."},
- {x:67,s:"done",d:"26 Oct 2026",t:"Rev B test board released",up:0,txt:"Four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; load board and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
- {x:78,s:"now",d:"Nov 2026",t:"Digests and redraw",up:1,txt:"ICPE 2027 digest on the building-block design procedure is finished. ECCE Asia 2027 digest on pole-changing windings is due 22 November. A two-terminal AC redraw of the test board is in simulation.",out:"Two conference submissions; Q3D check of the redraw."},
- {x:90,s:"next",d:"2027",t:"Double-pulse tests, leg tests",up:0,txt:"Assemble and test the Rev B board from 20 to 80 V, compare current sharing and switching energy with the models, then build the load board and run one leg continuously.",out:"First measured GaN SPB results; a conference paper with measurements."}];
+ {x:5,s:"done",d:"2025",t:"1.2 kV study starts",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
+ {x:15,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
+ {x:25,s:"done",d:"2026",t:"Prototype 2: 1.7 kV eTruck",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
+ {x:35,s:"done",d:"2026",t:"IEEE Access paper accepted",up:0,txt:"The 1.2 kV system study and its experimental validation are accepted for publication in IEEE Access.",out:"Result: 1.2 kV keeps inverter efficiency near 99.2 %, cuts charging current by a third and raises inverter power density by 11 %."},
+ {x:45,s:"done",d:"2026",t:"SPB building block, Rev A",up:1,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and the first building-block layout with two EPC2361 per switch and a centre gate driver.",out:"0.374 nH loop per cell in Q3D; the layout rules for the next board."},
+ {x:56,s:"done",d:"Oct 2026",t:"HEMIZERO meeting",up:0,txt:"Presentation of the 1.2 kV results and the SPB plan to the HEMIZERO partners (14 Oct 2026).",out:"Decision to continue with the GaN building block and its double-pulse test."},
+ {x:67,s:"done",d:"26 Oct 2026",t:"Rev B test board released",up:1,txt:"Four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; load board and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
+ {x:78,s:"now",d:"Nov 2026",t:"Digests and redraw",up:0,txt:"ICPE 2027 digest on the building-block design procedure is finished. ECCE Asia 2027 digest on pole-changing windings is due 22 November. A two-terminal AC redraw of the test board is in simulation.",out:"Two conference submissions; Q3D check of the redraw."},
+ {x:90,s:"next",d:"2027",t:"Double-pulse tests, leg tests",up:1,txt:"Assemble and test the Rev B board from 20 to 80 V, compare current sharing and switching energy with the models, then build the load board and run one leg continuously.",out:"First measured GaN SPB results; a conference paper with measurements."}];
 let tlSel=5;
 function timeline(){const t=$("#tl");
   t.innerHTML='<div class="rail"></div>'+["2025","2026","2027"].map((y,i)=>`<span class="yr" style="left:${[11,50,95][i]}%">${y}</span>`).join("")+
@@ -645,12 +677,34 @@ function charging(){const P=+$("#chP").value,V=+$("#chV").value;const I=P*1000/V
   ro("#chRo",[{v:fmt(I,0)+" A",l:"charging current"},{v:fmt(100*(I/I8)**2,0)+" %",l:"cable I²R loss vs 800 V",c:V>800?"good":V<800?"bad":""},{v:fmt(100*(I/I8),0)+" %",l:"copper section for equal loss density vs 800 V"}]);}
 bindRange("chP",v=>v+" kW",charging);bindRange("chV",v=>v+" V",charging);
 
-/* ---------- slide 4: SiC bench pictures ---------- */
-const B2B={setup:["img/b2b_setup.jpg","Back-to-back bench: two inverters, interphase inductors, power supplies, heat exchanger and controller. The supply only covers the losses.","Back-to-back test bench with two inverters, interphase inductors, power supplies and heat exchanger."],
-  inv:["img/b2b_inverter.jpg","Inverter under test: SiC power modules, gate drives, DC-link capacitors, current sensors and the calorimetric temperature sensors on the coolant.","SiC inverter with power modules, gate drives, DC-link capacitors and calorimetric sensors."],
-  scope:["img/b2b_scope.jpg","Measured phase currents (100 A/div) and a switch-node voltage (500 V/div) during a loss-separation run.","Oscilloscope capture of three phase currents and one switch-node voltage."]};
-const gB2b=seg("b2bSeg",()=>b2b());
-function b2b(){const k=B2B[gB2b()];$("#b2bImg").src=k[0];$("#b2bImg").alt=k[2];$("#b2bCap").textContent=k[1];}
+/* ---------- slide 4b: two SiC prototypes ---------- */
+const PROTO={
+ p1:{col:1,txt:"Prototype 1 validated the loss model: the calorimetric losses agree with the analytical model within about 10 %, and the full-load efficiency is 99.12 %. Its volume is dominated by the DC-link capacitor and the 62 mm module layout.",
+  pics:[["setup","Test bench","img/b2b_setup.jpg","Back-to-back bench: two inverters, interphase inductors, power supplies, heat exchanger and controller.","Back-to-back test bench with two inverters, interphase inductors, power supplies and heat exchanger."],
+        ["inv","Inverter","img/b2b_inverter.jpg","Inverter with three 2 kV 62 mm modules, gate drives, film DC-link capacitors, current sensors and calorimetric sensors.","SiC inverter with 62 mm power modules, gate drives, DC-link capacitors and calorimetric sensors."],
+        ["scope","Currents","img/b2b_scope.jpg","Measured phase currents (100 A/div) and a switch-node voltage (500 V/div).","Oscilloscope capture of three phase currents and one switch-node voltage."],
+        ["map","Efficiency","img/p1_effmap.png","Measured efficiency over phase current and switching frequency at 1.2 kV: highest below 10 kHz.","Efficiency map of prototype 1 over phase current 50–200 A and switching frequency 7–19 kHz, between 98.4 and 99.6 percent."]]},
+ p2:{col:2,txt:"Prototype 2 keeps the same bench and method but uses 1.7 kV automotive (eTruck) modules, a laminated copper busbar and a compact cold plate. The volume falls to 4.14 L: about 72 kW/L for the components and 50 kW/L for the box, about 2.4 times prototype 1 by box volume.",
+  pics:[["cad","Design","img/p2_cad.jpg","CAD of the power stage: three half-bridge modules on one cold plate, laminated busbar to the film capacitor, gate-driver board on the module.","CAD model of prototype 2 with three half-bridge modules on a cold plate, a laminated copper busbar and a round film capacitor."],
+        ["bench","Built","img/p2_bench.jpg","The two inverters of the back-to-back pair stacked in one frame, with the B-Box controller behind.","Photo of prototype 2: two inverters stacked in an aluminium frame with gate drivers, busbars and cables."],
+        ["setup","On the bench","img/p2_setup.jpg","Prototype 2 on the calorimetric back-to-back bench with heat exchanger, supplies and interphase inductors.","Prototype 2 on the test bench next to the heat exchanger and power supplies, with an interphase inductor in front."],
+        ["loss","Losses","img/p2_loss.png","Steady-state calorimetric loss against phase current for 5, 10, 15 and 20 kHz.","Measured calorimetric loss against RMS phase current from 0 to 200 A for four switching frequencies; loss rises from about 30 W to 365 W."],
+        ["map","Efficiency","img/p2_effmap.png","Efficiency map at 1190 V and M = 1.15 from the calorimetric loss data: 99.3–99.7 %, highest at low switching frequency.","Efficiency map of prototype 2 over switching frequency 5–20 kHz and phase current 50–200 A, between 99.3 and 99.7 percent."]]}};
+const PD=[["Prototype 1 · 2 kV",49.4,20.83],["Prototype 2 · 1.7 kV",72,50]];
+let picSel={p1:"setup",p2:"cad"};
+const gProto=seg("protoSeg",()=>proto());
+$("#picSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;picSel[gProto()]=b.dataset.v;proto()});
+function proto(){const k=gProto(),P=PROTO[k];
+  $("#picSeg").innerHTML=P.pics.map(p=>`<button data-v="${p[0]}" aria-pressed="${p[0]===picSel[k]}">${p[1]}</button>`).join("");
+  const p=P.pics.find(x=>x[0]===picSel[k]);$("#protoImg").src=p[2];$("#protoImg").alt=p[4];$("#protoCap").textContent=p[3];
+  $("#protoTxt").textContent=P.txt;
+  $$("#protoTable tr").forEach(r=>[...r.children].forEach((c,i)=>{c.style.color=i===P.col?"var(--accent)":"";c.style.fontWeight=i===P.col?"600":""}));
+  const s=$("#pdChart");clear(s);const A=axes(s,{W:560,H:120,x0:0,x1:80,y0:0,y1:1,xt:[0,20,40,60,80],yt:[],m:{l:150,r:40,t:4,b:26}});
+  PD.forEach((d,i)=>{const y=8+i*42,sel=(i===0)===(k==="p1");
+    el("text",{x:142,y:y+18,"text-anchor":"end",class:sel?"ink":""},s,d[0]);
+    el("rect",{x:A.X(0),y:y,width:A.X(d[1])-A.X(0),height:15,rx:2,fill:"var(--ch2)","fill-opacity":sel?.9:.35},s);
+    el("rect",{x:A.X(0),y:y+17,width:A.X(d[2])-A.X(0),height:15,rx:2,fill:"var(--ch1)","fill-opacity":sel?.9:.35},s);
+    el("text",{x:A.X(d[1])+5,y:y+12,class:"ink"},s,fmt(d[1],1));el("text",{x:A.X(d[2])+5,y:y+29,class:"ink"},s,fmt(d[2],1));});}
 
 /* ---------- slide 5: D-FOM fits ---------- */
 const FIT={Si:[4.8e-4,2.5,2.4e5,-1.6,100,250,"var(--muted)"],SiC:[7.2e-3,1.6,1.6e4,-1.0,900,10000,"var(--ch3)"],GaN:[0.26,1.1,2.7e3,-0.7,100,650,"var(--ch2)"]};
@@ -701,7 +755,7 @@ bindRange("wsN",v=>v,wsets);
 /* ---------- slide 8: benchmark ---------- */
 function bench(){const s=$("#bmChart");clear(s);
   const sic=250*(1/0.9912-1);
-  const rows=[["2-level SiC 250 kW (measured)",[[sic*1000,"var(--ch3)","inverter total"]]],
+  const rows=[["2-level SiC, prototype 1, 250 kW (measured)",[[sic*1000,"var(--ch3)","inverter total"]]],
               ["SPB GaN 300 kW (model)",[[601,"var(--ch2)","conduction"],[238.3,"var(--ch1)","switching"],[22.3,"var(--ch4)","dead time"],[3.4,"var(--muted)","gate"]]]];
   const A=axes(s,{W:560,H:250,x0:0,x1:2500,y0:0,y1:1,xt:[0,500,1000,1500,2000,2500],yt:[],m:{l:14,r:20,t:10,b:34},xl:"loss [W]"});
   rows.forEach((r,i)=>{const y=24+i*96;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);let x0=0;
@@ -781,7 +835,7 @@ function questions(){let saved={};try{saved=JSON.parse(localStorage.getItem("spb
   $("#qs").addEventListener("change",e=>{if(e.target.type!=="checkbox")return;saved[e.target.id]=e.target.checked;try{localStorage.setItem("spb-alstom-q",JSON.stringify(saved))}catch(err){}});}
 
 /* ---------- boot ---------- */
-timeline();charging();b2b();dfom();wsets();bench();autoN();lines();flow();road();pole();questions();
+timeline();charging();proto();dfom();wsets();bench();autoN();lines();flow();road();pole();questions();
 fit();fromHash();
 })();
 </script>
