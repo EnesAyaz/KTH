@@ -1,5 +1,5 @@
 """
-Extract turn-on / turn-off waveforms of the two-parallel EPC2361 LTspice runs and inline them in index.html.
+Extract the LTspice waveforms shown in the deck (two-parallel sharing cases and the Rev B Q3D leg boards) and inline them. / turn-off waveforms of the two-parallel EPC2361 LTspice runs and inline them in index.html.
 
     python reports/infineon-meeting/extract_sharing_waves.py
 
@@ -83,6 +83,45 @@ def main():
     for c in out["cases"]:
         print(c["src"], "Eon", c["eon"], "Eoff", c["eoff"], "pk on", max(c["on"]["i1"]), max(c["on"]["i2"]))
     print("inlined %d kB" % (len(js) // 1024))
+    revb()
+
+
+def revb():
+    """Rev B leg boards with the full Q3D copper (simulation/bb_spice/REVB_Q3D_*.raw), four cells."""
+    t1 = 0.5e-6 + 1.0667e-05
+    t2 = t1 + 1e-6
+    sp = os.path.join(ROOT, "simulation", "bb_spice")
+    q = json.load(open(os.path.join(ROOT, "reports", "slides", "data", "q3d_spice_numbers.json")))
+    out = {"t0": -2.0, "dt": DT * 1e9, "boards": {}}
+    for key, f in (("dpt", "REVB_Q3D_dpt.raw"), ("load", "REVB_Q3D_load.raw")):
+        col, steps = read_raw(os.path.join(sp, f))
+        a = steps[0]
+        t = a[:, 0]
+        b = {"loop": round(q[key]["loop_nH"], 3), "rgon": q[key]["RGON"],
+             "eon": [round(c["Eon_uJ"], 1) for c in q[key]["cells"]],
+             "eoff": [round(c["Eoff_uJ"], 1) for c in q[key]["cells"]],
+             "vhpk": [round(c["VHpk"], 1) for c in q[key]["cells"]],
+             "vlpk": [round(c["Vpk"], 1) for c in q[key]["cells"]]}
+        for ed, tc in (("on", t2), ("off", t1)):
+            tq = tc + np.arange(-2e-9, 45e-9 + DT / 2, DT)
+            g = lambda n: np.interp(tq, t, a[:, col[n]])
+            r1 = lambda x: [round(float(v), 1) for v in x]
+            r2 = lambda x: [round(float(v), 2) for v in x]
+            b[ed] = {"i": [r1(g("i(vil%d)" % k)) for k in range(1, 5)],
+                     "vl": [r1(g("v(dl%d)" % k) - g("v(ql_s_%d)" % k)) for k in range(1, 5)],
+                     "vh": [r1(g("v(dh%d)" % k) - g("v(qh_s_%d)" % k)) for k in range(1, 5)],
+                     "gl": [r2(g("v(gl%d)" % k) - g("v(ql_s_%d)" % k)) for k in range(1, 5)],
+                     "gh": [r2(g("v(gh%d)" % k) - g("v(qh_s_%d)" % k)) for k in range(1, 5)],
+                     "il": r1(np.abs(g("i(lload)")))}
+        out["boards"][key] = b
+        print("revb", key, "loop", b["loop"], "Eon", b["eon"], "VHpk", b["vhpk"], "pk i on", [max(x) for x in b["on"]["i"]])
+    js = "const REVB=" + json.dumps(out, separators=(",", ":")) + ";"
+    html = os.path.join(HERE, "index.html")
+    s = open(html, encoding="utf-8").read()
+    s, n = re.subn(r"/\*REVB-BEGIN\*/.*?/\*REVB-END\*/", lambda m: "/*REVB-BEGIN*/" + js + "/*REVB-END*/", s, flags=re.S)
+    assert n == 1, "REVB marker not found"
+    open(html, "w", encoding="utf-8").write(s)
+    print("inlined REVB %d kB" % (len(js) // 1024))
 
 
 if __name__ == "__main__":

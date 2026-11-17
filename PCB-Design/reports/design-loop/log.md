@@ -462,3 +462,12 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - slide 11 "Dynamic sharing": 7 cases, turn-on/turn-off, waveforms or I_D-V_DS trajectory; i_D1 + i_D2 against load current 119 A; readouts (peaks and I_diff at turn-on, largest |i_D1-i_D2| at turn-off); E_on/E_off bars per device with symmetric reference. Energies from the LTspice .meas: gate 2/8 nH 19.2/4.9 uJ, drain +0.3 nH 10.5/6.7, L_CS +0.2 nH 28.3/10.2 (E_off 7.7/18.0), V_th +0.3 V 13.6/7.1 (E_off 10.2/5.3), gate 10/20 nH 23.0/1.4.
   - slide 10: delay-only illustrative waveform removed; R_g sweep enlarged.
 - Checks: headless Edge 1400x860, overflow 0 on all 18 slides, 0 script errors; six states of slides 10-11 viewed. Artifact version 4.
+
+### 2026-11-17 - Infineon deck v5: SiC prototype photos, model section, max 4 parallel
+- Enes: "why 6 parallel, maybe 4 is enough; add result and setup pictures like the Alstom deck; add a third section, our model, with KiCad diagrams and SPICE waveforms".
+- Leader (no agents):
+  - 6 parallel came from the slider maxima (transistors per switch, per channel) and the n = 6 point of the sink-energy chart; all capped at 4 (E_on 23.3 / 27.0 / 30.6 uJ for n = 2/3/4).
+  - new slide 7 "SiC prototypes" (from the Alstom deck, 9 photos/plots copied to img/): prototype 1 setup/inverter/scope/efficiency map, prototype 2 CAD/built/bench/losses/map; 99.12 % and 99.5 %.
+  - new section C "Our model" (slides 11-13): KiCad schematic/layout/3D gallery (Rev B power stage, 2EDF7275K driver block, supply island, top copper); KiCad -> Q3D -> LTspice chain with Q3D views and loop budget (0.65 / 0.41 nH, 0.46 + 0.06 + 0.12 nH); interactive Rev B waveforms from simulation/bb_spice/REVB_Q3D_dpt.raw and REVB_Q3D_load.raw (4 cells, 322 A, read only): DPT E_on 31.1-31.2 uJ, HS v_DS peak 92.9 V, peak-current spread 0.7 %; load board E_on 27.1-27.8 uJ, 90.9 V.
+  - problems -> section D, questions -> E; agenda 12/7/8/20/13 min; slide references renumbered (bolts slide 16, sharing slides 14-15).
+- Checks: headless Edge 1400x860, 22 slides overflow 0, 0 script errors; title, slides 7, 11, 12, 13 (both edges and boards), 17 viewed. Artifact version 5.
