@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "--directory", "reports/infineon-meeting"],
       "port": 8765
+    },
+    {
+      "name": "alstom-deck",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8766", "--directory", "reports/alstom-meeting"],
+      "port": 8766
     }
   ]
 }

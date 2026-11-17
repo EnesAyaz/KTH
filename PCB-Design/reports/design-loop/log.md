@@ -405,3 +405,17 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   R_g cost (E_on+E_off from slow_switching.json). Removed: CM/bearing panel and question. Figures in fixed-height boxes.
 - Check: overflow script over all 18 slides at 1400x860 -> all fit, all 5 images load, no console errors.
   Republished as version 2 of the same artifact.
+
+## 2026-11-17 - Alstom meeting deck
+- **Enes:** progress meeting with Alstom: our progress, what SPB is and why we use it; like the Infineon deck but no
+  GaN device problems; HTML, more interactive.
+- Plan: leader builds it alone on the Infineon deck engine (no board or sim change, no agents). Sources: Infineon deck,
+  HEMIZERO deck (2026-10-14, 1.2 kV SiC study and back-to-back bench photos), ECCE Asia digest README and
+  voltage_class_screen.csv (20/14/10/4 cells for 100/150/200/650 V at 1320 V), PhD project slide.
+- Built `reports/alstom-meeting/index.html`, 16 slides, 6 sections. Interactive: clickable timeline, charging slider,
+  bench photo switcher, D-FoM cell slider, cell-to-winding-set stator map, DC-link sizer (truck 800/1200 V, rail
+  750/1500/3000 V with EN 50163 maxima, 4 device classes), clickable design procedure, test roadmap, pole-changing
+  device-class selector, tick-off discussion list (localStorage). No paralleling / driver / gate-bump / 200 V slides.
+- Check: overflow script over all 16 slides at 1400x860 -> all fit, 9 images load, no console errors.
+  Published as artifact https://claude.ai/artifact/CLFPgq86tUqu6JJ1crKvkc (version 1).
+- Open for Enes: the dates on the next-steps slide (Q1/Q2 2027) and the rail sizing slide are leader proposals.
