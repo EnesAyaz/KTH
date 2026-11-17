@@ -454,3 +454,11 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - slide 6: three loss bars (prototype 1 2220 W at 250 kW, prototype 2 1508 W at 300 kW / 99.5 %, SPB 865 W); readouts 99.12 / 99.5 / 99.71 %; per-kW line 8.9 / 5.0 / 2.9 W/kW; boundary note gives the prototype 2 map 99.3-99.7 % and 4.14 L.
   - slide 2: platform table has both prototypes; slide 3: "2 kV and 1.7 kV modules"; slide 18: "the two SiC prototypes are measured".
 - Checks: overflow script 0 slides, 0 broken images, no console errors; slide 6 viewed. Artifact republished as version 3.
+
+### 2026-11-17 - Infineon deck v4: real dynamic current sharing
+- Enes: "in dynamic current sharing, give Vds vs Ids and switching energies for gate-loop, power-loop and threshold mismatch; the sum of current is constant but the switching current can differ, real sharing, not a delay only".
+- Leader (no agents):
+  - new `reports/infineon-meeting/extract_sharing_waves.py` reads the existing LTspice runs (read only: simulation/sharing/paper_run/Sharing_paper.raw, 6 cases; gate_10_20_2026-11-05/sharing_10_20.raw step 2; that file stores time relative to its 8.3 us Offset) and inlines 0.25 ns waveforms (i_D1, i_D2, i_L, v_DS, v_GS; -2..40 ns, 10/20 nH case -2..60 ns) into index.html.
+  - slide 11 "Dynamic sharing": 7 cases, turn-on/turn-off, waveforms or I_D-V_DS trajectory; i_D1 + i_D2 against load current 119 A; readouts (peaks and I_diff at turn-on, largest |i_D1-i_D2| at turn-off); E_on/E_off bars per device with symmetric reference. Energies from the LTspice .meas: gate 2/8 nH 19.2/4.9 uJ, drain +0.3 nH 10.5/6.7, L_CS +0.2 nH 28.3/10.2 (E_off 7.7/18.0), V_th +0.3 V 13.6/7.1 (E_off 10.2/5.3), gate 10/20 nH 23.0/1.4.
+  - slide 10: delay-only illustrative waveform removed; R_g sweep enlarged.
+- Checks: headless Edge 1400x860, overflow 0 on all 18 slides, 0 script errors; six states of slides 10-11 viewed. Artifact version 4.
