@@ -369,3 +369,39 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   200 V, leg loss vs f_sw (5.0 W + 0.053 W/kHz), rotor CM voltage 2-level vs SPB, 21 questions in 6 groups.
 - Check: all 13 slides viewed at 1400x860 in the browser pane; images only verified after publishing. The sharing
   model and the CM/bearing view are first-order and marked as such on the slides.
+- pcb-layout (Opus) -> leader: S1 done in worktree `agent-a942a8f3aad7e97b4`, nothing committed. J21 (-23.75, 52.4)
+  with T-bar model, J22 (+23.75, 52.4); AC bus split |x| < 3.55 mm on 4 layers; bus vias 412 -> 292 (mirror-symmetric),
+  real vias 1150 -> 1030; neck-to-bolt 18.25 mm all cells, estimate 19-20 nH (+-3). DRC 0 violations, 1 unconnected =
+  the two AC halves (expected); silk audit 0 (199 texts); schematic vs PCB 0 problems; 3D no collisions; load board
+  unchanged (QUICK=1 comparison). via_in_pad 222 unchanged; PTH 6.40 mm 1 -> 2, 0.40 mm 16 -> 32. Stale: fab package,
+  fab notes / order checklist, MECH BOM (2 x M6 + T-bar), test procedure (load on the T-bar stem; bar needed for every
+  powered test). revb_export.py merges both bolts into one J_AC -> needs per-bolt terminals. Decisions for Enes: T-bar
+  (61.5 x 12 x 5 mm, 47.5 mm pitch, stem through the LEM), top silk partly under the bar, 10 'failed' test points kept,
+  generated .kicad_pro replaces the GUI one.
+- leader check: drc_report 2026-11-17 11:28:06, 0 / 1 unconnected (SW zones In2.Cu at 131.65 and 153.85, y 105.2);
+  1059 "(via" entries; 147 filled polygons; J21 at (126.25, 152.4), J22 at (173.75, 152.4); via_in_pad.csv 222 rows.
+- leader -> sim-analyst (Opus; Fable needs credits): two-bolt board in the worktree: Q3D L_x with J_AC1 / J_AC2 and the
+  bar (pass: node-to-bolt equal within 5 %), loop per cell check (0.646 nH), SPICE corner set on the extracted network
+  at off -1.9 / -1.7 / -1.4 / -2.0 V (pass: all valid corners, split +-5 %, V_DS < 100 V); report solver faults.
+- sim-analyst (Opus) -> leader: Q3D blocked by the Ansys licence (FlexNet -15,10032, 1055@ANSYS-STUD-LIC.UG.KTH.SE not
+  reachable, PC not on KTH network / VPN); no SPICE run. Set up and checked: per-bolt terminals J_AC1 / J_AC2 and the
+  T-bar as a Q3D copper body with load terminal J_LOAD (in-memory patches, export scripts unchanged on disk);
+  lx2_post.py reproduces the committed dpt_swv1 numbers exactly (L_x 4.58 / 2.70 nH, node-to-bolt 29.58 / 14.77 /
+  14.74 / 29.60 nH). Loop per cell: cell region of the export identical to dpt_swv1 (318 vias, 128 pads, 37/39
+  polygons, 2 with a 5.5 um vertex shift) -> 0.646 nH per cell stands (geometry argument, no new extraction).
+  32 SPICE corners prepared. Resume: `simulation/bb_spice/dpt_2bolt/run_chain.sh` (checks the licence port first).
+- leader check: lx2_progress.txt and q3d_lx_2bolt.log show the licence error; run_chain.sh stops when port 1055 is
+  closed. Waiting for Enes to connect the KTH VPN.
+- Enes: "VPN is connected, run the check". Ports 1055 / 2325 open; resume script switched to the project venv python;
+  leader started `dpt_2bolt/run_chain.sh` 2026-11-17 12:09 (Q3D lx dpt_2bolt, then lx2_post, 32 corners, post).
+- **Enes (same day):** plan first, then slides; one figure did not fit; more on why SPB; read the review and
+  conference papers. Leader read Review-Paper-SPB (intro, common mode, semiconductor, case study, conclusion), the
+  accepted 1.2 kV SiC paper (IEEE Access) and the ECCE Asia digest README; proposed an outline with 6 decisions.
+- **Enes:** 1 h meeting, GaN application engineers; 16 cells; ECCE Asia / pole changing out; no bearing-current or
+  common-mode content; fault tolerance out; anything may be shared.
+- Rebuild: 18 slides. New: higher DC link (review fig01, charging current/cable-loss slider, platform table), device
+  bottleneck (Azurza Anderson D-FOM fits: GaN 100 V 0.67x of 2-level 1700 V SiC), SPB vs multilevel table, benchmark
+  (SiC 1.2 kV measured 99.12 % vs SPB model 99.71 %, part counts), design procedure, overshoot per cell slider,
+  R_g cost (E_on+E_off from slow_switching.json). Removed: CM/bearing panel and question. Figures in fixed-height boxes.
+- Check: overflow script over all 18 slides at 1400x860 -> all fit, all 5 images load, no console errors.
+  Republished as version 2 of the same artifact.
