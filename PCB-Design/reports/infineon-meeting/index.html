@@ -184,7 +184,8 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
           <tr><td>TI / Wolfspeed reference design</td><td>800 V</td><td>300 kW</td></tr>
           <tr><td>Porsche Taycan Turbo S</td><td>800 V class</td><td>700 kW (launch)</td></tr>
           <tr><td>Lucid Air Dream Performance</td><td>924 V</td><td>828 kW</td></tr>
-          <tr class="hl"><td>KTH SiC prototype (Ayaz et al., IEEE Access)</td><td>1.2 kV</td><td>250 kW</td></tr>
+          <tr class="hl"><td>KTH SiC prototype 1, 2 kV modules (IEEE Access)</td><td>1.2 kV</td><td>250 kW</td></tr>
+          <tr class="hl"><td>KTH SiC prototype 2, 1.7 kV eTruck modules</td><td>1.2 kV</td><td>≈ 300 kW</td></tr>
         </tbody>
       </table>
       <p class="tiny muted">Megawatt Charging System up to 1250 V. Our 1.2 kV study: 56 % less cable conduction loss or 33 % less cable mass than 800 V for heavy-duty charging.</p>
@@ -210,7 +211,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         <div class="readout" id="dfRo"></div>
       </div>
       <ul class="clean small">
-        <li>Two-level 1200 V needs 1700–2000 V SiC (our prototype used 2 kV modules).</li>
+        <li>Two-level 1200 V needs 1700–2000 V SiC (our two prototypes used 2 kV and 1.7 kV modules).</li>
         <li>Within each technology, lower blocking voltage gives lower loss; GaN at 100 V is the best point in the fits.</li>
         <li>The gain is paid in device count: 6·N·n<sub>p</sub> transistors.</li>
       </ul>
@@ -277,13 +278,14 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   <div class="body cols-2">
     <div class="stack">
       <h3>Inverter loss at rated power</h3>
-      <div class="chartbox" style="height:250px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the SiC two-level inverter and the SPB GaN design"></svg></div>
+      <div class="chartbox" style="height:250px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the two SiC two-level prototypes and the SPB GaN design"></svg></div>
+      <p class="small" id="bmPerKw"></p>
       <div class="readout">
-        <div class="ro"><b>99.12 %</b><span>two-level SiC, 1.2 kV, 250 kW, measured inverter</span></div>
-        <div class="ro good"><b>99.71 %</b><span>SPB GaN, 1.2 kV, 300 kW, semiconductors only (model)</span></div>
-        <div class="ro"><b>68.8 °C</b><span>SPB junction, 40 °C ambient, 0.65 K/W per leg</span></div>
+        <div class="ro"><b>99.12 %</b><span>SiC prototype 1, 2 kV 62 mm modules, 250 kW, measured</span></div>
+        <div class="ro"><b>99.5 %</b><span>SiC prototype 2, 1.7 kV eTruck modules, ≈ 300 kW, measured</span></div>
+        <div class="ro good"><b>99.71 %</b><span>SPB GaN, 300 kW, semiconductors only (model)</span></div>
       </div>
-      <p class="tiny muted">Not the same boundary: the SiC number is a measured inverter with 2 kV modules; the SPB number is the screening model (conduction 601 W, switching 238 W, dead time 22 W, gate 3.4 W). Capacitor, busbar and auxiliary losses are not yet in the SPB figure.</p>
+      <p class="tiny muted">Not the same boundary: both SiC numbers are measured inverters (calorimetric, 1.2 kV DC link; prototype 2 map 99.3–99.7 % over 5–20 kHz, 50–200 A<sub>rms</sub>, 4.14 L, ≈ 72 kW/L); the SPB number is the screening model (conduction 601 W, switching 238 W, dead time 22 W, gate 3.4 W). Capacitor, busbar and auxiliary losses are not yet in the SPB figure.</p>
     </div>
     <div class="stack">
       <h3>Part count for the 300 kW drive</h3>
@@ -589,7 +591,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       </div>
       <div class="card small" style="margin-top:6px">
         <b>KTH · SPB GaN building block</b><br>
-        <span class="muted">The results come from LTspice, Ansys Q3D and our analytical loss model; the Rev B board is not yet measured. The 1.2 kV SiC numbers are measured.</span>
+        <span class="muted">The results come from LTspice, Ansys Q3D and our analytical loss model; the Rev B board is not yet measured. The two 1.2 kV SiC prototypes are measured.</span>
       </div>
     </div>
   </div>
@@ -724,15 +726,16 @@ bindRange("c2R",v=>fmt(v,1)+" mΩ",fom);bindRange("c2C",v=>v+" pF",fom);
 
 /* ---------- slide 6: benchmark ---------- */
 function bench(){const s=$("#bmChart");clear(s);
-  const sic=250*(1/0.9912-1); // kW loss at 250 kW
-  const rows=[["2-level SiC 250 kW (measured)",[[sic*1000,"var(--ch3)","inverter total"]]],
+  const sic=250*(1/0.9912-1), et=300*(1/0.995-1); // kW loss at rated power
+  const rows=[["SiC prototype 1 · 2 kV modules · 250 kW (measured)",[[sic*1000,"var(--ch3)","inverter total"]]],
+              ["SiC prototype 2 · 1.7 kV eTruck · 300 kW (measured, 99.5 %)",[[et*1000,"var(--ch3)","inverter total"]]],
               ["SPB GaN 300 kW (model)",[[601,"var(--ch2)","conduction"],[238.3,"var(--ch1)","switching"],[22.3,"var(--ch4)","dead time"],[3.4,"var(--muted)","gate"]]]];
   const A=axes(s,{W:560,H:250,x0:0,x1:2500,y0:0,y1:1,xt:[0,500,1000,1500,2000,2500],yt:[],m:{l:14,r:20,t:10,b:34},xl:"loss [W]"});
-  rows.forEach((r,i)=>{const y=24+i*96;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);let x0=0;
-    r[1].forEach(seg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+seg[0])-A.X(x0),height:34,fill:seg[1],"fill-opacity":.85},s);x0+=seg[0]});
-    el("text",{x:A.X(x0)+6,y:y+22,class:"ink"},s,fmt(x0,0)+" W");
-    if(i===1){let xx=0;r[1].slice(0,2).forEach(seg=>{el("text",{x:A.X(xx+seg[0]/2),y:y+52,"text-anchor":"middle",fill:seg[1]},s,seg[2]);xx+=seg[0]})}});
-  el("text",{x:A.X(2480),y:232,"text-anchor":"end"},s,"per-kW loss: SiC "+fmt(sic*1000/250,1)+" W/kW, SPB "+fmt(865/300,1)+" W/kW");}
+  rows.forEach((r,i)=>{const y=24+i*66;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);let x0=0;
+    r[1].forEach(seg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+seg[0])-A.X(x0),height:28,fill:seg[1],"fill-opacity":.85},s);x0+=seg[0]});
+    el("text",{x:A.X(x0)+6,y:y+19,class:"ink"},s,fmt(x0,0)+" W");
+    if(i===2){let xx=0;r[1].slice(0,2).forEach(seg=>{el("text",{x:A.X(xx+seg[0]/2),y:y+44,"text-anchor":"middle",fill:seg[1]},s,seg[2]);xx+=seg[0]})}});
+  $("#bmPerKw").textContent="Loss per kW: SiC prototype 1 "+fmt(sic*1000/250,1)+" W/kW, SiC prototype 2 "+fmt(et*1000/300,1)+" W/kW, SPB GaN "+fmt(865/300,1)+" W/kW.";}
 
 /* ---------- slide 9: overshoot ---------- */
 function over(){const V=+$("#ovV").value,L=+$("#ovL").value,D=+$("#ovD").value;

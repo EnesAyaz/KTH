@@ -447,3 +447,10 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   efficiency map) read as prototype 2 results; module part number of prototype 2 not in the repo.
 - Check: overflow script over 17 slides and all 5 prototype-2 pictures -> all fit, no console errors.
   Republished as version 2 of https://claude.ai/artifact/CLFPgq86tUqu6JJ1crKvkc.
+
+### 2026-11-17 - Infineon deck v3: both SiC prototypes
+- Enes: "we have two 2-level prototypes, one 2 kV SiC 99.1 %, the other with eTruck modules 99.5 %; please mention both" (source: PresentationOfMeetings/Hemizero-2026-10-14/ResearchUpdates.pptx, slides 6-9; numbers as in the Alstom deck).
+- Leader (no agents, one HTML file):
+  - slide 6: three loss bars (prototype 1 2220 W at 250 kW, prototype 2 1508 W at 300 kW / 99.5 %, SPB 865 W); readouts 99.12 / 99.5 / 99.71 %; per-kW line 8.9 / 5.0 / 2.9 W/kW; boundary note gives the prototype 2 map 99.3-99.7 % and 4.14 L.
+  - slide 2: platform table has both prototypes; slide 3: "2 kV and 1.7 kV modules"; slide 18: "the two SiC prototypes are measured".
+- Checks: overflow script 0 slides, 0 broken images, no console errors; slide 6 viewed. Artifact republished as version 3.
