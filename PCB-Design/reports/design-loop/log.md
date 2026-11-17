@@ -471,3 +471,13 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - new section C "Our model" (slides 11-13): KiCad schematic/layout/3D gallery (Rev B power stage, 2EDF7275K driver block, supply island, top copper); KiCad -> Q3D -> LTspice chain with Q3D views and loop budget (0.65 / 0.41 nH, 0.46 + 0.06 + 0.12 nH); interactive Rev B waveforms from simulation/bb_spice/REVB_Q3D_dpt.raw and REVB_Q3D_load.raw (4 cells, 322 A, read only): DPT E_on 31.1-31.2 uJ, HS v_DS peak 92.9 V, peak-current spread 0.7 %; load board E_on 27.1-27.8 uJ, 90.9 V.
   - problems -> section D, questions -> E; agenda 12/7/8/20/13 min; slide references renumbered (bolts slide 16, sharing slides 14-15).
 - Checks: headless Edge 1400x860, 22 slides overflow 0, 0 script errors; title, slides 7, 11, 12, 13 (both edges and boards), 17 viewed. Artifact version 5.
+
+## 2026-11-17 - Alstom deck: no Rev A / Rev B
+- **Enes:** do not mention Rev A or Rev B; say GaN prototype v1, made of the double-pulse (DPT) circuit and the load
+  circuit.
+- Deck: hardware slide is now "GaN prototype v1: a double-pulse circuit and a load circuit" (DPT render, load render
+  from reports/paper/figures/revb/r3d_load.png, gate star); the old Rev A block picture and its 0.374 nH line removed.
+  Title KPI, timeline, design step 6, test roadmap, outputs table, next steps and footer reworded. SiC prototype
+  buttons prefixed "SiC" so they do not mix with GaN prototype v1. Images renamed v1_dpt.png / v1_load.jpg.
+- Check: 17 slides fit, no broken images, 0 "Rev A/B" in the slide text (the board renders still carry the silk
+  label). Republished as version 3.
