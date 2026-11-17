@@ -347,3 +347,25 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   97.8 V; off -2.2: FAIL HS -3.81 / LS -3.78); m1b_hs_gate_k.json Q1 K 0.347, Q2 K 0.376. The 20 nH equal take-off is
   an assumption until the two-bolt board is extracted. Decision from M1: redraw = S1 two bolts, no strap (T1), no G1.
 - commit f5fee398 (reviews, M1 files, Q3D dpt_swv1dc).
+- leader -> pcb-layout (Fable, new worktree, base check against f5fee398 first): S1 only - two AC_BOLT_M6 at
+  (-BX, YAC) / (+BX, YAC), AC bus split at |x| < 3.55 mm on L1-L4, TP47 moved; no tie, no G1, no L1, cells and DC side
+  untouched, DPT-only switch. Done check: DRC / silk / netlist / 3D, via count and copper diff, neck-to-bolt distance
+  per cell, Q3D terminal needs, fab side effects (222 list), AC bar geometry.
+- 2026-11-17: the Fable pcb-layout agent stopped twice (usage limit, then "Fable 5.2 requires usage credits");
+  worktree `agent-a942a8f3aad7e97b4` on c8f58bf2 with its generator changes kept. leader -> new pcb-layout agent on
+  Opus, same worktree, same S1 brief and done check: read the previous diff, continue, do not start over.
+
+## 2026-11-17 - Infineon meeting deck
+- **Enes:** meeting with Infineon: explain the work package (SPB with low-voltage GaN for high voltage), show the first
+  EPC design, the problems (paralleling: sharing sensitivity slow vs fast switching with unsymmetrical parasitics; driver
+  sink current for several devices; 100 V vs 200 V; gate bump and Infineon's answer; high dv/dt and bearing currents),
+  find more questions in the repo; HTML slides with interactive results.
+- Plan: leader alone (no board or simulation change, no agent): numbers from gate_driver_report, gate_bump numbers,
+  slow_switching.json, simulation/sharing (2/8 and 10/20 nH), M1 checks, device_survey, paper_numbers.
+- Output: `reports/infineon-meeting/index.html` (13 slides, img/ copies of 4 figures), published as a private artifact
+  https://claude.ai/artifact/ACLR1tr4YQKcakusYFy5YL. Interactive: SPB cell count, FOM scatter with 200 V candidate,
+  sharing model (calibrated 19 % @ 2/8 nH, 7 % @ dVth 0.3 V; t_ri = 0.4 + 1.5 (Rg+0.4) ns), 7 LTspice cases, one vs two
+  AC bolts (+-15.3 % / -4.9 V vs +-0.7 % / -3.4 V), sink current (10.9 A for 2 at -1 V), gate bump window, 100 vs
+  200 V, leg loss vs f_sw (5.0 W + 0.053 W/kHz), rotor CM voltage 2-level vs SPB, 21 questions in 6 groups.
+- Check: all 13 slides viewed at 1400x860 in the browser pane; images only verified after publishing. The sharing
+  model and the CM/bearing view are first-order and marked as such on the slides.
