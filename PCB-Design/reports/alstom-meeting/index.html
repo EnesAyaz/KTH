@@ -727,7 +727,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
         <div class="ro warn"><b>Nov–Dec 2026</b><span>order and assemble the prototype v1 double-pulse circuit</span></div>
         <div class="ro"><b>Q1 2027</b><span>double-pulse tests 20 → 80 V; measured current sharing and switching energy against the models</span></div>
         <div class="ro"><b>Q1–Q2 2027</b><span>prototype v1 load circuit and busbar; continuous operation of one leg, then one three-phase cell</span></div>
-        <div class="ro"><b>2027</b><span>loaded FEA and drive-cycle study of the pole-changing machine</span></div>
+        <div class="ro"><b>2027</b><span>co-optimization and integration with the machine side: winding sets, switching frequency and drive-cycle loss (no machine design in this project)</span></div>
       </div>
       <div class="chartbox" style="flex:1;min-height:170px"><svg class="chart" id="gantt" viewBox="0 0 580 200" aria-label="Plan from November 2026 to December 2027"></svg></div>
     </div>
@@ -737,7 +737,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
         <li>1.2 kV helps the vehicle. Two two-level SiC prototypes (2 kV and 1.7 kV modules) run at 1.2 kV with 99.1–99.7 % efficiency, the second at about 72 kW/L.</li>
         <li>SPB lets a 1.2 kV drive use 100 V GaN: lower semiconductor loss for many more, but identical, parts.</li>
         <li>The cell is designed and verified in simulation; the double-pulse circuit of GaN prototype v1 is in ordering and fabrication.</li>
-        <li>The machine side, pole changing with separate winding sets, is in early study.</li>
+        <li>The machine itself is not part of this project; we co-optimize the inverter with the machine side and prepare the integration (winding sets, pole changing).</li>
       </ul>
       <div class="fig" style="flex:1;min-height:150px"><img src="img/level_iso.jpg" alt="Next hardware step: one 75 V three-phase level made of three load-circuit legs on a PCB busbar."></div>
       <div class="card small">
@@ -1099,7 +1099,7 @@ $("#dvTable").addEventListener("click",e=>{const r=e.target.closest("tr[data-d]"
 
 function gantt(){const s=$("#gantt");clear(s);const m0=10,m1=24;const X=m=>150+(m-m0)/(m1-m0)*420;
   ["Nov 26","Jan 27","Apr 27","Jul 27","Oct 27","Dec 27"].forEach((t,i)=>{const m=[10,12,15,18,21,23][i];el("line",{x1:X(m),x2:X(m),y1:4,y2:178,stroke:"var(--grid)"},s);el("text",{x:X(m),y:194,"text-anchor":"middle"},s,t)});
-  [["Order and assemble",10,12,"var(--warn)"],["Double-pulse tests",12,15,"var(--ch2)"],["Load circuit, one leg",12,18,"var(--ch2)"],["Three-phase level",15,18,"var(--teal)"],["Machine FEA, drive cycle",12,24,"var(--ch3)"]].forEach((r,i)=>{const y=8+i*34;
+  [["Order and assemble",10,12,"var(--warn)"],["Double-pulse tests",12,15,"var(--ch2)"],["Load circuit, one leg",12,18,"var(--ch2)"],["Three-phase level",15,18,"var(--teal)"],["Machine co-optimization",12,24,"var(--ch3)"]].forEach((r,i)=>{const y=8+i*34;
     el("text",{x:142,y:y+16,"text-anchor":"end",class:"ink"},s,r[0]);el("rect",{x:X(r[1]),y:y+3,width:X(r[2])-X(r[1]),height:20,rx:3,fill:r[3],"fill-opacity":.85},s)});
   el("line",{x1:X(10.55),x2:X(10.55),y1:0,y2:180,stroke:"var(--bad)","stroke-width":1.5},s);el("text",{x:X(10.55)+4,y:10,fill:"var(--bad)"},s,"now")}
 
