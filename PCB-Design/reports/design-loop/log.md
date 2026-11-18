@@ -629,3 +629,10 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - removed: title-strip captions, the repeated note on slide 23; slide 15 note shortened.
   - not applied: "eTruck" in the slide 2 table (Enes asked for it); "DESIGNED BY CLAUDE" silkscreen in the board renders (board design decision, left to Enes).
 - Checks: headless Edge 1400x860, 23 slides overflow 0 (footer counted), 0 script errors; all slides viewed as contact sheets. Artifact version 11.
+
+### 2026-11-18 - Infineon deck v11: 30-minute talk, problems and asks up front
+- Enes: "1 hour meeting, maybe 30 min presentation and more discussion; make it obvious what we expect, what problems we have and what Infineon can solve; plan first" -> plan agreed ("it seems nice, you can start").
+- Leader (no agents):
+  - main talk 12 slides: 1 title (new agenda A 6 / B 4 / C 16 / D 4 min + 30 min discussion), 2 NEW "Four problems where Infineon devices and drivers could help" (driver, gate bump, paralleling, voltage class, each with the ask and a link), 3 NEW "Why SPB" (merged DC link, two-level device class, SPB, 0.67x), 4 NEW "Our building block today" (render, 4 x EPC2361, 1 channel per pair, 0.65/0.41 nH, 99.71 %, Rev B status, procedure chips), 5 NEW "KiCad -> Q3D -> LTspice", 6 Rev B waveforms, 7-10 problems (driver, bump, sharing, 200 V) each with a Problem / What we tried / Ask Infineon strip (the old "For Infineon" boxes removed), 11 device requirements, 12 NEW discussion (8 questions in 4 groups, next steps, joint-test proposal).
+  - 13 backup index (clickable), 14-29 backup: the former detail slides with "Backup" eyebrows. All "slide N" references renumbered.
+- Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; main slides viewed as contact sheets, slide 12 at full size. Artifact version 12.
