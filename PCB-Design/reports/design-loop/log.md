@@ -492,3 +492,19 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - **Enes (comment, #tl):** do not mention the papers; project is not HEMIZERO (PowerizeD). Removed HEMIZERO everywhere (milestone, notes, funding), own-paper mentions (timeline, Publications slide deleted, notes, next steps); milestone renamed "GaN prototype v1 layout done". 16 slides, all fit at 1400x860, no timeline label overlap. Version 7.
 - **Enes (comment, timeline):** Nov 2026 milestone "Ordering and fabrication" instead of the two-terminal redraw. Done, version 8.
 - **Enes (comment, timeline detail):** "November 2026" instead of 26 Oct 2026; also roadmap stage text. Version 9.
+
+## 2026-11-18 - Alstom deck: status update with design results, KTH style
+- **Enes:** remove the two-terminal redraw everywhere; add technical design results (SiC 1.7 vs 2 kV may stay, not the
+  focus); follow the Moore4Power poster (reports/poster/spb_project_poster_A0.pdf); 1 h talk titled "Overview of KTH
+  solution for automotive applications, status update"; professional, no large empty areas; KTH logo.
+- Leader did it alone (deck only, no board/sim change). Numbers from the poster's sources:
+  reports/slides/data/revb_flow_numbers.json (n = 1..8: leg loss, T_j, V_DS screens; single-device V_DS 0.5/1 nH),
+  final_numbers.json (loop per cell DPT 0.646, load 0.409 nH), q3d_spice_numbers.json (5 LTspice cases: 90.9 /
+  86.1 / 89.8 / 105.3 / 92.9 V; chosen 3.5 ohm: E_on spread 0.22 %), gate_summary_dpt.json (12.5 / 20.6 / 12.3 nH).
+- Deck now 20 slides, sections A-F: new title band (white KTH logo, authors as on the poster), blue KTH logo on every
+  slide header, footer with title and page; new slides "Devices per switch" (interactive n), "Extracted parasitics"
+  (Q3D model, loops per cell, gate loops, imbalance), "Circuit simulation" (5 cases, per-cell table, waveforms),
+  "From one leg to the 1200 V stack"; design procedure with the review flow figure; pictures in timeline and roadmap
+  details; Gantt on next steps; tables/figures enlarged. Redraw text removed (roadmap note, stage 3, next steps).
+- Check: all 20 slides rendered in headless Edge at 1400x860 and viewed; no overflow (script), no console errors,
+  no broken images, no "redraw / Rev A/B / HEMIZERO" in slide text. Republished as version 10.

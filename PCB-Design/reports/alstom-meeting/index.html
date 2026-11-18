@@ -8,7 +8,7 @@
    Same lab-instrument palette as the Infineon deck (CH1 amber, CH2 cyan, CH3 magenta, CH4 green) on a cool grey ground. */
 :root{
   --bg:#e9eef1; --panel:#fbfcfd; --sunk:#f1f4f6; --ink:#14212b; --muted:#566874; --line:#d3dce2; --grid:#e3e9ed;
-  --accent:#0c6d8c; --accent-ink:#ffffff;
+  --accent:#0b3a6e; --accent-ink:#ffffff; --navy:#0b3a6e; --teal:#16968a; --logo-filter:none;
   --ch1:#b88a00; --ch2:#127fac; --ch3:#b83a76; --ch4:#2b8a50;
   --good:#2b8a50; --warn:#b87400; --bad:#c23b33; --plate:#ffffff;
   --f-display:"Archivo","Segoe UI",system-ui,sans-serif;
@@ -17,16 +17,16 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0d1317; --panel:#151e24; --sunk:#10181d; --ink:#e4ecf0; --muted:#93a4af; --line:#2a3741; --grid:#1e2a32;
-  --accent:#43b4d8; --accent-ink:#06141a;
+  --accent:#7fb2e5; --accent-ink:#06141a; --navy:#0b3a6e; --teal:#3cc0b2; --logo-filter:brightness(0) invert(1);
   --ch1:#efc13e; --ch2:#4fc1ec; --ch3:#ee6ea7; --ch4:#5fcf89;
   --good:#5fcf89; --warn:#efb341; --bad:#f06a60; --plate:#ffffff; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0d1317; --panel:#151e24; --sunk:#10181d; --ink:#e4ecf0; --muted:#93a4af; --line:#2a3741; --grid:#1e2a32;
-  --accent:#43b4d8; --accent-ink:#06141a;
+  --accent:#7fb2e5; --accent-ink:#06141a; --navy:#0b3a6e; --teal:#3cc0b2; --logo-filter:brightness(0) invert(1);
   --ch1:#efc13e; --ch2:#4fc1ec; --ch3:#ee6ea7; --ch4:#5fcf89;
   --good:#5fcf89; --warn:#efb341; --bad:#f06a60; --plate:#ffffff; color-scheme:dark}
 html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.45;overflow:hidden}
 *{box-sizing:border-box}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
 h2{font-size:32px;font-weight:700;line-height:1.1}
@@ -34,16 +34,32 @@ h3{font-size:16px;font-weight:600}
 p{margin:0}
 .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 .muted{color:var(--muted)}
-.small{font-size:13px}
-.tiny{font-size:11.5px}
+.small{font-size:14px}
+.tiny{font-size:12px}
 
 #stage{position:fixed;inset:0;padding-block:12px 64px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 #canvas{width:1280px;height:720px;position:absolute;left:50%;top:calc(50% - 22px);transform-origin:center center;transform:translate(-50%,-50%)}
 .slide{position:absolute;inset:0;background:var(--panel);border:1px solid var(--line);border-radius:6px;
-  padding:36px 50px 30px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
+  padding:26px 46px 40px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
 .slide[hidden]{display:none!important}
-.slide-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.slide-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-bottom:2px solid var(--accent);padding-bottom:9px}
+.slide-head .logo{height:44px;width:auto;display:block;filter:var(--logo-filter)}
+.slide-foot{position:absolute;left:46px;right:46px;bottom:10px;display:flex;justify-content:space-between;gap:16px;font:500 11px var(--f-mono);color:var(--muted);border-top:1px solid var(--line);padding-top:5px}
+.slide-foot b{color:var(--accent);font-weight:600}
+.title-slide{padding:0;gap:0}
+.band{background:var(--navy);color:#ffffff;display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;padding:28px 50px 24px;border-bottom:5px solid var(--teal)}
+.band img{height:132px;width:auto;display:block}
+.band .eyebrow{color:#b9d3ee}
+.band h1{color:#ffffff;font-size:50px;line-height:1.04;font-weight:800;max-width:none}
+.band .sub{font:600 26px var(--f-display);color:#9fe3d9;margin-top:6px}
+.band .authors{font-size:15px;color:#e3ecf5;margin-top:12px}
+.band .dept{font-size:13px;color:#b9d3ee}
+.title-lower{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:16px 50px 20px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1;min-height:0}
+.strip figure{margin:0;display:flex;flex-direction:column;gap:4px;min-height:0}
+.strip .fig{flex:1;min-height:0}
+.strip figcaption{font:500 11.5px var(--f-mono);color:var(--muted)}
 .slide-head .eyebrow{margin-bottom:6px}
 .pageno{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
 .body{flex:1;min-height:0;display:grid;gap:22px}
@@ -52,6 +68,8 @@ p{margin:0}
 .cols-45{grid-template-columns:.85fr 1.15fr}
 .cols-3{grid-template-columns:repeat(3,1fr)}
 .stack{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+.stack>*{flex-shrink:0}
+.stack>.chartbox,.stack>.fig{flex-shrink:1}
 #nav{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;justify-content:center;gap:10px;
   padding-bottom:env(safe-area-inset-bottom,0px);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -68,10 +86,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .fig img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 .fig.photo{padding:0;background:var(--sunk)}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.kpi{border-top:2px solid var(--accent);padding-top:6px}
+.kpi{border-top:3px solid var(--teal);padding-top:6px}
 .kpi b{display:block;font:600 24px var(--f-display);font-variant-numeric:tabular-nums}
 .kpi span{font-size:12px;color:var(--muted)}
-ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px}
 ul.clean li::marker{color:var(--accent)}
 .ctrl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 10px;font-size:13px}
 .ctrl label{color:var(--muted);white-space:nowrap}
@@ -92,7 +110,8 @@ svg.chart{width:100%;height:100%;display:block;overflow:visible}
 svg text{fill:var(--muted);font-family:var(--f-mono);font-size:11px}
 svg .ink{fill:var(--ink)}
 .chartbox{min-height:0;position:relative}
-table.t{border-collapse:collapse;width:100%;font-size:12.5px}
+table.t{border-collapse:collapse;width:100%;font-size:13.5px}
+table.t.big{font-size:15px} table.t.big td,table.t.big th{padding:7px 10px}
 table.t th,table.t td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
 table.t th:first-child,table.t td:first-child{text-align:left}
 table.t th{font-weight:600;color:var(--muted);font-size:11.5px}
@@ -102,13 +121,12 @@ table.t.click tbody tr{cursor:pointer}
 table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
-.qgroup h3{font-size:14px;margin-bottom:6px;color:var(--accent)}
-.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
-.qlist label{display:grid;grid-template-columns:18px 1fr;gap:6px;font-size:12.6px;line-height:1.35;cursor:pointer}
+.qgroup{background:var(--sunk);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:5px;padding:16px 20px}
+.qgroup h3{font-size:18px;margin-bottom:10px;color:var(--accent)}
+.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.qlist label{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:15.5px;line-height:1.4;cursor:pointer}
 .qlist input{margin:2px 0 0;accent-color:var(--accent)}
 .qlist input:checked + span{color:var(--muted);text-decoration:line-through}
-.title-slide{justify-content:space-between}
-.title-slide h1{font-size:54px;line-height:1.03;font-weight:800;max-width:980px}
 .agenda{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;counter-reset:a}
 .agenda button{all:unset;cursor:pointer;border-top:2px solid var(--line);padding-top:8px;font-size:13px;counter-increment:a}
 .agenda button::before{content:counter(a,upper-alpha) " · " attr(data-min);display:block;font:500 12px var(--f-mono);color:var(--accent)}
@@ -119,15 +137,18 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 .chip.done{color:var(--good)} .chip.now{color:var(--warn)} .chip.next{color:var(--muted)}
 
 /* timeline */
-.tl{position:relative;height:118px}
+.tl{position:relative;height:124px}
 .tl .rail{position:absolute;left:0;right:0;top:54px;height:2px;background:var(--line)}
 .tl .yr{position:absolute;top:66px;font:500 11px var(--f-mono);color:var(--muted);transform:translateX(-50%)}
 .tl button{position:absolute;top:44px;width:22px;height:22px;margin-left:-11px;border-radius:50%;border:2px solid var(--panel);cursor:pointer;padding:0}
 .tl button.done{background:var(--good)} .tl button.now{background:var(--warn)} .tl button.next{background:var(--panel);border-color:var(--muted);border-style:dashed}
 .tl button[aria-pressed="true"]{outline:3px solid var(--accent);outline-offset:2px}
-.tl .lab{position:absolute;font-size:11.5px;line-height:1.2;width:118px;transform:translateX(-50%);text-align:center;color:var(--muted);pointer-events:none}
+.tl .lab{position:absolute;font-size:12.5px;line-height:1.2;width:130px;transform:translateX(-50%);text-align:center;color:var(--muted);pointer-events:none}
 .tl .lab.up{top:0} .tl .lab.dn{top:84px}
-.detail{display:grid;grid-template-columns:150px 1fr;gap:4px 18px;align-items:start}
+.detail{display:grid;grid-template-columns:150px 1fr 400px;gap:4px 22px;align-items:stretch}
+.detail .fig{height:230px}
+.roaddet{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:center}
+.roaddet .fig{height:330px}
 .detail .when{font:600 13px var(--f-mono);color:var(--accent)}
 
 /* process flow */
@@ -148,6 +169,8 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 .stage[aria-pressed="true"]{background:var(--sunk)}
 .stage:focus-visible{outline:2px solid var(--accent)}
 
+table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-child,table.t.cells th:first-child{text-align:left}
+.flowv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (max-width:820px){
   body{overflow:auto}
   #stage{position:static;padding-block:16px 40px}
@@ -159,8 +182,9 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
   .chartbox{height:260px!important}
   .fig{height:240px!important}
   .tl{overflow-x:auto}
-  .detail{grid-template-columns:1fr}
-  h2{font-size:24px} .title-slide h1{font-size:34px}
+  .detail,.roaddet{grid-template-columns:1fr}
+  h2{font-size:24px} .band h1{font-size:30px} .band{grid-template-columns:1fr;padding:22px 18px} .band img{height:80px}
+  .title-lower{padding:18px} .slide-foot{position:static;margin-top:8px} .flowv{grid-template-columns:1fr}
   #nav{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -170,31 +194,47 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 1 TITLE -->
 <section class="slide title-slide" id="s1" data-title="Title">
-  <div class="stack" style="gap:14px">
-    <div class="eyebrow">KTH · Electric power and energy systems · Nov 2026</div>
-    <h1>A 1200 V Traction Drive from Low-Voltage Cells: The Stacked Polyphase Bridge</h1>
-    <p class="muted" style="max-width:820px;font-size:17px">What we learned from raising the DC link to 1.2 kV, what the stacked polyphase bridge (SPB) is and why we use it, and where the GaN building block, the board and the machine work stand today.</p>
+  <div class="band">
+    <img src="img/kth_logo_white.png" alt="KTH Royal Institute of Technology">
+    <div>
+      <div class="eyebrow">KTH Royal Institute of Technology · Electric Power and Energy Systems · November 2026</div>
+      <h1>Overview of KTH Solution for Automotive Applications</h1>
+      <div class="sub">Status Update</div>
+      <div class="authors">Enes Ayaz, Shahriar Sarmast Ghahfarokhi, Kevin Klarin, Staffan Norrga</div>
+      <div class="dept">Department of Electric Power and Energy Systems, KTH Royal Institute of Technology, Stockholm, Sweden</div>
+    </div>
   </div>
-  <div class="kpis">
-    <div class="kpi"><b>1.2 kV</b><span>DC link, heavy-duty traction</span></div>
-    <div class="kpi"><b>300 kW</b><span>drive target</span></div>
-    <div class="kpi"><b>16 × 75 V</b><span>stacked cells, 100 V GaN</span></div>
-    <div class="kpi"><b>Prototype v1</b><span>GaN double-pulse circuit in progress</span></div>
-  </div>
-  <div class="agenda" aria-label="Agenda">
-    <button data-go="s2" data-min="5 min">Project and timeline</button>
-    <button data-go="s3" data-min="10 min">Why 1.2 kV: what the SiC study showed</button>
-    <button data-go="s6" data-min="10 min">What SPB is</button>
-    <button data-go="s8" data-min="10 min">Why SPB, and what it costs</button>
-    <button data-go="s10" data-min="15 min">Progress: cell, board, machine</button>
-    <button data-go="s15" data-min="10 min">Discussion and next steps</button>
+  <div class="title-lower">
+    <p class="muted" style="font-size:16.5px">A 1200 V, 300 kW traction drive: what the 1.2 kV SiC prototypes showed, why we stack low-voltage GaN cells in a stacked polyphase bridge (SPB), the design results of the GaN building block, and where prototype v1 and the machine work stand.</p>
+    <div class="kpis" style="grid-template-columns:repeat(6,1fr)">
+      <div class="kpi"><b>1200 V</b><span>DC link, 300 kW drive</span></div>
+      <div class="kpi"><b>2 SiC</b><span>two-level prototypes, 2 kV and 1.7 kV</span></div>
+      <div class="kpi"><b>16 × 75 V</b><span>stacked cells, 100 V GaN</span></div>
+      <div class="kpi"><b>4 × GaN</b><span>EPC2361 per switch</span></div>
+      <div class="kpi"><b>0.41 nH</b><span>power loop per cell (Q3D)</span></div>
+      <div class="kpi"><b>Prototype v1</b><span>GaN double-pulse circuit in progress</span></div>
+    </div>
+    <div class="strip">
+      <figure><div class="fig photo"><img src="img/b2b_inverter.jpg" alt="SiC prototype 1 with 2 kV 62 mm modules"></div><figcaption>SiC prototype 1 · 2 kV modules</figcaption></figure>
+      <figure><div class="fig"><img src="img/p2_cad.jpg" alt="SiC prototype 2 with 1.7 kV eTruck modules"></div><figcaption>SiC prototype 2 · 1.7 kV eTruck modules</figcaption></figure>
+      <figure><div class="fig"><img src="img/v1_dpt.png" alt="GaN prototype v1 double-pulse circuit"></div><figcaption>GaN prototype v1 · double-pulse circuit</figcaption></figure>
+      <figure><div class="fig"><img src="img/level_iso.jpg" alt="One 75 V three-phase level of the SPB"></div><figcaption>SPB · one 75 V three-phase level</figcaption></figure>
+    </div>
+    <div class="agenda" aria-label="Agenda">
+      <button data-go="s2" data-min="5 min">Project and timeline</button>
+      <button data-go="s3" data-min="10 min">1.2 kV and the two SiC prototypes</button>
+      <button data-go="s5" data-min="10 min">SPB: what it is and why we use it</button>
+      <button data-go="s10" data-min="15 min">Design results of the GaN cell</button>
+      <button data-go="s11" data-min="10 min">Prototype v1, tests and machine</button>
+      <button data-go="s15" data-min="10 min">Discussion and next steps</button>
+    </div>
   </div>
 </section>
 
 <!-- 2 PROJECT AND TIMELINE -->
 <section class="slide" id="s2" data-title="Project timeline">
   <div class="slide-head"><div><div class="eyebrow">A · Project · from a 1.2 kV system study to a GaN building block</div><h2>From PowerizeD to Moore4Power</h2></div><div class="pageno"></div></div>
-  <div class="body" style="grid-template-rows:auto auto 1fr;gap:18px">
+  <div class="body" style="grid-template-rows:auto auto auto;gap:18px;align-content:space-between">
     <div class="card small" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
       <div><b>Background.</b> <span class="muted">A higher DC link helps charging, cables and the machine, but makes the inverter devices block more voltage.</span></div>
       <div><b>Question.</b> <span class="muted">What does 1.2 kV change in a heavy-duty drive, and which inverter topology fits it best?</span></div>
@@ -213,7 +253,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">B · Why a higher DC link</div><h2>High voltage helps the vehicle and hurts the semiconductors</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <div class="fig" style="height:330px"><img src="img/hv_tradeoffs.png" alt="Radar chart comparing high-voltage and low-voltage traction architectures: high voltage wins on motor power density, charging speed, capacitor volume, conduction loss and cable weight; low voltage wins on semiconductor voltage, insulation stress, EMI, switching loss and BMS simplicity."></div>
+      <div class="fig" style="flex:1"><img src="img/hv_tradeoffs.png" alt="Radar chart comparing high-voltage and low-voltage traction architectures: high voltage wins on motor power density, charging speed, capacitor volume, conduction loss and cable weight; low voltage wins on semiconductor voltage, insulation stress, EMI, switching loss and BMS simplicity."></div>
       <p class="small muted">Higher voltage helps charging, cables and the machine. The cost lands on the semiconductors: higher blocking voltage, higher switching loss and more insulation stress.</p>
     </div>
     <div class="stack">
@@ -230,6 +270,15 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <li>Or keep the loss and cut the copper: about 40–45 % less cable mass.</li>
         <li>Megawatt charging (MCS) allows up to 1250 V, so a 1.2 kV battery can use it fully.</li>
       </ul>
+      <table class="t txt big">
+        <thead><tr><th>Public example</th><th>DC link</th><th>Power</th></tr></thead>
+        <tbody>
+          <tr><td>Porsche Taycan</td><td>800 V class</td><td>up to 700 kW</td></tr>
+          <tr><td>Lucid Air</td><td>924 V</td><td>up to 828 kW</td></tr>
+          <tr><td>Megawatt Charging System (trucks)</td><td>up to 1250 V</td><td>&gt; 1 MW</td></tr>
+          <tr class="hl"><td>KTH SiC prototypes</td><td>1.2 kV</td><td>250–300 kW</td></tr>
+        </tbody>
+      </table>
       <p class="tiny muted">I²R scaling for equal power and the same conductor. The 800 V reference is fixed.</p>
     </div>
   </div>
@@ -237,14 +286,19 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 4 SIC STUDY -->
 <section class="slide" id="s4" data-title="1.2 kV SiC study">
-  <div class="slide-head"><div><div class="eyebrow">B · Finished work · 1.2 kV two-level SiC</div><h2>At 1.2 kV the two-level inverter keeps its efficiency and gains power density</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">B · 1.2 kV two-level SiC study</div><h2>At 1.2 kV the two-level inverter keeps its efficiency and gains power density</h2></div><div class="pageno"></div></div>
   <div class="body cols-45">
     <div class="stack">
-      <div class="fig" style="height:400px"><img src="img/b2b_schematic.png" alt="Back-to-back inverter test circuit: two three-phase inverters on one DC supply, joined through interphase inductors, on a liquid cold plate with inlet and outlet temperature sensors, flow meter, pump and heat exchanger."></div>
+      <div class="fig" style="flex:1"><img src="img/b2b_schematic.png" alt="Back-to-back inverter test circuit: two three-phase inverters on one DC supply, joined through interphase inductors, on a liquid cold plate with inlet and outlet temperature sensors, flow meter, pump and heat exchanger."></div>
       <p class="small muted">Test method for both prototypes: two inverters back to back on one 1.2 kV supply. The supply only covers the losses, which are measured from the coolant temperature rise and flow (calorimetry) and then separated into conduction and switching loss.</p>
     </div>
     <div class="stack">
-      <table class="t">
+      <div class="kpis" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><b>−33 %</b><span>charging current, same power</span></div>
+        <div class="kpi"><b>−56 %</b><span>charging-cable I²R loss</span></div>
+        <div class="kpi"><b>+11 %</b><span>inverter power density</span></div>
+      </div>
+      <table class="t big">
         <thead><tr><th>800 V vs 1200 V, same power and thermal limits</th><th>Result</th></tr></thead>
         <tbody>
           <tr><td>Charging current</td><td>−33 %</td></tr>
@@ -260,6 +314,10 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <div class="ro"><b>8–20 %</b><span>switching-loss parameters vs analytical model</span></div>
         <div class="ro"><b>99.12 %</b><span>measured full load, prototype 1 (2 kV), 250 kW</span></div>
       </div>
+      <ul class="clean small">
+        <li>Motor: the same geometry with parallel winding paths reconnected in series; PWM harmonic loss stays similar, copper loss rises slightly from thicker insulation.</li>
+        <li>Switching frequency chosen from inverter loss plus motor harmonic loss together, not from the inverter alone.</li>
+      </ul>
       <div class="note"><b>What it left open</b>Only the two-level topology, only the rated point, no lifetime. A two-level 1.2 kV inverter needs 1.7–2 kV devices; we built one with each (next slide). That is the starting point for SPB.</div>
     </div>
   </div>
@@ -267,12 +325,12 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 4b TWO PROTOTYPES -->
 <section class="slide" id="s4b" data-title="SiC prototypes">
-  <div class="slide-head"><div><div class="eyebrow">B · Finished work · two 1.2 kV SiC prototypes</div><h2>Two two-level inverters: 2 kV modules, then 1.7 kV eTruck modules</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">B · Two 1.2 kV SiC prototypes</div><h2>Two two-level inverters: 2 kV modules, then 1.7 kV eTruck modules</h2></div><div class="pageno"></div></div>
   <div class="body cols-45">
     <div class="stack">
       <div class="seg" id="protoSeg" role="group" aria-label="Choose a prototype"><button aria-pressed="true" data-v="p1">SiC prototype 1 · 2 kV, 62 mm</button><button aria-pressed="false" data-v="p2">SiC prototype 2 · 1.7 kV eTruck</button></div>
       <div class="seg" id="picSeg" role="group" aria-label="Choose a picture"></div>
-      <div class="fig photo" style="height:360px"><img id="protoImg" src="img/b2b_setup.jpg" alt=""></div>
+      <div class="fig photo" style="flex:1"><img id="protoImg" src="img/b2b_setup.jpg" alt=""></div>
       <p class="small muted" id="protoCap"></p>
     </div>
     <div class="stack">
@@ -289,7 +347,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
       </table>
       <div class="card stack" style="gap:6px">
         <div class="legend"><span><i style="background:var(--ch2)"></i>component sum</span><span><i style="background:var(--ch1)"></i>bounding box</span><span>power density, kW/L</span></div>
-        <div class="chartbox" style="height:120px"><svg class="chart" id="pdChart" viewBox="0 0 560 120" aria-label="Power density of the two prototypes"></svg></div>
+        <div class="chartbox" style="height:130px"><svg class="chart" id="pdChart" viewBox="0 0 560 120" aria-label="Power density of the two prototypes"></svg></div>
       </div>
       <p class="small" id="protoTxt"></p>
       <p class="tiny muted">Prototype 2: rated power estimated from 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
@@ -299,7 +357,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 5 DEVICE BOTTLENECK -->
 <section class="slide" id="s5" data-title="Device bottleneck">
-  <div class="slide-head"><div><div class="eyebrow">B · The limit of the two-level inverter</div><h2>Every switch blocks the whole link, so loss grows with voltage</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · The limit of the two-level inverter</div><h2>Every switch blocks the whole link, so loss grows with voltage</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
       <div class="legend"><span><i style="background:var(--ch2)"></i>GaN</span><span><i style="background:var(--ch3)"></i>SiC</span><span><i style="background:var(--muted)"></i>Si</span><span>√(R<sub>on,sp</sub>·C<sub>oss,sp</sub>) ∝ minimum hard-switching loss · lower is better</span></div>
@@ -319,6 +377,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <li>Lower blocking voltage gives lower loss in every technology; 100 V GaN is the best point in the fits.</li>
         <li>The gain is paid in device count: 6·N switch positions.</li>
       </ul>
+      <table class="t click" id="dfTable" style="font-size:12.5px"><thead><tr><th>N</th><th>cell V</th><th>class</th><th>min. loss</th><th>switches</th></tr></thead><tbody></tbody></table>
     </div>
   </div>
 </section>
@@ -328,7 +387,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">C · What SPB is</div><h2>Stack the inverter cells on the DC side, split the machine into winding sets</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <div class="fig" style="height:300px"><img src="img/spb_topology.png" alt="SPB topology: N cells with their own DC capacitor stacked in series on the DC link; each cell is a three-phase two-level bridge feeding its own winding set of a common machine."></div>
+      <div class="fig" style="height:330px"><img src="img/spb_topology.png" alt="SPB topology: N cells with their own DC capacitor stacked in series on the DC link; each cell is a three-phase two-level bridge feeding its own winding set of a common machine."></div>
       <ul class="clean small">
         <li>Each cell is an ordinary two-level three-phase bridge with its own capacitor.</li>
         <li>The cells are in series on the DC link: each sees V<sub>dc</sub>/N.</li>
@@ -344,7 +403,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         </div>
         <p class="tiny muted">Click a cell in the stack or a coil group in the stator to follow one cell to its winding set.</p>
       </div>
-      <div class="chartbox" style="height:330px"><svg class="chart" id="wsSvg" viewBox="0 0 560 330" aria-label="Stack of cells and the stator with one winding set per cell"></svg></div>
+      <div class="chartbox" style="height:375px"><svg class="chart" id="wsSvg" viewBox="0 0 560 330" aria-label="Stack of cells and the stator with one winding set per cell"></svg></div>
       <div class="readout" id="wsRo"></div>
     </div>
   </div>
@@ -352,10 +411,10 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 7 SPB VS MULTILEVEL -->
 <section class="slide" id="s7" data-title="SPB vs multilevel">
-  <div class="slide-head"><div><div class="eyebrow">C · Where SPB sits among multilevel inverters</div><h2>Same low device voltage, but with one repeated two-level cell</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · SPB among multilevel inverters</div><h2>Same low device voltage, but with one repeated two-level cell</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
-      <table class="t txt">
+      <table class="t txt big">
         <thead><tr><th></th><th>Device voltage</th><th>Machine</th><th>Building block</th><th>Extra parts</th></tr></thead>
         <tbody>
           <tr><td>Two-level</td><td>full V<sub>dc</sub></td><td>one 3-phase set</td><td>one bridge</td><td>none</td></tr>
@@ -371,11 +430,12 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
           <li><b>Low-voltage devices.</b> 100 V GaN switches fast with low loss, and many suppliers make it.</li>
           <li><b>Small voltage steps.</b> Each winding set sees steps of V<sub>dc</sub>/N instead of V<sub>dc</sub>.</li>
           <li><b>One design, many copies.</b> One cell is designed, tested and qualified once, then repeated.</li>
-          <li><b>Machine freedom.</b> Separate winding sets can be re-phased, which allows pole changing (slide 13).</li>
+          <li><b>Machine freedom.</b> Separate winding sets can be re-phased, which allows pole changing (section E).</li>
         </ul>
       </div>
     </div>
     <div class="stack">
+      <div class="fig" style="height:190px"><img src="img/spb_arch.png" alt="SPB architecture: N cells with capacitors stacked in series on the DC link, each a three-phase two-level bridge feeding its own winding set with a local star point."></div>
       <h3>The price</h3>
       <ul class="clean small">
         <li>The machine must have N separate three-phase winding sets.</li>
@@ -391,11 +451,11 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 8 BENCHMARK -->
 <section class="slide" id="s8" data-title="Benchmark">
-  <div class="slide-head"><div><div class="eyebrow">D · Why SPB · what it buys and what it costs</div><h2>Less semiconductor loss, many more parts</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · What SPB buys and what it costs</div><h2>Less semiconductor loss, many more parts</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
       <h3>Inverter loss at rated power</h3>
-      <div class="chartbox" style="height:250px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the SiC two-level inverter and the SPB GaN design"></svg></div>
+      <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the SiC two-level inverter and the SPB GaN design"></svg></div>
       <div class="readout">
         <div class="ro"><b>99.12 %</b><span>two-level SiC prototype 1, 1.2 kV, 250 kW, measured</span></div>
         <div class="ro good"><b>99.71 %</b><span>SPB GaN, 1.2 kV, 300 kW, semiconductors only (model)</span></div>
@@ -405,7 +465,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
     </div>
     <div class="stack">
       <h3>Part count for the 300 kW drive</h3>
-      <table class="t">
+      <table class="t big">
         <thead><tr><th></th><th>Two-level SiC</th><th>SPB GaN</th></tr></thead>
         <tbody>
           <tr><td>Switch positions</td><td>6</td><td>96 (6 × 16)</td></tr>
@@ -416,6 +476,8 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
           <tr><td>Winding sets</td><td>1</td><td>16</td></tr>
         </tbody>
       </table>
+      <div class="readout"><div class="ro good"><b>2.9 W/kW</b><span>SPB semiconductor loss (model)</span></div><div class="ro"><b>8.9 W/kW</b><span>two-level SiC, measured inverter</span></div><div class="ro warn"><b>64×</b><span>more transistors (384 vs 6 modules)</span></div></div>
+      <p class="small"><b>Per 75 V level:</b> 6 switch positions, 24 transistors, 6 driver ICs, 12 isolated gate supplies, one ceramic DC-link bank and one winding set. The design work goes into making this one level small, cheap and robust.</p>
       <p class="small">The loss gain is real but the part count is the open question. Our work therefore concentrates on one cell: how small its loop can be, how it is driven and cooled, and how it is tested.</p>
     </div>
   </div>
@@ -423,7 +485,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 9 RAIL VOLTAGES -->
 <section class="slide" id="s9" data-title="Other DC links">
-  <div class="slide-head"><div><div class="eyebrow">D · Scaling the idea · first-order sizing</div><h2>How many cells for a truck link, or for a rail line?</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Scaling the idea · first-order sizing</div><h2>How many cells for a truck link, or for a rail line?</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
       <div class="seg" id="lineSeg" role="group" aria-label="DC link"></div>
@@ -434,10 +496,11 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
           <label for="lnN">Cells N (your choice)</label><input id="lnN" type="range" min="1" max="60" step="1" value="20"><output id="lnNo"></output>
         </div>
       </div>
-      <div class="chartbox" style="height:200px"><svg class="chart" id="lnChart" viewBox="0 0 640 200" aria-label="Cell voltage at nominal and maximum line voltage against the device rating"></svg></div>
+      <div class="chartbox" style="flex:1;min-height:250px"><svg class="chart" id="lnChart" viewBox="0 0 640 200" aria-label="Cell voltage at nominal and maximum line voltage against the device rating"></svg></div>
     </div>
     <div class="stack">
       <div class="readout" id="lnRo"></div>
+      <table class="t" id="lnTable"><thead><tr><th>minimum cells</th><th>100 V</th><th>150 V</th><th>200 V</th><th>650 V</th></tr></thead><tbody></tbody></table>
       <p class="small" id="lnTxt"></p>
       <ul class="clean small">
         <li>The cell count is set by the highest link voltage the cells must survive, not the nominal one.</li>
@@ -451,20 +514,89 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 10 DESIGN PROCEDURE -->
 <section class="slide" id="s10" data-title="Design procedure">
-  <div class="slide-head"><div><div class="eyebrow">E · Progress · building block</div><h2>One cell, designed once, by a fixed procedure</h2></div><div class="pageno"></div></div>
-  <div class="body" style="grid-template-rows:auto 1fr">
-    <div class="flow" id="flow" role="group" aria-label="Design steps"></div>
-    <div class="card stack" id="flowDetail" aria-live="polite" style="gap:10px"></div>
+  <div class="slide-head"><div><div class="eyebrow">D · Design results · procedure</div><h2>One cell, designed once, by a coupled procedure</h2></div><div class="pageno"></div></div>
+  <div class="body" style="grid-template-columns:1.12fr .88fr">
+    <div class="stack">
+      <div class="fig" style="flex:1"><img src="img/design_flow.png" alt="Iterative design flow: the traction-drive specification feeds five design tracks (voltage class and device, layout and gate drive, parallel-device count, DC link and frequency, machine and integration), then coupled verification with PCB placement, Q3D extraction, circuit simulation, loss model and thermal model, and a check whether all constraints are met."></div>
+      <p class="tiny muted">Specification → five design tracks → coupled verification on one geometry. A failed check returns to N, n<sub>p</sub>, layout, gate drive, C<sub>dc</sub>, f<sub>sw</sub> or cooling.</p>
+    </div>
+    <div class="stack">
+      <div class="flowv" id="flow" role="group" aria-label="Design steps"></div>
+      <div class="card stack" id="flowDetail" aria-live="polite" style="gap:8px;flex:1"></div>
+    </div>
+  </div>
+</section>
+
+<!-- R1 DEVICES PER SWITCH -->
+<section class="slide" id="r1" data-title="Devices per switch">
+  <div class="slide-head"><div><div class="eyebrow">D · Design results · devices per switch</div><h2>Four EPC2361 per switch: the smallest count that passes both limits</h2></div><div class="pageno"></div></div>
+  <div class="body cols-55">
+    <div class="stack">
+      <div class="legend"><span><i style="background:var(--ch2)"></i>conduction</span><span><i style="background:var(--ch1)"></i>switching</span><span><i style="background:var(--muted)"></i>dead time + gate</span><span>leg loss at 228 A<sub>rms</sub>, 50 kHz, 0.5 nH · click a bar</span></div>
+      <div class="chartbox" style="flex:1"><svg class="chart" id="npChart" viewBox="0 0 660 420" aria-label="Leg loss and screening results against devices per switch"></svg></div>
+    </div>
+    <div class="stack">
+      <div class="card stack" style="gap:8px">
+        <div class="ctrl"><label for="npN">Devices per switch n</label><input id="npN" type="range" min="1" max="8" step="1" value="4"><output id="npNo"></output></div>
+      </div>
+      <div class="readout" id="npRo"></div>
+      <h3>Peak V<sub>DS</sub> of one device (LTspice, 75 V)</h3>
+      <div class="chartbox" style="height:215px"><svg class="chart" id="npVds" viewBox="0 0 520 180" aria-label="Peak drain voltage against current per device for 0.5 and 1 nH"></svg></div>
+      <p class="small">Limits: T<sub>j</sub> ≤ 125 °C and V<sub>DS</sub> ≤ 90 V at 0.5 nH. n = 2 fails both and n = 3 fails the voltage limit; n = 4 passes at 18 W per leg, the knee of the loss curve. More devices add switching and C<sub>oss</sub> loss and gain little.</p>
+    </div>
+  </div>
+</section>
+
+<!-- R2 PARASITICS -->
+<section class="slide" id="r2" data-title="Extracted parasitics">
+  <div class="slide-head"><div><div class="eyebrow">D · Design results · extracted parasitics (Ansys Q3D)</div><h2>Equal loops in all four cells; the gate loop sets the margin</h2></div><div class="pageno"></div></div>
+  <div class="body cols-2">
+    <div class="stack">
+      <div class="fig" style="height:270px"><img src="img/q3d_cells.jpg" alt="Ansys Q3D copper model of the four cells: DC+ in red, DC- in blue, switch node in orange, transistor and capacitor terminals in gold."></div>
+      <div class="seg" id="lpSeg" role="group" aria-label="Circuit"><button aria-pressed="true" data-v="both">Both circuits</button><button aria-pressed="false" data-v="dpt">Double-pulse circuit</button><button aria-pressed="false" data-v="load">Load circuit</button></div>
+      <div class="chartbox" style="flex:1;min-height:150px"><svg class="chart" id="lpChart" viewBox="0 0 560 190" aria-label="Commutation loop inductance per cell"></svg></div>
+    </div>
+    <div class="stack">
+      <div class="readout" id="lpRo"></div>
+      <h3>Gate-loop inductance (nH)</h3>
+      <div class="chartbox" style="height:122px"><svg class="chart" id="glChart" viewBox="0 0 560 108" aria-label="Gate loop inductance"></svg></div>
+      <h3>Switching-energy imbalance if the parasitics differ (LTspice)</h3>
+      <div class="chartbox" style="height:122px"><svg class="chart" id="imChart" viewBox="0 0 560 108" aria-label="Energy imbalance for three parasitic mismatches"></svg></div>
+      <p class="small">A power-loop mismatch hardly matters (2 %); unequal gate loops (19 %) or a missing Kelvin source (29 %) do. Hence one driver channel per device pair, a star gate network and a Kelvin return under every gate trace. Driving a pair raises the high-side gate loop from 12.5 to 20.6 nH.</p>
+    </div>
+  </div>
+</section>
+
+<!-- R3 CIRCUIT SIMULATION -->
+<section class="slide" id="r3" data-title="Circuit simulation">
+  <div class="slide-head"><div><div class="eyebrow">D · Design results · LTspice on the extracted network</div><h2>93 V peak and a 0.2 % energy split with the chosen gate setting</h2></div><div class="pageno"></div></div>
+  <div class="body cols-55">
+    <div class="stack">
+      <div class="seg" id="scSeg" role="group" aria-label="Simulation case"></div>
+      <div class="chartbox" style="flex:1;min-height:220px"><svg class="chart" id="scChart" viewBox="0 0 640 220" aria-label="Peak high-side drain voltage for five simulation cases"></svg></div>
+      <div id="scCells"></div>
+    </div>
+    <div class="stack">
+      <div class="readout" id="scRo"></div>
+      <p class="small" id="scTxt"></p>
+      <ul class="clean small">
+        <li>Four cells of one leg, 75 V, about 316 A load, with the Q3D power and gate networks of the real layout.</li>
+        <li>The lumped gate model gives 90 V; the extracted network shows 93 V. The extraction matters for the margin.</li>
+        <li>R<sub>g,on</sub> 2.5 → 3.5 Ω trades turn-on energy for 12 V less overshoot.</li>
+      </ul>
+      <div class="fig" style="flex:1;min-height:150px"><img src="img/sim_waves.png" alt="LTspice waveforms of the four cells: drain currents and voltages at turn-off, low-side current and high-side voltage at turn-on, and high-side drain voltage for the Q3D and lumped models."></div>
+      <p class="tiny muted">Waveforms: (a) turn-off, four cells; (b) turn-on; (c) high-side V<sub>DS</sub>, Q3D vs lumped models. Peak V<sub>DS</sub> at the high-side device; 90 V target, 100 V rating. Spreads are differences between the four cells.</p>
+    </div>
   </div>
 </section>
 
 <!-- 11 HARDWARE -->
 <section class="slide" id="s11" data-title="Hardware">
-  <div class="slide-head"><div><div class="eyebrow">E · Progress · hardware</div><h2>GaN prototype v1: a double-pulse circuit and a load circuit</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">E · GaN prototype v1 · hardware</div><h2>GaN prototype v1: a double-pulse circuit and a load circuit</h2></div><div class="pageno"></div></div>
   <div class="body cols-3" style="grid-template-rows:auto auto 1fr">
-    <div class="fig" style="height:270px"><img src="img/v1_dpt.png" alt="Double-pulse test circuit of prototype v1: four cells with shunts, ceramic capacitor bank, AC bar and two gate-driver areas."></div>
-    <div class="fig" style="height:270px"><img src="img/v1_load.jpg" alt="Load circuit of prototype v1: the same leg with a heatsink over the transistors and the AC bar for continuous operation."></div>
-    <div class="fig" style="height:270px"><img src="img/gate_star.png" alt="Gate routing of one driver block: gate paths in a star from the driver to four transistors, Kelvin returns routed under them."></div>
+    <div class="fig" style="height:400px"><img src="img/v1_dpt.png" alt="Double-pulse test circuit of prototype v1: four cells with shunts, ceramic capacitor bank, AC bar and two gate-driver areas."></div>
+    <div class="fig" style="height:400px"><img src="img/v1_load.jpg" alt="Load circuit of prototype v1: the same leg with a heatsink over the transistors and the AC bar for continuous operation."></div>
+    <div class="fig" style="height:400px"><img src="img/gate_star.png" alt="Gate routing of one driver block: gate paths in a star from the driver to four transistors, Kelvin returns routed under them."></div>
     <p class="small"><b>Double-pulse circuit.</b> One leg: 4 × EPC2361 per switch, 2 drivers, a shunt in every cell, 1200 V isolation to the control side, 89.5 × 85.2 mm, 4 layers. <span class="chip now">in progress</span></p>
     <p class="small"><b>Load circuit.</b> The same leg with a heatsink over the transistors, for continuous operation at rated current. <span class="chip next">after double pulse</span></p>
     <p class="small"><b>Gate drive.</b> One driver channel per pair, gate in a star, Kelvin return under each gate trace, so every transistor sees the same gate loop.</p>
@@ -478,22 +610,45 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
   </div>
 </section>
 
+<!-- 11b SCALE-UP -->
+<section class="slide" id="s11b" data-title="Scale-up">
+  <div class="slide-head"><div><div class="eyebrow">E · GaN prototype v1 · scale-up</div><h2>From one leg to the 1200 V stack</h2></div><div class="pageno"></div></div>
+  <div class="body" style="grid-template-columns:1.45fr .55fr">
+    <div class="stack">
+      <div class="fig" style="height:370px"><img src="img/level_iso.jpg" alt="One 75 V three-phase level: three load-circuit legs with heatsinks side by side on a PCB busbar."></div>
+      <div class="readout" style="grid-template-columns:repeat(5,1fr)">
+        <div class="ro"><b>3</b><span>legs per 75 V level</span></div>
+        <div class="ro"><b>16</b><span>levels in series</span></div>
+        <div class="ro"><b>48</b><span>legs for 1200 V</span></div>
+        <div class="ro"><b>384</b><span>EPC2361 in total</span></div>
+        <div class="ro"><b>96</b><span>gate-driver ICs</span></div>
+      </div>
+      <ul class="clean small">
+        <li>One level is three load-circuit legs on a PCB busbar: one three-phase cell feeding one winding set.</li>
+        <li>The levels stack in series on the DC side. Each level floats at a different potential, so gate drive and sensing are isolated for 1200 V.</li>
+        <li>Next hardware step after the double-pulse tests: one 75 V three-phase level, with continuous and thermal tests.</li>
+      </ul>
+    </div>
+    <div class="fig" style="height:100%"><img src="img/stack.jpg" alt="Render of sixteen three-phase levels stacked in series with copper links between them."></div>
+  </div>
+</section>
+
 <!-- 12 TEST ROADMAP -->
 <section class="slide" id="s12" data-title="Test roadmap">
-  <div class="slide-head"><div><div class="eyebrow">E · Progress · from board to drive</div><h2>Each step is tested before the next board is built</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">E · GaN prototype v1 · test roadmap</div><h2>Each step is tested before the next board is built</h2></div><div class="pageno"></div></div>
   <div class="body" style="grid-template-rows:auto 1fr;gap:18px">
     <div class="road" id="road" role="group" aria-label="Test roadmap"></div>
-    <div class="body cols-2" style="gap:22px">
-      <div class="card stack" id="roadDetail" aria-live="polite" style="gap:8px"></div>
+    <div class="body" style="gap:22px;grid-template-columns:1.25fr .75fr">
+      <div class="card roaddet" id="roadDetail" aria-live="polite"></div>
       <div class="stack">
         <h3>How the boards are checked before ordering</h3>
-        <ul class="clean small">
+        <ul class="clean">
           <li>The board is generated by script from one design file, so every change is repeatable and reviewed.</li>
           <li>Every release passes design-rule check, a schematic-to-layout check, a 3D collision check and a silkscreen audit.</li>
           <li>The power loop of every cell is extracted in Ansys Q3D and fed into LTspice double-pulse simulations.</li>
-          <li>Independent reviews before ordering found and closed several issues (switch-node vias, gate spike, AC take-off).</li>
+          <li>Independent reviews before ordering found and closed several issues (switch-node vias, gate spike).</li>
         </ul>
-        <div class="note"><b>Open point on the double-pulse circuit</b>All four cells share one AC terminal; the outer cells see a longer path, which splits the turn-on current by about ±15 % in simulation. A redraw with two terminals brings it to about ±1 % and is being checked in Q3D.</div>
+        <div class="note"><b>What the first tests will show</b>Current in every cell from the shunts, high- and low-side gate voltages and switching energy from 20 to 80 V, compared with the extracted-network simulations of section D.</div>
       </div>
     </div>
   </div>
@@ -501,9 +656,9 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 
 <!-- 13 POLE CHANGING -->
 <section class="slide" id="s13" data-title="Pole changing">
-  <div class="slide-head"><div><div class="eyebrow">E · Progress · machine side</div><h2>Separate winding sets let one machine change its pole number</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">E · Machine side</div><h2>Separate winding sets let one machine change its pole number</h2></div><div class="pageno"></div></div>
   <div class="body" style="grid-template-rows:auto 1fr">
-    <div class="fig" style="height:250px"><img src="img/he_ipm_fea.jpg" alt="Exploratory 36-slot hybrid-excited interior PM machine with buried magnets and a rotor winding, with no-load flux plots in a 12-pole and a 6-pole field setting."></div>
+    <div class="fig" style="height:330px"><img src="img/he_ipm_fea.jpg" alt="Exploratory 36-slot hybrid-excited interior PM machine with buried magnets and a rotor winding, with no-load flux plots in a 12-pole and a 6-pole field setting."></div>
     <div class="body cols-2" style="gap:22px">
       <div class="stack">
         <ul class="clean small">
@@ -525,31 +680,33 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 <!-- 15 DISCUSSION -->
 <section class="slide" id="s15" data-title="Discussion">
   <div class="slide-head"><div><div class="eyebrow">F · Discussion · tick as discussed</div><h2>Where your view would help us</h2></div><div class="pageno"></div></div>
-  <div class="body cols-2" id="qs" style="align-content:start;gap:16px 22px"></div>
+  <div class="body cols-2" id="qs" style="grid-template-rows:1fr 1fr;gap:16px 22px"></div>
 </section>
 
 <!-- 16 NEXT STEPS -->
 <section class="slide" id="s16" data-title="Next steps">
-  <div class="slide-head"><div><div class="eyebrow">F · Next steps</div><h2>The next six months</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">F · Next steps</div><h2>Plan for the next twelve months</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
       <h3>Plan</h3>
       <div class="readout" style="grid-template-columns:1fr">
-        <div class="ro warn"><b>Nov–Dec 2026</b><span>order and assemble the prototype v1 double-pulse circuit; finish the two-terminal redraw</span></div>
+        <div class="ro warn"><b>Nov–Dec 2026</b><span>order and assemble the prototype v1 double-pulse circuit</span></div>
         <div class="ro"><b>Q1 2027</b><span>double-pulse tests 20 → 80 V; measured current sharing and switching energy against the models</span></div>
         <div class="ro"><b>Q1–Q2 2027</b><span>prototype v1 load circuit and busbar; continuous operation of one leg, then one three-phase cell</span></div>
         <div class="ro"><b>2027</b><span>loaded FEA and drive-cycle study of the pole-changing machine</span></div>
       </div>
+      <div class="chartbox" style="flex:1;min-height:170px"><svg class="chart" id="gantt" viewBox="0 0 580 200" aria-label="Plan from November 2026 to December 2027"></svg></div>
     </div>
     <div class="stack">
       <h3>Summary</h3>
-      <ul class="clean small">
+      <ul class="clean">
         <li>1.2 kV helps the vehicle. Two two-level SiC prototypes (2 kV and 1.7 kV modules) run at 1.2 kV with 99.1–99.7 % efficiency, the second at about 72 kW/L.</li>
         <li>SPB lets a 1.2 kV drive use 100 V GaN: lower semiconductor loss for many more, but identical, parts.</li>
-        <li>The cell is designed and verified in simulation; the double-pulse circuit of GaN prototype v1 is released.</li>
+        <li>The cell is designed and verified in simulation; the double-pulse circuit of GaN prototype v1 is in ordering and fabrication.</li>
         <li>The machine side, pole changing with separate winding sets, is in early study.</li>
       </ul>
-      <div class="card small" style="margin-top:6px">
+      <div class="fig" style="flex:1;min-height:150px"><img src="img/level_iso.jpg" alt="Next hardware step: one 75 V three-phase level made of three load-circuit legs on a PCB busbar."></div>
+      <div class="card small">
         <b>KTH · SPB traction drive</b><br>
         <span class="muted">SPB numbers come from LTspice, Ansys Q3D and our analytical loss model; GaN prototype v1 is not yet measured. The 1.2 kV SiC numbers are measured. Funding: EU Chips JU and Vinnova (PowerizeD).</span>
       </div>
@@ -578,7 +735,8 @@ const fmt=(v,d=1)=>Number(v).toFixed(d);
 const slides=$$(".slide"); let cur=0;
 const dots=$("#dots");
 slides.forEach((s,i)=>{const b=document.createElement("button");b.setAttribute("aria-label","Slide "+(i+1)+": "+s.dataset.title);b.onclick=()=>go(i);dots.appendChild(b);
-  const p=s.querySelector(".pageno"); if(p) p.textContent=(i+1)+" / "+slides.length;});
+  const p=s.querySelector(".pageno"); if(p) p.innerHTML='<img class="logo" src="img/kth_logo_blue.png" alt="KTH">';
+  if(i>0){const f=document.createElement("div");f.className="slide-foot";f.innerHTML='<span><b>KTH</b> · Overview of KTH solution for automotive applications · status update</span><span>'+(i+1)+" / "+slides.length+'</span>';s.appendChild(f)}});
 function go(i){cur=clamp(i,0,slides.length-1);slides.forEach((s,k)=>s.hidden=k!==cur);
   [...dots.children].forEach((d,k)=>d.setAttribute("aria-current",k===cur));
   $("#counter").textContent=(cur+1)+" / "+slides.length;
@@ -614,6 +772,7 @@ function axes(svg,o){
   if(o.yl)el("text",{x:12,y:(m.t+H-m.b)/2,"text-anchor":"middle",transform:"rotate(-90 12 "+((m.t+H-m.b)/2)+")"},g,o.yl);
   return {X,Y,m,W,H};
 }
+function interp(xs,ys,x){if(x<=xs[0])return ys[0];for(let i=1;i<xs.length;i++)if(x<=xs[i])return ys[i-1]+(ys[i]-ys[i-1])*(x-xs[i-1])/(xs[i]-xs[i-1]);return ys[ys.length-1];}
 function path(pts,X,Y){return pts.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)).join("")}
 function ro(id,items){$(id).innerHTML=items.map(r=>`<div class="ro ${r.c||""}"><b>${r.v}</b><span>${r.l}</span></div>`).join("")}
 function bindRange(id,fmtf,cb){const i=$("#"+id),o=$("#"+id+"o");const f=()=>{if(o)o.textContent=fmtf(+i.value);cb()};i.addEventListener("input",f);if(o)o.textContent=fmtf(+i.value);}
@@ -623,19 +782,19 @@ function fillSeg(id,items,sel){$("#"+id).innerHTML=items.map(it=>`<button data-v
 
 /* ---------- slide 2: timeline ---------- */
 const TL=[
- {x:6,s:"done",d:"2025",t:"1.2 kV study starts",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
- {x:20,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC power module",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
- {x:34,s:"done",d:"2026",t:"Prototype 2: 1.7 kV SiC eTruck module",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
- {x:48,s:"done",d:"2026",t:"SPB building block design",up:0,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and layout studies of the cell with EPC2361 in parallel and a centre gate driver.",out:"Layout rules for GaN prototype v1: mirrored cells, star gate drive, Kelvin returns."},
- {x:63,s:"done",d:"November 2026",t:"GaN prototype v1 layout done",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
- {x:78,s:"now",d:"Nov 2026",t:"Ordering and fabrication",up:0,txt:"The double-pulse circuit of GaN prototype v1 is being ordered and fabricated, followed by assembly of the GaN transistors.",out:"Assembled double-pulse circuit ready for the first tests."},
- {x:92,s:"next",d:"2027",t:"Double-pulse tests, leg tests",up:1,txt:"Assemble and test the prototype v1 double-pulse circuit from 20 to 80 V, compare current sharing and switching energy with the models, then build the load circuit and run one leg continuously.",out:"First measured GaN SPB results."}];
+ {x:6,s:"done",d:"2025",t:"1.2 kV study starts",img:"hv_tradeoffs.png",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
+ {x:20,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC power module",img:"b2b_setup.jpg",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
+ {x:34,s:"done",d:"2026",t:"Prototype 2: 1.7 kV SiC eTruck module",img:"p2_bench.jpg",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
+ {x:48,s:"done",d:"2026",t:"SPB building block design",img:"design_flow.png",up:0,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and layout studies of the cell with EPC2361 in parallel and a centre gate driver.",out:"Layout rules for GaN prototype v1: mirrored cells, star gate drive, Kelvin returns."},
+ {x:63,s:"done",d:"November 2026",t:"GaN prototype v1 layout done",img:"gate_star.png",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
+ {x:78,s:"now",d:"Nov 2026",t:"Ordering and fabrication",img:"v1_dpt.png",up:0,txt:"The double-pulse circuit of GaN prototype v1 is being ordered and fabricated, followed by assembly of the GaN transistors.",out:"Assembled double-pulse circuit ready for the first tests."},
+ {x:92,s:"next",d:"2027",t:"Double-pulse tests, leg tests",img:"level_iso.jpg",up:1,txt:"Assemble and test the prototype v1 double-pulse circuit from 20 to 80 V, compare current sharing and switching energy with the models, then build the load circuit and run one leg continuously.",out:"First measured GaN SPB results."}];
 let tlSel=4;
 function timeline(){const t=$("#tl");
   t.innerHTML='<div class="rail"></div>'+["2025","2026","2027"].map((y,i)=>`<span class="yr" style="left:${[11,50,95][i]}%">${y}</span>`).join("")+
    TL.map((m,i)=>`<span class="lab ${m.up?"up":"dn"}" style="left:${m.x}%">${m.t}</span><button class="${m.s}" style="left:${m.x}%" aria-label="${m.t}" aria-pressed="${i===tlSel}" data-i="${i}"></button>`).join("");
   const m=TL[tlSel];const lbl={done:"done",now:"in progress",next:"planned"}[m.s];
-  $("#tlDetail").innerHTML=`<div class="when">${m.d}<br><span class="chip ${m.s}" style="margin-top:6px">${lbl}</span></div><div class="stack" style="gap:6px"><h3>${m.t}</h3><p class="small">${m.txt}</p><p class="small muted"><b>Outcome.</b> ${m.out}</p></div>`;}
+  $("#tlDetail").innerHTML=`<div class="when">${m.d}<br><span class="chip ${m.s}" style="margin-top:6px">${lbl}</span></div><div class="stack" style="gap:8px"><h3 style="font-size:20px">${m.t}</h3><p>${m.txt}</p><p class="muted"><b>Outcome.</b> ${m.out}</p></div><div class="fig"><img src="img/${m.img}" alt="${m.t}"></div>`;}
 $("#tl").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){tlSel=+b.dataset.i;timeline()}});
 
 /* ---------- slide 3: charging ---------- */
@@ -688,7 +847,9 @@ function dfom(){const N=+$("#dfN").value;$("#dfNo").textContent=N;
   const v=rc(cl[1],cl[0]);el("circle",{cx:A.X(cl[0]),cy:A.Y(v),r:8,fill:"var(--accent)",stroke:"var(--ink)","stroke-width":1.5},s);
   el("text",{x:A.X(cl[0])+12,y:A.Y(v)+18,class:"ink"},s,"SPB, N = "+N);
   const rel=v/REF;
-  ro("#dfRo",[{v:fmt(Vc,0)+" V",l:"cell voltage"},{v:cl[0]+" V "+cl[1],l:"device class (≤ 75 % use)"},{v:fmt(rel,2)+"×",l:"min. loss vs 2-level 1700 V SiC",c:rel<0.8?"good":rel<1?"warn":"bad"},{v:6*N,l:"switch positions (6N)"}]);}
+  ro("#dfRo",[{v:fmt(Vc,0)+" V",l:"cell voltage"},{v:cl[0]+" V "+cl[1],l:"device class (≤ 75 % use)"},{v:fmt(rel,2)+"×",l:"min. loss vs 2-level 1700 V SiC",c:rel<0.8?"good":rel<1?"warn":"bad"},{v:6*N,l:"switch positions (6N)"}]);
+  $("#dfTable tbody").innerHTML=[1,2,4,8,12,16,24].map(n=>{const c=CLASSES.find(k=>k[0]>=1200/n/0.75)||CLASSES[CLASSES.length-1];return `<tr data-n="${n}" class="${n===N?"sel":""}"><td>${n}</td><td>${fmt(1200/n,0)} V</td><td>${c[0]} V ${c[1]}</td><td>${fmt(rc(c[1],c[0])/REF,2)}×</td><td>${6*n}</td></tr>`}).join("");}
+$("#dfTable").addEventListener("click",e=>{const r=e.target.closest("tr[data-n]");if(r){$("#dfN").value=r.dataset.n;dfom()}});
 bindRange("dfN",v=>v,dfom);
 
 /* ---------- slide 6: stack and winding sets ---------- */
@@ -728,7 +889,7 @@ function bench(){const s=$("#bmChart");clear(s);
     r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:34,fill:sg[1],"fill-opacity":.85},s);x0+=sg[0]});
     el("text",{x:A.X(x0)+6,y:y+22,class:"ink"},s,fmt(x0,0)+" W");
     if(i===1){let xx=0;r[1].slice(0,2).forEach(sg=>{el("text",{x:A.X(xx+sg[0]/2),y:y+52,"text-anchor":"middle",fill:sg[1]},s,sg[2]);xx+=sg[0]})}});
-  el("text",{x:A.X(2480),y:232,"text-anchor":"end"},s,"per-kW loss: SiC "+fmt(sic*1000/250,1)+" W/kW, SPB "+fmt(865/300,1)+" W/kW");}
+  el("text",{x:A.X(2480),y:200,"text-anchor":"end"},s,"per-kW loss: SiC "+fmt(sic*1000/250,1)+" W/kW, SPB "+fmt(865/300,1)+" W/kW");}
 
 /* ---------- slide 9: DC links ---------- */
 const LINES=[["800","800 V truck",800,880],["1200","1.2 kV truck (ours)",1200,1320],["750","750 V rail",750,900],["1500","1.5 kV rail",1500,1800],["3000","3 kV rail",3000,3600]];
@@ -753,6 +914,7 @@ function lines(){const L=LINES.find(l=>l[0]===gLine()),D=DEVS.find(d=>d[0]===gDe
     el("text",{x:A.X(Math.min(r[1],top))+5,y:r[3]+17,class:"ink"},s,fmt(r[1],0)+" V")});
   const ok=vm<=D[2]*u;
   ro("#lnRo",[{v:nm,l:"minimum cells at this use limit"},{v:fmt(vm,0)+" V",l:"cell voltage at max. line ("+L[3]+" V)",c:vm>D[2]?"bad":ok?"good":"warn"},{v:6*N,l:"switch positions with N = "+N},{v:D[3],l:"example device, "+D[4]+" mΩ typ."}]);
+  const u2=+$("#lnU").value/100;$("#lnTable tbody").innerHTML=LINES.map(l=>`<tr class="${l[0]===gLine()?"sel":""}"><td>${l[1]}</td>${DEVS.map(d=>`<td style="${d[0]===gDev()&&l[0]===gLine()?"font-weight:700":""}">${Math.ceil(l[3]/(d[2]*u2))}</td>`).join("")}</tr>`).join("");
   $("#lnTxt").textContent=vm>D[2]?"With "+N+" cells the maximum line voltage exceeds the device rating.":ok?N+" cells keep every cell below "+fmt(u*100,0)+" % of the "+D[2]+" V rating, even at "+L[3]+" V.":N+" cells survive "+L[3]+" V, but above the chosen use limit: little margin for transients.";}
 bindRange("lnU",v=>v+" %",()=>{autoN();lines()});bindRange("lnN",v=>v,lines);
 
@@ -771,15 +933,15 @@ $("#flow").addEventListener("click",e=>{const b=e.target.closest("button[data-i]
 
 /* ---------- slide 12: roadmap ---------- */
 const ROAD=[
- {s:"done",b:"Cell design",t:"Simulation",h:"Cell design and verification in simulation",d:["Voltage class, layout, paralleling and DC link chosen by the procedure.","Q3D, LTspice and thermal checks for every revision."]},
- {s:"now",b:"Double-pulse circuit",t:"prototype v1, in progress",h:"Prototype v1 double-pulse circuit",d:["Layout finished in November 2026 after independent reviews; now in ordering and fabrication.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
- {s:"now",b:"Order, assemble",t:"Nov–Dec 2026",h:"Order and assembly",d:["Board order with filled vias in the pads; assembly of the GaN devices.","In parallel: the two-terminal AC redraw, checked in Q3D before a possible second order."]},
- {s:"next",b:"Double pulse",t:"20 → 80 V",h:"Double-pulse tests",d:["Step the voltage from 20 to 80 V on the board's own DC link.","Measure turn-on and turn-off energy, current sharing between the four cells, gate overshoot; compare with the simulations."]},
- {s:"next",b:"Load circuit",t:"prototype v1, one leg",h:"Prototype v1 load circuit and busbar",d:["Frozen until the double-pulse results are in, so that what we learn goes into it.","Continuous operation of one leg at rated current, thermal measurement."]},
- {s:"next",b:"Cells in series",t:"three-phase, stacked",h:"Three-phase cell and stacked cells",d:["One full three-phase cell on a winding set, then two or more cells in series on a shared DC link.","Cell-voltage balancing and isolated gate supplies under real common-mode stress."]}];
+ {img:"q3d_cells.jpg",s:"done",b:"Cell design",t:"Simulation",h:"Cell design and verification in simulation",d:["Voltage class, layout, paralleling and DC link chosen by the procedure.","Q3D, LTspice and thermal checks for every revision."]},
+ {img:"v1_dpt.png",s:"now",b:"Double-pulse circuit",t:"prototype v1, in progress",h:"Prototype v1 double-pulse circuit",d:["Layout finished in November 2026 after independent reviews; now in ordering and fabrication.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
+ {img:"gate_star.png",s:"now",b:"Order, assemble",t:"Nov–Dec 2026",h:"Order and assembly",d:["Board order with filled vias in the pads; assembly of the GaN devices.","In parallel: the test procedure and lab setup (differential probe, shunt read-out) are prepared."]},
+ {img:"sim_waves.png",s:"next",b:"Double pulse",t:"20 → 80 V",h:"Double-pulse tests",d:["Step the voltage from 20 to 80 V on the board's own DC link.","Measure turn-on and turn-off energy, current sharing between the four cells, gate overshoot; compare with the simulations."]},
+ {img:"v1_load.jpg",s:"next",b:"Load circuit",t:"prototype v1, one leg",h:"Prototype v1 load circuit and busbar",d:["Frozen until the double-pulse results are in, so that what we learn goes into it.","Continuous operation of one leg at rated current, thermal measurement."]},
+ {img:"level_iso.jpg",s:"next",b:"Cells in series",t:"three-phase, stacked",h:"Three-phase cell and stacked cells",d:["One full three-phase cell on a winding set, then two or more cells in series on a shared DC link.","Cell-voltage balancing and isolated gate supplies under real common-mode stress."]}];
 let roadSel=3;
 function road(){$("#road").innerHTML=ROAD.map((r,i)=>`<button class="stage ${r.s}" data-i="${i}" aria-pressed="${i===roadSel}"><span class="chip ${r.s}">${{done:"done",now:"now",next:"next"}[r.s]}</span><b>${r.b}</b><span>${r.t}</span></button>`).join("");
-  const r=ROAD[roadSel];$("#roadDetail").innerHTML=`<div class="eyebrow">Stage ${roadSel+1} of 6</div><h3 style="font-size:19px">${r.h}</h3><ul class="clean small">${r.d.map(x=>"<li>"+x+"</li>").join("")}</ul>`;}
+  const r=ROAD[roadSel];$("#roadDetail").innerHTML=`<div class="stack" style="gap:8px"><div class="eyebrow">Stage ${roadSel+1} of 6</div><h3 style="font-size:19px">${r.h}</h3><ul class="clean small">${r.d.map(x=>"<li>"+x+"</li>").join("")}</ul></div><div class="fig"><img src="img/${r.img}" alt="${r.h}"></div>`;}
 $("#road").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){roadSel=+b.dataset.i;road()}});
 
 /* ---------- slide 13: pole changing cell count ---------- */
@@ -800,8 +962,82 @@ function questions(){let saved={};try{saved=JSON.parse(localStorage.getItem("spb
   $("#qs").innerHTML=Q.map((g,gi)=>`<div class="qgroup"><h3>${g[0]}</h3><ul class="qlist">${g[1].map((q,qi)=>{const id="q"+gi+"_"+qi;return `<li><label for="${id}"><input type="checkbox" id="${id}" ${saved[id]?"checked":""}><span>${q}</span></label></li>`}).join("")}</ul></div>`).join("");
   $("#qs").addEventListener("change",e=>{if(e.target.type!=="checkbox")return;saved[e.target.id]=e.target.checked;try{localStorage.setItem("spb-alstom-q",JSON.stringify(saved))}catch(err){}});}
 
+const NPAR=[{"n": 1, "cond": 42.63, "sw": 8.382, "dead": 0.659, "gate": 0.018, "tot": 51.689, "pdev": 25.836, "tj": 200.0, "eta": 0.992, "vpk": 195.15}, {"n": 2, "cond": 33.942, "sw": 5.023, "dead": 0.529, "gate": 0.035, "tot": 39.53, "pdev": 9.874, "tj": 140.876, "eta": 0.994, "vpk": 130.977}, {"n": 3, "cond": 18.024, "sw": 4.624, "dead": 0.486, "gate": 0.053, "tot": 23.187, "pdev": 3.856, "tj": 84.405, "eta": 0.996, "vpk": 95.631}, {"n": 4, "cond": 12.52, "sw": 4.964, "dead": 0.464, "gate": 0.07, "tot": 18.019, "pdev": 2.244, "tj": 68.755, "eta": 0.997, "vpk": 83.1}, {"n": 5, "cond": 9.669, "sw": 5.6, "dead": 0.451, "gate": 0.088, "tot": 15.808, "pdev": 1.572, "tj": 62.192, "eta": 0.997, "vpk": 85.859}, {"n": 6, "cond": 7.914, "sw": 6.384, "dead": 0.443, "gate": 0.106, "tot": 14.846, "pdev": 1.228, "tj": 58.938, "eta": 0.998, "vpk": 85.765}, {"n": 7, "cond": 6.718, "sw": 7.253, "dead": 0.437, "gate": 0.123, "tot": 14.53, "pdev": 1.029, "tj": 57.203, "eta": 0.998, "vpk": 84.354}, {"n": 8, "cond": 5.847, "sw": 8.174, "dead": 0.432, "gate": 0.141, "tot": 14.594, "pdev": 0.903, "tj": 56.275, "eta": 0.998, "vpk": 83.295}];
+const SINGLE={"0.5nH": {"I": [10.0, 39.9, 59.7, 79.5, 118.9, 158.1, 197.0, 245.4, 322.1], "v": [80.5, 83.2, 86.9, 82.6, 101.0, 129.1, 153.5, 176.0, 195.2]}, "1nH": {"I": [10.0, 39.9, 59.6, 79.5, 118.8, 158.1, 197.0, 245.4, 322.0], "v": [81.9, 87.2, 83.2, 92.4, 135.3, 177.2, 215.3, 254.3, 291.7]}};
+const SIMC=[{"k": "load", "l": "Load circuit · 2.0 Ω", "note": "Load circuit, lumped gate loops, R_g,on 2.0 Ω: fastest, 91 V peak at the high side.", "loop": 0.4086, "rg": 2, "gate": "lumped", "vh": 90.9, "vpk": 81.4, "eon": 109.4, "eoff": 19.9, "sEon": 1.8, "sOff": 3.03, "cells": [{"eon": 27.8, "ioff": 77.9, "vh": 87.5, "didt": 46.9}, {"eon": 27.2, "ioff": 81.4, "vh": 90.3, "didt": 44.6}, {"eon": 27.1, "ioff": 79.5, "vh": 90.9, "didt": 45.5}, {"eon": 27.3, "ioff": 77.3, "vh": 90.2, "didt": 46.4}]}, {"k": "load_rg3", "l": "Load circuit · 3.0 Ω", "note": "Load circuit with R_g,on 3.0 Ω: 86 V peak, turn-on energy about 20 % higher.", "loop": 0.4086, "rg": 3, "gate": "lumped", "vh": 86.1, "vpk": 81.4, "eon": 131.3, "eoff": 19.9, "sEon": 1.66, "sOff": 3.03, "cells": [{"eon": 33.4, "ioff": 77.9, "vh": 84.0, "didt": 34.8}, {"eon": 32.5, "ioff": 81.4, "vh": 84.8, "didt": 33.1}, {"eon": 32.5, "ioff": 79.5, "vh": 86.1, "didt": 33.9}, {"eon": 32.9, "ioff": 77.3, "vh": 86.1, "didt": 34.5}]}, {"k": "dpt_lumpgate", "l": "DPT · lumped gate · 3.5 Ω", "note": "Double-pulse circuit, gate loops as lumped 1.7 nH: 90 V. The lumped model underestimates the high-side peak.", "loop": 0.6511, "rg": 3.5, "gate": "lumped 1.7 nH", "vh": 89.8, "vpk": 83.4, "eon": 136.5, "eoff": 17.3, "sEon": 0.14, "sOff": 1.55, "cells": [{"eon": 34.1, "ioff": 77.6, "vh": 89.7, "didt": 31.1}, {"eon": 34.2, "ioff": 80.1, "vh": 89.8, "didt": 31.2}, {"eon": 34.2, "ioff": 80.1, "vh": 89.6, "didt": 31.2}, {"eon": 34.1, "ioff": 77.8, "vh": 89.8, "didt": 31.1}]}, {"k": "dpt_rg2.5", "l": "DPT · 2.5 Ω", "note": "Double-pulse circuit with the extracted gate network at 2.5 Ω: 105 V peak, above the 100 V rating.", "loop": 0.6511, "rg": 2.5, "gate": "extracted", "vh": 105.3, "vpk": 86.3, "eon": 97.3, "eoff": 20.1, "sEon": 0.1, "sOff": 1.53, "cells": [{"eon": 24.3, "ioff": 77.6, "vh": 105.3, "didt": 48.8}, {"eon": 24.3, "ioff": 80.0, "vh": 105.2, "didt": 49.3}, {"eon": 24.3, "ioff": 80.1, "vh": 104.8, "didt": 49.1}, {"eon": 24.3, "ioff": 77.7, "vh": 105.2, "didt": 49.1}]}, {"k": "dpt", "l": "DPT · 3.5 Ω (chosen)", "note": "Chosen setting: extracted gate network, R_g,on 3.5 Ω and −1.9 V off-state bias: 93 V peak, turn-on energy shared within 0.2 % between the four cells.", "loop": 0.6511, "rg": 3.5, "gate": "extracted", "vh": 92.9, "vpk": 86.7, "eon": 124.6, "eoff": 20.3, "sEon": 0.22, "sOff": 1.55, "cells": [{"eon": 31.1, "ioff": 77.6, "vh": 92.9, "didt": 35.8}, {"eon": 31.2, "ioff": 80.1, "vh": 92.6, "didt": 36.2}, {"eon": 31.1, "ioff": 80.1, "vh": 92.3, "didt": 36.0}, {"eon": 31.2, "ioff": 77.8, "vh": 92.9, "didt": 36.0}]}];
+const LOOPC={"dpt": [0.646, 0.6439, 0.6445, 0.6484], "load": [0.4084, 0.4077, 0.4059, 0.4125]};
+
+/* ---------- R1: devices per switch ---------- */
+function npar(){const n=+$("#npN").value;$("#npNo").textContent=n;const d=NPAR[n-1];
+  const s=$("#npChart");clear(s);const top=55;
+  const A=axes(s,{W:660,H:420,x0:0.5,x1:8.5,y0:0,y1:top,yt:[0,10,20,30,40,50],xt:[],m:{l:46,r:10,t:14,b:110},yl:"leg loss [W]"});
+  const bw=(A.X(1)-A.X(0))*0.56;
+  NPAR.forEach(p=>{const x=A.X(p.n)-bw/2,sel=p.n===n;let y0=0;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{$("#npN").value=p.n;npar()};
+    [[p.cond,"var(--ch2)"],[p.sw,"var(--ch1)"],[p.dead+p.gate,"var(--muted)"]].forEach(c=>{const v=Math.min(c[0],top-y0);if(v<=0)return;
+      el("rect",{x:x,y:A.Y(y0+v),width:bw,height:A.Y(y0)-A.Y(y0+v),fill:c[1],"fill-opacity":sel?.95:.45},g);y0+=v});
+    el("rect",{x:x-6,y:14,width:bw+12,height:A.Y(0)-14,fill:"transparent",stroke:sel?"var(--teal)":"none","stroke-width":2,rx:4},g);
+    el("text",{x:A.X(p.n),y:A.Y(Math.min(p.tot,top))-5,"text-anchor":"middle",class:sel?"ink":""},s,fmt(p.tot,1));
+    el("text",{x:A.X(p.n),y:A.Y(0)+15,"text-anchor":"middle",class:"ink"},s,"n = "+p.n);
+    el("text",{x:A.X(p.n),y:A.Y(0)+29,"text-anchor":"middle"},s,fmt(100*p.eta,2)+" %");
+    [[p.tj,125,"°C",56],[p.vpk,90,"V",80]].forEach(r=>{const ok=r[0]<=r[1];const yy=A.Y(0)+r[3];
+      el("rect",{x:A.X(p.n)-30,y:yy-12,width:60,height:17,rx:8,fill:ok?"var(--good)":"var(--bad)","fill-opacity":sel?.22:.1,stroke:ok?"var(--good)":"var(--bad)","stroke-width":sel?1.5:.8},s);
+      el("text",{x:A.X(p.n),y:yy+1,"text-anchor":"middle",fill:ok?"var(--good)":"var(--bad)"},s,(ok?"✓ ":"✗ ")+(r[0]>=200?">150":fmt(r[0],0))+" "+r[2])})});
+  el("text",{x:6,y:A.Y(0)+60},s,"T_j");el("text",{x:6,y:A.Y(0)+84},s,"V_DS");
+  ro("#npRo",[{v:fmt(d.tot,1)+" W",l:"leg loss"},{v:fmt(100*d.eta,2)+" %",l:"leg efficiency"},{v:(d.tj>=200?"> 150":fmt(d.tj,0))+" °C",l:"junction, 40 °C ambient",c:d.tj<=125?"good":"bad"},
+    {v:fmt(d.vpk,0)+" V",l:"peak V_DS at 0.5 nH",c:d.vpk<=90?"good":"bad"},{v:fmt(d.pdev,2)+" W",l:"loss per device"},{v:2*n,l:"transistors per leg"}]);
+  const v=$("#npVds");clear(v);const B=axes(v,{W:520,H:180,x0:0,x1:330,y0:60,y1:300,xt:[0,80,160,240,320],yt:[60,100,140,180,220,260,300],m:{l:40,r:10,t:8,b:30},xl:"current per device [A]"});
+  el("line",{x1:B.X(0),x2:B.X(330),y1:B.Y(90),y2:B.Y(90),stroke:"var(--bad)","stroke-dasharray":"5 3"},v);el("text",{x:B.X(326),y:B.Y(90)-5,"text-anchor":"end",fill:"var(--bad)"},v,"90 V");
+  [["0.5nH","var(--ink)","0.5 nH"],["1nH","var(--ch3)","1 nH"]].forEach(c=>{const S=SINGLE[c[0]];el("path",{d:path(S.I.map((x,i)=>[x,S.v[i]]),B.X,B.Y),fill:"none",stroke:c[1],"stroke-width":2},v);
+    el("text",{x:B.X(S.I[S.I.length-1])-4,y:B.Y(S.v[S.v.length-1])-6,"text-anchor":"end",fill:c[1]},v,c[2])});
+  const Ip=320/n;const vp=interp(SINGLE["0.5nH"].I,SINGLE["0.5nH"].v,Ip);
+  el("circle",{cx:B.X(Ip),cy:B.Y(vp),r:6,fill:"var(--teal)"},v);el("text",{x:B.X(Ip)+9,y:B.Y(vp)+16,class:"ink"},v,fmt(Ip,0)+" A per device");}
+bindRange("npN",v=>v,npar);
+
+/* ---------- R2: parasitics ---------- */
+const gLp=seg("lpSeg",()=>loops());
+function loops(){const m=gLp();const s=$("#lpChart");clear(s);
+  const A=axes(s,{W:560,H:190,x0:0,x1:4,y0:0,y1:0.8,yt:[0,0.2,0.4,0.6,0.8],xt:[],m:{l:44,r:10,t:10,b:26},yl:"nH per cell"});
+  el("line",{x1:A.X(0),x2:A.X(4),y1:A.Y(0.5),y2:A.Y(0.5),stroke:"var(--good)","stroke-dasharray":"5 3"},s);el("text",{x:A.X(3.98),y:A.Y(0.5)-5,"text-anchor":"end",fill:"var(--good)"},s,"0.5 nH design");
+  const bw=(A.X(1)-A.X(0))*0.3;
+  for(let c=0;c<4;c++){[["dpt","var(--ch3)",-1],["load","var(--ch2)",1]].forEach(b=>{const on=m==="both"||m===b[0];const v=LOOPC[b[0]][c];
+      const x=A.X(c+0.5)+(b[2]<0?-bw-3:3);el("rect",{x:x,y:A.Y(v),width:bw,height:A.Y(0)-A.Y(v),fill:b[1],"fill-opacity":on?.9:.15},s);
+      if(on)el("text",{x:x+bw/2,y:A.Y(v)-4,"text-anchor":"middle",class:"ink"},s,fmt(v,3))});
+    el("text",{x:A.X(c+0.5),y:A.Y(0)+15,"text-anchor":"middle",class:"ink"},s,"cell "+(c+1))}
+  const st=k=>{const a=LOOPC[k];return [a.reduce((x,y)=>x+y)/4,100*(Math.max(...a)-Math.min(...a))/Math.min(...a)]};const D=st("dpt"),L=st("load");
+  ro("#lpRo",[{v:fmt(D[0],3)+" nH",l:"double-pulse circuit, with shunt (spread "+fmt(D[1],1)+" %)",c:m!=="load"?"good":""},{v:fmt(L[0],3)+" nH",l:"load circuit (spread "+fmt(L[1],1)+" %)",c:m!=="dpt"?"good":""},{v:"≤ 0.034",l:"coupling factor between cells"}]);}
+function hbars(id,rows,max,unit,dec){const s=$(id);clear(s);const x0=190,W=560-x0-56;rows.forEach((r,i)=>{const y=4+i*34;
+  el("text",{x:x0-8,y:y+16,"text-anchor":"end",class:"ink"},s,r[0]);el("rect",{x:x0,y:y+3,width:W*r[1]/max,height:18,rx:2,fill:r[2]},s);
+  el("text",{x:x0+W*r[1]/max+6,y:y+16,class:"ink"},s,fmt(r[1],dec)+" "+unit)})}
+function gates(){hbars("#glChart",[["high side, alone",12.5,"var(--ch2)"],["high side, pair driven",20.6,"var(--ch3)"],["low side, pair driven",12.3,"var(--ch2)"]],24,"nH",1);
+  hbars("#imChart",[["power loop +0.3 nH",2,"var(--muted)"],["gate loops 2 vs 8 nH",19,"var(--ch1)"],["no Kelvin, L_CS +0.2 nH",29,"var(--bad)"]],32,"%",0);}
+
+/* ---------- R3: circuit simulation ---------- */
+let scSel=SIMC.length-1;
+function sims(){const sg=$("#scSeg");if(!sg.children.length)SIMC.forEach((c,i)=>{const b=document.createElement("button");b.textContent=c.l;b.dataset.v=i;sg.appendChild(b)});
+  [...sg.children].forEach((b,i)=>b.setAttribute("aria-pressed",i===scSel));
+  const s=$("#scChart");clear(s);const A=axes(s,{W:640,H:220,x0:60,x1:110,y0:0,y1:1,xt:[60,70,80,90,100,110],yt:[],m:{l:190,r:30,t:4,b:28},xl:"peak high-side V_DS [V]"});
+  el("line",{x1:A.X(90),x2:A.X(90),y1:4,y2:192,stroke:"var(--warn)","stroke-dasharray":"5 3"},s);el("line",{x1:A.X(100),x2:A.X(100),y1:4,y2:192,stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
+  SIMC.forEach((c,i)=>{const y=6+i*37,sel=i===scSel;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{scSel=i;sims()};
+    el("rect",{x:0,y:y-3,width:640,height:34,fill:"transparent"},g);
+    el("text",{x:182,y:y+16,"text-anchor":"end",class:sel?"ink":""},g,c.l);
+    el("rect",{x:A.X(60),y:y+3,width:A.X(Math.min(c.vh,110))-A.X(60),height:20,rx:2,fill:c.vh>100?"var(--bad)":c.vh>90?"var(--warn)":"var(--teal)","fill-opacity":sel?.95:.4},g);
+    el("text",{x:A.X(Math.min(c.vh,110))+5,y:y+17,class:"ink"},g,fmt(c.vh,1))});
+  const c=SIMC[scSel];
+  ro("#scRo",[{v:fmt(c.vh,1)+" V",l:"peak high-side V_DS",c:c.vh>100?"bad":c.vh>90?"warn":"good"},{v:c.rg+" Ω",l:"R_g,on · gate: "+c.gate},{v:fmt(c.eon,1)+" µJ",l:"E_on, four cells"},
+    {v:fmt(c.sEon,2)+" %",l:"E_on spread between cells",c:c.sEon<1?"good":"warn"},{v:fmt(c.sOff,2)+" %",l:"turn-off current spread"},{v:fmt(c.loop,3)+" nH",l:"loop per cell in the model"}]);
+  $("#scTxt").textContent=c.note.replace("R_g,on","Rg,on");
+  $("#scCells").innerHTML=c.cells?`<table class="t cells"><thead><tr><th>per cell</th><th>cell 1</th><th>cell 2</th><th>cell 3</th><th>cell 4</th></tr></thead><tbody>`+
+    [["E_on [µJ]","eon"],["I_off [A]","ioff"],["peak V_DS,HS [V]","vh"],["di/dt on [A/ns]","didt"]].map(r=>`<tr><td>${r[0]}</td>${c.cells.map(x=>`<td>${fmt(x[r[1]],1)}</td>`).join("")}</tr>`).join("")+`</tbody></table>`
+    :`<p class="small muted">Per-cell values are stored for the load-circuit cases and the chosen setting; this case has totals only.</p>`;}
+
+function gantt(){const s=$("#gantt");clear(s);const m0=10,m1=24;const X=m=>150+(m-m0)/(m1-m0)*420;
+  ["Nov 26","Jan 27","Apr 27","Jul 27","Oct 27","Dec 27"].forEach((t,i)=>{const m=[10,12,15,18,21,23][i];el("line",{x1:X(m),x2:X(m),y1:4,y2:178,stroke:"var(--grid)"},s);el("text",{x:X(m),y:194,"text-anchor":"middle"},s,t)});
+  [["Order and assemble",10,12,"var(--warn)"],["Double-pulse tests",12,15,"var(--ch2)"],["Load circuit, one leg",12,18,"var(--ch2)"],["Three-phase level",15,18,"var(--teal)"],["Machine FEA, drive cycle",12,24,"var(--ch3)"]].forEach((r,i)=>{const y=8+i*34;
+    el("text",{x:142,y:y+16,"text-anchor":"end",class:"ink"},s,r[0]);el("rect",{x:X(r[1]),y:y+3,width:X(r[2])-X(r[1]),height:20,rx:3,fill:r[3],"fill-opacity":.85},s)});
+  el("line",{x1:X(10.55),x2:X(10.55),y1:0,y2:180,stroke:"var(--bad)","stroke-width":1.5},s);el("text",{x:X(10.55)+4,y:10,fill:"var(--bad)"},s,"now")}
+
 /* ---------- boot ---------- */
-timeline();charging();proto();dfom();wsets();bench();autoN();lines();flow();road();pole();questions();
+timeline();charging();proto();dfom();wsets();bench();autoN();lines();flow();npar();loops();gates();sims();road();pole();questions();gantt();
 fit();fromHash();
 })();
 </script>
