@@ -565,3 +565,13 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - added, because they serve the Infineon questions: slide 9 "devices per switch" (leg loss 51.7 / 39.5 / 23.2 / 18.0 W for n = 1..4, T_j <= 125 C and V_DS <= 90 V; n = 4 is the smallest passing count; readout now shows driver channels per switch); slide 14 Rev B waveforms now has five LTspice runs (DPT 3.5 ohm 92.9 V, DPT 2.5 ohm 105.3 V / E_on 24.3 uJ, DPT lumped gate 89.8 V, load 2 ohm 90.9 V, load 3 ohm 86.1 V); slide 23 status rebuilt as the Alstom test roadmap (6 stages) next to the "where we would welcome support" panel.
   - left out on purpose: project timeline, scaling to rail, pole changing, open-risks table (Alstom-facing; EMC/common mode excluded by Enes for Infineon). Roadmap stage 6 reworded without common mode.
 - Checks: headless Edge 1400x860, 23 slides overflow 0, 0 script errors; title, slides 9, 14 (2.5 ohm), 23 viewed. Artifact version 7 (8 images added).
+
+### 2026-11-18 - Infineon deck v7: no two-level results, device needs
+- Enes: "delete the Infineon GaN application engineering title, no PowerizeD things or two-level results; the main idea is which Infineon GaN devices we can use" and "we share our EPC results and open questions; they will offer devices".
+- Leader (no agents):
+  - removed: title subtitle and footer meeting name; SiC prototype slide and its 9 images (repo and published page); SiC prototype rows on slide 2; prototype remark on slide 3; measured SiC bars and readouts on slide 6; SiC study in the publications line and the "SiC prototypes are measured" note. No PowerizeD/project mention was in the deck.
+  - slide 6 now shows only the SPB model loss: 601 / 238 / 22 / 3.4 W of 865 W, 99.71 %, 18.0 W per leg, 68.8 C (the generic part-count table stays).
+  - new slide 21 "What a GaN device has to bring to our cell": 8 rows (voltage class, R_DS(on)/C_oss, current, package/loop, gate margin, paralleling, driver, models), each with our EPC2361 number, what we would look for and the source slide. No Infineon part is proposed by us.
+  - agenda: A 10, B 8, C 8, D 20, E 14 min (E starts at slide 21); slide references renumbered.
+  - fix during the round: the slide-6 rewrite removed the model-section JS; restored from 6acbdd78 and re-checked.
+- Checks: headless Edge 1400x860, 23 slides overflow 0, 0 script errors; title, slides 6, 13, 21 viewed. Artifact version 8.
