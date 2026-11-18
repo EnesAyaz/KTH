@@ -222,9 +222,9 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <figure><div class="fig"><img src="img/level_iso.jpg" alt="One 75 V three-phase level of the SPB"></div><figcaption>SPB · one 75 V three-phase level</figcaption></figure>
     </div>
     <div class="agenda" aria-label="Agenda">
-      <button data-go="s2" data-min="5 min">Project and timeline</button>
+      <button data-go="s2" data-min="8 min">Project, timeline and the SPB idea</button>
       <button data-go="s3" data-min="10 min">1.2 kV and the two SiC prototypes</button>
-      <button data-go="s5" data-min="10 min">Device choice and SPB</button>
+      <button data-go="s5" data-min="7 min">Why SPB: device choice and cost</button>
       <button data-go="s10" data-min="15 min">Design results of the GaN cell</button>
       <button data-go="s11" data-min="10 min">Prototype v1, tests and machine</button>
       <button data-go="s15r" data-min="10 min">Open risks and next steps</button>
@@ -246,6 +246,33 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <div class="tl" id="tl" role="group" aria-label="Project milestones"></div>
     </div>
     <div class="card detail" id="tlDetail" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 6 WHAT IS SPB -->
+<section class="slide" id="s6" data-title="What is SPB">
+  <div class="slide-head"><div><div class="eyebrow">A · The concept · stacked polyphase bridge (SPB)</div><h2>Stack the inverter cells on the DC side, split the machine into winding sets</h2></div><div class="pageno"></div></div>
+  <div class="body cols-2">
+    <div class="stack">
+      <div class="fig" style="height:330px"><img src="img/spb_topology.png" alt="SPB topology: N cells with their own DC capacitor stacked in series on the DC link; each cell is a three-phase two-level bridge feeding its own winding set of a common machine."></div>
+      <ul class="clean small">
+        <li>Each cell is an ordinary two-level three-phase bridge with its own capacitor.</li>
+        <li>The cells are in series on the DC link: each sees V<sub>dc</sub>/N.</li>
+        <li>Each cell feeds its own three-phase winding set; all sets sit in one stator and drive one rotor.</li>
+        <li>The same DC current flows through every cell, so the cells share the power equally when their winding sets carry equal currents.</li>
+      </ul>
+      <p class="tiny muted">Proposed at KTH (Norrga et al., 2013).</p>
+    </div>
+    <div class="stack">
+      <div class="card stack" style="gap:8px">
+        <div class="ctrl">
+          <label for="wsN">Cells N</label><input id="wsN" type="range" min="2" max="24" step="1" value="16"><output id="wsNo"></output>
+        </div>
+        <p class="tiny muted">Click a cell in the stack or a coil group in the stator to follow one cell to its winding set.</p>
+      </div>
+      <div class="chartbox" style="height:375px"><svg class="chart" id="wsSvg" viewBox="0 0 560 330" aria-label="Stack of cells and the stator with one winding set per cell"></svg></div>
+      <div class="readout" id="wsRo"></div>
+    </div>
   </div>
 </section>
 
@@ -396,33 +423,6 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <div class="readout" id="dvRo"></div>
       <table class="t click" id="dvTable" style="font-size:12.5px"><thead><tr><th>Device</th><th>V</th><th>R mΩ</th><th>C<sub>oss,tr</sub> pF</th><th>τ ps</th><th>loss rel.</th><th>cells</th></tr></thead><tbody></tbody></table>
       <p class="small"><b>Result:</b> EPC2361 (τ = 1.35 ps) is lowest. 100 V GaN at 75 V per cell gives N = 16 for the 1200 V link. The 200 V parts would halve the cells but cost about 1.8× the semiconductor loss today.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 6 WHAT IS SPB -->
-<section class="slide" id="s6" data-title="What is SPB">
-  <div class="slide-head"><div><div class="eyebrow">C · What SPB is</div><h2>Stack the inverter cells on the DC side, split the machine into winding sets</h2></div><div class="pageno"></div></div>
-  <div class="body cols-2">
-    <div class="stack">
-      <div class="fig" style="height:330px"><img src="img/spb_topology.png" alt="SPB topology: N cells with their own DC capacitor stacked in series on the DC link; each cell is a three-phase two-level bridge feeding its own winding set of a common machine."></div>
-      <ul class="clean small">
-        <li>Each cell is an ordinary two-level three-phase bridge with its own capacitor.</li>
-        <li>The cells are in series on the DC link: each sees V<sub>dc</sub>/N.</li>
-        <li>Each cell feeds its own three-phase winding set; all sets sit in one stator and drive one rotor.</li>
-        <li>The same DC current flows through every cell, so the cells share the power equally when their winding sets carry equal currents.</li>
-      </ul>
-      <p class="tiny muted">Proposed at KTH (Norrga et al., 2013).</p>
-    </div>
-    <div class="stack">
-      <div class="card stack" style="gap:8px">
-        <div class="ctrl">
-          <label for="wsN">Cells N</label><input id="wsN" type="range" min="2" max="24" step="1" value="16"><output id="wsNo"></output>
-        </div>
-        <p class="tiny muted">Click a cell in the stack or a coil group in the stator to follow one cell to its winding set.</p>
-      </div>
-      <div class="chartbox" style="height:375px"><svg class="chart" id="wsSvg" viewBox="0 0 560 330" aria-label="Stack of cells and the stator with one winding set per cell"></svg></div>
-      <div class="readout" id="wsRo"></div>
     </div>
   </div>
 </section>
