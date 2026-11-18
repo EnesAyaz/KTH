@@ -471,8 +471,8 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   <div class="slide-head"><div><div class="eyebrow">C · What SPB buys and what it costs</div><h2>Less semiconductor loss, many more parts</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <h3>Inverter loss per kW: two SiC prototypes and the SPB model</h3>
-      <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss per kW of SiC prototype 1, SiC prototype 2 and the SPB GaN design"></svg></div>
+      <h3>Total inverter loss at rated power: two SiC prototypes and the SPB model</h3>
+      <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Total loss of SiC prototype 1, SiC prototype 2 and the SPB GaN design"></svg></div>
       <div class="readout">
         <div class="ro"><b>99.12 %</b><span>SiC prototype 1 (2 kV), 250 kW, measured at full load</span></div>
         <div class="ro"><b>99.3–99.7 %</b><span>SiC prototype 2 (1.7 kV), efficiency map 5–20 kHz, 1190 V</span></div>
@@ -493,7 +493,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
           <tr><td>Winding sets</td><td>1</td><td>16</td></tr>
         </tbody>
       </table>
-      <div class="readout"><div class="ro good"><b>2.9 W/kW</b><span>SPB semiconductor loss (model)</span></div><div class="ro"><b>3.0–7.0 W/kW</b><span>SiC prototype 2, 1.7 kV</span></div><div class="ro"><b>8.9 W/kW</b><span>SiC prototype 1, 2 kV</span></div><div class="ro warn"><b>384 vs 3</b><span>GaN transistors vs SiC modules</span></div></div>
+      <div class="readout"><div class="ro good"><b>865 W</b><span>SPB semiconductors at 300 kW (model)</span></div><div class="ro"><b>0.9–2.1 kW</b><span>SiC prototype 2 at ≈ 300 kW</span></div><div class="ro"><b>2.2 kW</b><span>SiC prototype 1 at 250 kW, measured</span></div><div class="ro warn"><b>384 vs 3</b><span>GaN transistors vs SiC modules</span></div></div>
       <p class="small"><b>Per 75 V level:</b> 6 switch positions, 24 transistors, 6 driver ICs, 12 isolated gate supplies, one ceramic DC-link bank and one winding set. The design work goes into making this one level small, cheap and robust.</p>
       <p class="small">The loss gain is real but the part count is the open question. Our work therefore concentrates on one cell: how small its loop can be, how it is driven and cooled, and how it is tested.</p>
     </div>
@@ -798,7 +798,7 @@ const TL=[
  {x:20,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC power module",img:"b2b_setup.jpg",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
  {x:34,s:"done",d:"2026",t:"Prototype 2: 1.7 kV SiC eTruck module",img:"p2_bench.jpg",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
  {x:48,s:"done",d:"2026",t:"SPB building block design",img:"design_flow.png",up:0,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and layout studies of the cell with EPC2361 in parallel and a centre gate driver.",out:"Layout rules for GaN prototype v1: mirrored cells, star gate drive, Kelvin returns."},
- {x:63,s:"done",d:"November 2026",t:"GaN prototype v1 layout done",img:"gate_star.png",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
+ {x:63,s:"done",d:"November 2026",t:"GaN prototype v1 layout done",img:"v1_pcb_top.jpg",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
  {x:78,s:"now",d:"Nov 2026",t:"Ordering and fabrication",img:"v1_dpt.png",up:0,txt:"The double-pulse circuit of GaN prototype v1 is being ordered and fabricated, followed by assembly of the GaN transistors.",out:"Assembled double-pulse circuit ready for the first tests."},
  {x:92,s:"next",d:"2027",t:"Double-pulse tests, leg tests",img:"level_iso.jpg",up:1,txt:"Assemble and test the prototype v1 double-pulse circuit from 20 to 80 V, compare current sharing and switching energy with the models, then build the load circuit and run one leg continuously.",out:"First measured GaN SPB results."}];
 let tlSel=4;
@@ -893,17 +893,17 @@ bindRange("wsN",v=>v,wsets);
 
 /* ---------- slide 8: benchmark ---------- */
 function bench(){const s=$("#bmChart");clear(s);
-  const p1=1000*(1/0.9912-1), p2a=1000*(1/0.997-1), p2b=1000*(1/0.993-1);
-  const A=axes(s,{W:560,H:250,x0:0,x1:10,y0:0,y1:1,xt:[0,2,4,6,8,10],yt:[],m:{l:14,r:20,t:6,b:34},xl:"loss per kW of output power [W/kW]"});
-  const rows=[["SiC prototype 1 · 2 kV · 250 kW, measured",[[p1,"var(--ch3)"]]],["SiC prototype 2 · 1.7 kV · efficiency map 99.3–99.7 %",null],
-              ["SPB GaN · 100 V EPC2361 · 300 kW, model",[[601/300,"var(--ch2)"],[238.3/300,"var(--ch1)"],[(22.3+3.4)/300,"var(--muted)"]]]];
+  const p1=250e3*(1/0.9912-1), p2a=300e3*(1/0.997-1), p2b=300e3*(1/0.993-1);
+  const A=axes(s,{W:560,H:250,x0:0,x1:2500,y0:0,y1:1,xt:[0,500,1000,1500,2000,2500],yt:[],m:{l:14,r:20,t:6,b:34},xl:"total inverter loss at rated power [W]"});
+  const rows=[["SiC prototype 1 · 2 kV · 250 kW, measured",[[p1,"var(--ch3)"]]],["SiC prototype 2 · 1.7 kV · ≈ 300 kW, from its 99.3–99.7 % map",null],
+              ["SPB GaN · 100 V EPC2361 · 300 kW, model",[[601,"var(--ch2)"],[238.3,"var(--ch1)"],[22.3+3.4,"var(--muted)"]]]];
   rows.forEach((r,i)=>{const y=22+i*66;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);
     if(r[1]){let x0=0;r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:30,fill:sg[1],"fill-opacity":.88},s);x0+=sg[0]});
-      el("text",{x:A.X(x0)+6,y:y+20,class:"ink"},s,fmt(x0,1)+" W/kW")}
+      el("text",{x:A.X(x0)+6,y:y+20,class:"ink"},s,fmt(x0,0)+" W")}
     else{el("rect",{x:A.X(0),y:y,width:A.X(p2a)-A.X(0),height:30,fill:"var(--ch4)","fill-opacity":.88},s);
       el("rect",{x:A.X(p2a),y:y,width:A.X(p2b)-A.X(p2a),height:30,fill:"var(--ch4)","fill-opacity":.3,stroke:"var(--ch4)","stroke-dasharray":"4 3"},s);
-      el("text",{x:A.X(p2b)+6,y:y+20,class:"ink"},s,fmt(p2a,1)+"–"+fmt(p2b,1)+" W/kW")}});
-  el("text",{x:A.X(1.0),y:196,"text-anchor":"middle",fill:"var(--ch2)"},s,"conduction");el("text",{x:A.X(2.45),y:196,"text-anchor":"middle",fill:"var(--ch1)"},s,"switching");}
+      el("text",{x:A.X(p2b)+6,y:y+20,class:"ink"},s,fmt(p2a,0)+"–"+fmt(p2b,0)+" W")}});
+  el("text",{x:A.X(300),y:196,"text-anchor":"middle",fill:"var(--ch2)"},s,"conduction");el("text",{x:A.X(720),y:196,"text-anchor":"middle",fill:"var(--ch1)"},s,"switching");}
 
 /* ---------- slide 9: DC links ---------- */
 const LINES=[["800","800 V truck",800,800],["1200","1.2 kV truck (ours)",1200,1200],["750","750 V rail",750,900],["1500","1.5 kV rail",1500,1800],["3000","3 kV rail",3000,3600]];
@@ -934,10 +934,10 @@ bindRange("lnU",v=>v+" %",()=>{autoN();lines()});bindRange("lnN",v=>v,lines);
 
 /* ---------- slide 10: design procedure ---------- */
 const FLOW=[
- {k:"1 · SPEC",b:"1200 V, 300 kW",s:"phase current fixed, voltage class open",h:"Start from the drive, not the device",d:["300 kW at 1.2 kV for a heavy-duty truck; 228 A rms per phase.","The phase current is fixed by the machine; the cell voltage is left open and chosen in step 2.","300 kW is built from two parallel 150 kW blocks per leg."]},
+ {k:"1 · SPEC",b:"1200 V, 300 kW",s:"phase current fixed, voltage class open",h:"Start from the drive, not the device",d:["300 kW at 1.2 kV for a heavy-duty truck; 228 A rms per phase.","The phase current is fixed by the machine; the cell voltage is left open and chosen in step 2."]},
  {k:"2 · VOLTAGE CLASS",b:"100 V GaN, N = 16",s:"lowest √(R·C_oss); 75 V per cell",h:"Choose the device voltage with a loss figure",d:["For each voltage class, our analytical loss model finds the best number of parallel devices and the minimum loss.","100 V GaN (EPC2361) gives the lowest loss; 16 cells of 75 V use 75 % of its rating.","150 and 200 V classes need fewer cells but lose on loss today; we keep them in view."]},
  {k:"3 · LAYOUT + DRIVER",b:"Mirrored cells, star gate",s:"one driver channel per pair",h:"Small power loop, equal gate loops",d:["Cells mirrored around the capacitor bank so every cell has the same commutation loop.","The driver sits on the symmetry line and reaches two transistors in a star, with a Kelvin return under each gate trace.","Result: 0.646 nH power loop per cell on the prototype v1 double-pulse circuit, 0.7 % spread between cells."]},
- {k:"4 · PARALLEL",b:"4 per switch",s:"smallest count meeting T_j and voltage limits",h:"How many devices per switch",d:["1 → 2 devices gives the large loss reduction; 4 per switch meets the junction-temperature limit at 150 kW per block.","Leg loss 18.0 W at 50 kHz: conduction 12.5 W, switching 5.0 W.","Junction 68.8 °C at 40 °C ambient with 0.65 K/W per leg."]},
+ {k:"4 · PARALLEL",b:"4 per switch",s:"smallest count meeting T_j and voltage limits",h:"How many devices per switch",d:["1 → 2 devices gives the large loss reduction; 4 per switch is the smallest count that meets the junction-temperature and voltage limits.","Leg loss 18.0 W at 50 kHz: conduction 12.5 W, switching 5.0 W.","Junction 68.8 °C at 40 °C ambient with 0.65 K/W per leg."]},
  {k:"5 · DC LINK",b:"20 × 22 µF + 40 × 1 µF",s:"per leg; 2.85 % ripple at 50 kHz",h:"Ceramic capacitors close to the switches",d:["Each cell has its own DC capacitor, made of ceramic capacitors placed directly at the switches.","Sized for the ripple current of one cell; 2.85 % voltage ripple at 50 kHz.","The small capacitors are also part of the low loop inductance."]},
  {k:"6 · VERIFY",b:"Q3D, LTspice, Icepak",s:"loop, gate coupling, thermal",h:"Check every step in simulation, then on the bench",d:["Ansys Q3D extracts the power and gate loops of every cell; LTspice runs double-pulse tests on the extracted network.","Icepak checks the heatsink and junction temperatures.","Prototype v1 will measure the same quantities: current per cell, gate voltages, switching energy."]}];
 let flowSel=1;

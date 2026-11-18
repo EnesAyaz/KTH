@@ -522,3 +522,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Fix during the round: a regex removed the Gantt function; restored from the last commit.
 - Check: 20 slides plus all slider/device states fit at 1400x860, no console errors, no broken images; changed slides
   viewed in headless Edge renders. Republished as version 11.
+- **Enes (same day):** slide 2 layout figure as PCB; slide 10 total losses instead of W/kW; slide 12 delete "300 kW is
+  built from two parallel 150 kW blocks per leg". Done: timeline "layout done" shows the top render of the
+  double-pulse PCB (img/v1_pcb_top.jpg from r3d_dpt_top.png); benchmark in W at rated power: SiC prototype 1 2220 W
+  at 250 kW (measured), SiC prototype 2 903-2115 W at ~300 kW (from its 99.3-99.7 % map), SPB 865 W at 300 kW
+  (model); design step 1 sentence removed, step 4 no longer cites 150 kW blocks. Republished as version 12.
