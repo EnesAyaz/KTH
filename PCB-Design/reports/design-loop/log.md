@@ -530,3 +530,12 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - **Enes (comment, title paragraph):** "2kV and 1.7kV". Sentence now names the 2 kV and 1.7 kV SiC prototypes at a 1.2 kV DC link. Version 13.
 - **Enes:** delete the funding line on slide 20. Removed. Version 14.
 - **Enes:** slide 2, 1.2 kV study started May 2023, both SiC prototypes 2025. Timeline dates and year marks (2023/2025/2026/2027) updated. Version 15.
+- leader -> outside reviewer (fresh general-purpose agent, Opus; allowed to read only the 20 slide renders and
+  index.html): review errors, story, presentation for a 1 h industry status update.
+- reviewer -> leader: top issues: chosen design 92.9 V vs 90 V target while slide 13 says n = 4 "passes" at 0.5 nH;
+  no max-battery-voltage case (MCS 1250 V -> 78 V per cell); slide 10 compares measured inverters with a
+  semiconductor-only model (aux supplies missing); slide 19 "48 coils" vs 36-slot figure; no open-risks slide (cost,
+  FIT, EMC/CM, protection, balancing). Unreconciled: P2 365 W calorimetric loss vs 903-2115 W from its map; 68.8 °C
+  vs 18 W x 0.65 K/W; 55.5 vs 49.4 kW/L; 40-45 % vs 33 % cable saving; 0.41 vs 0.646 nH on slide 1; 99.70 vs
+  99.71 %; IGT65R025D2 vs IGLT65R025D2. Plus ~30 per-slide items (labels with raw underscores, overlaps, Gantt
+  runs past "twelve months", "FIGURE 8." caption). Waiting for Enes to pick what to fix.
