@@ -585,3 +585,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Checks: all 23 slides rendered in headless Edge at 1400x860 and viewed as contact sheets; overflow 0 (footer counted), 0 script errors. Artifact version 9.
 - **Enes:** move the SPB explanation (slide 8) early, to slide 3, since the audience may not know SPB. Done: "What SPB is" is now slide 3 (eyebrow "A · The concept"); agenda A "Project, timeline and the SPB idea" (8 min), C "Why SPB: device choice and cost" (7 min). Version 18.
 - **Enes:** slide 21, no machine design in the project; co-optimization and integration with the machine side. Plan item 2027, summary bullet and Gantt bar reworded. Version 19.
+- **Enes:** reword slide 19 the same way. Last bullet: no machine design in this project; the FEA example feeds the inverter-machine co-optimization. Version 20.
