@@ -491,3 +491,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - **Enes (comment, timeline label):** "2kV SiC Power Module". Labels now "Prototype 1: 2 kV SiC power module" and "Prototype 2: 1.7 kV SiC eTruck module". Version 6.
 - **Enes (comment, #tl):** do not mention the papers; project is not HEMIZERO (PowerizeD). Removed HEMIZERO everywhere (milestone, notes, funding), own-paper mentions (timeline, Publications slide deleted, notes, next steps); milestone renamed "GaN prototype v1 layout done". 16 slides, all fit at 1400x860, no timeline label overlap. Version 7.
 - **Enes (comment, timeline):** Nov 2026 milestone "Ordering and fabrication" instead of the two-terminal redraw. Done, version 8.
+- **Enes (comment, timeline detail):** "November 2026" instead of 26 Oct 2026; also roadmap stage text. Version 9.
