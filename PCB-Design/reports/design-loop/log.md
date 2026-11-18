@@ -539,3 +539,13 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   vs 18 W x 0.65 K/W; 55.5 vs 49.4 kW/L; 40-45 % vs 33 % cable saving; 0.41 vs 0.646 nH on slide 1; 99.70 vs
   99.71 %; IGT65R025D2 vs IGLT65R025D2. Plus ~30 per-slide items (labels with raw underscores, overlaps, Gantt
   runs past "twelve months", "FIGURE 8." caption). Waiting for Enes to pick what to fix.
+- **Enes:** fix the clear errors and visual issues from the review. Done (version 16): slide 1 loop KPI 0.65 / 0.41 nH;
+  slide 3 one basis (equal current density, 33 % less copper); slide 4 study labels, paper caption cropped from the
+  schematic; slide 5 wording; part name IGLT65R025D2 everywhere (datasheet in the ECCE sources); subscripts in all
+  chart and readout labels (no raw underscores); label overlaps on slides 7, 8, 14, 15; slide 11 chart without empty
+  band; slide 13 efficiency to one decimal; slide 15 shows only the active circuit, per-cell table moved right,
+  unreadable waveform image removed; slide 16 0.409 nH, spread 0.7 / 1.6 %, PCB top view instead of gate star;
+  slide 18 one NOW stage (order and assembly), default stage with a readable picture; slide 20 "Plan to the end of
+  2027". Open (Enes to decide): 92.9 V vs 90 V target, 1250 V max-voltage case, aux losses in the benchmark,
+  prototype-2 loss basis, 68.8 C thermal path, 36-slot vs 48 coils, open-risks slide.
+- Check: 20 slides and all slider/stage states fit, no console errors, no raw underscores; changed slides viewed.

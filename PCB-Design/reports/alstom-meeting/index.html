@@ -211,7 +211,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <div class="kpi"><b>2 SiC</b><span>two-level prototypes, 2 kV and 1.7 kV</span></div>
       <div class="kpi"><b>16 × 75 V</b><span>stacked cells, 100 V GaN</span></div>
       <div class="kpi"><b>4 × GaN</b><span>EPC2361 per switch</span></div>
-      <div class="kpi"><b>0.41 nH</b><span>power loop per cell (Q3D)</span></div>
+      <div class="kpi"><b>0.65 / 0.41 nH</b><span>loop per cell, double-pulse / load circuit (Q3D)</span></div>
       <div class="kpi"><b>Prototype v1</b><span>GaN double-pulse circuit in progress</span></div>
     </div>
     <div class="strip">
@@ -267,7 +267,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       </div>
       <ul class="clean small">
         <li>Same energy at 1200 V instead of 800 V: about 33 % less current and 56 % less I²R loss in the charging cable.</li>
-        <li>Or keep the loss and cut the copper: about 40–45 % less cable mass.</li>
+        <li>Or keep the current density and cut the copper: about 33 % less cable mass.</li>
         <li>Megawatt charging (MCS) allows up to 1250 V, so a 1.2 kV battery can use it fully.</li>
       </ul>
       <table class="t txt big">
@@ -299,13 +299,13 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
         <div class="kpi"><b>+11 %</b><span>inverter power density</span></div>
       </div>
       <table class="t big">
-        <thead><tr><th>800 V vs 1200 V, same power and thermal limits</th><th>Result</th></tr></thead>
+        <thead><tr><th>Design study: 800 V vs 1200 V, same power and thermal limits</th><th>Result</th></tr></thead>
         <tbody>
           <tr><td>Charging current</td><td>−33 %</td></tr>
           <tr><td>Charging-cable I²R loss</td><td>−56 %</td></tr>
-          <tr><td>Inverter efficiency (1.2 kV SiC vs 2 kV SiC)</td><td>≈ 99.2 % both</td></tr>
+          <tr><td>Inverter efficiency (800 V with 1.2 kV SiC, 1200 V with 2 kV SiC)</td><td>≈ 99.2 % both</td></tr>
           <tr><td>DC-link capacitor volume</td><td>3.5 → 3.0 L</td></tr>
-          <tr class="hl"><td>Inverter power density</td><td>50.0 → 55.5 kW/L (+11 %)</td></tr>
+          <tr class="hl"><td>Inverter power density (component sum, study)</td><td>50.0 → 55.5 kW/L (+11 %)</td></tr>
           <tr><td>Motor: series instead of parallel winding paths</td><td>same geometry</td></tr>
         </tbody>
       </table>
@@ -350,7 +350,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
         <div class="chartbox" style="height:130px"><svg class="chart" id="pdChart" viewBox="0 0 560 120" aria-label="Power density of the two prototypes"></svg></div>
       </div>
       <p class="small" id="protoTxt"></p>
-      <p class="tiny muted">Prototype 2: rated power estimated from 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
+      <p class="tiny muted">Prototype 2: rated power not stated in the source, ≈ 300 kW is 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
     </div>
   </div>
 </section>
@@ -513,7 +513,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
           <label for="lnN">Cells N (your choice)</label><input id="lnN" type="range" min="1" max="60" step="1" value="16"><output id="lnNo"></output>
         </div>
       </div>
-      <div class="chartbox" style="flex:1;min-height:250px"><svg class="chart" id="lnChart" viewBox="0 0 640 200" aria-label="Cell voltage at nominal and maximum line voltage against the device rating"></svg></div>
+      <div class="chartbox" style="flex:1;min-height:250px"><svg class="chart" id="lnChart" viewBox="0 0 640 280" aria-label="Cell voltage at nominal and maximum line voltage against the device rating" preserveAspectRatio="xMidYMid meet"></svg></div>
     </div>
     <div class="stack">
       <div class="readout" id="lnRo"></div>
@@ -592,18 +592,17 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <div class="seg" id="scSeg" role="group" aria-label="Circuit"><button aria-pressed="false" data-v="load">Load circuit · 0.41 nH</button><button aria-pressed="true" data-v="dpt">Double-pulse circuit · 0.65 nH</button></div>
       <div class="card"><div class="ctrl"><label for="rgS">Turn-on gate resistance R<sub>g,on</sub></label><input id="rgS" type="range" min="2.5" max="3.5" step="0.1" value="3.5"><output id="rgSo"></output></div></div>
       <div class="chartbox" style="flex:1;min-height:220px"><svg class="chart" id="scChart" viewBox="0 0 640 230" aria-label="Peak high-side drain voltage and turn-on energy against gate resistance"></svg></div>
-      <div id="scCells"></div>
     </div>
     <div class="stack">
       <div class="readout" id="scRo"></div>
       <p class="small" id="scTxt"></p>
+      <div id="scCells"></div>
       <ul class="clean small">
         <li>Four cells of one leg, 75 V, about 316 A load, with the Q3D power and gate networks of the real layout.</li>
         <li>The lumped gate model gives 90 V; the extracted network shows 93 V. The extraction matters for the margin.</li>
         <li>Double-pulse circuit: R<sub>g,on</sub> 2.5 → 3.5 Ω lowers the peak from 105 to 93 V and raises E<sub>on</sub> by 28 %. Chosen: 3.5 Ω with −1.9 V off-state bias.</li>
       </ul>
-      <div class="fig" style="flex:1;min-height:150px"><img src="img/sim_waves.png" alt="LTspice waveforms of the four cells: drain currents and voltages at turn-off, low-side current and high-side voltage at turn-on, and high-side drain voltage for the Q3D and lumped models."></div>
-      <p class="tiny muted">Waveforms: (a) turn-off, four cells; (b) turn-on; (c) high-side V<sub>DS</sub>, Q3D vs lumped models. Peak V<sub>DS</sub> at the high-side device; 90 V target, 100 V rating. Simulated at the end points of each slider range; values in between are interpolated linearly and marked as such.</p>
+      <p class="tiny muted">Peak V<sub>DS</sub> at the high-side device; 90 V target, 100 V rating. Simulated at the end points of each slider range; values in between are interpolated linearly and marked as such.</p>
     </div>
   </div>
 </section>
@@ -614,14 +613,14 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   <div class="body cols-3" style="grid-template-rows:auto auto 1fr">
     <div class="fig" style="height:400px"><img src="img/v1_dpt.png" alt="Double-pulse test circuit of prototype v1: four cells with shunts, ceramic capacitor bank, AC bar and two gate-driver areas."></div>
     <div class="fig" style="height:400px"><img src="img/v1_load.jpg" alt="Load circuit of prototype v1: the same leg with a heatsink over the transistors and the AC bar for continuous operation."></div>
-    <div class="fig" style="height:400px"><img src="img/gate_star.png" alt="Gate routing of one driver block: gate paths in a star from the driver to four transistors, Kelvin returns routed under them."></div>
+    <div class="fig" style="height:400px"><img src="img/v1_pcb_top.jpg" alt="Top view of the double-pulse circuit: capacitor bank, four cells with shunts, two gate drivers and the AC bar."></div>
     <p class="small"><b>Double-pulse circuit.</b> One leg: 4 × EPC2361 per switch, 2 drivers, a shunt in every cell, 1200 V isolation to the control side, 89.5 × 85.2 mm, 4 layers. <span class="chip now">in progress</span></p>
     <p class="small"><b>Load circuit.</b> The same leg with a heatsink over the transistors, for continuous operation at rated current. <span class="chip next">after double pulse</span></p>
-    <p class="small"><b>Gate drive.</b> One driver channel per pair, gate in a star, Kelvin return under each gate trace, so every transistor sees the same gate loop.</p>
+    <p class="small"><b>Top view and gate drive.</b> One driver channel per pair, gate in a star, Kelvin return under each gate trace, so every transistor sees the same gate loop.</p>
     <div class="readout" style="grid-column:1/-1;align-self:end">
       <div class="ro good"><b>0.646 nH</b><span>power loop per cell, double-pulse circuit (with shunt)</span></div>
-      <div class="ro good"><b>0.408 nH</b><span>power loop per cell, load circuit</span></div>
-      <div class="ro"><b>0.7 %</b><span>loop spread between the 4 cells</span></div>
+      <div class="ro good"><b>0.409 nH</b><span>power loop per cell, load circuit</span></div>
+      <div class="ro"><b>0.7 / 1.6 %</b><span>loop spread between the 4 cells, double-pulse / load</span></div>
       <div class="ro"><b>99.71 %</b><span>leg efficiency at 50 kHz (model)</span></div>
       <div class="ro"><b>0 / 0</b><span>DRC errors / silkscreen findings at release</span></div>
     </div>
@@ -697,7 +696,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
 
 <!-- 16 NEXT STEPS -->
 <section class="slide" id="s16" data-title="Next steps">
-  <div class="slide-head"><div><div class="eyebrow">F · Next steps</div><h2>Plan for the next twelve months</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">F · Next steps</div><h2>Plan to the end of 2027</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
       <h3>Plan</h3>
@@ -766,7 +765,13 @@ function fit(){const c=$("#canvas"); if(innerWidth<=820){c.style.transform="none
 window.addEventListener("resize",fit);
 
 /* ---------- tiny SVG chart kit ---------- */
-function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e}
+const SUBRE=/_([A-Za-z0-9()]+(?:,[A-Za-z0-9()]+)*)/;
+function subHtml(t){return String(t).replace(new RegExp(SUBRE.source,"g"),"<sub>$1</sub>")}
+function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);
+  if(text!=null){const t=String(text);if(tag==="text"&&SUBRE.test(t)){
+      let rest=t,m;while((m=SUBRE.exec(rest))){if(m.index)e.appendChild(document.createTextNode(rest.slice(0,m.index)));const sp=document.createElementNS(NS,"tspan");sp.setAttribute("baseline-shift","sub");sp.setAttribute("font-size","78%");sp.textContent=m[1];e.appendChild(sp);rest=rest.slice(m.index+m[0].length)}
+      if(rest)e.appendChild(document.createTextNode(rest))}else e.textContent=t}
+  if(parent)parent.appendChild(e);return e}
 function clear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild)}
 function axes(svg,o){
   const m=o.m||{l:52,r:14,t:12,b:34}, W=o.W, H=o.H;
@@ -786,7 +791,7 @@ function axes(svg,o){
 }
 function interp(xs,ys,x){if(x<=xs[0])return ys[0];for(let i=1;i<xs.length;i++)if(x<=xs[i])return ys[i-1]+(ys[i]-ys[i-1])*(x-xs[i-1])/(xs[i]-xs[i-1]);return ys[ys.length-1];}
 function path(pts,X,Y){return pts.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)).join("")}
-function ro(id,items){$(id).innerHTML=items.map(r=>`<div class="ro ${r.c||""}"><b>${r.v}</b><span>${r.l}</span></div>`).join("")}
+function ro(id,items){$(id).innerHTML=items.map(r=>`<div class="ro ${r.c||""}"><b>${r.v}</b><span>${subHtml(r.l)}</span></div>`).join("")}
 function bindRange(id,fmtf,cb){const i=$("#"+id),o=$("#"+id+"o");const f=()=>{if(o)o.textContent=fmtf(+i.value);cb()};i.addEventListener("input",f);if(o)o.textContent=fmtf(+i.value);}
 function seg(id,cb){const s=$("#"+id);s.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   [...s.children].forEach(x=>x.setAttribute("aria-pressed",x===b));cb(b.dataset.v)});return ()=>s.querySelector('[aria-pressed="true"]').dataset.v}
@@ -811,7 +816,7 @@ $("#tl").addEventListener("click",e=>{const b=e.target.closest("button[data-i]")
 
 /* ---------- slide 3: charging ---------- */
 function charging(){const P=+$("#chP").value,V=+$("#chV").value;const I=P*1000/V, I8=P*1000/800;
-  ro("#chRo",[{v:fmt(I,0)+" A",l:"charging current"},{v:fmt(100*(I/I8)**2,0)+" %",l:"cable I²R loss vs 800 V",c:V>800?"good":V<800?"bad":""},{v:fmt(100*(I/I8),0)+" %",l:"copper section for equal loss density vs 800 V"}]);}
+  ro("#chRo",[{v:fmt(I,0)+" A",l:"charging current"},{v:fmt(100*(I/I8)**2,0)+" %",l:"cable I²R loss vs 800 V",c:V>800?"good":V<800?"bad":""},{v:fmt(100*(I/I8),0)+" %",l:"copper section at equal current density vs 800 V"}]);}
 bindRange("chP",v=>v+" kW",charging);bindRange("chV",v=>v+" V",charging);
 
 /* ---------- slide 4b: two SiC prototypes ---------- */
@@ -821,7 +826,7 @@ const PROTO={
         ["inv","Inverter","img/b2b_inverter.jpg","Inverter with three 2 kV 62 mm modules, gate drives, film DC-link capacitors, current sensors and calorimetric sensors.","SiC inverter with 62 mm power modules, gate drives, DC-link capacitors and calorimetric sensors."],
         ["scope","Currents","img/b2b_scope.jpg","Measured phase currents (100 A/div) and a switch-node voltage (500 V/div).","Oscilloscope capture of three phase currents and one switch-node voltage."],
         ["map","Efficiency","img/p1_effmap.png","Measured efficiency over phase current and switching frequency at 1.2 kV: highest below 10 kHz.","Efficiency map of prototype 1 over phase current 50–200 A and switching frequency 7–19 kHz, between 98.4 and 99.6 percent."]]},
- p2:{col:2,txt:"Prototype 2 keeps the same bench and method but uses 1.7 kV automotive (eTruck) modules, a laminated copper busbar and a compact cold plate. The volume falls to 4.14 L: about 72 kW/L for the components and 50 kW/L for the box, about 2.4 times prototype 1 by box volume.",
+ p2:{col:2,txt:"Prototype 2 keeps the same bench and method but uses 1.7 kV automotive (eTruck) modules, a laminated copper busbar and a compact cold plate. The volume falls to 4.14 L: about 72 kW/L for the components and 50 kW/L for the box, about 2.4 times the box power density of prototype 1.",
   pics:[["cad","Design","img/p2_cad.jpg","CAD of the power stage: three half-bridge modules on one cold plate, laminated busbar to the film capacitor, gate-driver board on the module.","CAD model of prototype 2 with three half-bridge modules on a cold plate, a laminated copper busbar and a round film capacitor."],
         ["bench","Built","img/p2_bench.jpg","The two inverters of the back-to-back pair stacked in one frame, with the B-Box controller behind.","Photo of prototype 2: two inverters stacked in an aluminium frame with gate drivers, busbars and cables."],
         ["setup","On the bench","img/p2_setup.jpg","Prototype 2 on the calorimetric back-to-back bench with heat exchanger, supplies and interphase inductors.","Prototype 2 on the test bench next to the heat exchanger and power supplies, with an interphase inductor in front."],
@@ -868,14 +873,14 @@ bindRange("dfN",v=>v,dfom);
 let wsSel=0;
 function wsets(){const N=+$("#wsN").value;wsSel=Math.min(wsSel,N-1);const s=$("#wsSvg");clear(s);
   // stack on the left: cells bottom (0 V) to top (Vdc)
-  const x0=40,w=88,top=24,bot=300,h=(bot-top)/N;
+  const x0=44,w=84,top=24,bot=300,h=(bot-top)/N;
   el("text",{x:x0+w/2,y:top-8,"text-anchor":"middle",class:"ink"},s,"+1200 V");
   el("text",{x:x0+w/2,y:bot+16,"text-anchor":"middle",class:"ink"},s,"0 V");
   for(let i=0;i<N;i++){const y=bot-(i+1)*h, sel=i===wsSel;
     const g=el("g",{style:"cursor:pointer",role:"button","aria-label":"Cell "+(i+1)},s);g.onclick=()=>{wsSel=i;wsets()};
     el("rect",{x:x0,y:y+1,width:w,height:Math.max(h-2,2),rx:2,fill:sel?"var(--accent)":"var(--sunk)",stroke:"var(--accent)","stroke-width":1},g);
     if(h>=13)el("text",{x:x0+w/2,y:y+h/2+4,"text-anchor":"middle",fill:sel?"var(--accent-ink)":"var(--muted)",style:"font-size:"+Math.min(11,h-3)+"px"},g,"cell "+(i+1));}
-  el("text",{x:x0+w+8,y:bot-(wsSel+0.5)*h-6,class:"ink"},s,fmt(1200/N,1)+" V");
+  el("text",{x:x0-4,y:bot-(wsSel+0.5)*h+4,"text-anchor":"end",class:"ink"},s,fmt(1200/N,0)+" V");
   // stator: 3N coil groups, cell j phase k at angle (j + k N)/(3N)
   const cx=380,cy=165,R1=96,R2=140,M=3*N,PH=["var(--ch1)","var(--ch2)","var(--ch3)"];
   el("circle",{cx,cy,r:R2+6,fill:"none",stroke:"var(--line)","stroke-width":1},s);
@@ -915,17 +920,17 @@ function autoN(){const n=nMin();$("#lnN").value=Math.min(n,60);$("#lnNo").textCo
 function lines(){const L=LINES.find(l=>l[0]===gLine()),D=DEVS.find(d=>d[0]===gDev()),u=+$("#lnU").value/100,N=+$("#lnN").value;
   const vn=L[2]/N,vm=L[3]/N,nm=nMin();
   const s=$("#lnChart");clear(s);const top=Math.max(D[2]*1.25,vm*1.1);
-  const A=axes(s,{W:640,H:200,x0:0,x1:top,y0:0,y1:1,xt:[0,D[2]*0.25,D[2]*0.5,D[2]*0.75,D[2],...(top>D[2]*1.2?[D[2]*1.25]:[])].map(v=>+v.toFixed(0)),yt:[],m:{l:110,r:30,t:10,b:30},xl:"voltage per cell [V]"});
-  el("rect",{x:A.X(D[2]*u),y:10,width:A.X(D[2])-A.X(D[2]*u),height:160,fill:"var(--warn)","fill-opacity":.10},s);
-  el("rect",{x:A.X(D[2]),y:10,width:Math.max(A.X(top)-A.X(D[2]),0),height:160,fill:"var(--bad)","fill-opacity":.12},s);
-  el("line",{x1:A.X(D[2]),x2:A.X(D[2]),y1:10,y2:170,stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
+  const A=axes(s,{W:640,H:280,x0:0,x1:top,y0:0,y1:1,xt:[0,D[2]*0.25,D[2]*0.5,D[2]*0.75,D[2],...(top>D[2]*1.2?[D[2]*1.25]:[])].map(v=>+v.toFixed(0)),yt:[],m:{l:110,r:30,t:10,b:30},xl:"voltage per cell [V]"});
+  el("rect",{x:A.X(D[2]*u),y:10,width:A.X(D[2])-A.X(D[2]*u),height:240,fill:"var(--warn)","fill-opacity":.10},s);
+  el("rect",{x:A.X(D[2]),y:10,width:Math.max(A.X(top)-A.X(D[2]),0),height:240,fill:"var(--bad)","fill-opacity":.12},s);
+  el("line",{x1:A.X(D[2]),x2:A.X(D[2]),y1:10,y2:250,stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
   el("text",{x:A.X(D[2])-4,y:22,"text-anchor":"end",fill:"var(--bad)"},s,D[2]+" V rating");
-  el("text",{x:A.X(D[2]*u)-4,y:164,"text-anchor":"end",fill:"var(--warn)"},s,"use limit "+fmt(u*100,0)+" %");
-  [["nominal",vn,"var(--ch2)",50],["maximum",vm,"var(--ch3)",104]].forEach(r=>{
-    el("text",{x:102,y:r[3]+17,"text-anchor":"end",class:"ink"},s,r[0]);
+  el("text",{x:A.X(D[2]*u)-4,y:244,"text-anchor":"end",fill:"var(--warn)"},s,"use limit "+fmt(u*100,0)+" %");
+  [["nominal",vn,"var(--ch2)",70],["maximum",vm,"var(--ch3)",150]].forEach(r=>{
+    el("text",{x:102,y:r[3]+25,"text-anchor":"end",class:"ink"},s,r[0]);
     const c=r[1]>D[2]?"var(--bad)":r[1]>D[2]*u?"var(--warn)":r[2];
-    el("rect",{x:A.X(0),y:r[3],width:A.X(Math.min(r[1],top))-A.X(0),height:26,rx:2,fill:c,"fill-opacity":.85},s);
-    el("text",{x:A.X(Math.min(r[1],top))+5,y:r[3]+17,class:"ink"},s,fmt(r[1],0)+" V")});
+    el("rect",{x:A.X(0),y:r[3],width:A.X(Math.min(r[1],top))-A.X(0),height:40,rx:2,fill:c,"fill-opacity":.85},s);
+    el("text",{x:A.X(Math.min(r[1],top))+5,y:r[3]+25,class:"ink"},s,fmt(r[1],0)+" V")});
   const ok=vm<=D[2]*u;
   ro("#lnRo",[{v:nm,l:"minimum cells at this use limit"},{v:fmt(vm,0)+" V",l:"cell voltage at max. line ("+L[3]+" V)",c:vm>D[2]?"bad":ok?"good":"warn"},{v:6*N,l:"switch positions with N = "+N},{v:D[3],l:"example device, "+D[4]+" mΩ typ."}]);
   const u2=+$("#lnU").value/100;$("#lnTable tbody").innerHTML=LINES.map(l=>`<tr class="${l[0]===gLine()?"sel":""}"><td>${l[1]}</td>${DEVS.map(d=>`<td style="${d[0]===gDev()&&l[0]===gLine()?"font-weight:700":""}">${Math.ceil(l[3]/(d[2]*u2))}</td>`).join("")}</tr>`).join("");
@@ -948,12 +953,12 @@ $("#flow").addEventListener("click",e=>{const b=e.target.closest("button[data-i]
 /* ---------- slide 12: roadmap ---------- */
 const ROAD=[
  {img:"q3d_cells.jpg",s:"done",b:"Cell design",t:"Simulation",h:"Cell design and verification in simulation",d:["Voltage class, layout, paralleling and DC link chosen by the procedure.","Q3D, LTspice and thermal checks for every revision."]},
- {img:"v1_dpt.png",s:"now",b:"Double-pulse circuit",t:"prototype v1, in progress",h:"Prototype v1 double-pulse circuit",d:["Layout finished in November 2026 after independent reviews; now in ordering and fabrication.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
- {img:"gate_star.png",s:"now",b:"Order, assemble",t:"Nov–Dec 2026",h:"Order and assembly",d:["Board order with filled vias in the pads; assembly of the GaN devices.","In parallel: the test procedure and lab setup (differential probe, shunt read-out) are prepared."]},
+ {img:"v1_pcb_top.jpg",s:"done",b:"Double-pulse circuit",t:"prototype v1, layout done",h:"Prototype v1 double-pulse circuit",d:["Layout finished in November 2026 after independent reviews; now in ordering and fabrication.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
+ {img:"v1_dpt.png",s:"now",b:"Order, assemble",t:"Nov–Dec 2026",h:"Order and assembly",d:["Board order with filled vias in the pads; assembly of the GaN devices.","In parallel: the test procedure and lab setup (differential probe, shunt read-out) are prepared."]},
  {img:"sim_waves.png",s:"next",b:"Double pulse",t:"20 → 80 V",h:"Double-pulse tests",d:["Step the voltage from 20 to 80 V on the board's own DC link.","Measure turn-on and turn-off energy, current sharing between the four cells, gate overshoot; compare with the simulations."]},
  {img:"v1_load.jpg",s:"next",b:"Load circuit",t:"prototype v1, one leg",h:"Prototype v1 load circuit and busbar",d:["Frozen until the double-pulse results are in, so that what we learn goes into it.","Continuous operation of one leg at rated current, thermal measurement."]},
  {img:"level_iso.jpg",s:"next",b:"Cells in series",t:"three-phase, stacked",h:"Three-phase cell and stacked cells",d:["One full three-phase cell on a winding set, then two or more cells in series on a shared DC link.","Cell-voltage balancing and isolated gate supplies under real common-mode stress."]}];
-let roadSel=3;
+let roadSel=2;
 function road(){$("#road").innerHTML=ROAD.map((r,i)=>`<button class="stage ${r.s}" data-i="${i}" aria-pressed="${i===roadSel}"><span class="chip ${r.s}">${{done:"done",now:"now",next:"next"}[r.s]}</span><b>${r.b}</b><span>${r.t}</span></button>`).join("");
   const r=ROAD[roadSel];$("#roadDetail").innerHTML=`<div class="stack" style="gap:8px"><div class="eyebrow">Stage ${roadSel+1} of 6</div><h3 style="font-size:19px">${r.h}</h3><ul class="clean small">${r.d.map(x=>"<li>"+x+"</li>").join("")}</ul></div><div class="fig"><img src="img/${r.img}" alt="${r.h}"></div>`;}
 $("#road").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){roadSel=+b.dataset.i;road()}});
@@ -992,12 +997,12 @@ function npar(){const n=+$("#npN").value;$("#npNo").textContent=n;const d=NPAR[n
     el("rect",{x:x-6,y:14,width:bw+12,height:A.Y(0)-14,fill:"transparent",stroke:sel?"var(--teal)":"none","stroke-width":2,rx:4},g);
     el("text",{x:A.X(p.n),y:A.Y(Math.min(p.tot,top))-5,"text-anchor":"middle",class:sel?"ink":""},s,fmt(p.tot,1));
     el("text",{x:A.X(p.n),y:A.Y(0)+15,"text-anchor":"middle",class:"ink"},s,"n = "+p.n);
-    el("text",{x:A.X(p.n),y:A.Y(0)+29,"text-anchor":"middle"},s,fmt(100*p.eta,2)+" %");
+    el("text",{x:A.X(p.n),y:A.Y(0)+29,"text-anchor":"middle"},s,fmt(100*p.eta,1)+" %");
     [[p.tj,125,"°C",56],[p.vpk,90,"V",80]].forEach(r=>{const ok=r[0]<=r[1];const yy=A.Y(0)+r[3];
       el("rect",{x:A.X(p.n)-30,y:yy-12,width:60,height:17,rx:8,fill:ok?"var(--good)":"var(--bad)","fill-opacity":sel?.22:.1,stroke:ok?"var(--good)":"var(--bad)","stroke-width":sel?1.5:.8},s);
       el("text",{x:A.X(p.n),y:yy+1,"text-anchor":"middle",fill:ok?"var(--good)":"var(--bad)"},s,(ok?"✓ ":"✗ ")+(r[0]>=200?">150":fmt(r[0],0))+" "+r[2])})});
   el("text",{x:6,y:A.Y(0)+60},s,"T_j");el("text",{x:6,y:A.Y(0)+84},s,"V_DS");
-  ro("#npRo",[{v:fmt(d.tot,1)+" W",l:"leg loss"},{v:fmt(100*d.eta,2)+" %",l:"leg efficiency"},{v:(d.tj>=200?"> 150":fmt(d.tj,0))+" °C",l:"junction, 40 °C ambient",c:d.tj<=125?"good":"bad"},
+  ro("#npRo",[{v:fmt(d.tot,1)+" W",l:"leg loss"},{v:fmt(100*d.eta,1)+" %",l:"leg efficiency"},{v:(d.tj>=200?"> 150":fmt(d.tj,0))+" °C",l:"junction, 40 °C ambient",c:d.tj<=125?"good":"bad"},
     {v:fmt(d.vpk,0)+" V",l:"peak V_DS at 0.5 nH",c:d.vpk<=90?"good":"bad"},{v:fmt(d.pdev,2)+" W",l:"loss per device"},{v:2*n,l:"transistors per leg"}]);
   const v=$("#npVds");clear(v);const B=axes(v,{W:520,H:180,x0:0,x1:330,y0:60,y1:300,xt:[0,80,160,240,320],yt:[60,100,140,180,220,260,300],m:{l:40,r:10,t:8,b:30},xl:"current per device [A]"});
   el("line",{x1:B.X(0),x2:B.X(330),y1:B.Y(90),y2:B.Y(90),stroke:"var(--bad)","stroke-dasharray":"5 3"},v);el("text",{x:B.X(326),y:B.Y(90)-5,"text-anchor":"end",fill:"var(--bad)"},v,"90 V");
@@ -1011,7 +1016,7 @@ bindRange("npN",v=>v,npar);
 const gLp=seg("lpSeg",()=>loops());
 function loops(){const m=gLp();const s=$("#lpChart");clear(s);
   const A=axes(s,{W:560,H:190,x0:0,x1:4,y0:0,y1:0.8,yt:[0,0.2,0.4,0.6,0.8],xt:[],m:{l:44,r:10,t:10,b:26},yl:"nH per cell"});
-  el("line",{x1:A.X(0),x2:A.X(4),y1:A.Y(0.5),y2:A.Y(0.5),stroke:"var(--good)","stroke-dasharray":"5 3"},s);el("text",{x:A.X(3.98),y:A.Y(0.5)-5,"text-anchor":"end",fill:"var(--good)"},s,"0.5 nH design");
+  el("line",{x1:A.X(0),x2:A.X(4),y1:A.Y(0.5),y2:A.Y(0.5),stroke:"var(--good)","stroke-dasharray":"5 3"},s);el("text",{x:A.X(3.98),y:12,"text-anchor":"end",fill:"var(--good)"},s,"‒ ‒ 0.5 nH design value");
   const bw=(A.X(1)-A.X(0))*0.3;
   for(let c=0;c<4;c++){[["dpt","var(--ch3)",-1],["load","var(--ch2)",1]].forEach(b=>{const on=m==="both"||m===b[0];const v=LOOPC[b[0]][c];
       const x=A.X(c+0.5)+(b[2]<0?-bw-3:3);el("rect",{x:x,y:A.Y(v),width:bw,height:A.Y(0)-A.Y(v),fill:b[1],"fill-opacity":on?.9:.15},s);
@@ -1030,37 +1035,37 @@ const RGC={load:{pts:[SIMC[0],SIMC[1]],lo:2.0,hi:3.0},dpt:{pts:[SIMC[3],SIMC[4]]
 const gSc=seg("scSeg",v=>{const c=RGC[v];const r=$("#rgS");r.min=c.lo;r.max=c.hi;r.value=c.hi;$("#rgSo").textContent=fmt(c.hi,1)+" Ω";sims()});
 function sims(){const k=gSc(),C=RGC[k],R=+$("#rgS").value,a=C.pts[0],b=C.pts[1];
   const t=(R-a.rg)/(b.rg-a.rg),L=(x,y)=>x+(y-x)*t;const vh=L(a.vh,b.vh),eon=L(a.eon,b.eon),sim=Math.abs(t)<1e-6||Math.abs(t-1)<1e-6,c=sim?(t<0.5?a:b):null;
-  const s=$("#scChart");clear(s);const A=axes(s,{W:640,H:230,x0:1.8,x1:3.7,y0:80,y1:110,xt:[2,2.5,3,3.5],yt:[80,85,90,95,100,105,110],m:{l:44,r:52,t:8,b:30},xl:"R_g,on [Ω]",yl:"peak V_DS,HS [V]"});
-  const Ye=v=>A.Y(80+(v-90)/(140-90)*30);[90,100,110,120,130,140].forEach(v=>el("text",{x:598,y:Ye(v)+4},s,v));el("text",{x:636,y:14,"text-anchor":"end",fill:"var(--ch1)"},s,"E_on [µJ]");
+  const s=$("#scChart");clear(s);const A=axes(s,{W:640,H:230,x0:1.8,x1:3.7,y0:80,y1:110,xt:[2,2.5,3,3.5],yt:[80,85,90,95,100,105,110],m:{l:44,r:52,t:22,b:30},xl:"R_g,on [Ω]",yl:"peak V_DS,HS [V]"});
+  const Ye=v=>A.Y(80+(v-90)/(140-90)*30);[90,100,110,120,130,140].forEach(v=>el("text",{x:598,y:Ye(v)+4},s,v));el("text",{x:636,y:10,"text-anchor":"end",fill:"var(--ch1)"},s,"‒ ‒ E_on [µJ]");el("text",{x:44,y:10,fill:"var(--teal)"},s,"— peak V_DS,HS [V]");
   el("line",{x1:A.X(1.8),x2:A.X(3.7),y1:A.Y(90),y2:A.Y(90),stroke:"var(--warn)","stroke-dasharray":"5 3"},s);el("line",{x1:A.X(1.8),x2:A.X(3.7),y1:A.Y(100),y2:A.Y(100),stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
   el("text",{x:A.X(1.82),y:A.Y(100)-4,fill:"var(--bad)"},s,"100 V rating");el("text",{x:A.X(1.82),y:A.Y(90)-4,fill:"var(--warn)"},s,"90 V target");
-  Object.entries(RGC).forEach(([kk,cc])=>{const on=kk===k,p=cc.pts;
+  Object.entries(RGC).filter(([kk])=>kk===k).forEach(([kk,cc])=>{const on=true,p=cc.pts;
     el("path",{d:path(p.map(q=>[q.rg,q.vh]),A.X,A.Y),fill:"none",stroke:"var(--teal)","stroke-width":on?2.6:1.2,"stroke-opacity":on?1:.35},s);
     el("path",{d:p.map((q,i)=>(i?"L":"M")+A.X(q.rg).toFixed(1)+" "+Ye(q.eon).toFixed(1)).join(""),fill:"none",stroke:"var(--ch1)","stroke-width":on?2.6:1.2,"stroke-opacity":on?1:.35,"stroke-dasharray":"6 3"},s);
     p.forEach(q=>{el("circle",{cx:A.X(q.rg),cy:A.Y(q.vh),r:on?5:3,fill:"var(--teal)","fill-opacity":on?1:.4},s);el("circle",{cx:A.X(q.rg),cy:Ye(q.eon),r:on?5:3,fill:"var(--ch1)","fill-opacity":on?1:.4},s)});
-    el("text",{x:A.X(p[0].rg)-6,y:A.Y(p[0].vh)+(kk==="dpt"?-8:16),"text-anchor":"end",fill:"var(--teal)","fill-opacity":on?1:.5},s,kk==="dpt"?"double pulse":"load")});
-  const lp=SIMC[2];el("rect",{x:A.X(lp.rg)-5,y:A.Y(lp.vh)-5,width:10,height:10,fill:"none",stroke:"var(--muted)","stroke-width":1.5},s);el("text",{x:A.X(lp.rg)+9,y:A.Y(lp.vh)+4},s,"lumped gate model");
+    });
+  const lp=SIMC[2];if(k==="dpt")el("rect",{x:A.X(lp.rg)-5,y:A.Y(lp.vh)-5,width:10,height:10,fill:"none",stroke:"var(--muted)","stroke-width":1.5},s);if(k==="dpt")el("text",{x:A.X(lp.rg)-9,y:A.Y(lp.vh)+18,"text-anchor":"end"},s,"lumped gate model");
   el("circle",{cx:A.X(R),cy:A.Y(vh),r:8,fill:sim?"var(--teal)":"var(--panel)",stroke:"var(--ink)","stroke-width":2},s);
   el("line",{x1:A.X(R),x2:A.X(R),y1:8,y2:200,stroke:"var(--accent)","stroke-width":1},s);
   ro("#scRo",[{v:fmt(vh,1)+" V",l:"peak high-side V_DS"+(sim?"":" (interpolated)"),c:vh>100?"bad":vh>90?"warn":"good"},{v:fmt(100-vh,1)+" V",l:"margin to the 100 V rating"},{v:fmt(eon,1)+" µJ",l:"E_on, four cells"+(sim?"":" (interpolated)")},
     {v:sim?fmt(c.sEon,2)+" %":"–",l:"E_on spread between cells"},{v:sim?fmt(c.sOff,2)+" %":"–",l:"turn-off current spread"},{v:fmt(a.loop,3)+" nH",l:"loop per cell in the model"}]);
   $("#scTxt").textContent=sim?c.note.replace("R_g,on","Rg,on"):"Interpolated between the two simulated settings. Move to an end of the slider for the simulated per-cell results.";
   $("#scCells").innerHTML=sim&&c.cells?`<table class="t cells"><thead><tr><th>per cell, R<sub>g,on</sub> = ${c.rg} Ω</th><th>cell 1</th><th>cell 2</th><th>cell 3</th><th>cell 4</th></tr></thead><tbody>`+
-    [["E_on [µJ]","eon"],["I_off [A]","ioff"],["peak V_DS,HS [V]","vh"],["di/dt on [A/ns]","didt"]].map(r=>`<tr><td>${r[0]}</td>${c.cells.map(x=>`<td>${fmt(x[r[1]],1)}</td>`).join("")}</tr>`).join("")+`</tbody></table>`
+    [["E_on [µJ]","eon"],["I_off [A]","ioff"],["peak V_DS,HS [V]","vh"],["di/dt on [A/ns]","didt"]].map(r=>`<tr><td>${subHtml(r[0])}</td>${c.cells.map(x=>`<td>${fmt(x[r[1]],1)}</td>`).join("")}</tr>`).join("")+`</tbody></table>`
     :`<p class="small muted">${sim?"Per-cell values are not stored for this setting.":"Per-cell values exist only at the simulated settings."}</p>`;}
 bindRange("rgS",v=>fmt(v,1)+" Ω",sims);
 
 
 /* ---------- device choice ---------- */
-const DVS=[["EPC2361",100,0.75,1800,"E"],["EPC2302",100,1.4,1700,"E"],["EPC2071",100,1.7,1420,"E"],["IGC033S10S1",100,2.4,860,"I"],["EPC2304",200,3.5,1200,"E"],["EPC2215",200,6,690,"E"],["EPC2034C",200,6,960,"E"],["EPC2050",350,55,125,"E"],["IGT65R025D2",650,25,205,"I"],["IGT65R140D2",650,140,35,"I"]];
+const DVS=[["EPC2361",100,0.75,1800,"E"],["EPC2302",100,1.4,1700,"E"],["EPC2071",100,1.7,1420,"E"],["IGC033S10S1",100,2.4,860,"I"],["EPC2304",200,3.5,1200,"E"],["EPC2215",200,6,690,"E"],["EPC2034C",200,6,960,"E"],["EPC2050",350,55,125,"E"],["IGLT65R025D2",650,25,205,"I"],["IGT65R140D2",650,140,35,"I"]];
 const DVC={100:"var(--ch2)",200:"var(--ch1)",350:"var(--ch4)",650:"var(--ch3)"};const TAU1=0.75*1800/1000;let dvSel="EPC2361";
 function devs(){const s=$("#dvChart");clear(s);
   const A=axes(s,{W:640,H:420,x0:20,x1:4000,y0:0.4,y1:300,logx:1,logy:1,xt:[20,50,100,200,500,1000,2000],yt:[0.5,1,2,5,10,20,50,100,200],m:{l:52,r:14,t:12,b:38},xl:"C_oss,tr = Q_oss/V  [pF]",yl:"R_DS(on) typ. [mΩ]"});
   [1,2,5,10].forEach(t=>{const pts=[];for(let lc=Math.log10(20);lc<=Math.log10(4000)+1e-9;lc+=0.05){const c=10**lc,r=t*1000/c;if(r>=0.4&&r<=300)pts.push([c,r])}
-    el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--line)","stroke-dasharray":"4 4"},s);const q=pts[Math.floor(pts.length*0.1)];el("text",{x:A.X(q[0])+4,y:A.Y(q[1])-4},s,"τ = "+t+" ps")});
+    el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--line)","stroke-dasharray":"4 4"},s);const q=pts[Math.floor(pts.length*0.52)];el("text",{x:A.X(q[0])+4,y:A.Y(q[1])-4},s,"τ = "+t+" ps")});
   DVS.forEach(d=>{const x=A.X(d[3]),y=A.Y(d[2]),sel=d[0]===dvSel;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{dvSel=d[0];devs()};
     if(d[4]==="I")el("rect",{x:x-7,y:y-7,width:14,height:14,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);else el("circle",{cx:x,cy:y,r:7.5,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);
-    el("text",{x:x+10,y:y+4,class:sel?"ink":""},g,d[0])});
+    const left=d[0]==="EPC2215";el("text",{x:left?x-10:x+10,y:y+4,"text-anchor":left?"end":"start",class:sel?"ink":""},g,d[0])});
   const d=DVS.find(x=>x[0]===dvSel),tau=d[2]*d[3]/1000,N=Math.ceil(1200/(0.75*d[1]));
   ro("#dvRo",[{v:fmt(tau,2)+" ps",l:"D-FoM τ of "+d[0]},{v:fmt(Math.sqrt(tau/TAU1),2)+"×",l:"min. semiconductor loss vs EPC2361",c:d[0]==="EPC2361"?"good":tau/TAU1<2?"warn":"bad"},{v:N,l:"cells for 1200 V"},{v:fmt(1200/N,0)+" V",l:"voltage per cell"}]);
   $("#dvTable tbody").innerHTML=DVS.slice().sort((a,b)=>a[2]*a[3]-b[2]*b[3]).map(x=>{const t=x[2]*x[3]/1000;return `<tr data-d="${x[0]}" class="${x[0]===dvSel?"sel":""}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td>${fmt(t,2)}</td><td>${fmt(Math.sqrt(t/TAU1),2)}×</td><td>${Math.ceil(1200/(0.75*x[1]))}</td></tr>`}).join("");}
