@@ -615,3 +615,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   (290 places). Board printing ("SPB LEG REV B ...", "DESIGNED BY CLAUDE") painted out of v1_dpt, v1_load,
   v1_pcb_top (originals unchanged in git history). Single file rebuilt.
 - Check: 21 slides plus all click states fit at 1400x860, no console errors, no broken images; painted regions viewed.
+- **Enes:** D-FoM figure labels overlap (slide 7). Slide 7: "two-level 1200 V" label moved off the SiC line. Slide 8: tau labels moved to the left end of their lines (5 ps above), EPC2071/EPC2302 labels separated. Viewed in renders. Version 24, single file rebuilt.

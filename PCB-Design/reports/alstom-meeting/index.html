@@ -883,7 +883,7 @@ function dfom(){const N=+$("#dfN").value;$("#dfNo").textContent=N;
   Object.keys(FIT).forEach(t=>{const a=FIT[t],pts=[];for(let lu=Math.log10(a[4]);lu<=Math.log10(Math.min(a[5],5000))+1e-9;lu+=0.02){const U=10**lu,v=rc(t,U);if(v>=40&&v<=220)pts.push([U,v])}
     if(pts.length>1){el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:a[6],"stroke-width":2.4},s);const p=pts[pts.length-1];el("text",{x:A.X(p[0])+5,y:A.Y(p[1])+4,fill:a[6]},s,t)}});
   el("circle",{cx:A.X(1700),cy:A.Y(REF),r:7,fill:"var(--panel)",stroke:"var(--ch3)","stroke-width":2.5},s);
-  el("text",{x:A.X(1700)-10,y:A.Y(REF)-12,"text-anchor":"middle",class:"ink"},s,"two-level 1200 V");
+  el("text",{x:A.X(1700)+12,y:A.Y(REF)+20,"text-anchor":"start",class:"ink"},s,"two-level 1200 V");
   const v=rc(cl[1],cl[0]);el("circle",{cx:A.X(cl[0]),cy:A.Y(v),r:8,fill:"var(--accent)",stroke:"var(--ink)","stroke-width":1.5},s);
   el("text",{x:A.X(cl[0])+12,y:A.Y(v)+18,class:"ink"},s,"SPB, N = "+N);
   const rel=v/REF;
@@ -1088,10 +1088,10 @@ const DVC={100:"var(--ch2)",200:"var(--ch1)",350:"var(--ch4)",650:"var(--ch3)"};
 function devs(){const s=$("#dvChart");clear(s);
   const A=axes(s,{W:640,H:420,x0:20,x1:4000,y0:0.4,y1:300,logx:1,logy:1,xt:[20,50,100,200,500,1000,2000],yt:[0.5,1,2,5,10,20,50,100,200],m:{l:52,r:14,t:12,b:38},xl:"C_oss,tr = Q_oss/V  [pF]",yl:"R_DS(on) typ. [mΩ]"});
   [1,2,5,10].forEach(t=>{const pts=[];for(let lc=Math.log10(20);lc<=Math.log10(4000)+1e-9;lc+=0.05){const c=10**lc,r=t*1000/c;if(r>=0.4&&r<=300)pts.push([c,r])}
-    el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--line)","stroke-dasharray":"4 4"},s);const q=pts[Math.floor(pts.length*0.52)];el("text",{x:A.X(q[0])+4,y:A.Y(q[1])-4},s,"τ = "+t+" ps")});
+    el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--line)","stroke-dasharray":"4 4"},s);const lc={1:22,2:22,5:22,10:48}[t],q=[lc,t*1000/lc];el("text",{x:A.X(q[0])+4,y:A.Y(q[1])+(t===5?-6:13)},s,"τ = "+t+" ps")});
   DVS.forEach(d=>{const x=A.X(d[3]),y=A.Y(d[2]),sel=d[0]===dvSel;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{dvSel=d[0];devs()};
     if(d[4]==="I")el("rect",{x:x-7,y:y-7,width:14,height:14,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);else el("circle",{cx:x,cy:y,r:7.5,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);
-    const left=d[0]==="EPC2215";el("text",{x:left?x-10:x+10,y:y+4,"text-anchor":left?"end":"start",class:sel?"ink":""},g,d[0])});
+    const left=d[0]==="EPC2215",dy={EPC2071:-3,EPC2302:13}[d[0]]||4;el("text",{x:left?x-10:x+10,y:y+dy,"text-anchor":left?"end":"start",class:sel?"ink":""},g,d[0])});
   const d=DVS.find(x=>x[0]===dvSel),tau=d[2]*d[3]/1000,N=Math.ceil(1200/(0.75*d[1]));
   ro("#dvRo",[{v:fmt(tau,2)+" ps",l:"D-FoM τ of "+d[0]},{v:fmt(Math.sqrt(tau/TAU1),2)+"×",l:"min. semiconductor loss vs EPC2361",c:d[0]==="EPC2361"?"good":tau/TAU1<2?"warn":"bad"},{v:N,l:"cells for 1200 V"},{v:fmt(1200/N,0)+" V",l:"voltage per cell"}]);
   $("#dvTable tbody").innerHTML=DVS.slice().sort((a,b)=>a[2]*a[3]-b[2]*b[3]).map(x=>{const t=x[2]*x[3]/1000;return `<tr data-d="${x[0]}" class="${x[0]===dvSel?"sel":""}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td>${fmt(t,2)}</td><td>${fmt(Math.sqrt(t/TAU1),2)}×</td><td>${Math.ceil(1200/(0.75*x[1]))}</td></tr>`}).join("");}
