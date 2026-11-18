@@ -575,3 +575,11 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - agenda: A 10, B 8, C 8, D 20, E 14 min (E starts at slide 21); slide references renumbered.
   - fix during the round: the slide-6 rewrite removed the model-section JS; restored from 6acbdd78 and re-checked.
 - Checks: headless Edge 1400x860, 23 slides overflow 0, 0 script errors; title, slides 6, 13, 21 viewed. Artifact version 8.
+
+### 2026-11-18 - Infineon deck v8: SiC rows on slide 2, less empty space
+- Enes: "slide 2, put our 2 kV SiC and eTruck powers and DC-link voltage in the table; do not put too much blank space in the slides".
+- Leader (no agents):
+  - slide 2 table: KTH SiC inverter 2 kV modules 1.2 kV / 250 kW and 1.7 kV eTruck modules 1.2 kV / ~300 kW (DC link and power only, no efficiency).
+  - deck-wide type for the 1280x720 canvas: side text 13 -> 15 px, tables 12.5 -> 14 px (big tables 15 px), readouts 20 -> 22 px, questions 12.6 -> 16.5 px, flow steps larger.
+  - per slide: radar chart 300 -> 400 px (2); loss chart taller (6); third column with DC link and verification on the procedure slide (7); renders 280 -> 400 px (9); sink bar and energy chart taller (17); 200 V chart takes the left column with controls moved right (19); both charts on the frequency slide 240/220 -> 330 px (20).
+- Checks: all 23 slides rendered in headless Edge at 1400x860 and viewed as contact sheets; overflow 0 (footer counted), 0 script errors. Artifact version 9.

@@ -30,12 +30,12 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
 *{box-sizing:border-box}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
 h2{font-size:32px;font-weight:700;line-height:1.1}
-h3{font-size:16px;font-weight:600}
+h3{font-size:17px;font-weight:600}
 p{margin:0}
 .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 .muted{color:var(--muted)}
-.small{font-size:13px}
-.tiny{font-size:11.5px}
+.small{font-size:15px;line-height:1.45}
+.tiny{font-size:12.5px}
 
 #stage{position:fixed;inset:0;padding-block:12px 64px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -91,7 +91,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 #counter{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:52px;text-align:center}
 
 .fig.photo{padding:0;background:var(--sunk)}
-#reqTable th,#reqTable td{text-align:left;vertical-align:top} #reqTable td{padding:7px 10px;font-size:13.5px}
+#reqTable th,#reqTable td{text-align:left;vertical-align:top} #reqTable td{padding:8px 10px;font-size:15px}
 .card{background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:12px 16px;min-width:0}
 /* figures: fixed boxes so a picture can never push past the slide */
 .fig{background:var(--plate);border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px}
@@ -100,7 +100,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .kpi{border-top:2px solid var(--accent);padding-top:6px}
 .kpi b{display:block;font:600 24px var(--f-display);font-variant-numeric:tabular-nums}
 .kpi span{font-size:12px;color:var(--muted)}
-ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 ul.clean li::marker{color:var(--accent)}
 .ctrl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 10px;font-size:13px}
 .ctrl label{color:var(--muted);white-space:nowrap}
@@ -112,28 +112,29 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
 .ro{border-left:3px solid var(--line);padding:2px 0 2px 10px}
-.ro b{display:block;font:600 20px var(--f-mono);font-variant-numeric:tabular-nums}
-.ro span{font-size:11.5px;color:var(--muted)}
+.ro b{display:block;font:600 22px var(--f-mono);font-variant-numeric:tabular-nums}
+.ro span{font-size:12.5px;color:var(--muted)}
 .ro.good{border-color:var(--good)} .ro.warn{border-color:var(--warn)} .ro.bad{border-color:var(--bad)}
-.ask{border:1px dashed var(--accent);border-radius:5px;padding:9px 14px;font-size:13.5px}
+.ask{border:1px dashed var(--accent);border-radius:5px;padding:10px 14px;font-size:14.5px}
 .ask b{color:var(--accent);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
 svg.chart{width:100%;height:100%;display:block;overflow:visible}
 svg text{fill:var(--muted);font-family:var(--f-mono);font-size:11px}
 svg .ink{fill:var(--ink)}
 .chartbox{min-height:0;position:relative}
-table.t{border-collapse:collapse;width:100%;font-size:12.5px}
-table.t th,table.t td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
+table.t{border-collapse:collapse;width:100%;font-size:14px}
+table.t.big td{padding:9px 10px;font-size:15px}
+table.t th,table.t td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
 table.t th:first-child,table.t td:first-child{text-align:left}
-table.t th{font-weight:600;color:var(--muted);font-size:11.5px}
+table.t th{font-weight:600;color:var(--muted);font-size:12.5px}
 table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 table.t.click tbody tr{cursor:pointer}
 table.t.txt td{text-align:left}
 table.t tr.hl td{background:var(--sunk);font-weight:600}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
-.qgroup h3{font-size:14px;margin-bottom:6px;color:var(--accent)}
-.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
-.qlist label{display:grid;grid-template-columns:18px 1fr;gap:6px;font-size:12.6px;line-height:1.35;cursor:pointer}
+.qgroup h3{font-size:19px;margin-bottom:12px;color:var(--accent)}
+.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.qlist label{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:16.5px;line-height:1.4;cursor:pointer}
 .qlist input{margin:2px 0 0;accent-color:var(--accent)}
 .qlist input:checked + span{color:var(--muted);text-decoration:line-through}
 .title-slide{justify-content:space-between}
@@ -143,10 +144,10 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 .agenda button::before{content:counter(a,upper-alpha) " · " attr(data-min);display:block;font:500 12px var(--f-mono);color:var(--accent)}
 .agenda button:hover,.agenda button:focus-visible{border-color:var(--accent)}
 .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.step{background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
-.step b{font:600 14px var(--f-display)}
-.step .k{font:500 11px var(--f-mono);color:var(--accent);letter-spacing:.06em}
-.step span{font-size:12px;color:var(--muted)}
+.step{background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:14px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.step b{font:600 15.5px var(--f-display)}
+.step .k{font:500 12px var(--f-mono);color:var(--accent);letter-spacing:.06em}
+.step span{font-size:13.5px;color:var(--muted)}
 .step.inf{border-color:var(--accent)}
 .tag{font:600 10.5px var(--f-mono);color:var(--accent);letter-spacing:.06em}
 
@@ -211,7 +212,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">A · Why SPB</div><h2>Traction is moving to higher DC-link voltage</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <div class="fig" style="height:300px"><img src="img/hv_tradeoffs.png" alt="Radar chart comparing high-voltage and low-voltage traction architectures: high voltage wins on motor power density, charging speed, capacitor volume, conduction loss and cable weight; low voltage wins on semiconductor voltage, insulation stress, EMI, switching loss and BMS simplicity."></div>
+      <div class="fig" style="height:400px"><img src="img/hv_tradeoffs.png" alt="Radar chart comparing high-voltage and low-voltage traction architectures: high voltage wins on motor power density, charging speed, capacitor volume, conduction loss and cable weight; low voltage wins on semiconductor voltage, insulation stress, EMI, switching loss and BMS simplicity."></div>
       <p class="small muted">High voltage helps the vehicle (charging, cables, motor). It hurts the semiconductors: higher blocking voltage, higher switching loss, more insulation stress. SPB tries to keep both sides of this chart.</p>
     </div>
     <div class="stack">
@@ -223,13 +224,15 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         </div>
         <div class="readout" id="chRo"></div>
       </div>
-      <table class="t txt">
+      <table class="t txt big">
         <thead><tr><th>Example</th><th>DC link</th><th>Power</th></tr></thead>
         <tbody>
           <tr><td>Infineon eCAV platform</td><td>800 V</td><td>250 kW</td></tr>
           <tr><td>TI / Wolfspeed reference design</td><td>800 V</td><td>300 kW</td></tr>
           <tr><td>Porsche Taycan Turbo S</td><td>800 V class</td><td>700 kW (launch)</td></tr>
           <tr><td>Lucid Air Dream Performance</td><td>924 V</td><td>828 kW</td></tr>
+          <tr class="hl"><td>KTH SiC inverter, 2 kV modules</td><td>1.2 kV</td><td>250 kW</td></tr>
+          <tr class="hl"><td>KTH SiC inverter, 1.7 kV eTruck modules</td><td>1.2 kV</td><td>≈ 300 kW</td></tr>
         </tbody>
       </table>
       <p class="tiny muted">Megawatt Charging System up to 1250 V. Our 1.2 kV study: 56 % less cable conduction loss or 33 % less cable mass than 800 V for heavy-duty charging.</p>
@@ -247,14 +250,14 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <p class="tiny muted">Empirical device fits from Azurza Anderson et al., IEEE OJPEL 2020: R<sub>on,sp</sub> = k<sub>R</sub>U<sub>B</sub><sup>α<sub>R</sub></sup>, C<sub>oss,Q,sp</sub> = k<sub>C</sub>U<sub>B</sub><sup>α<sub>C</sub></sup>. The R·C product does not depend on die area.</p>
     </div>
     <div class="stack">
-      <p class="small">For a converter with N stacked cells, the minimum semiconductor loss scales with V<sub>dc</sub>·√(R<sub>on,sp</sub>C<sub>oss,sp</sub>) of the device class each cell needs. Split the 1200 V link and see which class you land in:</p>
+      <p>For a converter with N stacked cells, the minimum semiconductor loss scales with V<sub>dc</sub>·√(R<sub>on,sp</sub>C<sub>oss,sp</sub>) of the device class each cell needs. Split the 1200 V link and see which class you land in:</p>
       <div class="card stack" style="gap:8px">
         <div class="ctrl">
           <label for="dfN">Cells N</label><input id="dfN" type="range" min="1" max="24" step="1" value="16"><output id="dfNo"></output>
         </div>
         <div class="readout" id="dfRo"></div>
       </div>
-      <ul class="clean small">
+      <ul class="clean">
         <li>Two-level 1200 V needs 1700–2000 V SiC.</li>
         <li>Within each technology, lower blocking voltage gives lower loss; GaN at 100 V is the best point in the fits.</li>
         <li>The gain is paid in device count: 6·N·n<sub>p</sub> transistors.</li>
@@ -322,7 +325,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   <div class="body cols-2">
     <div class="stack">
       <h3>Semiconductor loss of the 300 kW SPB (model)</h3>
-      <div class="chartbox" style="height:250px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Semiconductor loss of the SPB GaN design by mechanism"></svg></div>
+      <div class="chartbox" style="height:330px"><svg class="chart" id="bmChart" viewBox="0 0 560 330" aria-label="Semiconductor loss of the SPB GaN design by mechanism"></svg></div>
       <p class="small" id="bmPerKw"></p>
       <div class="readout">
         <div class="ro good"><b>99.71 %</b><span>semiconductor efficiency, 300 kW</span></div>
@@ -333,7 +336,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     </div>
     <div class="stack">
       <h3>Part count for the 300 kW drive</h3>
-      <table class="t">
+      <table class="t big">
         <thead><tr><th></th><th>Two-level SiC</th><th>SPB GaN</th></tr></thead>
         <tbody>
           <tr><td>Switch positions</td><td>6</td><td>96 (6 × 16)</td></tr>
@@ -344,7 +347,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
           <tr><td>Winding sets</td><td>1</td><td>16</td></tr>
         </tbody>
       </table>
-      <p class="small">SPB does not remove the complexity of high voltage; it moves it from the device to the number of identical cells. That is why the gate driver, its supply and paralleling decide whether the concept is practical, and why we are here.</p>
+      <p>SPB does not remove the complexity of high voltage; it moves it from the device to the number of identical cells. That is why the gate driver, its supply and paralleling decide whether the concept is practical, and why we are here.</p>
     </div>
   </div>
 </section>
@@ -361,10 +364,10 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <div class="step"><span class="k">5 · DC LINK</span><b>20 × 22 µF + 40 × 1 µF</b><span>per leg; 2.85 % ripple at 50 kHz</span></div>
       <div class="step"><span class="k">6 · VERIFY</span><b>Q3D, LTspice, Icepak</b><span>loop per cell, gate coupling, thermal</span></div>
     </div>
-    <div class="body cols-2" style="gap:22px">
+    <div class="body cols-3" style="gap:22px;align-content:start">
       <div class="stack">
         <h3>Gate-drive concept (step 3)</h3>
-        <ul class="clean small">
+        <ul class="clean" style="font-size:16px;gap:10px">
           <li>Driver on the symmetry line, star to two transistors, Kelvin return under each gate trace.</li>
           <li>Side-mounted driver: 2.0 / 7.7 nH to near and far device (Q3D). Centre star: equal loops.</li>
           <li>One channel cannot reach a third transistor identically in a planar layout, so paralleling scales in pairs.</li>
@@ -373,10 +376,18 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       </div>
       <div class="stack">
         <h3>Why 4 in parallel (step 4)</h3>
-        <ul class="clean small">
+        <ul class="clean" style="font-size:16px;gap:10px">
           <li>1 → 2 devices gives the large loss gain; 3 adds little but needs a second driver channel.</li>
           <li>The 300 kW target uses two 150 kW blocks per leg: 4 × EPC2361 per switch, 2 drivers per leg.</li>
           <li>Leg loss 18.0 W at 50 kHz: conduction 12.5 W, switching 5.0 W, dead time 0.46 W, gate 0.07 W.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>DC link and verification (steps 5–6)</h3>
+        <ul class="clean" style="font-size:16px;gap:10px">
+          <li>Per leg 20 × 22 µF + 40 × 1 µF MLCC: 134 µF effective at 75 V, 2.85 % voltage ripple at 50 kHz.</li>
+          <li>Q3D of the drawn copper: 0.65 nH per cell on the double-pulse board, 0.41 nH on the load board, 0.7 % spread between cells.</li>
+          <li>LTspice on the extracted network, then the loss and thermal model: 18.0 W per leg, T<sub>j</sub> 68.8 °C at 40 °C ambient.</li>
         </ul>
       </div>
     </div>
@@ -407,9 +418,9 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 <section class="slide" id="s8" data-title="Prototype">
   <div class="slide-head"><div><div class="eyebrow">B · First design with EPC devices</div><h2>From one cell to a four-parallel leg board</h2></div><div class="pageno"></div></div>
   <div class="body cols-3" style="grid-template-rows:auto auto 1fr">
-    <div class="fig" style="height:280px"><img src="img/reva_block.png" alt="Rev A building block: two half-bridges of EPC2361 with the DC-link capacitor bank and the gate driver in the centre."></div>
-    <div class="fig" style="height:280px"><img src="img/revb_dpt.png" alt="Rev B double-pulse board render: four cells with shunts, capacitor bank and AC bar, two 2EDF7275K driver areas."></div>
-    <div class="fig" style="height:280px"><img src="img/gate_star.png" alt="Gate routing of one driver block: red gate paths in a star from the driver to Q1 to Q4, blue Kelvin returns routed under them on the next layer."></div>
+    <div class="fig" style="height:400px"><img src="img/reva_block.png" alt="Rev A building block: two half-bridges of EPC2361 with the DC-link capacitor bank and the gate driver in the centre."></div>
+    <div class="fig" style="height:400px"><img src="img/revb_dpt.png" alt="Rev B double-pulse board render: four cells with shunts, capacitor bank and AC bar, two 2EDF7275K driver areas."></div>
+    <div class="fig" style="height:400px"><img src="img/gate_star.png" alt="Gate routing of one driver block: red gate paths in a star from the driver to Q1 to Q4, blue Kelvin returns routed under them on the next layer."></div>
     <p class="small"><b>Rev A block.</b> 2 × EPC2361 per switch, centre driver, mirrored cells. 0.374 nH per cell in the ideal Q3D geometry.</p>
     <p class="small"><b>Rev B double-pulse board.</b> 4 × EPC2361 per switch, 2 × 2EDF7275K (one channel per pair), shunt per cell, 1200 V spacing to the control side, 89.5 × 85.2 mm, 4 layers.</p>
     <p class="small"><b>Gate star.</b> Gate on L1, Kelvin return directly under it, a Kelvin via in every source pad.</p>
@@ -440,7 +451,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         </div>
       </div>
       <div class="readout" id="ovRo"></div>
-      <ul class="clean small">
+      <ul class="clean">
         <li>Each transistor sees its own cell loop; paralleling shares the di/dt, not the inductance, so the loop is quoted per cell.</li>
         <li>di/dt per cell in our simulations: 23–36 A/ns at turn-off, up to 50 A/ns with low R<sub>g</sub>.</li>
         <li>The loop includes the MLCC ESL but not the package; the real value will be higher.</li>
@@ -617,13 +628,13 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
           <label for="dkX">External R<sub>g,off</sub> per transistor</label><input id="dkX" type="range" min="0" max="2" step="0.1" value="0"><output id="dkXo"></output>
         </div>
       </div>
-      <div class="chartbox" style="height:120px"><svg class="chart" id="dkBar" viewBox="0 0 560 120" aria-label="Peak sink current against driver rating"></svg></div>
+      <div class="chartbox" style="height:170px"><svg class="chart" id="dkBar" viewBox="0 0 560 170" aria-label="Peak sink current against driver rating"></svg></div>
       <div class="readout" id="dkRo2"></div>
       <p class="tiny muted">I<sub>pk</sub> = (5 V − V<sub>off</sub>) / (R<sub>pd</sub> + (R<sub>G,int</sub> + R<sub>ext</sub>)/n), R<sub>G,int</sub> = 0.4 Ω. 2EDF7275K: 0.35 Ω typ. / 0.75 Ω max pull-down, 8 A peak sink.</p>
     </div>
     <div class="stack">
       <h3>Sharing one channel costs switching energy</h3>
-      <div class="chartbox" style="height:200px"><svg class="chart" id="dkE" viewBox="0 0 560 200" aria-label="Switching energy per transistor against transistors per channel"></svg></div>
+      <div class="chartbox" style="height:260px"><svg class="chart" id="dkE" viewBox="0 0 560 260" aria-label="Switching energy per transistor against transistors per channel"></svg></div>
       <ul class="clean small">
         <li>Output resistance per transistor grows with n: E<sub>on</sub> +16 / +31 % for 3 / 4 transistors. Four per switch is our upper limit.</li>
         <li>We drive pairs: 4 per switch needs 2 channels, so the inverter needs 96 drivers and 192 isolated supplies.</li>
@@ -666,7 +677,10 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">D · Voltage level</div><h2>16 cells at 100 V, or 8 cells at 200 V?</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <p class="small">Today: EPC2361, 100 V, 0.75 mΩ typ., 75 V per cell, 16 cells. A 200 V device runs at 150 V per cell and halves the cells, drivers and isolated supplies. Set the 200 V device:</p>
+      <p>Today: EPC2361, 100 V, 0.75 mΩ typ., 75 V per cell, 16 cells. A 200 V device runs at 150 V per cell and halves the cells, drivers and isolated supplies. Set the 200 V device:</p>
+      <div class="chartbox" style="flex:1"><svg class="chart" id="vBars" viewBox="0 0 560 320" preserveAspectRatio="xMidYMin meet" aria-label="Relative losses and part counts, 200 V against 100 V"></svg></div>
+    </div>
+    <div class="stack">
       <div class="card stack" style="gap:8px">
         <div class="ctrl">
           <label for="vR">200 V R<sub>DS(on)</sub> typ.</label><input id="vR" type="range" min="0.6" max="6" step="0.05" value="1.5"><output id="vRo"></output>
@@ -674,12 +688,9 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
           <label for="vP">200 V parallel per switch</label><input id="vP" type="range" min="1" max="8" step="1" value="4"><output id="vPo"></output>
         </div>
       </div>
-      <div class="chartbox" style="height:210px"><svg class="chart" id="vBars" viewBox="0 0 560 210" aria-label="Relative losses and part counts, 200 V against 100 V"></svg></div>
-    </div>
-    <div class="stack">
       <div class="readout" id="vRo2"></div>
       <p class="small" id="vTxt"></p>
-      <ul class="clean small">
+      <ul class="clean">
         <li>Conduction per phase ∝ N·R<sub>DS(on)</sub>/n: equal at 4 per switch when R<sub>200</sub> = 2·R<sub>100</sub> = 1.5 mΩ.</li>
         <li>C<sub>oss</sub> loss ∝ N·C<sub>oss</sub>·V<sup>2</sup>·f<sub>sw</sub>·n: V doubles, N halves, so C<sub>oss</sub> must also halve.</li>
         <li>Half the cells: half the drivers, isolated supplies and stack connections.</li>
@@ -697,7 +708,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <div class="ctrl card">
         <label for="mF">Switching frequency</label><input id="mF" type="range" min="10" max="200" step="5" value="50"><output id="mFo"></output>
       </div>
-      <div class="chartbox" style="height:240px"><svg class="chart" id="mLoss" viewBox="0 0 560 240" aria-label="Leg loss and motor current ripple against switching frequency"></svg></div>
+      <div class="chartbox" style="height:330px"><svg class="chart" id="mLoss" viewBox="0 0 560 330" aria-label="Leg loss and motor current ripple against switching frequency"></svg></div>
       <div class="readout" id="mRo"></div>
       <p class="tiny muted">Leg loss from the simulated leg efficiency (99.77 / 99.71 / 99.61 % at 20 / 50 / 100 kHz, 2.65 kW leg), fitted as 5.0 W + 0.053 W/kHz. Ripple relative to 20 kHz, ∝ 1/f<sub>sw</sub>; motor HF loss roughly ∝ ripple².</p>
     </div>
@@ -706,7 +717,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <div class="ctrl card">
         <label for="rgI">Current per transistor</label><input id="rgI" type="range" min="10" max="150" step="5" value="60"><output id="rgIo"></output>
       </div>
-      <div class="chartbox" style="height:220px"><svg class="chart" id="rgChart" viewBox="0 0 560 220" aria-label="Switching energy for four gate-resistor settings"></svg></div>
+      <div class="chartbox" style="height:330px"><svg class="chart" id="rgChart" viewBox="0 0 560 330" aria-label="Switching energy for four gate-resistor settings"></svg></div>
       <p class="small">Raising R<sub>g,on</sub> from 2 to 10 Ω roughly doubles E<sub>on</sub>; raising R<sub>g,off</sub> above the critical ≈ 1.5 Ω makes turn-off channel-controlled and E<sub>off</sub> grows tenfold. Slowing down to fix sharing or the bump is expensive.</p>
     </div>
   </div>
@@ -895,10 +906,10 @@ bindRange("c2R",v=>fmt(v,1)+" mΩ",fom);bindRange("c2C",v=>v+" pF",fom);
 /* ---------- slide 6: benchmark ---------- */
 function bench(){const s=$("#bmChart");clear(s);
   const rows=[["conduction",601,"var(--ch2)"],["switching",238.3,"var(--ch1)"],["dead time",22.3,"var(--ch4)"],["gate drive",3.4,"var(--muted)"]];
-  const A=axes(s,{W:560,H:250,x0:0,x1:700,y0:0,y1:1,xt:[0,100,200,300,400,500,600,700],yt:[],m:{l:96,r:20,t:10,b:34},xl:"loss of the whole inverter [W]"});
-  rows.forEach((r,i)=>{const y=18+i*48;el("text",{x:88,y:y+20,"text-anchor":"end",class:"ink"},s,r[0]);
-    el("rect",{x:A.X(0),y:y,width:Math.max(A.X(r[1])-A.X(0),2),height:30,fill:r[2],"fill-opacity":.85,rx:2},s);
-    el("text",{x:A.X(r[1])+6,y:y+20,class:"ink"},s,fmt(r[1],r[1]<10?1:0)+" W · "+(r[1]/865<0.01?"< 1":fmt(100*r[1]/865,0))+" %")});
+  const A=axes(s,{W:560,H:330,x0:0,x1:700,y0:0,y1:1,xt:[0,100,200,300,400,500,600,700],yt:[],m:{l:96,r:20,t:10,b:34},xl:"loss of the whole inverter [W]"});
+  rows.forEach((r,i)=>{const y=22+i*68;el("text",{x:88,y:y+26,"text-anchor":"end",class:"ink"},s,r[0]);
+    el("rect",{x:A.X(0),y:y,width:Math.max(A.X(r[1])-A.X(0),2),height:42,fill:r[2],"fill-opacity":.85,rx:2},s);
+    el("text",{x:A.X(r[1])+6,y:y+26,class:"ink"},s,fmt(r[1],r[1]<10?1:0)+" W · "+(r[1]/865<0.01?"< 1":fmt(100*r[1]/865,0))+" %")});
   $("#bmPerKw").textContent="865 W in total, 2.9 W per kW: conduction dominates, so R_DS(on) per area matters most; switching is a quarter at 50 kHz.";}
 
 /* ---------- model section: image galleries ---------- */
@@ -1139,17 +1150,17 @@ function bolts(){const b=BOLT[gBolt()];const s=$("#boltSvg");clear(s);
 const SH_N=[2,3,4], SH_EON=[23.3,27.0,30.6], SH_EOFF=[4.1,4.5,5.0];
 function sink(){const n=+$("#dkN").value,V=+$("#dkV").value,R=+$("#dkR").value,X=+$("#dkX").value;
   const I=(5-V)/(R+(0.4+X)/n);const s=$("#dkBar");clear(s);
-  const A=axes(s,{W:560,H:120,x0:0,x1:30,y0:0,y1:1,xt:[0,5,8,10,15,20,25,30],yt:[],m:{l:14,r:14,t:20,b:30},xl:"peak sink current per channel [A]"});
-  el("rect",{x:A.X(0),y:36,width:A.X(Math.min(I,30))-A.X(0),height:34,fill:I>10?"var(--bad)":I>8?"var(--warn)":"var(--good)",rx:2},s);
-  el("line",{x1:A.X(8),x2:A.X(8),y1:24,y2:84,stroke:"var(--ink)","stroke-dasharray":"3 2"},s);el("text",{x:A.X(8)-4,y:16,"text-anchor":"end",class:"ink"},s,"rating 8 A");
-  el("line",{x1:A.X(10),x2:A.X(10),y1:24,y2:84,stroke:"var(--ink)","stroke-dasharray":"3 2"},s);el("text",{x:A.X(10)+4,y:16,class:"ink"},s,"≈ current limit");
-  el("text",{x:A.X(Math.min(I,30))+6,y:58,class:"ink"},s,fmt(I,1)+" A");
-  const e=$("#dkE");clear(e);const B=axes(e,{W:560,H:200,x0:1.5,x1:4.5,y0:0,y1:40,xt:[2,3,4],yt:[0,10,20,30,40],xl:"transistors per driver channel n",yl:"µJ per transistor"});
+  const A=axes(s,{W:560,H:170,x0:0,x1:30,y0:0,y1:1,xt:[0,5,8,10,15,20,25,30],yt:[],m:{l:14,r:14,t:26,b:34},xl:"peak sink current per channel [A]"});
+  el("rect",{x:A.X(0),y:44,width:A.X(Math.min(I,30))-A.X(0),height:62,fill:I>10?"var(--bad)":I>8?"var(--warn)":"var(--good)",rx:2},s);
+  el("line",{x1:A.X(8),x2:A.X(8),y1:30,y2:126,stroke:"var(--ink)","stroke-dasharray":"3 2"},s);el("text",{x:A.X(8)-4,y:20,"text-anchor":"end",class:"ink"},s,"rating 8 A");
+  el("line",{x1:A.X(10),x2:A.X(10),y1:30,y2:126,stroke:"var(--ink)","stroke-dasharray":"3 2"},s);el("text",{x:A.X(10)+4,y:20,class:"ink"},s,"≈ current limit");
+  el("text",{x:A.X(Math.min(I,30))+6,y:80,class:"ink"},s,fmt(I,1)+" A");
+  const e=$("#dkE");clear(e);const B=axes(e,{W:560,H:260,x0:1.5,x1:4.5,y0:0,y1:40,xt:[2,3,4],yt:[0,10,20,30,40],xl:"transistors per driver channel n",yl:"µJ per transistor"});
   el("path",{d:path(SH_N.map((x,i)=>[x,SH_EON[i]]),B.X,B.Y),fill:"none",stroke:"var(--ch1)","stroke-width":2},e);
   el("path",{d:path(SH_N.map((x,i)=>[x,SH_EOFF[i]]),B.X,B.Y),fill:"none",stroke:"var(--ch2)","stroke-width":2},e);
   SH_N.forEach((x,i)=>{el("circle",{cx:B.X(x),cy:B.Y(SH_EON[i]),r:4,fill:"var(--ch1)"},e);el("circle",{cx:B.X(x),cy:B.Y(SH_EOFF[i]),r:4,fill:"var(--ch2)"},e);el("text",{x:B.X(x),y:B.Y(SH_EON[i])-9,"text-anchor":"middle",class:"ink"},e,SH_EON[i])});
   el("text",{x:B.X(4.4),y:B.Y(30.6)+18,"text-anchor":"end",fill:"var(--ch1)"},e,"E_on");el("text",{x:B.X(4.4),y:B.Y(5.0)-8,"text-anchor":"end",fill:"var(--ch2)"},e,"E_off");
-  if(n>=2)el("line",{x1:B.X(n),x2:B.X(n),y1:12,y2:166,stroke:"var(--accent)","stroke-width":1.5},e);
+  if(n>=2)el("line",{x1:B.X(n),x2:B.X(n),y1:12,y2:226,stroke:"var(--accent)","stroke-width":1.5},e);
   const drv=48*Math.ceil(4/n);const rOff=R*n+0.4+X;
   ro("#dkRo2",[{v:fmt(I,1)+" A",l:"peak sink, "+n+" transistor"+(n>1?"s":""),c:I>10?"bad":I>8?"warn":"good"},{v:fmt(rOff,2)+" Ω",l:"R_g,off,tot per transistor (R_crit ≈ 1.5 Ω)",c:rOff>1.5?"warn":"good"},{v:drv,l:"drivers in the inverter (4 per switch)"}]);}
 bindRange("dkN",v=>v,sink);bindRange("dkV",v=>fmt(v,1)+" V",sink);bindRange("dkR",v=>fmt(v,2)+" Ω",sink);bindRange("dkX",v=>fmt(v,1)+" Ω",sink);
@@ -1183,11 +1194,11 @@ function vclass(){const R=+$("#vR").value,C=+$("#vC").value,p=+$("#vP").value;
   const N1=16,R1=0.75,C1=1800,p1=4,V1=75, N2=8,V2=150;
   const cond=(N2*R/p)/(N1*R1/p1), coss=(N2*C*V2*V2*p)/(N1*C1*V1*V1*p1), drv=(N2*Math.ceil(p/2))/(N1*Math.ceil(p1/2)), tr=(N2*p)/(N1*p1);
   const s=$("#vBars");clear(s);const items=[["conduction",cond],["C_oss loss",coss],["transistors",tr],["drivers + supplies",drv]];
-  const A=axes(s,{W:560,H:210,x0:0,x1:2.5,y0:0,y1:4,xt:[0,0.5,1,1.5,2,2.5],yt:[],m:{l:140,r:40,t:6,b:30},xf:v=>v+"×",xl:"200 V design relative to today's 100 V design"});
-  items.forEach((it,i)=>{const y=14+i*42;el("text",{x:132,y:y+17,"text-anchor":"end",class:"ink"},s,it[0]);
-    el("rect",{x:A.X(0),y:y,width:A.X(Math.min(it[1],2.5))-A.X(0),height:26,rx:2,fill:it[1]<=1.0?"var(--good)":it[1]<=1.3?"var(--warn)":"var(--bad)","fill-opacity":.8},s);
-    el("text",{x:A.X(Math.min(it[1],2.5))+5,y:y+17,class:"ink"},s,fmt(it[1],2)+"×")});
-  el("line",{x1:A.X(1),x2:A.X(1),y1:6,y2:180,stroke:"var(--ink)","stroke-dasharray":"4 3"},s);
+  const A=axes(s,{W:560,H:320,x0:0,x1:2.5,y0:0,y1:4,xt:[0,0.5,1,1.5,2,2.5],yt:[],m:{l:140,r:40,t:6,b:30},xf:v=>v+"×",xl:"200 V design relative to today's 100 V design"});
+  items.forEach((it,i)=>{const y=18+i*68;el("text",{x:132,y:y+26,"text-anchor":"end",class:"ink"},s,it[0]);
+    el("rect",{x:A.X(0),y:y,width:A.X(Math.min(it[1],2.5))-A.X(0),height:42,rx:2,fill:it[1]<=1.0?"var(--good)":it[1]<=1.3?"var(--warn)":"var(--bad)","fill-opacity":.8},s);
+    el("text",{x:A.X(Math.min(it[1],2.5))+5,y:y+26,class:"ink"},s,fmt(it[1],2)+"×")});
+  el("line",{x1:A.X(1),x2:A.X(1),y1:6,y2:290,stroke:"var(--ink)","stroke-dasharray":"4 3"},s);
   const tau=R*C/1000;
   ro("#vRo2",[{v:"16 → 8",l:"cells for 1200 V"},{v:fmt(tau,2)+" ps",l:"τ of the 200 V device (EPC2361: 1.35)",c:tau<=1.4?"good":tau<=2.5?"warn":"bad"},{v:fmt(1.5*p/4,2)+" mΩ",l:"break-even R for equal conduction at "+p+" parallel"}]);
   $("#vTxt").textContent=cond<=1&&coss<=1?"With these values the 200 V design wins on every count.":cond<=1?"Conduction is fine, but C_oss loss rises: at 150 V per cell the charge loss grows with V², so C_oss,tr has to be about half of the 100 V device.":"Conduction loss rises: R_DS(on) must stay near twice the 100 V device, or more devices are needed in parallel, which adds C_oss.";}
@@ -1195,7 +1206,7 @@ bindRange("vR",v=>fmt(v,2)+" mΩ",vclass);bindRange("vC",v=>v+" pF",vclass);bind
 
 /* ---------- slide 16: f_sw and Rg ---------- */
 function motor(){const f=+$("#mF").value;const s=$("#mLoss");clear(s);
-  const A=axes(s,{W:560,H:240,x0:10,x1:200,y0:0,y1:16,xt:[10,50,100,150,200],yt:[0,4,8,12,16],m:{l:46,r:46,t:20,b:30},xl:"f_sw [kHz]",yl:"leg loss [W]"});
+  const A=axes(s,{W:560,H:330,x0:10,x1:200,y0:0,y1:16,xt:[10,50,100,150,200],yt:[0,4,8,12,16],m:{l:46,r:46,t:20,b:30},xl:"f_sw [kHz]",yl:"leg loss [W]"});
   const L=x=>5.04+0.053*x, rip=x=>20/x;
   el("path",{d:path(Array.from({length:39},(_,i)=>{const x=10+5*i;return [x,L(x)]}),A.X,A.Y),fill:"none",stroke:"var(--ch1)","stroke-width":2.2},s);
   const Yr=v=>A.Y(v*8);
@@ -1203,19 +1214,19 @@ function motor(){const f=+$("#mF").value;const s=$("#mLoss");clear(s);
   [0,0.5,1,1.5,2].forEach(v=>el("text",{x:518,y:Yr(v)+4},s,v));
   el("text",{x:514,y:12,"text-anchor":"end",fill:"var(--ch2)"},s,"‒ ‒ ripple rel. (right)");
   el("text",{x:52,y:12,fill:"var(--ch1)"},s,"— leg loss (left)");
-  el("line",{x1:A.X(f),x2:A.X(f),y1:20,y2:210,stroke:"var(--accent)","stroke-width":1.5},s);
+  el("line",{x1:A.X(f),x2:A.X(f),y1:20,y2:300,stroke:"var(--accent)","stroke-width":1.5},s);
   ro("#mRo",[{v:fmt(L(f),1)+" W",l:"loss per leg"},{v:fmt(100*(1-L(f)/2652),2)+" %",l:"leg efficiency"},{v:fmt(rip(f),2)+"×",l:"current ripple vs 20 kHz"},{v:fmt(rip(f)**2,2)+"×",l:"motor HF loss proxy"}]);}
 bindRange("mF",v=>v+" kHz",motor);
 function rg(){const I=+$("#rgI").value;const s=$("#rgChart");clear(s);
   const cases=[["2 / 0 Ω",interp(SW_I,EON2,I),interp(SW_I,EOFF[0],I)],["2 / 2 Ω",interp(SW_I,EON2,I),interp(SW_I,EOFF[2],I)],["2 / 5 Ω",interp(SW_I,EON2,I),interp(SW_I,EOFF[5],I)],["10 / 10 Ω",interp(SW_I,EON10,I),interp(SW_I,EOFF[10],I)]];
   const top=Math.max(...cases.map(c=>c[1]+c[2]));const yTop=Math.ceil(top/25)*25;
-  const A=axes(s,{W:560,H:220,x0:0,x1:4,y0:0,y1:yTop,yt:niceTicks(0,yTop,4),m:{l:52,r:10,t:10,b:44},yl:"E_on + E_off [µJ]"});
+  const A=axes(s,{W:560,H:330,x0:0,x1:4,y0:0,y1:yTop,yt:niceTicks(0,yTop,4),m:{l:52,r:10,t:10,b:44},yl:"E_on + E_off [µJ]"});
   cases.forEach((c,i)=>{const x=A.X(i+0.5)-30;
     el("rect",{x:x,y:A.Y(c[1]),width:60,height:A.Y(0)-A.Y(c[1]),fill:"var(--ch1)","fill-opacity":.85},s);
     el("rect",{x:x,y:A.Y(c[1]+c[2]),width:60,height:A.Y(c[1])-A.Y(c[1]+c[2]),fill:"var(--ch2)","fill-opacity":.85},s);
     el("text",{x:x+30,y:A.Y(c[1]+c[2])-5,"text-anchor":"middle",class:"ink"},s,fmt(c[1]+c[2],0));
     el("text",{x:x+30,y:A.Y(0)+15,"text-anchor":"middle",class:"ink"},s,c[0]);});
-  el("text",{x:A.X(2),y:216,"text-anchor":"middle"},s,"R_g,on / R_g,off   (amber E_on, cyan E_off)");}
+  el("text",{x:A.X(2),y:326,"text-anchor":"middle"},s,"R_g,on / R_g,off   (amber E_on, cyan E_off)");}
 bindRange("rgI",v=>v+" A",rg);
 
 /* ---------- slide 17: questions ---------- */
