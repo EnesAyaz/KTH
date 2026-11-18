@@ -586,3 +586,11 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - **Enes:** move the SPB explanation (slide 8) early, to slide 3, since the audience may not know SPB. Done: "What SPB is" is now slide 3 (eyebrow "A · The concept"); agenda A "Project, timeline and the SPB idea" (8 min), C "Why SPB: device choice and cost" (7 min). Version 18.
 - **Enes:** slide 21, no machine design in the project; co-optimization and integration with the machine side. Plan item 2027, summary bullet and Gantt bar reworded. Version 19.
 - **Enes:** reword slide 19 the same way. Last bullet: no machine design in this project; the FEA example feeds the inverter-machine co-optimization. Version 20.
+
+### 2026-11-18 - Infineon deck v9: gate bump against dv/dt
+- Enes: "slide 18, gate bump is related to dv/dt, not switching frequency; put a dv/dt slider to see the effect".
+- Leader (no agents):
+  - data: simulation/bb_spice/BB_rg_sweep.raw (read only; 160 A, 75 V, R_g,off 0): peak switch-node dv/dt from the low-side v_DS fall and high-side bump per R_g,on: 4 ohm 22.3 V/ns 0.879 V, 3 ohm 24.3 / 0.919, 2 ohm 28.5 / 0.980, 1.5 ohm 30.8 / 1.021, 1 ohm 31.1 / 1.069, 0.5 ohm 30.9 / 1.115 (the logged dvdt_on, a 20-80 % average across the current plateau, is not monotonic and was not used).
+  - model: bump = 1.57 V*(1-exp(-x))/x, x = (75 V/(dv/dt))/2.6 ns, fitted to the four points with a clean edge (within 0.01 V); 0.99 V at 28.5 V/ns matches the block model.
+  - slide 18: switching-frequency slider replaced by switch-node dv/dt (5-100 V/ns, default 28); waveform peak, pulse width and (scaled, assumption) undershoot follow it; new bump-vs-dv/dt chart with the six LTspice points, simulated range shaded, extrapolation dashed; readouts: bump height, margins, dead-time loss at 50 kHz. Title: "The Miller bump grows with dv/dt: about 1 V at our 25-30 V/ns". At 60 V/ns: 1.24 V bump (extrapolated), 0.56 V margin at -1 V off.
+- Checks: headless Edge 1400x860, 23 slides overflow 0, 0 script errors; slide 18 viewed at 28, 60 and 80 V/ns. Artifact version 10.

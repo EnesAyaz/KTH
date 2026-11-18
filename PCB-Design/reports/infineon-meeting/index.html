@@ -647,25 +647,28 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 
 <!-- 14 GATE BUMP -->
 <section class="slide" id="s14" data-title="Gate bump">
-  <div class="slide-head"><div><div class="eyebrow">D · Problem 3 · high dv/dt</div><h2>The Miller bump is about 1 V whatever the driver does</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">D · Problem 3 · high dv/dt</div><h2>The Miller bump grows with dv/dt: about 1 V at our 25–30 V/ns</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
-      <div class="chartbox" style="flex:1"><svg class="chart" id="gbWave" viewBox="0 0 640 290" aria-label="High-side gate voltage during a switching period"></svg></div>
+      <div class="chartbox" style="flex:1"><svg class="chart" id="gbWave" viewBox="0 0 640 380" aria-label="High-side gate voltage during a switching period"></svg></div>
       <div class="card stack" style="gap:8px">
         <div class="ctrl">
           <label for="gbV">Off-state voltage</label><input id="gbV" type="range" min="-3" max="0" step="0.1" value="-1"><output id="gbVo"></output>
           <label for="gbT">Dead time</label><input id="gbT" type="range" min="2" max="30" step="1" value="10"><output id="gbTo"></output>
-          <label for="gbF">Switching frequency</label><input id="gbF" type="range" min="20" max="200" step="10" value="50"><output id="gbFo"></output>
+          <label for="gbD">Switch-node dv/dt</label><input id="gbD" type="range" min="5" max="100" step="1" value="28"><output id="gbDo"></output>
         </div>
         <div class="seg" id="gbSeg" role="group" aria-label="Board"><button aria-pressed="true" data-v="a">2 parallel (block model)</button><button aria-pressed="false" data-v="b">4 parallel Rev B, two bolts</button></div>
       </div>
     </div>
     <div class="stack">
-      <div class="readout" id="gbRo"></div>
+      <div class="readout" id="gbRo" style="grid-template-columns:repeat(2,1fr)"></div>
+      <div class="card stack" style="gap:4px;flex:none">
+        <div class="legend"><span><i style="background:var(--ch3)"></i>model fitted to LTspice</span><span>● LTspice, R<sub>g,on</sub> 4 → 0.5 Ω</span><span>dashed: extrapolated</span></div>
+        <div class="chartbox" style="height:140px;flex:none"><svg class="chart" id="gbCurve" viewBox="0 0 520 140" aria-label="High-side gate bump against switch-node dv/dt"></svg></div>
+      </div>
       <ul class="clean small">
-        <li>The bump is Q<sub>GD</sub>/C<sub>GS</sub> ≈ 1.06 V and arrives in 4–6 ns: a 0.05 Ω pull-down gives 1.07 V, 0.5 Ω gives 1.12 V. Sink strength does not fix it.</li>
-        <li>A negative off-voltage shifts the waveform down, but adds reverse-conduction loss in the dead time and pushes the undershoot toward −4 V.</li>
-        <li>With 4 in parallel the window is narrow: −1.7 V ± 0.3 V.</li>
+        <li>C<sub>GD</sub>·dv/dt charges the off gate faster than the gate loop discharges it (τ ≈ 2.6 ns); the pull-down hardly matters (0.05 Ω: 1.07 V, 0.5 Ω: 1.12 V).</li>
+        <li>A negative off-voltage shifts everything down but adds dead-time loss; with 4 in parallel the window is −1.7 V ± 0.3 V.</li>
       </ul>
       <div class="ask"><b>For Infineon</b>What is your answer to the bump at 50+ V/ns: negative bias, the RC-coupled drive of the GaN EiceDRIVER family, a Miller clamp, a higher-V<sub>th</sub> device, or package-level gate–Kelvin coupling?</div>
     </div>
@@ -1167,9 +1170,15 @@ bindRange("dkN",v=>v,sink);bindRange("dkV",v=>fmt(v,1)+" V",sink);bindRange("dkR
 
 /* ---------- slide 14: gate bump ---------- */
 const gGb=seg("gbSeg",()=>bump());
-function bump(){const V=+$("#gbV").value,td=+$("#gbT").value,f=+$("#gbF").value,mode=gGb();
-  const pk=0.99+V, und=mode==="a"?-1.27+V:-3.51+(V+1.9), vthmin=0.8;
-  const s=$("#gbWave");clear(s);const A=axes(s,{W:640,H:290,x0:0,x1:100,y0:-5,y1:2.5,xt:[0,20,40,60,80,100],yt:[-4,-3,-2,-1,0,1,2],xl:"time [ns]",yl:"v_GS,HS [V]"});
+/* bump against switch-node dv/dt: RC model fitted to the LTspice R_g,on sweep (BB_rg_sweep, 160 A, 75 V, R_g,off 0):
+   bump = V_lim*(1-exp(-x))/x, x = t_r/tau, t_r = 75 V/(dv/dt); V_lim 1.57 V, tau 2.6 ns (fit of the four points with a clean edge) */
+const BMP_SIM=[[22.3,0.879],[24.3,0.919],[28.5,0.980],[30.8,1.021],[31.1,1.069],[30.9,1.115]];
+const bumpAt=d=>{const x=75/d/2.6;return 1.568*(1-Math.exp(-x))/x};
+const B_REF=bumpAt(28.5);
+function bump(){const V=+$("#gbV").value,td=+$("#gbT").value,dv=+$("#gbD").value,mode=gGb();
+  const bmp=bumpAt(dv), k=bmp/B_REF;
+  const pk=bmp+V, und=mode==="a"?V-1.27*k:V-1.61*k, vthmin=0.8, tr=75/dv;
+  const s=$("#gbWave");clear(s);const A=axes(s,{W:640,H:380,x0:0,x1:100,y0:-5,y1:2.5,xt:[0,20,40,60,80,100],yt:[-4,-3,-2,-1,0,1,2],xl:"time [ns]",yl:"v_GS,HS [V]"});
   el("rect",{x:A.X(0),y:A.Y(-4),width:A.X(100)-A.X(0),height:A.Y(-5)-A.Y(-4),fill:"var(--bad)","fill-opacity":.12},s);
   el("rect",{x:A.X(0),y:A.Y(2.5),width:A.X(100)-A.X(0),height:A.Y(vthmin)-A.Y(2.5),fill:"var(--warn)","fill-opacity":.08},s);
   el("line",{x1:A.X(0),x2:A.X(100),y1:A.Y(vthmin),y2:A.Y(vthmin),stroke:"var(--warn)","stroke-dasharray":"5 3"},s);
@@ -1177,17 +1186,28 @@ function bump(){const V=+$("#gbV").value,td=+$("#gbT").value,f=+$("#gbF").value,
   el("text",{x:A.X(99),y:A.Y(-4.6),"text-anchor":"end",fill:"var(--bad)"},s,"abs. max −4 V");
   if(mode==="b"){el("rect",{x:A.X(0),y:A.Y(-1.29),width:A.X(100)-A.X(0),height:A.Y(-2.05)-A.Y(-1.29),fill:"var(--good)","fill-opacity":.13},s);
     el("text",{x:A.X(1),y:A.Y(-1.29)-4,fill:"var(--good)"},s,"allowed off-level window")}
+  const w=Math.max(0.9,0.62*tr);  // pulse width follows the edge duration
   const pts=[];for(let i=0;i<=500;i++){const t=i/5;let v=V;
-    v+=(pk-V)*Math.exp(-(((t-22)/3.2)**2))+(t>26?0.15*Math.exp(-(t-26)/5)*Math.sin((t-26)*1.3):0);
-    v+=(und-V)*Math.exp(-(((t-62)/2.8)**2))-(t>66?0.15*Math.exp(-(t-66)/5)*Math.sin((t-66)*1.3):0);
+    v+=(pk-V)*Math.exp(-(((t-22)/w)**2))+(t>22+w?0.15*k*Math.exp(-(t-22-w)/5)*Math.sin((t-22-w)*1.3):0);
+    v+=(und-V)*Math.exp(-(((t-62)/(0.9*w))**2))-(t>62+w?0.15*k*Math.exp(-(t-62-w)/5)*Math.sin((t-62-w)*1.3):0);
     pts.push([t,v])}
   el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--ch3)","stroke-width":2.2},s);
   el("text",{x:A.X(22),y:A.Y(pk)-8,"text-anchor":"middle",class:"ink"},s,"LS turn-on: bump to "+fmt(pk,2)+" V");
   el("text",{x:A.X(62),y:A.Y(und)+16,"text-anchor":"middle",class:"ink"},s,"LS turn-off: "+fmt(und,2)+" V");
-  const Pd=(td/10)*(0.20+0.09*Math.abs(V))*(f/50);const mBump=vthmin-pk, mUnd=und+4;
-  ro("#gbRo",[{v:fmt(mBump,2)+" V",l:"margin bump → V_th,min",c:mBump<0.2?"bad":mBump<0.6?"warn":"good"},{v:fmt(mUnd,2)+" V",l:"margin undershoot → −4 V",c:mUnd<0?"bad":mUnd<0.5?"warn":"good"},
-    {v:fmt(Pd,2)+" W",l:"dead-time loss per leg ("+td+" ns, "+f+" kHz)"},{v:fmt(V,1)+" V",l:"V_GS,off; driver swing "+fmt(5-V,1)+" V"}]);}
-bindRange("gbV",v=>fmt(v,1)+" V",bump);bindRange("gbT",v=>v+" ns",bump);bindRange("gbF",v=>v+" kHz",bump);
+  /* bump against dv/dt */
+  const c=$("#gbCurve");clear(c);const C=axes(c,{W:520,H:140,x0:0,x1:100,y0:0,y1:1.6,xt:[0,20,40,60,80,100],yt:[0,0.4,0.8,1.2,1.6],m:{l:40,r:10,t:8,b:32},xl:"switch-node dv/dt [V/ns]"});
+  el("rect",{x:C.X(22),y:8,width:C.X(31)-C.X(22),height:C.Y(0)-8,fill:"var(--accent)","fill-opacity":.08},c);
+  el("line",{x1:C.X(0),x2:C.X(100),y1:C.Y(0.8),y2:C.Y(0.8),stroke:"var(--warn)","stroke-dasharray":"4 3"},c);
+  el("text",{x:C.X(99),y:C.Y(0.8)+13,"text-anchor":"end",fill:"var(--warn)"},c,"0.8 V");
+  const cur=(a,b2,dash)=>el("path",{d:path(Array.from({length:60},(_,i)=>{const d=a+(b2-a)*i/59;return [d,bumpAt(d)]}),C.X,C.Y),fill:"none",stroke:"var(--ch3)","stroke-width":2,"stroke-dasharray":dash||"none"},c);
+  cur(22,31);cur(4,22,"5 4");cur(31,100,"5 4");
+  BMP_SIM.forEach(q=>el("circle",{cx:C.X(q[0]),cy:C.Y(q[1]),r:3.5,fill:"var(--ink)"},c));
+  el("circle",{cx:C.X(dv),cy:C.Y(bmp),r:6,fill:"var(--teal)"},c);
+  el("text",{x:C.X(dv)+(dv>70?-8:8),y:C.Y(bmp)-8,"text-anchor":dv>70?"end":"start",class:"ink"},c,fmt(bmp,2)+" V");
+  const Pd=(td/10)*(0.20+0.09*Math.abs(V));const mBump=vthmin-pk, mUnd=und+4;
+  ro("#gbRo",[{v:fmt(bmp,2)+" V",l:"bump height at "+dv+" V/ns ("+fmt(tr,1)+" ns edge)"+(dv<22||dv>31?", extrapolated":"")},{v:fmt(mBump,2)+" V",l:"margin bump → V_th,min",c:mBump<0.2?"bad":mBump<0.6?"warn":"good"},
+    {v:fmt(mUnd,2)+" V",l:"margin undershoot → −4 V",c:mUnd<0?"bad":mUnd<0.5?"warn":"good"},{v:fmt(Pd,2)+" W",l:"dead-time loss per leg ("+td+" ns, 50 kHz)"}]);}
+bindRange("gbV",v=>fmt(v,1)+" V",bump);bindRange("gbT",v=>v+" ns",bump);bindRange("gbD",v=>v+" V/ns",bump);
 
 /* ---------- slide 15: 100 vs 200 V ---------- */
 function vclass(){const R=+$("#vR").value,C=+$("#vC").value,p=+$("#vP").value;
