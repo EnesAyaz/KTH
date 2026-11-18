@@ -144,7 +144,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 .qlist input:checked + span{color:var(--muted);text-decoration:line-through}
 .agenda{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;counter-reset:a}
 .agenda button{all:unset;cursor:pointer;border-top:2px solid var(--line);padding-top:8px;font-size:13px;counter-increment:a}
-.agenda button::before{content:counter(a,upper-alpha) " · " attr(data-min);display:block;font:500 12px var(--f-mono);color:var(--accent)}
+.agenda button::before{content:counter(a,upper-alpha);display:block;font:500 12px var(--f-mono);color:var(--accent)}
 .agenda button:hover,.agenda button:focus-visible{border-color:var(--accent)}
 
 /* status chips: done / now / next */
@@ -239,12 +239,12 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <figure><div class="fig"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-img="level_iso.jpg" alt="One 75 V three-phase cell of the SPB"></div><figcaption>SPB · one 75 V three-phase cell</figcaption></figure>
     </div>
     <div class="agenda" aria-label="Agenda">
-      <button data-go="s2" data-min="8 min">Project, timeline and the SPB idea</button>
-      <button data-go="s3" data-min="10 min">1.2 kV and the two SiC prototypes</button>
-      <button data-go="s5" data-min="7 min">Why SPB: device choice and cost</button>
-      <button data-go="s10" data-min="15 min">Design results of the GaN cell</button>
-      <button data-go="s11" data-min="10 min">Prototype v1, tests and machine</button>
-      <button data-go="s15r" data-min="10 min">Open risks and next steps</button>
+      <button data-go="s2">Project, timeline and the SPB idea</button>
+      <button data-go="s3">1.2 kV and the two SiC prototypes</button>
+      <button data-go="s5">Why SPB: device choice and cost</button>
+      <button data-go="s10">Design results of the GaN cell</button>
+      <button data-go="s11">Prototype v1, tests and machine</button>
+      <button data-go="s15r">Open risks and next steps</button>
     </div>
   </div>
 </section>
