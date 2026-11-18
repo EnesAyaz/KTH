@@ -529,3 +529,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   (model); design step 1 sentence removed, step 4 no longer cites 150 kW blocks. Republished as version 12.
 - **Enes (comment, title paragraph):** "2kV and 1.7kV". Sentence now names the 2 kV and 1.7 kV SiC prototypes at a 1.2 kV DC link. Version 13.
 - **Enes:** delete the funding line on slide 20. Removed. Version 14.
+- **Enes:** slide 2, 1.2 kV study started May 2023, both SiC prototypes 2025. Timeline dates and year marks (2023/2025/2026/2027) updated. Version 15.
