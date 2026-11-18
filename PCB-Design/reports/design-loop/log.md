@@ -557,3 +557,11 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   reliability, EMC/common mode, isolation, fault protection, cell-voltage balance, thermal/mechanics, each with status
   and next step; agenda item F now "Open risks and next steps".
 - Check: 21 slides fit at 1400x860 (both slider extremes too), no console errors; both slides viewed in renders.
+
+### 2026-11-18 - Infineon deck v6: Alstom style and three additions
+- Enes: "check the Alstom presentation, do not change the story, take our style and add something if needed; the aims of the Infineon and Alstom meetings are different".
+- Leader (no agents), read reports/alstom-meeting/index.html (read only):
+  - style taken over: KTH navy accent and title band with logo, authors and photo strip; KTH logo in every slide head; footer with deck name and page number.
+  - added, because they serve the Infineon questions: slide 9 "devices per switch" (leg loss 51.7 / 39.5 / 23.2 / 18.0 W for n = 1..4, T_j <= 125 C and V_DS <= 90 V; n = 4 is the smallest passing count; readout now shows driver channels per switch); slide 14 Rev B waveforms now has five LTspice runs (DPT 3.5 ohm 92.9 V, DPT 2.5 ohm 105.3 V / E_on 24.3 uJ, DPT lumped gate 89.8 V, load 2 ohm 90.9 V, load 3 ohm 86.1 V); slide 23 status rebuilt as the Alstom test roadmap (6 stages) next to the "where we would welcome support" panel.
+  - left out on purpose: project timeline, scaling to rail, pole changing, open-risks table (Alstom-facing; EMC/common mode excluded by Enes for Infineon). Roadmap stage 6 reworded without common mode.
+- Checks: headless Edge 1400x860, 23 slides overflow 0, 0 script errors; title, slides 9, 14 (2.5 ohm), 23 viewed. Artifact version 7 (8 images added).

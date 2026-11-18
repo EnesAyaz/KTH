@@ -93,7 +93,8 @@ def revb():
     sp = os.path.join(ROOT, "simulation", "bb_spice")
     q = json.load(open(os.path.join(ROOT, "reports", "slides", "data", "q3d_spice_numbers.json")))
     out = {"t0": -2.0, "dt": DT * 1e9, "boards": {}}
-    for key, f in (("dpt", "REVB_Q3D_dpt.raw"), ("load", "REVB_Q3D_load.raw")):
+    for key in ("dpt", "dpt_rg2.5", "dpt_lumpgate", "load", "load_rg3"):
+        f = "REVB_Q3D_%s.raw" % key
         col, steps = read_raw(os.path.join(sp, f))
         a = steps[0]
         t = a[:, 0]
