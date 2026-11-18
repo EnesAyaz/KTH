@@ -508,3 +508,17 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   details; Gantt on next steps; tables/figures enlarged. Redraw text removed (roadmap note, stage 3, next steps).
 - Check: all 20 slides rendered in headless Edge at 1400x860 and viewed; no overflow (script), no console errors,
   no broken images, no "redraw / Rev A/B / HEMIZERO" in slide text. Republished as version 10.
+
+## 2026-11-18 - Alstom deck: 1200 V sizing, D-FoM slide, R_g slider, SiC prototype 2 in the benchmark
+- **Enes:** slide 9 add the 1.7 kV results; slide 10 cannot reach 75 V cells; no 1320 V (only the pole-changing
+  paper used it), use 1200 V, 75 V, 16 stacks; slide 14 let the resistance be changed; add why 100 V EPC (D-FoM,
+  device voltage comparison) early; slide 18 cell counts for 1200 V; delete slide 19.
+- Done: benchmark now in W/kW for SiC prototype 1 (8.9, measured), SiC prototype 2 (3.0-7.0 from its 99.3-99.7 %
+  map) and SPB (2.9, model); SiC parts corrected to 3 half-bridge modules. Sizing: truck links on nominal voltage,
+  default 75 % use and N = 16 (75 V). New slide "Device choice": R_DS(on) vs C_oss,tr of 10 devices from
+  revb_flow_numbers.json, D-FoM table, cells for 1200 V. Simulation slide: circuit switch + R_g,on slider (load
+  2.0-3.0, DPT 2.5-3.5 ohm), simulated end points, linear interpolation in between marked. Pole changing: 16/11/8/3
+  cells at 1200 V, 75 %. Discussion slide removed; agenda ends with Next steps. No "1320" left. 20 slides.
+- Fix during the round: a regex removed the Gantt function; restored from the last commit.
+- Check: 20 slides plus all slider/device states fit at 1400x860, no console errors, no broken images; changed slides
+  viewed in headless Edge renders. Republished as version 11.

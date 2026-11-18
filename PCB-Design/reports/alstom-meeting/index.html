@@ -223,10 +223,10 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
     <div class="agenda" aria-label="Agenda">
       <button data-go="s2" data-min="5 min">Project and timeline</button>
       <button data-go="s3" data-min="10 min">1.2 kV and the two SiC prototypes</button>
-      <button data-go="s5" data-min="10 min">SPB: what it is and why we use it</button>
+      <button data-go="s5" data-min="10 min">Device choice and SPB</button>
       <button data-go="s10" data-min="15 min">Design results of the GaN cell</button>
       <button data-go="s11" data-min="10 min">Prototype v1, tests and machine</button>
-      <button data-go="s15" data-min="10 min">Discussion and next steps</button>
+      <button data-go="s16" data-min="10 min">Next steps</button>
     </div>
   </div>
 </section>
@@ -382,6 +382,23 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   </div>
 </section>
 
+<!-- 5b DEVICE CHOICE -->
+<section class="slide" id="s5b" data-title="Device choice">
+  <div class="slide-head"><div><div class="eyebrow">C · Device choice · D-FoM of real devices</div><h2>Why 100 V EPC2361: the lowest R<sub>DS(on)</sub>·C<sub>oss,tr</sub> of the parts we compared</h2></div><div class="pageno"></div></div>
+  <div class="body cols-55">
+    <div class="stack">
+      <div class="legend"><span><i style="background:var(--ch2)"></i>100 V</span><span><i style="background:var(--ch1)"></i>200 V</span><span><i style="background:var(--ch4)"></i>350 V</span><span><i style="background:var(--ch3)"></i>650 V</span><span>● EPC &nbsp;■ Infineon · typical datasheet values, 25 °C · dashed: τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub> · cells at ≤ 75 % of rating · click a device</span></div>
+      <div class="chartbox" style="flex:1"><svg class="chart" id="dvChart" viewBox="0 0 640 420" aria-label="R_DS(on) against C_oss,tr for the compared GaN devices"></svg></div>
+    </div>
+    <div class="stack">
+      <p class="small">With the best number of devices in parallel, the minimum conduction plus C<sub>oss</sub> loss of the whole SPB scales with √(R<sub>DS(on)</sub>·C<sub>oss,tr</sub>), for any voltage class and cell count. One number, the D-FoM τ, ranks the candidates.</p>
+      <div class="readout" id="dvRo"></div>
+      <table class="t click" id="dvTable" style="font-size:12.5px"><thead><tr><th>Device</th><th>V</th><th>R mΩ</th><th>C<sub>oss,tr</sub> pF</th><th>τ ps</th><th>loss rel.</th><th>cells</th></tr></thead><tbody></tbody></table>
+      <p class="small"><b>Result:</b> EPC2361 (τ = 1.35 ps) is lowest. 100 V GaN at 75 V per cell gives N = 16 for the 1200 V link. The 200 V parts would halve the cells but cost about 1.8× the semiconductor loss today.</p>
+    </div>
+  </div>
+</section>
+
 <!-- 6 WHAT IS SPB -->
 <section class="slide" id="s6" data-title="What is SPB">
   <div class="slide-head"><div><div class="eyebrow">C · What SPB is</div><h2>Stack the inverter cells on the DC side, split the machine into winding sets</h2></div><div class="pageno"></div></div>
@@ -454,29 +471,29 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   <div class="slide-head"><div><div class="eyebrow">C · What SPB buys and what it costs</div><h2>Less semiconductor loss, many more parts</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <h3>Inverter loss at rated power</h3>
-      <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss comparison of the SiC two-level inverter and the SPB GaN design"></svg></div>
+      <h3>Inverter loss per kW: two SiC prototypes and the SPB model</h3>
+      <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Loss per kW of SiC prototype 1, SiC prototype 2 and the SPB GaN design"></svg></div>
       <div class="readout">
-        <div class="ro"><b>99.12 %</b><span>two-level SiC prototype 1, 1.2 kV, 250 kW, measured</span></div>
-        <div class="ro good"><b>99.71 %</b><span>SPB GaN, 1.2 kV, 300 kW, semiconductors only (model)</span></div>
-        <div class="ro"><b>68.8 °C</b><span>SPB junction, 40 °C ambient, 0.65 K/W per leg</span></div>
+        <div class="ro"><b>99.12 %</b><span>SiC prototype 1 (2 kV), 250 kW, measured at full load</span></div>
+        <div class="ro"><b>99.3–99.7 %</b><span>SiC prototype 2 (1.7 kV), efficiency map 5–20 kHz, 1190 V</span></div>
+        <div class="ro good"><b>99.71 %</b><span>SPB GaN, 300 kW, semiconductors only (model)</span></div>
       </div>
-      <p class="tiny muted">Not the same boundary: the SiC number is a measured inverter with 2 kV modules; the SPB number is our screening model (conduction 601 W, switching 238 W, dead time 22 W, gate 3.4 W). Capacitor, busbar and auxiliary losses are not yet in the SPB figure.</p>
+      <p class="tiny muted">Not the same boundary: the SiC numbers are measured inverters (calorimetric); the SPB number is our screening model (conduction 601 W, switching 238 W, dead time 22 W, gate 3.4 W) without capacitor, busbar and auxiliary losses. Prototype 2 is shown as the range of its efficiency map.</p>
     </div>
     <div class="stack">
       <h3>Part count for the 300 kW drive</h3>
       <table class="t big">
-        <thead><tr><th></th><th>Two-level SiC</th><th>SPB GaN</th></tr></thead>
+        <thead><tr><th></th><th>Two-level SiC (1 and 2)</th><th>SPB GaN</th></tr></thead>
         <tbody>
           <tr><td>Switch positions</td><td>6</td><td>96 (6 × 16)</td></tr>
-          <tr><td>Transistors</td><td>6 modules</td><td>384 EPC2361</td></tr>
+          <tr><td>Power semiconductors</td><td>3 half-bridge modules</td><td>384 EPC2361</td></tr>
           <tr><td>Gate drivers (dual channel)</td><td>3–6</td><td>96</td></tr>
           <tr><td>Isolated gate supplies</td><td>6</td><td>192</td></tr>
           <tr><td>DC-link capacitor banks</td><td>1</td><td>16 (ceramic)</td></tr>
           <tr><td>Winding sets</td><td>1</td><td>16</td></tr>
         </tbody>
       </table>
-      <div class="readout"><div class="ro good"><b>2.9 W/kW</b><span>SPB semiconductor loss (model)</span></div><div class="ro"><b>8.9 W/kW</b><span>two-level SiC, measured inverter</span></div><div class="ro warn"><b>64×</b><span>more transistors (384 vs 6 modules)</span></div></div>
+      <div class="readout"><div class="ro good"><b>2.9 W/kW</b><span>SPB semiconductor loss (model)</span></div><div class="ro"><b>3.0–7.0 W/kW</b><span>SiC prototype 2, 1.7 kV</span></div><div class="ro"><b>8.9 W/kW</b><span>SiC prototype 1, 2 kV</span></div><div class="ro warn"><b>384 vs 3</b><span>GaN transistors vs SiC modules</span></div></div>
       <p class="small"><b>Per 75 V level:</b> 6 switch positions, 24 transistors, 6 driver ICs, 12 isolated gate supplies, one ceramic DC-link bank and one winding set. The design work goes into making this one level small, cheap and robust.</p>
       <p class="small">The loss gain is real but the part count is the open question. Our work therefore concentrates on one cell: how small its loop can be, how it is driven and cooled, and how it is tested.</p>
     </div>
@@ -492,8 +509,8 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <div class="seg" id="devSeg" role="group" aria-label="Device class"></div>
       <div class="card stack" style="gap:8px">
         <div class="ctrl">
-          <label for="lnU">Max. allowed use of the device rating</label><input id="lnU" type="range" min="50" max="85" step="1" value="66"><output id="lnUo"></output>
-          <label for="lnN">Cells N (your choice)</label><input id="lnN" type="range" min="1" max="60" step="1" value="20"><output id="lnNo"></output>
+          <label for="lnU">Max. allowed use of the device rating</label><input id="lnU" type="range" min="50" max="85" step="1" value="75"><output id="lnUo"></output>
+          <label for="lnN">Cells N (your choice)</label><input id="lnN" type="range" min="1" max="60" step="1" value="16"><output id="lnNo"></output>
         </div>
       </div>
       <div class="chartbox" style="flex:1;min-height:250px"><svg class="chart" id="lnChart" viewBox="0 0 640 200" aria-label="Cell voltage at nominal and maximum line voltage against the device rating"></svg></div>
@@ -503,11 +520,11 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <table class="t" id="lnTable"><thead><tr><th>minimum cells</th><th>100 V</th><th>150 V</th><th>200 V</th><th>650 V</th></tr></thead><tbody></tbody></table>
       <p class="small" id="lnTxt"></p>
       <ul class="clean small">
-        <li>The cell count is set by the highest link voltage the cells must survive, not the nominal one.</li>
-        <li>Our truck design: 16 cells, 75 V nominal per cell on 100 V GaN. The pole-changing study sizes for 1320 V and ⅔ of the rating, which gives 20 cells.</li>
+        <li>Our truck design: 1200 V DC link, 16 stacked cells of 75 V on 100 V GaN, so each device works at 75 % of its rating.</li>
+        <li>For rail, the cell count is set by the highest line voltage the cells must survive, not the nominal one.</li>
         <li>Rail lines vary a lot in voltage, so the same cell would need more copies and more margin. This is a sizing exercise only; we have not studied a rail drive.</li>
       </ul>
-      <p class="tiny muted">Rail maxima are the long-term permanent values of EN 50163 (750 V → 900 V, 1.5 kV → 1.8 kV, 3 kV → 3.6 kV). Transients and regenerative braking would need extra margin or a clamp.</p>
+      <p class="tiny muted">Truck links are sized on their nominal voltage. Rail maxima are the long-term permanent values of EN 50163 (750 V → 900 V, 1.5 kV → 1.8 kV, 3 kV → 3.6 kV). Transients and regenerative braking would need extra margin or a clamp.</p>
     </div>
   </div>
 </section>
@@ -569,11 +586,12 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
 
 <!-- R3 CIRCUIT SIMULATION -->
 <section class="slide" id="r3" data-title="Circuit simulation">
-  <div class="slide-head"><div><div class="eyebrow">D · Design results · LTspice on the extracted network</div><h2>93 V peak and a 0.2 % energy split with the chosen gate setting</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">D · Design results · LTspice on the extracted network</div><h2>Gate resistance trades overshoot against switching energy</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
-      <div class="seg" id="scSeg" role="group" aria-label="Simulation case"></div>
-      <div class="chartbox" style="flex:1;min-height:220px"><svg class="chart" id="scChart" viewBox="0 0 640 220" aria-label="Peak high-side drain voltage for five simulation cases"></svg></div>
+      <div class="seg" id="scSeg" role="group" aria-label="Circuit"><button aria-pressed="false" data-v="load">Load circuit · 0.41 nH</button><button aria-pressed="true" data-v="dpt">Double-pulse circuit · 0.65 nH</button></div>
+      <div class="card"><div class="ctrl"><label for="rgS">Turn-on gate resistance R<sub>g,on</sub></label><input id="rgS" type="range" min="2.5" max="3.5" step="0.1" value="3.5"><output id="rgSo"></output></div></div>
+      <div class="chartbox" style="flex:1;min-height:220px"><svg class="chart" id="scChart" viewBox="0 0 640 230" aria-label="Peak high-side drain voltage and turn-on energy against gate resistance"></svg></div>
       <div id="scCells"></div>
     </div>
     <div class="stack">
@@ -582,10 +600,10 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <ul class="clean small">
         <li>Four cells of one leg, 75 V, about 316 A load, with the Q3D power and gate networks of the real layout.</li>
         <li>The lumped gate model gives 90 V; the extracted network shows 93 V. The extraction matters for the margin.</li>
-        <li>R<sub>g,on</sub> 2.5 → 3.5 Ω trades turn-on energy for 12 V less overshoot.</li>
+        <li>Double-pulse circuit: R<sub>g,on</sub> 2.5 → 3.5 Ω lowers the peak from 105 to 93 V and raises E<sub>on</sub> by 28 %. Chosen: 3.5 Ω with −1.9 V off-state bias.</li>
       </ul>
       <div class="fig" style="flex:1;min-height:150px"><img src="img/sim_waves.png" alt="LTspice waveforms of the four cells: drain currents and voltages at turn-off, low-side current and high-side voltage at turn-on, and high-side drain voltage for the Q3D and lumped models."></div>
-      <p class="tiny muted">Waveforms: (a) turn-off, four cells; (b) turn-on; (c) high-side V<sub>DS</sub>, Q3D vs lumped models. Peak V<sub>DS</sub> at the high-side device; 90 V target, 100 V rating. Spreads are differences between the four cells.</p>
+      <p class="tiny muted">Waveforms: (a) turn-off, four cells; (b) turn-on; (c) high-side V<sub>DS</sub>, Q3D vs lumped models. Peak V<sub>DS</sub> at the high-side device; 90 V target, 100 V rating. Simulated at the end points of each slider range; values in between are interpolated linearly and marked as such.</p>
     </div>
   </div>
 </section>
@@ -675,12 +693,6 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       </div>
     </div>
   </div>
-</section>
-
-<!-- 15 DISCUSSION -->
-<section class="slide" id="s15" data-title="Discussion">
-  <div class="slide-head"><div><div class="eyebrow">F · Discussion · tick as discussed</div><h2>Where your view would help us</h2></div><div class="pageno"></div></div>
-  <div class="body cols-2" id="qs" style="grid-template-rows:1fr 1fr;gap:16px 22px"></div>
 </section>
 
 <!-- 16 NEXT STEPS -->
@@ -881,18 +893,20 @@ bindRange("wsN",v=>v,wsets);
 
 /* ---------- slide 8: benchmark ---------- */
 function bench(){const s=$("#bmChart");clear(s);
-  const sic=250*(1/0.9912-1);
-  const rows=[["2-level SiC, prototype 1, 250 kW (measured)",[[sic*1000,"var(--ch3)","inverter total"]]],
-              ["SPB GaN 300 kW (model)",[[601,"var(--ch2)","conduction"],[238.3,"var(--ch1)","switching"],[22.3,"var(--ch4)","dead time"],[3.4,"var(--muted)","gate"]]]];
-  const A=axes(s,{W:560,H:250,x0:0,x1:2500,y0:0,y1:1,xt:[0,500,1000,1500,2000,2500],yt:[],m:{l:14,r:20,t:10,b:34},xl:"loss [W]"});
-  rows.forEach((r,i)=>{const y=24+i*96;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);let x0=0;
-    r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:34,fill:sg[1],"fill-opacity":.85},s);x0+=sg[0]});
-    el("text",{x:A.X(x0)+6,y:y+22,class:"ink"},s,fmt(x0,0)+" W");
-    if(i===1){let xx=0;r[1].slice(0,2).forEach(sg=>{el("text",{x:A.X(xx+sg[0]/2),y:y+52,"text-anchor":"middle",fill:sg[1]},s,sg[2]);xx+=sg[0]})}});
-  el("text",{x:A.X(2480),y:200,"text-anchor":"end"},s,"per-kW loss: SiC "+fmt(sic*1000/250,1)+" W/kW, SPB "+fmt(865/300,1)+" W/kW");}
+  const p1=1000*(1/0.9912-1), p2a=1000*(1/0.997-1), p2b=1000*(1/0.993-1);
+  const A=axes(s,{W:560,H:250,x0:0,x1:10,y0:0,y1:1,xt:[0,2,4,6,8,10],yt:[],m:{l:14,r:20,t:6,b:34},xl:"loss per kW of output power [W/kW]"});
+  const rows=[["SiC prototype 1 · 2 kV · 250 kW, measured",[[p1,"var(--ch3)"]]],["SiC prototype 2 · 1.7 kV · efficiency map 99.3–99.7 %",null],
+              ["SPB GaN · 100 V EPC2361 · 300 kW, model",[[601/300,"var(--ch2)"],[238.3/300,"var(--ch1)"],[(22.3+3.4)/300,"var(--muted)"]]]];
+  rows.forEach((r,i)=>{const y=22+i*66;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);
+    if(r[1]){let x0=0;r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:30,fill:sg[1],"fill-opacity":.88},s);x0+=sg[0]});
+      el("text",{x:A.X(x0)+6,y:y+20,class:"ink"},s,fmt(x0,1)+" W/kW")}
+    else{el("rect",{x:A.X(0),y:y,width:A.X(p2a)-A.X(0),height:30,fill:"var(--ch4)","fill-opacity":.88},s);
+      el("rect",{x:A.X(p2a),y:y,width:A.X(p2b)-A.X(p2a),height:30,fill:"var(--ch4)","fill-opacity":.3,stroke:"var(--ch4)","stroke-dasharray":"4 3"},s);
+      el("text",{x:A.X(p2b)+6,y:y+20,class:"ink"},s,fmt(p2a,1)+"–"+fmt(p2b,1)+" W/kW")}});
+  el("text",{x:A.X(1.0),y:196,"text-anchor":"middle",fill:"var(--ch2)"},s,"conduction");el("text",{x:A.X(2.45),y:196,"text-anchor":"middle",fill:"var(--ch1)"},s,"switching");}
 
 /* ---------- slide 9: DC links ---------- */
-const LINES=[["800","800 V truck",800,880],["1200","1.2 kV truck (ours)",1200,1320],["750","750 V rail",750,900],["1500","1.5 kV rail",1500,1800],["3000","3 kV rail",3000,3600]];
+const LINES=[["800","800 V truck",800,800],["1200","1.2 kV truck (ours)",1200,1200],["750","750 V rail",750,900],["1500","1.5 kV rail",1500,1800],["3000","3 kV rail",3000,3600]];
 const DEVS=[["100","100 V GaN",100,"EPC2361",0.75],["150","150 V GaN",150,"EPC2305",2.2],["200","200 V GaN",200,"EPC2304",3.5],["650","650 V GaN",650,"IGLT65R025D2",25]];
 fillSeg("lineSeg",LINES.map(l=>[l[0],l[1]]),"1200");fillSeg("devSeg",DEVS.map(d=>[d[0],d[1]]),"100");
 const gLine=seg("lineSeg",()=>{autoN();lines()}), gDev=seg("devSeg",()=>{autoN();lines()});
@@ -945,11 +959,11 @@ function road(){$("#road").innerHTML=ROAD.map((r,i)=>`<button class="stage ${r.s
 $("#road").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){roadSel=+b.dataset.i;road()}});
 
 /* ---------- slide 13: pole changing cell count ---------- */
-const PC={"100":{n:20,d:"EPC2361",r:0.75,t:"20 cells: the lowest device loss today, but the most cells, drivers and winding sets."},"150":{n:14,d:"EPC2305",r:2.2,t:"14 cells: fewer winding sets; the device has about three times the on-resistance of the 100 V part."},"200":{n:10,d:"EPC2304",r:3.5,t:"10 cells: half the cells of the 100 V design. Our candidate for the next study, once device loss, thermal and driver cost are compared."},"650":{n:4,d:"IGLT65R025D2",r:25,t:"4 cells: very few winding sets, but a much higher on-resistance and a different package and current scale."}};
-fillSeg("pcSeg",Object.keys(PC).map(k=>[k,k+" V class"]),"200");
+const PC={"100":{n:16,d:"EPC2361",r:0.75,t:"16 cells of 75 V: the lowest device loss today, and the design we are building."},"150":{n:11,d:"EPC2305",r:2.2,t:"11 cells of 109 V: fewer winding sets; the device has about three times the on-resistance of the 100 V part."},"200":{n:8,d:"EPC2304",r:3.5,t:"8 cells of 150 V: half the cells of the 100 V design. A candidate for the next study, once device loss, thermal and driver cost are compared."},"650":{n:3,d:"IGLT65R025D2",r:25,t:"3 cells of 400 V: very few winding sets, but a much higher on-resistance and a different package and current scale."}};
+fillSeg("pcSeg",Object.keys(PC).map(k=>[k,k+" V class"]),"100");
 const gPc=seg("pcSeg",()=>pole());
 function pole(){const k=gPc(),p=PC[k];
-  ro("#pcRo",[{v:p.n,l:"minimum cells (1320 V, ⅔ of rating)"},{v:fmt(1320/p.n,0)+" V",l:"max. cell voltage"},{v:3*p.n,l:"minimum coils, double layer"},{v:p.d,l:"example device, "+p.r+" mΩ typ."}]);
+  ro("#pcRo",[{v:p.n,l:"cells for 1200 V (≤ 75 % of rating)"},{v:fmt(1200/p.n,0)+" V",l:"cell voltage"},{v:3*p.n,l:"minimum coils, double layer"},{v:p.d,l:"example device, "+p.r+" mΩ typ."}]);
   $("#pcTxt").textContent=p.t;}
 
 /* ---------- slide 15: questions ---------- */
@@ -1011,24 +1025,46 @@ function hbars(id,rows,max,unit,dec){const s=$(id);clear(s);const x0=190,W=560-x
 function gates(){hbars("#glChart",[["high side, alone",12.5,"var(--ch2)"],["high side, pair driven",20.6,"var(--ch3)"],["low side, pair driven",12.3,"var(--ch2)"]],24,"nH",1);
   hbars("#imChart",[["power loop +0.3 nH",2,"var(--muted)"],["gate loops 2 vs 8 nH",19,"var(--ch1)"],["no Kelvin, L_CS +0.2 nH",29,"var(--bad)"]],32,"%",0);}
 
-/* ---------- R3: circuit simulation ---------- */
-let scSel=SIMC.length-1;
-function sims(){const sg=$("#scSeg");if(!sg.children.length)SIMC.forEach((c,i)=>{const b=document.createElement("button");b.textContent=c.l;b.dataset.v=i;sg.appendChild(b)});
-  [...sg.children].forEach((b,i)=>b.setAttribute("aria-pressed",i===scSel));
-  const s=$("#scChart");clear(s);const A=axes(s,{W:640,H:220,x0:60,x1:110,y0:0,y1:1,xt:[60,70,80,90,100,110],yt:[],m:{l:190,r:30,t:4,b:28},xl:"peak high-side V_DS [V]"});
-  el("line",{x1:A.X(90),x2:A.X(90),y1:4,y2:192,stroke:"var(--warn)","stroke-dasharray":"5 3"},s);el("line",{x1:A.X(100),x2:A.X(100),y1:4,y2:192,stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
-  SIMC.forEach((c,i)=>{const y=6+i*37,sel=i===scSel;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{scSel=i;sims()};
-    el("rect",{x:0,y:y-3,width:640,height:34,fill:"transparent"},g);
-    el("text",{x:182,y:y+16,"text-anchor":"end",class:sel?"ink":""},g,c.l);
-    el("rect",{x:A.X(60),y:y+3,width:A.X(Math.min(c.vh,110))-A.X(60),height:20,rx:2,fill:c.vh>100?"var(--bad)":c.vh>90?"var(--warn)":"var(--teal)","fill-opacity":sel?.95:.4},g);
-    el("text",{x:A.X(Math.min(c.vh,110))+5,y:y+17,class:"ink"},g,fmt(c.vh,1))});
-  const c=SIMC[scSel];
-  ro("#scRo",[{v:fmt(c.vh,1)+" V",l:"peak high-side V_DS",c:c.vh>100?"bad":c.vh>90?"warn":"good"},{v:c.rg+" Ω",l:"R_g,on · gate: "+c.gate},{v:fmt(c.eon,1)+" µJ",l:"E_on, four cells"},
-    {v:fmt(c.sEon,2)+" %",l:"E_on spread between cells",c:c.sEon<1?"good":"warn"},{v:fmt(c.sOff,2)+" %",l:"turn-off current spread"},{v:fmt(c.loop,3)+" nH",l:"loop per cell in the model"}]);
-  $("#scTxt").textContent=c.note.replace("R_g,on","Rg,on");
-  $("#scCells").innerHTML=c.cells?`<table class="t cells"><thead><tr><th>per cell</th><th>cell 1</th><th>cell 2</th><th>cell 3</th><th>cell 4</th></tr></thead><tbody>`+
+/* ---------- R3: circuit simulation, adjustable R_g ---------- */
+const RGC={load:{pts:[SIMC[0],SIMC[1]],lo:2.0,hi:3.0},dpt:{pts:[SIMC[3],SIMC[4]],lo:2.5,hi:3.5}};
+const gSc=seg("scSeg",v=>{const c=RGC[v];const r=$("#rgS");r.min=c.lo;r.max=c.hi;r.value=c.hi;$("#rgSo").textContent=fmt(c.hi,1)+" Ω";sims()});
+function sims(){const k=gSc(),C=RGC[k],R=+$("#rgS").value,a=C.pts[0],b=C.pts[1];
+  const t=(R-a.rg)/(b.rg-a.rg),L=(x,y)=>x+(y-x)*t;const vh=L(a.vh,b.vh),eon=L(a.eon,b.eon),sim=Math.abs(t)<1e-6||Math.abs(t-1)<1e-6,c=sim?(t<0.5?a:b):null;
+  const s=$("#scChart");clear(s);const A=axes(s,{W:640,H:230,x0:1.8,x1:3.7,y0:80,y1:110,xt:[2,2.5,3,3.5],yt:[80,85,90,95,100,105,110],m:{l:44,r:52,t:8,b:30},xl:"R_g,on [Ω]",yl:"peak V_DS,HS [V]"});
+  const Ye=v=>A.Y(80+(v-90)/(140-90)*30);[90,100,110,120,130,140].forEach(v=>el("text",{x:598,y:Ye(v)+4},s,v));el("text",{x:636,y:14,"text-anchor":"end",fill:"var(--ch1)"},s,"E_on [µJ]");
+  el("line",{x1:A.X(1.8),x2:A.X(3.7),y1:A.Y(90),y2:A.Y(90),stroke:"var(--warn)","stroke-dasharray":"5 3"},s);el("line",{x1:A.X(1.8),x2:A.X(3.7),y1:A.Y(100),y2:A.Y(100),stroke:"var(--bad)","stroke-dasharray":"5 3"},s);
+  el("text",{x:A.X(1.82),y:A.Y(100)-4,fill:"var(--bad)"},s,"100 V rating");el("text",{x:A.X(1.82),y:A.Y(90)-4,fill:"var(--warn)"},s,"90 V target");
+  Object.entries(RGC).forEach(([kk,cc])=>{const on=kk===k,p=cc.pts;
+    el("path",{d:path(p.map(q=>[q.rg,q.vh]),A.X,A.Y),fill:"none",stroke:"var(--teal)","stroke-width":on?2.6:1.2,"stroke-opacity":on?1:.35},s);
+    el("path",{d:p.map((q,i)=>(i?"L":"M")+A.X(q.rg).toFixed(1)+" "+Ye(q.eon).toFixed(1)).join(""),fill:"none",stroke:"var(--ch1)","stroke-width":on?2.6:1.2,"stroke-opacity":on?1:.35,"stroke-dasharray":"6 3"},s);
+    p.forEach(q=>{el("circle",{cx:A.X(q.rg),cy:A.Y(q.vh),r:on?5:3,fill:"var(--teal)","fill-opacity":on?1:.4},s);el("circle",{cx:A.X(q.rg),cy:Ye(q.eon),r:on?5:3,fill:"var(--ch1)","fill-opacity":on?1:.4},s)});
+    el("text",{x:A.X(p[0].rg)-6,y:A.Y(p[0].vh)+(kk==="dpt"?-8:16),"text-anchor":"end",fill:"var(--teal)","fill-opacity":on?1:.5},s,kk==="dpt"?"double pulse":"load")});
+  const lp=SIMC[2];el("rect",{x:A.X(lp.rg)-5,y:A.Y(lp.vh)-5,width:10,height:10,fill:"none",stroke:"var(--muted)","stroke-width":1.5},s);el("text",{x:A.X(lp.rg)+9,y:A.Y(lp.vh)+4},s,"lumped gate model");
+  el("circle",{cx:A.X(R),cy:A.Y(vh),r:8,fill:sim?"var(--teal)":"var(--panel)",stroke:"var(--ink)","stroke-width":2},s);
+  el("line",{x1:A.X(R),x2:A.X(R),y1:8,y2:200,stroke:"var(--accent)","stroke-width":1},s);
+  ro("#scRo",[{v:fmt(vh,1)+" V",l:"peak high-side V_DS"+(sim?"":" (interpolated)"),c:vh>100?"bad":vh>90?"warn":"good"},{v:fmt(100-vh,1)+" V",l:"margin to the 100 V rating"},{v:fmt(eon,1)+" µJ",l:"E_on, four cells"+(sim?"":" (interpolated)")},
+    {v:sim?fmt(c.sEon,2)+" %":"–",l:"E_on spread between cells"},{v:sim?fmt(c.sOff,2)+" %":"–",l:"turn-off current spread"},{v:fmt(a.loop,3)+" nH",l:"loop per cell in the model"}]);
+  $("#scTxt").textContent=sim?c.note.replace("R_g,on","Rg,on"):"Interpolated between the two simulated settings. Move to an end of the slider for the simulated per-cell results.";
+  $("#scCells").innerHTML=sim&&c.cells?`<table class="t cells"><thead><tr><th>per cell, R<sub>g,on</sub> = ${c.rg} Ω</th><th>cell 1</th><th>cell 2</th><th>cell 3</th><th>cell 4</th></tr></thead><tbody>`+
     [["E_on [µJ]","eon"],["I_off [A]","ioff"],["peak V_DS,HS [V]","vh"],["di/dt on [A/ns]","didt"]].map(r=>`<tr><td>${r[0]}</td>${c.cells.map(x=>`<td>${fmt(x[r[1]],1)}</td>`).join("")}</tr>`).join("")+`</tbody></table>`
-    :`<p class="small muted">Per-cell values are stored for the load-circuit cases and the chosen setting; this case has totals only.</p>`;}
+    :`<p class="small muted">${sim?"Per-cell values are not stored for this setting.":"Per-cell values exist only at the simulated settings."}</p>`;}
+bindRange("rgS",v=>fmt(v,1)+" Ω",sims);
+
+
+/* ---------- device choice ---------- */
+const DVS=[["EPC2361",100,0.75,1800,"E"],["EPC2302",100,1.4,1700,"E"],["EPC2071",100,1.7,1420,"E"],["IGC033S10S1",100,2.4,860,"I"],["EPC2304",200,3.5,1200,"E"],["EPC2215",200,6,690,"E"],["EPC2034C",200,6,960,"E"],["EPC2050",350,55,125,"E"],["IGT65R025D2",650,25,205,"I"],["IGT65R140D2",650,140,35,"I"]];
+const DVC={100:"var(--ch2)",200:"var(--ch1)",350:"var(--ch4)",650:"var(--ch3)"};const TAU1=0.75*1800/1000;let dvSel="EPC2361";
+function devs(){const s=$("#dvChart");clear(s);
+  const A=axes(s,{W:640,H:420,x0:20,x1:4000,y0:0.4,y1:300,logx:1,logy:1,xt:[20,50,100,200,500,1000,2000],yt:[0.5,1,2,5,10,20,50,100,200],m:{l:52,r:14,t:12,b:38},xl:"C_oss,tr = Q_oss/V  [pF]",yl:"R_DS(on) typ. [mΩ]"});
+  [1,2,5,10].forEach(t=>{const pts=[];for(let lc=Math.log10(20);lc<=Math.log10(4000)+1e-9;lc+=0.05){const c=10**lc,r=t*1000/c;if(r>=0.4&&r<=300)pts.push([c,r])}
+    el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:"var(--line)","stroke-dasharray":"4 4"},s);const q=pts[Math.floor(pts.length*0.1)];el("text",{x:A.X(q[0])+4,y:A.Y(q[1])-4},s,"τ = "+t+" ps")});
+  DVS.forEach(d=>{const x=A.X(d[3]),y=A.Y(d[2]),sel=d[0]===dvSel;const g=el("g",{style:"cursor:pointer"},s);g.onclick=()=>{dvSel=d[0];devs()};
+    if(d[4]==="I")el("rect",{x:x-7,y:y-7,width:14,height:14,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);else el("circle",{cx:x,cy:y,r:7.5,fill:DVC[d[1]],stroke:"var(--ink)","stroke-width":sel?2.5:.6},g);
+    el("text",{x:x+10,y:y+4,class:sel?"ink":""},g,d[0])});
+  const d=DVS.find(x=>x[0]===dvSel),tau=d[2]*d[3]/1000,N=Math.ceil(1200/(0.75*d[1]));
+  ro("#dvRo",[{v:fmt(tau,2)+" ps",l:"D-FoM τ of "+d[0]},{v:fmt(Math.sqrt(tau/TAU1),2)+"×",l:"min. semiconductor loss vs EPC2361",c:d[0]==="EPC2361"?"good":tau/TAU1<2?"warn":"bad"},{v:N,l:"cells for 1200 V"},{v:fmt(1200/N,0)+" V",l:"voltage per cell"}]);
+  $("#dvTable tbody").innerHTML=DVS.slice().sort((a,b)=>a[2]*a[3]-b[2]*b[3]).map(x=>{const t=x[2]*x[3]/1000;return `<tr data-d="${x[0]}" class="${x[0]===dvSel?"sel":""}"><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td>${fmt(t,2)}</td><td>${fmt(Math.sqrt(t/TAU1),2)}×</td><td>${Math.ceil(1200/(0.75*x[1]))}</td></tr>`}).join("");}
+$("#dvTable").addEventListener("click",e=>{const r=e.target.closest("tr[data-d]");if(r){dvSel=r.dataset.d;devs()}});
 
 function gantt(){const s=$("#gantt");clear(s);const m0=10,m1=24;const X=m=>150+(m-m0)/(m1-m0)*420;
   ["Nov 26","Jan 27","Apr 27","Jul 27","Oct 27","Dec 27"].forEach((t,i)=>{const m=[10,12,15,18,21,23][i];el("line",{x1:X(m),x2:X(m),y1:4,y2:178,stroke:"var(--grid)"},s);el("text",{x:X(m),y:194,"text-anchor":"middle"},s,t)});
@@ -1037,7 +1073,7 @@ function gantt(){const s=$("#gantt");clear(s);const m0=10,m1=24;const X=m=>150+(
   el("line",{x1:X(10.55),x2:X(10.55),y1:0,y2:180,stroke:"var(--bad)","stroke-width":1.5},s);el("text",{x:X(10.55)+4,y:10,fill:"var(--bad)"},s,"now")}
 
 /* ---------- boot ---------- */
-timeline();charging();proto();dfom();wsets();bench();autoN();lines();flow();npar();loops();gates();sims();road();pole();questions();gantt();
+timeline();charging();proto();dfom();wsets();bench();autoN();lines();flow();npar();loops();gates();sims();devs();road();pole();gantt();
 fit();fromHash();
 })();
 </script>
