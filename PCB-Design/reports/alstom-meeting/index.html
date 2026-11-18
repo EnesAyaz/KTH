@@ -170,6 +170,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 .stage:focus-visible{outline:2px solid var(--accent)}
 
 table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-child,table.t.cells th:first-child{text-align:left}
+#riskTable th{text-align:left} #riskTable td{padding:12px 10px;vertical-align:top}
 .flowv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (max-width:820px){
   body{overflow:auto}
@@ -226,7 +227,7 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
       <button data-go="s5" data-min="10 min">Device choice and SPB</button>
       <button data-go="s10" data-min="15 min">Design results of the GaN cell</button>
       <button data-go="s11" data-min="10 min">Prototype v1, tests and machine</button>
-      <button data-go="s16" data-min="10 min">Next steps</button>
+      <button data-go="s15r" data-min="10 min">Open risks and next steps</button>
     </div>
   </div>
 </section>
@@ -471,14 +472,16 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   <div class="slide-head"><div><div class="eyebrow">C · What SPB buys and what it costs</div><h2>Less semiconductor loss, many more parts</h2></div><div class="pageno"></div></div>
   <div class="body cols-2">
     <div class="stack">
-      <h3>Total inverter loss at rated power: two SiC prototypes and the SPB model</h3>
+      <h3>Total inverter loss at rated power, including the GaN gate-drive auxiliaries</h3>
       <div class="chartbox" style="flex:1;min-height:260px"><svg class="chart" id="bmChart" viewBox="0 0 560 250" aria-label="Total loss of SiC prototype 1, SiC prototype 2 and the SPB GaN design"></svg></div>
-      <div class="readout">
-        <div class="ro"><b>99.12 %</b><span>SiC prototype 1 (2 kV), 250 kW, measured at full load</span></div>
-        <div class="ro"><b>99.3–99.7 %</b><span>SiC prototype 2 (1.7 kV), efficiency map 5–20 kHz, 1190 V</span></div>
-        <div class="ro good"><b>99.71 %</b><span>SPB GaN, 300 kW, semiconductors only (model)</span></div>
+      <div class="card stack" style="gap:6px">
+        <div class="ctrl">
+          <label for="axS">Loss per isolated gate supply (192)</label><input id="axS" type="range" min="0.1" max="2" step="0.05" value="0.5"><output id="axSo"></output>
+          <label for="axD">Driver IC own loss (96)</label><input id="axD" type="range" min="0.05" max="0.5" step="0.05" value="0.15"><output id="axDo"></output>
+        </div>
       </div>
-      <p class="tiny muted">Not the same boundary: the SiC numbers are measured inverters (calorimetric); the SPB number is our screening model (conduction 601 W, switching 238 W, dead time 22 W, gate 3.4 W) without capacitor, busbar and auxiliary losses. Prototype 2 is shown as the range of its efficiency map.</p>
+      <div class="readout" id="bmRo"></div>
+      <p class="tiny muted">SiC: measured inverters (calorimetric); prototype 2 as the range of its efficiency map. SPB: semiconductor model (conduction 601 W, switching 238 W, dead time 22 W, gate charge 3.4 W) plus an estimate of the gate-drive auxiliaries from the two assumptions above; capacitor and busbar losses are not included.</p>
     </div>
     <div class="stack">
       <h3>Part count for the 300 kW drive</h3>
@@ -694,6 +697,26 @@ table.t.cells td,table.t.cells th{text-align:center} table.t.cells td:first-chil
   </div>
 </section>
 
+<!-- 15r OPEN RISKS -->
+<section class="slide" id="s15r" data-title="Open risks">
+  <div class="slide-head"><div><div class="eyebrow">F · Open risks</div><h2>What could still stop the SPB, and how we will find out</h2></div><div class="pageno"></div></div>
+  <div class="body" style="grid-template-columns:1fr">
+    <table class="t txt big" id="riskTable">
+      <thead><tr><th style="width:17%">Risk</th><th style="width:37%">Why it matters</th><th style="width:12%">Status</th><th>Next step</th></tr></thead>
+      <tbody>
+        <tr><td><b>Part count and cost</b></td><td>384 GaN transistors, 96 driver ICs and 192 isolated gate supplies replace 3 SiC modules.</td><td><span class="chip next">open</span></td><td>Cost per kW of one 75 V level, then of the stack, against the SiC prototypes.</td></tr>
+        <tr><td><b>Reliability</b></td><td>Many parts in one series path: one failed cell stops the drive unless it can be bypassed.</td><td><span class="chip next">open</span></td><td>Failure-rate budget per level; study cell bypass and running with one cell less.</td></tr>
+        <tr><td><b>EMC and common mode</b></td><td>16 levels float at different potentials and switch at 30–50 V/ns; current flows through every isolation barrier and to the machine frame.</td><td><span class="chip next">open</span></td><td>Measure barrier and frame currents on the three-phase level; filter and layout rules from that.</td></tr>
+        <tr><td><b>Isolation</b></td><td>The top level sits 1200 V above ground; drivers and supplies must hold it for the vehicle lifetime.</td><td><span class="chip now">in design</span></td><td>Reinforced driver and supply parts for the stack; creepage and partial-discharge checks.</td></tr>
+        <tr><td><b>Fault protection</b></td><td>100 V GaN has a very short short-circuit withstand time; detection and turn-off must be fast.</td><td><span class="chip next">open</span></td><td>Desaturation or shunt-based fast turn-off on the load circuit.</td></tr>
+        <tr><td><b>Cell-voltage balance</b></td><td>Each winding set must take its share of the power, or its cell capacitor drifts.</td><td><span class="chip now">in study</span></td><td>Balancing control in simulation, then on two stacked levels.</td></tr>
+        <tr><td><b>Thermal and mechanics</b></td><td>Many small devices on shared heatsinks, with insulation between levels.</td><td><span class="chip now">in design</span></td><td>Thermal test of the load circuit; heatsink insulation concept for the stack.</td></tr>
+      </tbody>
+    </table>
+    <p class="small muted">None of these is measured yet. The double-pulse and load circuits answer the device-level questions first; the three-phase level and two stacked levels answer the system ones.</p>
+  </div>
+</section>
+
 <!-- 16 NEXT STEPS -->
 <section class="slide" id="s16" data-title="Next steps">
   <div class="slide-head"><div><div class="eyebrow">F · Next steps</div><h2>Plan to the end of 2027</h2></div><div class="pageno"></div></div>
@@ -897,18 +920,21 @@ function wsets(){const N=+$("#wsN").value;wsSel=Math.min(wsSel,N-1);const s=$("#
 bindRange("wsN",v=>v,wsets);
 
 /* ---------- slide 8: benchmark ---------- */
-function bench(){const s=$("#bmChart");clear(s);
+function bench(){const s=$("#bmChart");clear(s);const ps=+$("#axS").value,pd=+$("#axD").value,aux=192*ps+96*pd,spb=601+238.3+22.3+3.4,tot=spb+aux;
   const p1=250e3*(1/0.9912-1), p2a=300e3*(1/0.997-1), p2b=300e3*(1/0.993-1);
   const A=axes(s,{W:560,H:250,x0:0,x1:2500,y0:0,y1:1,xt:[0,500,1000,1500,2000,2500],yt:[],m:{l:14,r:20,t:6,b:34},xl:"total inverter loss at rated power [W]"});
   const rows=[["SiC prototype 1 · 2 kV · 250 kW, measured",[[p1,"var(--ch3)"]]],["SiC prototype 2 · 1.7 kV · ≈ 300 kW, from its 99.3–99.7 % map",null],
-              ["SPB GaN · 100 V EPC2361 · 300 kW, model",[[601,"var(--ch2)"],[238.3,"var(--ch1)"],[22.3+3.4,"var(--muted)"]]]];
+              ["SPB GaN · 100 V EPC2361 · 300 kW, model + auxiliaries (estimate)",[[601,"var(--ch2)"],[238.3,"var(--ch1)"],[22.3+3.4,"var(--muted)"],[aux,"var(--ch3)",1]]]];
   rows.forEach((r,i)=>{const y=22+i*66;el("text",{x:A.X(0),y:y-6,class:"ink"},s,r[0]);
-    if(r[1]){let x0=0;r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:30,fill:sg[1],"fill-opacity":.88},s);x0+=sg[0]});
+    if(r[1]){let x0=0;r[1].forEach(sg=>{el("rect",{x:A.X(x0),y:y,width:A.X(x0+sg[0])-A.X(x0),height:30,fill:sg[1],"fill-opacity":sg[2]?.35:.88,stroke:sg[2]?sg[1]:"none","stroke-dasharray":"4 3"},s);x0+=sg[0]});
       el("text",{x:A.X(x0)+6,y:y+20,class:"ink"},s,fmt(x0,0)+" W")}
     else{el("rect",{x:A.X(0),y:y,width:A.X(p2a)-A.X(0),height:30,fill:"var(--ch4)","fill-opacity":.88},s);
       el("rect",{x:A.X(p2a),y:y,width:A.X(p2b)-A.X(p2a),height:30,fill:"var(--ch4)","fill-opacity":.3,stroke:"var(--ch4)","stroke-dasharray":"4 3"},s);
       el("text",{x:A.X(p2b)+6,y:y+20,class:"ink"},s,fmt(p2a,0)+"–"+fmt(p2b,0)+" W")}});
-  el("text",{x:A.X(300),y:196,"text-anchor":"middle",fill:"var(--ch2)"},s,"conduction");el("text",{x:A.X(720),y:196,"text-anchor":"middle",fill:"var(--ch1)"},s,"switching");}
+  el("text",{x:A.X(300),y:196,"text-anchor":"middle",fill:"var(--ch2)"},s,"conduction");el("text",{x:A.X(720),y:196,"text-anchor":"middle",fill:"var(--ch1)"},s,"switching");
+  ro("#bmRo",[{v:"99.12 %",l:"SiC prototype 1 (2 kV), 250 kW, measured"},{v:"99.3–99.7 %",l:"SiC prototype 2 (1.7 kV), efficiency map"},
+    {v:fmt(aux,0)+" W",l:"GaN gate-drive auxiliaries (estimate)",c:"warn"},{v:fmt(100*300e3/(300e3+tot),2)+" %",l:"SPB GaN incl. auxiliaries, 300 kW",c:"good"}]);}
+bindRange("axS",v=>fmt(v,2)+" W",bench);bindRange("axD",v=>fmt(v,2)+" W",bench);
 
 /* ---------- slide 9: DC links ---------- */
 const LINES=[["800","800 V truck",800,800],["1200","1.2 kV truck (ours)",1200,1200],["750","750 V rail",750,900],["1500","1.5 kV rail",1500,1800],["3000","3 kV rail",3000,3600]];

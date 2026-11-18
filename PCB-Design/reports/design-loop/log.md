@@ -549,3 +549,11 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   2027". Open (Enes to decide): 92.9 V vs 90 V target, 1250 V max-voltage case, aux losses in the benchmark,
   prototype-2 loss basis, 68.8 C thermal path, 36-slot vs 48 coils, open-risks slide.
 - Check: 20 slides and all slider/stage states fit, no console errors, no raw underscores; changed slides viewed.
+- **Enes on the open points:** 1 leave, 2 leave, 3 add aux power, 4 efficiency map is correct, 5 leave, 6 36-slot is
+  only an example, leave, 7 add an open-risks slide.
+- Done (version 17, 21 slides): benchmark adds a GaN gate-drive auxiliary estimate with two sliders (loss per isolated
+  supply x 192, default 0.5 W; driver IC own loss x 96, default 0.15 W -> 110 W, 99.68 % incl. aux.); no repo data
+  for the supply parts, so it is labelled an estimate. New slide "Open risks" before next steps: part count and cost,
+  reliability, EMC/common mode, isolation, fault protection, cell-voltage balance, thermal/mechanics, each with status
+  and next step; agenda item F now "Open risks and next steps".
+- Check: 21 slides fit at 1400x860 (both slider extremes too), no console errors; both slides viewed in renders.
