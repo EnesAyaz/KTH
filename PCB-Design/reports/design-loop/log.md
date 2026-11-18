@@ -488,3 +488,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Done: eyebrow without the meeting text; title in title case; KPI "GaN double-pulse circuit in progress"; hardware
   slide chip and test-roadmap stage set to "in progress" for consistency. Republished as version 4; reply in thread.
 - **Enes (comment, #s2 h2):** "From Powerized to Moore4Power". Heading now "From PowerizeD to Moore4Power", old heading in the eyebrow. Version 5. Asked in thread whether Moore4Power goes in the funding line.
+- **Enes (comment, timeline label):** "2kV SiC Power Module". Labels now "Prototype 1: 2 kV SiC power module" and "Prototype 2: 1.7 kV SiC eTruck module". Version 6.
