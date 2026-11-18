@@ -261,7 +261,6 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <div class="ro"><b>99.12 %</b><span>measured full load, prototype 1 (2 kV), 250 kW</span></div>
       </div>
       <div class="note"><b>What it left open</b>Only the two-level topology, only the rated point, no lifetime. A two-level 1.2 kV inverter needs 1.7–2 kV devices; we built one with each (next slide). That is the starting point for SPB.</div>
-      <p class="tiny muted">Ayaz et al., 1.2 kV DC-link study for heavy-duty EVs (IEEE Access, accepted); HEMIZERO meeting, Oct 2026.</p>
     </div>
   </div>
 </section>
@@ -293,7 +292,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
         <div class="chartbox" style="height:120px"><svg class="chart" id="pdChart" viewBox="0 0 560 120" aria-label="Power density of the two prototypes"></svg></div>
       </div>
       <p class="small" id="protoTxt"></p>
-      <p class="tiny muted">Prototype 1: IEEE Access paper (accepted). Prototype 2: HEMIZERO WP4 update; rated power estimated from 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
+      <p class="tiny muted">Prototype 2: rated power estimated from 72 kW/L × 4.14 L; efficiency map at 1190 V, M = 1.15, 50–200 A<sub>rms</sub>, from the calorimetric loss data.</p>
     </div>
   </div>
 </section>
@@ -513,43 +512,12 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
           <li>Two cells are enough to re-phase a 36-slot 12/6-pole winding, so pole changing does not force a large cell count.</li>
           <li>Preliminary no-load FEA of a hybrid-excited rotor shows both field settings. Loaded FEA, losses and drive-cycle results are planned work.</li>
         </ul>
-        <p class="tiny muted">ECCE Asia 2027 digest, “Joint selection of GaN SPB cells and pole-changing windings for truck propulsion” (submission due 22 Nov 2026).</p>
       </div>
       <div class="stack">
         <div class="seg" id="pcSeg" role="group" aria-label="Device class"></div>
         <div class="readout" id="pcRo"></div>
         <p class="small" id="pcTxt"></p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- 14 OUTPUTS -->
-<section class="slide" id="s14" data-title="Publications">
-  <div class="slide-head"><div><div class="eyebrow">E · Progress · outputs</div><h2>Papers and material from the project</h2></div><div class="pageno"></div></div>
-  <div class="body cols-55">
-    <div class="stack">
-      <table class="t txt">
-        <thead><tr><th>Output</th><th>Topic</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>IEEE Access</td><td>1.2 kV DC link for heavy-duty EVs: charging, SiC inverter, motor; back-to-back validation</td><td><span class="chip done">accepted</span></td></tr>
-          <tr><td>ICPE 2027 digest</td><td>Design procedure of the GaN SPB building block: voltage class, layout, paralleling, DC link</td><td><span class="chip done">finalised</span></td></tr>
-          <tr><td>ECCE Asia 2027 digest</td><td>Joint choice of SPB cell count and pole-changing winding for trucks</td><td><span class="chip now">due 22 Nov</span></td></tr>
-          <tr><td>Review paper</td><td>Stacked polyphase bridges: topology, control, machines, semiconductors</td><td><span class="chip now">writing</span></td></tr>
-          <tr><td>Conference paper</td><td>GaN building block with measured double-pulse results</td><td><span class="chip next">after tests</span></td></tr>
-          <tr><td>A0 poster</td><td>SPB review and GaN prototype v1</td><td><span class="chip done">Oct 2026</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="stack">
-      <h3>Tools built along the way</h3>
-      <ul class="clean small">
-        <li>Analytical loss model for paralleled GaN, used to choose the voltage class and the number of devices in parallel.</li>
-        <li>Scripted KiCad board generator with automatic checks.</li>
-        <li>Q3D extraction and LTspice double-pulse chain for every board revision.</li>
-        <li>Winding and cell-count screening for pole-changing machines.</li>
-        <li>Calorimetric loss separation for the back-to-back SiC bench.</li>
-      </ul>
     </div>
   </div>
 </section>
@@ -567,10 +535,10 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
     <div class="stack">
       <h3>Plan</h3>
       <div class="readout" style="grid-template-columns:1fr">
-        <div class="ro warn"><b>Nov–Dec 2026</b><span>order and assemble the prototype v1 double-pulse circuit; finish the two-terminal redraw; submit the ECCE Asia digest</span></div>
+        <div class="ro warn"><b>Nov–Dec 2026</b><span>order and assemble the prototype v1 double-pulse circuit; finish the two-terminal redraw</span></div>
         <div class="ro"><b>Q1 2027</b><span>double-pulse tests 20 → 80 V; measured current sharing and switching energy against the models</span></div>
         <div class="ro"><b>Q1–Q2 2027</b><span>prototype v1 load circuit and busbar; continuous operation of one leg, then one three-phase cell</span></div>
-        <div class="ro"><b>2027</b><span>loaded FEA and drive-cycle study of the pole-changing machine; finish the review paper</span></div>
+        <div class="ro"><b>2027</b><span>loaded FEA and drive-cycle study of the pole-changing machine</span></div>
       </div>
     </div>
     <div class="stack">
@@ -583,7 +551,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
       </ul>
       <div class="card small" style="margin-top:6px">
         <b>KTH · SPB traction drive</b><br>
-        <span class="muted">SPB numbers come from LTspice, Ansys Q3D and our analytical loss model; GaN prototype v1 is not yet measured. The 1.2 kV SiC numbers are measured. Funding: Swedish Energy Agency (HEMIZERO), EU Chips JU and Vinnova (PowerizeD).</span>
+        <span class="muted">SPB numbers come from LTspice, Ansys Q3D and our analytical loss model; GaN prototype v1 is not yet measured. The 1.2 kV SiC numbers are measured. Funding: EU Chips JU and Vinnova (PowerizeD).</span>
       </div>
     </div>
   </div>
@@ -655,16 +623,14 @@ function fillSeg(id,items,sel){$("#"+id).innerHTML=items.map(it=>`<button data-v
 
 /* ---------- slide 2: timeline ---------- */
 const TL=[
- {x:5,s:"done",d:"2025",t:"1.2 kV study starts",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
- {x:15,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC power module",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
- {x:25,s:"done",d:"2026",t:"Prototype 2: 1.7 kV SiC eTruck module",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
- {x:35,s:"done",d:"2026",t:"IEEE Access paper accepted",up:0,txt:"The 1.2 kV system study and its experimental validation are accepted for publication in IEEE Access.",out:"Result: 1.2 kV keeps inverter efficiency near 99.2 %, cuts charging current by a third and raises inverter power density by 11 %."},
- {x:45,s:"done",d:"2026",t:"SPB building block design",up:1,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and layout studies of the cell with EPC2361 in parallel and a centre gate driver.",out:"Layout rules for GaN prototype v1: mirrored cells, star gate drive, Kelvin returns."},
- {x:56,s:"done",d:"Oct 2026",t:"HEMIZERO meeting",up:0,txt:"Presentation of the 1.2 kV results and the SPB plan to the HEMIZERO partners (14 Oct 2026).",out:"Decision to continue with the GaN building block and its double-pulse test."},
- {x:67,s:"done",d:"26 Oct 2026",t:"GaN prototype v1 released",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
- {x:78,s:"now",d:"Nov 2026",t:"Digests and redraw",up:0,txt:"ICPE 2027 digest on the building-block design procedure is finished. ECCE Asia 2027 digest on pole-changing windings is due 22 November. A two-terminal AC redraw of the double-pulse circuit is in simulation.",out:"Two conference submissions; Q3D check of the redraw."},
- {x:90,s:"next",d:"2027",t:"Double-pulse tests, leg tests",up:1,txt:"Assemble and test the prototype v1 double-pulse circuit from 20 to 80 V, compare current sharing and switching energy with the models, then build the load circuit and run one leg continuously.",out:"First measured GaN SPB results; a conference paper with measurements."}];
-let tlSel=5;
+ {x:6,s:"done",d:"2025",t:"1.2 kV study starts",up:1,txt:"System study of raising the DC link of a heavy-duty EV from 800 V to 1.2 kV: charging, two-level SiC inverter and motor, with equal-power and equal-loss benchmarks.",out:"Analytical models of inverter loss, cooling volume, DC-link capacitor and motor harmonic loss."},
+ {x:20,s:"done",d:"2025",t:"Prototype 1: 2 kV SiC power module",up:0,txt:"Two inverters with Infineon 2 kV 62 mm SiC modules run back to back with interphase inductors. Total loss measured calorimetrically from the coolant, then separated into conduction and switching loss.",out:"Model agrees with the measured total loss within 10 %; 99.12 % at full load; 49.4 kW/L."},
+ {x:34,s:"done",d:"2026",t:"Prototype 2: 1.7 kV SiC eTruck module",up:1,txt:"Second back-to-back pair with 1.7 kV eTruck half-bridge modules, laminated busbar and a compact cold plate, tested with the same calorimetric method.",out:"4.14 L, about 72 kW/L (components) and 50 kW/L (box); 99.3–99.7 % efficiency map at 1190 V."},
+ {x:48,s:"done",d:"2026",t:"SPB building block design",up:0,txt:"Choice of the voltage class (100 V GaN, 16 cells of 75 V) with our analytical loss model, and layout studies of the cell with EPC2361 in parallel and a centre gate driver.",out:"Layout rules for GaN prototype v1: mirrored cells, star gate drive, Kelvin returns."},
+ {x:63,s:"done",d:"26 Oct 2026",t:"GaN prototype v1 layout done",up:1,txt:"Double-pulse circuit of prototype v1: four EPC2361 per switch, two drivers, a shunt in every cell, 1200 V isolation to the control side. Released for fabrication after independent reviews; the load circuit and busbar wait for the test results.",out:"0.646 nH loop per cell, 0.7 % spread between cells, DRC and silkscreen audit clean."},
+ {x:78,s:"now",d:"Nov 2026",t:"Two-terminal redraw",up:0,txt:"A redraw of the double-pulse circuit with two AC terminals, to even out the current between the four cells, is being checked in simulation.",out:"Q3D and LTspice check of the redraw before ordering."},
+ {x:92,s:"next",d:"2027",t:"Double-pulse tests, leg tests",up:1,txt:"Assemble and test the prototype v1 double-pulse circuit from 20 to 80 V, compare current sharing and switching energy with the models, then build the load circuit and run one leg continuously.",out:"First measured GaN SPB results."}];
+let tlSel=4;
 function timeline(){const t=$("#tl");
   t.innerHTML='<div class="rail"></div>'+["2025","2026","2027"].map((y,i)=>`<span class="yr" style="left:${[11,50,95][i]}%">${y}</span>`).join("")+
    TL.map((m,i)=>`<span class="lab ${m.up?"up":"dn"}" style="left:${m.x}%">${m.t}</span><button class="${m.s}" style="left:${m.x}%" aria-label="${m.t}" aria-pressed="${i===tlSel}" data-i="${i}"></button>`).join("");
@@ -800,7 +766,7 @@ const FLOW=[
  {k:"6 · VERIFY",b:"Q3D, LTspice, Icepak",s:"loop, gate coupling, thermal",h:"Check every step in simulation, then on the bench",d:["Ansys Q3D extracts the power and gate loops of every cell; LTspice runs double-pulse tests on the extracted network.","Icepak checks the heatsink and junction temperatures.","Prototype v1 will measure the same quantities: current per cell, gate voltages, switching energy."]}];
 let flowSel=1;
 function flow(){$("#flow").innerHTML=FLOW.map((f,i)=>`<button class="step" data-i="${i}" aria-pressed="${i===flowSel}"><span class="k">${f.k}</span><b>${f.b}</b><span>${f.s.replace("C_oss","C<sub>oss</sub>").replace("T_j","T<sub>j</sub>")}</span></button>`).join("");
-  const f=FLOW[flowSel];$("#flowDetail").innerHTML=`<div class="eyebrow">Step ${flowSel+1} of 6</div><h3 style="font-size:20px">${f.h}</h3><ul class="clean">${f.d.map(x=>"<li>"+x+"</li>").join("")}</ul><p class="tiny muted">Click another step. The procedure is the subject of our ICPE 2027 digest.</p>`;}
+  const f=FLOW[flowSel];$("#flowDetail").innerHTML=`<div class="eyebrow">Step ${flowSel+1} of 6</div><h3 style="font-size:20px">${f.h}</h3><ul class="clean">${f.d.map(x=>"<li>"+x+"</li>").join("")}</ul><p class="tiny muted">Click another step.</p>`;}
 $("#flow").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){flowSel=+b.dataset.i;flow()}});
 
 /* ---------- slide 12: roadmap ---------- */
@@ -817,7 +783,7 @@ function road(){$("#road").innerHTML=ROAD.map((r,i)=>`<button class="stage ${r.s
 $("#road").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b){roadSel=+b.dataset.i;road()}});
 
 /* ---------- slide 13: pole changing cell count ---------- */
-const PC={"100":{n:20,d:"EPC2361",r:0.75,t:"20 cells: the lowest device loss today, but the most cells, drivers and winding sets."},"150":{n:14,d:"EPC2305",r:2.2,t:"14 cells: fewer winding sets; the device has about three times the on-resistance of the 100 V part."},"200":{n:10,d:"EPC2304",r:3.5,t:"10 cells: half the cells of the 100 V design. Our candidate for the full paper, once device loss, thermal and driver cost are compared."},"650":{n:4,d:"IGLT65R025D2",r:25,t:"4 cells: very few winding sets, but a much higher on-resistance and a different package and current scale."}};
+const PC={"100":{n:20,d:"EPC2361",r:0.75,t:"20 cells: the lowest device loss today, but the most cells, drivers and winding sets."},"150":{n:14,d:"EPC2305",r:2.2,t:"14 cells: fewer winding sets; the device has about three times the on-resistance of the 100 V part."},"200":{n:10,d:"EPC2304",r:3.5,t:"10 cells: half the cells of the 100 V design. Our candidate for the next study, once device loss, thermal and driver cost are compared."},"650":{n:4,d:"IGLT65R025D2",r:25,t:"4 cells: very few winding sets, but a much higher on-resistance and a different package and current scale."}};
 fillSeg("pcSeg",Object.keys(PC).map(k=>[k,k+" V class"]),"200");
 const gPc=seg("pcSeg",()=>pole());
 function pole(){const k=gPc(),p=PC[k];
