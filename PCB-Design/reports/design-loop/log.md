@@ -481,3 +481,9 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   buttons prefixed "SiC" so they do not mix with GaN prototype v1. Images renamed v1_dpt.png / v1_load.jpg.
 - Check: 17 slides fit, no broken images, 0 "Rev A/B" in the slide text (the board renders still carry the silk
   label). Republished as version 3.
+
+## 2026-11-18 - Alstom deck: comment on slide 1
+- **Enes (artifact comment, #s1):** remove "progress meeting with Alstom", title in capitals, Prototype v1 = GaN
+  double-pulse circuit in progress.
+- Done: eyebrow without the meeting text; title in title case; KPI "GaN double-pulse circuit in progress"; hardware
+  slide chip and test-roadmap stage set to "in progress" for consistency. Republished as version 4; reply in thread.

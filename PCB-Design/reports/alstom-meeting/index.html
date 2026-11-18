@@ -171,15 +171,15 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
 <!-- 1 TITLE -->
 <section class="slide title-slide" id="s1" data-title="Title">
   <div class="stack" style="gap:14px">
-    <div class="eyebrow">KTH · Electric power and energy systems · progress meeting with Alstom · Nov 2026</div>
-    <h1>A 1200 V traction drive from low-voltage cells: the stacked polyphase bridge</h1>
+    <div class="eyebrow">KTH · Electric power and energy systems · Nov 2026</div>
+    <h1>A 1200 V Traction Drive from Low-Voltage Cells: The Stacked Polyphase Bridge</h1>
     <p class="muted" style="max-width:820px;font-size:17px">What we learned from raising the DC link to 1.2 kV, what the stacked polyphase bridge (SPB) is and why we use it, and where the GaN building block, the board and the machine work stand today.</p>
   </div>
   <div class="kpis">
     <div class="kpi"><b>1.2 kV</b><span>DC link, heavy-duty traction</span></div>
     <div class="kpi"><b>300 kW</b><span>drive target</span></div>
     <div class="kpi"><b>16 × 75 V</b><span>stacked cells, 100 V GaN</span></div>
-    <div class="kpi"><b>Prototype v1</b><span>GaN double-pulse circuit released for fabrication</span></div>
+    <div class="kpi"><b>Prototype v1</b><span>GaN double-pulse circuit in progress</span></div>
   </div>
   <div class="agenda" aria-label="Agenda">
     <button data-go="s2" data-min="5 min">Project and timeline</button>
@@ -466,7 +466,7 @@ table.t tr.sel td{background:var(--sunk);color:var(--accent);font-weight:600}
     <div class="fig" style="height:270px"><img src="img/v1_dpt.png" alt="Double-pulse test circuit of prototype v1: four cells with shunts, ceramic capacitor bank, AC bar and two gate-driver areas."></div>
     <div class="fig" style="height:270px"><img src="img/v1_load.jpg" alt="Load circuit of prototype v1: the same leg with a heatsink over the transistors and the AC bar for continuous operation."></div>
     <div class="fig" style="height:270px"><img src="img/gate_star.png" alt="Gate routing of one driver block: gate paths in a star from the driver to four transistors, Kelvin returns routed under them."></div>
-    <p class="small"><b>Double-pulse circuit.</b> One leg: 4 × EPC2361 per switch, 2 drivers, a shunt in every cell, 1200 V isolation to the control side, 89.5 × 85.2 mm, 4 layers. <span class="chip done">released</span></p>
+    <p class="small"><b>Double-pulse circuit.</b> One leg: 4 × EPC2361 per switch, 2 drivers, a shunt in every cell, 1200 V isolation to the control side, 89.5 × 85.2 mm, 4 layers. <span class="chip now">in progress</span></p>
     <p class="small"><b>Load circuit.</b> The same leg with a heatsink over the transistors, for continuous operation at rated current. <span class="chip next">after double pulse</span></p>
     <p class="small"><b>Gate drive.</b> One driver channel per pair, gate in a star, Kelvin return under each gate trace, so every transistor sees the same gate loop.</p>
     <div class="readout" style="grid-column:1/-1;align-self:end">
@@ -806,7 +806,7 @@ $("#flow").addEventListener("click",e=>{const b=e.target.closest("button[data-i]
 /* ---------- slide 12: roadmap ---------- */
 const ROAD=[
  {s:"done",b:"Cell design",t:"Simulation",h:"Cell design and verification in simulation",d:["Voltage class, layout, paralleling and DC link chosen by the procedure.","Q3D, LTspice and thermal checks for every revision."]},
- {s:"done",b:"Double-pulse circuit",t:"prototype v1, released",h:"Prototype v1 double-pulse circuit",d:["Released for fabrication on 26 Oct 2026 after independent reviews.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
+ {s:"now",b:"Double-pulse circuit",t:"prototype v1, in progress",h:"Prototype v1 double-pulse circuit",d:["Released for fabrication on 26 Oct 2026 after independent reviews.","Measurement points: a shunt in every cell, gate voltages of high and low side, switch node through a differential probe."]},
  {s:"now",b:"Order, assemble",t:"Nov–Dec 2026",h:"Order and assembly",d:["Board order with filled vias in the pads; assembly of the GaN devices.","In parallel: the two-terminal AC redraw, checked in Q3D before a possible second order."]},
  {s:"next",b:"Double pulse",t:"20 → 80 V",h:"Double-pulse tests",d:["Step the voltage from 20 to 80 V on the board's own DC link.","Measure turn-on and turn-off energy, current sharing between the four cells, gate overshoot; compare with the simulations."]},
  {s:"next",b:"Load circuit",t:"prototype v1, one leg",h:"Prototype v1 load circuit and busbar",d:["Frozen until the double-pulse results are in, so that what we learn goes into it.","Continuous operation of one leg at rated current, thermal measurement."]},
