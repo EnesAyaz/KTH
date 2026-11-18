@@ -616,3 +616,16 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   v1_pcb_top (originals unchanged in git history). Single file rebuilt.
 - Check: 21 slides plus all click states fit at 1400x860, no console errors, no broken images; painted regions viewed.
 - **Enes:** D-FoM figure labels overlap (slide 7). Slide 7: "two-level 1200 V" label moved off the SiC line. Slide 8: tau labels moved to the left end of their lines (5 ps above), EPC2071/EPC2302 labels separated. Viewed in renders. Version 24, single file rebuilt.
+
+### 2026-11-18 - Infineon deck v10: independent review and fixes
+- Enes: "create a fresh agent, review the presentation for errors, mistakes, contradictions; no orphaned letters; remove unreadable small explanations if not necessary".
+- Leader -> design-reviewer (fresh, read-only): review index.html and 23 headless renders. Agent -> leader: report reports/infineon-meeting/design_review_2026-11-18.md: 18 errors, 12 contradictions, 20 wraps/overlaps, 12 small-print items, 5 off-message items.
+- Leader verified against the sources (REVB_Q3D_dpt.cir: equal 1 nH AC take-off per cell; log: off-level window -1.4..-1.9 V, centre -1.65 V, sims at -1.9 V) and fixed:
+  - slide 20 leg loss rebased to the 6.25 kW leg (14.4 / 18.1 / 24.4 W at 20 / 50 / 100 kHz; was 7.7 W on a 2.65 kW block leg); "E_off tenfold" -> "2-4x at 60 A, up to 10x at full current".
+  - slide 7: 2->3->4 loss figures (was "3 adds little"), off-state +5.1 / about -1.65 V from a 5.1 V Zener split (was "+5/-1 V from a 6 V rail"); slides 17/18 default -1.7 V; sink 12.2 A on slides 17 and 21; slide 18 window band -1.35..-1.95 V and dead-time loss scaled to the loss model's 0.46 W.
+  - slide 12 shunt 0.12 nH body vs 0.24 nH with its path; slide 13 note that its runs have equal AC take-off (the one-bolt split of slide 16 is not in them) and the load-board 1.23 V bump; slide 14 energy readout removed (different circuit from slide 15), y axis to 100 %; slide 10 loop slider 0.646 nH, 90 V warning, di/dt from the Rev B runs; slide 8 note that the drawn boards reach 92.9 / 90.9 V; slide 21 references; one "gate limit -4 V" wording; one 200 V example part (1.5 mOhm, 900 pF) on slides 5 and 19; board status "layout done, two-bolt redraw before ordering"; Infineon REF-CAV250KMT7INV instead of "eCAV platform"; slide 1 "1700-2000 V devices".
+  - "level" for the 75 V SPB stage (slides 1, 3, 4, 6, 7, 19, 21, 22, 23), "cell" only for the commutation cell.
+  - typography: 591 non-breaking spaces between numbers and units, subscripts instead of underscores (SVG tspans and readouts), true minus signs, chart text 11 -> 12.5 px (small cards 14.5 px), notes 13.5 px, chips/tags 12 px; overlapping labels moved on slides 3, 5, 10, 16, 17, 18; gate-star image and KiCad schematics cropped.
+  - removed: title-strip captions, the repeated note on slide 23; slide 15 note shortened.
+  - not applied: "eTruck" in the slide 2 table (Enes asked for it); "DESIGNED BY CLAUDE" silkscreen in the board renders (board design decision, left to Enes).
+- Checks: headless Edge 1400x860, 23 slides overflow 0 (footer counted), 0 script errors; all slides viewed as contact sheets. Artifact version 11.
