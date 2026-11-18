@@ -637,3 +637,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - 13 backup index (clickable), 14-29 backup: the former detail slides with "Backup" eyebrows. All "slide N" references renumbered.
 - Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; main slides viewed as contact sheets, slide 12 at full size. Artifact version 12.
 - **Enes:** no minutes on the first slide. Agenda shows only the section letters. Version 25, single file rebuilt and sent.
+
+### 2026-11-18 - Infineon deck v12: order agreed with Enes, version 1, thank-you slide
+- Enes: "2 why high voltage, 3 SPB with varying cell, then why 100 V devices with D-FOM; then our design 4 EPC2361 (say version 1, not Rev B) and the design flow KiCad / Q3D / LTspice; then the four-problems slide and one slide per problem; then what a GaN device has to bring, without slide numbers and without the discussion slide; the rest after a thanks slide as backup; no minutes on the first slide".
+- Leader (no agents): main order 1 title (agenda without minutes) - 2 higher DC link - 3 SPB with level slider - 4 why 100 V GaN (D-FOM) - 5 our design (version 1) - 6 KiCad -> Q3D -> LTspice - 7 four-cell waveforms - 8 four problems - 9-12 problems 1-4 - 13 what a GaN device has to bring (source column removed) - 14 thank you (with the four asks); 15 backup index (titles only) and 14 backup slides (questions and next steps first). Merged "why SPB" slide removed. "Rev B" -> "version 1" (19 places), "Rev A" -> "earlier block layout"; every "slide N" reference removed; no footer on title-style slides.
+- Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; all slides viewed as contact sheets. Artifact version 13.
