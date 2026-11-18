@@ -606,3 +606,12 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   used for the 75 V unit and for the 4 parallel cells of a leg ("level" also used). ~25 wording fixes (undefined
   D-FoM/NPC/DRC/FEA, 2-level vs two-level, UK/US spelling, status chip words), ~25 orphans (number/unit splits ->
   non-breaking spaces). Repeats of decided items: 90 V limit (Enes: leave), year labels, title case, board silk.
+- **Enes:** fix the copy-edit findings. Done (version 23): contradictions (slide 2 goal = co-optimize with the machine
+  side; DPT circuit "layout done · in fabrication"; ordering Nov-Dec 2026; load circuit after the double-pulse
+  results, Q2 2027; 72 kW/L (components); 0.651 nH labelled as LTspice model value; step 4 loss wording). Terms:
+  "cell" = 75 V three-phase unit everywhere ("level" removed), "commutation cell" = one of the four parallel cells in
+  a leg. ~30 wording fixes (definitions of D-FoM, NPC, DRC, FEA; two-level/three-phase; US spelling; status words
+  done/in progress/planned; subscripts). Orphans: non-breaking spaces between numbers and units, N = 16, ≈, ≤
+  (290 places). Board printing ("SPB LEG REV B ...", "DESIGNED BY CLAUDE") painted out of v1_dpt, v1_load,
+  v1_pcb_top (originals unchanged in git history). Single file rebuilt.
+- Check: 21 slides plus all click states fit at 1400x860, no console errors, no broken images; painted regions viewed.
