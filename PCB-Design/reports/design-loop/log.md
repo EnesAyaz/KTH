@@ -597,3 +597,12 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - **Enes:** build the single-file version. reports/alstom-meeting/build_single_file.py writes SPB_status_update_single.html (5.3 MB, 24 pictures as data URIs, loaded once and swapped in for static and script-set images; doctype added). Check: copied alone into an empty folder, opened as file:// in headless Edge; slides 1, 2, 6, 14, 16, 18 viewed, all pictures and logos present.
 - **Enes:** delete "0.7 % spread between cells, DRC and silkscreen audit clean" (timeline, layout-done milestone). Outcome now "0.646 nH power loop per cell (Ansys Q3D)". Single file rebuilt. Version 21.
 - **Enes:** keep the spread on slide 2, drop only DRC/silkscreen. Outcome: "0.646 nH power loop per cell (Ansys Q3D), 0.7 % spread between the four cells". Single file rebuilt. Version 22.
+- leader -> copy-editor (fresh general-purpose agent; renders of 21 slides + index.html only): grammar, orphans,
+  contradictions.
+- copy-editor -> leader: contradictions: slide 2 goal "design the inverter and the machine together" vs no machine
+  design (19, 21); 0.651 nH model vs 0.646 Q3D; status of DPT circuit "in progress" (16) vs "done, layout done"
+  (18); ordering "Nov 2026" (2) vs "Nov-Dec 2026"; Gantt load circuit starts Jan 27 vs "after double pulse";
+  72 kW/L without "(components)" on 21; "1 -> 2 devices gives the large loss reduction" vs 2 -> 3 larger; "cell"
+  used for the 75 V unit and for the 4 parallel cells of a leg ("level" also used). ~25 wording fixes (undefined
+  D-FoM/NPC/DRC/FEA, 2-level vs two-level, UK/US spelling, status chip words), ~25 orphans (number/unit splits ->
+  non-breaking spaces). Repeats of decided items: 90 V limit (Enes: leave), year labels, title case, board silk.
