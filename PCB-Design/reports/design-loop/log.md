@@ -668,3 +668,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   10 slide 2: charging calculator moved to a new backup slide, three takeaways added; slide 6: KiCad copper replaced by the loop-budget chart, "full partial-L matrix" wording.
   backup: questions/next-steps duplicate removed, index grouped by topic, loop-budget slide retitled, "Problem 3" eyebrows, L*di/dt worst-case note.
 - Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; all slides viewed. Artifact version 15.
+
+## 2026-11-19 · Infineon deck v16: "bins (matched sets)"
+- Enes: keep "bins" but explain it in brackets as matched sets.
+- Leader (no agent): 7 places changed (title strip, ask slide, problem 3 strip, requirements table, thank-you card, backup slide 806 ask, question list). Check: overflow 0 and ERR 0 on all 29 slides. Republished as artifact v16.
