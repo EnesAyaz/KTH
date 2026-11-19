@@ -698,3 +698,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck v20: "SPB: 16 stacked cells"
 - Enes: "Count it for the 16-level inverter" is wrong, it is called 16 stacked cells SPB.
 - Leader: slide 5 counter heading "Count it for the SPB: 16 stacked cells", tile "EPC2361 in the SPB", U2 hotspot "192 isolated supplies for the SPB". Other "16 levels" wording (slides 4, 8, 12, procedure strip) left for Enes to decide. Check: overflow 0, ERR 0; embedded HTML and PDF rebuilt.
+
+## 2026-11-19 · Infineon deck v21: "level" -> "cell" everywhere
+- Enes: yes, rename level to cell everywhere.
+- Leader: 42 places ("16 × 75 V stacked cells", "Cell voltage", "Cells N", "cells for 1200 V", "75 V per cell", roadmap "Cells in series", terms "cell = one 75 V three-phase bridge"); topology note now "Each cell is a standard two-level three-phase bridge. Cells are in series ...". Kept: two-level / 2-level (topology), off-level (gate voltage), file name level_iso.jpg. Check: overflow 0, ERR 0; slides 1, 3, 4, 12 inspected; embedded HTML and PDF rebuilt.
