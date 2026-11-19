@@ -652,3 +652,19 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Enes: "review the presentation again with a fresh agent and give me feedback on how to improve it".
 - Leader -> design-reviewer (fresh, read-only, 29 renders): first run stalled after 600 s without output; resumed with instructions to write incrementally. Agent -> leader: reports/infineon-meeting/feedback_2026-11-19.md (top 10, flow and timing about 31.5 min, asks, clarity, per-slide notes, backup, consistency).
 - Leader spot-checked: backup overshoot slider still says "Cell voltage"; slide 12 text "wins on every count" (losses are 1.00x by construction); 4 transistors per channel need 14.9 A sink at 0.35 ohm pull-down and 22.3 A at 0.2 ohm (slide 9 says 15-20 A). No deck changes in this round; waiting for Enes's choice.
+
+### 2026-11-19 - Infineon deck v14: top-10 improvements from the second review
+- Enes: "Apply all ten".
+- Leader (no agents), with two corrections to the review checked against our own model: at -1.7 V off the bump margin to V_th,min never falls below about 0.9 V (bump saturates near 1.57 V), so the high-dv/dt limit is the turn-off spike toward -4 V (-3.3 V at 28 V/ns, -3.9 V at 80 V/ns with four in parallel, -4.9 V on one-bolt version 1); a 0.3 V V_th spread splits E_on and E_off about 2 : 1 (13.6 : 7.1, 10.2 : 5.3 uJ), the 4 : 1 is the 2 vs 8 nH gate-loop case.
+  1 terms defined on slide 5 (level, switch, cell, DPT); "Level voltage" slider; "switches (6 per level)", "driver ICs".
+  2 slide 11: one-bolt +/-15 % and -4.9 V into the Problem box; retitled "A gate-loop mismatch splits turn-on energy 4 : 1 between two paralleled devices", eyebrow "two-device LTspice study".
+  3 slide 10 retitled "A negative off-voltage removes the Miller bump, but the -4 V gate limit leaves a narrow window"; Problem / Tried / Ask rewritten with the numbers above.
+  4 one driver ask (>= 22 A sink at <= 0.2 ohm pull-down, split outputs +5/-1.7 V, CMTI >= 200 V/ns, isolation for a level up to 1200 V; 2EDF7275K 8 A, 460 V functional) on slides 1, 8, 9, 13, 14.
+  5 slide 7: "0.7 % (equal AC take-off; one bolt: +/-15 %)", title with "~80 A per transistor".
+  6 slide 5: 192 isolated supplies = one per channel so each pair keeps its own Kelvin return (96 per switch left for Enes to decide).
+  7 slide 12 retitled "A 200 V part halves the hardware if it reaches <= 1.5 mOhm and <= 900 pF", "losses tie and the hardware halves"; one 200 V target everywhere; slide 4 asks which CoolGaN parts to add (no unverified part data added).
+  8 conditions: sink 12.2 A at -1.7 V off, 0.35 ohm; E_on chart "single device, 60 A, 2 ohm"; slide 5 loss-model conditions.
+  9 title slide: "From this meeting we hope for" with five asks instead of the picture strip; joint test as ask 5 on slides 8 and 14; slide 14 status and operating point.
+  10 slide 2: charging calculator moved to a new backup slide, three takeaways added; slide 6: KiCad copper replaced by the loop-budget chart, "full partial-L matrix" wording.
+  backup: questions/next-steps duplicate removed, index grouped by topic, loop-budget slide retitled, "Problem 3" eyebrows, L*di/dt worst-case note.
+- Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; all slides viewed. Artifact version 15.

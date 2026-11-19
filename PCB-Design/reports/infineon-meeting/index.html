@@ -104,7 +104,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .askcard .n{grid-row:1/5;font:700 40px var(--f-display);color:var(--accent);line-height:1}
 .askcard h3{font-size:22px}
 .askcard .pr{font-size:17px;line-height:1.45;color:var(--muted)}
-.askcard .ak{font-size:18px;line-height:1.45} .askcard .ak b{color:var(--accent)}
+.askcard .ak{font-size:18px;line-height:1.45}
+.ask8 .askcard .pr{font-size:15.5px} .ask8 .askcard .ak{font-size:16.5px} .ask8 .askcard{padding:12px 16px} .askcard .ak b{color:var(--accent)}
 .golink{all:unset;cursor:pointer;font:500 12.5px var(--f-mono);color:var(--accent);justify-self:start}
 .golink:hover,.golink:focus-visible{text-decoration:underline}
 .pt{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:start}
@@ -114,10 +115,16 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 .mini{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px}
 .mini span{background:var(--sunk);border:1px solid var(--line);border-radius:3px;padding:3px 8px}
 .mini i{font-style:normal;color:var(--muted)}
-.bklist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;align-content:start}
+.bkgroups{display:grid;grid-template-columns:1fr 1fr;gap:22px 34px;align-content:start}
+.bkgroups h3{font-size:18px;color:var(--accent);margin-bottom:6px}
+.bklist{display:grid;grid-template-columns:1fr;gap:6px;align-content:start}
 .bklist button{all:unset;cursor:pointer;border-left:3px solid var(--line);padding:9px 14px;font-size:18px}
 .bklist button span{font:500 14px var(--f-mono);color:var(--muted);margin-right:8px}
 .bklist button:hover,.bklist button:focus-visible{border-left-color:var(--accent)}
+.hope{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;flex:1;align-content:center}
+.hope .ht{grid-column:1/-1;font:600 18px var(--f-display);color:var(--accent)}
+.hope>div:not(.ht){background:var(--sunk);border-top:4px solid var(--accent);border-radius:4px;padding:12px 14px;font-size:15px;line-height:1.4}
+.hope b{display:block;font:600 17px var(--f-display);margin-bottom:4px}
 .card{background:var(--sunk);border:1px solid var(--line);border-radius:5px;padding:12px 16px;min-width:0}
 /* figures: fixed boxes so a picture can never push past the slide */
 .fig{background:var(--plate);border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px}
@@ -215,18 +222,13 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <div class="kpi"><b>1200 V</b><span>DC link, 300 kW drive</span></div>
       <div class="kpi"><b>16 × 75 V</b><span>stacked levels, 100 V GaN</span></div>
       <div class="kpi"><b>4 × GaN</b><span>EPC2361 per switch</span></div>
-      <div class="kpi"><b>1 channel / 2</b><span>2EDF7275K channel per transistor pair</span></div>
-      <div class="kpi"><b>0.65 / 0.41 nH</b><span>loop per cell, double-pulse / load board (Q3D)</span></div>
+      <div class="kpi"><b>2 GaN / channel</b><span>one 2EDF7275K driver channel per transistor pair</span></div>
+      <div class="kpi"><b>0.65 nH</b><span>loop per cell, with shunt (Q3D)</span></div>
       <div class="kpi"><b>Version 1</b><span>double-pulse board: layout done, two-bolt redraw before ordering</span></div>
     </div>
-    <div class="strip">
-      <figure><div class="fig"><img src="img/reva_block.png" alt="Earlier block layout render with two half-bridges of EPC2361 and the MLCC bank"></div></figure>
-      <figure><div class="fig"><img src="img/v1_dpt.png" alt="GaN version 1 double-pulse board render"></div></figure>
-      <figure><div class="fig"><img src="img/q3d_cells.jpg" alt="Q3D model of the power loop of the cells"></div></figure>
-      <figure><div class="fig"><img src="img/sim_waves.png" alt="LTspice double-pulse waveforms of the four cells"></div></figure>
-    </div>
+    <div class="hope"><div class="ht">From this meeting we hope for</div><div><b>1 · Driver</b>an isolated driver for four paralleled GaN, ≥ 22 A sink</div><div><b>2 · Gate bump</b>a recipe for 50 V/ns with gate margin</div><div><b>3 · Paralleling</b>V<sub>th</sub> data, bins, Kelvin or multi-die packages</div><div><b>4 · 200 V</b>a CoolGaN part near 1.5 mΩ and 900 pF</div><div><b>5 · Joint test</b>parts for one SPB leg against our EPC2361 board</div></div>
     <div class="agenda" aria-label="Agenda">
-      <button data-go="s2">Why high voltage, SPB and 100 V GaN</button>
+      <button data-go="s2">Why high voltage, SPB and 100 V GaN</button>
       <button data-go="bb">Our design and design flow</button>
       <button data-go="ask">Four problems and what Infineon could solve</button>
       <button data-go="dv">What a GaN device has to bring</button>
@@ -242,14 +244,6 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <p class="small muted">High voltage helps the vehicle (charging, cables, motor). It hurts the semiconductors: higher blocking voltage, higher switching loss, more insulation stress. SPB tries to keep both sides of this chart.</p>
     </div>
     <div class="stack">
-      <div class="card stack" style="gap:8px">
-        <h3>Charging: current and cable loss</h3>
-        <div class="ctrl">
-          <label for="chP">Charging power</label><input id="chP" type="range" min="350" max="1500" step="50" value="1000"><output id="chPo"></output>
-          <label for="chV">Battery voltage</label><input id="chV" type="range" min="400" max="1250" step="50" value="1200"><output id="chVo"></output>
-        </div>
-        <div class="readout" id="chRo"></div>
-      </div>
       <table class="t txt big">
         <thead><tr><th>Example</th><th>DC link</th><th>Power</th></tr></thead>
         <tbody>
@@ -261,7 +255,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
           <tr class="hl"><td>KTH SiC inverter, 1.7 kV eTruck modules</td><td>1.2 kV</td><td>≈ 300 kW</td></tr>
         </tbody>
       </table>
-      <p class="tiny muted">Megawatt Charging System up to 1250 V. Our 1.2 kV study: 56 % less cable conduction loss or 33 % less cable mass than 800 V for heavy-duty charging.</p>
+      <ul class="clean"><li>Megawatt charging up to 1250 V: at 1 MW a 1.2 kV battery draws 833 A instead of 1250 A at 800 V.</li><li>Our 1.2 kV study: 56 % less cable conduction loss or 33 % less cable mass than 800 V.</li><li>The cost moves to the semiconductors: a two-level 1200 V inverter needs 1700–2000 V devices.</li></ul>
     </div>
   </div>
 </section>
@@ -296,8 +290,8 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   </div>
 </section>
 
-<section class="slide" id="s3" data-title="Why 100 V GaN">
-  <div class="slide-head"><div><div class="eyebrow">A · Why 100 V GaN · device figure of merit</div><h2>Why 100 V GaN: split the link and use the lowest-loss device class</h2></div><div class="pageno"></div></div>
+<section class="slide" id="s3" data-title="Why 100 V GaN">
+  <div class="slide-head"><div><div class="eyebrow">A · Why 100 V GaN · device figure of merit</div><h2>Why 100 V GaN: split the link and use the lowest-loss device class</h2></div><div class="pageno"></div></div>
   <div class="body cols-2" style="gap:22px">
     <div class="stack" style="gap:8px">
       <h3>Device fits: minimum loss against blocking voltage</h3>
@@ -311,10 +305,11 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <div class="stack" style="gap:8px">
       <h3>Real devices: R<sub>DS(on)</sub> against C<sub>oss,tr</sub></h3>
       <div class="legend"><span><i style="background:var(--ch2)"></i>100 V</span><span><i style="background:var(--ch1)"></i>200 V</span><span><i style="background:var(--ch4)"></i>350 V</span><span><i style="background:var(--ch3)"></i>650 V</span><span>● EPC ■ Infineon; dashed: equal τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub></span></div>
-      <div class="chartbox" style="flex:1"><svg class="chart" id="fomChart4" viewBox="0 0 640 400" aria-label="On-resistance against output charge capacitance of real 100 to 650 V GaN devices"></svg></div>
+      <div class="chartbox" style="flex:1"><svg class="chart" id="fomChart4" viewBox="0 0 640 400" aria-label="On-resistance against output charge capacitance of real 100 to 650 V GaN devices"></svg></div>
       <ul class="clean">
-        <li>Within each technology a lower blocking voltage gives a lower loss; split into 16 levels, 100 V GaN gives 0.67× the two-level minimum.</li>
-        <li>Among real parts EPC2361 has the lowest τ = 1.35 ps, so 100 V is our class today; the price is 6·N·n<sub>p</sub> transistors.</li>
+        <li>Within each technology a lower blocking voltage gives a lower loss; split into 16 levels, 100 V GaN gives 0.67× the two-level minimum.</li>
+        <li>Among real parts EPC2361 has the lowest τ = 1.35 ps, so 100 V is our class today; the price is 6·N·n<sub>p</sub> transistors.</li>
+        <li><b>For Infineon:</b> our survey has one Infineon 100 V part (IGC033S10S1). Which CoolGaN 100 / 200 V parts should we add?</li>
       </ul>
     </div>
   </div>
@@ -328,13 +323,13 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <div class="stack">
       <div class="readout" style="grid-template-columns:repeat(2,1fr);gap:14px">
         <div class="ro"><b>4 × EPC2361</b><span>per switch: four cells (one high side + one low side each) in parallel</span></div>
-        <div class="ro"><b>1 channel / 2</b><span>2EDF7275K per transistor pair: 96 drivers, 192 isolated supplies for 300 kW</span></div>
-        <div class="ro"><b>0.65 / 0.41 nH</b><span>loop per cell, double-pulse / load board (Q3D)</span></div>
-        <div class="ro good"><b>99.71 %</b><span>semiconductors at 300 kW, 50 kHz: 865 W, 18 W per leg</span></div>
+        <div class="ro"><b>1 channel / 2</b><span>2EDF7275K per transistor pair: 96 driver ICs; 192 isolated supplies, one per channel so each pair keeps its own Kelvin return</span></div>
+        <div class="ro"><b>0.65 / 0.41 nH</b><span>loop per cell (Q3D): with shunt on the DPT board / without on the load board</span></div>
+        <div class="ro good"><b>99.71 %</b><span>semiconductors, loss model: 300 kW, 228 A<sub>rms</sub> per phase, 50 kHz; 865 W, 18 W per leg</span></div>
         <div class="ro"><b>68.8 °C</b><span>junction at 40 °C ambient (thermal model)</span></div>
         <div class="ro warn"><b>Version 1</b><span>layout done, two-bolt redraw before ordering; not yet measured</span></div>
       </div>
-      <p class="small">Star gate routing from the driver channel, a Kelvin return under every gate trace, a 1 mΩ coaxial shunt in every cell, 1200 V spacing to the control side.</p>
+      <p class="small"><b>Terms:</b> level = one 75 V three-phase bridge; switch = four EPC2361 in parallel; cell = one high-side + one low-side EPC2361, so four cells make one leg; DPT = double-pulse test board. Star gate routing from the driver channel, a Kelvin return under every gate trace, a 1 mΩ coaxial shunt in every cell, 1200 V spacing to the control side.</p>
     </div>
     <div class="mini" style="grid-column:1/-1"><i>Chosen by one procedure:</i><span>1 · spec 1200 V, 300 kW</span><span>2 · 100 V GaN, 16 levels</span><span>3 · star gate, Kelvin</span><span>4 · 4 per switch</span><span>5 · MLCC DC link</span><span>6 · Q3D, LTspice, thermal</span></div>
   </div>
@@ -344,18 +339,18 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   <div class="slide-head"><div><div class="eyebrow">B · Design flow</div><h2>KiCad copper → Ansys Q3D → LTspice, without hand-made parasitics</h2></div><div class="pageno"></div></div>
   <div class="flow" style="grid-template-columns:repeat(4,1fr)">
     <div class="step"><span class="k">1 · KiCad</span><b>Generated layout</b><span>a script writes schematic and board; DRC, silkscreen and 3D checks on every change</span></div>
-    <div class="step"><span class="k">2 · Ansys Q3D</span><b>Partial R and L</b><span>30 branches and 426 couplings for the four-cell loop, plus the gate stars</span></div>
+    <div class="step"><span class="k">2 · Ansys Q3D</span><b>Partial R and L</b><span>the full partial-L matrix of the four-cell loop and the gate stars</span></div>
     <div class="step"><span class="k">3 · LTspice</span><b>Extracted network</b><span>EPC2361 vendor model, MLCC banks, split-output driver, Kelvin mutual terms</span></div>
     <div class="step"><span class="k">4 · Results</span><b>Per cell</b><span>V<sub>DS</sub> overshoot, current sharing, E<sub>on</sub> / E<sub>off</sub>, gate bump, then loss and thermal</span></div>
   </div>
   <div class="body cols-2" style="gap:18px">
-    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/revb_dpt_top.png" alt="Top copper of the version 1 double-pulse board in KiCad."></div><p class="small muted">KiCad: top copper of the double-pulse board, four cells in a row.</p></div>
-    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/q3d_loop_dpt.png" alt="Q3D model of the four-cell power loop copper."></div><p class="small muted">Q3D: the same copper as a 3D model. Loop per cell 0.65 nH (0.41 nH without shunts), 0.7 % spread between cells.</p></div>
+    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/q3d_loop_dpt.png" alt="Q3D model of the four-cell power loop copper."></div><p class="small muted">Q3D: the copper of the four-cell double-pulse board, taken directly from the layout.</p></div>
+    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/loop_breakdown.png" alt="Loop inductance per cell against bypass capacitor count and its breakdown into copper, bypass ESL and shunt."></div><p class="small muted">Loop per cell: 0.46 copper + 0.06 bypass ESL + 0.12 shunt = 0.65 nH; 0.41 nH without the shunt (load board); 0.7 % spread between cells.</p></div>
   </div>
 </section>
 
 <section class="slide" id="m3" data-title="Model: waveforms">
-  <div class="slide-head"><div><div class="eyebrow">B · Design flow · LTspice with the Q3D copper</div><h2>Four cells at 322 A: gate resistance trades overshoot against switching energy</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">B · Design flow · LTspice with the Q3D copper</div><h2>Four cells at 322 A (≈ 80 A per transistor): gate resistance trades overshoot against switching energy</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack" style="gap:8px">
       <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -372,26 +367,26 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         <div class="chartbox" style="height:140px"><svg class="chart" id="rbE" viewBox="0 0 520 140" aria-label="Turn-on and turn-off energy per cell"></svg></div>
       </div>
       <p class="small" id="rbTxt"></p>
-      <p class="tiny muted">LTspice, 75 V, 322 A double pulse (≈ 80 A per cell), EPC2361 vendor model, Q3D power-loop matrix of each board and extracted gate stars (lumped 1.7 nH where marked); every cell has an equal 1 nH AC take-off, so the one-bolt AC bus (±15.3 %, backup) is not in these runs. DPT board 0.65 nH per cell, V<sub>off</sub> −1.9 V; load board 0.41 nH, V<sub>off</sub> 0 V. Dotted lines: 90 V design limit and 100 V rating.</p>
+      <p class="tiny muted">LTspice, 75 V, 322 A double pulse (≈ 80 A per cell), EPC2361 vendor model, Q3D power-loop matrix of each board and extracted gate stars (lumped 1.7 nH where marked); every cell has an equal 1 nH AC take-off, so the one-bolt AC bus (±15.3 %, backup) is not in these runs. DPT board 0.65 nH per cell, V<sub>off</sub> −1.9 V; load board 0.41 nH, V<sub>off</sub> 0 V. Dotted lines: 90 V design limit and 100 V rating.</p>
     </div>
   </div>
 </section>
 
 <section class="slide" id="ask" data-title="What we need">
   <div class="slide-head"><div><div class="eyebrow">C · Four problems</div><h2>Four problems where Infineon devices and drivers could help</h2></div><div class="pageno"></div></div>
-  <p style="font-size:16px">We share our results with EPC2361 in a 1200 V, 300 kW stacked GaN inverter. For the next board we are looking for devices and drivers that solve these four problems.</p>
-  <div class="askgrid" style="flex:1">
-    <div class="askcard"><div class="n">1</div><h3>Gate driver for paralleled GaN</h3><p class="pr">Turning off two EPC2361 needs 12.2 A of sink current; the 2EDF7275K is rated 8 A. So one channel per pair: 96 drivers and 192 isolated supplies.</p><p class="ak"><b>Ask:</b> a GaN driver with ≥ 15 A sink and split rails, one channel per switch.</p><button class="golink" data-go="s13">Problem 1 →</button></div>
-    <div class="askcard"><div class="n">2</div><h3>Gate bump at high dv/dt</h3><p class="pr">At 25–30 V/ns the off-state gate bumps by about 1 V against V<sub>th,min</sub> 0.8 V. We want faster edges for lower motor loss, which makes it worse.</p><p class="ak"><b>Ask:</b> your solution at 50+ V/ns: bias, drive circuit or device.</p><button class="golink" data-go="s14">Problem 2 →</button></div>
-    <div class="askcard"><div class="n">3</div><h3>Four devices in parallel</h3><p class="pr">A 0.3 V V<sub>th</sub> spread or a gate-loop mismatch splits the switching energy up to 4 : 1 between paralleled devices.</p><p class="ak"><b>Ask:</b> V<sub>th</sub> distribution data, binning, packages with a Kelvin pin or several dies.</p><button class="golink" data-go="s11">Problem 3 →</button></div>
-    <div class="askcard"><div class="n">4</div><h3>Voltage class: 100 or 200 V</h3><p class="pr">100 V GaN needs 16 levels: 384 transistors. A 200 V part halves the levels if R<sub>DS(on)</sub> stays near 1.5–2 mΩ.</p><p class="ak"><b>Ask:</b> a 200 V CoolGaN with a Kelvin source: roadmap, samples, models.</p><button class="golink" data-go="s15">Problem 4 →</button></div>
+  <div class="askgrid ask8" style="flex:1;grid-template-rows:auto auto auto;align-content:start">
+    <div class="askcard"><div class="n">1</div><h3>Gate driver for paralleled GaN</h3><p class="pr">Turning off two EPC2361 needs 12.2 A of sink current; the 2EDF7275K is rated 8 A. So one channel per pair: 96 driver ICs and 192 isolated supplies.</p><p class="ak"><b>Ask:</b> An isolated GaN driver with ≥ 22 A sink, ≤ 0.2 Ω pull-down and isolation for 1200 V, one channel per switch of four GaN.</p><button class="golink" data-go="s13">Problem 1 →</button></div>
+    <div class="askcard"><div class="n">2</div><h3>Gate bump at high dv/dt</h3><p class="pr">At 0 V off the 1 V Miller bump exceeds V<sub>th,min</sub> 0.8 V; a negative off-voltage fixes it but pushes the turn-off spike toward the −4 V limit (−4.9 V on version 1). Faster edges make both worse.</p><p class="ak"><b>Ask:</b> Your solution at 50 V/ns, with values: RC-coupled EiceDRIVER, Miller clamp, or a device with more gate margin?</p><button class="golink" data-go="s14">Problem 2 →</button></div>
+    <div class="askcard"><div class="n">3</div><h3>Four devices in parallel</h3><p class="pr">A gate-loop mismatch splits turn-on energy 4 : 1, a 0.3 V V<sub>th</sub> spread about 2 : 1; one AC bolt on version 1 splits the current ±15 %.</p><p class="ak"><b>Ask:</b> V<sub>th</sub> spread within and between lots, matched bins, or a multi-die / half-bridge package with Kelvin source.</p><button class="golink" data-go="s11">Problem 3 →</button></div>
+    <div class="askcard"><div class="n">4</div><h3>Voltage class: 100 or 200 V</h3><p class="pr">100 V GaN needs 16 levels: 384 transistors. A 200 V part halves the levels if R<sub>DS(on)</sub> ≤ 1.5 mΩ and C<sub>oss,tr</sub> ≤ 900 pF.</p><p class="ak"><b>Ask:</b> Which CoolGaN 200 V part comes closest to ≤ 1.5 mΩ and ≤ 900 pF, now or on the roadmap?</p><button class="golink" data-go="s15">Problem 4 →</button></div>
+    <div class="askcard" style="grid-column:1/-1;grid-template-columns:auto auto 1fr;align-items:center"><div class="n" style="grid-row:auto">5</div><h3>Joint test</h3><p class="ak"><b>Ask:</b> Parts for one SPB leg, measured against our EPC2361 board on the same double-pulse bench. Samples and SPICE models for all four.</p></div>
   </div>
-  <p class="small muted">And for all four: samples, SPICE models, and a joint test of one SPB leg with Infineon parts against our EPC2361 board.</p>
+  
 </section>
 
 <section class="slide" id="s13" data-title="Driver sink">
   <div class="slide-head"><div><div class="eyebrow">C · Problem 1 · gate driver</div><h2>One driver channel for several transistors runs out of sink current</h2></div><div class="pageno"></div></div>
-  <div class="pstrip"><div class="pr"><span class="k">Problem</span>One 2EDF7275K channel must sink 12.2 A to turn off two EPC2361 at −1.7 V; it is rated 8 A. So one channel per pair: 96 drivers, 192 isolated supplies.</div><div class="tr"><span class="k">What we tried</span>Pairs per channel with a star gate and 0.5 Ω per transistor; three per channel would cost +16 % E<sub>on</sub>.</div><div class="ak"><span class="k">Ask Infineon</span>A GaN driver with ≥ 15 A sink, &lt; 0.2 Ω pull-down and split rails, so one channel drives a whole switch; a current-limited 2EDF7275K model.</div></div>
+  <div class="pstrip"><div class="pr"><span class="k">Problem</span>One 2EDF7275K channel must sink 12.2 A to turn off two EPC2361 at −1.7 V off (0.35 Ω pull-down, no external R<sub>g,off</sub>); it is rated 8 A. So one channel per pair: 96 driver ICs and 192 isolated supplies.</div><div class="tr"><span class="k">What we tried</span>Pairs per channel with a star gate and 0.5 Ω per transistor; three per channel would cost +16 % E<sub>on</sub>.</div><div class="ak"><span class="k">Ask Infineon</span>An isolated GaN driver with ≥ 22 A peak sink at ≤ 0.2 Ω pull-down, split outputs (+5 / −1.7 V), CMTI ≥ 200 V/ns and isolation for a level up to 1200 V above ground, so one channel drives a whole switch of four EPC2361 (2EDF7275K: 8 A, 460 V functional); and a current-limited 2EDF7275K SPICE model.</div></div>
   <div class="body cols-2">
     <div class="stack">
       <div class="card stack" style="gap:8px">
@@ -410,17 +405,17 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       <h3>Sharing one channel costs switching energy</h3>
       <div class="chartbox" style="height:260px"><svg class="chart" id="dkE" viewBox="0 0 560 260" aria-label="Switching energy per transistor against transistors per channel"></svg></div>
       <ul class="clean small">
-        <li>Output resistance per transistor grows with n: E<sub>on</sub> +16 / +31 % for 3 / 4 transistors per channel. We use two per channel; four per switch is our upper limit.</li>
+        <li>Output resistance per transistor grows with n: E<sub>on</sub> +16 / +31 % for 3 / 4 transistors per channel (single-device sweep, 60 A per transistor, R<sub>g,on</sub> 2 Ω; the four-cell runs use 80 A and 3.5 Ω). We use two per channel; four per switch is our upper limit.</li>
         <li>We drive pairs: 4 per switch needs 2 channels, so the inverter needs 96 drivers and 192 isolated supplies.</li>
-        <li>We would rather not add a driver per pair: one driver that sinks 15–20 A cleanly could drive all four transistors of a switch.</li>
+        <li>We would rather not add a driver per pair: one driver that sinks about 22 A (at 0.2 Ω pull-down; 15 A at 0.35 Ω) could drive all four transistors of a switch.</li>
       </ul>
     </div>
   </div>
 </section>
 
 <section class="slide" id="s14" data-title="Gate bump">
-  <div class="slide-head"><div><div class="eyebrow">C · Problem 2 · gate bump at high dv/dt</div><h2>The Miller bump grows with dv/dt: about 1 V at our 25–30 V/ns</h2></div><div class="pageno"></div></div>
-  <div class="pstrip"><div class="pr"><span class="k">Problem</span>At 25–30 V/ns the off-state high-side gate bumps by about 1 V, above V<sub>th,min</sub> 0.8 V without negative bias. Faster edges for lower motor loss make it worse.</div><div class="tr"><span class="k">What we tried</span>A −1.65 V off-level from a Zener split; a stronger pull-down does not help (0.05 Ω: 1.07 V).</div><div class="ak"><span class="k">Ask Infineon</span>Your solution at 50+ V/ns: negative bias, the RC-coupled GaN EiceDRIVER, a Miller clamp, a higher-V<sub>th</sub> device or gate–Kelvin coupling in the package?</div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Problem 2 · gate bump at high dv/dt</div><h2>A negative off-voltage removes the Miller bump, but the −4 V gate limit leaves a narrow window</h2></div><div class="pageno"></div></div>
+  <div class="pstrip"><div class="pr"><span class="k">Problem</span>At 0 V off the 1 V bump (28 V/ns) exceeds V<sub>th,min</sub> 0.8 V, so we need a negative off-voltage. That moves the turn-off spike toward the −4 V limit: −3.3 V at 28 V/ns and −3.9 V at 80 V/ns with four in parallel (model); version 1 with one AC bolt reaches −4.9 V.</div><div class="tr"><span class="k">What we tried</span>−1.65 V off from a Zener split (window −1.4 to −1.9 V); a stronger pull-down does not help (0.05 Ω: 1.07 V bump).</div><div class="ak"><span class="k">Ask Infineon</span>At 50 V/ns with four devices per switch: the RC-coupled GaN EiceDRIVER (part, R, C), a Miller clamp, or a CoolGaN with higher V<sub>th,min</sub> or a wider negative V<sub>GS</sub> rating? Measured bump-vs-dv/dt and negative-spike lifetime data?</div></div>
   <div class="body cols-55">
     <div class="stack">
       <div class="chartbox" style="flex:1"><svg class="chart" id="gbWave" viewBox="0 0 640 380" aria-label="High-side gate voltage during a switching period"></svg></div>
@@ -441,15 +436,14 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
       </div>
       <ul class="clean small">
         <li>C<sub>GD</sub>·dv/dt charges the off gate faster than the gate loop discharges it (τ ≈ 2.6 ns); the pull-down hardly matters (0.05 Ω: 1.07 V, 0.5 Ω: 1.12 V).</li>
-        <li>A negative off-voltage shifts everything down but adds dead-time loss; with 4 in parallel the off-level window is −1.65 V ± 0.3 V.</li>
       </ul>
     </div>
   </div>
 </section>
 
 <section class="slide" id="s11" data-title="Dynamic sharing">
-  <div class="slide-head"><div><div class="eyebrow">C · Problem 3 · current sharing between paralleled devices</div><h2>The load current is fixed; how the two devices share it is not</h2></div><div class="pageno"></div></div>
-  <div class="pstrip"><div class="pr"><span class="k">Problem</span>A 0.3 V V<sub>th</sub> spread or a gate-loop mismatch splits the switching energy up to 4 : 1 between paralleled devices; on our board one AC bolt splits turn-on current ±15 %.</div><div class="tr"><span class="k">What we tried</span>Kelvin source on every device, star gate routing, mirrored cells; a two-bolt redraw is in progress.</div><div class="ak"><span class="k">Ask Infineon</span>V<sub>th</sub> distribution data, matched lots or binning, and packages with a Kelvin pin or several dies in one half-bridge.</div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Problem 3 · current sharing · two-device LTspice study</div><h2>A gate-loop mismatch splits turn-on energy 4 : 1 between two paralleled devices</h2></div><div class="pageno"></div></div>
+  <div class="pstrip"><div class="pr"><span class="k">Problem</span>A 2 vs 8 nH gate-loop mismatch splits E<sub>on</sub> 4 : 1; a 0.3 V V<sub>th</sub> spread splits E<sub>on</sub> and E<sub>off</sub> about 2 : 1. On version 1 one AC bolt splits turn-on current ±15 % and pulls the high-side gate to −4.9 V (limit −4 V).</div><div class="tr"><span class="k">What we tried</span>Kelvin source on every device, star gate routing, mirrored cells; a redraw with two AC bolts is in progress.</div><div class="ak"><span class="k">Ask Infineon</span>Within-lot and lot-to-lot V<sub>th</sub> spread of CoolGaN 100 / 200 V, matched bins, and a multi-die or half-bridge package with Kelvin source that replaces four discrete parts?</div></div>
   <div class="body cols-55">
     <div class="stack" style="gap:8px">
       <div class="seg" id="wvCase" role="group" aria-label="Choose a mismatch"></div>
@@ -473,8 +467,8 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="s15" data-title="100 vs 200 V">
-  <div class="slide-head"><div><div class="eyebrow">C · Problem 4 · voltage class</div><h2>16 levels at 100 V, or 8 levels at 200 V?</h2></div><div class="pageno"></div></div>
-  <div class="pstrip"><div class="pr"><span class="k">Problem</span>100 V GaN forces 16 levels: 384 transistors, 96 drivers and 192 isolated supplies.</div><div class="tr"><span class="k">What we tried</span>Compared voltage classes by τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub>; a 200 V part pays off at ≈ 1.5–2 mΩ and C<sub>oss,tr</sub> ≤ 900 pF.</div><div class="ak"><span class="k">Ask Infineon</span>A 200 V CoolGaN with R<sub>DS(on)</sub> ≈ 1.5–2 mΩ and a Kelvin source: roadmap, samples, SPICE models with temperature.</div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Problem 4 · voltage class</div><h2>A 200 V part halves the hardware if it reaches ≤ 1.5 mΩ and ≤ 900 pF</h2></div><div class="pageno"></div></div>
+  <div class="pstrip"><div class="pr"><span class="k">Problem</span>100 V GaN forces 16 levels: 384 transistors, 96 drivers and 192 isolated supplies.</div><div class="tr"><span class="k">What we tried</span>Compared voltage classes by τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub>; a 200 V part pays off at ≤ 1.5 mΩ and C<sub>oss,tr</sub> ≤ 900 pF (τ ≤ 1.35 ps).</div><div class="ak"><span class="k">Ask Infineon</span>Which CoolGaN 200 V part comes closest to ≤ 1.5 mΩ typ., C<sub>oss,tr</sub> ≤ 900 pF at 150 V and a Kelvin source, now or on the roadmap (date)? 16 samples and a temperature-dependent SPICE model.</div></div>
   <div class="body cols-2">
     <div class="stack">
       <p>Today: EPC2361, 100 V, 0.75 mΩ typ., 75 V per level, 16 levels. A 200 V device runs at 150 V per level and halves the levels, drivers and isolated supplies. Set the 200 V device:</p>
@@ -505,17 +499,17 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <table class="t txt" id="reqTable">
       <thead><tr><th style="width:18%">Property</th><th style="width:40%">Our design today: EPC2361, 4 per switch</th><th>What we would look for</th></tr></thead>
       <tbody>
-        <tr><td><b>Voltage class</b></td><td>100 V; 75 V level, 90 V upper limit; 92.9 V high-side peak at 322 A</td><td>100 V, or 150–200 V if R<sub>DS(on)</sub> stays within about 2× (8 levels instead of 16)</td></tr>
-        <tr><td><b>R<sub>DS(on)</sub> and C<sub>oss</sub></b></td><td>0.75 mΩ typ., τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub> = 1.35 ps</td><td>≤ 1 mΩ at 100 V or ≈ 1.5–2 mΩ at 200 V, τ ≤ 1.5 ps</td></tr>
+        <tr><td><b>Voltage class</b></td><td>100 V; 75 V level, 90 V upper limit; 92.9 V high-side peak at 322 A</td><td>100 V, or 200 V at ≤ 1.5 mΩ and ≤ 900 pF (8 levels instead of 16)</td></tr>
+        <tr><td><b>R<sub>DS(on)</sub> and C<sub>oss</sub></b></td><td>0.75 mΩ typ., τ = R<sub>DS(on)</sub>·C<sub>oss,tr</sub> = 1.35 ps</td><td>≤ 1 mΩ at 100 V, or ≤ 1.5 mΩ and ≤ 900 pF at 200 V (τ ≤ 1.35 ps)</td></tr>
         <tr><td><b>Current</b></td><td>≈ 57 A<sub>rms</sub> per device (228 A<sub>rms</sub> per phase / 4); ≈ 130 A peak at turn-on</td><td>the same per device, or fewer devices per switch with a larger die</td></tr>
         <tr><td><b>Package and loop</b></td><td>chip-scale with Kelvin source; 0.65 / 0.41 nH loop per cell (DPT / load board)</td><td>Kelvin source pin, low common-source inductance, a footprint that keeps the cell loop ≤ 0.5 nH, a clear cooling path</td></tr>
-        <tr><td><b>Gate margin</b></td><td>bump ≈ 1 V against V<sub>th,min</sub> 0.8 V; −1.65 V off-state (window −1.4 to −1.9 V); gate limit −4 V</td><td>higher V<sub>th,min</sub> or a wider negative gate rating, so a negative off-state bias is safe</td></tr>
-        <tr><td><b>Paralleling</b></td><td>4 in parallel; 0.3 V V<sub>th</sub> spread gives a 2 : 1 split of E<sub>off</sub></td><td>V<sub>th</sub> distribution data, matched lots or binning; or a half-bridge / multi-die package</td></tr>
-        <tr><td><b>Driver</b></td><td>2EDF7275K, one channel per pair; 12.2 A peak sink at −1.7 V off against an 8 A rating</td><td>a GaN driver with ≥ 15 A sink and split rails, so one channel can drive a whole switch</td></tr>
+        <tr><td><b>Gate margin</b></td><td>1 V bump at 0 V off vs V<sub>th,min</sub> 0.8 V; −1.65 V off (window −1.4 to −1.9 V); turn-off spike −3.3 V (model), −4.9 V on one-bolt version 1; gate limit −4 V</td><td>higher V<sub>th,min</sub> or a wider negative gate rating, so a negative off-state bias is safe</td></tr>
+        <tr><td><b>Paralleling</b></td><td>4 in parallel; a 0.3 V V<sub>th</sub> spread splits E<sub>on</sub> and E<sub>off</sub> about 2 : 1, a 2 vs 8 nH gate-loop mismatch E<sub>on</sub> 4 : 1</td><td>V<sub>th</sub> distribution data, matched lots or binning; or a half-bridge / multi-die package</td></tr>
+        <tr><td><b>Driver</b></td><td>2EDF7275K, one channel per pair; 12.2 A peak sink at −1.7 V off against an 8 A rating</td><td>An isolated GaN driver with ≥ 22 A peak sink at ≤ 0.2 Ω pull-down, split outputs (+5 / −1.7 V), CMTI ≥ 200 V/ns and isolation for a level up to 1200 V above ground, so one channel drives a whole switch of four EPC2361 (2EDF7275K: 8 A, 460 V functional)</td></tr>
         <tr><td><b>Models</b></td><td>EPC vendor SPICE model, Q3D of our own copper</td><td>SPICE models with temperature and package parasitics, 3D footprint for Q3D</td></tr>
       </tbody>
     </table>
-    <p class="small muted">Requirements from our simulations and design limits; the version 1 board is not yet measured. Suggestions of parts that meet some of these rows are what we hope to take from this meeting.</p>
+    <p class="small muted">From our simulations and design limits; version 1 is not yet measured.</p>
   </div>
 </section>
 
@@ -531,40 +525,33 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
   </div>
   <div class="title-lower" style="justify-content:flex-start;gap:16px">
     <h3 style="font-size:20px">What we hope to take from this meeting</h3>
-    <div class="askgrid" style="grid-template-rows:auto auto">
-      <div class="askcard"><div class="n">1</div><h3>Gate driver</h3><p class="ak">A GaN driver with ≥ 15 A sink and split rails, one channel per switch.</p></div>
-      <div class="askcard"><div class="n">2</div><h3>Gate bump at high dv/dt</h3><p class="ak">Your solution at 50+ V/ns: bias, drive circuit or device.</p></div>
-      <div class="askcard"><div class="n">3</div><h3>Four devices in parallel</h3><p class="ak">V<sub>th</sub> distribution data, binning, packages with a Kelvin pin or several dies.</p></div>
-      <div class="askcard"><div class="n">4</div><h3>Voltage class</h3><p class="ak">A 200 V CoolGaN with a Kelvin source: roadmap, samples, models.</p></div>
+    <div class="askgrid" style="grid-template-rows:auto auto auto">
+      <div class="askcard"><div class="n">1</div><h3>Gate driver</h3><p class="ak">An isolated GaN driver with ≥ 22 A sink, ≤ 0.2 Ω pull-down and isolation for 1200 V, one channel per switch of four GaN.</p></div>
+      <div class="askcard"><div class="n">2</div><h3>Gate bump at high dv/dt</h3><p class="ak">Your solution at 50 V/ns, with values: RC-coupled EiceDRIVER, Miller clamp, or a device with more gate margin?</p></div>
+      <div class="askcard"><div class="n">3</div><h3>Four devices in parallel</h3><p class="ak">V<sub>th</sub> spread within and between lots, matched bins, or a multi-die / half-bridge package with Kelvin source.</p></div>
+      <div class="askcard"><div class="n">4</div><h3>Voltage class</h3><p class="ak">Which CoolGaN 200 V part comes closest to ≤ 1.5 mΩ and ≤ 900 pF, now or on the roadmap?</p></div>
+      <div class="askcard" style="grid-column:1/-1;grid-template-columns:auto auto 1fr;align-items:center"><div class="n" style="grid-row:auto">5</div><h3>Joint test</h3><p class="ak">Parts for one SPB leg, measured against our EPC2361 board on the same double-pulse bench.</p></div>
     </div>
-    
+    <p class="small"><b>Status:</b> version 1 layout done, ordering Nov–Dec 2026; next a double pulse from 20 to 80 V with a shunt per cell. <b>Operating point:</b> 75 V per level, four EPC2361 per switch, 322 A per switch in the double pulse (≈ 80 A per transistor), 25–30 V/ns.</p>
   </div>
 </section>
 
 <section class="slide" id="bk" data-title="Backup">
   <div class="slide-head"><div><div class="eyebrow">Backup</div><h2>Backup and further discussion</h2></div><div class="pageno"></div></div>
-  <div class="bklist"><button data-go="disc">Questions and next steps</button><button data-go="s5">Device choice</button><button data-go="s6">Benchmark</button><button data-go="s7">Design procedure</button><button data-go="s7b">Devices per switch</button><button data-go="s8">Prototype</button><button data-go="s9">Overshoot</button><button data-go="m1">Model: KiCad</button><button data-go="m2">Model: Q3D to SPICE</button><button data-go="s10">Sharing sensitivity</button><button data-go="s12">Board asymmetry</button><button data-go="s16">Switching frequency</button><button data-go="s17">Questions</button><button data-go="s18">Next steps</button></div>
+  <div class="bkgroups"><div><h3>Why high voltage and 100 V GaN</h3><div class="bklist"><button data-go="chg">Charging current</button><button data-go="s5">Real devices and τ</button><button data-go="s6">Loss and part count</button></div></div><div><h3>Our design</h3><div class="bklist"><button data-go="s7">Design procedure</button><button data-go="s7b">Devices per switch</button><button data-go="s8">From one cell to the leg board</button><button data-go="s9">Voltage margin</button><button data-go="m1">KiCad schematics and layout</button><button data-go="m2">Loop budget</button></div></div><div><h3>Problems</h3><div class="bklist"><button data-go="s10">Sharing against gate resistance</button><button data-go="s12">One AC bolt: ±15 % split</button><button data-go="s16">Switching frequency and R<sub>g</sub></button></div></div><div><h3>Questions and plans</h3><div class="bklist"><button data-go="s17">Full question list</button><button data-go="s18">Roadmap and next steps</button></div></div></div>
 </section>
 
-<section class="slide" id="disc" data-title="Discussion">
-  <div class="slide-head"><div><div class="eyebrow">Backup · further discussion</div><h2>Questions for the discussion, and what we do next</h2></div><div class="pageno"></div></div>
-  <div class="body" style="grid-template-columns:1.25fr .75fr;gap:22px">
-    <div class="stack" style="gap:30px">
-      <div class="pt" style="--pts:18px"><div class="n">1</div><b style="font-size:21px">Gate driver</b><span>A driver for paralleled GaN with ≥ 15 A sink and &lt; 0.2 Ω pull-down, one channel for four transistors? Isolated drivers and supplies for a level 1200 V above ground?</span></div>
-      <div class="pt" style="--pts:18px"><div class="n">2</div><b style="font-size:21px">Gate bump at high dv/dt</b><span>Your recommended answer at 50+ V/ns: negative bias, RC-coupled drive, Miller clamp or device design? Gate limits under repetitive ringing?</span></div>
-      <div class="pt" style="--pts:18px"><div class="n">3</div><b style="font-size:21px">Paralleling</b><span>V<sub>th</sub> distribution within and between lots, and binning? A package with a Kelvin source and low common-source inductance, or a half-bridge in one package?</span></div>
-      <div class="pt" style="--pts:18px"><div class="n">4</div><b style="font-size:21px">Voltage class</b><span>A 200 V CoolGaN with R<sub>DS(on)</sub> ≈ 1.5–2 mΩ and C<sub>oss,tr</sub> ≈ 700–900 pF? Dynamic R<sub>DS(on)</sub> of CoolGaN 100 V at 75 V and 50 V/ns?</span></div>
-      <p class="small muted">The full question list is in the backup.</p>
-    </div>
-    <div class="stack" style="gap:16px">
-      <h3 style="font-size:20px">Next steps</h3>
-      <ul class="clean" style="font-size:16.5px;gap:12px">
-        <li><b>Now:</b> order and assemble the version 1 double-pulse board (Nov–Dec 2026).</li>
-        <li><b>Next:</b> double pulse from 20 to 80 V: current in every cell from the shunts, high- and low-side V<sub>GS</sub>, compared with the model.</li>
-        <li><b>Then:</b> load board, one 75 V three-phase level, levels in series.</li>
-      </ul>
-      <div class="ask" style="font-size:16.5px"><b>Proposal: a joint test</b>One SPB leg built with Infineon devices and drivers on our layout, measured on the same bench against the EPC2361 board: double pulse, current per cell, switching energy and gate margins.</div>
-    </div>
+<section class="slide" id="chg" data-title="Charging current">
+  <div class="slide-head"><div><div class="eyebrow">Backup · why high voltage</div><h2>Charging current and cable loss at 800 V and 1.2 kV</h2></div><div class="pageno"></div></div>
+  <div class="body" style="grid-template-columns:1fr;align-content:start;max-width:820px"><div class="card stack" style="gap:8px">
+        <h3>Charging: current and cable loss</h3>
+        <div class="ctrl">
+          <label for="chP">Charging power</label><input id="chP" type="range" min="350" max="1500" step="50" value="1000"><output id="chPo"></output>
+          <label for="chV">Battery voltage</label><input id="chV" type="range" min="400" max="1250" step="50" value="1200"><output id="chVo"></output>
+        </div>
+        <div class="readout" id="chRo"></div>
+      </div>
+    <p class="small muted">Cable loss for the same copper section scales with I²; the copper section for equal loss density scales with I.</p>
   </div>
 </section>
 
@@ -710,7 +697,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <div class="stack">
       <div class="card stack" style="gap:8px">
         <div class="ctrl">
-          <label for="ovV">Cell voltage</label><input id="ovV" type="range" min="60" max="90" step="1" value="75"><output id="ovVo"></output>
+          <label for="ovV">Level voltage</label><input id="ovV" type="range" min="60" max="90" step="1" value="75"><output id="ovVo"></output>
           <label for="ovL">Loop per cell</label><input id="ovL" type="range" min="0.2" max="1.5" step="0.002" value="0.646"><output id="ovLo"></output>
           <label for="ovD">di/dt per cell</label><input id="ovD" type="range" min="5" max="80" step="1" value="30"><output id="ovDo"></output>
         </div>
@@ -720,6 +707,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         <li>Each transistor sees its own cell loop; paralleling shares the di/dt, not the inductance, so the loop is quoted per cell.</li>
         <li>di/dt per cell in the version 1 simulations: 36 A/ns at turn-on with 3.5 Ω (49 A/ns at 2.5 Ω), 37–42 A/ns at turn-off; trend with R<sub>g</sub>.</li>
         <li>The loop includes the MLCC ESL but not the package; the real value will be higher.</li>
+        <li>V + L·di/dt is a worst-case bound; LTspice with C<sub>oss</sub> and damping gives 92.9 V on the DPT board.</li>
       </ul>
     </div>
   </div>
@@ -752,15 +740,9 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="m2" data-title="Model: Q3D to SPICE">
-  <div class="slide-head"><div><div class="eyebrow">Backup · Our model · 2 / 3 · from copper to circuit</div><h2>KiCad copper → Ansys Q3D → LTspice, without hand-made parasitics</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">Backup · our design · loop budget</div><h2>Loop budget: 0.46 copper + 0.06 ESL + 0.12 shunt = 0.65 nH per cell</h2></div><div class="pageno"></div></div>
   <div class="body" style="grid-template-rows:auto 1fr;gap:12px">
-    <div class="flow" style="grid-template-columns:repeat(4,1fr)">
-      <div class="card small"><b>1 · KiCad</b><br>Generator exports the copper of every net (DC+, DC−, AC, Kelvin, gate) with the via fields.</div>
-      <div class="card small"><b>2 · Ansys Q3D</b><br>Partial R and L at 100 MHz: 30 branches and 426 mutual couplings for the four-cell power loop, plus the gate stars.</div>
-      <div class="card small"><b>3 · LTspice</b><br>Q3D matrix as a subcircuit, EPC2361 vendor model, MLCC banks, split-output driver, Kelvin mutual terms.</div>
-      <div class="card small"><b>4 · Results</b><br>Double pulse per cell: V<sub>DS</sub> overshoot, current sharing, E<sub>on</sub> / E<sub>off</sub>, gate bump; then losses and thermal.</div>
-    </div>
-    <div class="cols-55" style="display:grid;gap:18px;min-height:0">
+        <div class="cols-55" style="display:grid;gap:18px;min-height:0">
       <div class="stack" style="gap:8px">
         <div class="seg" id="qdSeg" role="group" aria-label="Choose a Q3D view"></div>
         <div class="fig photo" style="height:350px;background:#fff"><img id="qdImg" src="img/q3d_loop_dpt.png" alt=""></div>
@@ -784,7 +766,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="s10" data-title="Sharing sensitivity">
-  <div class="slide-head"><div><div class="eyebrow">Backup · Problem 1 · paralleling</div><h2>Slow switching hides asymmetry, fast switching exposes it</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">Backup · Problem 3 · paralleling</div><h2>Slow switching hides asymmetry, fast switching exposes it</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
       <h3>Turn-on imbalance and energy against gate resistance</h3>
@@ -812,7 +794,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="s12" data-title="Board asymmetry">
-  <div class="slide-head"><div><div class="eyebrow">Backup · Problem 1 · on our own board</div><h2>Four cells, one AC bolt: the outer cells see 15 nH more</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">Backup · Problem 3 · on our own board</div><h2>Four cells, one AC bolt: the outer cells see 15 nH more</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack">
       <div class="seg" id="boltSeg" role="group" aria-label="AC terminal"><button aria-pressed="true" data-v="1">Version 1: one centre bolt</button><button aria-pressed="false" data-v="2">Redraw: two bolts</button></div>
@@ -972,11 +954,11 @@ function dfom(){const N=+$("#dfN").value;$("#dfNo").textContent=N;
   Object.keys(FIT).forEach(t=>{const a=FIT[t],pts=[];for(let lu=Math.log10(a[4]);lu<=Math.log10(Math.min(a[5],5000))+1e-9;lu+=0.02){const U=10**lu,v=rc(t,U);if(v>=40&&v<=220)pts.push([U,v])}
     if(pts.length>1){el("path",{d:path(pts,A.X,A.Y),fill:"none",stroke:a[6],"stroke-width":2.4},s);const p=pts[pts.length-1];el("text",{x:A.X(p[0])+5,y:A.Y(p[1])+4,fill:a[6]},s,t)}});
   const two=[1700,REF];el("circle",{cx:A.X(two[0]),cy:A.Y(two[1]),r:7,fill:"var(--panel)",stroke:"var(--ch3)","stroke-width":2.5},s);
-  el("text",{x:A.X(two[0])-12,y:A.Y(two[1])-14,"text-anchor":"end",class:"ink"},s,"2-level 1200 V");
+  el("text",{x:A.X(two[0])-12,y:A.Y(two[1])-14,"text-anchor":"end",class:"ink"},s,"2-level, 1200 V link (1700 V SiC)");
   const v=rc(cl[1],cl[0]);el("circle",{cx:A.X(cl[0]),cy:A.Y(v),r:8,fill:"var(--accent)",stroke:"var(--ink)","stroke-width":1.5},s);
   el("text",{x:A.X(cl[0])+12,y:A.Y(v)+18,class:"ink"},s,"SPB, N = "+N);
   const rel=v/REF;
-  ro("#dfRo",[{v:fmt(Vc,0)+" V",l:"level voltage"},{v:cl[0]+" V "+cl[1],l:"device class (≤ 75 % use)"},{v:fmt(rel,2)+"×",l:"min. loss vs 2-level 1700 V SiC",c:rel<0.8?"good":rel<1?"warn":"bad"},{v:6*N,l:"switch positions (6N)"}]);}
+  ro("#dfRo",[{v:fmt(Vc,0)+" V",l:"level voltage"},{v:cl[0]+" V "+cl[1],l:"device class (≤ 75 % use)"},{v:fmt(rel,2)+"×",l:"min. loss vs 2-level 1700 V SiC",c:rel<0.8?"good":rel<1?"warn":"bad"},{v:6*N,l:"switches (6 per level)"}]);}
 bindRange("dfN",v=>v,dfom);
 
 /* ---------- slide 4: SPB stack ---------- */
@@ -984,7 +966,7 @@ const VCLS=[{v:48},{v:75},{v:150},{v:400}];
 function spb(){const c=VCLS[+$("#spbV").value],p=+$("#spbP").value;const N=Math.ceil(1200/c.v);
   $("#spbVo").textContent=c.v+" V"; $("#spbPo").textContent=p;
   const legs=3*N, tr=legs*2*p, drv=legs*Math.ceil(p/2);
-  ro("#spbRo",[{v:N,l:"levels for 1200 V"},{v:legs,l:"half-bridge legs"},{v:tr,l:"transistors"},{v:drv,l:"dual-channel drivers (pairs)"}]);
+  ro("#spbRo",[{v:N,l:"levels for 1200 V"},{v:legs,l:"half-bridge legs"},{v:tr,l:"transistors"},{v:drv,l:"driver ICs (one channel per pair)"}]);
   const s=$("#spbStack");clear(s);const w=Math.min(28,500/N);
   for(let i=0;i<N;i++){const x=10+i*(500/N);el("rect",{x:x,y:12,width:w-3,height:30,rx:2,fill:i===0?"var(--accent)":"var(--sunk)",stroke:"var(--accent)","stroke-width":1},s)}
   el("text",{x:10,y:58},s,"0 V");el("text",{x:510,y:58,"text-anchor":"end"},s,"1200 V");el("text",{x:260,y:58,"text-anchor":"middle"},s,"one block = one "+c.v+" V level");}
@@ -1067,7 +1049,7 @@ function revb(){const bd=REVB.boards[gRbBoard()], ed=gRbEdge(), d=bd[ed];
   const spread=ed==="on"?(Math.max(...pk)-Math.min(...pk))/(pk.reduce((a,b)=>a+b)/4)*100:(Math.max(...i0)-Math.min(...i0))/(i0.reduce((a,b)=>a+b)/4)*100;
   const gmin=Math.min(...gs.flat()), gmax=Math.max(...gs.flat());
   ro("#rbRo",[{v:fmt(vmax,1)+" V",l:(ed==="on"?"high-side":"low-side")+" v_DS peak, worst cell",c:vmax>100?"bad":vmax>90?"warn":"good"},
-    {v:fmt(spread,1)+" %",l:ed==="on"?"spread of the peak cell currents":"spread of the cell currents at turn-off",c:spread<5?"good":"warn"},
+    {v:fmt(spread,1)+" %",l:ed==="on"?"spread of the peak cell currents (equal AC take-off; one bolt: ±15 %)":"spread of the cell currents at turn-off",c:spread<5?"good":"warn"},
     {v:rng(E,1)+" µJ",l:(ed==="on"?"E_on":"E_off")+" per transistor, cells 1–4"},
     ed==="on"?{v:fmt(gmax,2)+" V",l:"high-side gate bump peak (V_th,min 0.8 V)",c:gmax>0.8?"bad":gmax>0?"warn":"good"}:{v:fmt(gmin,2)+" V",l:"low-side v_GS minimum (gate limit −4 V)",c:gmin<-4?"bad":"good"}]);
   const e=$("#rbE");clear(e);const top=40;
@@ -1220,7 +1202,7 @@ function waves(){const sg=$("#wvCase");if(!sg.children.length)WV.forEach((c,i)=>
       {v:fmt(md/IL*100,0)+" %",l:"of the "+fmt(IL,0)+" A load current",c:md/IL<0.05?"good":md/IL<0.15?"warn":"bad"}];
   ro("#wvRo",[...r1,
     {v:fmt(E[0],1)+" / "+fmt(E[1],1),l:(ed==="on"?"E_on":"E_off")+" Q1 / Q2 [µJ]",c:sp<1.2?"good":sp<1.6?"warn":"bad"},
-    {v:(dE>=0?"+":"")+fmt(dE*100,0)+" %",l:"both devices vs symmetric",c:Math.abs(dE)<0.1?"good":"warn"}]);
+    {v:(dE>=0?"+":"")+fmt(dE*100,0)+" %",l:"total E of both devices vs symmetric",c:Math.abs(dE)<0.1?"good":"warn"}]);
   const e=$("#wvE");clear(e);const top=Math.max(30,Math.ceil(Math.max(...c.eon,...c.eoff)/5)*5);
   const B=axes(e,{W:520,H:150,x0:0,x1:2,y0:0,y1:top,yt:niceTicks(0,top,3),m:{l:40,r:8,t:12,b:22}});
   [["E_on",c.eon,WREF[w.ref].eon,"on"],["E_off",c.eoff,WREF[w.ref].eoff,"off"]].forEach(([lab,v,r,k],g)=>{
@@ -1313,7 +1295,7 @@ function bump(){const V=+$("#gbV").value,td=+$("#gbT").value,dv=+$("#gbD").value
   BMP_SIM.forEach(q=>el("circle",{cx:C.X(q[0]),cy:C.Y(q[1]),r:3.5,fill:"var(--ink)"},c));
   el("circle",{cx:C.X(dv),cy:C.Y(bmp),r:6,fill:"var(--teal)"},c);
   el("text",{x:C.X(dv)+(dv>70?-8:10),y:C.Y(bmp)+(dv<40?18:-8),"text-anchor":dv>70?"end":"start",class:"ink"},c,fmt(bmp,2)+" V");
-  const Pd=(td/10)*(0.20+0.09*Math.abs(V))*0.46/(0.20+0.09*1.7);/* scaled to the loss model: 0.46 W per leg at 10 ns, -1.7 V */const mBump=vthmin-pk, mUnd=und+4;
+  const Pd=(td/10)*(0.20+0.09*Math.abs(V))*0.46/(0.20+0.09*1.7);/* scaled to the loss model: 0.46 W per leg at 10 ns, -1.7 V */const mBump=vthmin-pk, mUnd=und+4;
   ro("#gbRo",[{v:fmt(bmp,2)+" V",l:"bump height at "+dv+" V/ns ("+fmt(tr,1)+" ns edge)"+(dv<22||dv>31?", extrapolated":"")},{v:fmt(mBump,2)+" V",l:"margin bump → V_th,min",c:mBump<0.2?"bad":mBump<0.6?"warn":"good"},
     {v:fmt(mUnd,2)+" V",l:"margin undershoot → −4 V",c:mUnd<0?"bad":mUnd<0.5?"warn":"good"},{v:fmt(Pd,2)+" W",l:"dead-time loss per leg ("+td+" ns, 50 kHz)"}]);}
 bindRange("gbV",v=>fmt(v,1)+" V",bump);bindRange("gbT",v=>v+" ns",bump);bindRange("gbD",v=>v+" V/ns",bump);
@@ -1330,7 +1312,7 @@ function vclass(){const R=+$("#vR").value,C=+$("#vC").value,p=+$("#vP").value;
   el("line",{x1:A.X(1),x2:A.X(1),y1:6,y2:290,stroke:"var(--ink)","stroke-dasharray":"4 3"},s);
   const tau=R*C/1000;
   ro("#vRo2",[{v:"16 → 8",l:"levels for 1200 V"},{v:fmt(tau,2)+" ps",l:"τ of the 200 V device (EPC2361: 1.35)",c:tau<=1.4?"good":tau<=2.5?"warn":"bad"},{v:fmt(1.5*p/4,2)+" mΩ",l:"break-even R for equal conduction at "+p+" parallel"}]);
-  $("#vTxt").innerHTML=subH(cond<=1&&coss<=1?"With these values the 200 V design wins on every count.":cond<=1?"Conduction is fine, but C_oss loss rises: at 150 V per level the charge loss grows with V², so C_oss,tr has to be about half of the 100 V device.":"Conduction loss rises: R_DS(on) must stay near twice the 100 V device, or more devices are needed in parallel, which adds C_oss.");}
+  $("#vTxt").innerHTML=subH(cond<=1&&coss<=1?"At these values the losses tie and the hardware halves.":cond<=1?"Conduction is fine, but C_oss loss rises: at 150 V per level the charge loss grows with V², so C_oss,tr has to be about half of the 100 V device.":"Conduction loss rises: R_DS(on) must stay near twice the 100 V device, or more devices are needed in parallel, which adds C_oss.");}
 bindRange("vR",v=>fmt(v,2)+" mΩ",vclass);bindRange("vC",v=>v+" pF",vclass);bindRange("vP",v=>v,vclass);
 
 /* ---------- slide 16: f_sw and Rg ---------- */
