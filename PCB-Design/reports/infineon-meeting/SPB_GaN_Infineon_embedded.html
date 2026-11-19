@@ -1,8 +1,6 @@
 <meta charset="utf-8">
 <title>SPB GaN Infineon Briefing</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: a 1280x720 slide canvas scaled to the window (deck mode); below 820 px the slides flow as one long page.
    Colours follow an oscilloscope: CH1 amber, CH2 cyan, CH3 magenta, CH4 green, on a cool lab-grey ground. */
@@ -11,9 +9,9 @@
   --accent:#0b3a6e; --accent-ink:#ffffff; --navy:#0b3a6e; --teal:#16968a; --logo-filter:none;
   --ch1:#b88a00; --ch2:#127fac; --ch3:#b83a76; --ch4:#2b8a50;
   --good:#2b8a50; --warn:#b87400; --bad:#c23b33; --plate:#ffffff;
-  --f-display:"Archivo","Segoe UI",system-ui,sans-serif;
-  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --f-display:"Times New Roman",Times,serif;
+  --f-body:"Times New Roman",Times,serif;
+  --f-mono:"Times New Roman",Times,serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0d1317; --panel:#151e24; --sunk:#10181d; --ink:#e4ecf0; --muted:#93a4af; --line:#2a3741; --grid:#1e2a32;
@@ -26,6 +24,7 @@
   --ch1:#efc13e; --ch2:#4fc1ec; --ch3:#ee6ea7; --ch4:#5fcf89;
   --good:#5fcf89; --warn:#efb341; --bad:#f06a60; --plate:#ffffff; color-scheme:dark}
 html,body{height:100%}
+html{font-size-adjust:0.5}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;overflow:hidden}
 *{box-sizing:border-box}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}

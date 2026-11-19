@@ -710,3 +710,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck v23: 12.2 A qualified as the 0 Ω turn-off setting
 - Enes: peak sink depends on the gate resistance; keep 12.2 A but write "(0 Ω turn-off gate resistance setting)".
 - Leader: qualifier added to the four 12.2 A statements (asks slide card 1, Problem 1 strip, requirements table, slide 5 counter tile). Noted to Enes: with the 0.5 Ω star resistor of version 1 the same model gives about 8.4 A; about 0.6 Ω per transistor gives 8 A. The planned slider and R_crit rework were stopped by Enes and not made. Check: overflow 0, ERR 0; slides 5, 8, 9, 13 inspected; embedded HTML and PDF rebuilt.
+
+## 2026-11-19 · Infineon deck v24: Times New Roman
+- Enes: change the fonts, maybe Times New Roman.
+- Leader: display, body and number fonts all "Times New Roman", Times, serif; Google Fonts link removed (deck needs no web fonts now, embedded file fully offline); html font-size-adjust 0.5 so Times keeps about the old x-height. Previous version kept as a scratch copy. Check: overflow 0, ERR 0 on 29 slides; slides 1, 5, 9, 12, 13 and backup 10 inspected; embedded HTML and PDF rebuilt.
