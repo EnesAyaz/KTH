@@ -1399,7 +1399,7 @@ bindRange("bbN",v=>v,bbCount);
 /* ---------- slide 6: clickable design flow ---------- */
 const MC=[
  {a:"img/sch_power.png",ac:"Power-stage schematic: four branches per leg, a shunt in each low-side source. The script that writes it also places and routes the board.",
-  b:"img/gate_star.png",bc:"Gate star of one driver: R<sub>on</sub> paths in red, Kelvin returns in blue, one branch per transistor."},
+  b:"img/v1_layout_kicad.png",bc:"The version 1 double-pulse layout in KiCad, all four copper layers and silkscreen: DC link at the top, four branches with shunts, two drivers with isolated supplies, AC bolt at the bottom."},
  {a:"img/q3d_loop_dpt.png",ac:"Q3D: the copper of the four-branch double-pulse board, taken directly from the layout.",
   b:"img/loop_breakdown.png",bc:"Loop per branch: 0.46 copper + 0.06 bypass ESL + 0.12 shunt = 0.65 nH; 0.41 nH without the shunt (load board); 0.7 % spread between branches."},
  {wide:"img/sim_waves.png",wc:"Turn-on of the four branches from the extracted network: branch currents, low-side and high-side v<sub>DS</sub>.",
@@ -1409,7 +1409,7 @@ const MC=[
   li:["Results go back into the layout: 2.5 Ω gives 105 V, above the rating, so we chose 3.5 Ω.","The one-bolt AC bar splits the current ±15 %, so version 1 is being redrawn with two bolts.","The per-branch numbers feed the loss and thermal model of the whole inverter."]}];
 let mcSel=1;
 function mc(){$$("#mcFlow .step").forEach((b,i)=>b.setAttribute("aria-pressed",i===mcSel));const m=MC[mcSel],B=$("#mcBody");
-  const fig=(src,cap)=>`<div class="stack" style="gap:6px;min-height:0"><div class="fig photo" style="flex:1;min-height:0;background:#fff"><img src="${src}" alt=""></div><p class="small muted">${cap}</p></div>`;
+  const fig=(src,cap)=>`<div class="stack" style="gap:6px;min-height:0"><div class="fig photo" style="flex:1;min-height:0;background:${/layout_kicad/.test(src)?"#001023":"#fff"}"><img src="${src}" alt=""></div><p class="small muted">${cap}</p></div>`;
   if(m.a)B.innerHTML=`<div class="mcgrid">${fig(m.a,m.ac)}${fig(m.b,m.bc)}</div>`;
   else if(m.wide)B.innerHTML=`<div class="stack" style="gap:10px;height:100%">${fig(m.wide,m.wc)}<ul class="clean small" style="columns:2;column-gap:28px">${m.li.map(x=>"<li>"+x+"</li>").join("")}</ul></div>`;
   else{B.innerHTML=`<div class="mcgrid"><div class="stack" style="gap:14px"><div class="readout" id="mcRo" style="grid-template-columns:repeat(3,1fr);gap:14px 14px"></div><ul class="clean small">${m.li.map(x=>"<li>"+x+"</li>").join("")}</ul><button class="golink" data-go2="m3">Waveforms of the four branches →</button></div><div class="stack" style="gap:6px;min-height:0"><h3>High-side v<sub>DS</sub> peak in each LTspice run</h3><div class="chartbox" style="flex:1;min-height:0"><svg class="chart" id="mcChart" viewBox="0 0 560 330" aria-label="Peak high-side drain-source voltage for five LTspice runs"></svg></div><p class="tiny muted">75 V, 322 A double pulse, Q3D copper of each board.</p></div></div>`;ro("#mcRo",m.nums);mcChart();}}

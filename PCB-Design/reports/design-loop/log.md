@@ -702,3 +702,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck v21: "level" -> "cell" everywhere
 - Enes: yes, rename level to cell everywhere.
 - Leader: 42 places ("16 × 75 V stacked cells", "Cell voltage", "Cells N", "cells for 1200 V", "75 V per cell", roadmap "Cells in series", terms "cell = one 75 V three-phase bridge"); topology note now "Each cell is a standard two-level three-phase bridge. Cells are in series ...". Kept: two-level / 2-level (topology), off-level (gate voltage), file name level_iso.jpg. Check: overflow 0, ERR 0; slides 1, 3, 4, 12 inspected; embedded HTML and PDF rebuilt.
+
+## 2026-11-19 · Infineon deck v22: real KiCad layout in the KiCad step
+- Enes: slide 6, KiCad step: put the real layout in the second picture.
+- Leader: exported hardware/spb-bb-revb-dpt/spb-bb-revb-dpt.kicad_pcb with kicad-cli 7 (pcb export svg, B.Cu/In2/In1/F.Cu + F.Silkscreen + Edge.Cuts, board area), rasterised 1120x1067 on the KiCad background -> img/v1_layout_kicad.png; replaces the gate-star plot in step 1 (gate star stays on its backup slide). Check: overflow 0, ERR 0, step 1 rendered and inspected; artifact files list shows the new image; embedded HTML rebuilt (21 images). PDF unchanged (slide 6 opens on step 2).
