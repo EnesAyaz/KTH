@@ -688,4 +688,4 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - Slide 6: the four flow steps are tabs (KiCad: schematic + gate star; Q3D: copper + loop budget; LTspice: waveforms + netlist contents; Results: numbers + new dot chart of the high-side peak per LTspice run, 86.1-105 V against 90 V target and 100 V rating).
   - Also: backup question list said ">= 15 A sink", now ">= 22 A" like the asks.
 - Slip and fix: a non-breaking-space pass broke 47 number+unit pairs (shell ate the regex back-references); rebuilt from HEAD with a lambda replacement before committing; v17 artifact had the bug, v18 fixed.
-- Check: overflow 0 and ERR 0 on 29 slides; clicked states of both slides rendered and inspected. Embedded HTML rebuilt (20 images). PDF rebuilt but SPB_GaN_Infineon.pdf is locked (open in a viewer), not replaced yet.
+- Check: overflow 0 and ERR 0 on 29 slides; clicked states of both slides rendered and inspected. Embedded HTML rebuilt (20 images). PDF rebuilt; replaced after Enes closed it in Acrobat.
