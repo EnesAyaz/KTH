@@ -672,3 +672,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck v16: "bins (matched sets)"
 - Enes: keep "bins" but explain it in brackets as matched sets.
 - Leader (no agent): 7 places changed (title strip, ask slide, problem 3 strip, requirements table, thank-you card, backup slide 806 ask, question list). Check: overflow 0 and ERR 0 on all 29 slides. Republished as artifact v16.
+
+## 2026-11-19 · Infineon deck: embedded-figures version
+- Enes: give me an embedded-figures version as well.
+- Leader: reports/infineon-meeting/SPB_GaN_Infineon_embedded.html, single file (8.4 MB), all 20 images incl. the 6 roadmap images inlined as base64; only the Google font link stays external (falls back offline). Check: opened from an empty folder, 40 of 40 images load, 0 broken.
