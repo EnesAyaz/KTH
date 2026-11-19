@@ -647,3 +647,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Enes: "add the picture in slide 17 into slide 4 as well; total number of slides can be seen as 14 since the others are backup or further discussion".
 - Leader (no agents): slide 4 now has the device-fit curves (with the levels slider) and the real-device R_DS(on) vs C_oss,tr chart side by side; one drawFom() function draws both charts (slide 4 without the hypothetical 200 V marker); "EPC2071" and "tau = 1 / 2 ps" labels moved or dropped so they do not cover other labels. Numbering: main slides "n / 14" (title to thank you), backup "backup n / 15", backup dots narrower.
 - Checks: headless Edge 1400x860, 29 slides overflow 0, 0 script errors; slides 4 and 17 viewed. Artifact version 14.
+
+### 2026-11-19 - Infineon deck: second independent review (feedback only)
+- Enes: "review the presentation again with a fresh agent and give me feedback on how to improve it".
+- Leader -> design-reviewer (fresh, read-only, 29 renders): first run stalled after 600 s without output; resumed with instructions to write incrementally. Agent -> leader: reports/infineon-meeting/feedback_2026-11-19.md (top 10, flow and timing about 31.5 min, asks, clarity, per-slide notes, backup, consistency).
+- Leader spot-checked: backup overshoot slider still says "Cell voltage"; slide 12 text "wins on every count" (losses are 1.00x by construction); 4 transistors per channel need 14.9 A sink at 0.35 ohm pull-down and 22.3 A at 0.2 ohm (slide 9 says 15-20 A). No deck changes in this round; waiting for Enes's choice.
