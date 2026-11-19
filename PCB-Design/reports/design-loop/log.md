@@ -676,3 +676,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck: embedded-figures version
 - Enes: give me an embedded-figures version as well.
 - Leader: reports/infineon-meeting/SPB_GaN_Infineon_embedded.html, single file (8.4 MB), all 20 images incl. the 6 roadmap images inlined as base64; only the Google font link stays external (falls back offline). Check: opened from an empty folder, 40 of 40 images load, 0 broken.
+
+## 2026-11-19 · Infineon deck: PDF version
+- Enes: give me a PDF version as well.
+- Leader: reports/infineon-meeting/SPB_GaN_Infineon.pdf, 29 pages (14 main + 15 backup), each slide rendered by headless Edge at 2560x1440 (2x) without the navigation bar; 8.1 MB. Script make_pdf.py (screenshots; the PDF pages are images, so text is not selectable). Check: 29 of 29 pages, contact sheet inspected.
