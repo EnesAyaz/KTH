@@ -706,3 +706,7 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck v22: real KiCad layout in the KiCad step
 - Enes: slide 6, KiCad step: put the real layout in the second picture.
 - Leader: exported hardware/spb-bb-revb-dpt/spb-bb-revb-dpt.kicad_pcb with kicad-cli 7 (pcb export svg, B.Cu/In2/In1/F.Cu + F.Silkscreen + Edge.Cuts, board area), rasterised 1120x1067 on the KiCad background -> img/v1_layout_kicad.png; replaces the gate-star plot in step 1 (gate star stays on its backup slide). Check: overflow 0, ERR 0, step 1 rendered and inspected; artifact files list shows the new image; embedded HTML rebuilt (21 images). PDF unchanged (slide 6 opens on step 2).
+
+## 2026-11-19 · Infineon deck v23: 12.2 A qualified as the 0 Ω turn-off setting
+- Enes: peak sink depends on the gate resistance; keep 12.2 A but write "(0 Ω turn-off gate resistance setting)".
+- Leader: qualifier added to the four 12.2 A statements (asks slide card 1, Problem 1 strip, requirements table, slide 5 counter tile). Noted to Enes: with the 0.5 Ω star resistor of version 1 the same model gives about 8.4 A; about 0.6 Ω per transistor gives 8 A. The planned slider and R_crit rework were stopped by Enes and not made. Check: overflow 0, ERR 0; slides 5, 8, 9, 13 inspected; embedded HTML and PDF rebuilt.
