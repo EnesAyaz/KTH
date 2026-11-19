@@ -338,7 +338,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <div class="stack" style="gap:10px;min-height:0">
       <div class="card stack" id="bbInfo" style="gap:6px;min-height:150px"></div>
       <div class="card stack" style="gap:8px">
-        <h3>Count it for the 16-level inverter</h3>
+        <h3>Count it for the SPB: 16 stacked cells</h3>
         <div class="ctrl"><label for="bbN">Transistors per switch</label><input id="bbN" type="range" min="1" max="6" step="1" value="4"><output id="bbNo"></output></div>
         <div class="ctrl"><label>Transistors per driver channel</label><div class="seg" id="bbK" role="group" aria-label="Transistors per driver channel"><button aria-pressed="false" data-v="1">1</button><button aria-pressed="true" data-v="2">2</button><button aria-pressed="false" data-v="4">4</button></div><span></span></div>
         <div class="readout" id="bbRo" style="grid-template-columns:repeat(3,1fr);gap:8px 12px"></div>
@@ -1377,7 +1377,7 @@ const BB_HS=[
  {id:"c4",l:"Branch 4",r:[812,262,1050,392],h:"Branch 4 · bypass C40–C45",t:"Outer branch. With the one-bolt AC bar it sees about 15 nH more AC inductance than branches 2 and 3."},
  {id:"sh",l:"Shunts RS1–RS4",r:[12,394,1090,478],h:"Shunts RS1–RS4 · 1 mΩ coaxial",t:"One shunt in the low-side source of every branch, so the double pulse measures each branch current. It adds 0.12 nH; the load board has none (0.41 nH)."},
  {id:"d1",l:"Driver U1",r:[85,480,480,652],h:"Driver U1 · 2EDF7275K",t:"One dual-channel isolated driver for branches 1–2: channel A drives the two high-side transistors, channel B the two low-side ones, each through a star with its own R<sub>g</sub> and Kelvin return. Isolated supplies enter at J3 / J4 through a common-mode choke; a 5.1 V Zener splits them into +5 / −1.65 V."},
- {id:"d2",l:"Driver U2",r:[600,480,1015,652],h:"Driver U2 · 2EDF7275K",t:"The same driver for branches 3–4, supplied at J12 / J13. One channel per pair gives 192 channels and 192 isolated supplies for the inverter."},
+ {id:"d2",l:"Driver U2",r:[600,480,1015,652],h:"Driver U2 · 2EDF7275K",t:"The same driver for branches 3–4, supplied at J12 / J13. One channel per pair gives 192 channels and 192 isolated supplies for the SPB."},
  {id:"ct",l:"Control",r:[180,655,950,790],h:"Control J5 / J14",t:"PWMH, PWML, DIS, 12 V and NTC from the controller, each with its own return; 1200 V spacing to the power side."},
  {id:"ac",l:"AC",r:[470,800,630,1076],h:"AC output · one bolt",t:"Version 1 takes the AC current out through one bolt in the middle: the outer branches see about 15 nH more, which splits the turn-on current ±15.3 %. The redraw uses two bolts."}];
 const BB_DEF={top:'<h3>Click a part of the board</h3><p class="small"><b>Terms:</b> level = one 75 V three-phase bridge; switch = four EPC2361 in parallel; branch = one high-side + one low-side EPC2361, so four branches make one leg; DPT = double-pulse test board.</p>',
@@ -1392,7 +1392,7 @@ const bbView=seg("bbView",()=>{bbSel=null;bbDraw()});
 $("#bbBox").addEventListener("click",e=>{const b=e.target.closest(".hs");if(!b)return;bbSel=bbSel===b.dataset.id?null:b.dataset.id;bbDraw()});
 const bbK=seg("bbK",()=>bbCount());
 function bbCount(){const n=+$("#bbN").value,k=Math.min(+bbK(),n),ch=96*Math.ceil(n/k),I=(5+1.7)/(0.35+0.4/k);
-  ro("#bbRo",[{v:96*n,l:"EPC2361 in the inverter"},{v:ch,l:"driver channels = isolated supplies"},{v:Math.ceil(ch/2),l:"dual-channel driver ICs"},
+  ro("#bbRo",[{v:96*n,l:"EPC2361 in the SPB"},{v:ch,l:"driver channels = isolated supplies"},{v:Math.ceil(ch/2),l:"dual-channel driver ICs"},
    {v:fmt(322/n,0)+" A",l:"per transistor at 322 A"},{v:fmt(I,1)+" A",l:"peak sink per channel (8 A rating)",c:I>10?"bad":I>8?"warn":"good"}]);}
 bindRange("bbN",v=>v,bbCount);
 
