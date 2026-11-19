@@ -722,3 +722,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Leader checked every finding against index.html and applied about 95 (scripted, each replacement asserted): stacked-cell wording, cell = three half-bridges, ≤ 1.5 mΩ / ≤ 900 pF and ≤ 0.2 Ω everywhere, "90 V design limit" everywhere, ≈ 0.65 nH loop sums, slide 9 repeated bullets removed, slide 10 opens on the 4-parallel model (−3.3 V matches the Problem box), "2 parallel (earlier layout)", slide 13 driver cell shortened, slide 22 "From the two-branch layout to the four-branch leg board", slide 24 "four in parallel form one leg", Switch positions -> Switches, DC-link banks 48 (one per leg), backup eyebrows without numbering, center (US), shorter readout labels and captions against orphans, slide 11 energy chart readable (card no longer shrinks, chart 100 px, caption and three case notes shortened), backup 7 efficiency from the leg loss (99.71 %), backup 9 di/dt default 36 A/ns.
 - Not applied (for Enes): #81 "two 150 kW blocks per leg" (slide 20) vs 48 legs at 6.25 kW; #3/#20 loop_breakdown.png axis labels say "cell" (needs re-plot); #50 "16 samples"; #105 18.1 W (frequency model) vs 18.0 W; #72 kW vs MW slider; #75/#89 small label overlap / cropped title in images.
 - Check: overflow 0, ERR 0 on 29 slides; all 14 slide-11 case/edge views 0 overflow; contact sheets inspected. Embedded HTML and PDF rebuilt.
+
+## 2026-11-19 — Infineon deck v26
+- Enes: "Per phase, not leg" (review finding #81, backup 6 design procedure).
+- Leader (no agents): backup 6 bullet now "two 150 kW blocks per phase; 4 × EPC2361 per switch, 2 drivers per leg."
+- Checks: 29 slides, overflow 0, ERR 0; embedded HTML rebuilt (21 images); PDF rebuilt (29 pages, 2560×1440); artifact version 26.
