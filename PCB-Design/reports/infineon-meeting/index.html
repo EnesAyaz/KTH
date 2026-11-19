@@ -184,6 +184,18 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 .step .k{font:500 12px var(--f-mono);color:var(--accent);letter-spacing:.06em}
 .step span{font-size:13.5px;color:var(--muted)}
 .step.inf{border-color:var(--accent)}
+.flowtabs .step{font:inherit;color:inherit;text-align:left;cursor:pointer;border-top:3px solid var(--line)}
+.flowtabs .step:hover{border-top-color:var(--muted)}
+.flowtabs .step[aria-pressed="true"]{background:var(--panel);border-color:var(--accent);border-top-color:var(--accent)}
+.flowtabs .step:focus-visible{outline:2px solid var(--accent)}
+.hsbox{position:relative;height:100%;max-width:100%;margin:auto}
+.hsbox img{width:100%;height:100%;object-fit:contain;display:block}
+.hs{all:unset;box-sizing:border-box;position:absolute;cursor:pointer;border:2px dashed rgba(255,255,255,.75);border-radius:4px;background:rgba(0,0,0,.08)}
+.hs:hover{background:rgba(255,255,255,.18);border-style:solid}
+.hs[aria-pressed="true"]{border:3px solid #ffd23f;background:rgba(255,210,63,.22)}
+.hs:focus-visible{outline:2px solid #ffd23f}
+.hs i{position:absolute;left:3px;top:3px;font:600 11px var(--f-mono);font-style:normal;color:#111;background:#ffd23f;border-radius:2px;padding:0 4px;white-space:nowrap}
+.mcgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;min-height:0;height:100%}
 .tag{font:600 12px var(--f-mono);color:var(--accent);letter-spacing:.06em}
 
 @media (max-width:820px){
@@ -319,34 +331,33 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 <section class="slide" id="bb" data-title="Building block">
   <div class="slide-head"><div><div class="eyebrow">B · Our design · version 1</div><h2>Our design: four EPC2361 per switch, one driver channel per pair</h2></div><div class="pageno"></div></div>
   <div class="body cols-55" style="grid-template-rows:1fr auto">
-    <div class="fig" style="height:100%"><img src="img/revb_dpt.png" alt="Version 1 double-pulse board render: four cells with shunts, capacitor bank and AC bar, two 2EDF7275K driver areas."></div>
-    <div class="stack">
-      <div class="readout" style="grid-template-columns:repeat(2,1fr);gap:14px">
-        <div class="ro"><b>4 × EPC2361</b><span>per switch: four cells (one high side + one low side each) in parallel</span></div>
-        <div class="ro"><b>1 channel / 2</b><span>2EDF7275K per transistor pair: 96 driver ICs; 192 isolated supplies, one per channel so each pair keeps its own Kelvin return</span></div>
-        <div class="ro"><b>0.65 / 0.41 nH</b><span>loop per cell (Q3D): with shunt on the DPT board / without on the load board</span></div>
-        <div class="ro good"><b>99.71 %</b><span>semiconductors, loss model: 300 kW, 228 A<sub>rms</sub> per phase, 50 kHz; 865 W, 18 W per leg</span></div>
-        <div class="ro"><b>68.8 °C</b><span>junction at 40 °C ambient (thermal model)</span></div>
-        <div class="ro warn"><b>Version 1</b><span>layout done, two-bolt redraw before ordering; not yet measured</span></div>
+    <div class="stack" style="gap:8px;min-height:0">
+      <div class="seg" id="bbView" role="group" aria-label="Choose the board view"><button aria-pressed="true" data-v="top">Top view · click a part</button><button aria-pressed="false" data-v="3d">3D render</button><button aria-pressed="false" data-v="load">Load board</button></div>
+      <div class="fig photo" style="flex:1;min-height:0;background:#fff"><div class="hsbox" id="bbBox"></div></div>
+    </div>
+    <div class="stack" style="gap:10px;min-height:0">
+      <div class="card stack" id="bbInfo" style="gap:6px;min-height:150px"></div>
+      <div class="card stack" style="gap:8px">
+        <h3>Count it for the 16-level inverter</h3>
+        <div class="ctrl"><label for="bbN">Transistors per switch</label><input id="bbN" type="range" min="1" max="6" step="1" value="4"><output id="bbNo"></output></div>
+        <div class="ctrl"><label>Transistors per driver channel</label><div class="seg" id="bbK" role="group" aria-label="Transistors per driver channel"><button aria-pressed="false" data-v="1">1</button><button aria-pressed="true" data-v="2">2</button><button aria-pressed="false" data-v="4">4</button></div><span></span></div>
+        <div class="readout" id="bbRo" style="grid-template-columns:repeat(3,1fr);gap:8px 12px"></div>
       </div>
-      <p class="small"><b>Terms:</b> level = one 75 V three-phase bridge; switch = four EPC2361 in parallel; cell = one high-side + one low-side EPC2361, so four cells make one leg; DPT = double-pulse test board. Star gate routing from the driver channel, a Kelvin return under every gate trace, a 1 mΩ coaxial shunt in every cell, 1200 V spacing to the control side.</p>
+      <p class="small muted">Version 1: layout done, two-bolt redraw before ordering, not yet measured. Loss model: 99.71 % for the semiconductors at 300 kW, 50 kHz; 68.8 °C junction.</p>
     </div>
     <div class="mini" style="grid-column:1/-1"><i>Chosen by one procedure:</i><span>1 · spec 1200 V, 300 kW</span><span>2 · 100 V GaN, 16 levels</span><span>3 · star gate, Kelvin</span><span>4 · 4 per switch</span><span>5 · MLCC DC link</span><span>6 · Q3D, LTspice, thermal</span></div>
   </div>
 </section>
 
 <section class="slide" id="mc" data-title="How we model">
-  <div class="slide-head"><div><div class="eyebrow">B · Design flow</div><h2>KiCad copper → Ansys Q3D → LTspice, without hand-made parasitics</h2></div><div class="pageno"></div></div>
-  <div class="flow" style="grid-template-columns:repeat(4,1fr)">
-    <div class="step"><span class="k">1 · KiCad</span><b>Generated layout</b><span>a script writes schematic and board; DRC, silkscreen and 3D checks on every change</span></div>
-    <div class="step"><span class="k">2 · Ansys Q3D</span><b>Partial R and L</b><span>the full partial-L matrix of the four-cell loop and the gate stars</span></div>
-    <div class="step"><span class="k">3 · LTspice</span><b>Extracted network</b><span>EPC2361 vendor model, MLCC banks, split-output driver, Kelvin mutual terms</span></div>
-    <div class="step"><span class="k">4 · Results</span><b>Per cell</b><span>V<sub>DS</sub> overshoot, current sharing, E<sub>on</sub> / E<sub>off</sub>, gate bump, then loss and thermal</span></div>
+  <div class="slide-head"><div><div class="eyebrow">B · Design flow · click a step</div><h2>KiCad copper → Ansys Q3D → LTspice, without hand-made parasitics</h2></div><div class="pageno"></div></div>
+  <div class="flow flowtabs" id="mcFlow" style="grid-template-columns:repeat(4,1fr)">
+    <button class="step" data-i="0" aria-pressed="false"><span class="k">1 · KiCad</span><b>Generated layout</b><span>a script writes schematic and board; DRC, silkscreen and 3D checks on every change</span></button>
+    <button class="step" data-i="1" aria-pressed="true"><span class="k">2 · Ansys Q3D</span><b>Partial R and L</b><span>the full partial-L matrix of the four-cell loop and the gate stars</span></button>
+    <button class="step" data-i="2" aria-pressed="false"><span class="k">3 · LTspice</span><b>Extracted network</b><span>EPC2361 vendor model, MLCC banks, split-output driver, Kelvin mutual terms</span></button>
+    <button class="step" data-i="3" aria-pressed="false"><span class="k">4 · Results</span><b>Per cell</b><span>V<sub>DS</sub> overshoot, current sharing, E<sub>on</sub> / E<sub>off</sub>, gate bump, then loss and thermal</span></button>
   </div>
-  <div class="body cols-2" style="gap:18px">
-    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/q3d_loop_dpt.png" alt="Q3D model of the four-cell power loop copper."></div><p class="small muted">Q3D: the copper of the four-cell double-pulse board, taken directly from the layout.</p></div>
-    <div class="stack" style="gap:6px"><div class="fig photo" style="flex:1;background:#fff"><img src="img/loop_breakdown.png" alt="Loop inductance per cell against bypass capacitor count and its breakdown into copper, bypass ESL and shunt."></div><p class="small muted">Loop per cell: 0.46 copper + 0.06 bypass ESL + 0.12 shunt = 0.65 nH; 0.41 nH without the shunt (load board); 0.7 % spread between cells.</p></div>
-  </div>
+  <div class="body" id="mcBody" style="min-height:0"></div>
 </section>
 
 <section class="slide" id="m3" data-title="Model: waveforms">
@@ -1342,7 +1353,7 @@ bindRange("rgI",v=>v+" A",rg);
 
 /* ---------- slide 17: questions ---------- */
 const Q=[
- ["Gate drivers",["Driver for paralleled GaN: ≥ 15 A peak sink, < 0.2 Ω pull-down, one channel for 4 transistors?","2EDF7275K: how does the active current limit behave, and is there a current-limited SPICE/IBIS model?","Split +5 / −1…−2 V output from a single isolated rail: recommended circuit for 100 V Schottky-gate GaN?","Drivers for a level 1200 V above ground: reinforced isolation, small package, CMTI ≥ 200 V/ns? The 2EDF7275K is functional (460 V)."]],
+ ["Gate drivers",["Driver for paralleled GaN: ≥ 22 A peak sink, < 0.2 Ω pull-down, one channel for 4 transistors?","2EDF7275K: how does the active current limit behave, and is there a current-limited SPICE/IBIS model?","Split +5 / −1…−2 V output from a single isolated rail: recommended circuit for 100 V Schottky-gate GaN?","Drivers for a level 1200 V above ground: reinforced isolation, small package, CMTI ≥ 200 V/ns? The 2EDF7275K is functional (460 V)."]],
  ["Gate bump and dv/dt",["Your recommended answer to the Miller bump at 50+ V/ns: negative bias, RC-coupled drive, Miller clamp, or device design?","Does the RC-coupled negative drive of the GaN EiceDRIVER family carry over from 600 V GIT devices to 100 V GaN?","Gate limits under repetitive ringing (−4 / +6 V): lifetime data for short negative spikes?","Dynamic R_DS(on) of CoolGaN 100 V at 75 V hard switching and 50 V/ns?"]],
  ["Devices and paralleling",["V_th distribution within and between lots; binning (matched sets) or matched reels for paralleling?","Temperature coefficients of R_DS(on) and V_th for current sharing with 4 in parallel?","Package with a dedicated Kelvin source and low common-source inductance; half-bridge in one package?","200 V CoolGaN roadmap: R_DS(on) ≈ 1.5–2 mΩ, C_oss,tr ≈ 700–900 pF, Kelvin source? Samples?"]],
  ["Thermal and layout",["Top-side-cooled 100 V GaN for one heatsink over the whole leg: thermal resistance and allowed clamping force?","Recommended via-in-pad or blind-via landing for the source of a low-voltage GaN in a 4-layer board?"]],
@@ -1352,8 +1363,66 @@ function questions(){let saved={};try{saved=JSON.parse(localStorage.getItem("spb
   $("#qs").innerHTML=Q.map((g,gi)=>`<div class="qgroup"><h3>${g[0]}</h3><ul class="qlist">${g[1].map((q,qi)=>{const id="q"+gi+"_"+qi;return `<li><label for="${id}"><input type="checkbox" id="${id}" ${saved[id]?"checked":""}><span>${subH(q)}</span></label></li>`}).join("")}</ul></div>`).join("");
   $("#qs").addEventListener("change",e=>{if(e.target.type!=="checkbox")return;saved[e.target.id]=e.target.checked;try{localStorage.setItem("spb-infineon-q",JSON.stringify(saved))}catch(err){}});}
 
+
+/* ---------- slide 5: clickable board and inverter count ---------- */
+const BB_VIEWS={top:{img:"img/v1_pcb_top.jpg",w:1100,h:1078,alt:"Version 1 double-pulse board, top view"},
+ "3d":{img:"img/revb_dpt.png",w:1524,h:1071,alt:"Version 1 double-pulse board, 3D render"},
+ load:{img:"img/v1_load.jpg",w:1400,h:1373,alt:"Load board render with heatsink"}};
+const BB_HS=[
+ {id:"dc",l:"DC link",r:[135,105,945,258],h:"DC link · C67–C86",t:"Twenty MLCCs between the DC+ and DC− studs, shared by the four cells. The DC link is MLCC only, no electrolytics."},
+ {id:"c1",l:"Cell 1",r:[60,262,262,392],h:"Cell 1 · bypass C1–C6",t:"One high-side and one low-side EPC2361 with six bypass MLCCs at the pads. Loop per cell in Q3D: 0.46 copper + 0.06 bypass ESL + 0.12 shunt = 0.65 nH."},
+ {id:"c2",l:"Cell 2",r:[262,262,480,392],h:"Cell 2 · bypass C7–C12",t:"Same cell as cell 1, mirrored around its driver. The four cell loops differ by 0.7 % in Q3D."},
+ {id:"c3",l:"Cell 3",r:[580,262,812,392],h:"Cell 3 · bypass C34–C39",t:"Same cell, driven by U2. All four cells switch together: E<sub>on</sub> 31.1–31.2 µJ per transistor in LTspice."},
+ {id:"c4",l:"Cell 4",r:[812,262,1050,392],h:"Cell 4 · bypass C40–C45",t:"Outer cell. With the one-bolt AC bar it sees about 15 nH more AC inductance than cells 2 and 3."},
+ {id:"sh",l:"Shunts RS1–RS4",r:[12,394,1090,478],h:"Shunts RS1–RS4 · 1 mΩ coaxial",t:"One shunt in the low-side source of every cell, so the double pulse measures each cell current. It adds 0.12 nH; the load board has none (0.41 nH)."},
+ {id:"d1",l:"Driver U1",r:[85,480,480,652],h:"Driver U1 · 2EDF7275K",t:"One dual-channel isolated driver for cells 1–2: channel A drives the two high-side transistors, channel B the two low-side ones, each through a star with its own R<sub>g</sub> and Kelvin return. Isolated supplies enter at J3 / J4 through a common-mode choke; a 5.1 V Zener splits them into +5 / −1.65 V."},
+ {id:"d2",l:"Driver U2",r:[600,480,1015,652],h:"Driver U2 · 2EDF7275K",t:"The same driver for cells 3–4, supplied at J12 / J13. One channel per pair gives 192 channels and 192 isolated supplies for the inverter."},
+ {id:"ct",l:"Control",r:[180,655,950,790],h:"Control J5 / J14",t:"PWMH, PWML, DIS, 12 V and NTC from the controller, each with its own return; 1200 V spacing to the power side."},
+ {id:"ac",l:"AC",r:[470,800,630,1076],h:"AC output · one bolt",t:"Version 1 takes the AC current out through one bolt in the middle: the outer cells see about 15 nH more, which splits the turn-on current ±15.3 %. The redraw uses two bolts."}];
+const BB_DEF={top:'<h3>Click a part of the board</h3><p class="small"><b>Terms:</b> level = one 75 V three-phase bridge; switch = four EPC2361 in parallel; cell = one high-side + one low-side EPC2361, so four cells make one leg; DPT = double-pulse test board.</p>',
+ "3d":'<h3>Double-pulse board, version 1</h3><p class="small">Four cells with shunts, the MLCC DC link, the AC bar and two 2EDF7275K driver areas. Star gate routing, a Kelvin return under every gate trace, 1200 V spacing to the control side.</p>',
+ load:'<h3>Load board</h3><p class="small">One leg for continuous operation: the same four cells without shunts (0.41 nH per cell), under one heatsink. Frozen until the double-pulse results are in.</p>'};
+let bbSel=null;
+function bbDraw(){const v=bbView(),V=BB_VIEWS[v],b=$("#bbBox");b.style.aspectRatio=V.w+"/"+V.h;
+  b.innerHTML=`<img src="${V.img}" alt="${V.alt}">`+(v==="top"?BB_HS.map(z=>`<button class="hs" data-id="${z.id}" aria-pressed="${z.id===bbSel}" aria-label="${z.l}" style="left:${100*z.r[0]/V.w}%;top:${100*z.r[1]/V.h}%;width:${100*(z.r[2]-z.r[0])/V.w}%;height:${100*(z.r[3]-z.r[1])/V.h}%"><i>${z.l}</i></button>`).join(""):"");
+  const z=v==="top"&&BB_HS.find(q=>q.id===bbSel);
+  $("#bbInfo").innerHTML=z?`<div class="eyebrow">Board part</div><h3>${z.h}</h3><p class="small">${z.t}</p>`:BB_DEF[v];}
+const bbView=seg("bbView",()=>{bbSel=null;bbDraw()});
+$("#bbBox").addEventListener("click",e=>{const b=e.target.closest(".hs");if(!b)return;bbSel=bbSel===b.dataset.id?null:b.dataset.id;bbDraw()});
+const bbK=seg("bbK",()=>bbCount());
+function bbCount(){const n=+$("#bbN").value,k=Math.min(+bbK(),n),ch=96*Math.ceil(n/k),I=(5+1.7)/(0.35+0.4/k);
+  ro("#bbRo",[{v:96*n,l:"EPC2361 in the inverter"},{v:ch,l:"driver channels = isolated supplies"},{v:Math.ceil(ch/2),l:"dual-channel driver ICs"},
+   {v:fmt(322/n,0)+" A",l:"per transistor at 322 A"},{v:fmt(I,1)+" A",l:"peak sink per channel (8 A rating)",c:I>10?"bad":I>8?"warn":"good"}]);}
+bindRange("bbN",v=>v,bbCount);
+
+/* ---------- slide 6: clickable design flow ---------- */
+const MC=[
+ {a:"img/sch_power.png",ac:"Power-stage schematic: four cells per leg, a shunt in each low-side source. The script that writes it also places and routes the board.",
+  b:"img/gate_star.png",bc:"Gate star of one driver: R<sub>on</sub> paths in red, Kelvin returns in blue, one branch per transistor."},
+ {a:"img/q3d_loop_dpt.png",ac:"Q3D: the copper of the four-cell double-pulse board, taken directly from the layout.",
+  b:"img/loop_breakdown.png",bc:"Loop per cell: 0.46 copper + 0.06 bypass ESL + 0.12 shunt = 0.65 nH; 0.41 nH without the shunt (load board); 0.7 % spread between cells."},
+ {wide:"img/sim_waves.png",wc:"Turn-on of the four cells from the extracted network: cell currents, low-side and high-side v<sub>DS</sub>.",
+  li:["EPC2361 vendor model for each of the eight transistors.","Q3D power-loop matrix with all cell-to-cell mutuals as coupled inductors, and the extracted gate star of every channel.","Split-output driver, R<sub>g,on</sub> 3.5 Ω, −1.9 V off; MLCC banks with ESL and ESR.","75 V, 322 A double pulse; every cell has the same 1 nH AC take-off."]},
+ {nums:[{v:"0.65/0.41 nH",l:"loop per cell, DPT / load board"},{v:"0.7 %",l:"spread of the cell loops"},{v:"92.9 V",l:"high-side v_DS peak at 3.5 Ω",c:"warn"},
+   {v:"31.1–31.2 µJ",l:"E_on per transistor, cells 1–4"},{v:"99.71 %",l:"semiconductors, 300 kW, 50 kHz",c:"good"},{v:"68.8 °C",l:"junction at 40 °C ambient"}],
+  li:["Results go back into the layout: 2.5 Ω gives 105 V, above the rating, so we chose 3.5 Ω.","The one-bolt AC bar splits the current ±15 %, so version 1 is being redrawn with two bolts.","The per-cell numbers feed the loss and thermal model of the whole inverter."]}];
+let mcSel=1;
+function mc(){$$("#mcFlow .step").forEach((b,i)=>b.setAttribute("aria-pressed",i===mcSel));const m=MC[mcSel],B=$("#mcBody");
+  const fig=(src,cap)=>`<div class="stack" style="gap:6px;min-height:0"><div class="fig photo" style="flex:1;min-height:0;background:#fff"><img src="${src}" alt=""></div><p class="small muted">${cap}</p></div>`;
+  if(m.a)B.innerHTML=`<div class="mcgrid">${fig(m.a,m.ac)}${fig(m.b,m.bc)}</div>`;
+  else if(m.wide)B.innerHTML=`<div class="stack" style="gap:10px;height:100%">${fig(m.wide,m.wc)}<ul class="clean small" style="columns:2;column-gap:28px">${m.li.map(x=>"<li>"+x+"</li>").join("")}</ul></div>`;
+  else{B.innerHTML=`<div class="mcgrid"><div class="stack" style="gap:14px"><div class="readout" id="mcRo" style="grid-template-columns:repeat(3,1fr);gap:14px 14px"></div><ul class="clean small">${m.li.map(x=>"<li>"+x+"</li>").join("")}</ul><button class="golink" data-go2="m3">Waveforms of the four cells →</button></div><div class="stack" style="gap:6px;min-height:0"><h3>High-side v<sub>DS</sub> peak in each LTspice run</h3><div class="chartbox" style="flex:1;min-height:0"><svg class="chart" id="mcChart" viewBox="0 0 560 330" aria-label="Peak high-side drain-source voltage for five LTspice runs"></svg></div><p class="tiny muted">75 V, 322 A double pulse, Q3D copper of each board.</p></div></div>`;ro("#mcRo",m.nums);mcChart();}}
+function mcChart(){const s=$("#mcChart");clear(s);const R=[["DPT · 3.5 Ω (chosen)",92.9],["DPT · 2.5 Ω",105],["DPT · lumped gate",89.8],["Load · 2 Ω",90.9],["Load · 3 Ω",86.1]];
+  const A=axes(s,{W:560,H:330,x0:80,x1:110,y0:0,y1:5,xt:[80,85,90,95,100,105,110],yt:[],m:{l:150,r:16,t:16,b:40},xl:"peak high-side v_DS [V]"});
+  [[90,"90 V target","var(--warn)"],[100,"100 V rating","var(--bad)"]].forEach(([v,t,c])=>{el("line",{x1:A.X(v),x2:A.X(v),y1:16,y2:290,stroke:c,"stroke-dasharray":"4 3"},s);el("text",{x:A.X(v)+4,y:28,fill:c},s,t)});
+  R.forEach(([t,v],i)=>{const y=A.Y(4.5-i);el("line",{x1:A.X(80),x2:A.X(v),y1:y,y2:y,stroke:"var(--line)"},s);
+    el("circle",{cx:A.X(v),cy:y,r:7,fill:v>100?"var(--bad)":v>90?"var(--warn)":"var(--good)"},s);
+    el("text",{x:144,y:y+4,"text-anchor":"end",class:"ink"},s,t);el("text",{x:A.X(v)+(v>103?-12:12),y:y+4,"text-anchor":v>103?"end":"start",class:"ink"},s,fmt(v,1)+" V");});}
+$("#mcFlow").addEventListener("click",e=>{const b=e.target.closest(".step");if(b){mcSel=+b.dataset.i;mc()}});
+$("#mcBody").addEventListener("click",e=>{const b=e.target.closest("[data-go2]");if(b)go(slides.findIndex(x=>x.id===b.dataset.go2))});
+
 /* ---------- boot ---------- */
-charging();dfom();drawFom($("#fomChart4"),false);spb();fom();bench();npar();galleries();over();sharing();waves();revb();bolts();sink();bump();vclass();motor();rg();questions();road();
+charging();dfom();drawFom($("#fomChart4"),false);spb();fom();bench();npar();galleries();over();sharing();waves();revb();bolts();sink();bump();vclass();motor();rg();questions();road();bbDraw();bbCount();mc();
 fit();fromHash();
 })();
 </script>

@@ -680,3 +680,12 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 ## 2026-11-19 · Infineon deck: PDF version
 - Enes: give me a PDF version as well.
 - Leader: reports/infineon-meeting/SPB_GaN_Infineon.pdf, 29 pages (14 main + 15 backup), each slide rendered by headless Edge at 2560x1440 (2x) without the navigation bar; 8.1 MB. Script make_pdf.py (screenshots; the PDF pages are images, so text is not selectable). Check: 29 of 29 pages, contact sheet inspected.
+
+## 2026-11-19 · Infineon deck v18: slides 5 and 6 interactive
+- Enes: can we make it more interactive, for instance slides 5 and 6.
+- Leader (no agent):
+  - Slide 5: top view with 10 clickable board areas (DC link, cells 1-4, shunts, U1, U2, control, AC), each explains its part; view tabs top / 3D / load board; counter for the 16-level inverter (transistors per switch 1-6, transistors per channel 1/2/4 -> transistors, channels = isolated supplies, driver ICs, A per transistor at 322 A, sink per channel with (5+1.7)/(0.35+0.4/k), same model as the driver slide).
+  - Slide 6: the four flow steps are tabs (KiCad: schematic + gate star; Q3D: copper + loop budget; LTspice: waveforms + netlist contents; Results: numbers + new dot chart of the high-side peak per LTspice run, 86.1-105 V against 90 V target and 100 V rating).
+  - Also: backup question list said ">= 15 A sink", now ">= 22 A" like the asks.
+- Slip and fix: a non-breaking-space pass broke 47 number+unit pairs (shell ate the regex back-references); rebuilt from HEAD with a lambda replacement before committing; v17 artifact had the bug, v18 fixed.
+- Check: overflow 0 and ERR 0 on 29 slides; clicked states of both slides rendered and inspected. Embedded HTML rebuilt (20 images). PDF rebuilt but SPB_GaN_Infineon.pdf is locked (open in a viewer), not replaced yet.
