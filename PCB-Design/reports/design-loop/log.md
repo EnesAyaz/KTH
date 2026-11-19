@@ -689,3 +689,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
   - Also: backup question list said ">= 15 A sink", now ">= 22 A" like the asks.
 - Slip and fix: a non-breaking-space pass broke 47 number+unit pairs (shell ate the regex back-references); rebuilt from HEAD with a lambda replacement before committing; v17 artifact had the bug, v18 fixed.
 - Check: overflow 0 and ERR 0 on 29 slides; clicked states of both slides rendered and inspected. Embedded HTML rebuilt (20 images). PDF rebuilt; replaced after Enes closed it in Acrobat.
+
+## 2026-11-19 · Infineon deck v19: questions slide first in backup, "cell" -> "branch"
+- Enes: move backup slide 14 (questions) to backup 1; "cell" is our name for the inverters, find another name for the parallel switches (e.g. switch position).
+- Leader (no agent): questions slide now directly after the thank-you slide (backup 1 / 15), backup index is backup 2. Paralleled HS+LS unit renamed "branch" in 133 places (text, legends, hotspot labels, roadmap "Block design"); the topology slide's "Each level ('cell' in the figure)" kept. Not "switch position": the deck uses "switch" for the four in parallel. Images (board silkscreen CELL 1-4, Q3D/LTspice plot legends) still say cell.
+- Check: overflow 0 and ERR 0 on 29 slides; contact sheet inspected; embedded HTML and PDF rebuilt. Memory: branch-vs-cell-naming.
