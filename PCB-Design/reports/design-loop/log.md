@@ -738,3 +738,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Enes: slide 1, delete the Version 1 column; loop as 0.65/0.41; joint test without the EPC2361 comparison; drop "with EPC2361" from the intro line; keep EPC2361 under 4 × GaN.
 - Leader (no agents): 5 KPI columns; "0.65 / 0.41 nH — loop per branch: double-pulse board with shunt / load board (Q3D)"; "5 · Joint test: parts for one SPB leg, tested on our board"; intro "We share our results on a stacked-cell 1200 V traction inverter, ...".
 - Checks: 29 slides overflow 0, ERR 0; slide 1 render checked; embedded HTML and PDF rebuilt; artifact version 28.
+
+## 2026-11-20 — Infineon deck v29
+- Enes: "Backup slide, you can put in slide 2 since there is a gap to put this" (backup 3, charging current and cable loss).
+- Leader (no agents): charging widget (power and battery-voltage sliders, current / cable loss / copper readouts) moved under the slide 2 table as "Megawatt charging up to 1250 V"; it replaces the two bullets with the same numbers (833 A, 56 % less loss, 33 % less copper); backup 3 and its backup-index button deleted (backup now 14); power slider shows MW from 1000 kW up (finding #72 closed).
+- Checks: 28 slides overflow 0, ERR 0; slide 2 render checked (no orphan); embedded HTML and PDF (28 pages) rebuilt; artifact version 29.
