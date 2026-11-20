@@ -754,3 +754,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Leader (no agents): img/sim_waves.png legend relabelled "branch 1-4" in place (pixel patch, Times 14 px, grid lines restored). Not re-plotted: scripts/q3d_spice_figure.py would drop the DPT R_g,on 3 Ω trace (REVB_Q3D_dpt_rg3.raw no longer exists) and use the 2026-10-23 DPT run, so the curves would change. Original kept in scratchpad.
 - Checks: legend crop and full image inspected; embedded HTML and PDF (28 pages) rebuilt; artifact version 31 (sim_waves.png republished).
 - Still "cell" in images: img/loop_breakdown.png axis labels (slides 6 and backup 11).
+
+## 2026-11-20 — Infineon deck v32
+- Enes: "Yes, fix it" (loop-budget chart still says cell).
+- Leader (no agents): img/loop_breakdown.png re-plotted from simulation/bb_q3d/results/loop_breakdown.json (unchanged, 2026-11-03) with the plotting block of scripts/revb_flow_figures.py: "per branch", "mean of 4 branches", "load board (no shunt)"; panel (b) legend moved to center right (no longer covers 0.41 nH). Deck-only wrapper reports/infineon-meeting/make_loop_breakdown_branch.py; paper/slides figures untouched.
+- Checks: numbers identical (0.46 + 0.06 + 0.12 = 0.65 nH, 0.35 + 0.06 = 0.41 nH); embedded HTML and PDF (28 pages) rebuilt; artifact version 32.
