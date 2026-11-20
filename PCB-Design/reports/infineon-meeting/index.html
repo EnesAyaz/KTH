@@ -172,7 +172,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 .qlist input{margin:2px 0 0;accent-color:var(--accent)}
 .qlist input:checked + span{color:var(--muted);text-decoration:line-through}
 .title-slide{justify-content:space-between}
-.title-slide h1{font-size:56px;line-height:1.02;font-weight:800;max-width:940px}
+.title-slide h1{font-size:48px;line-height:1.02;font-weight:800;max-width:none}
 .agenda{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:a}
 .agenda button{all:unset;cursor:pointer;border-top:2px solid var(--line);padding-top:8px;font-size:13px;counter-increment:a}
 .agenda button::before{content:counter(a,upper-alpha);display:block;font:500 12px var(--f-mono);color:var(--accent)}
@@ -222,7 +222,8 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     <img src="img/kth_logo_white.png" alt="KTH Royal Institute of Technology">
     <div>
       <div class="eyebrow">KTH Royal Institute of Technology · Electric Power and Energy Systems · November 2026</div>
-      <h1>Low-voltage GaN for a 1200 V traction drive: the SPB building block</h1>
+      <h1>Low-voltage GaN for a 1200 V traction drive</h1>
+      <div class="sub">The SPB building block</div>
       <div class="authors">Enes Ayaz, Shahriar Sarmast Ghahfarokhi, Kevin Klarin, Staffan Norrga</div>
       <div class="dept">Department of Electric Power and Energy Systems, KTH Royal Institute of Technology, Stockholm, Sweden</div>
     </div>
@@ -360,7 +361,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="m3" data-title="Model: waveforms">
-  <div class="slide-head"><div><div class="eyebrow">B · Design flow · LTspice with the Q3D copper</div><h2>Four branches at 322 A (≈ 80 A per transistor): gate resistance trades overshoot against switching energy</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">B · Design flow · LTspice with the Q3D copper</div><h2>Gate resistance trades overshoot against switching energy at 322 A</h2></div><div class="pageno"></div></div>
   <div class="body cols-55">
     <div class="stack" style="gap:8px">
       <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -424,7 +425,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="s14" data-title="Gate bump">
-  <div class="slide-head"><div><div class="eyebrow">C · Problem 2 · gate bump at high dv/dt</div><h2>A negative off-voltage removes the Miller bump, but the −4 V gate limit leaves a narrow window</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Problem 2 · gate bump at high dv/dt</div><h2>A negative off-voltage stops the Miller bump; −4 V leaves a narrow window</h2></div><div class="pageno"></div></div>
   <div class="pstrip"><div class="pr"><span class="k">Problem</span>At 0 V off the 1 V bump (28 V/ns) exceeds V<sub>th,min</sub> 0.8 V, so we need a negative off-voltage. That moves the turn-off spike toward the −4 V limit: −3.3 V at 28 V/ns and −3.9 V at 80 V/ns with four in parallel (model); version 1 with one AC bolt reaches −4.9 V.</div><div class="tr"><span class="k">What we tried</span>−1.65 V off from a Zener split (window −1.4 to −1.9 V); a stronger pull-down does not help (0.05 Ω: 1.07 V bump).</div><div class="ak"><span class="k">Ask Infineon</span>At 50 V/ns with four devices per switch: the RC-coupled GaN EiceDRIVER (part, R, C), a Miller clamp, or a CoolGaN with higher V<sub>th,min</sub> or a wider negative V<sub>GS</sub> rating? Measured bump-vs-dv/dt and negative-spike lifetime data?</div></div>
   <div class="body cols-55">
     <div class="stack">
@@ -452,7 +453,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 </section>
 
 <section class="slide" id="s11" data-title="Dynamic sharing">
-  <div class="slide-head"><div><div class="eyebrow">C · Problem 3 · current sharing · two-device LTspice study</div><h2>A gate-loop mismatch splits turn-on energy 4 : 1 between two paralleled devices</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">C · Problem 3 · current sharing · two-device LTspice study</div><h2>A gate-loop mismatch splits turn-on energy 4 : 1 between paralleled devices</h2></div><div class="pageno"></div></div>
   <div class="pstrip"><div class="pr"><span class="k">Problem</span>A 2 vs 8 nH gate-loop mismatch splits E<sub>on</sub> 4 : 1; a 0.3 V V<sub>th</sub> spread splits E<sub>on</sub> and E<sub>off</sub> about 2 : 1. On version 1 one AC bolt splits turn-on current ±15 % and pulls the high-side gate to −4.9 V (limit −4 V).</div><div class="tr"><span class="k">What we tried</span>Kelvin source on every device, star gate routing, mirrored branches; a two-bolt redraw is in progress.</div><div class="ak"><span class="k">Ask Infineon</span>Within-lot and lot-to-lot V<sub>th</sub> spread of CoolGaN 100 / 200 V, bins (matched sets), and a multi-die or half-bridge package with Kelvin source that replaces four discrete parts?</div></div>
   <div class="body cols-55">
     <div class="stack" style="gap:8px">
@@ -848,7 +849,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 
 
 <section class="slide" id="s18" data-title="Next steps">
-  <div class="slide-head"><div><div class="eyebrow">Backup · Status and next steps</div><h2>Each step is tested before the next board; Infineon parts can enter at each step</h2></div><div class="pageno"></div></div>
+  <div class="slide-head"><div><div class="eyebrow">Backup · Status and next steps</div><h2>Each step is tested before the next board; Infineon parts can join any step</h2></div><div class="pageno"></div></div>
   <div class="body" style="grid-template-rows:auto 1fr;gap:16px">
     <div class="road" id="road" role="group" aria-label="Test roadmap"></div>
     <div class="body" style="gap:22px;grid-template-columns:1.2fr .8fr">

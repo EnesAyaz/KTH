@@ -727,3 +727,9 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Enes: "Per phase, not leg" (review finding #81, backup 6 design procedure).
 - Leader (no agents): backup 6 bullet now "two 150 kW blocks per phase; 4 × EPC2361 per switch, 2 drivers per leg."
 - Checks: 29 slides, overflow 0, ERR 0; embedded HTML rebuilt (21 images); PDF rebuilt (29 pages, 2560×1440); artifact version 26.
+
+## 2026-11-20 — Infineon deck v27
+- Enes: "first title, slide 7 and slide 10 and slide 11 title why they are two lines".
+- Cause: heading area is 1118 px beside the logo; titles needed 1525 (s7), 1403 (s10), 1162 (s11), 1143 (backup 15) px. Title slide h1 was capped at 940 px / 56 px (3 lines).
+- Leader (no agents): title slide h1 48 px, one line + subtitle "The SPB building block"; slide 7 "Gate resistance trades overshoot against switching energy at 322 A"; slide 10 "A negative off-voltage stops the Miller bump; −4 V leaves a narrow window"; slide 11 "... between paralleled devices"; backup 15 "... Infineon parts can join any step".
+- Checks: all 29 titles one line at 1280×720; overflow 0, ERR 0; embedded HTML (21 images) and PDF (29 pages) rebuilt; artifact version 27.
