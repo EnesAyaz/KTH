@@ -359,7 +359,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
 <section class="slide" id="mc" data-title="How we model">
   <div class="slide-head"><div><div class="eyebrow">B · Design flow · click a step</div><h2>KiCad copper → Ansys Q3D → LTspice, without hand-made parasitics</h2></div><div class="pageno"></div></div>
   <div class="flow flowtabs" id="mcFlow" style="grid-template-columns:repeat(4,1fr)">
-    <button class="step" data-i="0" aria-pressed="false"><span class="k">1 · KiCad</span><b>Generated layout</b><span>a script writes schematic and board; DRC, silkscreen and 3D checks on every change</span></button>
+    <button class="step" data-i="0" aria-pressed="false"><span class="k">1 · KiCad</span><b>Schematic and layout</b><span>schematic drawn, board placed and routed; DRC, silkscreen and 3D checks passed</span></button>
     <button class="step" data-i="1" aria-pressed="true"><span class="k">2 · Ansys Q3D</span><b>Partial R and L</b><span>the full partial-L matrix of the four-branch loop and the gate stars</span></button>
     <button class="step" data-i="2" aria-pressed="false"><span class="k">3 · LTspice</span><b>Extracted network</b><span>EPC2361 vendor model, MLCC banks, split-output driver, Kelvin mutual terms</span></button>
     <button class="step" data-i="3" aria-pressed="false"><span class="k">4 · Results</span><b>Per branch</b><span>V<sub>DS</sub> overshoot, current sharing, E<sub>on</sub> / E<sub>off</sub>, gate bump, then loss and thermal</span></button>
@@ -738,7 +738,7 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
         <div class="ro"><b>1200 V</b><span>barrier between power and control side, chokes on every supply pair</span></div>
       </div>
       <ul class="clean small">
-        <li><b>Generated, not drawn.</b> A Python generator writes the schematic, places and routes the board, and checks DRC, silkscreen and 3D collisions after every change.</li>
+        <li><b>Checked layout.</b> Schematic done, board placed and routed; DRC, silkscreen and 3D collision checks pass.</li>
         <li><b>Gate path per transistor:</b> R<sub>ON</sub> 1.5 Ω (with D + R<sub>OFF</sub> for a separate turn-off path), then 0.5 Ω per transistor at the star, 10 kΩ pull-down to the Kelvin net.</li>
         <li><b>Supply islands:</b> external isolated supplies, one per high side and low side per driver, through a supply choke to a 5.1 V Zener split: +5.1 V on, about −1.65 V off.</li>
         
@@ -1391,7 +1391,7 @@ bindRange("bbN",v=>v,bbCount);
 
 /* ---------- slide 6: clickable design flow ---------- */
 const MC=[
- {a:"img/sch_power.png",ac:"Power-stage schematic: four branches per leg, a shunt in each low-side source. The script that writes it also places and routes the board.",
+ {a:"img/sch_power.png",ac:"Power-stage schematic: four branches per leg, a shunt in each low-side source.",
   b:"img/v1_layout_kicad.png",bc:"The version 1 double-pulse layout in KiCad, all four copper layers and silkscreen: DC link at the top, four branches with shunts, two drivers with isolated supplies, AC bolt at the bottom."},
  {a:"img/q3d_loop_dpt.png",ac:"Q3D: the copper of the four-branch double-pulse board, taken directly from the layout.",
   b:"img/loop_breakdown.png",bc:"0.65 nH per branch with the shunt, 0.41 nH without; 0.7 % spread between branches."},
