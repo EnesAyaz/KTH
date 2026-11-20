@@ -733,3 +733,8 @@ then sim-analyst Q3D + gate check. 1 and 2 run in parallel (read-only); 3 waits 
 - Cause: heading area is 1118 px beside the logo; titles needed 1525 (s7), 1403 (s10), 1162 (s11), 1143 (backup 15) px. Title slide h1 was capped at 940 px / 56 px (3 lines).
 - Leader (no agents): title slide h1 48 px, one line + subtitle "The SPB building block"; slide 7 "Gate resistance trades overshoot against switching energy at 322 A"; slide 10 "A negative off-voltage stops the Miller bump; −4 V leaves a narrow window"; slide 11 "... between paralleled devices"; backup 15 "... Infineon parts can join any step".
 - Checks: all 29 titles one line at 1280×720; overflow 0, ERR 0; embedded HTML (21 images) and PDF (29 pages) rebuilt; artifact version 27.
+
+## 2026-11-20 — Infineon deck v28
+- Enes: slide 1, delete the Version 1 column; loop as 0.65/0.41; joint test without the EPC2361 comparison; drop "with EPC2361" from the intro line; keep EPC2361 under 4 × GaN.
+- Leader (no agents): 5 KPI columns; "0.65 / 0.41 nH — loop per branch: double-pulse board with shunt / load board (Q3D)"; "5 · Joint test: parts for one SPB leg, tested on our board"; intro "We share our results on a stacked-cell 1200 V traction inverter, ...".
+- Checks: 29 slides overflow 0, ERR 0; slide 1 render checked; embedded HTML and PDF rebuilt; artifact version 28.

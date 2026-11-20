@@ -229,16 +229,15 @@ table.t tr.hl td{background:var(--sunk);font-weight:600}
     </div>
   </div>
   <div class="title-lower">
-    <p class="muted" style="font-size:16px">We share our results with EPC2361 in a stacked-cell 1200 V traction inverter, the problems we have now, and where Infineon devices and drivers could solve them.</p>
-    <div class="kpis" style="grid-template-columns:repeat(6,1fr)">
+    <p class="muted" style="font-size:16px">We share our results on a stacked-cell 1200 V traction inverter, the problems we have now, and where Infineon devices and drivers could solve them.</p>
+    <div class="kpis" style="grid-template-columns:repeat(5,1fr)">
       <div class="kpi"><b>1200 V</b><span>DC link, 300 kW drive</span></div>
       <div class="kpi"><b>16 × 75 V</b><span>stacked cells, 100 V GaN</span></div>
       <div class="kpi"><b>4 × GaN</b><span>EPC2361 per switch</span></div>
       <div class="kpi"><b>2 GaN / channel</b><span>one 2EDF7275K driver channel per transistor pair</span></div>
-      <div class="kpi"><b>0.65 nH</b><span>loop per branch, with shunt (Q3D)</span></div>
-      <div class="kpi"><b>Version 1</b><span>double-pulse board: layout done, two-bolt redraw before ordering</span></div>
+      <div class="kpi"><b>0.65 / 0.41 nH</b><span>loop per branch: double-pulse board with shunt / load board (Q3D)</span></div>
     </div>
-    <div class="hope"><div class="ht">From this meeting we hope for</div><div><b>1 · Driver</b>an isolated driver for four paralleled GaN, ≥ 22 A sink</div><div><b>2 · Gate bump</b>a 50 V/ns recipe with gate margin</div><div><b>3 · Paralleling</b>V<sub>th</sub> data, bins (matched sets), Kelvin or multi-die packages</div><div><b>4 · 200 V</b>a CoolGaN part with ≤ 1.5 mΩ and ≤ 900 pF</div><div><b>5 · Joint test</b>parts for one SPB leg against our EPC2361 board</div></div>
+    <div class="hope"><div class="ht">From this meeting we hope for</div><div><b>1 · Driver</b>an isolated driver for four paralleled GaN, ≥ 22 A sink</div><div><b>2 · Gate bump</b>a 50 V/ns recipe with gate margin</div><div><b>3 · Paralleling</b>V<sub>th</sub> data, bins (matched sets), Kelvin or multi-die packages</div><div><b>4 · 200 V</b>a CoolGaN part with ≤ 1.5 mΩ and ≤ 900 pF</div><div><b>5 · Joint test</b>parts for one SPB leg, tested on our board</div></div>
     <div class="agenda" aria-label="Agenda">
       <button data-go="s2">Why high voltage, SPB and 100 V GaN</button>
       <button data-go="bb">Our design and design flow</button>
