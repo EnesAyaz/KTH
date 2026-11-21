@@ -1,0 +1,2325 @@
+{
+ "meta": {
+  "script": "02_analytics/drive_cycle.py",
+  "task": "T07 (H02r value screen)",
+  "date": "2026-11-02",
+  "geometry": "data\\machine_geometry.json",
+  "P_rated_W": 300000.0,
+  "inverter": {
+   "N": 16,
+   "m": 3,
+   "device": "EPC2361",
+   "devices": 672
+  },
+  "vehicle": {
+   "tractor_curb_kg": 8500.0,
+   "trailer_ST1_kg": 7500.0,
+   "CdxA_m2": 8.7,
+   "rho_air": 1.188,
+   "Crr": 0.006,
+   "r_wheel_m": 0.52,
+   "wheel_axle_inertia_factor": 0.03,
+   "sources": {
+    "CdxA": "SegmentTable.csv group 5 CdxA_Default 8.7 m2 (VECTO default when no certified air drag)",
+    "trailer": "Body_Trailers_Weights.csv ST1 curb 7500 kg",
+    "payloads": "SegmentTable.csv group 5: Long haul 2600/19300 kg, Regional delivery 2600/12900 kg (low/representative)",
+    "assumed": "tractor curb 8.5 t (BEV, assumed), Crr 0.006 (assumed, tyre-label class B/C), r 0.52 m (385/65 R22.5, as in T03), wheels/axles inertia +3 %"
+   }
+  },
+  "driver": {
+   "a_max_low": 1.0,
+   "a_max_high": 0.5,
+   "v_knee_ms": 20.0,
+   "decel_ms2": 0.8,
+   "dt_s": 0.5,
+   "v_creep_ms": 0.5,
+   "note": "a_max falls linearly from 1.0 m/s2 (0 m/s) to 0.5 m/s2 at 20 m/s; look-ahead braking at 0.8 m/s2; no coasting (VECTO's look-ahead coasting not modelled) - assumptions"
+  },
+  "gaps": {
+   "pole_change_s": 0.17,
+   "amt_shift_s": 0.5,
+   "hold_s": 3.0,
+   "switch_margin": 0.02,
+   "note": "pole change 0.17 s (H11s R01); AMT shift 0.5 s assumed (lit-scout to source); mode/gear switches only if the other one is >2 % (and >0.3 kW) better for >= 3 s, or if the current one cannot deliver the force"
+  },
+  "loads": {
+   "LongHaul_ref": {
+    "cycle": "LongHaul.vdri",
+    "payload_kg": 19300.0,
+    "mass_kg": 35300.0
+   },
+   "LongHaul_40t": {
+    "cycle": "LongHaul.vdri",
+    "payload_kg": 24000.0,
+    "mass_kg": 40000.0
+   },
+   "RegionalDelivery_ref": {
+    "cycle": "RegionalDelivery.vdri",
+    "payload_kg": 12900.0,
+    "mass_kg": 28900.0
+   }
+  },
+  "assumptions": "02_analytics/assumptions.md#t07",
+  "not_included": [
+   "auxiliaries",
+   "battery internal loss",
+   "DC-link/cable loss",
+   "thermal derating",
+   "VECTO look-ahead coasting",
+   "saturation intermodulation during pole change"
+  ]
+ },
+ "powertrains": {
+  "a_pole_changing_IM_G11.35": {
+   "kind": "pole_change",
+   "note": "R01 pole-changing IM, single stage",
+   "configs": [
+    {
+     "name": "PC_2p8",
+     "G": 11.350000000000001,
+     "topology": "single",
+     "rotor_J_kgm2": 2.6599785276487484,
+     "J_reflected_kg": 1267.2525291347297
+    },
+    {
+     "name": "PC_2p4",
+     "G": 11.350000000000001,
+     "topology": "single",
+     "rotor_J_kgm2": 2.6599785276487484,
+     "J_reflected_kg": 1267.2525291347297
+    }
+   ],
+   "inverter_devices": 672
+  },
+  "b_fixed_2p4_G18.77": {
+   "kind": "fixed",
+   "note": null,
+   "configs": [
+    {
+     "name": "fixed_2p4",
+     "G": 18.775,
+     "topology": "single",
+     "rotor_J_kgm2": 1.2765368147300888,
+     "J_reflected_kg": 1664.127311493585
+    }
+   ],
+   "inverter_devices": 672
+  },
+  "b_fixed_2p6_G15.55": {
+   "kind": "fixed",
+   "note": null,
+   "configs": [
+    {
+     "name": "fixed_2p6",
+     "G": 15.55,
+     "topology": "single",
+     "rotor_J_kgm2": 2.5014558685672053,
+     "J_reflected_kg": 2236.9019329113225
+    }
+   ],
+   "inverter_devices": 672
+  },
+  "c_fixed_2p4_2speed_18.78_4.86": {
+   "kind": "two_speed",
+   "note": null,
+   "configs": [
+    {
+     "name": "low",
+     "G": 18.781151362518102,
+     "topology": "two_speed",
+     "rotor_J_kgm2": 1.2765368147300888,
+     "J_reflected_kg": 1665.2179455618614
+    },
+    {
+     "name": "high",
+     "G": 4.859421280473912,
+     "topology": "two_speed",
+     "rotor_J_kgm2": 1.2765368147300888,
+     "J_reflected_kg": 111.47969179299466
+    }
+   ],
+   "inverter_devices": 672
+  },
+  "d_fixed_2p4_G9.80_inverter_x1.87": {
+   "kind": "fixed",
+   "note": null,
+   "configs": [
+    {
+     "name": "fixed_2p4_bigInv",
+     "G": 9.801769079200154,
+     "topology": "single",
+     "rotor_J_kgm2": 1.2765368147300888,
+     "J_reflected_kg": 453.56088113325626
+    }
+   ],
+   "inverter_devices": 1248
+  },
+  "e_PMSM_ref_G10.50": {
+   "kind": "fixed",
+   "note": "typical-parameter IPM reference (T03 per-unit), not sized on the R01 stator",
+   "configs": [
+    {
+     "name": "PMSM",
+     "G": 10.5,
+     "topology": "single",
+     "rotor_J_kgm2": 2.6599785276487484,
+     "J_reflected_kg": 1084.5511563360744
+    }
+   ],
+   "inverter_devices": 672
+  },
+  "e_PMSM_ref_2speed_14.0_8.0": {
+   "kind": "two_speed",
+   "note": "industry-style reference: PMSM + 2-speed AMT",
+   "configs": [
+    {
+     "name": "low",
+     "G": 14.0,
+     "topology": "two_speed",
+     "rotor_J_kgm2": 2.6599785276487484,
+     "J_reflected_kg": 1928.0909445974653
+    },
+    {
+     "name": "high",
+     "G": 8.0,
+     "topology": "two_speed",
+     "rotor_J_kgm2": 2.6599785276487484,
+     "J_reflected_kg": 629.580716603254
+    }
+   ],
+   "inverter_devices": 672
+  }
+ },
+ "cycles": {
+  "LongHaul_ref": {
+   "reference_ideal_300kW": {
+    "time_s": 28437.5,
+    "distance_km": 100.185,
+    "avg_speed_kmh": 12.68276043956044,
+    "switches": 0,
+    "switches_per_100km": 0.0,
+    "torque_gap_total_s": 0.0,
+    "time_not_following_s": 0.0,
+    "E_wheel_traction_kWh_100km": 164.39052525828546
+   },
+   "powertrains": {
+    "a_pole_changing_IM_G11.35": {
+     "EU2017_stray1x": {
+      "time_s": 28534.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.639868227377866,
+      "switches": 66,
+      "switches_per_100km": 65.8781254678844,
+      "torque_gap_total_s": 11.219999999999997,
+      "time_not_following_s": 1206.5,
+      "E_batt_kWh_100km": 191.41339117740222,
+      "E_wheel_traction_kWh_100km": 163.64378335731234,
+      "E_wheel_regen_kWh_100km": 30.058446367147162,
+      "E_friction_brake_kWh_100km": 10.654148568478483,
+      "loss_gear_kWh_100km": 22.049979801912727,
+      "loss_machine_kWh_100km": 30.244006617439904,
+      "loss_machine_stray_kWh_100km": 4.978742768148616,
+      "loss_fw_kWh_100km": 1.2953235314612968,
+      "loss_inverter_kWh_100km": 5.534067767930279,
+      "time_lost_vs_reference_s": 96.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28534.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.639868227377866,
+      "switches": 66,
+      "switches_per_100km": 65.8781254678844,
+      "torque_gap_total_s": 11.219999999999997,
+      "time_not_following_s": 1206.5,
+      "E_batt_kWh_100km": 196.39213394556796,
+      "E_wheel_traction_kWh_100km": 163.64378335731234,
+      "E_wheel_regen_kWh_100km": 30.058446367147162,
+      "E_friction_brake_kWh_100km": 10.654148568478483,
+      "loss_gear_kWh_100km": 22.049979801912727,
+      "loss_machine_kWh_100km": 35.22274938558852,
+      "loss_machine_stray_kWh_100km": 9.957485536297233,
+      "loss_fw_kWh_100km": 1.2953235314612968,
+      "loss_inverter_kWh_100km": 5.534067767930279,
+      "time_lost_vs_reference_s": 96.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28512.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.649621212121213,
+      "switches": 64,
+      "switches_per_100km": 63.881818635524276,
+      "torque_gap_total_s": 10.879999999999997,
+      "time_not_following_s": 1159.5,
+      "E_batt_kWh_100km": 183.1066453027154,
+      "E_wheel_traction_kWh_100km": 163.53298125738314,
+      "E_wheel_regen_kWh_100km": 30.097642354739783,
+      "E_friction_brake_kWh_100km": 10.282656933575455,
+      "loss_gear_kWh_100km": 14.41991329322189,
+      "loss_machine_kWh_100km": 29.76699380133919,
+      "loss_machine_stray_kWh_100km": 4.90096224690345,
+      "loss_fw_kWh_100km": 1.2881711484264058,
+      "loss_inverter_kWh_100km": 5.484399305482859,
+      "time_lost_vs_reference_s": 74.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28512.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.649621212121213,
+      "switches": 64,
+      "switches_per_100km": 63.881818635524276,
+      "torque_gap_total_s": 10.879999999999997,
+      "time_not_following_s": 1159.5,
+      "E_batt_kWh_100km": 188.01249136496313,
+      "E_wheel_traction_kWh_100km": 163.53298125738314,
+      "E_wheel_regen_kWh_100km": 30.092376932722654,
+      "E_friction_brake_kWh_100km": 10.287922355592574,
+      "loss_gear_kWh_100km": 14.419701690040535,
+      "loss_machine_kWh_100km": 34.667795824949835,
+      "loss_machine_stray_kWh_100km": 9.801880683015227,
+      "loss_fw_kWh_100km": 1.2881631253971484,
+      "loss_inverter_kWh_100km": 5.48438952526473,
+      "time_lost_vs_reference_s": 74.5
+     }
+    },
+    "b_fixed_2p4_G18.77": {
+     "EU2017_stray1x": {
+      "time_s": 28516.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.647625059176267,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1411.5,
+      "E_batt_kWh_100km": 185.01977729091396,
+      "E_wheel_traction_kWh_100km": 163.09810216715064,
+      "E_wheel_regen_kWh_100km": 35.22309257143736,
+      "E_friction_brake_kWh_100km": 5.338968543499784,
+      "loss_gear_kWh_100km": 24.33742906629283,
+      "loss_machine_kWh_100km": 27.33596051368499,
+      "loss_machine_stray_kWh_100km": 6.466309671929856,
+      "loss_fw_kWh_100km": 2.1573191151617452,
+      "loss_inverter_kWh_100km": 5.471378115162094,
+      "time_lost_vs_reference_s": 79.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28516.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.647625059176267,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1411.5,
+      "E_batt_kWh_100km": 191.48608696302256,
+      "E_wheel_traction_kWh_100km": 163.09810216715064,
+      "E_wheel_regen_kWh_100km": 35.22309257143736,
+      "E_friction_brake_kWh_100km": 5.338968543499784,
+      "loss_gear_kWh_100km": 24.33742906629283,
+      "loss_machine_kWh_100km": 33.80227018561485,
+      "loss_machine_stray_kWh_100km": 12.932619343859711,
+      "loss_fw_kWh_100km": 2.1573191151617452,
+      "loss_inverter_kWh_100km": 5.471378115162094,
+      "time_lost_vs_reference_s": 79.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 28507.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.651617995264404,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1321.0,
+      "E_batt_kWh_100km": 175.8218610037525,
+      "E_wheel_traction_kWh_100km": 163.40292382255024,
+      "E_wheel_regen_kWh_100km": 35.444168550102134,
+      "E_friction_brake_kWh_100km": 5.210905545116713,
+      "loss_gear_kWh_100km": 15.472052470765837,
+      "loss_machine_kWh_100km": 26.974985702004993,
+      "loss_machine_stray_kWh_100km": 6.3915183085125244,
+      "loss_fw_kWh_100km": 2.1507113595511815,
+      "loss_inverter_kWh_100km": 5.416067558564123,
+      "time_lost_vs_reference_s": 70.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28507.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.651617995264404,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1321.0,
+      "E_batt_kWh_100km": 182.21337931208654,
+      "E_wheel_traction_kWh_100km": 163.40292382255024,
+      "E_wheel_regen_kWh_100km": 35.444168550102134,
+      "E_friction_brake_kWh_100km": 5.210905545116713,
+      "loss_gear_kWh_100km": 15.472052470765837,
+      "loss_machine_kWh_100km": 33.36650401051752,
+      "loss_machine_stray_kWh_100km": 12.783036617025049,
+      "loss_fw_kWh_100km": 2.1507113595511815,
+      "loss_inverter_kWh_100km": 5.416067558564123,
+      "time_lost_vs_reference_s": 70.0
+     }
+    },
+    "b_fixed_2p6_G15.55": {
+     "EU2017_stray1x": {
+      "time_s": 28503.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.653615408904326,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1286.0,
+      "E_batt_kWh_100km": 188.35353817010687,
+      "E_wheel_traction_kWh_100km": 164.09010183054778,
+      "E_wheel_regen_kWh_100km": 35.9513520163823,
+      "E_friction_brake_kWh_100km": 5.256805193769323,
+      "loss_gear_kWh_100km": 23.705840361058428,
+      "loss_machine_kWh_100km": 30.85131310649163,
+      "loss_machine_stray_kWh_100km": 6.395848364722291,
+      "loss_fw_kWh_100km": 2.0398388990341547,
+      "loss_inverter_kWh_100km": 5.657634888105689,
+      "time_lost_vs_reference_s": 65.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28503.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.653615408904326,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1286.0,
+      "E_batt_kWh_100km": 194.7493865343612,
+      "E_wheel_traction_kWh_100km": 164.09010183054778,
+      "E_wheel_regen_kWh_100km": 35.9513520163823,
+      "E_friction_brake_kWh_100km": 5.256805193769323,
+      "loss_gear_kWh_100km": 23.705840361058428,
+      "loss_machine_kWh_100km": 37.24716147121392,
+      "loss_machine_stray_kWh_100km": 12.791696729444581,
+      "loss_fw_kWh_100km": 2.0398388990341547,
+      "loss_inverter_kWh_100km": 5.657634888105689,
+      "time_lost_vs_reference_s": 65.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28497.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.65627960837983,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1220.5,
+      "E_batt_kWh_100km": 179.6564355415168,
+      "E_wheel_traction_kWh_100km": 164.34147243285543,
+      "E_wheel_regen_kWh_100km": 36.0957235429227,
+      "E_friction_brake_kWh_100km": 5.183166634887189,
+      "loss_gear_kWh_100km": 15.278943787482818,
+      "loss_machine_kWh_100km": 30.525984056989422,
+      "loss_machine_stray_kWh_100km": 6.323620245397864,
+      "loss_fw_kWh_100km": 2.033249027481474,
+      "loss_inverter_kWh_100km": 5.605758807439675,
+      "time_lost_vs_reference_s": 59.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28497.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.65627960837983,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1220.5,
+      "E_batt_kWh_100km": 185.98005578703098,
+      "E_wheel_traction_kWh_100km": 164.34147243285543,
+      "E_wheel_regen_kWh_100km": 36.0957235429227,
+      "E_friction_brake_kWh_100km": 5.183166634887189,
+      "loss_gear_kWh_100km": 15.278943787482818,
+      "loss_machine_kWh_100km": 36.849604302387284,
+      "loss_machine_stray_kWh_100km": 12.647240490795728,
+      "loss_fw_kWh_100km": 2.033249027481474,
+      "loss_inverter_kWh_100km": 5.605758807439675,
+      "time_lost_vs_reference_s": 59.5
+     }
+    },
+    "c_fixed_2p4_2speed_18.78_4.86": {
+     "EU2017_stray1x": {
+      "time_s": 28479.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.664056602117313,
+      "switches": 59,
+      "switches_per_100km": 58.89105155462394,
+      "torque_gap_total_s": 29.5,
+      "time_not_following_s": 760.0,
+      "E_batt_kWh_100km": 274.1256105591913,
+      "E_wheel_traction_kWh_100km": 163.74130266847575,
+      "E_wheel_regen_kWh_100km": 21.467225265477154,
+      "E_friction_brake_kWh_100km": 18.57537315375667,
+      "loss_gear_kWh_100km": 28.586796484571654,
+      "loss_machine_kWh_100km": 92.6919776979964,
+      "loss_machine_stray_kWh_100km": 32.418960998599864,
+      "loss_fw_kWh_100km": 0.6370517728517915,
+      "loss_inverter_kWh_100km": 10.572758973531664,
+      "time_lost_vs_reference_s": 42.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28453.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.675628657282937,
+      "switches": 546,
+      "switches_per_100km": 544.9917652343165,
+      "torque_gap_total_s": 273.0,
+      "time_not_following_s": 1154.0,
+      "E_batt_kWh_100km": 198.98936827645352,
+      "E_wheel_traction_kWh_100km": 161.92575231650866,
+      "E_wheel_regen_kWh_100km": 33.89826281042776,
+      "E_friction_brake_kWh_100km": 4.407456757160528,
+      "loss_gear_kWh_100km": 29.397332466147454,
+      "loss_machine_kWh_100km": 36.08080664275184,
+      "loss_machine_stray_kWh_100km": 16.041662696246924,
+      "loss_fw_kWh_100km": 0.7602482961707008,
+      "loss_inverter_kWh_100km": 5.483739661138289,
+      "time_lost_vs_reference_s": 16.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 28475.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.666057945566287,
+      "switches": 72,
+      "switches_per_100km": 71.86704596496482,
+      "torque_gap_total_s": 36.0,
+      "time_not_following_s": 714.0,
+      "E_batt_kWh_100km": 180.14782481636797,
+      "E_wheel_traction_kWh_100km": 164.6901965800049,
+      "E_wheel_regen_kWh_100km": 34.98233770279384,
+      "E_friction_brake_kWh_100km": 5.875377412619351,
+      "loss_gear_kWh_100km": 17.60218197539327,
+      "loss_machine_kWh_100km": 27.41263951307678,
+      "loss_machine_stray_kWh_100km": 7.774931943756297,
+      "loss_fw_kWh_100km": 0.6959703758661514,
+      "loss_inverter_kWh_100km": 5.42514445053689,
+      "time_lost_vs_reference_s": 37.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28476.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.665390760802769,
+      "switches": 582,
+      "switches_per_100km": 580.9252882167989,
+      "torque_gap_total_s": 291.0,
+      "time_not_following_s": 1154.5,
+      "E_batt_kWh_100km": 187.31431463052482,
+      "E_wheel_traction_kWh_100km": 164.4330268627371,
+      "E_wheel_regen_kWh_100km": 35.80547196392155,
+      "E_friction_brake_kWh_100km": 5.157868882795111,
+      "loss_gear_kWh_100km": 17.620177893304707,
+      "loss_machine_kWh_100km": 35.62832662578597,
+      "loss_machine_stray_kWh_100km": 15.780633178935048,
+      "loss_fw_kWh_100km": 0.7683042453392948,
+      "loss_inverter_kWh_100km": 5.43825521240924,
+      "time_lost_vs_reference_s": 39.0
+     }
+    },
+    "d_fixed_2p4_G9.80_inverter_x1.87": {
+     "EU2017_stray1x": {
+      "time_s": 28404.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.697718631178708,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 271.5,
+      "E_batt_kWh_100km": 226.57434160065048,
+      "E_wheel_traction_kWh_100km": 165.76472053412215,
+      "E_wheel_regen_kWh_100km": 38.665565038440626,
+      "E_friction_brake_kWh_100km": 1.6040649049528224,
+      "loss_gear_kWh_100km": 21.85383357860373,
+      "loss_machine_kWh_100km": 68.39283072011123,
+      "loss_machine_stray_kWh_100km": 22.378868515626447,
+      "loss_fw_kWh_100km": 0.9567104332459219,
+      "loss_inverter_kWh_100km": 9.228521805943632,
+      "time_lost_vs_reference_s": -33.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28404.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.697718631178708,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 271.5,
+      "E_batt_kWh_100km": 248.9532101164014,
+      "E_wheel_traction_kWh_100km": 165.76472053412215,
+      "E_wheel_regen_kWh_100km": 38.665565038440626,
+      "E_friction_brake_kWh_100km": 1.6040649049528224,
+      "loss_gear_kWh_100km": 21.85383357860373,
+      "loss_machine_kWh_100km": 90.77169923573769,
+      "loss_machine_stray_kWh_100km": 44.757737031252894,
+      "loss_fw_kWh_100km": 0.9567104332459219,
+      "loss_inverter_kWh_100km": 9.228521805943632,
+      "time_lost_vs_reference_s": -33.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28418.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.691463157153917,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 267.5,
+      "E_batt_kWh_100km": 218.7497236546058,
+      "E_wheel_traction_kWh_100km": 166.1572655788841,
+      "E_wheel_regen_kWh_100km": 39.09363374321467,
+      "E_friction_brake_kWh_100km": 1.5994008098910866,
+      "loss_gear_kWh_100km": 14.732822387300462,
+      "loss_machine_kWh_100km": 67.78278227737977,
+      "loss_machine_stray_kWh_100km": 22.184427206300953,
+      "loss_fw_kWh_100km": 0.9497876833249046,
+      "loss_inverter_kWh_100km": 9.170487154099128,
+      "time_lost_vs_reference_s": -19.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28418.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.691463157153917,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 267.5,
+      "E_batt_kWh_100km": 240.93415086041742,
+      "E_wheel_traction_kWh_100km": 166.1572655788841,
+      "E_wheel_regen_kWh_100km": 39.09363374321467,
+      "E_friction_brake_kWh_100km": 1.5994008098910866,
+      "loss_gear_kWh_100km": 14.732822387300462,
+      "loss_machine_kWh_100km": 89.96720948368072,
+      "loss_machine_stray_kWh_100km": 44.368854412601905,
+      "loss_fw_kWh_100km": 0.9497876833249046,
+      "loss_inverter_kWh_100km": 9.170487154099128,
+      "time_lost_vs_reference_s": -19.5
+     }
+    },
+    "e_PMSM_ref_G10.50": {
+     "EU2017_stray1x": {
+      "time_s": 28419.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.690793293337322,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 411.5,
+      "E_batt_kWh_100km": 178.9444873148276,
+      "E_wheel_traction_kWh_100km": 165.90088644718924,
+      "E_wheel_regen_kWh_100km": 38.14105295281691,
+      "E_friction_brake_kWh_100km": 2.6348810298236556,
+      "loss_gear_kWh_100km": 22.091763048393204,
+      "loss_machine_kWh_100km": 23.073891449314438,
+      "loss_machine_stray_kWh_100km": 4.46154412186058,
+      "loss_fw_kWh_100km": 1.1973563711502728,
+      "loss_inverter_kWh_100km": 6.01899932284452,
+      "time_lost_vs_reference_s": -18.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28419.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.690793293337322,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 411.5,
+      "E_batt_kWh_100km": 183.4060314369259,
+      "E_wheel_traction_kWh_100km": 165.90088644718924,
+      "E_wheel_regen_kWh_100km": 38.14105295281691,
+      "E_friction_brake_kWh_100km": 2.6348810298236556,
+      "loss_gear_kWh_100km": 22.091763048393204,
+      "loss_machine_kWh_100km": 27.53543557117502,
+      "loss_machine_stray_kWh_100km": 8.92308824372116,
+      "loss_fw_kWh_100km": 1.1973563711502728,
+      "loss_inverter_kWh_100km": 6.01899932284452,
+      "time_lost_vs_reference_s": -18.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 28432.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.684990767607493,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 396.5,
+      "E_batt_kWh_100km": 171.36066216082506,
+      "E_wheel_traction_kWh_100km": 166.27838411109235,
+      "E_wheel_regen_kWh_100km": 38.55987592055746,
+      "E_friction_brake_kWh_100km": 2.6147102945315477,
+      "loss_gear_kWh_100km": 14.805441837750635,
+      "loss_machine_kWh_100km": 22.859110298066422,
+      "loss_machine_stray_kWh_100km": 4.421793053148282,
+      "loss_fw_kWh_100km": 1.1899526575127464,
+      "loss_inverter_kWh_100km": 5.977601834449169,
+      "time_lost_vs_reference_s": -5.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28432.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.684990767607493,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 396.5,
+      "E_batt_kWh_100km": 175.78245521393885,
+      "E_wheel_traction_kWh_100km": 166.27838411109235,
+      "E_wheel_regen_kWh_100km": 38.55987592055746,
+      "E_friction_brake_kWh_100km": 2.6147102945315477,
+      "loss_gear_kWh_100km": 14.805441837750635,
+      "loss_machine_kWh_100km": 27.280903351214707,
+      "loss_machine_stray_kWh_100km": 8.843586106296565,
+      "loss_fw_kWh_100km": 1.1899526575127464,
+      "loss_inverter_kWh_100km": 5.977601834449169,
+      "time_lost_vs_reference_s": -5.0
+     }
+    },
+    "e_PMSM_ref_2speed_14.0_8.0": {
+     "EU2017_stray1x": {
+      "time_s": 28426.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.687891367058327,
+      "switches": 52,
+      "switches_per_100km": 51.903977641363475,
+      "torque_gap_total_s": 26.0,
+      "time_not_following_s": 463.0,
+      "E_batt_kWh_100km": 179.0627801682572,
+      "E_wheel_traction_kWh_100km": 166.25630370452913,
+      "E_wheel_regen_kWh_100km": 38.354499363866516,
+      "E_friction_brake_kWh_100km": 2.693514751173692,
+      "loss_gear_kWh_100km": 29.959568906581097,
+      "loss_machine_kWh_100km": 16.02993560259234,
+      "loss_machine_stray_kWh_100km": 2.7441091688118857,
+      "loss_fw_kWh_100km": 0.9260184656126881,
+      "loss_inverter_kWh_100km": 5.171471318296371,
+      "time_lost_vs_reference_s": -11.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28426.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.687891367058327,
+      "switches": 52,
+      "switches_per_100km": 51.903977641363475,
+      "torque_gap_total_s": 26.0,
+      "time_not_following_s": 463.0,
+      "E_batt_kWh_100km": 181.79845241310338,
+      "E_wheel_traction_kWh_100km": 166.25630370452913,
+      "E_wheel_regen_kWh_100km": 38.361244654058346,
+      "E_friction_brake_kWh_100km": 2.693514751173692,
+      "loss_gear_kWh_100km": 29.95980036336716,
+      "loss_machine_kWh_100km": 18.77224376637115,
+      "loss_machine_stray_kWh_100km": 5.486927314859415,
+      "loss_fw_kWh_100km": 0.9261186938337763,
+      "loss_inverter_kWh_100km": 5.171349232543352,
+      "time_lost_vs_reference_s": -11.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28440.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.681422619152265,
+      "switches": 50,
+      "switches_per_100km": 49.90767080900334,
+      "torque_gap_total_s": 25.0,
+      "time_not_following_s": 436.0,
+      "E_batt_kWh_100km": 166.7025988023827,
+      "E_wheel_traction_kWh_100km": 166.69390054618103,
+      "E_wheel_regen_kWh_100km": 38.8872277069241,
+      "E_friction_brake_kWh_100km": 2.587224886045802,
+      "loss_gear_kWh_100km": 17.976895523112095,
+      "loss_machine_kWh_100km": 15.79974480624978,
+      "loss_machine_stray_kWh_100km": 2.708805227352566,
+      "loss_fw_kWh_100km": 0.9140865051594986,
+      "loss_inverter_kWh_100km": 5.1192856337275146,
+      "time_lost_vs_reference_s": 3.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28440.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.681422619152265,
+      "switches": 50,
+      "switches_per_100km": 49.90767080900334,
+      "torque_gap_total_s": 25.0,
+      "time_not_following_s": 436.0,
+      "E_batt_kWh_100km": 169.39246152212135,
+      "E_wheel_traction_kWh_100km": 166.69390054618103,
+      "E_wheel_regen_kWh_100km": 38.90268016195538,
+      "E_friction_brake_kWh_100km": 2.587224886045802,
+      "loss_gear_kWh_100km": 17.977521983628904,
+      "loss_machine_kWh_100km": 18.504613255533354,
+      "loss_machine_stray_kWh_100km": 5.414403706862799,
+      "loss_fw_kWh_100km": 0.9143355295534847,
+      "loss_inverter_kWh_100km": 5.119105898509046,
+      "time_lost_vs_reference_s": 3.0
+     }
+    }
+   },
+   "ranking": {
+    "EU2017_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 178.9444873148276,
+      "time_lost_s": -18.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 179.0627801682572,
+      "time_lost_s": -11.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 185.01977729091396,
+      "time_lost_s": 79.0
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 188.35353817010687,
+      "time_lost_s": 65.5
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 191.41339117740222,
+      "time_lost_s": 96.5
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 226.57434160065048,
+      "time_lost_s": -33.5
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 274.1256105591913,
+      "time_lost_s": 42.0
+     }
+    ],
+    "certified_like_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 166.7025988023827,
+      "time_lost_s": 3.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 171.36066216082506,
+      "time_lost_s": -5.0
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 175.8218610037525,
+      "time_lost_s": 70.0
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 179.6564355415168,
+      "time_lost_s": 59.5
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 180.14782481636797,
+      "time_lost_s": 37.5
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 183.1066453027154,
+      "time_lost_s": 74.5
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 218.7497236546058,
+      "time_lost_s": -19.5
+     }
+    ],
+    "EU2017_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 181.79845241310338,
+      "time_lost_s": -11.5
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 183.4060314369259,
+      "time_lost_s": -18.0
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 191.48608696302256,
+      "time_lost_s": 79.0
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 194.7493865343612,
+      "time_lost_s": 65.5
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 196.39213394556796,
+      "time_lost_s": 96.5
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 198.98936827645352,
+      "time_lost_s": 16.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 248.9532101164014,
+      "time_lost_s": -33.5
+     }
+    ],
+    "certified_like_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 169.39246152212135,
+      "time_lost_s": 3.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 175.78245521393885,
+      "time_lost_s": -5.0
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 182.21337931208654,
+      "time_lost_s": 70.0
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 185.98005578703098,
+      "time_lost_s": 59.5
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 187.31431463052482,
+      "time_lost_s": 39.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 188.01249136496313,
+      "time_lost_s": 74.5
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 240.93415086041742,
+      "time_lost_s": -19.5
+     }
+    ]
+   }
+  },
+  "LongHaul_40t": {
+   "reference_ideal_300kW": {
+    "time_s": 28460.5,
+    "distance_km": 100.185,
+    "avg_speed_kmh": 12.672511024050879,
+    "switches": 0,
+    "switches_per_100km": 0.0,
+    "torque_gap_total_s": 0.0,
+    "time_not_following_s": 0.0,
+    "E_wheel_traction_kWh_100km": 177.75051197797708
+   },
+   "powertrains": {
+    "a_pole_changing_IM_G11.35": {
+     "EU2017_stray1x": {
+      "time_s": 28550.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.632784588441332,
+      "switches": 64,
+      "switches_per_100km": 63.881818635524276,
+      "torque_gap_total_s": 10.879999999999997,
+      "time_not_following_s": 1433.0,
+      "E_batt_kWh_100km": 208.12961548271437,
+      "E_wheel_traction_kWh_100km": 176.13704832741374,
+      "E_wheel_regen_kWh_100km": 32.85019322584415,
+      "E_friction_brake_kWh_100km": 13.652264410399274,
+      "loss_gear_kWh_100km": 22.635739587581156,
+      "loss_machine_kWh_100km": 36.25842021357639,
+      "loss_machine_stray_kWh_100km": 6.200153608919191,
+      "loss_fw_kWh_100km": 1.3180397747912225,
+      "loss_inverter_kWh_100km": 5.9486005796436,
+      "time_lost_vs_reference_s": 89.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28550.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.632784588441332,
+      "switches": 64,
+      "switches_per_100km": 63.881818635524276,
+      "torque_gap_total_s": 10.879999999999997,
+      "time_not_following_s": 1433.0,
+      "E_batt_kWh_100km": 214.3297690915471,
+      "E_wheel_traction_kWh_100km": 176.13704832741374,
+      "E_wheel_regen_kWh_100km": 32.85019322584415,
+      "E_friction_brake_kWh_100km": 13.652264410399274,
+      "loss_gear_kWh_100km": 22.635739587581156,
+      "loss_machine_kWh_100km": 42.45857382249558,
+      "loss_machine_stray_kWh_100km": 12.400307217838382,
+      "loss_fw_kWh_100km": 1.3180397747912225,
+      "loss_inverter_kWh_100km": 5.9486005796436,
+      "time_lost_vs_reference_s": 89.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28545.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.634776059273792,
+      "switches": 68,
+      "switches_per_100km": 67.87443230024455,
+      "torque_gap_total_s": 11.559999999999997,
+      "time_not_following_s": 1372.5,
+      "E_batt_kWh_100km": 199.8576178257071,
+      "E_wheel_traction_kWh_100km": 176.4237922210664,
+      "E_wheel_regen_kWh_100km": 33.501059182674716,
+      "E_friction_brake_kWh_100km": 13.11356316727368,
+      "loss_gear_kWh_100km": 15.128969731719012,
+      "loss_machine_kWh_100km": 35.89679717294892,
+      "loss_machine_stray_kWh_100km": 6.143256707395046,
+      "loss_fw_kWh_100km": 1.3123079623853744,
+      "loss_inverter_kWh_100km": 5.909117882498707,
+      "time_lost_vs_reference_s": 85.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28545.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.634776059273792,
+      "switches": 68,
+      "switches_per_100km": 67.87443230024455,
+      "torque_gap_total_s": 11.559999999999997,
+      "time_not_following_s": 1372.5,
+      "E_batt_kWh_100km": 206.00087453369017,
+      "E_wheel_traction_kWh_100km": 176.4237922210664,
+      "E_wheel_regen_kWh_100km": 33.501059182674716,
+      "E_friction_brake_kWh_100km": 13.11356316727368,
+      "loss_gear_kWh_100km": 15.128969731719012,
+      "loss_machine_kWh_100km": 42.04005388034397,
+      "loss_machine_stray_kWh_100km": 12.286513414790091,
+      "loss_fw_kWh_100km": 1.3123079623853744,
+      "loss_inverter_kWh_100km": 5.909117882498707,
+      "time_lost_vs_reference_s": 85.0
+     }
+    },
+    "b_fixed_2p4_G18.77": {
+     "EU2017_stray1x": {
+      "time_s": 28573.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.622615756133413,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1679.0,
+      "E_batt_kWh_100km": 199.32998595880062,
+      "E_wheel_traction_kWh_100km": 176.20564538340986,
+      "E_wheel_regen_kWh_100km": 40.08702906306805,
+      "E_friction_brake_kWh_100km": 7.1599601485429645,
+      "loss_gear_kWh_100km": 25.015609271281043,
+      "loss_machine_kWh_100km": 32.289365654435514,
+      "loss_machine_stray_kWh_100km": 8.161666159727572,
+      "loss_fw_kWh_100km": 2.1760529810957463,
+      "loss_inverter_kWh_100km": 5.906394712806264,
+      "time_lost_vs_reference_s": 112.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28573.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.622615756133413,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1679.0,
+      "E_batt_kWh_100km": 207.4916521185784,
+      "E_wheel_traction_kWh_100km": 176.20564538340986,
+      "E_wheel_regen_kWh_100km": 40.08702906306805,
+      "E_friction_brake_kWh_100km": 7.1599601485429645,
+      "loss_gear_kWh_100km": 25.015609271281043,
+      "loss_machine_kWh_100km": 40.45103181416309,
+      "loss_machine_stray_kWh_100km": 16.323332319455144,
+      "loss_fw_kWh_100km": 2.1760529810957463,
+      "loss_inverter_kWh_100km": 5.906394712806264,
+      "time_lost_vs_reference_s": 112.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28515.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.648290373487638,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1552.5,
+      "E_batt_kWh_100km": 188.98539323253766,
+      "E_wheel_traction_kWh_100km": 173.55040329247447,
+      "E_wheel_regen_kWh_100km": 38.252382723460066,
+      "E_friction_brake_kWh_100km": 5.659927940809173,
+      "loss_gear_kWh_100km": 16.054826072502998,
+      "loss_machine_kWh_100km": 31.802413718070344,
+      "loss_machine_stray_kWh_100km": 8.083176376389792,
+      "loss_fw_kWh_100km": 2.168300088347914,
+      "loss_inverter_kWh_100km": 5.830132872933755,
+      "time_lost_vs_reference_s": 54.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28515.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.648290373487638,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1552.5,
+      "E_batt_kWh_100km": 197.06856960893137,
+      "E_wheel_traction_kWh_100km": 173.55040329247447,
+      "E_wheel_regen_kWh_100km": 38.252382723460066,
+      "E_friction_brake_kWh_100km": 5.659927940809173,
+      "loss_gear_kWh_100km": 16.054826072502998,
+      "loss_machine_kWh_100km": 39.88559009446013,
+      "loss_machine_stray_kWh_100km": 16.166352752779584,
+      "loss_fw_kWh_100km": 2.168300088347914,
+      "loss_inverter_kWh_100km": 5.830132872933755,
+      "time_lost_vs_reference_s": 54.5
+     }
+    },
+    "b_fixed_2p6_G15.55": {
+     "EU2017_stray1x": {
+      "time_s": 28540.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.636989541178327,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1557.0,
+      "E_batt_kWh_100km": 202.3093137983806,
+      "E_wheel_traction_kWh_100km": 176.83813187095203,
+      "E_wheel_regen_kWh_100km": 40.02584405982456,
+      "E_friction_brake_kWh_100km": 7.354912988556959,
+      "loss_gear_kWh_100km": 24.33574392401014,
+      "loss_machine_kWh_100km": 35.09445041025767,
+      "loss_machine_stray_kWh_100km": 7.880743052510085,
+      "loss_fw_kWh_100km": 2.058140456133762,
+      "loss_inverter_kWh_100km": 6.066831653165067,
+      "time_lost_vs_reference_s": 80.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28540.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.636989541178327,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1557.0,
+      "E_batt_kWh_100km": 210.1900568509608,
+      "E_wheel_traction_kWh_100km": 176.83813187095203,
+      "E_wheel_regen_kWh_100km": 40.02584405982456,
+      "E_friction_brake_kWh_100km": 7.354912988556959,
+      "loss_gear_kWh_100km": 24.33574392401014,
+      "loss_machine_kWh_100km": 42.97519346276775,
+      "loss_machine_stray_kWh_100km": 15.76148610502017,
+      "loss_fw_kWh_100km": 2.058140456133762,
+      "loss_inverter_kWh_100km": 6.066831653165067,
+      "time_lost_vs_reference_s": 80.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 28530.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.641418832477523,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1474.5,
+      "E_batt_kWh_100km": 193.64753278483076,
+      "E_wheel_traction_kWh_100km": 177.14671686250793,
+      "E_wheel_regen_kWh_100km": 40.37583461264568,
+      "E_friction_brake_kWh_100km": 7.094648021797812,
+      "loss_gear_kWh_100km": 16.006709980150596,
+      "loss_machine_kWh_100km": 34.849016222042735,
+      "loss_machine_stray_kWh_100km": 7.838308132313489,
+      "loss_fw_kWh_100km": 2.052792877674578,
+      "loss_inverter_kWh_100km": 6.020924333107638,
+      "time_lost_vs_reference_s": 70.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28530.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.641418832477523,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 1474.5,
+      "E_batt_kWh_100km": 201.48584091714264,
+      "E_wheel_traction_kWh_100km": 177.14671686250793,
+      "E_wheel_regen_kWh_100km": 40.37583461264568,
+      "E_friction_brake_kWh_100km": 7.094648021797812,
+      "loss_gear_kWh_100km": 16.006709980150596,
+      "loss_machine_kWh_100km": 42.687324354356214,
+      "loss_machine_stray_kWh_100km": 15.676616264626977,
+      "loss_fw_kWh_100km": 2.052792877674578,
+      "loss_inverter_kWh_100km": 6.020924333107638,
+      "time_lost_vs_reference_s": 70.0
+     }
+    },
+    "c_fixed_2p4_2speed_18.78_4.86": {
+     "EU2017_stray1x": {
+      "time_s": 28516.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.647625059176267,
+      "switches": 74,
+      "switches_per_100km": 73.86335279732495,
+      "torque_gap_total_s": 37.0,
+      "time_not_following_s": 967.0,
+      "E_batt_kWh_100km": 208.02600392614727,
+      "E_wheel_traction_kWh_100km": 177.50282168657336,
+      "E_wheel_regen_kWh_100km": 38.42790636938043,
+      "E_friction_brake_kWh_100km": 8.711487886419482,
+      "loss_gear_kWh_100km": 30.1461859705801,
+      "loss_machine_kWh_100km": 32.90015744247008,
+      "loss_machine_stray_kWh_100km": 9.759635744421335,
+      "loss_fw_kWh_100km": 0.7522336998305716,
+      "loss_inverter_kWh_100km": 5.9047451958758765,
+      "time_lost_vs_reference_s": 56.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28515.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.648290373487638,
+      "switches": 508,
+      "switches_per_100km": 507.061935419474,
+      "torque_gap_total_s": 254.0,
+      "time_not_following_s": 1356.0,
+      "E_batt_kWh_100km": 217.1125633351252,
+      "E_wheel_traction_kWh_100km": 177.43623163845362,
+      "E_wheel_regen_kWh_100km": 39.48447382279942,
+      "E_friction_brake_kWh_100km": 7.8418884840593215,
+      "loss_gear_kWh_100km": 30.180099851852525,
+      "loss_machine_kWh_100km": 43.063157085738794,
+      "loss_machine_stray_kWh_100km": 19.72825315898628,
+      "loss_fw_kWh_100km": 0.8162451432820877,
+      "loss_inverter_kWh_100km": 5.917548581633688,
+      "time_lost_vs_reference_s": 54.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28505.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.652505656803074,
+      "switches": 58,
+      "switches_per_100km": 57.89289813844388,
+      "torque_gap_total_s": 29.0,
+      "time_not_following_s": 899.5,
+      "E_batt_kWh_100km": 195.59344645481497,
+      "E_wheel_traction_kWh_100km": 177.81662888752118,
+      "E_wheel_regen_kWh_100km": 38.99746403344571,
+      "E_friction_brake_kWh_100km": 8.198707535995268,
+      "loss_gear_kWh_100km": 18.33881536716184,
+      "loss_machine_kWh_100km": 32.58115323985088,
+      "loss_machine_stray_kWh_100km": 9.65850362175325,
+      "loss_fw_kWh_100km": 0.736043277737399,
+      "loss_inverter_kWh_100km": 5.854312993691633,
+      "time_lost_vs_reference_s": 45.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28504.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.653171484703902,
+      "switches": 546,
+      "switches_per_100km": 544.9917652343165,
+      "torque_gap_total_s": 273.0,
+      "time_not_following_s": 1321.5,
+      "E_batt_kWh_100km": 204.49565811891566,
+      "E_wheel_traction_kWh_100km": 177.64405239251732,
+      "E_wheel_regen_kWh_100km": 40.01136575959305,
+      "E_friction_brake_kWh_100km": 7.387638191288506,
+      "loss_gear_kWh_100km": 18.370303075160624,
+      "loss_machine_kWh_100km": 42.627314480330206,
+      "loss_machine_stray_kWh_100km": 19.49960925688371,
+      "loss_fw_kWh_100km": 0.8228499932467218,
+      "loss_inverter_kWh_100km": 5.86535393034306,
+      "time_lost_vs_reference_s": 43.5
+     }
+    },
+    "d_fixed_2p4_G9.80_inverter_x1.87": {
+     "EU2017_stray1x": {
+      "time_s": 28411.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.69436671770234,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 373.0,
+      "E_batt_kWh_100km": 253.56238747304604,
+      "E_wheel_traction_kWh_100km": 179.6057030585304,
+      "E_wheel_regen_kWh_100km": 44.506464137441064,
+      "E_friction_brake_kWh_100km": 2.408312571508589,
+      "loss_gear_kWh_100km": 22.594167520906264,
+      "loss_machine_kWh_100km": 85.82477591935846,
+      "loss_machine_stray_kWh_100km": 28.61656698613239,
+      "loss_fw_kWh_100km": 0.990044844583535,
+      "loss_inverter_kWh_100km": 10.044205111433994,
+      "time_lost_vs_reference_s": -49.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 28411.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.69436671770234,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 373.0,
+      "E_batt_kWh_100km": 282.17895445924825,
+      "E_wheel_traction_kWh_100km": 179.6057030585304,
+      "E_wheel_regen_kWh_100km": 44.506464137441064,
+      "E_friction_brake_kWh_100km": 2.408312571508589,
+      "loss_gear_kWh_100km": 22.594167520906264,
+      "loss_machine_kWh_100km": 114.44134290549086,
+      "loss_machine_stray_kWh_100km": 57.23313397226478,
+      "loss_fw_kWh_100km": 0.990044844583535,
+      "loss_inverter_kWh_100km": 10.044205111433994,
+      "time_lost_vs_reference_s": -49.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 28410.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.694813537248551,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 359.5,
+      "E_batt_kWh_100km": 245.65202657739206,
+      "E_wheel_traction_kWh_100km": 179.6369056656254,
+      "E_wheel_regen_kWh_100km": 44.49586816245112,
+      "E_friction_brake_kWh_100km": 2.432325061831348,
+      "loss_gear_kWh_100km": 15.571636858821043,
+      "loss_machine_kWh_100km": 84.96546846425386,
+      "loss_machine_stray_kWh_100km": 28.333859741890183,
+      "loss_fw_kWh_100km": 0.982497866290408,
+      "loss_inverter_kWh_100km": 9.97388375094376,
+      "time_lost_vs_reference_s": -50.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28410.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.694813537248551,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 359.5,
+      "E_batt_kWh_100km": 273.9858863191036,
+      "E_wheel_traction_kWh_100km": 179.6369056656254,
+      "E_wheel_regen_kWh_100km": 44.49586816245112,
+      "E_friction_brake_kWh_100km": 2.432325061831348,
+      "loss_gear_kWh_100km": 15.571636858821043,
+      "loss_machine_kWh_100km": 113.29932820614404,
+      "loss_machine_stray_kWh_100km": 56.66771948378037,
+      "loss_fw_kWh_100km": 0.982497866290408,
+      "loss_inverter_kWh_100km": 9.97388375094376,
+      "time_lost_vs_reference_s": -50.0
+     }
+    },
+    "e_PMSM_ref_G10.50": {
+     "EU2017_stray1x": {
+      "time_s": 28453.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.67585140406987,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 550.0,
+      "E_batt_kWh_100km": 192.3166126280216,
+      "E_wheel_traction_kWh_100km": 179.91240241107025,
+      "E_wheel_regen_kWh_100km": 43.7874932858218,
+      "E_friction_brake_kWh_100km": 4.040693289696238,
+      "loss_gear_kWh_100km": 22.829378159085618,
+      "loss_machine_kWh_100km": 26.913832796641397,
+      "loss_machine_stray_kWh_100km": 5.688351094951769,
+      "loss_fw_kWh_100km": 1.2286495420807955,
+      "loss_inverter_kWh_100km": 6.448492546755644,
+      "time_lost_vs_reference_s": -7.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28453.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.67585140406987,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 550.0,
+      "E_batt_kWh_100km": 198.00496372288939,
+      "E_wheel_traction_kWh_100km": 179.91240241107025,
+      "E_wheel_regen_kWh_100km": 43.7874932858218,
+      "E_friction_brake_kWh_100km": 4.040693289696238,
+      "loss_gear_kWh_100km": 22.829378159085618,
+      "loss_machine_kWh_100km": 32.60218389159317,
+      "loss_machine_stray_kWh_100km": 11.376702189903538,
+      "loss_fw_kWh_100km": 1.2286495420807955,
+      "loss_inverter_kWh_100km": 6.448492546755644,
+      "time_lost_vs_reference_s": -7.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28434.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.684321586832665,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 532.5,
+      "E_batt_kWh_100km": 184.77982135821475,
+      "E_wheel_traction_kWh_100km": 179.54799591601963,
+      "E_wheel_regen_kWh_100km": 43.38175208875417,
+      "E_friction_brake_kWh_100km": 3.981614105197183,
+      "loss_gear_kWh_100km": 15.60497426583433,
+      "loss_machine_kWh_100km": 26.61197272248804,
+      "loss_machine_stray_kWh_100km": 5.622061165545811,
+      "loss_fw_kWh_100km": 1.2201182251359775,
+      "loss_inverter_kWh_100km": 6.396630542478451,
+      "time_lost_vs_reference_s": -26.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 28434.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.684321586832665,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 532.5,
+      "E_batt_kWh_100km": 190.40188252345135,
+      "E_wheel_traction_kWh_100km": 179.54799591601963,
+      "E_wheel_regen_kWh_100km": 43.38175208875417,
+      "E_friction_brake_kWh_100km": 3.981614105197183,
+      "loss_gear_kWh_100km": 15.60497426583433,
+      "loss_machine_kWh_100km": 32.23403388803385,
+      "loss_machine_stray_kWh_100km": 11.244122331091623,
+      "loss_fw_kWh_100km": 1.2201182251359775,
+      "loss_inverter_kWh_100km": 6.396630542478451,
+      "time_lost_vs_reference_s": -26.5
+     }
+    },
+    "e_PMSM_ref_2speed_14.0_8.0": {
+     "EU2017_stray1x": {
+      "time_s": 28458.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.673624288425048,
+      "switches": 34,
+      "switches_per_100km": 33.937216150122275,
+      "torque_gap_total_s": 17.0,
+      "time_not_following_s": 589.5,
+      "E_batt_kWh_100km": 191.0137189072798,
+      "E_wheel_traction_kWh_100km": 180.24387945944997,
+      "E_wheel_regen_kWh_100km": 43.9315333672126,
+      "E_friction_brake_kWh_100km": 4.135366299070471,
+      "loss_gear_kWh_100km": 30.679671874878498,
+      "loss_machine_kWh_100km": 18.526123579240785,
+      "loss_machine_stray_kWh_100km": 3.458846710843794,
+      "loss_fw_kWh_100km": 0.9584307315025559,
+      "loss_inverter_kWh_100km": 5.495577361157851,
+      "time_lost_vs_reference_s": -2.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 28458.0,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.673624288425048,
+      "switches": 34,
+      "switches_per_100km": 33.937216150122275,
+      "torque_gap_total_s": 17.0,
+      "time_not_following_s": 589.5,
+      "E_batt_kWh_100km": 194.4537357607167,
+      "E_wheel_traction_kWh_100km": 180.24387945944997,
+      "E_wheel_regen_kWh_100km": 43.946990085313686,
+      "E_friction_brake_kWh_100km": 4.132252777999833,
+      "loss_gear_kWh_100km": 30.680206420201,
+      "loss_machine_kWh_100km": 21.98119724475415,
+      "loss_machine_stray_kWh_100km": 6.914613060671816,
+      "loss_fw_kWh_100km": 0.9586334488722463,
+      "loss_inverter_kWh_100km": 5.495442721925409,
+      "time_lost_vs_reference_s": -2.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 28439.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.681868527927707,
+      "switches": 36,
+      "switches_per_100km": 35.93352298248241,
+      "torque_gap_total_s": 18.0,
+      "time_not_following_s": 554.5,
+      "E_batt_kWh_100km": 178.7204300962299,
+      "E_wheel_traction_kWh_100km": 180.0018115252848,
+      "E_wheel_regen_kWh_100km": 43.71777079274946,
+      "E_friction_brake_kWh_100km": 3.964027129711837,
+      "loss_gear_kWh_100km": 18.763603639863373,
+      "loss_machine_kWh_100km": 18.237345984599767,
+      "loss_machine_stray_kWh_100km": 3.4075301165617256,
+      "loss_fw_kWh_100km": 0.9449828856603669,
+      "loss_inverter_kWh_100km": 5.435439739607457,
+      "time_lost_vs_reference_s": -21.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 28439.5,
+      "distance_km": 100.185,
+      "avg_speed_kmh": 12.681868527927707,
+      "switches": 36,
+      "switches_per_100km": 35.93352298248241,
+      "torque_gap_total_s": 18.0,
+      "time_not_following_s": 554.5,
+      "E_batt_kWh_100km": 182.1040432925369,
+      "E_wheel_traction_kWh_100km": 180.0018115252848,
+      "E_wheel_regen_kWh_100km": 43.737663727247266,
+      "E_friction_brake_kWh_100km": 3.9604148227211713,
+      "loss_gear_kWh_100km": 18.76441408905024,
+      "loss_machine_kWh_100km": 21.640183283852572,
+      "loss_machine_stray_kWh_100km": 6.811027693235828,
+      "loss_fw_kWh_100km": 0.9452572786741924,
+      "loss_inverter_kWh_100km": 5.435298121694662,
+      "time_lost_vs_reference_s": -21.0
+     }
+    }
+   },
+   "ranking": {
+    "EU2017_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 191.0137189072798,
+      "time_lost_s": -2.5
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 192.3166126280216,
+      "time_lost_s": -7.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 199.32998595880062,
+      "time_lost_s": 112.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 202.3093137983806,
+      "time_lost_s": 80.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 208.02600392614727,
+      "time_lost_s": 56.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 208.12961548271437,
+      "time_lost_s": 89.5
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 253.56238747304604,
+      "time_lost_s": -49.0
+     }
+    ],
+    "certified_like_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 178.7204300962299,
+      "time_lost_s": -21.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 184.77982135821475,
+      "time_lost_s": -26.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 188.98539323253766,
+      "time_lost_s": 54.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 193.64753278483076,
+      "time_lost_s": 70.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 195.59344645481497,
+      "time_lost_s": 45.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 199.8576178257071,
+      "time_lost_s": 85.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 245.65202657739206,
+      "time_lost_s": -50.0
+     }
+    ],
+    "EU2017_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 194.4537357607167,
+      "time_lost_s": -2.5
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 198.00496372288939,
+      "time_lost_s": -7.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 207.4916521185784,
+      "time_lost_s": 112.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 210.1900568509608,
+      "time_lost_s": 80.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 214.3297690915471,
+      "time_lost_s": 89.5
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 217.1125633351252,
+      "time_lost_s": 54.5
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 282.17895445924825,
+      "time_lost_s": -49.0
+     }
+    ],
+    "certified_like_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 182.1040432925369,
+      "time_lost_s": -21.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 190.40188252345135,
+      "time_lost_s": -26.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 197.06856960893137,
+      "time_lost_s": 54.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 201.48584091714264,
+      "time_lost_s": 70.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 204.49565811891566,
+      "time_lost_s": 43.5
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 206.00087453369017,
+      "time_lost_s": 85.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 273.9858863191036,
+      "time_lost_s": -50.0
+     }
+    ]
+   }
+  },
+  "RegionalDelivery_ref": {
+   "reference_ideal_300kW": {
+    "time_s": 299173.5,
+    "distance_km": 100.0,
+    "avg_speed_kmh": 1.2033151331919438,
+    "switches": 0,
+    "switches_per_100km": 0.0,
+    "torque_gap_total_s": 0.0,
+    "time_not_following_s": 0.0,
+    "E_wheel_traction_kWh_100km": 237.98514969910366
+   },
+   "powertrains": {
+    "a_pole_changing_IM_G11.35": {
+     "EU2017_stray1x": {
+      "time_s": 299207.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031804068755074,
+      "switches": 66,
+      "switches_per_100km": 66.0,
+      "torque_gap_total_s": 11.219999999999997,
+      "time_not_following_s": 287.0,
+      "E_batt_kWh_100km": 349.9363659198278,
+      "E_wheel_traction_kWh_100km": 244.93994206883502,
+      "E_wheel_regen_kWh_100km": 184.0921416622733,
+      "E_friction_brake_kWh_100km": 7.433939340738655,
+      "loss_gear_kWh_100km": 35.094062746210305,
+      "loss_machine_kWh_100km": 202.75131930155408,
+      "loss_machine_stray_kWh_100km": 36.9763603966501,
+      "loss_fw_kWh_100km": 1.28435229905276,
+      "loss_inverter_kWh_100km": 51.2431834641447,
+      "time_lost_vs_reference_s": 33.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 299207.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031804068755074,
+      "switches": 66,
+      "switches_per_100km": 66.0,
+      "torque_gap_total_s": 11.219999999999997,
+      "time_not_following_s": 287.0,
+      "E_batt_kWh_100km": 386.91912683239855,
+      "E_wheel_traction_kWh_100km": 244.93994206883502,
+      "E_wheel_regen_kWh_100km": 184.0830003103455,
+      "E_friction_brake_kWh_100km": 7.4430806926664745,
+      "loss_gear_kWh_100km": 35.09375204941238,
+      "loss_machine_kWh_100km": 239.72530495164727,
+      "loss_machine_stray_kWh_100km": 73.95116260326043,
+      "loss_fw_kWh_100km": 1.2843383429166575,
+      "loss_inverter_kWh_100km": 51.24312807317797,
+      "time_lost_vs_reference_s": 33.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 299217.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031401959113286,
+      "switches": 34,
+      "switches_per_100km": 34.0,
+      "torque_gap_total_s": 5.7799999999999985,
+      "time_not_following_s": 278.5,
+      "E_batt_kWh_100km": 338.441520614822,
+      "E_wheel_traction_kWh_100km": 245.693264392598,
+      "E_wheel_regen_kWh_100km": 184.41283282005935,
+      "E_friction_brake_kWh_100km": 7.793646445380181,
+      "loss_gear_kWh_100km": 25.377600957769396,
+      "loss_machine_kWh_100km": 200.813804859971,
+      "loss_machine_stray_kWh_100km": 36.54238358942803,
+      "loss_fw_kWh_100km": 1.2797047206395982,
+      "loss_inverter_kWh_100km": 50.96968322602311,
+      "time_lost_vs_reference_s": 43.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 299217.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031401959113286,
+      "switches": 34,
+      "switches_per_100km": 34.0,
+      "torque_gap_total_s": 5.7799999999999985,
+      "time_not_following_s": 278.5,
+      "E_batt_kWh_100km": 374.9839042068564,
+      "E_wheel_traction_kWh_100km": 245.693264392598,
+      "E_wheel_regen_kWh_100km": 184.41283282005935,
+      "E_friction_brake_kWh_100km": 7.793646445380181,
+      "loss_gear_kWh_100km": 25.377600957769396,
+      "loss_machine_kWh_100km": 237.356188449399,
+      "loss_machine_stray_kWh_100km": 73.08476717885605,
+      "loss_fw_kWh_100km": 1.2797047206395982,
+      "loss_inverter_kWh_100km": 50.96968322602311,
+      "time_lost_vs_reference_s": 43.5
+     }
+    },
+    "b_fixed_2p4_G18.77": {
+     "EU2017_stray1x": {
+      "time_s": 299180.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032869789307794,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 232.0,
+      "E_batt_kWh_100km": 336.7356061827029,
+      "E_wheel_traction_kWh_100km": 248.03376570900645,
+      "E_wheel_regen_kWh_100km": 189.90922339382485,
+      "E_friction_brake_kWh_100km": 4.595240926740786,
+      "loss_gear_kWh_100km": 37.688793035268745,
+      "loss_machine_kWh_100km": 190.81785543435956,
+      "loss_machine_stray_kWh_100km": 53.741445630398914,
+      "loss_fw_kWh_100km": 1.5657986902212233,
+      "loss_inverter_kWh_100km": 50.10441539994969,
+      "time_lost_vs_reference_s": 7.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 299180.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032869789307794,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 232.0,
+      "E_batt_kWh_100km": 390.4770518156737,
+      "E_wheel_traction_kWh_100km": 248.03376570900645,
+      "E_wheel_regen_kWh_100km": 189.90922339382485,
+      "E_friction_brake_kWh_100km": 4.595240926740786,
+      "loss_gear_kWh_100km": 37.688793035268745,
+      "loss_machine_kWh_100km": 244.55930106475847,
+      "loss_machine_stray_kWh_100km": 107.48289126079783,
+      "loss_fw_kWh_100km": 1.5657986902212233,
+      "loss_inverter_kWh_100km": 50.10441539994969,
+      "time_lost_vs_reference_s": 7.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 299196.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032226312807803,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 229.5,
+      "E_batt_kWh_100km": 323.05414920040994,
+      "E_wheel_traction_kWh_100km": 248.28931191048926,
+      "E_wheel_regen_kWh_100km": 190.0561792214246,
+      "E_friction_brake_kWh_100km": 4.662577913437663,
+      "loss_gear_kWh_100km": 26.118736116871542,
+      "loss_machine_kWh_100km": 188.94430110066403,
+      "loss_machine_stray_kWh_100km": 53.035277244274695,
+      "loss_fw_kWh_100km": 1.5586871279713557,
+      "loss_inverter_kWh_100km": 49.75797929379234,
+      "time_lost_vs_reference_s": 23.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 299196.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032226312807803,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 229.5,
+      "E_batt_kWh_100km": 376.0894264429889,
+      "E_wheel_traction_kWh_100km": 248.28931191048926,
+      "E_wheel_regen_kWh_100km": 190.0561792214246,
+      "E_friction_brake_kWh_100km": 4.662577913437663,
+      "loss_gear_kWh_100km": 26.118736116871542,
+      "loss_machine_kWh_100km": 241.97957834493872,
+      "loss_machine_stray_kWh_100km": 106.07055448854939,
+      "loss_fw_kWh_100km": 1.5586871279713557,
+      "loss_inverter_kWh_100km": 49.75797929379234,
+      "time_lost_vs_reference_s": 23.0
+     }
+    },
+    "b_fixed_2p6_G15.55": {
+     "EU2017_stray1x": {
+      "time_s": 299207.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031783962634626,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 229.5,
+      "E_batt_kWh_100km": 381.0261158163252,
+      "E_wheel_traction_kWh_100km": 251.96228514490915,
+      "E_wheel_regen_kWh_100km": 193.63469430316442,
+      "E_friction_brake_kWh_100km": 4.758899491800027,
+      "loss_gear_kWh_100km": 37.32285754717702,
+      "loss_machine_kWh_100km": 233.30035190067872,
+      "loss_machine_stray_kWh_100km": 53.434903003390744,
+      "loss_fw_kWh_100km": 1.5001497638460766,
+      "loss_inverter_kWh_100km": 52.075315523582894,
+      "time_lost_vs_reference_s": 34.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 299207.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2031783962634626,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 229.5,
+      "E_batt_kWh_100km": 434.4610188166304,
+      "E_wheel_traction_kWh_100km": 251.96228514490915,
+      "E_wheel_regen_kWh_100km": 193.63469430316442,
+      "E_friction_brake_kWh_100km": 4.758899491800027,
+      "loss_gear_kWh_100km": 37.32285754717702,
+      "loss_machine_kWh_100km": 286.7352549040695,
+      "loss_machine_stray_kWh_100km": 106.86980600678149,
+      "loss_fw_kWh_100km": 1.5001497638460766,
+      "loss_inverter_kWh_100km": 52.075315523582894,
+      "time_lost_vs_reference_s": 34.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 299202.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203198502686308,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 219.0,
+      "E_batt_kWh_100km": 367.82914897078643,
+      "E_wheel_traction_kWh_100km": 251.81722035231905,
+      "E_wheel_regen_kWh_100km": 193.74876934650248,
+      "E_friction_brake_kWh_100km": 4.507704574874973,
+      "loss_gear_kWh_100km": 26.421637251275545,
+      "loss_machine_kWh_100km": 231.58860610233015,
+      "loss_machine_stray_kWh_100km": 52.7676745815212,
+      "loss_fw_kWh_100km": 1.492760105766062,
+      "loss_inverter_kWh_100km": 51.75045461249167,
+      "time_lost_vs_reference_s": 29.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 299202.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203198502686308,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 219.0,
+      "E_batt_kWh_100km": 420.5968235549378,
+      "E_wheel_traction_kWh_100km": 251.81722035231905,
+      "E_wheel_regen_kWh_100km": 193.74876934650248,
+      "E_friction_brake_kWh_100km": 4.507704574874973,
+      "loss_gear_kWh_100km": 26.421637251275545,
+      "loss_machine_kWh_100km": 284.35628068385137,
+      "loss_machine_stray_kWh_100km": 105.5353491630424,
+      "loss_fw_kWh_100km": 1.492760105766062,
+      "loss_inverter_kWh_100km": 51.75045461249167,
+      "time_lost_vs_reference_s": 29.0
+     }
+    },
+    "c_fixed_2p4_2speed_18.78_4.86": {
+     "EU2017_stray1x": {
+      "time_s": 299179.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032910008874271,
+      "switches": 26,
+      "switches_per_100km": 26.0,
+      "torque_gap_total_s": 13.0,
+      "time_not_following_s": 217.0,
+      "E_batt_kWh_100km": 343.64308607419355,
+      "E_wheel_traction_kWh_100km": 247.9184680392814,
+      "E_wheel_regen_kWh_100km": 188.75870275300844,
+      "E_friction_brake_kWh_100km": 5.481315615915373,
+      "loss_gear_kWh_100km": 43.03403114242155,
+      "loss_machine_kWh_100km": 191.23812651277723,
+      "loss_machine_stray_kWh_100km": 53.95591504411293,
+      "loss_fw_kWh_100km": 1.529202280964516,
+      "loss_inverter_kWh_100km": 50.211163132760554,
+      "time_lost_vs_reference_s": 6.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 299183.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203276924156787,
+      "switches": 24,
+      "switches_per_100km": 24.0,
+      "torque_gap_total_s": 12.0,
+      "time_not_following_s": 218.0,
+      "E_batt_kWh_100km": 397.1075118291894,
+      "E_wheel_traction_kWh_100km": 247.96258600623636,
+      "E_wheel_regen_kWh_100km": 189.3103494739184,
+      "E_friction_brake_kWh_100km": 5.016580621560465,
+      "loss_gear_kWh_100km": 43.05494965248606,
+      "loss_machine_kWh_100km": 245.1884885606974,
+      "loss_machine_stray_kWh_100km": 107.89965698131664,
+      "loss_fw_kWh_100km": 1.531831410802323,
+      "loss_inverter_kWh_100km": 50.21183708794821,
+      "time_lost_vs_reference_s": 9.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 299177.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032990448813832,
+      "switches": 32,
+      "switches_per_100km": 32.0,
+      "torque_gap_total_s": 16.0,
+      "time_not_following_s": 212.5,
+      "E_batt_kWh_100km": 324.63917947138174,
+      "E_wheel_traction_kWh_100km": 248.0165400171343,
+      "E_wheel_regen_kWh_100km": 188.94248975589088,
+      "E_friction_brake_kWh_100km": 5.3536440700715415,
+      "loss_gear_kWh_100km": 26.84674137360754,
+      "loss_machine_kWh_100km": 188.9580834458336,
+      "loss_machine_stray_kWh_100km": 53.10277389922438,
+      "loss_fw_kWh_100km": 1.5182445772802762,
+      "loss_inverter_kWh_100km": 49.760304393012454,
+      "time_lost_vs_reference_s": 4.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 299187.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203260836867912,
+      "switches": 22,
+      "switches_per_100km": 22.0,
+      "torque_gap_total_s": 11.0,
+      "time_not_following_s": 213.5,
+      "E_batt_kWh_100km": 377.0753233370698,
+      "E_wheel_traction_kWh_100km": 248.21163872202845,
+      "E_wheel_regen_kWh_100km": 189.84179165504094,
+      "E_friction_brake_kWh_100km": 4.794520032953357,
+      "loss_gear_kWh_100km": 26.89195638140255,
+      "loss_machine_kWh_100km": 242.05164397655676,
+      "loss_machine_stray_kWh_100km": 106.18461602309513,
+      "loss_fw_kWh_100km": 1.5234352453354496,
+      "loss_inverter_kWh_100km": 49.76187591395959,
+      "time_lost_vs_reference_s": 13.5
+     }
+    },
+    "d_fixed_2p4_G9.80_inverter_x1.87": {
+     "EU2017_stray1x": {
+      "time_s": 299195.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203228663580608,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 11.5,
+      "E_batt_kWh_100km": 708.7671059238272,
+      "E_wheel_traction_kWh_100km": 240.91880543085455,
+      "E_wheel_regen_kWh_100km": 186.06069289529955,
+      "E_friction_brake_kWh_100km": 1.1762593452588668,
+      "loss_gear_kWh_100km": 34.30559042847017,
+      "loss_machine_kWh_100km": 530.6877235737703,
+      "loss_machine_stray_kWh_100km": 182.312753044421,
+      "loss_fw_kWh_100km": 1.1866183116401845,
+      "loss_inverter_kWh_100km": 88.91567938951377,
+      "time_lost_vs_reference_s": 21.5
+     },
+     "EU2017_stray2x": {
+      "time_s": 299195.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.203228663580608,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 11.5,
+      "E_batt_kWh_100km": 891.0798589691485,
+      "E_wheel_traction_kWh_100km": 240.91880543085455,
+      "E_wheel_regen_kWh_100km": 186.06069289529955,
+      "E_friction_brake_kWh_100km": 1.1762593452588668,
+      "loss_gear_kWh_100km": 34.30559042847017,
+      "loss_machine_kWh_100km": 713.0004766181913,
+      "loss_machine_stray_kWh_100km": 364.625506088842,
+      "loss_fw_kWh_100km": 1.1866183116401845,
+      "loss_inverter_kWh_100km": 88.91567938951377,
+      "time_lost_vs_reference_s": 21.5
+     },
+     "certified_like_stray1x": {
+      "time_s": 299173.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2033151331919438,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 12.0,
+      "E_batt_kWh_100km": 693.0342490705207,
+      "E_wheel_traction_kWh_100km": 241.04596942530353,
+      "E_wheel_regen_kWh_100km": 186.1326791645893,
+      "E_friction_brake_kWh_100km": 1.2434284774141309,
+      "loss_gear_kWh_100km": 25.020555566160674,
+      "loss_machine_kWh_100km": 524.8197151052494,
+      "loss_machine_stray_kWh_100km": 180.08532468151014,
+      "loss_fw_kWh_100km": 1.1802187561610806,
+      "loss_inverter_kWh_100km": 88.28068813798758,
+      "time_lost_vs_reference_s": 0.0
+     },
+     "certified_like_stray2x": {
+      "time_s": 299173.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2033151331919438,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 12.0,
+      "E_batt_kWh_100km": 873.1195737553462,
+      "E_wheel_traction_kWh_100km": 241.04596942530353,
+      "E_wheel_regen_kWh_100km": 186.1326791645893,
+      "E_friction_brake_kWh_100km": 1.2434284774141309,
+      "loss_gear_kWh_100km": 25.020555566160674,
+      "loss_machine_kWh_100km": 704.9050397867595,
+      "loss_machine_stray_kWh_100km": 360.1706493630203,
+      "loss_fw_kWh_100km": 1.1802187561610806,
+      "loss_inverter_kWh_100km": 88.28068813798758,
+      "time_lost_vs_reference_s": 0.0
+     }
+    },
+    "e_PMSM_ref_G10.50": {
+     "EU2017_stray1x": {
+      "time_s": 299178.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032950228709616,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 95.5,
+      "E_batt_kWh_100km": 280.80001203629075,
+      "E_wheel_traction_kWh_100km": 245.02171121018054,
+      "E_wheel_regen_kWh_100km": 188.29687541964097,
+      "E_friction_brake_kWh_100km": 3.0597333059411356,
+      "loss_gear_kWh_100km": 34.8923450820004,
+      "loss_machine_kWh_100km": 136.93266877992295,
+      "loss_machine_stray_kWh_100km": 36.65946699623748,
+      "loss_fw_kWh_100km": 1.2566796330299432,
+      "loss_inverter_kWh_100km": 52.2501623829625,
+      "time_lost_vs_reference_s": 5.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 299178.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032950228709616,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 95.5,
+      "E_batt_kWh_100km": 317.45947903295394,
+      "E_wheel_traction_kWh_100km": 245.02171121018054,
+      "E_wheel_regen_kWh_100km": 188.29687541964097,
+      "E_friction_brake_kWh_100km": 3.0597333059411356,
+      "loss_gear_kWh_100km": 34.8923450820004,
+      "loss_machine_kWh_100km": 173.59213577616046,
+      "loss_machine_stray_kWh_100km": 73.31893399247495,
+      "loss_fw_kWh_100km": 1.2566796330299432,
+      "loss_inverter_kWh_100km": 52.2501623829625,
+      "time_lost_vs_reference_s": 5.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 299174.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2033131221295967,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 88.5,
+      "E_batt_kWh_100km": 268.740369867497,
+      "E_wheel_traction_kWh_100km": 245.04404922828988,
+      "E_wheel_regen_kWh_100km": 188.42358259384997,
+      "E_friction_brake_kWh_100km": 2.983605269893841,
+      "loss_gear_kWh_100km": 25.438923754845,
+      "loss_machine_kWh_100km": 134.91061027453722,
+      "loss_machine_stray_kWh_100km": 36.21818165153186,
+      "loss_fw_kWh_100km": 1.250068885166925,
+      "loss_inverter_kWh_100km": 51.77036920337608,
+      "time_lost_vs_reference_s": 0.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 299174.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2033131221295967,
+      "switches": 0,
+      "switches_per_100km": 0.0,
+      "torque_gap_total_s": 0.0,
+      "time_not_following_s": 88.5,
+      "E_batt_kWh_100km": 304.9585515211381,
+      "E_wheel_traction_kWh_100km": 245.04404922828988,
+      "E_wheel_regen_kWh_100km": 188.42358259384997,
+      "E_friction_brake_kWh_100km": 2.983605269893841,
+      "loss_gear_kWh_100km": 25.438923754845,
+      "loss_machine_kWh_100km": 171.12879192606908,
+      "loss_machine_stray_kWh_100km": 72.43636330306371,
+      "loss_fw_kWh_100km": 1.250068885166925,
+      "loss_inverter_kWh_100km": 51.77036920337608,
+      "time_lost_vs_reference_s": 0.5
+     }
+    },
+    "e_PMSM_ref_2speed_14.0_8.0": {
+     "EU2017_stray1x": {
+      "time_s": 299176.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2033030669186917,
+      "switches": 34,
+      "switches_per_100km": 34.0,
+      "torque_gap_total_s": 17.0,
+      "time_not_following_s": 126.5,
+      "E_batt_kWh_100km": 234.340342475033,
+      "E_wheel_traction_kWh_100km": 250.13734553172264,
+      "E_wheel_regen_kWh_100km": 193.03753375519602,
+      "E_friction_brake_kWh_100km": 3.0215163161667093,
+      "loss_gear_kWh_100km": 43.608710327655885,
+      "loss_machine_kWh_100km": 88.34855357254219,
+      "loss_machine_stray_kWh_100km": 21.941547606195623,
+      "loss_fw_kWh_100km": 1.3778378280556716,
+      "loss_inverter_kWh_100km": 45.28326680008234,
+      "time_lost_vs_reference_s": 3.0
+     },
+     "EU2017_stray2x": {
+      "time_s": 299181.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032829570010177,
+      "switches": 30,
+      "switches_per_100km": 30.0,
+      "torque_gap_total_s": 15.0,
+      "time_not_following_s": 119.0,
+      "E_batt_kWh_100km": 256.31581415297325,
+      "E_wheel_traction_kWh_100km": 250.23587129480202,
+      "E_wheel_regen_kWh_100km": 193.10252947773168,
+      "E_friction_brake_kWh_100km": 3.046178864319977,
+      "loss_gear_kWh_100km": 43.6146393798408,
+      "loss_machine_kWh_100km": 110.28421122027031,
+      "loss_machine_stray_kWh_100km": 43.87512415437247,
+      "loss_fw_kWh_100km": 1.3795399957380152,
+      "loss_inverter_kWh_100km": 45.28362173471913,
+      "time_lost_vs_reference_s": 8.0
+     },
+     "certified_like_stray1x": {
+      "time_s": 299182.0,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032809460462195,
+      "switches": 38,
+      "switches_per_100km": 38.0,
+      "torque_gap_total_s": 19.0,
+      "time_not_following_s": 123.5,
+      "E_batt_kWh_100km": 215.66873021123402,
+      "E_wheel_traction_kWh_100km": 250.3312498114542,
+      "E_wheel_regen_kWh_100km": 193.29477340432322,
+      "E_friction_brake_kWh_100km": 2.968855347811975,
+      "loss_gear_kWh_100km": 27.21056416829854,
+      "loss_machine_kWh_100km": 86.67154580868595,
+      "loss_machine_stray_kWh_100km": 21.594802447937713,
+      "loss_fw_kWh_100km": 1.3689368843321283,
+      "loss_inverter_kWh_100km": 44.750143826080695,
+      "time_lost_vs_reference_s": 8.5
+     },
+     "certified_like_stray2x": {
+      "time_s": 299181.5,
+      "distance_km": 100.0,
+      "avg_speed_kmh": 1.2032829570010177,
+      "switches": 36,
+      "switches_per_100km": 36.0,
+      "torque_gap_total_s": 18.0,
+      "time_not_following_s": 116.0,
+      "E_batt_kWh_100km": 237.1898319868649,
+      "E_wheel_traction_kWh_100km": 250.20574432396546,
+      "E_wheel_regen_kWh_100km": 193.22348080824517,
+      "E_friction_brake_kWh_100km": 2.891107485500063,
+      "loss_gear_kWh_100km": 27.20396225316612,
+      "loss_machine_kWh_100km": 108.25430067286054,
+      "loss_machine_stray_kWh_100km": 43.180626735866454,
+      "loss_fw_kWh_100km": 1.3700456976482325,
+      "loss_inverter_kWh_100km": 44.74930554372769,
+      "time_lost_vs_reference_s": 8.0
+     }
+    }
+   },
+   "ranking": {
+    "EU2017_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 234.340342475033,
+      "time_lost_s": 3.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 280.80001203629075,
+      "time_lost_s": 5.0
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 336.7356061827029,
+      "time_lost_s": 7.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 343.64308607419355,
+      "time_lost_s": 6.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 349.9363659198278,
+      "time_lost_s": 33.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 381.0261158163252,
+      "time_lost_s": 34.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 708.7671059238272,
+      "time_lost_s": 21.5
+     }
+    ],
+    "certified_like_stray1x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 215.66873021123402,
+      "time_lost_s": 8.5
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 268.740369867497,
+      "time_lost_s": 0.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 323.05414920040994,
+      "time_lost_s": 23.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 324.63917947138174,
+      "time_lost_s": 4.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 338.441520614822,
+      "time_lost_s": 43.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 367.82914897078643,
+      "time_lost_s": 29.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 693.0342490705207,
+      "time_lost_s": 0.0
+     }
+    ],
+    "EU2017_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 256.31581415297325,
+      "time_lost_s": 8.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 317.45947903295394,
+      "time_lost_s": 5.0
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 386.91912683239855,
+      "time_lost_s": 33.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 390.4770518156737,
+      "time_lost_s": 7.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 397.1075118291894,
+      "time_lost_s": 9.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 434.4610188166304,
+      "time_lost_s": 34.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 891.0798589691485,
+      "time_lost_s": 21.5
+     }
+    ],
+    "certified_like_stray2x": [
+     {
+      "powertrain": "e_PMSM_ref_2speed_14.0_8.0",
+      "E_kWh_100km": 237.1898319868649,
+      "time_lost_s": 8.0
+     },
+     {
+      "powertrain": "e_PMSM_ref_G10.50",
+      "E_kWh_100km": 304.9585515211381,
+      "time_lost_s": 0.5
+     },
+     {
+      "powertrain": "a_pole_changing_IM_G11.35",
+      "E_kWh_100km": 374.9839042068564,
+      "time_lost_s": 43.5
+     },
+     {
+      "powertrain": "b_fixed_2p4_G18.77",
+      "E_kWh_100km": 376.0894264429889,
+      "time_lost_s": 23.0
+     },
+     {
+      "powertrain": "c_fixed_2p4_2speed_18.78_4.86",
+      "E_kWh_100km": 377.0753233370698,
+      "time_lost_s": 13.5
+     },
+     {
+      "powertrain": "b_fixed_2p6_G15.55",
+      "E_kWh_100km": 420.5968235549378,
+      "time_lost_s": 29.0
+     },
+     {
+      "powertrain": "d_fixed_2p4_G9.80_inverter_x1.87",
+      "E_kWh_100km": 873.1195737553462,
+      "time_lost_s": 0.0
+     }
+    ]
+   }
+  }
+ }
+}

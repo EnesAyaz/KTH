@@ -1,9 +1,9 @@
 # ECCE Asia 2027 design selection digest
 
 ## Active paper
-**Joint Selection of GaN SPB Cells and Pole-Changing Windings for Truck Propulsion**
+**Codesign of GaN SPB Cells and Pole-Changing Windings for Propulsion**
 
-The current deliverable is `ECCE_Asia_2027_Digest_Numbered_Equations.docx`, built from the official conference Word template. The main study now selects a cell count and pole combination from device and winding constraints. It does not prescribe24 cells or12/6 poles in advance.
+The current deliverable is `ECCE_Asia_2027_Digest_Final.docx`, built from the official conference Word template. The main study now selects a cell count and pole combination from device and winding constraints. It does not prescribe24 cells or12/6 poles in advance.
 
 Three counts must be distinguished:
 1. Demonstrated stator-control minimum: two three-phase cells for the explicit36-slot12/6 example in the tested family.
@@ -50,7 +50,7 @@ Full-paper expansion notes are marked in red in Sections III, IV-A, and VI. Thes
 
 ## Independent manuscript review revision
 
-The current title is **Joint Selection of GaN SPB Cells and Pole-Changing Windings for Truck Propulsion**. A fresh reviewer received the manuscript alone, with no repository context. The review and response are recorded in `independent_ieee_review.md`. The current digest includes a general slot-index construction, an explicit 12-cell/36-slot worked example, normalized complex winding gains, the search domain and ranking rule, selected-count device indices, and a fully qualified illustrative propulsion-envelope comparison. Passenger-car examples are illustrative evidence, not truck design requirements.
+The current title is **Codesign of GaN SPB Cells and Pole-Changing Windings for Propulsion**. A fresh reviewer received the manuscript alone, with no repository context. The review and response are recorded in `independent_ieee_review.md`. The current digest includes a general slot-index construction, an explicit 12-cell/36-slot worked example, normalized complex winding gains, the search domain and ranking rule, selected-count device indices, and a fully qualified illustrative propulsion-envelope comparison. Passenger-car examples are illustrative evidence, not truck design requirements.
 
 
 ## Digest scope revision based on the ICPE reference
@@ -74,3 +74,5 @@ The no-load baseline/candidate sizing check is documented in `simulation/STATOR_
 ## Current 17.5-mm and 650-V digest
 
 The active output is `ECCE_Asia_2027_Digest_17p5mm_650V.docx`. It uses the17.5-mm-yoke preliminary model and replaces the350-V device class with the650-V Infineon IGLT65R025D2 comparator. TableIII explicitly screens two, three and four650-V cells; only four satisfy the current voltage-margin assumptions. Source PDF and source-register hash are retained. All full-paper loss, thermal, excitation and loaded-FEA notes remain red.
+
+The final digest incorporates Nail’s review. Earlier Word drafts are preserved in `archive/previous_word_documents/`. The reviewed original was copied there because Word currently locks it. The final revision is reproduced by `qa/finalize_nail_review.py`.
