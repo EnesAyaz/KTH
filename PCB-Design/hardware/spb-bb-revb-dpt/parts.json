@@ -202,8 +202,8 @@
   "value": "0R5 1% (R_G HL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": -29.35,
-  "y": 5.215000000000001,
+  "x": -28.29,
+  "y": 5.365,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -213,8 +213,8 @@
   "value": "0R5 1% (R_G HR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": -18.15,
-  "y": 4.585,
+  "x": -19.21,
+  "y": 4.4350000000000005,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -235,8 +235,8 @@
   "value": "0R5 1% (R_G LL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": -29.35,
-  "y": 9.514999999999999,
+  "x": -28.29,
+  "y": 9.665,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -246,8 +246,8 @@
   "value": "0R5 1% (R_G LR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": -18.15,
-  "y": 8.885,
+  "x": -19.21,
+  "y": 8.735,
   "rot": 90,
   "side": "top",
   "block": 1
@@ -1071,8 +1071,8 @@
   "value": "0R5 1% (R_G HL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": 18.15,
-  "y": 5.215000000000001,
+  "x": 19.21,
+  "y": 5.365,
   "rot": 90,
   "side": "top",
   "block": 2
@@ -1082,8 +1082,8 @@
   "value": "0R5 1% (R_G HR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": 29.35,
-  "y": 4.585,
+  "x": 28.29,
+  "y": 4.4350000000000005,
   "rot": 90,
   "side": "top",
   "block": 2
@@ -1104,8 +1104,8 @@
   "value": "0R5 1% (R_G LL)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": 18.15,
-  "y": 9.514999999999999,
+  "x": 19.21,
+  "y": 9.665,
   "rot": 90,
   "side": "top",
   "block": 2
@@ -1115,8 +1115,8 @@
   "value": "0R5 1% (R_G LR)",
   "footprint": "R_0603_1608Metric",
   "mpn": "0.5R 0603 1% (Panasonic ERJ-3BQFR50V)",
-  "x": 29.35,
-  "y": 8.885,
+  "x": 28.29,
+  "y": 8.735,
   "rot": 90,
   "side": "top",
   "block": 2
@@ -2055,5 +2055,93 @@
   "rot": 0.0,
   "side": "top",
   "block": 0
+ },
+ {
+  "ref": "C87",
+  "value": "DNP C_GS (Q1 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": -29.73,
+  "y": 5.550000000000001,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "C88",
+  "value": "DNP C_GS (Q2 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": -17.77,
+  "y": 4.25,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "C89",
+  "value": "DNP C_GS (Q3 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": -29.73,
+  "y": 9.85,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "C90",
+  "value": "DNP C_GS (Q4 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": -17.77,
+  "y": 8.55,
+  "rot": 90,
+  "side": "top",
+  "block": 1
+ },
+ {
+  "ref": "C91",
+  "value": "DNP C_GS (Q5 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": 17.77,
+  "y": 5.550000000000001,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C92",
+  "value": "DNP C_GS (Q6 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": 29.73,
+  "y": 4.25,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C93",
+  "value": "DNP C_GS (Q7 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": 17.77,
+  "y": 9.85,
+  "rot": 90,
+  "side": "top",
+  "block": 2
+ },
+ {
+  "ref": "C94",
+  "value": "DNP C_GS (Q8 gate-Kelvin, fit for tests)",
+  "footprint": "C_0402_1005Metric_TightCrtYd",
+  "mpn": "0402 C0G/X7R, value per test - not fitted by default",
+  "x": 29.73,
+  "y": 8.55,
+  "rot": 90,
+  "side": "top",
+  "block": 2
  }
 ]

@@ -52,6 +52,14 @@ Qty,References,Value,Footprint,Manufacturer part / note,Fit
 2,R39 R40,68k 1206 (HV LED),R_1206_3216Metric,68k 1206 1% 200 V,fit
 1,D9,red 0603 (DC link present),LED_0603_1608Metric,Wurth 150060RS75000,fit
 1,R41,100k 1206 (bleeder),R_1206_3216Metric,100k 1206 1% 200 V,fit
+1,C87,"DNP C_GS (Q1 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C88,"DNP C_GS (Q2 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C89,"DNP C_GS (Q3 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C90,"DNP C_GS (Q4 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C91,"DNP C_GS (Q5 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C92,"DNP C_GS (Q6 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C93,"DNP C_GS (Q7 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
+1,C94,"DNP C_GS (Q8 gate-Kelvin, fit for tests)",C_0402_1005Metric_TightCrtYd,"0402 C0G/X7R, value per test - not fitted by default",DNP
 
 Mechanical (not placed by the assembler)
 2,J1-J2,M4 x 8 screw + washer into REDCUBE (to the DC source / busbar),-,"steel, A2"

@@ -22,7 +22,7 @@ RULES / PROCESS
   - Drill files: PTH and NPTH separate (Excellon, mm)
   - COORDINATES: Gerbers, drill files, pick-and-place (CPL) and the via-in-pad list below all use ONE origin, the drill/place origin = board bottom-left corner (KiCad aux origin 105.25 / 160.8 mm), x right, y up
 
-VIA-IN-PAD (filled + capped, type VII): 222 vias in 70 pads (190 in_pad, 32 near_pad)
+VIA-IN-PAD (filled + capped, type VII): 221 vias in 69 pads (187 in_pad, 34 near_pad)
   in_pad: every via whose drill is exposed by a solder-mask opening on either side (via in a pad, drill
   reaching into a pad opening, or under a merged opening); near_pad: drill edge tangent to or within 0.05 mm
   of a mask opening, listed because mask registration can expose part of the hole; 'F:' / 'B:' = side of
@@ -245,8 +245,7 @@ VIA-IN-PAD (filled + capped, type VII): 222 vias in 70 pads (190 in_pad, 32 near
   85.900   47.400   0.30   0.60   DCN      RS4.2                  in_pad
   86.900   47.400   0.30   0.60   DCN      RS4.2                  in_pad
   19.300   33.800   0.30   0.60   GNDI1    F:TP1.1                in_pad
-  14.670   54.670   0.25   0.45   GH_L1    TP15.1                 in_pad
-  27.330   57.130   0.25   0.45   GH_R1    TP16.1                 in_pad
+  26.345   57.130   0.25   0.45   GH_R1    B:TP16.1               near_pad
   70.100   35.800   0.30   0.60   GNDI2    TP19.1                 in_pad
-  62.170   54.670   0.25   0.45   GH_L2    B:TP33.1               in_pad
-  74.830   57.130   0.25   0.45   GH_R2    TP34.1                 in_pad
+  63.155   54.670   0.25   0.45   GH_L2    B:TP33.1               near_pad
+  73.845   57.130   0.25   0.45   GH_R2    B:TP34.1               in_pad

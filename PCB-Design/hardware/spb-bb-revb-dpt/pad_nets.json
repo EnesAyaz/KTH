@@ -688,6 +688,70 @@
 }
 ],
 [
+"C87",
+"DNP C_GS (Q1 gate-Kelvin, fit for tests)",
+{
+"1": "GH_L1",
+"2": "KH1"
+}
+],
+[
+"C88",
+"DNP C_GS (Q2 gate-Kelvin, fit for tests)",
+{
+"1": "KH1",
+"2": "GH_R1"
+}
+],
+[
+"C89",
+"DNP C_GS (Q3 gate-Kelvin, fit for tests)",
+{
+"1": "GL_L1",
+"2": "KL1"
+}
+],
+[
+"C90",
+"DNP C_GS (Q4 gate-Kelvin, fit for tests)",
+{
+"1": "KL1",
+"2": "GL_R1"
+}
+],
+[
+"C91",
+"DNP C_GS (Q5 gate-Kelvin, fit for tests)",
+{
+"1": "GH_L2",
+"2": "KH2"
+}
+],
+[
+"C92",
+"DNP C_GS (Q6 gate-Kelvin, fit for tests)",
+{
+"1": "KH2",
+"2": "GH_R2"
+}
+],
+[
+"C93",
+"DNP C_GS (Q7 gate-Kelvin, fit for tests)",
+{
+"1": "GL_L2",
+"2": "KL2"
+}
+],
+[
+"C94",
+"DNP C_GS (Q8 gate-Kelvin, fit for tests)",
+{
+"1": "KL2",
+"2": "GL_R2"
+}
+],
+[
 "D1",
 "PMEG3020EJ",
 {
@@ -1171,14 +1235,6 @@
 }
 ],
 [
-"RT1",
-"NTC 10k B3380 0603",
-{
-"1": "NTC",
-"2": "GNDI1"
-}
-],
-[
 "RS1",
 "UFCS-R001",
 {
@@ -1195,11 +1251,11 @@
 }
 ],
 [
-"R2",
-"0R5 1% (R_G HR)",
+"RT1",
+"NTC 10k B3380 0603",
 {
-"1": "GH_STAR1",
-"2": "GH_R1"
+"1": "NTC",
+"2": "GNDI1"
 }
 ],
 [
@@ -1211,11 +1267,11 @@
 }
 ],
 [
-"R3",
-"10k 1% (HS gate pull-down)",
+"R2",
+"0R5 1% (R_G HR)",
 {
 "1": "GH_STAR1",
-"2": "KH1"
+"2": "GH_R1"
 }
 ],
 [
@@ -1224,6 +1280,14 @@
 {
 "1": "LSRC3",
 "2": "DCN"
+}
+],
+[
+"R3",
+"10k 1% (HS gate pull-down)",
+{
+"1": "GH_STAR1",
+"2": "KH1"
 }
 ],
 [

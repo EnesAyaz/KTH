@@ -483,7 +483,12 @@ for blk, dx in ((1, -15.24), (2, -15.24 + 406.4)):
             W((X(238.76), yy), l)
             W(r, (r[0] + 2.54, r[1]))
             LBL(gnet, r[0] + 2.54, r[1], (1, 0))
-    T("R_ON 1.5 R, R_OFF 0 R (jumper), R_G 0.5 R per transistor, 10 k gate pull-down at the star to the Kelvin net",
+            for cg in find(gnet, kel, pre="C"):        # DNP C_GS at the FET, gate-Kelvin (pre "C": the V_GS
+                cl, cr = horiz(cg, r[0] + 10.16, yy, gnet)  # spring test points also join gate and Kelvin)
+                W((r[0] + 2.54, yy), cl)
+                plabel(cg, "1" if net_of(cg, "1") == kel else "2")
+    T("R_ON 1.5 R, R_OFF 0 R (jumper), R_G 0.5 R per transistor, 10 k gate pull-down at the star to the Kelvin net; "
+      "C_GS gate-Kelvin at every FET: DNP 0402, fitted only for tests (Infineon recipe)",
       X(154.94), YD + 30.48, 1.27, False)
 
 # ================================================================== 3 isolated supply islands

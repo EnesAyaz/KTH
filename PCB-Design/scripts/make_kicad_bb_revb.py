@@ -102,6 +102,7 @@ YS = 15.25                                   # shunt centre (IN pad 12.0..15.0, 
 YBUS = 39.3 + D_BUS                          # AC bus (all layers) from here to the bottom
 MOAT = []                                          # (layer set, x0, x1, y0, y1) board coordinates: no power vias inside
 UFLD = []                                          # V_DS U.FL refs (centre pin SW, shield LSRC)
+CGS = []                                           # C_GS per FET: (block x offset, block, FET, x, y, net low-y pad, net high-y pad)
 
 board = pcbnew.BOARD()
 board.SetCopperLayerCount(4)
@@ -574,11 +575,20 @@ def build_block(bi, xoff):
     # the Kelvin return as the neighbouring L1 trace (1 mm away) to the corridor; there the two Kelvin rows drop at
     # +-XKV and join under the star (HS: L4, LS: L2), so each gate branch has its own coplanar return up to the star.
     # Star -> driver as stacked pairs: HS gate L1 stub + L3 over Kelvin L4, LS gate L1 over Kelvin L2.
-    XR = 5.6                                    # R_G centre (pads 0.525 mm from the Kelvin pad, courtyard < 6.40)
-    XS = 6.33                                   # U.FL sense vias between the FET pads and R_G
+    # C_GS (Infineon recipe, roadmap step 6, 2026-11-21): a DNP 0402 from the gate pad to the Kelvin pad of every
+    # FET, 0.31 mm off the FET pads (solder-mask web: the FET reflow must not wet it; pad-tight courtyard stays
+    # outside the EPC2361 courtyard at 6.40). Order along the gate row from the FET: C_GS, U.FL/spring gate-sense
+    # via, R_G - so V_GS is still sensed on the device side of R_G. C_GS, via and R_G gate pad are one net, 0.1 mm
+    # apart. This moved R_G 1.06 mm towards the star (was 5.6); 0402, not 0603, because an 0603 pushes the left LS
+    # R_G into R_OFF,A (0.5 mm bare-pad rule).
+    XCG = 5.98                                  # C_GS centre
+    XSG = 5.345                                 # gate-sense via
+    XR = 4.54                                   # R_G centre (inner pad edge 0.59 mm from R_OFF,A at x 3.0)
+    XS = 6.33                                   # Kelvin-sense via on the Kelvin row (unchanged)
     XKV = {"H": 1.8, "L": 4.0}                  # Kelvin row drop vias (LS: beyond R_OFF,B)
     DK = 1.3                                    # Kelvin row offset from the star row (inside the Kelvin pads)
-    RGS = 0.3                                   # R_G shifted towards the star row (clear of the shunt IN land)
+    RGS = 0.15                                  # R_G shifted towards the star row (0.3 put the LS star pad 0.165 mm
+                                                # from the LS Kelvin drop via once R_G moved in)
     for tag, ys in (("H", YSH), ("L", YSL)):
         for side, sgn in (("L", -1), ("R", 1)):
             if ROT0 and side == "L":
@@ -604,11 +614,19 @@ def build_block(bi, xoff):
             if side == "L" and XKV[tag] > 2.6:
                 seg(F, [(sgn * XKV[tag], yk), (-2.6, yk)], 0.3, kn)
             via(sgn * XKV[tag], yk, kn, 0.45, 0.25)
-            # U.FL V_GS sense: gate via between gate pad and R_G, Kelvin via on the Kelvin row at the FET
+            # C_GS: gate-side pad on the gate row (0.1 mm towards the Kelvin pad), Kelvin-side pad 0.96 mm further,
+            # tied straight into the Kelvin pad by a short stub. Footprint placed before the via pruning (CGS below)
+            # so that no existing C reference is renumbered.
+            dkp = 1 if ky > gy else -1                   # towards the Kelvin pad
+            ycg, yck = gy + dkp * 0.10, gy + dkp * 1.06
+            CGS.append((OFFX[0], bi, "Q%d" % (qn + {"HL": 1, "HR": 2, "LL": 3, "LR": 4}[tag + side]),
+                        sgn * XCG, (ycg + yck) / 2, n_gate if ycg < yck else kn, kn if ycg < yck else n_gate))
+            seg(F, [(sgn * XCG, yck), (gx, yck)], 0.3, kn)
+            # U.FL V_GS sense: gate via between C_GS and R_G, Kelvin via on the Kelvin row at the FET
             ykv = yk + 0.15 * (yk - ys)
-            via(sgn * XS, gy, n_gate, 0.45, 0.25)
+            via(sgn * XSG, gy, n_gate, 0.45, 0.25)
             via(sgn * XS, ykv, kn, 0.45, 0.25)
-            gate["V" + tag + side] = (sgn * XS, gy)
+            gate["V" + tag + side] = (sgn * XSG, gy)
             gate["VK" + tag + side] = (sgn * XS, ykv)
             gate["VKY" + tag + side] = ky                                          # row of the U.FL shield link
         # Kelvin drops joined under the star (point-symmetric diagonal through (0, ys)); gate pull-down (0402) on L1
@@ -638,7 +656,7 @@ def build_block(bi, xoff):
     GHV2 = (-1.5, 10.0)
     seg(L3l, [GHV1, (-0.75, GHV1[1] + 0.75), (-0.75, 9.25), GHV2], 0.3, bn("GH_STAR"))
     via(GHV2[0], GHV2[1], bn("GH_STAR"))
-    HSK2 = (-3.9, 11.0)
+    HSK2 = (-3.9, 11.4)                         # y 11.0 -> 11.4: clear of the moved left LS R_G (C_GS, 2026-11-21)
     HKV = (0.75, 7.0)                           # beside the L3 via (the L3 route leaves to the left)
     seg(L2l, [(0, YSH), (0, YSH + 0.7), (0.75, YSH + 1.45), HKV], 0.3, kh)
     via(HKV[0], HKV[1], kh, 0.45, 0.25)
@@ -649,7 +667,7 @@ def build_block(bi, xoff):
     seg(L2l, [(-1.2, 11.0), HSK2], 0.3, kh)                                       # island supply (no gate current)
     via(HSK2[0], HSK2[1], kh, 0.45, 0.25)
     # LS: Kelvin node (0, YSL) on L2 (no via: L1 star above) under the L1 star feed from R_ON,B (see the driver section)
-    LSK2 = (3.9, 11.0)
+    LSK2 = (3.9, 11.4)                          # mirror of HSK2
     seg(L2l, [(0, YSL), (0, 10.3), (1.2, 10.3), (1.2, 13.6), (2.05, 14.2)], 0.3, kl)   # L2 under the L1 feed / R_ON,B
     seg(L2l, [(1.2, 11.0), LSK2], 0.3, kl)                                        # island supply (no gate current)
     via(LSK2[0], LSK2[1], kl, 0.45, 0.25)
@@ -1317,6 +1335,58 @@ for v in TAPS:
                 used = True
     if not used:
         board.Remove(v)
+
+# ==================================================================== C_GS footprints (DNP)
+# Placed here, after every other capacitor, so they take the highest C numbers and no existing reference moves
+# (documents and the bring-up notes quote C refs). Before the pruning so power vias clear their pads.
+print("STEP cgs", flush=True)
+for off_, bi_, q_, x_, y_, n_lo_, n_hi_ in CGS:
+    OFFX[0], BI[0] = off_, bi_
+    cg_ = two("Capacitor_SMD.pretty", "C_0402_1005Metric", ref("C"), "DNP C_GS (%s gate-Kelvin, fit for tests)" % q_,
+              x_, y_, 90, n_lo_, n_hi_, "0402 C0G/X7R, value per test - not fitted by default")
+    tight_courtyard(cg_, 0.76)                  # library courtyard reaches into the EPC2361 courtyard
+    cg_.SetFPID(pcbnew.LIB_ID("spb_fab", "C_0402_1005Metric_TightCrtYd"))
+    PARTS[-1]["footprint"] = "C_0402_1005Metric_TightCrtYd"
+    if "C_0402_CGS" not in SAVED:               # library copy (0 deg, origin) = the placed part: no lib mismatch
+        SAVED.add("C_0402_CGS")
+        cp_ = pcbnew.FOOTPRINT(cg_)
+        cp_.SetReference("REF**")
+        cp_.SetOrientationDegrees(0)
+        cp_.SetPosition(pcbnew.VECTOR2I(0, 0))
+        pcbnew.FootprintSave(_lib, cp_)
+    # The EPC2361 pin-1 circle sat right of the gate pad, where C_GS now is: replace it by a 0.2 mm dot at the free
+    # corner (towards C_GS, past the gate pad end on the side away from the Kelvin pad). A bar past the gate pad
+    # end would hit the UFCS IN land on the left LS FETs; this corner is clear on all eight.
+    qfp_ = board.FindFootprintByReference(q_)
+    for it in list(qfp_.GraphicalItems()):
+        if it.GetLayer() == pcbnew.F_SilkS and it.GetShape() == pcbnew.SHAPE_T_CIRCLE:
+            qfp_.Remove(it)
+    gp_ = [p for p in qfp_.Pads() if p.GetNumber() == "1"][0].GetPosition()
+    kp_ = [p for p in qfp_.Pads() if p.GetNumber() == "2"][0].GetPosition()
+    inw_ = 1 if gp_.x > qfp_.GetPosition().x else -1
+    dk_ = 1 if kp_.y > gp_.y else -1
+    dot_ = pcbnew.FP_SHAPE(qfp_)
+    dot_.SetShape(pcbnew.SHAPE_T_CIRCLE)
+    dot_.SetLayer(pcbnew.F_SilkS)
+    dot_.SetFilled(True)
+    dot_.SetWidth(MM(0.05))
+    c_ = pcbnew.VECTOR2I(gp_.x + MM(inw_ * 0.75), gp_.y - MM(dk_ * 0.52))
+    dot_.SetStart(c_)
+    dot_.SetEnd(pcbnew.VECTOR2I(c_.x + MM(0.075), c_.y))
+    dot_.SetLocalCoord()
+    s0_ = dot_.GetStart0()                      # radius point in LOCAL +x: identical on the rotated (right) FETs
+    dot_.SetEnd0(pcbnew.VECTOR2I(s0_.x + MM(0.075), s0_.y))
+    dot_.SetDrawCoord()
+    qfp_.Add(dot_)
+    qfp_.SetFPID(pcbnew.LIB_ID("spb_fab", "EPC2361"))   # same local geometry on all eight FETs
+    if "EPC2361_CGS" not in SAVED:
+        SAVED.add("EPC2361_CGS")
+        cp_ = pcbnew.FOOTPRINT(qfp_)
+        cp_.SetReference("REF**")
+        cp_.SetOrientationDegrees(0)
+        cp_.SetPosition(pcbnew.VECTOR2I(0, 0))
+        pcbnew.FootprintSave(_lib, cp_)
+OFFX[0], BI[0] = 0.0, 0
 
 # ==================================================================== prune power vias that violate clearance
 print("STEP prune", flush=True)
