@@ -1,0 +1,803 @@
+PAGE 1
+Document Revision 1.0 
+Board EPC9186 Revision 1.1 
+Board EPC9186HC2 Revision 1.1 
+Board EPC9186HC3 Revision 1.1
+Evaluation Boards  
+EPC9186, EPC9186HC2, EPC9186HC3 
+Quick Start Guide
+5 kW , 3-phase BLDC Motor Drive Inverter using the  
+EPC2302 and EPC2361 eGaN® FETs
+April 2, 2026
+PAGE 2
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    2
+DESCRIPTION 
+The EPC9186 evaluation board is a 3-phase BLDC motor drive inverter board featuring the EPC2302 eGaN FET, rated at 100 V with 1.8 mΩ RDS(on) max. 
+The EPC9186 uses four paralleled GaN FETs per switch position and can deliver up to 212 Apk (150 ARMS) maximum output current. The board supports 
+PWM switching frequencies up to 100 kHz in motor drive applications. The EPC9186 contains all the necessary critical functions circuits to support 
+a complete motor drive inverter including gate drivers, regulated auxiliary housekeeping power supplies, voltage, and temperature sense, accurate 
+current sense, and protection functions. The main sections are shown in Figure 1a. The EPC9186 mates with an assortment of compatible controllers, 
+supported by various manufacturers leveraging existing resources for quick development purposes.
+The EPC9186HC2 and EPC9186HC3 boards are derived from the EPC9186 and share the same hardware architecture. The EPC9186HC2 and EPC9186HC3 
+use the EPC2361 GaN FET, rated at 100 V with 1 mΩ R DS(on) max, instead of the EPC2302 used in the EPC9186. In particular, the EPC9186HC2 board 
+employs two parallel EPC2361 GaN FET per switch position and can deliver up to 184 Apk (130 ARMS) maximum output current, while the EPC9186HC3 
+uses three EPC2361 GaN FET in parallel and can provide up to 212 Apk (150 ARMS) maximum output current.
+Figure 1a: Overview of the EPC9186 board highlighting the main sections
+Figure 1b: Top view of the EPC9186HC2 board 
+highlighting EPC2361 FETs
+Figure 1b: Top view of the EPC9186HC3 board 
+highlighting EPC2361 FETs
+Heatsink mounting (x8)
+Motor
+connection
+Housekeeping 
+power supplyOvercurrent
+protection
+jumper
+Control
+connection
+Current sensing and 
+overcurrent circuits
+Main power
+connection
+EPC2302
+4x switch
+Hall/encoder
+interface
+Phase
+shunts
+Gate driversThermal sensor
+Bottom sideTop side
+Main power
+connection
+EPC2361
+2x switch
+EPC2361
+3x switch
+PAGE 3
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    3
+Figure 2. Block diagram of EPC9186  board in BLDC drive example application.
+EPC9186 has four EPC2302 in parallel per each switch.
+Half
+bridge
+gate
+driver
+3V3
+5 V
+Va
+VIN
+Vb
+Vc Ia
+Ib
+IcOCPn
+Inverter Board
+BLDC
+motorTo/From
+controller
+interface
+board
+GND
+Voltage
+sense
+Current
+sense
+ampli/f_iers
+VIN 
+VIN
+Va
+Half
+bridge
+gate
+driver Vb
+Half
+bridge
+gate
+driver
+Over
+Current
+Protection
+JOCPn
+Vc
+HV PSU
+A functional block diagram of the EPC9186 evaluation board is shown in figure 2 that details the phase current sense, phase and DC voltage sense, the 
+half-bridge power stages, housekeeping power supply and controller interface connection.
+MAIN FEATURES  
+• 3-phase inverter based on EPC2302 or EPC2361 eGaN FET with 
+wide input DC voltage  ranging from 14 V to 60 V
+• Dimensions: L x W = 135 x 100 mm (including connector)
+• Low distortion switching that keeps motor audio emission low 
+and reduces torque ripple
+• dv/dt optimized for motor drives in the range of 6 V/ns
+• All current sense with high accuracy and bandwidth (option to 
+choose between TI INA and Allegro current sensor ICs)
+• All phases voltage sense
+• Voltage sense for the DC supply to the drive
+• Housekeeping power for the various circuits and external 
+controller derived from the main power supply to the EPC9186, 
+EPC9186HC2, EPC9186HC3
+• Temperature monitoring circuit
+• Protection features including: over-current and input supply 
+under voltage lockout
+• Shaft encoder/Hall sensors interface connector for motor drive 
+application with two voltage levels selection option
+EPC9186 evaluation board with heatsink attached
+
+PAGE 4
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    4
+RECOMMENDED OPERATING CONDITIONS
+(1) Maximum current depends on die temperature – actual maximum current is affected by switching frequency, bus voltage and thermal cooling. Refer to 
+thermal performance section in this guide and to EPC2302 data sheet or EPC2361 data sheet for details.
+(2) All phases over-current is monitored. Over-current signal is sent to the controller connector via R60. Insert JOCPn to disable PWM when over-current is 
+detected. Over-current comparator time constant (10 μs) may be too slow for short circuit conditions.
+Table 1: Electrical Specifications (TA = 25°C) EPC9186/HC2/HC3
+Symbol Parameter Conditions Min Nom Max Units
+VIN Input supply voltage 14 48 60 V
+IPhase EPC9186/HC2/HC3 Phase current(1)
+TI INA240 Current sensing option (inverting) 70 150
+ARMS
+Allegro IC current sensing option (non inverting) 70 130
+fsw Switching frequency 20 100 120 kHz
+VIN_uvlo Input undervoltage lockout voltage 14
+V
+VIN_uvlo_
+hys Input undervoltage lockout voltage hysteresis 1.64
+VIH PWM high-level logic threshold PWM rising edge 2.4
+VIL PWM low-level logic threshold PWM falling edge 0.8
+VIHyst VIH Rising – VIL Falling 0.5
+Rin PWM input pulldown resistance 150 kΩ
+PWmin Minimum input pulse -width 50% level to 50% level – based on gate driver specs 120
+ns
+tProp_delay PWM input to Switch-node transition delay High-side/Low-side on/off 50
+VIsns_range Phase current sense voltage dynamic range –Imax to Imax 0 3.3 V
+Isns_range Phase current sense dynamic range
+TI INA Shunt = 100 µΩ, current sense amplifier 
+gain= 50 inverting -330 330
+A
+Allegro IC insertion  = 200 µΩ gain = 33 non inverting -250 250
+Iovc
+ (2) Over-current threshold
+TI option Over-current ( positive and  negative 
+OVC threshold) |233|
+Allegro option Over-current |194|
+VIsns_offset Amplified current sense signal offset voltage Valid for both TI option and Allegro options 1.65 V
+GIsns Amplified current sense gain
+TI option - Shunt = 100 μΩ,current gain = 50.  
+V1sns - V1sns_offset is positive when current enters the inverter 5
+mV/A
+Allegro option - insertion = 200 μΩ, current gain = 33. 
+V1sns - V1sns_offset is negative when current enters the inverter 6.6
+Gysns Phase and DC voltage sense gain 1 12.93 V scales to 3.3 V 29.22 mV/V
+PAGE 5
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    5
+HIGHLIGHTED PARTS  
+Power Stage
+The EPC9186/HC2/HC3 features a 3-phase inverter with EPC2302 or EPC2361 eGaN FET in parallel per switch  and gate drivers. For more 
+information on the EPC2302 or EPC2361 please refer to their datasheets available from EPC at www.epc-co.com. The datasheet should 
+be read in conjunction with this quick start guide. 
+Onboard power supply
+The EPC9186/HC2/HC3 boards include logic and gate driver house-keeping power supplies that are powered from the main input 
+supply voltage to the inverter board. The 3.3 V controller supply voltage is also provided to the controller connector (J60) and can be 
+disconnected by removing a resistor (R803).
+Current and voltage sense
+The EPC9186/HC2/HC3 inverter is equipped with voltage and current sense for all phases and voltage sense for the DC input.  
+The EPC9186/HC2/HC3 is equipped with two motor phase current sensor options; 1) A shunt with INA240 amplifier combination 
+(default), 2) integrated IC current sensor.
+Shunt with INA240 amplifier (default)
+In the TI INA240A2 version, the output current is measured in-line using a 100μΩ shunt (RSpx) that is amplified using the INA240A2 bi-directional 
+current sense amplifier that yields a total gain of  5m V/A. The bandwidth of the current sense amplifier is 400 kHz which is adequate for accurate 
+motor control operation at 100 kHz switching frequency. The amplifier 
+is inverting, hence current going from inverter to motor is mapped to 
+voltage values lower than the 1.65 V offset.
+Integrated current sensor option
+In the Allegro IC version, the output current can be measured using 
+Allegro ACS72981 bi-directional current sense IC (insertion resistance 
+of 200 μΩ) with a total gain of 6.6 mV/A and an offset of 1.65 V. The 
+Allegro IC is non inverting, hence current going from inverter to motor 
+is mapped to voltage values higher than the 1.65 V offset. The reference 
+design is populated either with the TI INA240A2 or with the ACS72981. 
+In all configurations, the current sensing ICs are bi-directional ensuring 
+the full four quadrant operation is covered.
+The main input DC supply voltage and each phase voltage are measured 
+using a resistor divider network that yields a total gain of  29.22 mV/V.
+Temperature sensor
+The EPC9186/HC2/HC3 board is equipped with a temperature sensor 
+(U40 – AD590) that is centrally located on the bottom of the board 
+that reports an analog voltage reading proportional to the measured 
+temperature using the following equation that was confirmed through 
+characterization of the EPC9186/HC2/HC3 board : 
+Connection and controller mate options  
+A 40 pin connector is used to interface power, PWM signals and analog 
+feedback signals between the interface control board and the EPC9186/
+HC2/HC3 motor drive inverter. Table 2 gives the map (J60) for each signal.
+LED indicators  
+The EPC9186/HC2/HC3 has a number of LED indicators indicating the 
+presence of the various supply voltages as follows:
+• 5 V LED (orange) – indicates the 5 V supply is operational
+• 3.3 V LED (yellow) – indicates the 3.3 V supply is operational
+𝑇𝑇= ( )
+𝑉𝑉1000
+7.87 − 273.16 [°C]   
+(1)   3.3 V is connected through the resistor R803 (installed by default)
+(1)   OC_FLT/ is connected through the resistor R60 
+(installed by default)
+Table  2: Controller interface connection (J60) pin assignment map
+Pin # Pin name Pin #
+2 PWMH1 GND 1
+4 PWML1 GND 3
+6 PWMH2 GND 5
+8 PWML2 GND 7
+10 PWMH3 3V3 (1) 9
+12 PWML3 3V3 (1) 11
+14 EncA 3V3 (1) 13
+Index Slot
+18 EncB AGND 17
+20 EncI AGND 19
+22 Vdc AGND 21
+24 Vsns1 AGND 23
+26 Vsns2 AGND 25
+28 Vsns3 AGND 27
+30 N.C. AGND 29
+32 Isns1 AGND 31
+34 Isns2 AGND 33
+36 Isns3 AGND 35
+38 EN/Pgood OC_FLT/ (2) 37
+40 Tsns LEDact 39
+
+PAGE 6
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    6
+Test Points
+A number of test-points are available for easy measurement of various 
+nodes as follows: 
+• Touch-point pad for the 5 V supply
+• Touch-point pad for the 3.3 V supply
+• Touch-point pad for the over-current detect
+• A SMD hookup for each phase voltage
+• Touch-point pad for the shaft encoder A or Hall_A signal
+• Touch-point pad for the shaft encoder B or Hall_B signal
+• Touch-point pad for the shaft encoder Index or Hall_C signal
+All digital signals are measured with respect to digital ground (GND) 
+using a SMD hookup. All the test point locations are shown in figure 3.
+Over-current protection
+The EPC9186/HC2/HC3 includes and overcurrent detect circuit that 
+triggers if any of the three phases current measurement exceeds a 
+threshold that depends on the current sense option (233 Apk for TI version 
+and 194 Apk for Allegro version). Once an over-current is triggered, the 
+active low OC signal will remain low for a short period of time, determined 
+by the RC time constant (3.6 μs) of R29 and C16 and all PWM signals will 
+be disconnected to the gate drivers if jumper JOCPn is installed. The OC 
+detect signal can be passed on to the controller as OC_FLT\ through R60 
+(installed by default). The OC signal should not be loaded by the controller 
+and a high input impedance circuit must be used to read the status. 
+Loading the OC signal will affect the reset time or could place the inverter 
+in permanent over-current state.
+Jumper Settings
+The EPC9186/HC2/HC3 is provided with one jumper with functions given in table 3.
+Figure 3:  EPC9186 test point pad and hookup locations and designations. 
+In black the PGND reference points.
+Table 3: Jumper settings function
+Jumper Installed Open
+JOCPn
+The over-current detection circuit disables the 
+PWM signals independently from microcon-
+troller
+The over-current detection circuit does not disable the PWM signals inde-
+pendently from microcontroller. In this case R60 must be mounted and the 
+microcontroller must promptly react to over-current detection
+
+PAGE 7
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    7
+Table 4: Compatible controller interface and controller boards to the EPC9186/HC2/HC3
+Controller Board Number Controller Manufacturer Controller Target  Application
+EPC9147A - Rev. 2.1 Microchip - MA330031-2 dsPIC33EP256MC506 Motor Drive
+EPC9147B - Rev. 1.0 Texas Instruments - LAUNCHXL-F28379D TMS320F2837XD Motor DriveTexas Instruments - LAUNCHXL-F28069M TMS320F28069M
+EPC9147C - Rev. 1.0 ST Microelectronics NUCLEO-G431RB / NUCLEO-G474RE Motor Drive
+EPC9147E - Rev. 2.0 Generic Interface board N/A Motor Drive or DC–DC converter
+Over current signal 
+connected to connector 
+J60 and to gate driver 
+on board for PWM 
+cycle-by-cycle current 
+limitation
+Continuous over 
+current may 
+generate over 
+voltage spikes that 
+can exceed Abs Max 
+rating
+Over current signal 
+connected only to 
+connector J60. 
+Over current must 
+be managed by 
+external controller 
+to avoid board 
+damage
+Optional external 5 V 
+power supply input. 
+Remove R802 resistor 
+to use this connector.  
+Do not short this 
+connector. 
+Figure 4: Over-current jumper settings and external 5 V optional power supply input
+Shaft Encoder / Hall effect sensors
+Connector (J80) is used to connect a shaft sensor to the EPC9186/HC2/HC3 motor drive inverter that is compatible with optical quadrature encoders 
+or hall effect sensors and provides supply voltage for the encoder. The available voltage selections can be made by installing the applicable resistors 
+as follows: 5 V using R81 (default), and 3.3 V using R82. The filtered signals are then provided to the controller connector (J60).
+Compatible Controllers
+A list of compatible controllers for the EPC9186/HC2/HC3 is given in table 4 for motor drive applications.
+PAGE 8
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    8
+APPLICATION CONFIGURATIONS
+The EPC9186/HC2/HC3 power board has been designed for high current motor drive applications.
+Motor Drive Inverter 
+The EPC9186/HC2/HC3 board can be used for either sensor-less or shaft encoder or hall sensor configurations .The motor drive controller options 
+are given in table 4 giving the user various mainstream choices that leverage existing resources to simplify and speed up development and 
+evaluation. Figure 5 shows the simplicity of connecting a controller and motor to the EPC9186/HC2/HC3. In the default configuration, the 
+EPC9186/HC2/HC3 is paired with the EPC9147C (not shown) that is pre-programed to power and control a NEMA 34 size motor from 
+Tek nic M -3411P- LN - 08D, with DC supply voltage of 48 V using sensor-less field oriented control with space vector pulse width modulation 
+(SVPWM).
+Figure 5: Connection diagram of the EPC9186, EPC9186HC2, EPC9186HC3 configured as a 
+motor drive inverter
+Controller
+Interface
+Board
+External DC
+power supply
+BLDC
+motor
+Half/encoder
+sensor input
+(optional)
+(HIGH VOLTAGE!)
+Top side
+HIGH VOLTAGE
+QUICK START PROCEDURE 
+For this quick start procedure, only the motor drive application using the EPC9147C controller is presented.  The operating process is similar when 
+using alternative controller options.
+Follow the procedure below to operate the specific motor Teknic M-341 1P-LN-08D with EPC9186/HC2/HC3 and controller board:
+1. Mate the EPC9186/HC2/HC3 with an applicable controller interface board as given in table 4. Review the QSG of corresponding control interface 
+board for detailed operating procedures. 
+2. Connect the correct motor, whose parameters are programmed into the controller, to the EPC9186/HC2/HC3 at connector J1 and the DC power 
+supply at connectors J5 and J6 (Observe correct polarity, there is no inverse polarity protection on board) and shown in figure 5.
+3. Preset the main supply voltage to the operating voltage and turn on and observe the power LEDs illuminate. Press the Start/Stop button to start 
+the motor spinning. Additional controls are available using ST Microelectronics motor control software. Please review the EPC9147C QSG for 
+details. Similarly for the alternative controllers. Firmware for the standard motor and controllers listed in table 4 are available on GitHub.
+4. Once operational, make the necessary measurements.
+5. For shutdown, press the Start/Stop button to stop the motor spinning, then turn OFF the main DC power supply.
+PAGE 9
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    9
+44
+40 Units in mm
+40
+74
+40
+EFFICIENT POWER CONVERSION
+EFFICIENT POWER CONVERSION
+>3
+>3
+>3
+>3
+THERMAL CONSIDERATIONS 
+The EPC9186/HC2/HC3 is intended for bench evaluation at room ambient temperatures and under either natural convection or forced air cooling. 
+The addition of a heatsink can significantly improve the heat dissipation from the eGaN FETs and increase the current capacity of these devices, while 
+ensuring to not exceed the absolute maximum die temperature of 150°C.
+The EPC9186/HC2/HC3 board is equipped with eight mechanical spacers (S1 to S8) that can be used to easily attach a specific heatsink as shown in 
+figures 8 and 9, and only requires a thermal interface material (TIM), a heatsink, and M2  screws.
+The heatsink is held in place using screws that fasten to the mechanical spacers which will accept 6 mm long M2 x 0.4 mm thread screws such as 
+McMasterCarr 95836A109.
+When assembling the heatsink, it may be necessary to add a thin 
+insulating layer to prevent the heat-spreader from short circuiting with 
+components that have exposed conductors such as capacitors and 
+resistors, as shown in figure 6 and 7. Note that the heatsink is ground 
+connected. A rectangular opening in the insulator must be provided to 
+allow the TIM to be placed over the FETs to be cooled with a minimum 
+clearance of 3 mm on each side of the rectangle encompassing the FETs. 
+The TIM will then be similar in size or slightly smaller than the opening in 
+the insulator shown by the red dashed outline in figure 7. The EPC9186/
+HC2/HC3 was designed to use only a TIM material without an insulator.
+Figure 6: Details for attaching a heatsink to the board. (a) exploded 3D perspective, (b) top view showing the 
+ insulator sheet details with opening for the TIM with location of the eGaN FETs
+Figure 7: (a) minimum TIM coverage area                  
+               
+(b)
+(a)
+Heatsink
+M2 screws
+(x4)
+Thermal 
+interface
+material
+TIM (x3)
+eGan FETs
+(x6)
+SMD spacers (x4) Insulator PCB assembly (b)
+PAGE 10
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    10
+A TIM is added to improve the interface thermal conductance between the GaN ICs and the attached heatsink. The choice of  TIM needs to consider 
+the following characteristics: 
+• Mechanical compliance – During the attachment of the heat spreader, the TIM underneath is compressed from its original thickness to the 
+vertical gap distance between the spacers and the FETs. This volume compression exerts a force on the FETs. A maximum compression of 2:1 is 
+recommended for maximum thermal performance and to constrain the mechanical force which maximizes thermal mechanical reliability.
+• Electrical insulation – The backside of the eGaN FET is a silicon substrate that is connected to source and thus the upper FET in a half-bridge 
+configuration is connected to the switch-node. To prevent short-circuiting the switch-node to the grounded thermal solution, the TIM must be 
+of high dielectric strength to provide adequate electrical insulation in addition to its thermal properties.
+• Thermal performance – The choice of thermal interface material will affect the thermal performance of the thermal solution. Higher thermal 
+conductivity materials is preferred to provide higher thermal conductance at the interface.
+EPC recommends the following thermal interface materials: 
+• t-Global     P/N: TG-A1780 x 0.5 mm  (highest conductivity of 17.8 W/m·K)
+The default TIM used for the EPC9186/HC2/HC3 is made by t-Global Technology, measures 40 x 40 x 0.5 mm thick with P/N TG-A1780-40-40-0.5.
+The heatsink provided with the EPC9186/HC2/HC3 reference board is made by Alpha Novatech and it is model # LPD4980-30BM-E48 (default 
+heatsink shown in figure 8). All tests up to 70 ARMS phase current have been executed at room temperature without air convection. To reach 150 
+ARMS phase current in steady state, it is necessary to have the named heatsink and forced convection airflow of 3.5 m3/minn.
+Figure 8: Natural convection cooling and force air cooling heatsink options installed on the EPC9186/HC2/HC3 inverter board.
+Natural Convection Cooling
+
+PAGE 11
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    11
+EXPERIMENTAL VALIDATION EXAMPLE 
+The EPC9186 motor drive inverter, paired with the EPC9147C interface controller, was operated from a 48 VDC supply voltage while switching at 
+100 kHz, 50 ns dead-time setting, powering a 5 kW motor with a sinusoidal modulation frequency of 5 Hz and delivering to the motor a phase 
+current of 35 ARMS without heat sink and under natural convection, 50 ARMS  with heat sink and natural convection, and 120 ARMS  with heat sink 
+and 400 LFM forced air convection. In all these conditions the temperature rise vs. ambient temperature was 50°C.
+MEASURED PHASE LEG WAVEFORMS 
+The measured waveforms of the motor phase currents while the EPC9186 operating at 100 kHz, is delivering 93 ARMS into each motor phase 
+at  60  VDC Bus is shown in  figure 9.  
+Figure 9.  Phase 1 and Phase 2  current (93 ARMS) at 100 kHz PWM and 60 VDC bus
+50 ms/div
+IPhase1 37 A/div
+IPhase2 37 A/div
+PAGE 12
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    12
+Figure 10 shows all four possible dv/dt slope combinations. The DC Bus voltage is set at 60 V, and the PWM frequency is set at 100 kHz, while the inverter 
+feeds 150 Apk to the motor phase. Figures 10a) and b) show the rising and falling phase voltage when the phase current flows from the inverter to the 
+motor. Figures 10c) and d) show the rising and falling phase voltage when the phase current flows from the motor to the inverter. It is possible to observe 
+that the dv/dt commanded by the inverter (Fig 10a and Fig 10d) is less than 10 V/ns. In the other two cases (b) and (c), the dv/dt depends on the phase 
+current, the inverter output capacitance, and the motor inter winding capacitance. It is in any case limited below 10 V/ns.
+Figure 10. Phase voltage rising and falling edges when current is 150 A peak. Both positive and negative current cases are shown.
+IPhase1 +150 Apk 
+going to the motor
+VPhase1 5 V/ns 
+rising dv/dt
+50 ns/div
+IPhase1 +150 Apk 
+going to the motor
+VPhase1 8 V/ns 
+falling dv/dt
+VPhase1 9 V/ns 
+rising dv/dt
+50 ns/div
+50 ns/div
+50 ns/div
+IPhase1 -150 Apk 
+coming from the motor
+VPhase1 7.5 V/ns 
+falling dv/dt
+IPhase1 -150 Apk 
+coming from the motor
+(a)
+(c)
+(b)
+(d)
+PAGE 13
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    13
+EPC9186 THERMAL PERFORMANCE 
+The thermal performance summary of the EPC9186 board is depicted in figures 1 1a–1 1d. When operated on a motor bench at an ambient temperature 
+of 25.5°C, with 48 VDC supply and natural convection, the EPC9186 can deliver 35 ARMS per phase without a heatsink and 45 ARMS per phase with a 
+heatsink attached with a temperature rise below 50°C from eGaN FET case to ambient. The EPC9186 can deliver up to 1 10 ARMS when 3.5 m3/min (*1) 
+forced air convection is used. The temperature is recorded at steady state. 
+Motor drive operating points at PWM = 20, 50, and 100 kHz, dead time = 50 ns, with and without heatsink at 25.5°C ambient temperature. Under 
+natural convection, with 2 m3/min (*2) and 3.5 m3/min forced air flow.
+Figure 1 1a: EPC9186 GaN FET temperature increase vs. the ambient temperature 
+(25.5°C). Measurements were taken at various PWM frequencies without 
+heatsink and without forced convection.
+Figure 1 1c: EPC9186 GaN FET temperature increase  vs. the ambient temperature 
+(25.5°C). Measurements were taken at various PWM frequencies using a 
+heatsink and forced convection airflow of 2 m3/min.
+Figure 1 1b: EPC9186 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+with heatsink and without forced convection.
+Figure 1 1d: EPC9186 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+using a heatsink and forced convection airflow of 3.5 m3/min.
+(*1) roughly 1200 LFM considering the fan section; the fan used for this characterization was Delta Electronics AUB0912VH-CX09
+(*2) roughly 2100 LFM considering the fan section; the fan used for this characterization was Same Sky Devices CFM-9225BG-170-585-22
+80
+70
+60
+50
+40
+30
+20
+1010 15 20 25 30 35 40 45 50 55 60
+RMS Phase Current (ARMS) 
+EPC9186 48 V - Without Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+70
+60
+50
+40
+30
+20
+1060 65 70 75 80 85 90 95 100 105 110 115 120
+RMS Phase Current (ARMS) 
+EPC9186 48 V - With Heatsink with Air/f_low 2 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+80
+70
+60
+50
+40
+30
+20
+1020 25 30 35 40 45 50 55 60 65 70
+RMS Phase Current (ARMS) 
+EPC9186 48 V - With Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+65
+60
+55
+50
+45
+40
+35
+30
+25
+20
+1555 65 75 85 95 105 115 125 135
+RMS Phase Current (ARMS) 
+EPC9186 48 V - With Heatsink with Air/f_low 3.5 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+PAGE 14
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    14
+EPC9186HC2 THERMAL PERFORMANCE 
+The thermal performance summary of the EPC9186HC2 board is depicted in figures 12a–12d. When operated on a motor bench at an ambient 
+temperature of 25.5°C, with 48 VDC supply and natural convection, the EPC9186HC2 can deliver 35 ARMS per phase without a heatsink and 45 ARMS per 
+phase with a heatsink attached with a temperature rise below 50°C from eGaN FET case to ambient. EPC9186HC2 can deliver up to 100 ARMS when 
+3.5 m3/min forced air convection is used. The temperature is recorded at steady state. 
+Motor drive operating points at PWM = 20, 50, and 100 kHz, dead time = 50 ns, with and without heatsink at 25.5°C ambient temperature. Under 
+natural convection, with 2 m3/min and 3.5 m3/min forced air flow.
+Figure 12a: EPC9186HC2 GaN FET temperature increase vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+without heatsink and without forced convection.
+Figure 12c: EPC9186HC2 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+using a heatsink and forced convection airflow of 2 m3/min.
+Figure 12b: EPC9186HC2 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+with heatsink and without forced convection.
+Figure 12d: EPC9186HC2 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+using a heatsink and forced convection airflow of 3.5 m3/min.
+80
+70
+60
+50
+40
+30
+20
+1010 15 20 25 30 35 40 45 50 55 60
+RMS Phase Current (ARMS) 
+EPC9186HC2 48 V - Without Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+80
+70
+60
+50
+40
+30
+2060 65 70 75 80 85 90 95 100
+RMS Phase Current (ARMS) 
+EPC9186HC2 48 V - With Heatsink with Air/f_low 2 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+100
+90
+80
+70
+60
+50
+40
+30
+20
+10 15 20 25 30 35 40 45 50 55 60 65 7570
+RMS Phase Current (ARMS) 
+EPC9186HC2 48 V - With Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+50
+40
+30
+20 7065 75 80 85 95 100 105 110
+RMS Phase Current (ARMS) 
+EPC9186HC2 48 V - With Heatsink with Air/f_low 3.5 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+PAGE 15
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    15
+EPC9186HC3 THERMAL PERFORMANCE 
+The thermal performance summary of the EPC9186HC3 board is depicted in figures 13a–13d. When operated on a motor bench at an ambient 
+temperature of 25.5°C, with 48 VDC supply and natural convection, the EPC9186HC3 can deliver 35 ARMS per phase without a heatsink and 50 ARMS per 
+phase with a heatsink attached with a temperature rise below 50°C from eGaN FET case to ambient. The EPC9186HC3 can deliver up to 1 15 ARMS when 
+3.5 m3/min forced air convection is used. The temperature is recorded at steady state. 
+Motor drive operating points at PWM = 20, 50, and 100 kHz, dead time = 50 ns, with and without heatsink at 25.5°C ambient temperature. Under 
+natural convection, with 2 m3/min and 3.5 m3/min forced air flow.
+Figure 13a: EPC9186HC3 GaN FET temperature increase vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+without heatsink and without forced convection.
+Figure 13c: EPC9186HC3 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+using a heatsink and forced convection airflow of 2 m3/min.
+Figure 13b: EPC9186HC3 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+with heatsink and without forced convection.
+Figure 13d: EPC9186HC3 GaN FET temperature increase  vs. the ambient 
+temperature (25.5°C). Measurements were taken at various PWM frequencies 
+using a heatsink and forced convection airflow of 3.5 m3/min.
+90
+80
+70
+60
+50
+40
+30
+20
+1015 20 25 30 35 40 45 50 55 60
+RMS Phase Current (ARMS) 
+EPC9186HC3 48 V - Without Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+70
+65
+60
+55
+50
+45
+40
+35
+30
+25
+2060 65 70 75 80 85 90 95 100 105 110 115 120
+RMS Phase Current (ARMS) 
+EPC9186HC3 48 V - With Heatsink with Air/f_low 2 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+80
+70
+60
+50
+40
+30
+2030 35 40 45 50 55 60 75 8065 70
+RMS Phase Current (ARMS) 
+EPC9186HC3 48 V - With Heatsink without Air/f_low 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+70
+60
+50
+40
+30
+20
+1070 75 80 85 90 95 100 110 115 120 125 130 135105
+RMS Phase Current (ARMS) 
+EPC9186HC3 48 V - With Heatsink with Air/f_low 3.5 m3/min 
+Delta Temperature (°C)
+Green = 20 kHz
+Blue = 50 kHz
+Red = 100 kHz
+PAGE 16
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    16
+Figure 16: Temperature sensor location on the bottom side of the PCB
+Figure 15 eGaN FET case temperature vs. temperature sensor placed on 
+bottom of the PCB. Operation under natural convection without heatsink.
+120
+110
+100
+90
+80
+70
+60
+50
+40 4030 50 60
+Temperature Sensor (°C)
+Temperature Sensor Characterization
+eGaNFET Temperature (°C)
+70 80 90 100
+Temperature sensor
+For support files including schematic, Bill of Materials (BOM), and gerber files please visit the 
+EPC9186/HC2/HC3 landing page at: https://epc-co.com/epc/products/evaluation-boards/EPC9186
+Figure 14:  EPC9186/HC2/HC3 GaN FET temperature increase  vs. the ambient temperature (25.5°C). Measurements were 
+taken at 100 kHz PWM frequency  using a heatsink and forced convection airflow of 3.5 m3/min.
+75
+65
+55
+45
+35
+25
+1560 65 70 75 80 85 90 95 100 105 110 115 120 125 130
+RMS Phase Current (ARMS)
+EPC9186/HC2/HC3 48 V - With Heatsink with Air/f_low 3.5 m 3/min
+Delta Temperature (°C)
+EPC9186HC3
+EPC9186HC2
+EPC9186
+EPC9186/HC2/HC3 COMPARISON 
+A comparison of the three EPC9186/EPC9186HC2/EPC9186HC3 boards is depicted in figure 14, with 48 VDC supply, 100 kHz PWM, dead time = 
+50 ns and 3.5 m 3/min forced air flow. At higher currents, i.e. above 70 A RMS, conduction losses dominate and the board with the lowest 
+equivalent ON resistance has the best performance, which is EPC9186HC3.
+TEMPERATURE SENSOR CHARACTERIZATION   
+The graph in Figure 15 shows the correlation between the measured temperature by the on-board temperature sensor placed beneath the 
+phase-2 eGaN FETs on the bottom side of the PCB and the infra-red camera die case temperature for same eGaN IC that is measured without a 
+heatsink and with only natural convection cooling. Figure 16 shows the location of the temperature sensor used to measure the bottom side 
+of the PCB temperature.
+PAGE 17
+QUICK START GUIDE EPC9186/HC2/HC3 Evaluation Boards
+EPC – POWER CONVERSION TECHNOLOGY LEADER   |   EPC-CO.COM   |   ©2026  |   For more information: info@epc-co.com   |    17
+STATUS VERSION DATE REMARK
+1.0 Production 2 April 2026  Production release 
+Change Log
+PAGE 18
+EPC Products are distributed through Digi-Key.
+www.digikey.com
+For More Information:
+Please contact info@epc-co.com
+or your local sales representative
+Visit our website: 
+www.epc-co.com
+Sign-up to receive 
+EPC updates at
+bit.ly/EPCupdates 
+Evaluation Board Notification
+The EPC9186, EPC9186HC2, EPC9186HC3 boards are intended for product evaluation purposes only. They are not intended for commercial use nor are they FCC ap-
+proved for resale. Replace components on the Evaluation Board only with those parts shown on the parts list (or Bill of Materials) in the Quick Start Guide. Contact an authorized EPC 
+representative with any questions. This board is intended to be used by certified professionals, in a lab environment, following proper safety procedures. Use at your own risk. 
+As an evaluation tool, this board is not designed for compliance with the European Union directive on electromagnetic compatibility or any other such directives or regulations. As board 
+builds are at times subject to product availability, it is possible that boards may contain components or assembly materials that are not RoHS compliant. Efficient Power Conversion Corpora-
+tion (EPC) makes no guarantee that the purchased board is 100% RoHS compliant.
+The Evaluation board (or kit) is for evaluation purposes only and neither the Board nor this Quick Start Guide constitute a sales contract or create any kind of warranty, whether express or 
+implied, as to the applications or products involved. 
+Disclaimer: EPC reserves the right at any time, without notice, to make changes to any products described herein to improve reliability, function, or design. EPC does not assume any liability 
+arising out of the application or use of any product or circuit described herein; neither does it convey any license under its patent rights, or other intellectual property whatsoever, nor the 
+rights of others.
